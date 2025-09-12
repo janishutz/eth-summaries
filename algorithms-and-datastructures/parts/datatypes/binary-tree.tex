@@ -1,0 +1,264 @@
+\newpage
+\subsection{Binary tree}
+\begin{definition}[]{Binary Trees}
+    A Binary Tree is a hierarchical data structure in which each node has at most two children, referred to as the left child and the right child. 
+    It is widely used in applications such as searching, sorting, and hierarchical data representation.
+\end{definition}
+
+\begin{properties}[]{Characteristics}
+    \begin{itemize}
+        \item \textbf{Nodes:} Each node contains a value, and at most two child pointers (left and right).
+        \item \textbf{Tree Types:}
+              \begin{itemize}
+                  \item \textbf{Full Binary Tree:} Each node has 0 or 2 children.
+                  \item \textbf{Complete Binary Tree:} All levels except possibly the last are fully filled, and the last level is filled from left to right.
+                  \item \textbf{Perfect Binary Tree:} All internal nodes have 2 children, and all leaves are at the same level.
+              \end{itemize}
+        \item \textbf{Time Complexity (basic operations):}
+              \begin{itemize}
+                  \item Search: \tct{h}, where $h$ is the height of the tree.
+                  \item Insert: \tct{h}.
+                  \item Delete: \tct{h}.
+              \end{itemize}
+        \item \textbf{Height:} The height of a binary tree is the longest path from the root to a leaf node.
+    \end{itemize}
+\end{properties}
+
+\begin{example}[]{Binary Tree}
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [10
+                [5
+                        [3]
+                        [7]
+                ]
+                [15
+                        [12]
+                        [18]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\subsubsection{Operations}
+\begin{properties}[]{Basic Operations on Binary Trees}
+    \begin{itemize}
+        \item \textbf{Traversal:} Visit nodes in a specific order:
+              \begin{itemize}
+                  \item \textbf{Inorder (LNR):} Left, Node, Right.
+                  \item \textbf{Preorder (NLR):} Node, Left, Right.
+                  \item \textbf{Postorder (LRN):} Left, Right, Node.
+                  \item \textbf{Level-order:} Breadth-first traversal using a queue.
+              \end{itemize}
+        \item \textbf{Insertion:} Add a new node to the tree, ensuring binary tree properties are preserved.
+        \item \textbf{Deletion:} Remove a node and reorganize the tree to maintain structure:
+              \begin{itemize}
+                  \item Replace with the deepest node (binary tree property).
+                  \item If deleting the root in a binary search tree, replace it with the smallest node in the right subtree.
+              \end{itemize}
+        \item \textbf{Searching:} Locate a node with a specific value. For binary search trees, use the property that left child $<$ parent $<$ right child.
+        \item \textbf{Height Calculation:} Compute the maximum depth from the root to any leaf node.
+    \end{itemize}
+\end{properties}
+
+\subsubsection{Construction / Adding}
+\begin{guides}[]{Manual Construction of a Binary Tree}{Tutorial}
+    A binary tree can be created by manually following these steps:
+    \begin{enumerate}
+        \item Start with an empty tree.
+        \item Insert the root node.
+        \item For each subsequent value:
+              \begin{itemize}
+                  \item Compare it to the current node.
+                  \item Place it as the left child if it is smaller or as the right child if it is larger.
+              \end{itemize}
+    \end{enumerate}
+    This method results in a binary search tree if values are inserted in order.
+\end{guides}
+
+\begin{example}[]{Manual Construction of a Binary Tree}
+    We construct a binary tree from the values: $50, 30, 70, 20, 40, 60, 80$.
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [50
+                [30
+                        [20]
+                        [40]
+                ]
+                [70
+                        [60]
+                        [80]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+
+\begin{remarks}[]{Steps for Construction (Visualized Above)}
+    \begin{itemize}
+        \item Insert $50$ as the root.
+        \item Insert $30$: Smaller than $50$, placed as the left child.
+        \item Insert $70$: Larger than $50$, placed as the right child.
+        \item Insert $20$: Smaller than $50$ and $30$, placed as the left child of $30$.
+        \item Insert $40$: Smaller than $50$, larger than $30$, placed as the right child of $30$.
+        \item Insert $60$: Smaller than $70$, larger than $50$, placed as the left child of $70$.
+        \item Insert $80$: Larger than $70$, placed as the right child of $70$.
+    \end{itemize}
+\end{remarks}
+
+\begin{properties}[]{Key Notes}
+    \begin{itemize}
+        \item The structure depends on the order of insertion.
+        \item Duplicate values are either not allowed or placed in a consistent direction (e.g., always left).
+        \item Balancing may be required for large datasets to avoid degeneration into a linked list. (AVL-Trees)
+    \end{itemize}
+\end{properties}
+
+\newpage
+\subsubsection{Deletion}
+\begin{definition}[]{Deletion in Binary Trees}
+    Deleting a node from a binary tree involves removing the node and reorganizing the tree to maintain the binary tree properties. The process depends on the number of children the node has.
+\end{definition}
+
+\begin{properties}[]{Cases for Deletion in Binary Trees}
+    \begin{itemize}
+        \item \textbf{Leaf Node} (No children): Simply remove the node.
+        \item \textbf{One Child:} Replace the node with its child.
+        \item \textbf{Two Children:} Replace the node with the smallest node in its right subtree (inorder successor).
+    \end{itemize}
+\end{properties}
+
+\begin{example}[]{Deletion of a Node in a Binary Tree}
+    We consider the binary search tree below and perform the following operations:
+    \begin{itemize}
+        \item Delete $20$ (leaf node).
+        \item Delete $30$ (one child).
+        \item Delete $50$ (two children).
+    \end{itemize}
+
+    \fhl{Initial Tree:}
+
+    \begin{center}
+        \begin{forest}
+            for tree={
+            grow=east,
+            edge={-stealth},
+            l sep=15mm,
+            s sep=8mm
+            }
+            [50
+                [30
+                        [20]
+                        [40]
+                ]
+                [70
+                        [60]
+                        [80]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\begin{remarks}[]{Steps for Deletion}
+    \begin{itemize}
+        \item \textbf{Delete $20$:}
+              \begin{itemize}
+                  \item $20$ is a leaf node. Remove it directly.
+              \end{itemize}
+        \item \textbf{Delete $30$:}
+              \begin{itemize}
+                  \item $30$ has one child ($40$). Replace $30$ with $40$.
+              \end{itemize}
+        \item \textbf{Delete $50$:}
+              \begin{itemize}
+                  \item $50$ has two children. Find the inorder successor (smallest element in right subtree) ($60$).
+                  \item Replace $50$ with $60$ and recursively delete $60$.
+              \end{itemize}
+    \end{itemize}
+\end{remarks}
+
+
+\newpage
+\fhlc{Aquamarine}{Intermediate Steps and Final Tree:}
+\begin{guides}[]{Delete elements}{Usage}
+    \begin{enumerate}
+        \item After deleting $20$:
+              \begin{center}
+                  \begin{forest}
+                      for tree={
+                      grow=east,
+                      edge={-stealth},
+                      l sep=15mm,
+                      s sep=8mm
+                      }
+                      [50
+                          [30
+                                  []
+                                  [40]
+                          ]
+                          [70
+                                  [60]
+                                  [80]
+                          ]
+                      ]
+                  \end{forest}
+              \end{center}
+
+        \item After deleting $30$:
+              \begin{center}
+                  \begin{forest}
+                      for tree={
+                      grow=east,
+                      edge={-stealth},
+                      l sep=15mm,
+                      s sep=8mm
+                      }
+                      [50
+                          [40]
+                          [70
+                                  [60]
+                                  [80]
+                          ]
+                      ]
+                  \end{forest}
+              \end{center}
+
+        \item After deleting $50$:
+              \begin{center}
+                  \begin{forest}
+                      for tree={
+                      grow=east,
+                      edge={-stealth},
+                      l sep=15mm,
+                      s sep=8mm
+                      }
+                      [60
+                          [40]
+                          [70
+                                  []
+                                  [80]
+                          ]
+                      ]
+                  \end{forest}
+              \end{center}
+    \end{enumerate}
+\end{guides}
+
+\begin{properties}[]{Key Points to Remember}
+    \begin{itemize}
+        \item For leaf nodes, deletion is straightforward.
+        \item For nodes with one child, bypass the node by connecting its parent to its child.
+        \item For nodes with two children, replacing with the inorder successor ensures the binary search tree property is preserved.
+    \end{itemize}
+\end{properties}

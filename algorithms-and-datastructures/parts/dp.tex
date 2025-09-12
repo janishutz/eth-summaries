@@ -1,0 +1,159 @@
+\newsection
+\section{Dynamic Programming}
+\subsection{Algorithm design}
+We focus on these six crucial steps when creating an algorithm in DP (for the exams at least):
+
+\begin{usage}[]{Dynamic Programming Algorithm design}
+    \begin{enumerate}[label=\Roman*]
+        \item \textit{Dimension of the DP table}: What is the sizing of the DP table and how many dimensions does it have?
+        \item \textit{Subproblems}: What is the meaning of each entry in the DP table? (Usually the hardest part)
+        \item \textit{Recursion / Recurrence relation}: How to calculate an entry of the DP table from previously computed entries? Also justify why it is correct, specifying base cases.
+        \item \textit{Calculation order}: In which order do the entries of the table have to calculated to ensure that all entries needed to compute an entry have been computed. Usually to be specified as either top-down or bottom up, but in tricky cases also specify edge cases and elements that need to be specifically computed in advance and ones that can be ignored.
+        \item \textit{Extracting the solution}: How do we find the solution in the table after the algorithm has finished processing? Often it's the last element, but sometimes can be more complex than that
+        \item \textit{Time \& space complexity}: Analyze how much storage and time is required for this algorithm (often though only time needed) and note that down in big-$O$ notation
+    \end{enumerate}
+\end{usage}
+
+
+
+
+% ────────────────────────────────────────────────────────────────────
+% ┌                                                ┐
+% │                    EXAMPLES                    │
+% └                                                ┘
+% ────────────────────────────────────────────────────────────────────
+\subsection{Examples}
+\subsubsection{Maximum Subarray Sum}
+The maximum subarray sum is the problem where we need to find the maximum sum of a subarray of length $k$
+
+Here, the concept is to either choose an element or not to do so, i.e. the recurrence relation is $R_j = \max \{A[j], R_{j - 1} + A[j]\}$, where the base case is simply $R_1 = A[1]$. Then, using simple bottom up calculation, we get the algorithm.
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Maximum Subarray Sum}
+        \begin{algorithmic}[1]
+            \State $R[1\ldots n] \gets$ new array
+            \State $R[1] \gets A[1]$
+            \For{$j \gets 2, 3, \ldots, n$}
+                \State $R[j] \gets \max\{A[j], R[j - 1] + A[j]\}$
+            \EndFor
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+The same algorithm can also be adapted for minimum subarray sum, or other problems using the same idea.
+
+\timecomplexity \tct{n} (Polynomial)
+
+
+\subsubsection{Jump Game}
+We want to return the minimum number of jumps to get to a position $n$. Each field at an index $i$ has a number $A[i]$ that tells us how far we can jump at most. 
+
+A somewhat efficient way to solve this problem is the recurrence relation $M[k] = \max\{i + A[i] | 1 \leq i \leq M[k - 1]\}$, but an even more efficient one is based on $M[k] = \max \{i + A[i] | M[k - 2] < i \leq M[k - 1]\}$, which essentially uses the fact that we only need to look at all $i$ that can be reached with \textit{exactly} $l - 1$ jumps, since $i \leq M[k - 2]$ can already be reached with $k - 2$ jumps. While the first one has time complexity \tco{n^2}, the new one has \tco{n}
+
+
+\newpage
+\subsubsection{Longest common subsequence}
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Longest common subsequence}
+        \begin{algorithmic}[1]
+            \State $L[0..n, 0..m] \gets$ new table
+            \For{$i \gets 0, 1, \ldots, n$}
+                $L[i, 0] \gets 0$
+            \EndFor
+            \For{$j \gets 0, 1, \ldots, m$}
+                $L[0, j] \gets 0$
+            \EndFor
+            \For{$i \gets 1, 2, \ldots, n$}
+                \For{$j \gets 1, 2, \ldots, m$}
+                    \If{$a_i = b_j$}
+                        $L[i, j] \gets 1 + L[i - 1, j - 1]$
+                    \Else
+                        \hspace{2mm} $L[i, j] = \max\{L[i, j - 1], L[i - 1, j]\}$
+                    \EndIf
+                \EndFor
+            \EndFor
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+To find the actual solution (in the sense of which letters are in the longest common subsequence), we need to use backtracking, i.e. finding which letters we picked.
+
+\timecomplexity \tct{n \cdot m} (Polynomial)
+
+
+\subsubsection{Editing distance}
+This problem is based on the LCS problem, where we want to insert, modify or delete characters to change a sequence $A$ into a sequence $B$. (Application: Spell checker). 
+
+The recurrence relation is $ED(i, j) = \min \begin{cases}
+    ED(i - 1, j) + 1\\
+    ED(i, j - 1) + 1\\
+    ED(i - 1, j - 1) + \begin{cases}
+        1 & \text{if } a_i \neq b_j\\
+        0 & \text{if } a_i = b_j
+    \end{cases}
+\end{cases}$
+
+\timecomplexity \tct{n \cdot m} (Polynomial)
+
+\subsubsection{Subset sum}
+We want to find a subset of a set $A[1], \ldots, A[n]$ such that the sum of them equals a number $b$. Its recurrence relation is $T(i, s) = T(i - 1, s) \lor T(i - 1, s - A[i])$, where $i$ is the $i$-th entry in the array and $s$ the current sum. Base cases are $T(0, s) = false$ and $T(0, 0) = true$. In our DP-Table, we store if the subset sum can be constructed up to this element. Therefore, the DP table is a boolean table and the value $T(n, b)$ only tells us if we have a solution or not. To find the solution, we need to backtrack again.
+
+\timecomplexity \tct{n \cdot b} (Pseudopolynomial)
+
+
+\subsubsection{Knapsack problem}
+We have the element $i$ with weight $W[i]$ and profit $P[i]$. 
+
+The recurrence relation is $DP(i, w) = \begin{cases}
+    DP(i - 1, w) & \text{if } w < W[i]\\
+    \max\{DP(i - 1, w), P[i] + DP(i - 1, w - W[i])\} & \text{else}
+\end{cases}$. The solution can be found in $P(n, W)$, where $W$ is the weight limit.
+
+\timecomplexity \tct{n \cdot W} (Pseudopolynomial)
+
+
+\newpage
+\subsection{Polynomial vs non-polynomial}
+An interesting theorem from theoretical computer science is this: If the subset sum problem is solveable in polynomial time, then all non-polynomial problems are solveable in polynomial time. The same goes for the Knapsack problem and many many more.
+
+\fhlc{Aquamarine}{Pseudopolynomial}: The efficiency of the algorithm is dependent on the input given.
+
+
+\subsection{Knapsack with approximation}
+We can use approximation to solve the Knapsack problem in polynomial time. For that, we round the profits of the items and define $\displaystyle \overline{p_i} := K \cdot \floor{\frac{p_i}{K}}$, meaning we round down to the next multiple of $K$. As such, we reduce the time and space complexity by a factor of $K$, whilst also reducing the accuracy of the output, but only slightly lower (which is good, because overshooting would be less than ideal in most circumstances)
+
+
+\subsection{Longest ascending subsequence}
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Longest ascending subsequence}
+        \begin{algorithmic}[1]
+            \State $T[1..n] \gets$ new table
+            \State $T[1] \gets A[1]$
+            \For{$l \gets 2, 3, \ldots, n$}
+                $T[l] \gets \infty$
+            \EndFor
+            \For{$i \gets 2, 3, \ldots, n$}
+                \State $l \gets$ smallest index with $A[i + 1] \leq T[l]$
+                \State $T[l] \gets A[i + 1]$
+            \EndFor
+            \State \Return $\max\{l : T[l] \leq \infty\}$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+\timecomplexity \tco{n \cdot \log(n)}
+
+
+\subsection{Matrix chain multiplication}
+Multiplying matrices can be more efficient if done in a certain order (because associativity exists). The problem to solve is finding the optimal parenthesis placement for the minimal number of operations. 
+
+The recurrence relation for this problem is $M(i, j) = \begin{cases}
+    0 & \text{falls } i = j\\
+    \min_{i \leq s < j}\{M(i, s) + M(s + 1, j) + k_{i - 1}\cdot k_s \cdot k_j\} & \text{else}
+\end{cases}$
+
+
+\timecomplexity \tco{n^3}

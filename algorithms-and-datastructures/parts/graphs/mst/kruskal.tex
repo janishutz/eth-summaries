@@ -1,0 +1,134 @@
+\newpage
+\subsubsection{Kruskal's algorithm}
+\begin{definition}[]{Kruskal's Algorithm}
+    Kruskal's Algorithm is a greedy algorithm for finding the Minimum Spanning Tree (MST) of a connected, weighted graph. It sorts all the edges by weight and adds them to the MST in order of increasing weight, provided they do not form a cycle with the edges already included.
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance}
+    \begin{itemize}
+        \item \textbf{Graph Type:} Works on undirected, weighted graphs.
+        \item \textbf{Approach:} Greedy, edge-centric.
+        \item \textbf{Time Complexity:} \tco{|E| \log (|E|)} (for sort), \tco{|V| \log(|V|)} (for union find data structure).\\
+              \timecomplexity \tco{|E| \log(|E|) + |V| \log(|V|)}
+        \item \textbf{Space Complexity:} Depends on the graph representation, typically \tct{E + V}.
+        \item \textbf{Limitations:} Requires sorting of edges, which can dominate runtime.
+    \end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \caption{Kruskal's Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Kruskal}{$G = (V, E)$}
+            \State Sort all edges $E$ in non-decreasing order of weight.
+            \State Initialize an empty MST $T$.
+            \State Initialize a disjoint-set data structure for $V$.
+            \For{each edge $(u, v)$ in $E$ (in sorted order)}
+                \If{$u$ and $v$ belong to different components in the disjoint set}
+                    \State Add $(u, v)$ to $T$.
+                    \State Union the sets containing $u$ and $v$.
+                \EndIf
+            \EndFor
+            \State \Return $T$.
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{usage}[]{Kruskal's Algorithm}
+    Kruskal's algorithm finds the Minimum Spanning Tree (MST) by sorting edges and adding them to the MST, provided they don't form a cycle.
+
+    \begin{enumerate}
+        \item \textbf{Sort Edges:}
+              \begin{itemize}
+                  \item Sort all edges in ascending order by their weights.
+              \end{itemize}
+
+        \item \textbf{Initialize Disjoint Sets (union find):}
+              \begin{itemize}
+                  \item Assign each vertex to its own disjoint set to track connected components.
+              \end{itemize}
+
+        \item \textbf{Iterate Over Edges:}
+              \begin{itemize}
+                  \item For each edge in the sorted list:
+                        \begin{itemize}
+                            \item Check if the edge connects vertices from different sets.
+                            \item If it does, add the edge to the MST and merge the sets.
+                        \end{itemize}
+              \end{itemize}
+
+        \item \textbf{Stop When Done:}
+              \begin{itemize}
+                  \item Stop when the MST contains \(n-1\) edges (for a graph with \(n\) vertices).
+              \end{itemize}
+
+        \item \textbf{End:}
+              \begin{itemize}
+                  \item The MST is complete, and all selected edges form a connected acyclic graph.
+              \end{itemize}
+    \end{enumerate}
+\end{usage}
+
+
+\newpage
+\fhlc{Aquamarine}{Union-Find}
+\begin{usage}[]{Union-Find Data Structure - Step-by-Step Execution}
+    The Union-Find data structure efficiently supports two primary operations for disjoint sets:
+    \begin{itemize}
+        \item \textbf{Union:} Merge two sets into one.
+        \item \textbf{Find:} Identify the representative (or root) of the set containing a given element.
+    \end{itemize}
+
+    \textbf{Steps for Using the Union-Find Data Structure:}
+
+    \begin{enumerate}
+        \item \textbf{Initialization:}
+              \begin{itemize}
+                  \item Create an array \(parent\), where \(parent[i] = i\), indicating that each element is its own parent (a singleton set).
+                  \item Optionally, maintain a \(rank\) array to track the rank (or size) of each set for optimization.
+              \end{itemize}
+
+        \item \textbf{Find Operation:}
+              \begin{itemize}
+                  \item To find the representative (or root) of a set containing element \(x\):
+                        \begin{enumerate}
+                            \item Follow the \(parent\) array recursively until \(parent[x] = x\).
+                            \item Apply \textbf{path compression} by updating \(parent[x]\) directly to the root to flatten the tree structure:
+                                  \[
+                                      parent[x] = \text{Find}(parent[x])
+                                  \]
+                        \end{enumerate}
+              \end{itemize}
+
+        \item \textbf{Union Operation:}
+              \begin{itemize}
+                  \item To merge the sets containing \(x\) and \(y\):
+                        \begin{enumerate}
+                            \item Find the roots of \(x\) and \(y\) using the Find operation.
+                            \item Compare their ranks:
+                                  \begin{itemize}
+                                      \item Attach the smaller tree under the larger tree to keep the structure shallow.
+                                      \item If ranks are equal, arbitrarily choose one as the root and increment its rank.
+                                  \end{itemize}
+                        \end{enumerate}
+              \end{itemize}
+
+        \item \textbf{Optimization Techniques:}
+              \begin{itemize}
+                  \item \textbf{Path Compression:} Flattens the tree during Find operations, reducing the time complexity.
+                  \item \textbf{Union by Rank/Size:} Ensures smaller trees are always attached under larger trees, maintaining a logarithmic depth.
+              \end{itemize}
+
+        \item \textbf{End:}
+              \begin{itemize}
+                  \item After performing Find and Union operations, the Union-Find structure can determine connectivity between elements or group them into distinct sets efficiently.
+              \end{itemize}
+    \end{enumerate}
+\end{usage}
+
+\begin{properties}[]{Performance}
+    \begin{itemize}
+        \item \textsc{make}$(V)$: Initialize data structure \tco{n}
+        \item \textsc{same}$(u, v)$: Check if two components belong to the same set \tco{1} or \tco{n}, depending on if the representant is stored in an array or not
+        \item \textsc{union}$(u, v)$: Combine two sets, \tco{\log(n)}, in Kruskal we call this \tco{n} times, so total number (amortised) is \tco{n \log(n)}
+    \end{itemize}
+\end{properties}

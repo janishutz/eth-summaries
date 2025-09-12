@@ -1,0 +1,83 @@
+\newpage
+\subsection{MST}
+\subsubsection{Prim's algorithm}
+\begin{definition}[]{Definition of Prim's Algorithm}
+    Prim's Algorithm is a greedy algorithm for finding the Minimum Spanning Tree (MST) of a connected, weighted graph. 
+    It starts with an arbitrary node and iteratively adds the smallest edge connecting a vertex in the MST to a vertex outside the MST until all vertices are included.
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance of Prim's Algorithm}
+    \begin{itemize}
+        \item \textbf{Graph Type:} Works on undirected, weighted graphs.
+        \item \textbf{Approach:} Greedy, vertex-centric.
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item With an adjacency matrix: \tct{V^2}.
+                  \item With a priority queue and adjacency list: \tct{(|V| + |E|) \log(|V|)}.
+              \end{itemize}
+        \item \textbf{Space Complexity:} Depends on the graph representation, typically \tct{E + V}.
+        \item \textbf{Limitations:} Less efficient than Kruskal's for sparse graphs using adjacency matrices.
+    \end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \caption{Prim's Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Prim}{$G = (V, E)$, $start$}
+            \State Initialize a priority queue $Q$.
+            \State Initialize $key[v] \gets \infty$ for all $v \in V$, except $key[start] \gets 0$.
+            \State Initialize an empty MST $T$.
+            \State Add all vertices to $Q$ with their key values.
+            \While{$Q$ is not empty}
+                \State $u \gets$ ExtractMin($Q$).
+                \State Add $u$ to $T$.
+                \For{each $(u, v)$ in $E$}
+                    \If{$v$ is in $Q$ and weight($u, v$) $< key[v]$}
+                        \State $key[v] \gets$ weight($u, v$).
+                        \State Update $Q$ with $key[v]$.
+                    \EndIf
+                \EndFor
+            \EndWhile
+            \State \Return $T$.
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{usage}[]{Prim's Algorithm}
+    Prim's algorithm is used to find the Minimum Spanning Tree (MST) of a graph. It starts with a single node and grows the MST by adding the smallest edge that connects a vertex in the MST to a vertex outside it.
+
+    \begin{enumerate}
+        \item \textbf{Initialize:}
+              \begin{itemize}
+                  \item Pick any starting vertex as part of the MST.
+                  \item Mark the vertex as visited and add it to the MST.
+                  \item Initialize a priority queue to store edges by their weight.
+              \end{itemize}
+
+        \item \textbf{Explore Edges:}
+              \begin{itemize}
+                  \item Add all edges from the visited vertex to the priority queue.
+              \end{itemize}
+
+        \item \textbf{Pick the Smallest Edge:}
+              \begin{itemize}
+                  \item Choose the smallest-weight edge from the priority queue that connects a visited vertex to an unvisited vertex.
+              \end{itemize}
+
+        \item \textbf{Add the New Vertex:}
+              \begin{itemize}
+                  \item Mark the vertex connected by the chosen edge as visited.
+                  \item Add the edge and the vertex to the MST.
+              \end{itemize}
+
+        \item \textbf{Repeat:}
+              \begin{itemize}
+                  \item Repeat steps 2-4 until all vertices are part of the MST or no more edges are available.
+              \end{itemize}
+
+        \item \textbf{End:}
+              \begin{itemize}
+                  \item The MST is complete when all vertices are visited, and the selected edges form a connected acyclic graph.
+              \end{itemize}
+    \end{enumerate}
+\end{usage}

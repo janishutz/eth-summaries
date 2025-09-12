@@ -1,0 +1,186 @@
+\newsection
+\section{Datatypes}
+Abstract datatypes help with generalizing how data is stored across programming languages.
+
+\subsection{Lists}
+\subsubsection{Arrays}
+An array is a data structure that stores a collection of elements of the same type in subsequent memory locations. Each element can be accessed directly using its index.
+
+\fhlc{ForestGreen}{Advantages}
+\begin{itemize}
+    \item \textbf{Fixed Size}: Arrays have a fixed size, which makes memory allocation easy.
+    \item \textbf{Fast Access}: Elements can be accessed in constant time \(O(1)\), due to simple \verb|base address| + \verb|index| $\cdot$ \verb|stride| calculation.
+    \item \textbf{Cache Performance}: Neighbouring memory locations lead to better cache performance (spatial locality, see DDCA).
+\end{itemize}
+
+\fhlc{BrickRed}{Disadvantages}
+\begin{itemize}
+    \item \textbf{Fixed Size}: The size of an array must be specified at the time of creation and cannot be changed dynamically.
+    \item \textbf{Insertion/Deletion Overhead}: Inserting or deleting elements can be costly (if we don't allow gaps), as it requires shifting elements, resulting in a time complexity of \(O(n)\).
+\end{itemize}
+
+\subsubsection{Single Linked List}
+A linked list is a data structure consisting of nodes where each node contains data and a reference (or link) to the next node.
+In a single linked list, each node contains data and a pointer to the next node in the list. The last node points to \texttt{null}.
+
+\fhlc{ForestGreen}{Advantages}
+\begin{itemize}
+    \item \textbf{Dynamic Size}: Linked lists can grow or shrink in size dynamically.
+    \item \textbf{Efficient Insertions/Deletions}: Inserting or deleting elements at any point in the list is efficient if we already have a pointer to the desired location, with a time complexity of \(O(1)\).
+\end{itemize}
+
+\fhlc{BrickRed}{Disadvantages}
+\begin{itemize}
+    \item \textbf{Slow Access}: Elements cannot be accessed directly. We must traverse from the head node to find the desired element, thus time complexity \(O(n)\).
+    \item \textbf{Memory Overhead}: Each node requires additional memory for the pointer.
+\end{itemize}
+
+\subsubsection{Double Linked List}
+In a double linked list, each node contains data, a pointer to the next node, and a pointer to the previous node. Java's \texttt{LinkedList} is a double linked list.
+
+\fhlc{ForestGreen}{Advantages}
+\begin{itemize}
+    \item \textbf{As above}: Same apply as above
+    \item \textbf{Bidirectional Traversal}: Allows traversal in both forward and backward directions.
+\end{itemize}
+
+\fhlc{BrickRed}{Disadvantages}
+The same disadvantages as for single linked lists apply here as well
+
+\newpage
+\subsubsection{Time Complexity Comparison}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Operation}               & \textbf{Array} & \textbf{Single Linked List} & \textbf{Double Linked List} \\
+        \midrule
+        $\textsc{insert}(k, L)$          & \tco{1}        & \tco{1}                     & \tco{1}                     \\
+        $\textsc{get}(i, L)$             & \tco{1}        & \tco{l}                     & \tco{l}                     \\
+        $\textsc{insertAfter}(k, k', L)$ & \tco{l}        & \tco{1}                     & \tco{1}                     \\
+        $\textsc{delete}(k, L)$          & \tco{l}        & \tco{l}                     & \tco{1}                     \\
+        \bottomrule
+    \end{tabular}
+    \smallskip
+    \begin{flushleft}
+        \footnotesize We assume that for the \textsc{delete} and \textsc{inserAfter} operation we get the memory address of $k$. We also assume that for the linked lists, we have stored a pointer to the last element. $l$ is the current length of the list.
+    \end{flushleft}
+
+    \caption{Time Complexity Comparison of Arrays and Linked Lists}
+\end{table}
+The operation $\textsc{insert}(k, L)$ appends an element at the end of the list $L$, $\textsc{get}(i, L)$ returns the element at index $i$ in list $L$, $\textsc{insertAfter}(k, k', L)$ inserts element $k'$ after element $k$ into the list $L$, while $\textsc{delete}(k, L)$ removes the element $k$ from the list ($k$ being either an index (in the case of array) or memory address (in the case of linked lists)).
+
+\subsubsection{Space Complexity Comparison}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Data Structure} & \textbf{Array} & \textbf{Single Linked List} & \textbf{Double Linked List} \\
+        \midrule
+        Fixed Size              & Yes            & No                          & No                          \\
+        Memory Overhead         & None           & 1 pointer per node          & 2 pointers per node         \\
+        \bottomrule
+    \end{tabular}
+    \caption{Space Complexity Comparison of Arrays and Linked Lists}
+\end{table}
+
+
+\subsection{Stack}
+We stack elements in it, so it is a first in - last out data structure. The time complexity of each operation depends on the underlying data structure used.
+This data structure is commonly an array or linked list, where a new item is inserted at the start of said linked list.
+
+\shade{Cyan}{Operations:} $\textsc{push}(k, S)$ pushes object $k$ to stack $S$. $\textsc{pop}(S)$ removes and returns the top most (most recent) element of the stack. $\textsc{top}(S)$ returns the top most (most recent) element of the stack.
+
+\subsection{Queue}
+A queue has similar properties like the stack, but is first in - first out. The time complexity of each operation depends again on the underlying data structure used. Commonly an array or a linked list.
+\shade{Cyan}{Operations:} $\textsc{enqueue}(k, Q)$ adds the element $k$ to the queue $Q$, $\textsc{dequeue}(Q)$ returns the first element of the queue (the least recent element) from the queue $Q$.
+
+\subsection{Priority Queue}
+A priority queue is an extension of the queue, where we can also specify a priority for an element. This can for example be used for a notification system, which sends out urgent messages first \textit{(although that would be quite inefficient and better be solved by using a normal queue for each priority level (if there are not that many) and then for each iteration process the notifications from the highest priority queue, then, if empty, decrease priority)}.
+
+\shade{Cyan}{Operations:} Priority queues commonly have additional operations, like $\textsc{remove}(k, Q)$, which removes the element from the queue and $\textsc{increaseKey}(k, p, Q)$, which increases the priority of $k$ to $p$ if $p$ is greater than the current priority.
+
+The basic operations are $\textsc{insert}(k, p, Q)$, which inserts the element $k$ with priority $p$ into $Q$ and $\textsc{extractMax}(Q)$, which returns the element with the highest priority.
+If two elements have the same priority, the order of insertion does \textit{not} matter and a \textit{tie-braking} function is used to determine the priority of the two.
+Commonly, elements with high priority have low numbers and we then have $\textsc{extractMin}(Q)$ to find the highest priority element.
+They are most commonly implemented using some kind of heap, whilst a fibonacci heap is the fastest in terms of time complexity.
+
+\newpage
+\subsection{Dictionaries}
+A \textbf{dictionary} stores a collection of key-value pairs. 
+
+\subsubsection{Operations:}
+
+\begin{enumerate}
+    \item \textbf{Insertion (\texttt{insert(key,\ value)})}:
+          \begin{itemize}
+              \item Adds a new key-value pair to the dictionary. If the key already exists, it may update the existing value.
+              \item Time Complexity: Average case \tct{1} (with hashing), worst case \tcl{n} (when all keys hash to the same bucket).
+          \end{itemize}
+    \item \textbf{Deletion (\texttt{remove(key)})}:
+          \begin{itemize}
+              \item Removes a key-value pair from the dictionary by key.
+              \item Time Complexity: Average case \tct{1}, worst case \tco{n}.
+          \end{itemize}
+    \item \textbf{Search/Access (\texttt{get(key)} or \texttt{find(key)})}:
+          \begin{itemize}
+              \item Retrieves the value associated with a given key.
+              \item Time Complexity: Average case \tct{1}, worst case \tco{n}.
+          \end{itemize}
+    \item \textbf{Contains (\texttt{containsKey(key)})}:
+          \begin{itemize}
+              \item Checks if a key is present in the dictionary.
+              \item Time Complexity: Average case \tct{1}, worst case \tco{n}.
+          \end{itemize}
+    \item \textbf{Size/Length}:
+          \begin{itemize}
+              \item Returns the number of key-value pairs in the dictionary.
+              \item Time Complexity: \tco{1} (stored separately).
+          \end{itemize}
+    \item \textbf{Clear}:
+          \begin{itemize}
+              \item Removes all key-value pairs from the dictionary.
+              \item Time Complexity: \tco{n} (depends on implementation, some implementations might be faster).
+          \end{itemize}
+\end{enumerate}
+
+\subsubsection{Space Complexity:}
+
+The space complexity is dependent on the underlying data structure used
+to implement the dictionary.
+
+\begin{enumerate}
+    \item \textbf{Hash Table:}
+          \begin{itemize}
+              \item Average case: \tct{n}, where $n$ is the number of key-value pairs.
+              \item Additional space can be used for maintaining hash table buckets, which may lead to higher constant factors but not asymptotic growth in complexity.
+          \end{itemize}
+    \item \textbf{Balanced Binary Search Tree (e.g., AVL tree or Red-Black Tree):}
+          \begin{itemize}
+              \item Space Complexity: \tco{n}.
+              \item This structure uses more space compared to a hash table due to the need for storing balance information at each node.
+          \end{itemize}
+    \item \textbf{Dynamic Array:}
+          \begin{itemize}
+              \item This is not a common implementation for dictionaries due to inefficiencies in search and insertion operations compared to hash tables or balanced trees.
+              \item Space Complexity: \tco{n}.
+              \item Time complexity for insertion, deletion, and access can degrade significantly to \tco{n} without additional optimizations.
+          \end{itemize}
+\end{enumerate}
+
+
+\newpage
+\subsubsection{Operation time complexity}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l c c c c c}
+        \toprule
+        \textbf{Operation} & \textbf{Unsorted Arrays} & \textbf{Sorted Arrays} & \textbf{Doubly Linked Lists} & \textbf{Binary Trees} & \textbf{AVL Trees} \\
+        \midrule
+        Insertion          & \tco{1}                  & \tco{n}                & \tco{1}                      & \tco{h}               & \tco{\log n}       \\
+        Deletion           & \tco{n}                  & \tco{(n)}              & \tco{n}                      & \tco{h}               & \tco{\log n}       \\
+        Search             & \tco{n}                  & \tco{\log n}           & \tco{n}                      & \tco{h}               & \tco{\log n}       \\
+        \bottomrule
+    \end{tabular}
+    \caption{Time Complexities of Dictionary Operations for Various Data Structures}
+\end{table}

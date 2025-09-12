@@ -1,0 +1,169 @@
+\newpage
+\subsection{Shortest path}
+\subsubsection{Dijkstra's Algorithm}
+\begin{definition}[]{Dijkstra's Algorithm}
+    \textbf{Dijkstra's Algorithm} is a graph search algorithm that finds the shortest paths from a source vertex to all other vertices in a graph with non-negative edge weights.
+\end{definition}
+
+\begin{algorithm}
+    \caption{Dijkstra's Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Dijkstra}{$G = (V, E), s$} \Comment{$s$ is the source vertex}
+            \State Initialize distances: $d[v] \gets \infty \; \forall v \in V, d[s] \gets 0$
+            \State Initialize priority queue $Q$ with all vertices, priority set to $\infty$
+            \While{$Q$ is not empty}
+                \State $u \gets \textbf{Extract-Min}(Q)$
+                \For{each neighbor $v$ of $u$}
+                    \If{$d[u] + w(u, v) < d[v]$} \Comment{If weight through current vertex is lower, update}
+                        \State $d[v] \gets d[u] + w(u, v)$
+                        \State Update $Q$ with new distance of $v$
+                    \EndIf
+                \EndFor
+            \EndWhile
+            \State \textbf{Return} distances $d$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{properties}[]{Characteristics of Dijkstra's Algorithm}
+    \begin{itemize}
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item \tco{|V|^2} for a simple implementation.
+                  \item \tco{(|V| + |E|) \log |V|} using a priority queue.
+              \end{itemize}
+        \item Only works with non-negative edge weights.
+        \item Greedy algorithm that processes vertices in increasing order of distance.
+        \item Common applications include navigation systems and network routing.
+    \end{itemize}
+\end{properties}
+
+\begin{usage}[]{Dijkstra's Algorithm}
+    Dijkstra's algorithm finds the shortest path from a source vertex to all other vertices in a weighted graph (non-negative weights).
+
+    \begin{enumerate}
+        \item \textbf{Initialize:}
+              \begin{itemize}
+                  \item Set the distance to the source vertex as 0 and to all other vertices as infinity.
+                  \item Mark all vertices as unvisited.
+              \end{itemize}
+
+        \item \textbf{Start from Source:}
+              \begin{itemize}
+                  \item Select the unvisited vertex with the smallest tentative distance.
+              \end{itemize}
+
+        \item \textbf{Update Distances:}
+              \begin{itemize}
+                  \item For each unvisited neighbor of the current vertex:
+                        \begin{itemize}
+                            \item Calculate the tentative distance through the current vertex.
+                            \item If the calculated distance is smaller than the current distance, update it.
+                        \end{itemize}
+              \end{itemize}
+
+        \item \textbf{Mark as Visited:}
+              \begin{itemize}
+                  \item Mark the current vertex as visited. Once visited, it will not be revisited.
+              \end{itemize}
+
+        \item \textbf{Repeat:}
+              \begin{itemize}
+                  \item Repeat steps 2-4 until all vertices are visited or the shortest path to all vertices is determined.
+              \end{itemize}
+
+        \item \textbf{End:}
+              \begin{itemize}
+                  \item The algorithm completes when all vertices are visited or when the shortest paths to all reachable vertices are found.
+              \end{itemize}
+    \end{enumerate}
+\end{usage}
+
+
+
+
+\newpage
+\subsubsection{Bellman-Ford Algorithm}
+\begin{definition}[]{Bellman-Ford Algorithm}
+    The \textbf{Bellman-Ford Algorithm} computes shortest paths from a source vertex to all other vertices, allowing for graphs with negative edge weights.
+\end{definition}
+
+\begin{algorithm}
+    \caption{Bellman-Ford Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Bellman-Ford}{$G = (V, E), s$} \Comment{$s$ is the source vertex}
+            \State Initialize distances: $d[v] \gets \infty \; \forall v \in V, d[s] \gets 0$
+            \For{$i \gets 1$ to $|V| - 1$} \Comment{Relax all edges $|V| - 1$ times}
+                \For{each edge $(u, v, w(u, v)) \in E$}
+                    \If{$d[u] + w(u, v) < d[v]$}
+                        \State $d[v] \gets d[u] + w(u, v)$
+                    \EndIf
+                \EndFor
+            \EndFor
+            \For{each edge $(u, v, w(u, v)) \in E$} \Comment{Check for negative-weight cycles}
+                \If{$d[u] + w(u, v) < d[v]$}
+                    \State \textbf{Report Negative Cycle}
+                \EndIf
+            \EndFor
+            \State \Return distances $d$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{properties}[]{Characteristics of Bellman-Ford Algorithm}
+    \begin{itemize}
+        \item \textbf{Time Complexity:} \tco{|V| \cdot |E|}.
+        \item Can handle graphs with negative edge weights but not graphs with negative weight cycles.
+        \item Used for:
+              \begin{itemize}
+                  \item Detecting negative weight cycles.
+                  \item Computing shortest paths in graphs where Dijkstra’s algorithm is not applicable.
+              \end{itemize}
+    \end{itemize}
+\end{properties}
+
+\begin{usage}[]{Bellman-Ford Algorithm}
+    The Bellman-Ford algorithm finds the shortest path from a source vertex to all other vertices in a weighted graph (handles negative weights).
+
+    \begin{enumerate}
+        \item \textbf{Initialize:}
+              \begin{itemize}
+                  \item Set the distance to the source vertex as 0 and to all other vertices as infinity.
+              \end{itemize}
+
+        \item \textbf{Relax Edges:}
+              \begin{itemize}
+                  \item Repeat for \(V-1\) iterations (where \(V\) is the number of vertices):
+                        \begin{itemize}
+                            \item For each edge, update the distance to its destination vertex if the distance through the edge is smaller than the current distance.
+                        \end{itemize}
+              \end{itemize}
+
+        \item \textbf{Check for Negative Cycles:}
+              \begin{itemize}
+                  \item Check all edges to see if a shorter path can still be found. If so, the graph contains a negative-weight cycle.
+              \end{itemize}
+
+        \item \textbf{End:}
+              \begin{itemize}
+                  \item If no negative-weight cycle is found, the algorithm outputs the shortest paths.
+              \end{itemize}
+    \end{enumerate}
+\end{usage}
+
+
+
+\begin{properties}[]{Comparison of Dijkstra and Bellman-Ford}
+    \begin{center}
+        \begin{tabular}{lcc}
+            \toprule
+            \textbf{Feature}         & \textbf{Dijkstra's Algorithm} & \textbf{Bellman-Ford Algorithm} \\
+            \midrule
+            Handles Negative Weights & No                            & Yes                             \\
+            Detects Negative Cycles  & No                            & Yes                             \\
+            Time Complexity          & \tco{(|V| + |E|) \log |V|}    & \tco{|V| \cdot |E|}             \\
+            Algorithm Type           & Greedy                        & Dynamic Programming             \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{properties}

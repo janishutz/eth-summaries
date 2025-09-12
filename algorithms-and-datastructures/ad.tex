@@ -1,0 +1,89 @@
+\documentclass{article}
+
+\newcommand{\dir}{~/projects/latex}
+\input{\dir/include.tex}
+\load{recommended}
+
+\setup{Algorithms and Data structures}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+
+
+% ── Title page ──────────────────────────────────────────────────────
+\vspace{3cm}
+
+\begin{Huge}
+    \[
+        \Omega(n) \leq \Theta(n \cdot \log(n)) \leq O(n^2)
+    \]
+\end{Huge}
+
+\vspace{6cm}
+\begin{center}
+    \begin{Large}
+        ``\textit{Jetzt bleibt natürlich nur noch die Frage: Geht es besser??}''
+    \end{Large}
+
+    \hspace{4cm} - David Steurer, 2024
+\end{center}
+
+\vspace{2cm}
+\begin{center}
+    HS2024, ETHZ\\[0.2cm]
+    \begin{Large}
+        \textsc{Summary of all algorithms discussed}
+    \end{Large}\\[0.2cm]
+\end{center}
+
+
+% ── Table of Contents ───────────────────────────────────────────────
+\newpage
+
+\printtoc{Aquamarine}
+
+
+% ────────────────────────────────────────────────────────────────────
+%          ╭────────────────────────────────────────────────╮
+%          │                  Import parts                  │
+%          ╰────────────────────────────────────────────────╯
+% ────────────────────────────────────────────────────────────────────
+\input{parts/intro}
+
+% Search and Sort
+\input{parts/search/search.tex}
+\input{parts/search/comparison-based-sort.tex}
+\input{parts/search/quick-sort.tex}
+\input{parts/search/heap-sort.tex}
+
+% Datatypes
+\input{parts/datatypes/lists-dictionaries.tex}
+\input{parts/datatypes/binary-tree.tex}
+\input{parts/datatypes/avl-tree.tex}
+
+% Dynamic Programming
+\input{parts/dp.tex}
+
+% Graph theory
+\input{parts/graphs/intro.tex}
+\input{parts/graphs/paths-walks-cycles.tex}
+\input{parts/graphs/connected-components.tex}
+\input{parts/graphs/bfs-dfs.tex}
+\input{parts/graphs/shortest-path.tex}
+\input{parts/graphs/mst/prim.tex}
+\input{parts/graphs/mst/kruskal.tex}
+\input{parts/graphs/mst/boruvka.tex}
+\input{parts/graphs/all-pairs-sp.tex}
+\input{parts/graphs/matrix.tex}
+% ────────────────────────────────────────────────────────────────────
+
+
+% ── Authors ─────────────────────────────────────────────────────────
+\newpage
+\section{Authors}
+Created by Janis Hutz (\url{https://janishutz.com}).
+
+Some examples were taken from the script, others were AI-Generated (because it's a bit of a pain to draw trees by hand using Tikz)
+
+\end{document}

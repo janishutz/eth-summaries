@@ -1,0 +1,225 @@
+\newpage
+\subsection{AVL Tree}
+\begin{definition}[]{AVL Trees}
+    An AVL Tree is a self-balancing binary search tree in which the difference in heights of the left and right subtrees (called the balance factor) of any node is at most 1. Named after its inventors, Adelson-Velsky and Landis, it ensures logarithmic height for efficient operations. The operations in core work the same as in Binary Trees, but might require rebalancing of the tree after a BST operation is performed on the tree
+\end{definition}
+
+\begin{properties}[]{Characteristics}
+    \begin{itemize}
+        \item \textbf{Balance Factor:} For any node, $\text{Balance Factor} = \text{Height of Left Subtree} - \text{Height of Right Subtree}$. The balance factor is always $-1, 0, \text{or } 1$.
+        \item \textbf{Rotations:}
+              \begin{itemize}
+                  \item \textbf{Single Rotation:} Left or right rotation to restore balance.
+                  \item \textbf{Double Rotation:} A combination of left-right or right-left rotations for more complex imbalance cases.
+              \end{itemize}
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Search: \tct{\log n}.
+                  \item Insert: \tct{\log n}.
+                  \item Delete: \tct{\log n}.
+              \end{itemize}
+        \item \textbf{Height:} The height of an AVL Tree with $n$ nodes is \tct{\log n}.
+    \end{itemize}
+\end{properties}
+
+\begin{example}[]{AVL-Tree}
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [20
+                [10
+                        [5]
+                        [15]
+                ]
+                [30
+                        [25]
+                        [35]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+
+\subsubsection{In more detail}
+
+\fhlc{Aquamarine}{Balance Factor}
+
+The key to maintaining balance in an AVL tree is the concept of the \textbf{balance factor}. For each node, the balance factor is calculated as the height of its left subtree minus the height of its right subtree:
+
+\begin{equation*}
+    \text{Balance Factor} = \text{height}(\text{left subtree}) - \text{height}(\text{right subtree})
+\end{equation*}
+
+A node with a balance factor of 0, 1, or -1 is considered balanced. If the balance factor becomes 2 or -2, the tree is unbalanced and requires rebalancing.
+
+\fhlc{Aquamarine}{Rotations}
+\begin{definition}[]{Rotations in AVL Trees}
+    Rotations in AVL Trees are operations used to restore balance when the balance factor of a node exceeds $1$ or goes below $-1$. They are classified into single and double rotations based on the imbalance type.
+\end{definition}
+
+\begin{properties}[]{Types of Rotations and Their Characteristics}
+    \begin{itemize}
+        \item \textbf{Single Rotations:}
+              \begin{itemize}
+                  \item \textbf{Right Rotation (RR):} Used to fix a left-heavy subtree.
+                  \item \textbf{Left Rotation (LL):} Used to fix a right-heavy subtree.
+              \end{itemize}
+        \item \textbf{Double Rotations:}
+              \begin{itemize}
+                  \item \textbf{Left-Right Rotation (LR):} A combination of a left rotation followed by a right rotation.
+                  \item \textbf{Right-Left Rotation (RL):} A combination of a right rotation followed by a left rotation.
+              \end{itemize}
+        \item \textbf{Restoring Balance:} After a rotation, the balance factors of affected nodes are recalculated to ensure the AVL property is restored.
+    \end{itemize}
+\end{properties}
+
+\begin{example}[]{Right Rotation (RR)}
+    The following illustrates a right rotation around node 30:
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [30
+                [20
+                        [10]
+                ]
+                [40]
+            ]
+        \end{forest}
+        $\xrightarrow{\text{Right Rotate}}$
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [20
+                [10]
+                [30
+                        []
+                        [40]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\begin{example}[]{Left Rotation (LL)}
+    The following illustrates a left rotation around node 10:
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [10
+                []
+                [20
+                        []
+                        [30]
+                ]
+            ]
+        \end{forest}
+        $\xrightarrow{\text{Left Rotate}}$
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [20
+                [10]
+                [30]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\newpage
+\begin{example}[]{Left-Right Rotation (LR)}
+    The following illustrates a left-right rotation:
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [30
+                [10
+                        []
+                        [20]
+                ]
+            ]
+        \end{forest}
+        $\xrightarrow{\text{Left Rotate on 10}}$
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [30
+                [20
+                        [10]
+                ]
+            ]
+        \end{forest}
+        $\xrightarrow{\text{Right Rotate on 30}}$
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [20
+                [10]
+                [30]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}
+
+\begin{example}[]{Right-Left Rotation (RL)}
+    The following illustrates a right-left rotation:
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [10
+                []
+                [30
+                        [20]
+                ]
+            ]
+        \end{forest}
+        $\xrightarrow{\text{Right Rotate on 30}}$
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [10
+                []
+                [20
+                        []
+                        [30]
+                ]
+            ]
+        \end{forest}
+        $\xrightarrow{\text{Left Rotate on 10}}$
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt,
+            s sep=15mm, l sep=15mm
+            }
+            [20
+                [10]
+                [30]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}

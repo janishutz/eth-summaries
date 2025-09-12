@@ -1,0 +1,59 @@
+\newpage
+\subsubsection{Quick Sort}
+\begin{definition}[]{Quick Sort}
+    Quick Sort is a divide-and-conquer algorithm that selects a pivot element from the array, partitions the other elements into two subarrays according to whether they are less than or greater than the pivot, and then recursively sorts the subarrays. The process continues until the base case of an empty or single-element array is reached.
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance}
+    \begin{itemize}
+        \item \textbf{Efficiency:} Performs well on average and for in-place sorting but can degrade on specific inputs.
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Best case: \tcl{n \log n}
+                  \item Worst case: \tco{n^2} (when the pivot is poorly chosen)
+                  \item Average case: \tct{n \log n}
+              \end{itemize}
+        \item \textbf{Space Complexity:} In-place sorting typically requires \tct{\log n} additional space for recursion.
+        \item \textbf{Limitations:} Performance depends heavily on pivot selection.
+    \end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Quick Sort}
+        \begin{algorithmic}[1]
+            \Procedure{QuickSort}{$A, l, r$}
+                \If{$l < r$}
+                    \State $k \gets \Call{Partition}{A, l, r}$
+                    \State \Call{QuickSort}{$A, l, k - 1$} \Comment{Sort left group}
+                    \State \Call{QuickSort}{$A, k + 1, r$} \Comment{Sort right group}
+                \EndIf
+            \EndProcedure
+
+            \Procedure{Partition}{$A, l, r$}
+                \State $i \gets l$
+                \State $j \gets r - 1$
+                \State $p \gets A[r]$
+                \While{$i > j$} \Comment{Loop ends when $i$ and $j$ meet}
+                    \While{$i < r$ and $A[i] \leq p$}
+                        \State $i \gets i + 1$ \Comment{Search next element for left group}
+                    \EndWhile
+
+                    \While{$i > l$ and $A[j] > p$}
+                        \State $j \gets j - 1$ \Comment{Search next element for right group}
+                    \EndWhile
+
+                    \If{$i \leq j$}
+                        \State Exchange $A[i]$ and $A[j]$
+                    \EndIf
+                \EndWhile
+                \State Swap $A[i]$ and $A[r]$ \Comment{Move pivot element to correct position}
+                \State \Return $i$
+            \EndProcedure
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+The tests $i < r$ and $j > l$ in the while loops in \textsc{Partition} catch the cases where there are no elements that can be added to the left or right group.
+
+The correct position for the pivot element is $k = j + 1 = i$, since all elements on the left hand side are smaller and all on the right hand side larger than $p$.

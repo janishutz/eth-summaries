@@ -1,0 +1,175 @@
+\newpage
+\subsection{Sort}
+Sorted data proved to be much quicker to search through, but how do we sort efficiently?
+
+First, how to check if an array is sorted. This can be done in linear time:
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{sorted(A)}}
+        \begin{algorithmic}[1]
+            \For{$i \gets 1, 2, \ldots, n - 1$}
+                \If{$A[i] > A[i + 1]$} \Return false \Comment{Item is unsorted}
+                \EndIf
+            \EndFor
+            \State \Return true
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+\tc{n}
+
+
+\subsubsection{Bubble Sort}
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{bubbleSort(A)}}
+        \begin{algorithmic}[1]
+            \For{$i \gets 1, 2, \ldots, n$}
+                \For{$j \gets 1, 2, \ldots, n$}
+                    \If{$A[j] > A[j + 1]$} 
+                        \State exchange $A[j]$ and $A[j + 1]$ \Comment{Causes the element to ``bubble up''}
+                    \EndIf
+                \EndFor
+            \EndFor
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+\tc{n^2}
+
+
+
+% ────────────────────────────────────────────────────────────────────
+\subsubsection{Selection Sort}
+The concept for this algorithm is selecting an element (that being the largest one for each iteration, where the iteration variable determines the upper bound for the indices of the array) and swapping it with the last item (thus moving the largest elements up, whilst moving the smallest items down). This algorithm uses a similar concept to bubble sort, but saves some runtime compared to it, by reducing the number of comparisons having to be made.
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{selectionSort(A)}}
+        \begin{algorithmic}[1]
+            \For{$i \gets n, n - 1, \ldots, 1$}
+                \State $k \gets$ Index of maximum element in $A[1, \ldots, i]$ \Comment{Runtime: $O(n)$}
+                \State exchange $A[k]$ and $A[i]$
+            \EndFor
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+\tc{n^2} because we have runtime \tco{n} for the search of the maximal entry and run through the loop \tco{n} times, but we have saved some runtime elsewhere, which is not visible in the asymptotic time complexity compared to bubble sort.
+
+
+
+% ────────────────────────────────────────────────────────────────────
+\newpage
+\subsubsection{Insertion Sort}
+\begin{definition}[]{Insertion Sort}
+    Insertion Sort is a simple sorting algorithm that builds the final sorted array (or list) one element at a time. It iteratively takes one element from the input, finds its correct position in the sorted portion, and inserts it there. The algorithm starts with the first element, assuming it is sorted. It then picks the next element and inserts it into its correct position relative to the sorted portion. This process is repeated for all elements until the entire list is sorted. At each iteration step, the algorithm moves all elements that are larger than the currently picked element to the right by one, i.e. an element $A[i]$ to $A[i + 1]$
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance}
+\begin{itemize}
+    \item \textbf{Efficiency:} Works well for small datasets or nearly sorted arrays.
+    \item \textbf{Time Complexity:}
+    \begin{itemize}
+        \item Best case (already sorted): \tcl{n\log(n)}
+        \item Worst case (reversed order): \tco{n^2}
+        \item Average case: \tct{n^2}
+    \end{itemize}
+    \item \textbf{Limitations:} Inefficient on large datasets due to its \tct{n^2} time complexity and requires additional effort for linked list implementations.
+\end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{insertionSort(A)}}
+        \begin{algorithmic}[1]
+            \Procedure{InsertionSort}{$A$}
+            \For{$i \gets 2$ to $n$} \Comment{Iterate over the array}
+                \State $key \gets A[i]$ \Comment{Element to be inserted}
+                \State $j \gets i - 1$
+                \While{$j > 0$ and $A[j] > key$}
+                    \State $A[j+1] \gets A[j]$ \Comment{Shift elements}
+                    \State $j \gets j - 1$
+                \EndWhile
+                \State $A[j+1] \gets key$ \Comment{Insert element}
+            \EndFor
+            \EndProcedure
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+
+
+
+% ────────────────────────────────────────────────────────────────────
+\newpage
+\subsubsection{Merge Sort}
+\begin{definition}[]{Definition of Merge Sort}
+Merge Sort is a divide-and-conquer algorithm that splits the input array into two halves, recursively sorts each half, and then merges the two sorted halves into a single sorted array. This process continues until the base case of a single element or an empty array is reached, as these are inherently sorted.
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance of Merge Sort}
+\begin{itemize}
+    \item \textbf{Efficiency:} Suitable for large datasets due to its predictable time complexity.
+    \item \textbf{Time Complexity:}
+    \begin{itemize}
+        \item Best case: \tcl{n \log n}
+        \item Worst case: \tco{n \log n}
+        \item Average case: \tct{n \log n}
+    \end{itemize}
+    \item \textbf{Space Complexity:} Requires additional memory for temporary arrays, typically \tct{n}.
+    \item \textbf{Limitations:} Not in-place, and memory overhead can be significant for large datasets.
+\end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Merge Sort}
+        \begin{algorithmic}[1]
+            \Procedure{MergeSort}{$A[1..n], l, r$}
+                \If{$l \geq r$}
+                    \State \Return $A$ \Comment{Base case: already sorted}
+                \EndIf
+                \State $m \gets \floor{(l + r)/2}$
+                \State $\Call{MergeSort}{A, l, m}$ \Comment{Recursive sort on left half}
+                \State $\Call{MergeSort}{A, m + 1, r}$ \Comment{Recursive sort on right half}
+                \State \Call{Merge}{$A, l, m, r$}
+            \EndProcedure
+
+            \Procedure{Merge}{$A[1..n], l, m, r$} \Comment{Runtime: \tco{n}}
+                \State $result \gets$ new array of size $r - l + 1$
+                \State $i \gets l$
+                \State $j \gets m + 1$
+                \State $k \gets 1$
+                \While{$i \leq m$ and $j \leq r$}
+                    \If{$A[i] \leq A[j]$}
+                        \State $result[k] \gets A[i]$
+                        \State $i \gets i + 1$
+                    \Else
+                        \State $result[k] \gets A[j]$
+                        \State $j \gets j + 1$
+                    \EndIf
+                    \State $k \gets k + 1$
+                \EndWhile
+                \State Append remaining elements of left / right site to $result$
+                \State Copy $result$ to $A[l, \ldots, r]$
+            \EndProcedure
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{Algorithm} & \textbf{Comparisons} & \textbf{Operations} & \textbf{Space Complexity} & \textbf{Locality} & \textbf{Time complexity}\\
+        \midrule
+        \textit{Bubble-Sort} & \tco{n^2} & \tco{n^2} & \tco{1} & good & \tco{n^2}\\
+        \textit{Selection-Sort} & \tco{n^2} & \tco{n} & \tco{1} & good & \tco{n^2}\\
+        \textit{Insertion-Sort} & \tco{n \cdot \log(n)} & \tco{n^2} & \tco{1} & good & \tco{n^2}\\
+        \textit{Merge-Sort} & \tco{n\cdot \log(n)} & \tco{n \cdot \log(n)} & \tco{n} & good & \tco{n \cdot \log(n)}\\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparison of four comparison-based sorting algorithms discussed in the lecture. Operations designates the number of write operations in RAM}
+\end{table}
+
+

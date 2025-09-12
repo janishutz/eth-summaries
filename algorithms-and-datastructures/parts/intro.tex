@@ -1,0 +1,93 @@
+\newsection
+\section{Introduction}
+
+\subsection{Sufficiency \& Necessity}
+\begin{definition}[]{Sufficiency}
+    A condition $P$ is called \textit{sufficient} for $Q$ if knowing $P$ is true is enough evidence to conclude that $Q$ is true.
+
+    This is equivalent to saying $Q \Rightarrow P$.
+\end{definition}
+
+\begin{definition}[]{Necessity}
+    A condition $P$ is called \textit{necessary} for $Q$ if $Q$ cannot occur unless $P$ is true, but doesn't imply that $Q$ is true, only that it is false if $P$ is false.
+
+    This is equivalent to saying $P \Rightarrow Q$
+\end{definition}
+
+\subsection{Asymptotic Growth}
+$f$ grows asymptotically slower than $g$ if $\displaystyle\lim_{m \rightarrow \infty} \frac{f(m)}{g(m)} = 0$.
+We can remark that $f$ is upper-bounded by $g$, thus $f \leq$\tco{g} and we can say $g$ is lower bounded by $f$, thus $g \geq$ \tcl{f}.
+If two functions grow equally fast asymptotically, \tct{f} $= g$
+
+
+\subsection{Runtime evaluation}
+Identify the basic operations (usually given by the task), then count how often they are called and express that as a function in $n$.
+It is easier to note that in sum notation, then simplify that sum notation into a formula not containing any summation symbols.
+
+
+% ────────────────────────────────────────────────────────────────────
+\subsection{Tips for Converting Summation Notation into Summation-Free Notation}
+
+\subsubsection{Identify the Pattern:}
+\begin{itemize}
+    \item Examine the summand.
+    \item Look for patterns related to the index variable (usually $i$, $j$, etc.). Is it a linear function, a power of $i$, a combination?
+\end{itemize}
+
+
+\subsubsection{Arithmetic Series Formula}
+If the summand is a simple arithmetic progression (e.g., $a + bi$ where $a$ and $b$ are constants), use the formula:
+\[
+    \sum_{i=m}^{n} (a + bi) = (n - m + 1)\left(a + b\frac{m + n}{2}\right)
+\]
+
+
+\subsubsection{Power Rule for Sums}
+\begin{itemize}
+    \item For sums involving powers of $i$, you can use the following pattern:
+          \[
+              \sum_{i=1}^{n} i^k = \frac{n^{k+1}}{k+1}
+          \]
+    \item Remember that this rule only applies when the index starts at 1.
+\end{itemize}
+
+
+\subsubsection{Telescoping Series}
+Look for terms in consecutive elements of the summand that cancel out, leaving a simpler expression after expanding. This is particularly helpful for fractions and ratios.
+
+
+\subsubsection{Geometric Series Formula}
+For sums involving constant ratios (e.g., $a \cdot r^i$ where $r$ is the common ratio), use:
+\[
+    \sum_{i=0}^{n} a \cdot r^i = a \frac{1 - r^{n+1}}{1-r}
+\]
+
+
+\subsubsection{Gaussian Formula}
+If $S$ is an arithmetic series with $n$ terms, then $S = \frac{n}{2} * (a + 1)$
+
+
+\subsubsection{Examples}
+The only other way (other than learning these tips) in which you are going to get better at this is by parctising.
+Work through examples, starting with simpler ones and moving towards more complex expressions.
+
+
+\fhlc{Aquamarine}{Example:}
+
+Let's convert the summation: $\sum_{i=1}^{5} i$
+
+\begin{enumerate}
+    \item \textbf{Pattern:} The summand is simply $i$, which represents a linear arithmetic progression.
+
+    \item \textbf{Arithmetic Series Formula:} Applying the formula with $a = 1$, $b = 1$, $m = 1$, and $n = 5$:
+          \[
+              \sum_{i=1}^{5} i = (5 - 1 + 1)\left(1 + 1 \cdot \frac{1 + 5}{2}\right) = 5 \cdot 3 = 15
+          \]
+\end{enumerate}
+
+Therefore, the summation evaluates to $15$.
+
+\subsection{Specific examples}
+\begin{align*}
+    \frac{n}{\log(n)} \geq \Omega(\sqrt{n}) \Leftrightarrow \sqrt{n} \leq \text{\tco{\frac{n}{\log(n)}}}
+\end{align*}

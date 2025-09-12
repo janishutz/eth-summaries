@@ -1,0 +1,35 @@
+\newsection
+\section{Search \& Sort}
+\subsection{Search}
+\subsubsection{Linear search}
+Linear search, as the name implies, searches through the entire array and has linear runtime, i.e. $\Theta(n)$. 
+
+It works by simply iterating over an iterable object (usually array) and returns the first element (it can also be modified to return \textit{all} elements that match the search pattern) where the search pattern is matched.
+
+\tc{n}
+
+\subsubsection{Binary search}
+If we want to search in a sorted array, however, we can use what is known as binary array, improving our runtime to logarithmic, i.e. $\Theta(\log(n))$.
+It works using divide and conquer, hence it picks a pivot in the middle of the array (at $\floor{\frac{n}{2}}$) and there checks if the value is bigger than our search query $b$, i.e. if $A[m] < b$. This is repeated, until we have homed in on $b$. Pseudo-Code:
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{binarySearch(b)}}
+        \begin{algorithmic}[1]
+            \State $l \gets 1$, $r \gets n$ \Comment{\textit{Left and right bound}}
+            \While{$l \leq r$}
+                \State $m \gets \floor{\frac{l + r}{2}}$
+                \If{$A[m] = b$} \Return m \Comment{\textit{Element found}}
+                \ElsIf{$A[m] > b$} $r \gets m - 1$ \Comment{\textit{Search to the left}}
+                \Else \hspace{0.2em} $l \gets m + 1$ \Comment{\textit{Search to the right}}
+                \EndIf
+            \EndWhile
+            \State \Return "Not found"
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+\tc{\log(n)}
+
+Proving runtime lower bounds (worst case runtime) for this kind of algorithm is done using a decision tree. It in fact is $\Omega(\log(n))$
+
+% INFO: If =0, then there is an issue with math environment in the algorithm

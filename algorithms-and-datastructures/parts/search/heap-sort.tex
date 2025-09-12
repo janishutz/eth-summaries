@@ -1,0 +1,130 @@
+\newpage
+\subsubsection{Heap Sort}
+\begin{definition}[]{Heap Sort}
+    Heap Sort is a comparison-based sorting algorithm that uses a binary heap data structure. It builds a max-heap (or min-heap) from the input array and repeatedly extracts the largest (or smallest) element to place it in the correct position in the sorted array.
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance}
+    \begin{itemize}
+        \item \textbf{Efficiency:} Excellent for in-place sorting with predictable performance.
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Best case: \tcl{n \log n}
+                  \item Worst case: \tco{n \log n}
+                  \item Average case: \tct{n \log n}
+              \end{itemize}
+        \item \textbf{Space Complexity:} In-place sorting requires \tct{1} additional space.
+        \item \textbf{Limitations:} Inefficient compared to Quick Sort for most practical datasets.
+    \end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Heap Sort}
+        \begin{algorithmic}[1]
+            \Procedure{HeapSort}{$A$}
+                \State $H \gets \Call{Heapify}{A}$
+                \For{$i \gets \text{length}(A)$ to $2$}
+                    \State $A[i] \gets \Call{ExtractMax}{A}$
+                \EndFor
+            \EndProcedure
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+The lecture does not cover the implementation of a heap tree. See the specific section \ref{sec:heap-trees} on Heap-Trees
+
+
+\newpage
+\subsubsection{Bucket Sort}
+\begin{definition}[]{Bucket Sort}
+    Bucket Sort is a distribution-based sorting algorithm that divides the input into a fixed number of buckets, sorts the elements within each bucket (using another sorting algorithm, typically Insertion Sort), and then concatenates the buckets to produce the sorted array.
+\end{definition}
+
+\begin{properties}[]{Characteristics and Performance}
+    \begin{itemize}
+        \item \textbf{Efficiency:} Performs well for uniformly distributed datasets.
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Best case: \tcl{n + k} (for uniform distribution and $k$ buckets)
+                  \item Worst case: \tco{n^2} (when all elements fall into a single bucket)
+                  \item Average case: \tct{n + k}
+              \end{itemize}
+        \item \textbf{Space Complexity:} Requires \tct{n + k} additional space.
+        \item \textbf{Limitations:} Performance depends on the choice of bucket size and distribution of input elements.
+    \end{itemize}
+\end{properties}
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{Bucket Sort}
+        \begin{algorithmic}[1]
+            \Procedure{BucketSort}{$A, k$}
+                \State $B[1..n] \gets [0, 0, \ldots, 0]$
+                \For{$j \gets 1, 2, \ldots, n$}
+                    \State $B[A[j]] \gets B[A[j]] + 1$ \Comment{Count in $B[i]$ how many times  $i$ occurs}
+                \EndFor
+                \State $k \gets 1$
+                \For{$i \gets 1, 2, \ldots, n$}
+                    \State $A[k, \ldots, k + B[i] - 1] \gets [i, i, \ldots, i]$ \Comment {Write $B[i]$ times the value $i$ into $A$}
+                    \State $k \gets k + i$ \Comment{$A$ is filled until position $k - 1$}
+                \EndFor
+            \EndProcedure
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+
+\newpage
+\subsection{Heap trees}
+\label{sec:heap-trees}
+\subsubsection{Min/Max-Heap}
+\begin{definition}[]{Min-/Max-Heap}
+    A Min-Heap is a complete binary tree where the value of each node is less than or equal to the values of its children.
+    Conversely, a Max-Heap is a complete binary tree where the value of each node is greater than or equal to the values of its children.
+    In the characteristics below, $A$ is an array storing the value of a element
+\end{definition}
+
+\begin{properties}[]{Characteristics}
+    \begin{itemize}
+        \item \textbf{Heap Property:}
+              \begin{itemize}
+                  \item Min-Heap: $A[parent] \leq A[child]$ for all nodes.
+                  \item Max-Heap: $A[parent] \geq A[child]$ for all nodes.
+              \end{itemize}
+        \item \textbf{Operations:} Both Min-Heaps and Max-Heaps support:
+              \begin{itemize}
+                  \item \textbf{Insert:} Add an element to the heap and adjust to maintain the heap property.
+                  \item \textbf{Extract Min/Max:} Remove the root element (minimum or maximum), replace it with the last element (bottom right most element), and adjust the heap.
+              \end{itemize}
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Insert: \tct{\log n}.
+                  \item Extract Min/Max: \tct{\log n}.
+                  \item Build Heap: \tct{n}.
+              \end{itemize}
+    \end{itemize}
+\end{properties}
+
+\begin{example}[]{Min-Heap}
+    The following illustrates a Min-Heap with seven elements:
+    \begin{center}
+        \begin{forest}
+            for tree={
+            circle, draw, fill=blue!20, minimum size=10mm, inner sep=0pt, % Node style
+            s sep=15mm, % Sibling separation
+            l sep=15mm  % Level separation
+            }
+            [2
+                [4
+                        [8]
+                        [10]
+                ]
+                [6
+                        [14]
+                        [18]
+                ]
+            ]
+        \end{forest}
+    \end{center}
+\end{example}

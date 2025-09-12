@@ -1,0 +1,67 @@
+\newpage
+\subsection{Matrix Multiplication}
+\subsubsection{Strassen's Algorithm}
+\begin{definition}[]{Strassen’s Algorithm}
+    The \textbf{Strassen’s Algorithm} is an efficient algorithm for matrix multiplication, reducing the asymptotic complexity compared to the standard method.
+\end{definition}
+
+\begin{properties}[]{Characteristics of Strassen’s Algorithm}
+    \begin{itemize}
+        \item \textbf{Standard Multiplication:} Requires \tco{n^3} time for two $n \times n$ matrices.
+        \item \textbf{Strassen’s Approach:} Reduces the complexity to \tco{n^{\log_2 7}} (approximately \tco{n^{2.81}}).
+        \item \textbf{Idea:} Uses divide-and-conquer to reduce the number of scalar multiplications from $8$ to $7$ in each recursive step.
+        \item Useful for applications involving large matrix multiplications.
+    \end{itemize}
+\end{properties}
+
+\begin{usage}[]{Strassen's Algorithm}
+    Strassen's algorithm is used for matrix multiplication, reducing the computational complexity from \(O(n^3)\) to approximately \(O(n^{2.81})\).
+
+    \begin{enumerate}
+        \item \textbf{Divide Matrices:}
+              \begin{itemize}
+                  \item Split the input matrices \(A\) and \(B\) into four submatrices each:
+                        \[
+                            A = \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix}, \quad
+                            B = \begin{bmatrix} B_{11} & B_{12} \\ B_{21} & B_{22} \end{bmatrix}
+                        \]
+              \end{itemize}
+
+        \item \textbf{Compute 7 Products:}
+              \begin{itemize}
+                  \item Calculate seven intermediate products using combinations of the submatrices:
+                        \begin{align*}
+                            M_1 & = (A_{11} + A_{22})(B_{11} + B_{22}) \\
+                            M_2 & = (A_{21} + A_{22})B_{11}            \\
+                            M_3 & = A_{11}(B_{12} - B_{22})            \\
+                            M_4 & = A_{22}(B_{21} - B_{11})            \\
+                            M_5 & = (A_{11} + A_{12})B_{22}            \\
+                            M_6 & = (A_{21} - A_{11})(B_{11} + B_{12}) \\
+                            M_7 & = (A_{12} - A_{22})(B_{21} + B_{22})
+                        \end{align*}
+              \end{itemize}
+
+        \item \textbf{Combine Results:}
+              \begin{itemize}
+                  \item Use the intermediate products to compute the submatrices of the result \(C\):
+                        \[
+                            C_{11} = M_1 + M_4 - M_5 + M_7, \quad
+                            C_{12} = M_3 + M_5
+                        \]
+                        \[
+                            C_{21} = M_2 + M_4, \quad
+                            C_{22} = M_1 - M_2 + M_3 + M_6
+                        \]
+              \end{itemize}
+
+        \item \textbf{Repeat Recursively:}
+              \begin{itemize}
+                  \item If the submatrices are larger than a certain threshold, repeat the process recursively.
+              \end{itemize}
+
+        \item \textbf{End:}
+              \begin{itemize}
+                  \item The resulting matrix \(C\) is the product of \(A\) and \(B\).
+              \end{itemize}
+    \end{enumerate}
+\end{usage}
