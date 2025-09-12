@@ -1,0 +1,59 @@
+\documentclass{article}
+
+
+\newcommand{\dir}{~/projects/latex} % IMPORTANT: No trailing slashes!
+\input{\dir/include.tex}
+\load{recommended}
+
+\setup{Algorithms and Probability}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+\setcounter{numberingConfig}{3}
+
+\vspace{2cm}
+\begin{Huge}
+    \begin{align*}
+          & \Pr[X|Y] \geq \Pr[X|\overline{Y}] \\
+        X & := \text{I pass the exam}         \\
+        Y & := \text{I read this summary}
+    \end{align*}
+\end{Huge}
+
+
+\vspace{4cm}
+\begin{center}
+    \begin{Large}
+        ``\textit{Dieses Algorithmus mapped $E$ nach $E$ Strich}''
+    \end{Large}
+
+    \hspace{3cm} - Rasmus Kyng, 2025
+\end{center}
+
+\vspace{3cm}
+\begin{center}
+    FS2025, ETHZ\\[0.2cm]
+    \begin{Large}
+        Summary of the Script and Lectures
+    \end{Large}\\[0.2cm]
+\end{center}
+
+
+
+
+\newpage
+\printtoc{ForestGreen}
+
+\input{parts/graphs.tex}
+
+\input{parts/combinatorics.tex}
+
+\input{parts/probability.tex}
+
+\input{parts/algorithms.tex}
+
+\input{parts/coding.tex}
+
+
+\end{document}

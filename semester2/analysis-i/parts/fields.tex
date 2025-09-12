@@ -1,0 +1,124 @@
+\newsection
+\section{\tr{Fields}{Räume}}
+\subsection{\tr{Real numbers}{Reelle Zahlen}}
+\compacttheorem{Lindemann}
+\translate{There is no equation of form}{Es gibt keine Gleichung der Form} $x^n + a_{n - 1} x^{n - 1} + \ldots + a_0 = 0$ \translate{with}{mit} $a_i \in Q$ \translate{such that}{so dass} $x = \pi$ \translate{is a solution}{eine Lösung ist}
+
+
+\setcounter{all}{7}
+\compactcorollary{\tr{Archimedic Principle}{Archimedisches Prinzip}} \trLet $x \in \R$ \trwith $x > 0$ \trand $y \in \R$. \tr{Then exists}{Dann existiert} $n \in \N$ \trwith $y \leq n \cdot x$
+
+\setcounter{all}{9}
+\begin{definition}[]{\translate{Max, min, absolute value}{Max, Min, Betrag}}
+    \translate{Let}{Seien} $x, y \in \R$. \translate{Then}{Dann}:
+    \vspace{-0.8pc}
+    \begin{multicols}{3}
+        \begin{enumerate}[label=\textit{(\roman*)}]
+            \item $\max\{x, y\} = \begin{cases}
+                          x & \text{\trif} y \leq x \\
+                          y & \text{\trif} x \leq y
+                      \end{cases}$
+            \item $\min\{x, y\} = \begin{cases}
+                          y & \text{\trif} y \leq x \\
+                          x & \text{\trif} x \leq y
+                      \end{cases}$
+            \item \translate{The absolute value of}{Der Absolutbetrag von}\\ $x \in \R : |x| = \max{x, -x}$
+        \end{enumerate}
+    \end{multicols}
+\end{definition}
+
+\begin{theorem}[]{\translate{Absolute value properties}{Eigenschaften des Absolutbetrags}}
+    \vspace{-0.6pc}
+    \begin{multicols}{4}
+        \begin{enumerate}[label=\textit{(\roman*)}]
+            \item $|x| \geq 0 \smallhspace \forall x \in \R$
+            \item $|xy| = |x||y| \smallhspace \forall x, y \in \R$
+            \item $|x + y| \leq |x| + |y|$
+            \item $|x + y| \geq ||x| - |y||$
+        \end{enumerate}
+    \end{multicols}
+\end{theorem}
+
+\compacttheorem{\translate{Young's Inequality}{Young'sche Ungleichung}} $\forall \varepsilon > 0, \smallhspace \forall x, y \in \R$ \translate{we have}{gilt}: $2|xy| \leq \varepsilon x^2 + \frac{1}{\varepsilon}y^2$
+
+\begin{definition}[]{\tr{Bounds}{Schranken}}
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item $c \in \R$ \tr{upper bound of $A$ if}{obere Schranke von $A$ falls} $\forall a \in A : a \leq c$.
+              $A$ \tr{bounded from above if upper bound for $A$ exists}{nach oben beschränkt falls eine obere Schranke für $A$ existiert}
+        \item $c \in \R$ \tr{lower bound of $A$ if}{untere Schranke von $A$ falls} $\forall a \in A : a \leq c$.
+              $A$ \tr{bounded from below if lower bound for $A$ exists}{nach unten beschränkt falls eine untere Schranke für $A$ existiert}
+        \item \tr{Element $m \in \R$ \textbf{maximum} of $A$ if $m \in A$ and $m$ upper bound of $A$}
+              {Element $m \in \R$ \textbf{Maximum} von $A$ falls $m \in A$ und $m$ obere Schranke von $A$ ist}
+        \item \tr{Element $m \in \R$ \textbf{minimum} of $A$ if $m \in A$ and $m$ lower bound of $A$}
+              {Element $m \in \R$ \textbf{Minimum} von $A$ falls $m \in A$ und $m$ untere Schranke von $A$ ist}
+    \end{enumerate}
+\end{definition}
+
+\setcounter{all}{15}
+\begin{theorem}[]{Supremum \& Infimum}
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item \tr{The least upper bound of a set $A$ bounded from above is called the \textbf{\textit{Supremum}} and given by}
+              {Die kleinste obere Schranke von einer nach oben beschränkten Menge $A$, gennant das \textbf{\textit{Supremum}} von $A$, ist definiert als}
+              $c := \sup(A)$.
+              \tr{It only exists if the set is upper bounded.}
+              {Es existiert nur falls die Menge nach oben beschränkt ist.}
+        \item \tr{The greatest lower bound of a set $A$ bounded from below is called the \textbf{\textit{Infimum}} and given by}
+              {Die grösste untere Schranke von einer nach unten beschränkten Menge $A$, gennant das \textbf{\textit{Infimum}} von $A$, ist definiert als}
+              $c := \inf(A)$.
+              \tr{It only exists if the set is lower bounded.}
+              {Es existiert nur falls die Menge nach unten beschränkt ist.}
+    \end{enumerate}
+\end{theorem}
+
+\begin{corollary}[]{Supremum \& Infimum}
+    \trLet $A \subset B \subset \R$
+    \vspace{-0.9pc}
+    \begin{multicols}{2}
+        \begin{enumerate}[label=\textit{(\arabic*)}]
+            \item \tr{If $B$ is bounded from above, we have}{Falls $B$ nach oben beschränkt ist, gilt} $\sup(A) \leq \sup(B)$
+            \item \tr{If $B$ is bounded from below, we have}{Falls $B$ nach unten beschränkt ist, gilt} $\inf(B) \leq \inf(A)$
+        \end{enumerate}
+    \end{multicols}
+\end{corollary}
+
+
+
+% ────────────────────────────────────────────────────────────────────
+\setcounter{subsection}{2}
+\subsection{\tr{Complex numbers}{Komplexe Zahlen}}
+
+\textbf{\tr{Operations}{Operationen}}: $i^2 = -1$ (\tr{NOT}{NICHT} $i = \sqrt{-1}$ \tr{bc. otherwise}{da sonst} $1 = -1$).
+%
+\tr{Complex number}{Komplexe Zahl} $z_j = a_j + b_ji$.
+\textit{Addition, \tr{Subtraction}{Subtraktion}} $(a_1 \pm a_2) + (b_1 \pm b_2)i$.
+\textit{\tr{Multiplication}{Multiplikation}} $(a_1 a_2 - b_1 b_2) + (a_1 b_2 + a_2 b_1)i$.
+\textit{Division} $\displaystyle\frac{a_1 b_1 + a_2 b_2}{b_1^2 + b_2^2} + \frac{a_2 b_1 - a_1 b_2}{b_1^2 b_2^2}i$;
+
+\textbf{\tr{Parts}{Teile}}: $\mathfrak{R}(a + bi) := a$ (\tr{Real part}{Realteil}), $\mathfrak{I}(a + bi) := b$ (\tr{imaginary part}{Imaginärteil}),
+$|z| := \sqrt{a^2 + b^2}$ (modulus),
+$\overline{a + bi} := a-bi$ (\tr{complex conjugate}{Komplexe Konjugation});
+
+\textbf{\tr{Polar coordinates}{Polarkoordinaten}}: $a + bi$ (\tr{normal form}{Normalform}), $r \cdot e^{i \phi}$ (\tr{polar form}{Polarform}).
+Transformation polar $\rightarrow$ normal: $r \cdot \cos(\phi) + r \cdot \sin(\phi)i$.
+Transformation normal $\rightarrow$ polar: $|z| \cdot e^{i \cdot \arcsin(\frac{b}{|z|})}$;
+
+
+\begin{theorem}[]{\tr{Fundamental Theorem of Algebra}{Fundamentalsatz der Algebra}}
+    \trLet $n \geq 1, n \in \N$ \tr{and let}{und sei}
+    \[
+        P(z) = z^n + a_{n - 1}z^{n - 1} + \ldots + a_0, \mediumhspace a_j \in \C
+    \]
+    \tr{Then there exist}{Dann gibt es} $z_1, \ldots, z_n \in \C$ \tr{such that}{so dass}
+    \[
+        P(z) = (z - z_1)(z - z_2) \dots (z - z_n)
+    \]
+    \tr{The set}{Die Menge} $\{z_1, \ldots, z_n\}$ \tr{and the multiplicity of the zeros $z_j$ are hereby uniquely determined}
+    {und die Vielfachheit der Nullstellen $z_j$ sind eindeutig bestimmt.}
+\end{theorem}
+
+\shade{Aquamarine}{\tr{Surjectivity}{Surjektivität}}
+\tr{Given a function}{Eine Funktion} $f: X \rightarrow Y$, \tr{it is surjective, iff}{ist Surjektiv, g.d.w.} $\forall y \in Y, \exists x  \in X : f(x) = y$ (\tr{continuous function}{stetige Funktion})
+
+
+\shade{Aquamarine}{\tr{Injectivity}{Injektivität}}
+$x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$

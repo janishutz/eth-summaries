@@ -1,0 +1,177 @@
+\documentclass{article}
+
+\newcommand{\dir}{~/projects/latex} % IMPORTANT: No trailing slashes!
+\input{\dir/include.tex}
+\load{recommended}
+
+\setup{Parallel Programming}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+
+\section{Formulas}
+\begin{formula}[]{Amdahl's Law}
+    Let $W_{ser}$ be non-parallelizable work, $W_{par}$ parallelizable work,
+    $T_1 = W_{ser} + W_{par}$ the processing time on one processor and $T_p$ the time taken on $p$ processors.
+
+    From this we can get an upper bound for speed-up, given by $T_p \geq W_{ser} + \frac{W_{par}}{P}$.
+    Then $S_p$ denotes the speed-up for $p$ processors, given by
+    \begin{align*}
+        S_p \leq \frac{W_{ser} + W_{par}}{W_{ser} + \frac{W_{par}}{P}}
+    \end{align*}
+    If now $f$ is the fraction of work that is non-parallelizable, then $W_{ser} = fT_1$ and $W_{par} = (1 - f)T_1$ and we get
+    \begin{align*}
+        S_p \leq \frac{1}{f + \frac{1 - f}{P}}
+    \end{align*}
+\end{formula}
+
+On the other hand, Gustafson's law is an optimistic take on Amdahl's law.
+So, where Amdahl's law asks for doing the same work faster, Gustafson's law asks for more work to be done in the same time
+\begin{formula}[]{Gustafson's law}
+    Again, $f$ denotes the non-parallelizable work, $p$ denotes the number of processors and $T_1$ denotes time for one processor, where $T_L$ is the constant time assumed
+    \begin{align*}
+        W = p(1 - f)T_{L} + fT_{L} \\
+        S_p \leq \frac{T_1}{T_P} = f + p(1 - f)
+    \end{align*}
+\end{formula}
+\begin{itemize}
+    \item $t_{max} :=$ Time for longest stage in pipeline
+    \item \fancydef{Latency} $L$ Sum of all stages in pipeline
+    \item \fancydef{Balanced Pipeline} All stages take equally long
+    \item \fancydef{Throughput} $\frac{1}{t_{max}}$
+\end{itemize}
+
+Time for $i$ iterations $i \cdot t_{max} + (L - t_{max}) = (i - 1) t_{max} + L$
+
+\newsection
+\section{Java BS}
+\verb|ExecutorService| is not suited to Divide \& Conquer (or any other non-flat structure), we can give it \verb|Callable| (need to implement \verb|call| method, which returns) or a \verb|Runnable| (need to implement \verb|run| method, doesn't return).
+We can create an \verb|ExecutorService| using \verb|java.util.concurrent.Executors.newFixedThreadPool(int threads)| and we can add tasks using \verb|ex.submit(Task task)|
+When submitting \verb|Callable| to \verb|ExecutorService|, a \verb|Future| is returned (= Promise).
+
+For Divide \& Conquer, use \verb|java.util.concurrent.ForkJoinPool|, to which we submit \verb|RecursiveTask| (returns) or \verb|RecursiveAction| (doesn't return).
+\verb|RecursiveTask| and \verb|RecursiveAction| support the following methods:
+\begin{itemize}
+    \item \verb|compute()| runs the new task in the current thread
+    \item \verb|fork()| runs the task in a new thread
+    \item \verb|join()| waits for the task to finish (like the \verb|join()| of Threads)
+\end{itemize}
+To start execution, run \verb|pool.invoke(Task task)| on the \verb|ForkJoinPool|
+
+
+\newsection
+\section{Locking}
+For synchronization, we also have \verb|volatile|, which does guarantee that all threads see the value immediately (as the variable is written back to memory immediately and not stored in each Thread's internal cache) and it enforces memory consistency, i.e. instructions are not reordered around such variables.
+It however is not atomic and does not guarantee that two consequent accesses (e.g. read and increment) could be reordered / interfered with, just as if we used a normal variable
+
+A sequentially consistent memory model enforces that actions of threads become visible in program order.
+
+If we need atomic operations, they are available in \verb|java.util.concurrent.atomic|, e.g. \verb|AtomicInteger|.
+These variables provide the following methods: \verb|get()|, \verb|set(E newValue)|, \verb|compareAndSet(E expect, E newValue)| (CAS operation, which sets if the value of the variable is equal to \verb|expect|) and \verb|getAndSet(E newValue)| (Updates \& returns old value).
+
+We also have the TAS (Test And Set) operation, which is, like CAS, provided by Hardware and allows us to test if value is $0$ to set it to $1$ and get a return of \verb|true| if it was zero.
+
+For TAS based locks, use exponential back-off (wait exponentially longer between accesses)
+
+
+\subsection{Monitors}
+Inside \verb|synchronized| blocks, we can use \verb|wait()| (releases lock and waits to be woken again), \verb|notify()| (wakes up \textit{random} Thread) and \verb|notifyAll()| (wakes up all threads). The \verb|wait()| should \textit{always} be inside a for loop, as the condition could be incorrect when the thread is woken.
+
+If we however want to manually acquire locks with the Java Lock interface, we need to use \verb|Conditions|, which we can obtain using \verb|lock.newCondition()|.
+They offer \verb|await()|, \verb|signal()| and \verb|signalAll()|, which all work similar to their \verb|synchronized| counterparts.
+
+\shade{red}{IMPORTANT} Always use \verb|try-catch-finally| blocks around locked elements to ensure lock is released again to avoid deadlocks
+
+Finally, some concepts for locking:
+\begin{itemize}
+    \item Coarse grained locking: One lock for entire structure, very safe, but very slow
+    \item Fine grained locking: In lists, every element has lock, lock previous and current element, to move through list, lock next, then release previous, move to next. For a list, we then need to lock (\textit{number of elements}) $+ 1$ (for head) for traversal and for insert at the end a further one time for tail.
+    \item Optimistic synchronization: Traverse list without locking, then lock when updating / reading. Much faster, but need to traverse twice and not starvation free. We just need to lock the predecessor and tail to insert and for a contains operation, predecessor and current node.
+\end{itemize}
+Monitor locks are reentrant locks in Java. 
+
+A \verb|static synchronized| method locks the whole class, not just the instance of it.
+
+
+\subsection{Lock-free programming}
+\vspace{-0.7pc}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item Wait-Free $\Rightarrow$ Lock-free
+        \item Wait-Free $\Rightarrow$ Starvation-free
+        \item Lock-Free $\Rightarrow$ Deadlock-free
+        \item Starvation-Free $\Rightarrow$ Deadlock-free
+        \item Starvation-Free $\Rightarrow$ Livelock-free
+        \item Deadlock-Free AND fair $\Rightarrow$ Starvation-free
+    \end{itemize}
+\end{multicols}
+
+To program lock-free, use hardware concurrency features like TAS \& CAS
+
+
+\subsection{ABA-Problem}
+Occurs if a thread fails to recognize that a variable's value was \textit{temporarily} changed (and the changed back to the original), thus not noticing state change
+
+\textbf{\textit{Solutions}}: DCAS (Double Compare And Set, not available on most platforms), GC (Garbage Collection, very slow), Pointer-Tagging (Only delays problem, but practical), Hazard Pointers (Before reading, pointer marked as hazard), Transactional Memory
+
+
+\newsection
+\section{Consistency / Linearisability}
+Between Invocation and Response states, method in pending state.
+
+\textbf{\textit{Linearization}} Each method should appear to take effect \textit{immediately}.
+When deciding whether or not something is linearizable, decide if there is an order of commit such that the desired effects happen.
+A commit can happen at any point during a function's life-cycle and the same applies to a read / dequeue, etc.
+
+\textbf{\textit{History}} Complete sequence of invocations \& responses.
+History linearisable if it can be extended to another one by adding $\geq 0$ responses that took effect, or discard $\geq 0$ pending invocations that have not taken effect (yet).
+It is sequentially consistent, if we can add $\geq 0$ pending responses, or same as before (Linearizability implies Sequential Consistency)
+
+We can check if a history is linearizable, if we can find linearization points such that the responses are correct.
+
+It is sequentially consistent, if we can find a sequential execution order (non-interleaved calls) such that the history is valid.
+We are allowed to move operations of other threads in between to make the result correct, but we are not allowed to change the order of operations in a thread. 
+We may only reorder if the operations are not overlapping.
+\begin{multicols}{2}
+    The below history:
+
+    \verb|A: r.write(2)|\\
+    \verb|A: r:void|\\
+    \verb|A: r.write(1)|\\
+    \verb|A: r:void|\\
+    \verb|B: r.read()|\\
+    \verb|B: r:2|\\
+
+    Can be rewritten as:
+
+    \verb|A: r.write(2)|\\
+    \verb|A: r:void|\\
+    \verb|B: r.read()|\\
+    \verb|B: r:2|\\
+    \verb|A: r.write(1)|\\
+    \verb|A: r:void|\\
+\end{multicols}
+And is thus sequentially consistent. (The history is thus also sequential, as actions between multiple threads are not interleaved)
+
+A more detailed explanation:
+\begin{itemize}
+    \item For Linearisability, we need to respect the program order and the real-time ordering of the method calls (i.e. we can't move them around)
+    \item For sequential consistency, we only need operations done by a single thread to respect program order. Ordering across threads not needed.
+\end{itemize}
+
+
+\section{Consensus}
+$n$ threads should agree on picking one element of e.g. a list. Consensus number is largest number of threads such that the consensus problem can be solved.
+\shortex \smallhspace Atomic reg: 1; CompareAndSwap: $\infty$; wait-free FIFO queue: 2; TAS \& getAndSet: 2
+
+\section{Transactional Memory}
+Atomic by definition, programmer defines atomic code sections. Issue: Still not standardized / WIP
+
+
+\section{Message Passing Interface}
+Used to send messages between threads. Other threads can choose when to handle, if at all
+
+
+
+\end{document}

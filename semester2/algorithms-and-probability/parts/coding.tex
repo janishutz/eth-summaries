@@ -1,0 +1,10 @@
+\newsection
+\section{Coding}
+\label{sec:implementation}
+\subsection{Tricks}
+\begin{itemize}
+    \item Encoding subsets is very easy using bitshift operators. We can use \verb|(i & (1 << j)) != 0| in combination with a loop to go through all subsets of the set. The for-loop will have to go from $i = 1$ (if we want to exclude the empty set) to $i = 2^k - 1$
+    \item Inclusion-Excluison is very powerful
+    \item Always check the what the input values are and expect them to provide bad code (e.g. provided code reads ints, even though we need to read doubles (or long)). An easy way to check if everything is correct, is to print the data import's results and compare with the input files if something looks incorrect
+    \item DP (as always) can come in very handy for solving probabilities related problems
+\end{itemize}

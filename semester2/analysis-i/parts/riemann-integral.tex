@@ -1,0 +1,206 @@
+\newsection
+\section{\tr{Integrals}{Riemann Integral}}
+\subsection{\tr{Definition and integrability}{Definition und Integrabilitätskriterien}}
+\compactdef{Partition} \tr{finite subset}{endliche Teilmenge} $P \subset I$ \tr{where}{wo} $I = [a, b]$ \trand $\{a, b\} \subseteq P$\\
+%
+\tr{Lower sum}{Untersumme}: $\displaystyle s(f, P) := \sum_{i = 1}^{n} f_i \delta_i, \smallhspace f_i = \inf_{x_{i - 1} \leq x \leq x_i} f(x)$,
+\tr{Upper sum}{Obersumme}: $\displaystyle S(f, P) := \sum_{i = 1}^{n} f_i \delta_i, \smallhspace f_i = \sup_{x_{i - 1} \leq x \leq x_i} f(x)$,
+$\delta_i$ sub-interval\\
+%
+\shortlemma \trLet $P'$ \tr{be a specification of}{eine Verfeinerung von} $P$, \tr{then}{dann} $s(f, P) \leq s(f, P') \leq S(f, P') \leq S(f, P)$;
+\tr{for arbitrary}{für beliebige} $P_1, P_2$, $s(f, P_1) \leq S(f, P_2)$\\
+%
+\shortdef $f$ \tr{bounded is integrable if}{beschränkt ist integrierbar falls} $s(f) = S(f)$ \tr{and the integral is}{und das Integral ist} $\displaystyle\int_{a}^{b} f(x) \dx x$\\
+%
+\shorttheorem $f$ \tr{bounded, integrable}{beschränkt, integrierbar} $\Longleftrightarrow \forall \varepsilon > 0 \smallhspace \exists P \in \mathcal{P}(I)$ \trwith $S(f, P) - s(f, P) \leq \varepsilon$ \tr{where}{wobei} $\mathcal{P}(I)$ \tr{is the set of all partitions of $I$}{alle Paritionen von $I$ ist}\\
+%
+\setcounter{all}{8} \shorttheorem $f$ \tr{integrable}{integrierbar} $\Longleftrightarrow \forall \varepsilon > 0 \smallhspace \exists \delta > 0$
+\trst $\forall P \in \mathcal{P}_{\delta}(I), S(f, P) - s(f, P) < \varepsilon$, \tr{where}{wobei} $\mathcal{P}_{\delta}(I)$ \tr{is set of $P$ for which}{die Menge von $P$ wofür} $\displaystyle \max_{1 \leq i \leq n} \delta_i \leq \delta$\\
+%
+\shortcorollary $f$ \tr{integrable with}{integrierbar mit} $A := \int_{a}^{b} f(x) \dx x \Longleftrightarrow \forall \varepsilon >0
+    \smallhspace \exists \delta > 0$ \trst $\forall P \in \mathcal{P}(I)$ \trwith $\delta(P) < \delta$ \trand $\xi_1, \ldots, \xi_n$ \trwith $\xi_i \in [x{i - 1}, x_i]$ \trand $P = \{ x_0, \ldots, x_n \}$, $\displaystyle \left|A - \sum_{i = 1}^{n} f(\xi_i)(x_i - x_{i - 1})\right| < \varepsilon$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Integrable functions}{Integrierbare Funktionen}}
+\shorttheorem $f, g$ \tr{bounded, integrable and}{beschränkt, integrierbar und} $\lambda \in \R$. \tr{Then}{Dann gilt} $f + g$, $\lambda \cdot f$, $f\cdot g$, $|f|$, $\max(f, g)$, $\min(f, g)$ \trand $\frac{f}{g} (\text{\trif } |g(x)| \geq \beta > 0 \smallhspace \forall x \in [a, b]$ \tr{are all integrable}{alle integrierbar}
+%
+\stepcounter{all}\shortcorollary \trLets $P, Q$ \tr{be polynomials and $Q$ has no zeros on $[a, b]$. Then}{Polynome, $Q$ keine Nullstellen auf $[a, b]$, dann}: $[a, b] \rightarrow \R$ \trand $x \mapsto \frac{P(x)}{Q(x)}$ \tr{integrable}{int.}\\
+%
+\compactdef{\tr{uniform continuity}{Gleichmässige Stetigkeit}} \trif
+$\forall \varepsilon > 0 \smallhspace \exists \delta > 0 \smallhspace \forall x, y \in D : |x - y| < \delta \Longrightarrow |f(x) - f(y)| < \varepsilon$
+\stepcounter{all}\shorttheorem $f$ \tr{continuous on compact interval}{stetig auf kompaktem Intervall} $I = [a, b] \Longrightarrow f$ \tr{is uniformly continuous on}{ist gleichmässig stetig auf} $I$
+\shorttheorem $f$ \tr{continuous}{stetig} $\Longrightarrow f$ \tr{integrable}{integrierbar}
+\shorttheorem $f$ \tr{monotone}{monoton} $\Longrightarrow f$ \tr{integrable}{integrierbar}
+%
+\stepcounter{all}\shorttheorem $I \subset \R$ \tr{compact interval with}{kompaktes Intervall mit} $I = [a, b]$ \trand $f_1, f_2$ \tr{bounded, integrable and}{beschränkt, integrierbar und} $\lambda_1, \lambda_2 \in \R$. \\
+\tr{Then}{Dann gilt}: $\displaystyle\int_{a}^{b}(\lambda_1 f_1(x) + \lambda_2 + f_2(x)) \dx x = \lambda_1 \int_{a}^{b} f_1(x) \dx x + \lambda_2 \int_a^b f_2(x) \dx x$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Inequalities and Intermediate Value Theorem}{Ungleichungen und Mittelwertsatz}}
+\shorttheorem $f, g$ \tr{bounded, integrable and}{beschränkt, integrierbar und} $f(x) \leq g(x) \forall x \in [a, b]$, \tr{then}{dann} $\displaystyle\int_{a}^{b} f(x) \dx x \leq \int_{a}^{b} g(x) \dx x$
+%
+\shortcorollary \tr{if $f$ bounded, integrable}{falls $f$ beschränkt, integrierbar}, $\left| \displaystyle\int_{a}^{b} f(x) \dx x\right| \leq \int_{a}^{b} |f(x)| \dx x$
+\shorttheorem \trLet $f, g$ \tr{bounded, integrable, then}{beschränkt, integrierbar, dann} $\left| \displaystyle\int_{a}^{b} f(x) g(x) \dx x \right| \leq \sqrt{\int_{a}^{b} f^2(x) \dx x} \cdot \sqrt{\int_{a}^{b} g^2(x) \dx x}$\\
+%
+\compacttheorem{\tr{Intermediate Value Theorem}{Mittelwertsatz}} $f$ \tr{continuous. Then}{stetig. Dann gilt} $\exists \xi \in [a, b]$ \trst $\displaystyle\int_{a}^{b} \dx x = f(\xi)(b - a)$
+\stepcounter{all}\shorttheorem \trLet $f$ \tr{continuous, $g$ bounded and integrable with}{stetig, $g$ beschränkt und integrierbar mit} $g(x) \geq 0 \smallhspace \forall x \in [a, b]$.
+\tr{Then}{Dann gilt} $\exists \xi \in [a, b]$ \trst $\displaystyle\int_{a}^{b} f(x) g(x) \dx x = f(\xi) \displaystyle\int_{a}^{b} g(x) \dx$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Fundamental theorem of Calculus}{Fundamentalsatz der Differentialrechnung}}
+\begin{theorem}[]{\tr{First Fundamental Theorem of Calculus}{Erster Fundamentalsatz}}
+    \trLet $a < b$ \trand $f: [a, b] \rightarrow \R$ \tr{continuous. The function}{stetig. Die Funktion}
+    \begin{align*}
+        F(x) = \int_{a}^{x} f(t) \dx t, \smallhspace a \leq x \leq b
+    \end{align*}
+    \tr{is differentiable in}{ist differenzierbar in} $[a, b]$ \trand $F'(x) = f(x) \smallhspace \forall x \in [a, b]$
+\end{theorem}
+\shortproof \tr{Split the integral}{Intervall aufteilen}: $\int_{a}^{x_0} f(t) \dx t + \int_{x_0}^{x} f(t) \dx t = \int_{a}^{x} f(t) \dx t$, \tr{so}{also} $F(x) - F(x_0) = \int_{x_0}^{x} f(t) \dx t$.
+\tr{Using the Intermediate Value Theorem, we get}{Mithilfe des Mittelwertsatzes erhalten wir} $\int_{x_0}^{x} f(t) \dx t = f(\xi)(x - x_0)$
+\tr{and for}{und für} $x \neq x_0$ \tr{we have}{ergibt sich} $\frac{F(x) - F(x_0)}{x - x_0} = f(\xi)$
+\tr{and since}{und da} $\xi$ \tr{is between}{zwischen} $x_0$ \trand $x$ \tr{and since}{liegt und da} $f$ \tr{continuous}{stetig ist},
+$\limit{x}{x_0} \frac{F(x) - F(x_0)}{x - x_0} = f(x_0)$ \hspace{10cm} $\square$
+
+\compactdef{\tr{Anti-derivative}{Stammfunktion}} $F$ \trfor $f$ \trif $F$ \tr{is differentiable in}{differenzierbar in} $[a, b]$ \tr{and}{ist und} $F' = f$ in $[a, b]$
+\begin{theorem}[]{\tr{Second Fundamental Theorem of Calculus}{Zweiter Fundamentalsatz}}
+    $f$ \tr{as in 5.4.1. Then there exists an anti-derivative $F$ of $f$ that is uniquely determined bar the constant of integration and}{wie in 5.4.1. Dann existiert eine Stammfunktion $F$ von $f$ die eindeutig bestimmt ist bist auf die Integrationskonstante und}
+    \begin{align*}
+        \int_{a}^{b} f(x) \dx x = F(a) - F(b)
+    \end{align*}
+\end{theorem}
+
+\shortproof \tr{Existence of $F$ given by 5.4.1. If $F_1$ and $F_2$ are anti-derivatives of $f$, then}{Existenz von $F$ gegeben dur 5.4.1. Falls $F_1$ und $F_2$ Stammfunktionen von $f$ sind, dann} $F'_1 - F'_2 = f - f = 0$, i.e. $(F_1 - F_2)' = 0$.
+\tr{From 4.2.5 (1) we have that}{Mithilfe von 4.2.5 (1) erhalten wir, dass} $F_1 - F_2$ \tr{is constant}{konstant ist}.
+\tr{We have}{Wir haben} $F(x) = C + \int_{a}^{x} f(t) \dx t$, \tr{where}{wobei} $C$ \tr{is an arbitrary constant}{eine beliebige Konstante ist}.
+\tr{Especially}{Insbesondere}, $F(b) = C + \int_{a}^{b} f(t) \dx t, F(a) = C$ \tr{and thus}{und deshalb} $F(b) - F(a) = C + \int_{a}^{b} f(t) \dx t - C = \int_{a}^{b} f(t) \dx t$
+
+\stepcounter{all}
+\compacttheorem{\textbf{\tr{Integration by parts}{Partielle Integration}}} $\displaystyle \int_{a}^{b} f(x) g'(x) \dx x = \left[f(x) g(x)\right]^b_a - \int_{a}^{b} f'(x) g(x) \dx x$. \tr{Be wary of cycles}{Aufgepasst mit Zyklen}
+
+\compacttheorem{\textbf{\tr{Integration by substitution}{Integration durch Substitution}}}
+$\phi$ \tr{continuous and differentiable. Then}{stetig und differenzierbar. Dann gilt}
+$\displaystyle \int_{a}^{b} f(\phi(t)) \phi'(t) \dx t = \int_{\phi(a)}^{\phi((b))} f(x) \dx x$
+
+\tr{To use the above, in a function choose the inner function appropriately, differentiate it, substitute it back to get a more easily integrable function}
+{Um das Obige zu Nutzen muss die innere Funktion passend gewählt, abgeleitet und rücksubstituiert werden um eine einfacher integrable Funktion zu erhalten}.
+\setcounter{all}{8}\shortcorollary $I \subseteq \R$ \trand $f: I \rightarrow \R$ \tr{continuous}{stetig}
+\begin{simplebox}[]{teal}
+    \vspace{-0.5pc}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item \trLet $a, b, c \in \R$ \tr{s.t. the closed interval with endpoints}{s.d. das abgeschlossenes Intervall mit Endpunkten} $a + c, b + c$ \tr{is contained in $I$. Then}{in $I$ enthalten ist. Dann gilt}
+                  \begin{align*}
+                      \int_{a + c}^{b + c} f(x) \dx x = \int_{a}^{b} f(t + c) \dx t
+                  \end{align*}
+            \item \trLet $a, b, c \in \R, c \neq 0$ \tr{s.t. the closed interval with endpoints}{s.d. das abgeschlossene Intervall mit Endpunkten} $ac, b$ \tr{is contained in $I$. Then}{in $I$ enthalten ist. Dann gilt}
+                  \begin{align*}
+                      \frac{1}{c} \int_{ac}^{bc} f(x) \dx x = \int_{a}^{b} f(ct) \dx t
+                  \end{align*}
+        \end{enumerate}
+    \end{multicols}
+\end{simplebox}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Integration of converging series}{Integration einer konvergierenden Reihe}}
+\shorttheorem \trLet $f_n: [a, b] \rightarrow \R$ \tr{be a sequence of bounded, integrable functions converging uniformly to $f$. Then $f$ bounded, integrable and}
+{eine Folge von beschränkten, integrierbaren Funktionen die gleichmässig gegen $f$ konvergieren. Dann ist $f$ beschränkt integrierbar und}
+$\limni \int_{a}^{b} f_n(x) \dx x = \int_{a}^{b} f(x) \dx x$
+%
+\shortcorollary $f_n$ \tr{s.t. the series converges. Then}{s.d. die Reihe konvergiert. Dann ist} 
+$\sum_{n = 0}^{\infty} \int_{a}^{b} f_n(x) \dx x = \int_{a}^{b} \left( \sum_{n = 0}^{\infty} f_n(x) \right) \dx x$\\
+\shortcorollary $f(x) = \sum_{n = 0}^{\infty} x_k x^k$ \trwith $\rho > 0$. 
+\tr{Then}{Dann ist} $\forall 0\leq r < \rho$, $f$ \tr{integrable on}{integrierbar auf} $[-r, r]$ \trand $\forall x \in ]- \rho, \rho[, \int_{0}^{x} f(t) \dx t = \sum_{n = 0}^{\infty} \frac{c_n}{n + 1}x^{n + 1}$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{Euler-McLaurin \tr{summation}{Summationsformel}}
+\shortdef $\forall k \geq 0$, \tr{the $k$-th Bernoulli-Polynomial}{das $k$-te Bernoulli Polynom} $B_k(x) = k!P_k(x)$, \tr{where}{wobei} $P_k' = P_{k - 1} \smallhspace \forall k \geq 1$ \trand $\int_{0}^{1} P_k(x) \dx x = 0 \smallhspace\forall k \geq 1$
+%
+\shortdef \trLet $B_0 = 1$. $\forall k \geq 2$ $B_{k - 1}$ \tr{is given recursively by}{ist rekursiv durch} $\sum_{i = 0}^{k - 1} {k \choose i} B_i = 0$ \tr{}{definiert}
+%
+\compacttheorem{\tr{McLaurin Series}{McLaurin Reihe}} $B_k(x) = \sum_{i = 0}^{k} {k \choose i} B_i x^{k - i}$
+%
+\stepcounter{all} \shorttheorem $f$ $k$ \tr{times continuously differentiable}{mal stetig differenzierbar}, $k \geq 1$. \tr{Then for}{Dann gilt für} $\tilde{B_k}(x) = \begin{cases}
+    B_k(x) & \text{\trfor } 0 \leq x < 1\\
+    B_k(x - n ) & \text{\trfor } n \leq x \leq n + 1 \text{ \tr{where}{wobei} } n \geq 1
+\end{cases}$ \tr{that}{dass}
+\vspace{-0.3pc}
+\begin{enumerate}
+    \item \trFor $k = 1$: $\sum_{i = 1}^{n} f(i) = \int_{0}^{n} f(x) \dx x + \frac{1}{2} (f(n) - f(0)) + \int_{0}^{n} \tilde{B_1}(x) f'(x) \dx x$ \mediumhspace
+        \tr{below}{unten}: $\tilde{R_k} = \frac{(-1)^{k - 1}}{k!} \int_0^n \tilde{B_k}(x) f^{(k)}(x) \dx x$
+    \item \trFor $k \geq 2$: $\displaystyle \sum_{i = 1}^{n} f(i) = \int_{0}^{n} f(x) \dx x + \frac{1}{2} (f(n) - f(0)) + \sum_{j = 2}^{k} \frac{(-1)^j B_j}{j!} (f^{(j - 1)}(n) - f^{(j - 1)}(0)) + \tilde{R_k}$,
+          $\displaystyle \tilde{R_k} = \sum_{(-1)^{(k - 1)}}^{k!}\int_{0}^{n} \tilde{B_1}(x) f^{(k)}(x) \dx x$
+\end{enumerate}
+\vspace{-0.2pc}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\vspace{-0.5pc}
+\subsection{\tr{Stirling's Formula}{Stirling'sche Formel}}
+\vspace{-0.2pc}
+\shorttheorem $\displaystyle n! = \frac{\sqrt{2\pi n}n^n}{e^n} \cdot \exp \left( \frac{1}{12n} + R_3(n) \right)$, $|R_3(n)| \leq \frac{\sqrt{3}}{216}\cdot \frac{1}{n^2} \smallhspace \forall n \geq 1$
+\shortlemma $\forall m \geq n + 1 \geq 1: |R_3(m,n)| \leq \frac{\sqrt{3}}{216} \left( \frac{1}{n^2} - \frac{1}{m^2} \right)$
+\vspace{-0.2pc}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\vspace{-0.5pc}
+\subsection{\tr{Improper Integrals}{Uneigentliche Integrale}}
+\vspace{-0.8pc}
+\shortdef $f$ \tr{bounded and integrable on}{beschränkt und integrierbar auf} $[a, b]$. 
+\trIf $\displaystyle \limit{b}{\infty}\int_{a}^{b} f(x) \dx x$ \tr{exists, we denote it}{existiert, wir notieren als} 
+$\int_{a}^{\infty} f(x) \dx x$ \tr{and call $f$ integrable on}{und sagen $f$ ist integrierbar auf} $[a, +\infty[$
+%
+\stepcounter{all}\shortlemma $f: [a, \infty[ \rightarrow \R$ \tr{bounded and integrable on}{beschränkt und integrierbar auf} $[a,b] \forall b > 0$. 
+\trIf $|f(x) \leq g(x) \smallhspace \forall x \geq a$ \trand $g(x)$ \tr{integrable on}{integrierbar auf} $[a, \infty[$, \tr{then}{dann ist} 
+$f$ \tr{is integrable on}{integrierbar auf} $[a, \infty[$. 
+\trIf $0 \leq g(x) \leq f(x)$ \trand $\int_{a}^{\infty} g(x) \dx x$ \tr{diverges, so does}{divergiert, wie auch} $\int_{a}^{\infty} f(x) \dx x$
+%
+\stepcounter{all}\shorttheorem $f:[1, \infty[ \rightarrow [0, \infty[$ \tr{monotonically decreasing}{monoton fallend}. $\sum_{n = 1}^{\infty} f(n)$ \tr{converges}{konvergiert} $\Leftrightarrow \int_{1}^{\infty} f(x) \dx x$ \tr{converges}{konvergiert}
+%
+\setcounter{all}{8} \shortdef \trIf $f: ]a, b]$ \tr{is bounded and integrable on}{ist beschränkt und integrierbar auf} $[a + \varepsilon, b], \varepsilon > 0$, \tr{but not necessarily on}{aber nicht zwingend auf} $]a, b]$, \tr{then}{dann ist} $f$ \tr{is integrable if}{integrierbar falls} 
+$\limit{\varepsilon}{0^+} \int_{a + \varepsilon}^{b} f(x) \dx x$ \tr{exists, then called}{existiert, dann gennant} $\int_{a}^{b} f(x) \dx x$ \\
+%
+\setcounter{all}{11} \compactdef{Gamma function} \trFor $s > 0$ \tr{we define}{definieren wir} $\Gamma (s) := \int_{0}^{\infty} e^{-x}x^{s - 1} \dx x$\\
+%
+\shorttheorem \textbf{\textit{(1)}} $\Gamma(s)$ \tr{fulfills}{erfüllt} $\Gamma(1) = 1$, $\Gamma(s + 1) = s \Gamma(s) \smallhspace \forall s > 0$ \trand $\Gamma(\lambda x + (1 - \lambda)y) \leq \Gamma(x)^\lambda \Gamma(y)^{1 - \lambda} \smallhspace \forall x, y > 0, \smallhspace \forall 0 \leq \lambda \leq 1$\\
+%
+\textbf{\textit{(2)}} $\Gamma(s)$ \tr{sole function}{einzige Funktion} $]0, \infty[ \smallhspace \rightarrow \smallhspace ]0, \infty[$ \tr{that fulfills the above conditions}{die obige Voraussetzungen erfüllt}.
+\tr{Additionally:}{Ausserdem:} $\displaystyle \Gamma(x) = \limni \frac{n!n^x}{x(x + 1) \dots (x + n)} \forall x > 0$
+%
+\shorttheorem \trLet $p, q > 1$ \trwith $\frac{1}{p} + \frac{1}{q} = 1$, \tr{for all}{für alle} $f, g: [a, b] \rightarrow \R$ \tr{continuous, we have}{stetig, dann gilt} $\int_{a}^{b} |f(x) g(x)| \dx x \leq ||f||_p ||g||_q$
+
+
+\newsectionNoPB
+\subsection{\tr{Partial fraction decomposition}{Partialbruchzerlegung}}
+\tr{Used for rational polynomial functions. Start by splitting the fraction into parts (usually factorized, so find zeros)}
+{Wird für rationale Polynom-Funktionen genutzt. Man started mit Aufteilen des Bruchs into (meistens) faktorisierte Teile. Suche Nullstellen}.
+%
+\tr{Split denominator into the found parts, e.g.}{Nenner in gefundene Teile unterteilen, z.B.} $\frac{a}{x - 4} + \frac{b}{x + 2}$,
+\tr{then expand to the same denominator on all fractions}{dann alle Brüche auf denselben Nenner bringen}.
+%
+\tr{Then $p(x)$ (the numerator) of the original fraction has to equal the new fraction's numerator, so use SLE to find coefficients}
+{Dann muss $p(x)$ (der Zähler) des ursprünglichen Bruch gleich dem des neuen Bruchs entsprechen, also Lineares Gleichungssystem zum Finden der Koeffizienten nutzen}.
+%
+\tr{Get the numerator into the form of a polynomial, so e.g.}{Den Zähler in die Form von Polynomen bringen, also z.B.} $(a + b) \cdot x + (2a - 4b)$, 
+\tr{then SLE is}{dann ist das SLE}
+\begin{align*}
+    \begin{vmatrix}
+        2 = a + b \\
+        -4 = 2a - b
+    \end{vmatrix}
+    \Leftrightarrow a = \frac{2}{3}, b = \frac{4}{3} \mediumhspace \text{\tr{for our rational polynomial}{für unser rationales Polynom} } \frac{2x - 4}{x^2 - 2x - 8}
+\end{align*}
+\tr{We can then insert our coefficients into the split fraction (here}{Wir können denn die Koeffizienten in den aufgeteilten Bruch einsetzen (hier} 
+$\frac{a}{x - 4}\ldots$) \tr{and we can integrate normally}{und wir können normal integrieren}

@@ -1,0 +1,177 @@
+\newsection
+\section{\tr{Sequences And Series}{Folgen und Reihen}}
+
+% ────────────────────────────────────────────────────────────────────
+\subsection{\tr{Limits}{Grenzwerte}}
+
+\setcounter{all}{4}
+\shortdef \tr{A sequence $\seq{a}$ is \textbf{\textit{converging}} if}{Eine Folge $\seq{a}$ heisst \textbf{\textit{konvergent}} falls}
+$\exists l \in \R$ \tr{s.t.}{s.d.} $\forall \varepsilon > 0$
+\tr{the set}{die Menge} $\{n \in \N^* : a_n \notin ]l - \varepsilon, l + \varepsilon[\}$
+\tr{is finite. Every convergent sequence is bounded.}{endlich ist. Jede konvergente Folge ist beschränkt.}
+\stepcounter{all}\shortlemma $(a_n)_{n \geq 1}$ \tr{converges to}{konvergiert gegen} $l = \limit{n}{\infty} a_n \Leftrightarrow \forall \varepsilon > 0 \smallhspace \exists N \geq 1$ \tr{such that}{s.d.} $|a_n - l| < \varepsilon \smallhspace \forall n \geq N$
+
+\begin{simplebox}[]{ForestGreen}
+    \stepcounter{all}\shorttheorem $\seq{a}$ \tr{and}{und} $\seq{b}$ \tr{converging}{konvergent}, $a = \limni a_n, b = \limni b_n$. \tr{Then}{Dann gilt}:
+    \vspace{-0.7pc}
+    \begin{multicols}{2}
+        \begin{itemize}
+            \item \textbf{(1)} $(a_n + b_n)_{n \geq 1}$ \tr{converging and}{konvergent und} $\limni (a_n + b_n) = a + b$;
+            \item \textbf{(2)} $(a_n \cdot b_n)$ \tr{converging and}{konvergent} $\limni (a_n \cdot b_n) = a \cdot b$;
+            \item \textbf{(3)} \tr{If additionally}{Falls zudem} $b_n \neq 0 \smallhspace \forall n \geq 1$ \tr{and}{and} $b \neq 0$, \tr{then}{dann gilt} $\left( a_n \div b_n \right)_{n \geq 1}$ \tr{converging and}{konvergent und} $\limni (a_n \div b_n) = a \div b$;
+            \item \textbf{(4)} \trIf $\exists K \geq 1$ \trwith $a_n \leq b_n \smallhspace \forall n \geq K \Rightarrow a \leq b$
+        \end{itemize}
+    \end{multicols}
+\end{simplebox}
+
+\newsectionNoPB
+\subsection{\tr{Weierstrass Theorem}{Der Satz von Weierstrass}}
+\shortdef $\seq{a}$ \bi{\tr{monotonically increasing (decreasing)}{monoton wachsend (fallend)}} \tr{if}{falls} $a_n \leq a_{n + 1}$ ($a_n \geq a_{n + 1}$) $\forall n \geq 1$
+
+\compacttheorem{Weierstrass} $\seq{a}$ \tr{monotonically increasing (decreasing) and bounded from above (below) converges to}
+{monoton wachsend (sinkend) und nach oben (unten) beschränkt konvergiert gegen} $\limni a_n = \sup\{a_n : n \geq 1\}$ ($\limni a_n = \inf\{a_n : n \geq 1\}$),
+\tr{called supremum and infimum respectively}{genannt das Supremum und Infimum}
+\setcounter{all}{6}\shortex \smallhspace $\limni \left( 1 + \frac{1}{n} \right)^n = e$
+
+\compactlemma{Bernoulli \tr{Inequality}{Ungleichung}} $(1 + x)^n \geq 1 + n \cdot x \smallhspace \forall n \in \N, x > -1$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Limit Superior and limit inferior}{Limes Superior und Limes Inferior}}
+\tr{We define for $\seq{a}$ two monotone sequences}{Für $\seq{a}$ definieren wir zwei monotone Folgen} $b_n = \inf \{ a_k : k \geq n \}$ \tr{and}{und} $c_n = \sup \{ a_k : k \geq n \}$,
+\tr{then}{dann ist} $b_n \leq b_{n + 1} \smallhspace \forall n \geq 1$ \tr{and}{und} $c_{n + 1} \leq c_n \smallhspace \forall n \geq 1$, \tr{our series are bounded and converge and we have}{und beide Folgen sind beschränkt. Zudem konvergieren beide und es gilt} $\liminfni a_n := \limni b_n$ \tr{and}{und} $\limsupni a_n := \limni c_n$.
+\tr{We also have}{Ausserdem gilt:} $\liminfni a_n \leq \limsupni a_n$.
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Cauchy-Criteria (Convergence Tests)}{Cauchy Kriterium (Konvergenzkriterien)}}
+\shortlemma $\seq{a}$ \tr{converges if and only if it is bounded and}{konvergiert genau dann, wenn sie beschränkt ist und} $\liminfni a_n = \limsupni a_n$\\
+\compacttheorem{\tr{Cauchy-Criteria}{Cauchy Kriterium}} $\seq{a}$ \tr{converging}{konvergent} $\Leftrightarrow \smallhspace \forall \varepsilon > 0 \smallhspace \exists N \geq 1$ \tr{such that}{so dass} $|a_n - a_m| \leq \varepsilon \smallhspace \forall n, m \geq N$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Bolzano-Weierstrass Theorem}{Der Satz von Bolzano-Weierstrass}}
+\compactdef{\tr{Closed interval}{Abgeschlossenes Intervall}} \tr{Subset}{Teilmenge} $I \subseteq \R$
+\tr{of form as seen below, with length}{der Form wie unten zu sehen und der Länge} $\mathcal{L}(I) = b - a$ (\tr{for}{für} \textit{(1)}) \tr{or}{oder} $\mathcal{L}(I) = +\infty$:
+\vspace{-0.8pc}
+\begin{multicols}{4}
+    \begin{enumerate}[label=\textit{(\arabic*)}]
+        \item $[a, b]; \smallhspace a \leq b; \smallhspace a, b \in \R$
+        \item $[a, +\infty[; \smallhspace a \in \R$
+        \item $]-\infty, a]; \smallhspace a \in \R$
+        \item $]-\infty, +\infty[ = \R$
+    \end{enumerate}
+\end{multicols}
+\vspace{-1.3pc}
+\tr{An interval $I$ is closed}{Ein Intervall $I$ ist abgeschlossen} $\Leftrightarrow$ \tr{for every converging sequence of elements of $I$ the limit is also in $I$}{Für jede konvergente Folge aus Elementen von $I$ auch deren Grenzwerte in $I$ enthalten sind}
+
+\setcounter{all}{5} \compacttheorem{Cauchy-Cantor} \trLet $I_1 \supseteq \ldots \supseteq I_n \supseteq I_{n + 1} \supseteq \ldots$ \tr{a sequence of closed intervals with}{eine Folge abgeschlossener Intervalle mit} $\mathcal{L}(I_i) < +\infty$.
+\tr{Then}{Dann ist} $\bigcap_{n \geq 1}^{\infty} I_n \neq \emptyset$.
+\tr{If additionally}{Falls zudem} $\limni \mathcal{L}(I_n) = 0$, \tr{then the set contains exactly one point.}{dann enthält die Menge genau einen Punkt.}
+\shorttheorem $\R$ \tr{is not countable}{ist nicht abzählbar}
+
+\compactdef{\tr{Subsequence of}{Teilfolge von} $\seq{a}$} $\seq{b}$ \tr{where}{wobei} $b_n = a_{l(n)}$ \tr{and}{und} $l(n) \leq l(n + 1) \smallhspace \forall n \geq 1$
+
+\shorttheorem \textit{(Bolzano-Weierstrass)} \tr{Every bounded sequence has a convergent subsequence. Also:}{Jede beschränkte Folge besitzt eine konvergente Teilfolge. Zudem:}
+$\displaystyle \liminfni a_n \leq \limni b_n \leq \limsupni a_n$
+\vspace{-1pc}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Sequences in other spaces than just real numbers}{Folgen in Räumen ausserhalb der Reellen Zahlen}}
+\shortdef \tr{Sequences in}{Folgen in} $\R^d$ \tr{and}{und} $\C$ \tr{are noted the same as in $\R$}{werden gleich wie in $\R$ notiert}\\
+\shortdef $\seq{a}$ in $\R^d$ \tr{is \textit{converging} if}{heisst \textit{konvergent} falls} $\exists a \in \R^d$ \tr{such that}{so dass} $\forall \varepsilon > 0 \smallhspace \exists N \geq 1$ \trwith $||a_n - a|| \leq \varepsilon \smallhspace \forall n \geq N$\\
+\shorttheorem \trLet $b = (b_1, \ldots, b_n)$ (\tr{coordinates of $b$, since $b$ is a vector}{Koordinaten von $b$, da $b$ ein vektor ist}).
+\tr{Then}{Dann ist} $\limni a_n = b \Leftrightarrow \limni a_{n, j} = b_j \smallhspace \forall 1 \leq j \leq d$\\
+\setcounter{all}{6}\shorttheorem $\seq{a}$ \tr{converges}{konvergiert} $\Leftrightarrow$ $\seq{a}$ \tr{is a Cauchy-Sequence; Every bounded sequence has a converging subsequence.}{ist eine Cauchy-Folge; Jede beschränkte Folge hat eine konvergierende Teilfolge}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Series}{Reihen}}
+\compactdef{\tr{Convergence of a series}{Konvergenz}} $\ser{a}{\infty}$ \tr{converges if}{konvergiert falls} $\seq{S}$ (\tr{sequence of partial sums}{Folge von Partialsummen}) \tr{converges, i.e.}{konvergiert, d.h.} $\ser{a}{\infty} := \limni S_n$\\
+\compactex{\tr{Geometric Series}{Geometrische Reihe}} \tr{Converges with limit}{Konvergiert gegen} $\frac{1}{1 - q}$, \tr{and}{und} $s_n = a_1 \cdot \frac{1 - q^n}{1 - q}$
+\compactex{\tr{Harmonic Series}{Harmonische Reihe}} $\sum_{n = 1}^{\infty}\frac{1}{n}$ \tr{diverges}{divergiert}\\
+\begin{simplebox}[]{ForestGreen}
+    \shorttheorem \tr{Let}{Seien} $\ser{a}{\infty}$ \tr{and}{und} $\ser{b}{\infty}$ \tr{be converging}{konvergent}, $\alpha \in \C$. \tr{Then}{Dann ist}:
+    \begin{enumerate}
+        \item $\displaystyle \sum_{k = 1}^{\infty} (a_k + b_k)$ \tr{converging and}{konvergent und}
+              $\displaystyle \sum_{k = 1}^{\infty} (a_k + b_k) = \left( \sum_{k = 1}^{\infty} a_k \right) + \left( \sum_{k = 1}^{\infty} b_k \right)$
+        \item $\displaystyle \sum_{k = 1}^{\infty} (\alpha \cdot a_k)$ \tr{converging and}{konvergent und}
+              $\displaystyle \sum_{k = 1}^{\infty} (\alpha \cdot a_k) = \alpha \cdot \left( \sum_{k = 1}^{\infty} a_k \right)$
+    \end{enumerate}
+\end{simplebox}
+
+\compacttheorem{\tr{Cauchy-Criteria}{Cauchy Kriterium}} \tr{A series}{Eine Reihe} $\ser{a}{\infty}$ \tr{is converging}{ist konvergent} $\Leftrightarrow \forall \varepsilon > 0 \smallhspace \exists N \geq 1$ \trwith $\left| \sum_{k = n}^{m} a_k \right| \leq \varepsilon \smallhspace \forall m \geq n \geq N$\\
+\shorttheorem $\ser{a}{\infty}$ \trwith $a_k \geq 0 \smallhspace \forall k \in \N^*$ \tr{converges}{konvergiert} $\Leftrightarrow \seq{S}, S_n = \ser{a}{n}$ \tr{is bounded from above}{ist nach oben beschränkt}\\
+\compactcorollary{\tr{Comparison theorem}{Vergleichssatz}} $\ser{a}{\infty}$ \tr{and}{und} $\ser{a}{\infty}$ \trwith $0 \leq a_k \leq b_k \smallhspace \forall k \geq K$ (\tr{where}{wo} $K \geq 1$), \tr{then}{dann gelten}:\\
+\vspace{-0.9pc}
+\begin{center}
+    $\ser{b}{\infty}$ \tr{converging}{konvergent} $\Longrightarrow \ser{a}{\infty}$ \tr{converging}{konvergent} \largehspace $\ser{a}{\infty}$ \tr{diverging}{divergent} $\Longrightarrow \ser{b}{\infty}$ \tr{diverging}{divergent}
+\end{center}
+\stepcounter{all}
+\compactdef{\tr{Absolute convergence}{Absolute Konvergent}} \tr{A series for which}{Eine Reihe für welche} $\sum_{k = 1}^{\infty} |a_k|$ \tr{converges. Using the Cauchy-Criteria we get}{konvergiert. Eine Anwendung des Cauchy Kriteriums liefert}:\\
+\shorttheorem \tr{A series converging absolutely is also convergent and}{Eine absolut konvergente Reihe ist auch konvergent und} $\left| \ser{a}{\infty} \right| \leq \sum_{k = 1}^{\infty} |a_k|$
+
+
+
+\stepcounter{all}
+\fhlc{Cyan}{\tr{Convergence tests}{Konvergenzkriterien}} \largehspace $\sum_{a = 0}^{\infty} \frac{1}{a^p}$ \tr{converges for}{konvergiert für} $n > 1$
+
+\compacttheorem{Leibniz} \trLet $\seq{a}$ \tr{monotonically decreasing with}{monoton fallend mit} $a_n \geq 0 \smallhspace \forall n \geq 1$ \tr{and}{und} $\limni a_n = 0$. \tr{Then}{Dann konvergiert} $S := \sum_{k = 1}^{\infty} (-1)^{k + 1} a_k$ \tr{converges and}{und} $a_1 - a_2 \leq S \leq a_1$\\
+\shade{red}{Usage} \tr{To show convergence, prove that}{Um Konvergenz zu zeigen, beweise dass} $\seq{a}$ \tr{is monotonically decreasing}{monoton fallend ist}, $a_n \geq 0$ \tr{and that the limit is $0$}{und dass der Grenzwert $0$ ist}
+
+
+\setcounter{all}{14}
+\compactdef{\tr{Reordering}{Umordnung}} \tr{A series}{Eine Reihe} $\ser{a'}{\infty}$ \tr{for a}{für eine} $\ser{a}{\infty}$ \tr{if there is a bijection}{falls eine Bijektion gibt} $\phi$ \tr{such that}{so dass} $a'_n = a_{\phi(n)}$\\
+\stepcounter{all}
+\compacttheorem{Dirichlet} \trIf $\ser{a}{\infty}$ \tr{has absolute convergence, every reordering of the series converges to the same limit.}{absolut konvergiert, so konvergiert jede Umordnung der Reihe zum selben Grenzwert.}
+
+\compacttheorem{\tr{Ratio test}{Quotientenkriterium}} \tr{Series $s$ with}{Reihe $s$ mit} $a_n \neq 0 \smallhspace \forall n \geq 1$, $s$ \tr{has absolute convergence if}{konvergiert absolut falls}
+$\displaystyle \limsupni \frac{|a_{n + 1}|}{|a_n|} < 1$. \trIf $\displaystyle \liminfni \frac{|a_{n + 1}|}{|a_n|} > 1$ \tr{it diverges. If any of the two limits are $1$, the test was inconclusive}{divergiert sie. Falls einer der Grenzwerte gleich $1$ ist, dann war der Test nicht eindeutig.}
+
+\compacttheorem{\tr{Root test}{Wurzelkriterium}} \trIf $\displaystyle \limsupni \sqrt[n]{|a_n|} < 1$ \tr{the series converges. If the limit is larger than one, it diverges}{konvergiert die Folge. Falls der Grenzwert grösser als eins ist, divergiert sie}
+
+\compactcorollary{\tr{Radius of convergence}{Konvergenzradius}} \tr{A power series of form}{Eine Potenzreihe der Form} $\sum_{k = 0}^{\infty} c_k z^k$ \tr{has absolute convergence for all}{konvergiert absolut für alle} $|z| < \rho$ \tr{and diverges for all}{und divergiert für alle} $|z| > \rho$.
+\trLet $l = \limsupni \sqrt[k]{|c_k|}$, \tr{then}{dann ist} $\rho = \begin{cases}
+        +\infty     & \text{\trif } l = 0 \\
+        \frac{1}{l} & \text{\trif } l > 0
+    \end{cases}$.
+\tr{The \textit{radius of convergence} is then given by}{Der \textit{Konvergenzradius} ist dann definiert durch} $\rho$ \trif $\rho \neq \infty$
+
+
+% ────────────────────────────────────────────────────────────────────
+\fhlc{Cyan}{\tr{Double series}{Doppelreihen}}
+
+\setcounter{all}{22} \shortdef \tr{For a double series}{Für eine Doppelreihe} $\sum_{i, j \geq 0}^{\infty} a_{ij}$, $\sum_{k = 0}^{\infty} b_k$ \tr{is a \bi{linear arrangement} if there exists a bijection}{ist eine \bi{lineare Anordnung} falls eine Bijektion} $\sigma$ \tr{s.t.}{existiert s.d.} $b_k = a_{\sigma(k)}$
+
+\begin{simplebox}[]{ForestGreen}
+    \compacttheorem{Cauchy} \tr{Assume}{Wir nehmen an,} $\exists B \geq 0$ \tr{s.t.}{s.d.} $\displaystyle \sum_{i = 0}^{m} \sum_{j = 0}^{m} |a_{ij}| \leq B \smallhspace \forall m \geq 0$.
+    \tr{Then}{Dann gilt}: $\displaystyle S_i := \sum_{j = 0}^{\infty}a_{ij} \smallhspace \forall i \geq 0$ \tr{and}{und} $\displaystyle U_j := \sum_{i = 0}^{\infty} a_{ij} \smallhspace j \geq 0$ 
+    \tr{have absolute convergence, as well as}{konvergieren absolute, sowie} $\displaystyle \sum_{i = 0}^{\infty} S_i$ \tr{and}{und} $\displaystyle\sum_{j = 0}^{\infty} U_j$
+    \tr{and we have}{und es gilt}: $\displaystyle \sum_{i = 0}^{\infty} S_i = \sum_{j = 0}^{\infty} U_j$.\\
+    \tr{Every linear double series has absolute convergence with same limit.}{Jede lineare Anordnung konvergiert absolut mit demselben Grenzwert.}
+\end{simplebox}
+
+\compactdef{\tr{Cauchy-Product}{Cauchy Produkt}} $\displaystyle \sum_{n = 0}^{\infty} \left( \sum_{j = 0}^{n} a_{n - j}b_j \right) = a_0 b_0 + (a_0 b_1 + a_1 b_0) + (a_0 b_2 + a_1 b_1 + a_2 b_0) + \dots$ \tr{for two series}{für zwei Folgen} $\displaystyle \sum_{i = 0}^{\infty} a_i, \smallhspace \sum_{j = 0}^{\infty} b_j$
+
+\stepcounter{all}
+\shorttheorem \tr{If two series have absolute convergence, their Cauchy-Product converges and it is the terms of the two series expanded.}
+{Falls zwei Reihen absolut konvergieren, so knovergiert auch ihr Cauchy Produkt und es besteht aus den ausmultiplizierten Termen der zwei Reihen.}
+
+\shorttheorem \tr{Let $f_n$ be a sequence. We assume that:}{Sei $f_n$ eine Folge. Wir nehmen an, dass:}
+\vspace{-0.7pc}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $f(j) := \limni f_n(j)$ \tr{exists}{existiert} $\forall j \in \N$
+        \item $\exists g$ \tr{s.t.}{s.d.} $|f_n(j)| \leq g(j) \smallhspace \forall j, n \geq 0$ \tr{and}{und} $\sum_{j = 0}^{\infty} g(j)$ \tr{converges}{konvergiert}
+    \end{itemize}
+    \tr{Then}{Dann folgt} $\displaystyle\sum_{j = 0}^{\infty} f(j) = \limni \sum_{j = 0}^{\infty} f_n(j)$
+\end{multicols}
+
+\vspace{-0.7pc}
+\shortcorollary \tr{For every}{Für jedes} $z \in \C$ \tr{we have}{konvergiert die Folge und es gilt} $\displaystyle \limni \left( 1 + \frac{z}{n} \right)^n = \exp(z)$ \tr{and it converges, where}{wo} $\exp(z) := 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \dots$

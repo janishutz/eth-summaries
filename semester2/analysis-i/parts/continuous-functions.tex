@@ -1,0 +1,212 @@
+\newsection
+\section{\tr{Continuous Functions}{Stetige Funktionen}}
+\subsection{\tr{Real-Valued functions}{Reellwertige Funktionen}}
+\begin{simplebox}[]{blue}
+    \compactdef{\tr{Bounds}{Beschränkung}} \trLet $f \in \R^D$, \tr{where $\R^D$ is the set of all functions}{wobei $\R^D$ die Menge aller Funktionen} $f: D \rightarrow \R$\tr{, which is a vector space}{ ist, d.h. $\R^D$ ist ein Vektorraum}
+    \begin{itemize}
+        \item $f$ \tr{is \bi{bounded from above} if}{ist \bi{nach oben beschränkt}, falls}
+              $f(D) \subseteq \R$ \tr{is bounded from above}{nach oben beschränkt ist}.
+        \item $f$ \tr{is \bi{bounded from below} if}{ist \bi{nach unten beschränkt}, falls}
+              $f(D) \subseteq \R$ \tr{is bounded from below}{nach unten beschränkt ist}.
+        \item $f$ \tr{is \bi{bounded} if}{ist \bi{beschränkt} falls}
+              $f(D) \subseteq \R$ \tr{is bounded}{beschränkt ist}.
+    \end{itemize}
+\end{simplebox}
+\begin{simplebox}[]{blue}
+    \compactdef{\tr{Monotonicity}{Monotonie}} \trIf $D \subseteq \R$ \tr{we have the following terms for monotonicity}{gibt es die folgenden Monotoniebegriffe}:
+    \begin{itemize}
+        \item \tr{\bi{monotonically increasing} if}
+              {\bi{monoton wachsend}}
+              $\forall x, y \in D$ $x \leq y \Rightarrow f(x) \leq f(y)$
+        \item \tr{\bi{strictly monotonically increasing} if}
+              {\bi{streng monoton wachsend}, falls}
+              $\forall x, y \in D$ $x < y \Rightarrow f(x) < f(y)$
+        \item \tr{\bi{monotonically decreasing} if}
+              {\bi{monoton fallend}, falls}
+              $\forall x, y \in D$ $x \leq y \Rightarrow f(x) \geq f(y)$
+        \item \tr{\bi{strictly monotonically decreasing} if}
+              {\bi{streng monoton fallend}, falls}
+              $\forall x, y \in D$ $x < y \Rightarrow f(x) > f(y)$
+        \item \tr{\bi{monotone} if $f$ is monotonically increasing or monotonically decreasing}
+              {\bi{monoton}, falls $f$ monoton wachsend oder monoton fallend ist}
+        \item \tr{\bi{strictly monotone} if $f$ is strictly monotonically increasing or strictly monotonically decreasing}
+              {\bi{streng monoton}, falls $f$ streng monoton machsend oder streng monoton fallend ist}
+    \end{itemize}
+\end{simplebox}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Continuity}{Stetigkeit}}
+\shade{teal}{Intuition:} \tr{we can draw a continuous function without lifting the pen}{Eine stetige Funktion kann ohne den Stift zu heben gezeichnet werden}.
+
+\compactdef{\tr{Continuity of $f$ in $x_0$}{Stetigkeit von $f$ in $x_0$}} \tr{If for every}{Falls für jedes} $\varepsilon > 0$ \tr{exists a}{ein} $\delta$ \tr{s.t.}{existiert, s.d.} $|x - x_0| < \delta \Rightarrow |f(x) - f(x_0)| < \varepsilon$
+\compactdef{\tr{Continuity}{Stetigkeit}} $f$ \tr{continuous if continuous in all points of $D$}{stetig falls $f$ in allen Punkten von $D$ stetig ist}
+\stepcounter{all} \shorttheorem $f$ \tr{is continuous in}{ist stetig in} $x_0 \Longleftrightarrow$ \tr{for}{für} $\seq{a}$ $\limni a_n = x_0 \Rightarrow f(a_n) = f(x_0)$
+
+\shortcorollary \trLets $f$, $g$ \tr{continuous in $x_0$, then}{stetig in $x_0$, dann gilt} $f + g$, $\lambda \cdot f$, $f \cdot g$, $f \circ g$ \tr{are continuous in $x_0$ and if}{sind stetig in $x_0$ und falls} $g(x_0) \neq 0$,
+\tr{}{ist} $\frac{f}{g}$ \tr{is continuous in $x_0$ for}{stetig in $x_0$ für} $\frac{f}{g}: D \cap \{ x \in D : g(x) \neq 0 \} \rightarrow \R$
+
+\compactdef{\tr{Polynomial function}{Polynomiale Funktion}} $P(x) = a_n x^n + \ldots + a_0$, \trif $a_n \neq 0$, $\deg(P) = n$ (\tr{degree of}{Grad von} $P$)
+\shortcorollary \tr{They are continuous on all of}{Sie sind stetig auf ganz} $\R$
+\shortcorollary $P, Q$ pol. \tr{func. on}{funk. auf} $\R$ \trwith $Q \neq 0$, \tr{where}{wobei} $x_1, \ldots, x_m$ \tr{are zeros of $Q$. Then}{die Nullstellen von $Q$ sind. Dann gilt}: $\frac{P}{Q} : \R \backslash \{x_1, \ldots, x_m\} \rightarrow \R$ \tr{is continuous}{ist stetig}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Intermediate value theorem}{Zwischenwertsatz}}
+\shorttheorem \trLet $I \subseteq \R$ \tr{be an interval}{ein Intervall}, $f: I \rightarrow \R$ \tr{a continuous function and}{eine stetige Funktion und} $a, b \in I$.
+\tr{For each $c$ between $f(a)$ and $f(b)$ exists a $z$ between $a$ and $b$ with}{Für jedes $c$ zwischen $f(a)$ und $f(b)$ existiert ein $z$ zwischen $a$ und $b$ mit} $f(z) = c$
+\shortcorollary \tr{Let $P$ be a polynomial with}{Sei $P$ ein Polynom mit} $\deg(P) = n$, $n$ \tr{odd. Then,}{ungerade. Dann hat} $P$ \tr{has \textit{at least} one zero in}{\textit{mind.} eine Nullstelle in} $\R$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{Min-Max-\tr{Theorem}{Satz}}
+\stepcounter{all}\compactdef{\tr{Compact interval}{Kompaktes Intervall}} \tr{if interval $I$ is of form}{falls das Intervall $I$ von der Form} $I = [a, b], \smallhspace a \leq b$ \tr{}{ist}
+\shortlemma $f, g$ \tr{continuous in $x_0$. Then}{stetig in $x_0$. Dann gilt}: $|f|$, $\max(f, g)$ \tr{and}{und} $\min(f, g)$ \tr{are continuous in}{sind stetig in} $x_0$ ($\min(f, g)$ \tr{is the minimum of the two functions at each}{ist das Minimum der beiden Funktionen für jedes} $x$)
+\shortlemma $\seq{x}$ \tr{converging series in $\R$ with}{konvergente Reihe in $\R$ mit} $\displaystyle \limni x_n \in \R$ \trand $a \leq b$.
+\trIf $\{ x_n : n \geq 1 \} \subseteq [a, b]$ \tr{we have}{dann gilt} $\displaystyle \limni x_n \in [a, b]$
+%
+\shorttheorem \trLet $f$ \tr{continuous on compact interval $I$. Then}{stetig auf dem kompakten Intervall $I$. Dann gilt}
+$\exists u \in I$ \trand $\exists v \in I$ \trwith $f(u) \leq f(x) \leq f(v) \smallhspace \forall x \in I$. $f$ \tr{is bounded}{ist beschränkt}.
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Inverse function theorem}{Satz über die Umkehrabbildung}}
+\shorttheorem \trLets $D_1, D_2 \subseteq \R$, $f: D_1 \rightarrow D_2$, $g: D_2 \rightarrow \R$, $x_0 \in D_1$.
+\trIf $f$ \tr{cont. in}{stetig in} $x_0$, $g$ \tr{in}{auf} $f(x_0)$ \tr{then}{dann} $f \circ g : D_1 \rightarrow \R$ \tr{is continuous in}{stetig in} $x_0$\\
+%
+\shortcorollary \tr{If in theorem 3.5.1 $f$ continuous on}{Falls in Satz 3.5.1 $f$ stetig auf} $D_1$ \trand $g$ \tr{on}{auf} $D_2$, \tr{then}{dann ist} $g \circ f$ \tr{is continuous on}{stetig auf} $D_1$\\
+\compacttheorem{\tr{Inverse function theorem}{Satz über Umkehrabbildung}} \trLet $f: I \rightarrow \R$ \tr{continuous, strictly monotone and let}{stetig, streng monoton und sei} $I \subseteq \R$ \tr{be an interval. Then}{ein Intervall. Dann gilt}: $J: = f(I) \subseteq \R$ \tr{is an interval and}{ist ein Intervall und} $f^{-1}: J \rightarrow I$ \tr{continuous and strictly monotone}{ist stetig und streng monoton}.
+% \mediumhspace This means that a function is invertible $\Leftrightarrow$ $f$ is continuous and strictly monotone
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Real-Valued exponential function}{Reellwertige Exponentialfunktion}}
+\tr{The exponential function}{Die Exponentialfunktion} $\exp: \C \rightarrow \C$ \tr{is usually given by a power series converging on all $\C$}{wird normalerweise durch eine auf ganz $\C$ konvergente Potenzreihe definiert}:
+$\displaystyle \exp(z) := \sum_{n = 0}^{\infty} \frac{z^n}{n!}$, \tr{here for}{hier für} $z \in \R$. $\exp$ \tr{is bijective, continuous, strictly monotonically increasing and smooth}{ist bijektiv, streng monoton wachsend, glatt und stetig}. $\exp^{-1}(x) = \ln(x)$
+
+\vspace{-0.5pc}
+\shorttheorem $\exp: \R \rightarrow ]0, +\infty[$ \tr{is strictly monotonically increasing, continuous and surjective}{ist streng monoton wachsend, stetig und surjektiv}
+\shortcorollary $\exp(x) > 0 \smallhspace \forall x \in \R$\\
+\shortcorollary $\exp(z) > \exp(y) \smallhspace \forall z > y$
+\shortcorollary $\exp(x) \geq 1 + x \smallhspace \forall x \in \R$
+%
+\shortcorollary $\ln: ]0, +\infty[ \rightarrow \R$
+\tr{is strictly monotonically increasing, continuous and bijective. We have}{ist streng monoton wachsend, stetig und bijektiv. Es gilt}
+$\ln(a \cdot b) = \ln(a) + \ln(b) \smallhspace \forall a, b \in ]0, +\infty[$. \tr{It is the inverse function of}{Dies ist die Umkehrabbildung von} $\exp$
+\shortcorollary
+
+\begin{simplebox}[]{teal}
+    \begin{enumerate}
+        \item \trFor $a > 0 \smallhspace ]0, +\infty[ \smallhspace \rightarrow \smallhspace ]0, +\infty[$ \tr{}{ist} $x \mapsto x^a$ \tr{is a continuous, strictly monotonically increasing bijection}{eine stetige, streng monoton wachsende Bijektion}.
+        \item \trFor $a < 0 \smallhspace ]0, +\infty[ \smallhspace \rightarrow \smallhspace ]0, +\infty[$ \tr{}{ist} $x \mapsto x^a$ \tr{is a continuous strictly monotonically decreasing bijection}{eine stetige, streng monoton fallende Bijektion}.
+    \end{enumerate}
+    \vspace{-0.8pc}
+    \begin{multicols}{3}
+        \begin{enumerate}
+            \setcounter{enumi}{2}
+            \item $\ln(x^a) = a \ln(x) \smallhspace \forall a \in \R, \smallhspace \forall x > 0$
+            \item $x^a \cdot x^b = x^{a + b} \smallhspace \forall a, b \in \R, \smallhspace \forall x > 0$
+            \item $(x^a)^b = x^{a \cdot b} \smallhspace \forall a, b \in \R, \smallhspace \forall x > 0$
+        \end{enumerate}
+    \end{multicols}
+\end{simplebox}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsection
+\subsection{\tr{Convergence of sequences of functions}{Konvergenz von Funktionenfolgen}}
+\compactdef{\tr{Pointwise convergence}{Punktweise Konvergenz}} $\seq{f}$ \tr{converges pointwise towards a function}{konvergiert punktweise gegen eine Funktion} $f: D \rightarrow \R$ \tr{if for all}{falls für alle} $x \in D \smallhspace f(x) = \limni f_n(x)$\\
+%
+\stepcounter{all} \compactdef{Weierstrass} \tr{Sequence $f_n$ converges uniformly in $D$ to $f$ if}{Folge $f_n$ konv. gleichmässig in $D$ gegen $f$ falls}
+$\forall \varepsilon > 0 \smallhspace \exists N \geq 1$ \tr{s.t.}{s.d.} $\forall n \geq N, \smallhspace \forall x \in D: |f_n(x) - f(x)| < \varepsilon$\\
+%
+\shorttheorem $f_n$ \tr{sequence of (in $D$) continuous functions converging to $f$ uniformly in $D$. Then, $f$ is continuous (in $D$)}
+{ist eine Folge von (in $D$) stetigen Funktionen die in $D$ gleichmässig konvergieren. Dann ist $f$ (in $D$) stetig}\\
+%
+\compactdef{\tr{Uniform convergence of}{Gleichmässige Konvergenz von} $\seq{f}$)} $f_n$ \trif $\forall x \in D \smallhspace f(x) : = \limni f_n(x)$ \tr{exists and}{existiert und} $\seq{f}$ \tr{converges uniformly to $f$}{gleichmässig gegen $f$ konvergiert}\\
+%
+\shortcorollary $f_n$ \tr{converges uniformly in}{konvergiert gleichmässig in} $D \Longleftrightarrow \forall \varepsilon > 0 \smallhspace \exists N \geq 1$ \tr{such that}{so dass} $\forall n, m \geq N, \smallhspace \forall x \in D \smallhspace |f_n(x) - f_m(x)| < \varepsilon$\\
+%
+\shortcorollary \trIf $f_n$ \tr{is a uniformly converging sequence of functions, then}{eine gleichmässig konvergierende Funktionenfolge ist, dann ist} $f(x) := \limni f_n(x)$ \tr{is continuous}{stetig}\\
+%
+\shortdef $\displaystyle \sum_{k = 0}^{\infty} f_k(x)$ \tr{converges uniformly if}{konvergiert gleichmässig, falls} $\displaystyle S_n(x) := \sum_{k = 0}^{n} f_k(x)$ \tr{does}{gleichmässig konvergiert}
+\shorttheorem \tr{Assume}{Angenommen, dass} $|f_n(x)| \leq c_n \smallhspace \forall x \in D$ \tr{and that}{und dass} $\displaystyle \sum_{n = 0}^{\infty} c_n$ \tr{converges}{konvergiert}.
+\tr{Then}{Dann konvergiert} $\sum_{n = 0}^{f_n(x)}$ \tr{converges uniformly in}{gleichmässig in} $D$ \trand $f(x) := \sum_{n = 0}^{\infty} f_n(x)$ \tr{is continuous in}{ist stetig in} $D$\\
+\compactdef{\tr{Radius of convergence}{Konvergenzradius}} \tr{See}{Siehe} \shade{teal}{\tr{C}{K} 2.7.19}
+\shorttheorem \tr{A power series converges uniformly on}{Eine Potenzreihe konvergiert gleichmässig auf} $]-r, r[$ \tr{where}{wobei} $0 \leq r < \rho$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Trigonometric Functions}{Trigonometrische Funktionen}}
+\shorttheorem $\sin: \R \rightarrow \R$ \trand $\cos: \R \rightarrow \R$ \tr{are continuous functions}{sind stetige Funktionen}
+\shorttheorem
+\begin{simplebox}[]{ForestGreen}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item $\exp iz = \cos(z) + i \sin(z) \smallhspace \forall z \in \C$
+            \item $\cos(z) = \cos(-z)$ and $\sin(-z) = - \sin(z) \smallhspace \forall z \in \C$
+            \item $\displaystyle \sin(z) = \frac{e^{iz} - e^{-iz}}{2i}; \smallhspace \cos(z) = \frac{e^{iz} + e^{iz}}{2}$
+            \item $\sin(z + w) = \sin(z) \cos(w) + \cos(z) \sin(w)$\\
+                  $\cos(z + w) = \cos(z) \cos(w) - \sin(z) \sin(w)$
+            \item $\cos(z)^2 + \sin(z)^2 = 1 \smallhspace z \in \C$
+        \end{enumerate}
+    \end{multicols}
+\end{simplebox}
+\shortcorollary $\sin(2z) = 2 \sin(z) \cos(z)$ and $\cos(2z) = \cos(z)^2 - \sin(z)^2$
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{Pie (delicious)}
+\shorttheorem \tr{The sine function has at least one zero on}{Die Sinusfunktion hat mindestens eine Nullstelle auf} $]0, +\infty[$ \trand $\pi := \inf\{ t > 0 : \sin(t) = 0\}$.
+\tr{Then}{Dann gilt} $\sin(\pi) = 0, \smallhspace \pi \in ]2, 4[$; $\forall x \in ]0, \pi[ : \sin(x) > 0$ and $e^{\frac{i\pi}{2}} = i$
+\shortcorollary $x \geq \sin(x) \geq x - \frac{x^3}{3!} \smallhspace \forall 0 \leq 0 \leq \sqrt{6}$ \shortcorollary
+\begin{simplebox}[]{teal}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item $e^{i\pi} = -1, \smallhspace e^{2i \pi} = 1$
+            \item $\sin\left( x + \frac{\pi}{2} \right)$, $\cos \left(x + \frac{\pi}{2}\right) = -\sin(x) \smallhspace \forall x \in \R$
+            \item $\sin(x + \pi) = -\sin(x)$, $\sin(x + 2\pi) = \sin(x) \smallhspace \forall x \in \R$
+            \item $\cos(x + \pi) = -\cos(x)$, $\cos(x + 2\pi) = \cos(x) \smallhspace \forall x \in \R$
+        \end{enumerate}
+    \end{multicols}
+    \vspace{-1.8pc}
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \setcounter{enumi}{4}
+            \item \tr{Zeros of sine}{Nullstellen von Sinus} = $\{ k \cdot \pi : k \in \Z \}$\\
+                  $\sin(x) > 0 \smallhspace \forall x \in ]2k\pi, (2k + 1)\pi[, \smallhspace k \in \Z$
+                  $\sin(x) > 0 \smallhspace \forall x \in ](2k + 1)\pi, (2k + 2)\pi[, \smallhspace k \in \Z$
+            \item \tr{Zeros of cosine}{NullStellen von Cosinus} = $\{ \frac{\pi}{2} \cdot k \cdot \pi : k \in \Z \}$\\
+                  $\cos(x) > 0 \smallhspace \forall x \in ]-\frac{\pi}{2} + 2k\pi, -\frac{\pi}{2} + (2k + 1)\pi[, \smallhspace k \in \Z$
+                  $\cos(x) > 0 \smallhspace \forall x \in ]-\frac{\pi}{2} + (2k + 1)\pi, -\frac{\pi}{2} + (2k + 2)\pi[, \smallhspace k \in \Z$
+        \end{enumerate}
+    \end{multicols}
+\end{simplebox}
+
+
+% ────────────────────────────────────────────────────────────────────
+\newsectionNoPB
+\subsection{\tr{Limits of functions}{Grenzwerte von Funktionen}}
+\compactdef{\tr{Cluster point}{Häufungspunkt}}\tr{DE: ``Häufungspunkt''}:
+$x_0 \in \R$ \tr{of}{von} $D$ \trif $\forall \delta > 0 \smallhspace (]x_0 - \delta, x_0 + \delta[ \backslash \{ x_0 \}) \cap D \neq \emptyset$\\
+%
+\stepcounter{all}\shortdef $A \in \R$ \tr{is the limit of $f(x)$ for}{ist der Grenzwert von $f(x)$ für} $x \rightarrow x_0$ \tr{denoted}{bezeichnet} $\limit{x}{x_0} f(x) = A$, \tr{where $x_0$ is a cluster point, if}{wobei $x_0$ ein Häufungspunkt ist, falls}:
+\vspace{-0.5pc}
+\begin{align*}
+    \forall \varepsilon \smallhspace \exists \delta > 0 \text{ s.t. } \forall x \in D \cap (]x_0 - \delta, x_0 + \delta[ \backslash \{ x_0 \}) : |f(x) - A| < \varepsilon
+\end{align*}
+\vspace{-2.2pc}
+
+\setcounter{all}{6}\shorttheorem \trLets $D, E \subseteq \R$, $x_r$ \tr{a cluster point of $D$ and}{ein Häufungspunkt von $D$ und} $f: D \rightarrow E$ \tr{a function. Assume that}{eine Funktion. Angenommen, dass} $y_0 := \limit{x}{x_0}$ \tr{exists and}{existiert und} $y_0 \in E$. \trIf $g: E \rightarrow \R$ \tr{is continuous in $y_0$, we have}{in $y_0$ stetig ist, dann gilt} $\limit{x}{x_0} g(f(x)) = g(y_0)$
+
+
+\fhlc{Cyan}{\tr{Left / Right hand limit}{Links- / Rechtsseitige Grenzwerte}}
+
+\tr{Used when we have functions with poles, we approach them from both sides to evaluate said pole. Differently from at Kanti, we note it}{Wird gebraucht, wenn Funktionen Polstellen haben. Wir nähhern uns der Polstelle von beiden Seiten an, um sie zu evaluieren. Anders als an der Kanti notieren wir sie mit} $x \rightarrow x_0^-$ \tr{instead of}{anstelle von mit} $x \uparrow x_0$
