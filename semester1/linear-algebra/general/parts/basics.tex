@@ -1,0 +1,73 @@
+\newsectionNoPB
+\section{Vectors}
+\label{sec:vectors}
+\fhlc{Orange}{\textit{SIMPLIFY RESULTS AS MUCH AS POSSIBLE}} ($21 \div 12 = 7 \div 4$)
+
+\setcounter{all}{4}
+\shortdef \textbf{Linear Combination}: $\sum_{i=1}^{n} \lambda_i v_i$, scaled combination of $n$ vectors $v_i$. 
+
+\setcounter{all}{7}
+\shortdef It is called an \textbf{Affine Combination} if $\sum_{i=1}^{n} \lambda_i = 1$, a \textbf{Conic Combination} if $\lambda_i \geq 0$ for $i = 1, 2, \ldots, n$ and a \textbf{Convex Combination} if it is affine and conic. Linear combination as a matrix: $Ax = b$, where the matrix's columns are the vectors $v_i$ and $x$'s components are $\lambda_i$
+%
+\setcounter{all}{9}
+\shortdef \textbf{Scalar-Product}: Multiply component wise, add all components together. Results in number, alternatively $v^{\top}w$ (S2.2.3), or $\sum_{i = 1}^{n} v_i w_i$;
+
+\begin{wrapfigure}[10]{l}{0.5\textwidth}
+    \includegraphics[width=0.5\textwidth]{/home/janis/NextCloud/Documents/ETH/Semester1/Subjects/LinAlg/Summary/combinations.png}
+    \caption{Different kinds of combinations of two vectors}\label{fig:combinations}
+\end{wrapfigure}
+
+\textbf{Dot-Free Notation}: Similar to summation notation, we can use it to define e.g. vector addition: $[v_i]_{i=1}^{m} + [w_i]_{i=1}^{m} := [v_i + w_i]_{i=1}^{m}$;
+\setcounter{all}{11}\shortdef \textbf{Euclidean Norm}: $||v|| = \sqrt{v \cdot v} = \sqrt{v^{\top}v}$;
+\textbf{Squared norm}: $v^{\top}v = ||v||^2$
+\textbf{Unit-Vector}: $||v|| = 1$, obtaining: $\frac{v}{||v||} = \frac{1}{||v||} \cdot v$;
+\shortlemma \textbf{Cauchy-Schwarz inequality}: $|v \cdot w| \leq ||v|| \cdot ||w||$ for any vectors $v, w \in \R^m$. Equality if $v\lambda = w$ or $w\lambda = v$;
+\setcounter{all}{14}\shortdef \textbf{Angles}: $\cos(\alpha) = \frac{v \cdot w}{||v|| \cdot ||w||}$. If $v \perp w \in \R^m$, then $v \cdot w = 0$;
+\setcounter{all}{16}\shortlemma \textbf{Triangle inequality}: $||v + w|| \leq ||v|| + ||w||$;
+\textbf{Hyperplane}: $\{v \in \R^n : v \cdot d = 0\}$, $d \in \R^n$, $d \neq 0$;
+\setcounter{all}{19}\shortlemma \textbf{Linear independence}: Vectors are linearly independent if (a) no vector is a linear combination of the others or (b) there are no $\lambda_i$, such that $\sum_{i = 1}^{n} \lambda_i v_i = 0$. For matrices: $\neg \exists x \neq 0 : Ax = 0$ (no column vector is a linear combination of another).
+\setcounter{all}{22}\shortdef \textbf{Span of vectors}: Set of all linear combinations of a vector;
+\textbf{Standard Basis vector}: Vector with just one component being $1$, all others $0$;
+
+
+
+\newsectionNoPB
+\section{Matrices}
+\label{sec:matrices}
+
+
+\textbf{Size}: $m \times n$: $m$ rows, $n$ cols (\textit{\textbf{Z}eilen \textbf{z}uerst, \textbf{S}palten \textbf{s}päter});
+\setcounter{all}{2}\shortdef \textbf{Addition}: $A + B := [a_{ij} + b_{ij}]_{i = 1, j = 1}^{m \hspace{3mm} n}$;
+\textbf{Scalar-multiple}: $\lambda A := [\lambda a_{ij}]_{i = 1, j = 1}^{m \hspace{3mm} n}$;
+\shortdef \textbf{Square matrices}: \textbf{Identity matrix}: quadratic matrix, diagonals $1$, $A = AI = IA$;
+\textbf{Diagonal matrix}: $a_{ij} = 0$ if $i \neq j$;
+\textbf{Triangle matrix}: \textit{lower} if $a_{ij} = 0$ for $i < j$, \textit{upper} else;
+\textbf{Symmetric matrix}: $a_{ij} = a_{ji} \forall i, j$,  $A^{\top} = A$;
+
+\shortdef \textbf{Matrix-Vector-Product}: Rows of matrix ($m \times n$) with vector ($n$ elements), i.e. $u_1 = \sum_{i = 1}^{m} a_{1, i} \cdot v_i$, $Ix = x$;
+\textbf{Trace}: Sum of the diagonal entries;
+
+\setcounter{all}{8}\shortdef \textbf{Column Space}: $\{Ax : x \in \R^n\}$, i.e. the span of the column vectors;
+\shortdef \textbf{Rank}: $\text{rank}(A) :=$ the number of linearly independent column vectors;
+\setcounter{all}{11}\shortdef \textbf{Transpose}: Mirror the matrix along its diagonal. \setcounter{all}{19}\shortlemma $(AB)^{\top} = B^{\top} A^{\top}$, $(A^{\top})^{\top} = A$ (O2.12);
+\setcounter{all}{13}\shortdef \textbf{Row Space}: $R(A) = C(A^{\top})$;
+
+\setcounter{all}{16}\shortdef \textbf{Matrix Multiplication}: $A \times B = C$, $c_{ij} = \sum_{k = 1}^{n} a_{i, k} b_{k, j}$. 
+Dimension restrictions: $A$ is $m \times n$, $B$ is $n \times p$, result is $m \times p$.
+\textit{For each entry, multiply the $i$-th row of $A$ with the $j$-th column of $B$}. \textbf{Not} commutative, but associative \& distributive;
+\setcounter{all}{21}\shortlemma \textbf{Outer product}: $\text{rank}(A) = 1 \Leftrightarrow \exists$ non-zero vectors $v \in \R^m$, $w \in \R^n$,
+s.t. $A$ is outer product, i.e. $A = vw^{\top}$, thus $\text{rank}(vw^{\top}) = 1$
+
+\textbf{Rotation matrix}: $R(\xi) = \begin{bmatrix}\cos(\xi) & -\sin(\xi)\\ \sin(\xi) & \cos(\xi)\end{bmatrix}$;
+
+\setcounter{all}{23}\shorttheorem \textbf{CR-Decomposition}: $A = CR$. Get $R$ from (reduced) row echelon form, $C$ is the columns from $A$ where there is a pivot in $R$. $C \in \R^{m \times r}, R \in \R^{r \times n}$ (in RREF), $r = \text{rank}(A)$;
+\addIndex{Row Echelon Form}: To find REF, try to create pivots: $R_0 = \begin{bmatrix}
+    \textcolor{Red}{1} & 0 & 2 & 3\\
+    0 & \textcolor{Red}{1} & 2 & 1\\
+    0 & 0 & 0 & 0
+\end{bmatrix}$, use Gauss-Jordan-Elimination to find it (row-transformations);
+\addIndex{Reduced REF}: RREF is simply REF without any zero rows (i.e. in $R_0$, $R$ (in RREF) would be $R_0$ without the last row).
+
+\setcounter{all}{25}\shortdef \textbf{Transformations}: A matrix can be understood as a re-mapping of the unit vectors, scaling and re-orienting them. Each column vector can then be understood as the new unit vector $e_i$, hence essentially adding another coordinate system to the original one, which is moved and rotated a certain way. The rotation matrix under \ref{sec:matrices} is such an example. To prove that $T$ is linear transformation, use: $T(x + y) = T(x) + T(y)$ and $T(\lambda x) = \lambda T(x)$. Then insert the linear transformation given by the task and replace $x$ (or whatever variable there is) with $x + y$ or $\lambda x$. $Ax = \sum_{i=1}^{n}(x_i v_i)$, where $v_i$ is the $i$-th column of $A$;
+\setcounter{all}{25}\shortdef \textbf{Kernel}: $\text{Ker}(T) := \{x \in \R^n : T(x) = 0\} \subseteq \R^n$;
+\textbf{Image}: $\text{Im}(t) := \{T(x) : x\in \R^n\} \subseteq \R^m$;

@@ -1,0 +1,61 @@
+\newsection
+\section{Determinant}
+\label{sec:determinants}
+\setcounter{numberingConfig}{4}
+\begin{definition}[]{Determinant}
+    The determinant can be understood as a number that corresponds to how much the associated linear transformation inflates space, it corresponds to the area of the unit cube, which can be scaled by a matrix operation.
+\end{definition}
+\setcounter{numberingConfig}{3}
+
+\fhlc{Aquamarine}{$2 \times 2$ matrices} Let $A = \begin{bmatrix}a & b\\c & d\end{bmatrix}$, then $\det(A) = \begin{vmatrix}a & b\\c & d\end{vmatrix} = ad - bc$.
+
+\fhlc{Aquamarine}{$n \times n$ matrices} Can be solved using the Triangle rule, Cramer's Rule, Co-Factors or LU-Decomposition ($\det(A) = \det(LU) = \det(L) \cdot \det(U)$, whereas $L$ and $U$ are triangle matrices, so $\det(U)$ is just the product of all entries on the main diagonal, see properties below)
+
+\setcounter{all}{8}
+\begin{properties}[]{Determinant}
+    \begin{enumerate}[label=(\Roman*)]
+        \item \shortproposition Matrix $T \in \R^{n \times n}$ is triangular, $\det(T) = \prod_{k = 1}^{n}T_{kk}$, in particular, $\det(I) = 1$
+        \item \shorttheorem Matrix $A \in \R^{n \times n}$ then $\det(A) = \det(A^{\top})$
+        \item \shortproposition Matrix $Q \in \R^{n \times n}$ orthogonal $\Leftrightarrow \det(Q) = 1$ or $\det(Q) = -1$
+        \item \shortproposition Matrix $A \in \R^{n \times n}$ invertible $\Leftrightarrow \det(A) \neq 0$
+        \item \shortproposition Matrices $A, B \in \R^{n \times n}$, then $\det(AB) = \det(A)\cdot \det(B)$, in particular, $\det(A^n) = \det(A)^n$
+        \item \shortproposition Matrix $A \in \R^{n \times n}$, then $\det(A^{-1}) = \displaystyle\frac{1}{\det(A)}$
+        \item $\det(2A) = 2^n \det(A)$
+    \end{enumerate}
+\end{properties}
+
+\shortex \hspace{0mm} \textbf{Triangle rule}: Number of permutations: $n!$. Use diagonals to calculate:
+\[
+    \det(A) = \begin{bmatrix}
+        A_{11} &        &        \\
+               & A_{22} &        \\
+               &        & A_{33}
+    \end{bmatrix}+
+    \begin{bmatrix}
+               &        & A_{13} \\
+        A_{21} &        &        \\
+               & A_{23} &
+    \end{bmatrix}+
+    \begin{bmatrix}
+               & A_{12} &        \\
+               &        & A_{23} \\
+        A_{31} &        &
+    \end{bmatrix}
+    \text{ and } A = \begin{bmatrix}
+        A_{11} & A_{12} & A_{13} \\
+        A_{21} & A_{22} & A_{23} \\
+        A_{31} & A_{32} & A_{33}
+    \end{bmatrix}
+\]
+and the same the oposite direction (instead of top left to bottom right, top right to bottom left) and subtract that.
+\textbf{Don't forget brackets}. Written out, we have
+\begin{align*}
+    \det(A) = A_{11} A_{22} A_{33} + A_{13} A_{21} A_{23} + A_{12} A_{23} A_{31} - (A_{13} A_{22} A_{31} + A_{12} A_{21} A_{33} + A_{11} A_{23} A_{32})
+\end{align*}
+
+\shortdef \textbf{Co-Factors}: $C_{ij} = (-1)^{i + j}\det(\mathscr{A}_{ij})$, where $\mathscr{A}$ is the $(n - 1) \times (n - 1)$ matrix that is obtained when removing the $i$-th row and $j$-th column from $A$. Or more simple: In a $3 \times 3$ matrix, the co-factor are the entries on its first row, $A_{ij}$ the matrix obtained from $A$ without the first row and column $j$ (i.e. the one on which the current co-factor is)
+\shortproposition Using this, $\det(A) = \displaystyle\sum_{j = 1}^{n} A_{ij} C_{ij}$.
+
+\shortproposition What we had found as the inverse for $A \in \R^{2 \times 2}$ (see \ref{sec:inverse}) has a form in $\R^{n \times n}$, where $A^{-1} = \frac{1}{\det(A)}C^{\top}$, where $C$ is an $n \times n$ matrix containing the co-factors of $A$ as entries. This can be rewritten as $AC^{\top} = \det(A)I$;
+
+\setcounter{all}{19}\shortproposition \textbf{Cramer's Rule}: The idea here is that we solve a linear system of type $Ax = b$, then using that the detminant is multiplicative, we get $\det(A)x_1 = \det(\mathscr{B}_1)$, where $\mathscr{B}$ is the matrix obtained from $A$ by replacing the first column with $b$. So, the solution $x \in \R^n$ for $Ax = b$ is given by $x_j = \displaystyle \frac{\det(\mathscr{B}_j)}{\det(A)}$

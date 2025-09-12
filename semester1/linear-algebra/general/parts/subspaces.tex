@@ -1,0 +1,71 @@
+\newsection
+\section{The four fundamental subspaces}
+\vspace{-0.2pc}
+\subsection{Vector space}
+\vspace{-0.5pc}
+\shortdef \textbf{Vector space}: Abstract mathematical concept, elements are vectors; Two operations ($\oplus / +$ and $\odot / \cdot$ (depending on notation)); Triple $(V, +, \cdot)$, $V$ is a set of vectors, satisfying the vector space axioms \textit{commutativity, associativity, existance of zero and negative vectors and identity element ($1$), compatibility of $\oplus$ with $\cdot$ (in $\R$), distributivity over $\oplus$ ($\lambda(v + w) = \lambda v + \lambda w$)} and distributivity over + (in $\R$) ($(\lambda + \mu)v = \lambda v + \mu v$).
+
+\textbf{Defining a vector space}: We need to define addition and scalar multiplication for the elements in a \textbf{\textit{canonical}} way (= \textit{according to accepted standard})
+
+\setcounter{all}{8}\shortdef \textbf{Subspaces}: Two subset axioms, $v + w \in U$, $\lambda v \in U$, 
+$\lambda \in \R$ (closed under addition \& scalar multiplcation), where $U \subseteq V$, \shortlemma at least \textbf{\textit{always}} contains the zero vector ($0 \in U$);
+$C(A) = \{Ax : x \in \R^n\}$ is a subspace of $\R^m$, if $A \in \R^{m \times n}$;
+\setcounter{all}{12} \shortlemma $U$ is also a vector space with the same $+$ and $\cdot$ as $V$;
+$U \cap W$ is subspace, $U \cup W$ not;
+
+\bg{Aquamarine}{Prove of vector space / subspace}: Use the axioms and prove each and every one of them, then, if that is successful, conclude that is subspace / vector space.
+\setcounter{all}{15}\shortdef \textbf{$\text{Span}(G)$}: Set of all linear combinations of $G$, $G \subseteq V$. Set is \textbf{linearly independent} if no vector $v \in G$ is a linear combination of $G\backslash \{v\}$. Vectors are not linearly independent if non-trivial linear combination of them is $0$-vector
+
+\shortdef \textbf{Basis}: Set of vectors that are linearly independent and span $B$ (number equals dimension of space), subspace of $V$. For $\R^m$, the set of unit vectors is a basis. For a matrix, all linearly independent columns form a basis of the column space $C(A)$. Every set of $m$ linearly independent vectors is a basis of $\R^m$. \textbf{\textit{Calculating:}} If we have a matrix with full column / row rank, then the basis are all column / row vectors.
+
+\setcounter{all}{19} \shortlemma \textbf{Steiniz exchange lemma}: Let $F \subseteq V$ be a finite set of linearly independent vectors, $G \subseteq V$ a finite set of vectors with $\text{Span}(G) = V$. Then: $|F| \leq |G|$, $\exists$ subset $E\subseteq G$ of size $|G| - |F|$ s.t. $\text{Span}(F\cup E) = V$. \shorttheorem $B, B'\subseteq V$, finite bases of $V$, then $|B| = |B'|$;
+\shortdef \textbf{Finitely generated vector space}: $\exists G \subseteq V$ with $\text{Span}(G) = V$. \shorttheorem If $V$ finitely generated, then $V$ has a basis $B \subseteq G$.
+
+\shortdef \textbf{Dimension}: $V$ finitely generated, then $d = \dim(V)$ is the size of any basis $B$ of $V$. \shortlemma Let $F \subseteq V$ be a set of $d$ linearly independent vectors, then $F$ is basis of $V$. Let $G$ be a set of $d$ vectors with $\text{Span}(G) = V$, then $G$ is a basis of $V$
+
+
+\vspace{-0.5pc}
+\subsection{Computing the fundamental subspaces}
+Let $M$ be an invertible $m \times m$ matrix.
+
+\textbf{Column Space}: Set of all linearly indep. columns ($C(A) = \{Ax : x \in \R^n\} \subseteq \R^m$. 
+\shorttheorem The number of pivots in REF form of matrix $A$ is the $\text{rank}(A) = \dim(C(A))$. 
+The column vectors at the pivots form the basis of $A$;
+
+\textbf{Row Space}: $R(A) = C(A^{\top}) \subseteq \R^n$. 
+\setcounter{all}{27}\shortlemma $R(A) = R(MA)$. \shorttheorem $\dim(R(A)) = \text{rank}(A)$ 
+\shorttheorem $\text{rank}(A) = \text{rank}(A^{\top})$;
+The rows in RREF form a basis of $A$;
+
+\setcounter{all}{31}\shortdef \textbf{Null Space}: $N(A) = \text{Ker}(A) = \{x \in \R^n : Ax = 0\}$. \shortlemma $N(A) \subseteq \R^n$. 
+\shortlemma $N(A) = N(MA)$.
+Can be easily obtained from RREF by setting $b = 0$ in $Rx = b$.
+If there are any free variables, choose any real (or complex) number satisfying the condition.
+\textbf{To find basis}, we can rewrite and apply below Lemma
+
+$Rx = 0 \Leftrightarrow I \cdot x(I) + Q \cdot x(Q) = 0$, e.g. for $R = \begin{bmatrix}
+    1 & 2 & 0 & 3\\
+    0 & 0 & 1 & -2\\
+\end{bmatrix}$ to $I \begin{bmatrix}
+    x_1\\ x_3
+\end{bmatrix} + \begin{bmatrix}
+    2 & 3\\
+    0 & -2
+\end{bmatrix}
+\begin{bmatrix}
+    x_2\\x_4
+\end{bmatrix} = 0 \Leftrightarrow x(I) = -Q\cdot x(Q)$
+We may then freely choose the \textit{free variables} $x(Q)$, then find \textit{basic variables} $x(I)$ using the above, typically choose $e_1, \ldots, e_k$ for $x(Q)$ to get the $k$-the vec of basis ($k =$ num cols of $Q$). 
+Finally combine the vectors into one.
+
+\shortlemma $N(R) = N(A)$. The vectors obtained from the above procedure form a basis of $N(R)$
+
+\vspace{-0.3pc}
+\shorttheorem $\dim(N(A)) = n - \text{rank}(A)$;
+
+
+\shortdef \textbf{Left Nullspace}: $LN(A) := N(A^{\top}).$ \shortlemma $LN(A)\subseteq \R^m$. \shorttheorem $\dim(LN(A)) = m - \text{rank}(A)$
+
+\shortdef \textbf{Solution space}: Set of all solutions of $Ax = b$, thus $\text{Sol}(A, b) := \{x \in \R^n : Ax = b\} \subseteq \R^n$. \shorttheorem Let $s$ be some solution of $Ax = b$, then $\text{Sol}(A, b) = \{s + x : x \in N(A)\}$. This means, we can also compute $\text{Sol}(A, b)$ despite it not being a subspace. To describe all solutions, we simply need \textit{some} solutions.
+
+\shortlemma Let $A \in \R^{m \times n}$. If $\text{rank}(A) = m$, $Ax = b$ has a solution for every $b \in \R^m$

@@ -1,0 +1,63 @@
+\newsectionNoPB
+\vspace{-0.5pc}
+\section{Solving Linear Equations}
+\label{sec:sle}
+Put the system of linear equation's factors (i.e. for a linear equation $ax + by + cz = u$, we would put $a, b, c$ into the matrix and $u$ into the vector) into a matrix, where each row is an equation and the result into a vector $b$. Then, we solve $Ax = b$ by Gauss elimination.
+
+\textbf{Gauss elimination}: Transform matrix $A$ into upper triangle matrix by performing row transformations (adding, adding scalar multiples, multiplying by scalar) on it. All operations performed on $A$ have to also be performed on $b$. Typically, write down both as a matrix with a dividing line between $A$ and $b$. Then solve by back-substitution. Gauss elimination succeeds iff $A \in \R^{m \times m}$ and $A$'s columns are linearly independent. (Runtime: \tco{m^3})
+
+\vspace{-0.5pc}
+\subsection{Inverse}
+\label{sec:inverse}
+\setcounter{all}{7}\shortdef{Inverse}: Perform Gauss-elimination on a matrix of form $\begin{bmatrix}A \divides I\end{bmatrix}$ until we get $\begin{bmatrix}I \divides A^{-1}\end{bmatrix}$. $A$ is invertible, iff $\det(A) \neq 0$. Alternative: $MM^{-1} = M^{-1}M = I$. $M$ has to be square. $0$ matrix has no inverse
+
+\textbf{Inverse for specific sizes}: $1 \times 1$ $M = \begin{bmatrix}a\end{bmatrix}, M^{-1} = \begin{bmatrix}\frac{1}{a}\end{bmatrix}$ (if $a \neq 0$); $2\times2$ $M = \begin{bmatrix}a & b\\ c & d\end{bmatrix}$ $M^{-1} = \frac{1}{\text{det}(M)}\begin{bmatrix}d & -b\\ -c & a\end{bmatrix}$;
+\setcounter{all}{9}\shortlemma \textbf{Inverse product}: $(AB)^{-1} = B^{-1} A^{-1}$;
+\shortlemma $(A^{-1})^{\top} = (A^{\top})^{-1}$;
+\shorttheorem \textbf{Inverse theorem}: $A$ is invertible $\Leftrightarrow$ $Ax = b$ has a unique solution $\forall b \in \R^n$ $\Leftrightarrow$ the columns of $A$ are independent. \textbf{Diagonal matrix}: each element reciprocal. (Might require proof)
+
+\vspace{-0.5pc}
+\subsection{LU-Decomposition}
+\label{sec:lu-decomp}
+\setcounter{all}{13}\shorttheorem \textbf{LU-Decomposition}: $A = LU$. $U$ upper triangle, result of Gauss elimination, $L$ lower triangle, $(E_1 \times E_2 \times \ldots \times E_n)^{-1}$.
+Transformation matrices $E$ ($E \cdot A = A_1$): transformation is a single entry in lower triangle, where the $i$ and $j$ are the two rows involved and the value of $e_{ij}$ is the operation performed on the two. $L^{-1}$ for size $3$: Diagonal, $L^{-1}_{1,2} = -L_{1,2}$, $L^{-1}_{2,3} = -L_{2,3}$, $L^{-1}_{1,3} = -L_{1,3}$.
+When multiplying up to three different ones, copies values to multiplied matrix.
+If it is impossible to decompose $A$ into $LU$ without row exchanges, we get $PA = LU$, where $P$ is a permutation matrix (indicating which rows have been swapped). Time complexity is improved significantly with this \tco{m^2}.
+
+\shortdef \textbf{Permutations}: bijective function $\pi$ on matrix; Reorders the input structure (i.e. vector or matrix); 
+\shortdef \textbf{Permutation matrix}: $p_{ij} = \begin{cases}
+    1 & \text{if } j = \pi(i)\\
+    0 & \text{else}
+\end{cases}$
+\shortlemma $P^{-1} = P^{\top}$. 
+
+\setcounter{all}{18}\shorttheorem \textbf{LUP-Decomposition}: $PA = LU$, where $U = P\times L A$. $P_j = I$ if no row swaps are performed at each step and $P = P_m \times P_{m - 1} \times \ldots \times P_1$. Rewriting this as $A = P^{\top}LU$, we can simply solve an SLE using LUP-Decomposition
+
+\vspace{-0.5pc}
+\subsection{Gauss-Jordan-Elimination}
+\label{sec:gauss-jordan}
+\textbf{Gauss-Jordan-Elimination}: Generalization of Gauss elimination to $m \times n$ matrices, still works similarly to Gauss elimination. We aim to find REF or RREF (see \ref{sec:matrices}). To describe, we say REF$(j_1, j_2, \ldots, j_r)$ or equivalently with RREF, where $j_r$ is the $r$-th pivot.
+
+The solution is then in a vector, whose components are either $0$ or the $r$-th component of $b$. Example:
+\[
+    \begin{bmatrix}
+        0 & 1 & 0 & 0 & 2 & 0\\
+        0 & 0 & 1 & 0 & 3 & 0\\
+        0 & 0 & 0 & 1 & 2 & 0\\
+        0 & 0 & 0 & 0 & 0 & 1\\
+        0 & 0 & 0 & 0 & 0 & 0
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        0\\b_1\\b_2\\b_3\\0\\b_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        b_1\\b_2\\b_3\\b_4\\\textcolor{Green}{0}
+    \end{bmatrix}
+\]
+If the green marked entry in $b$ were not to be $0$, then the SLE would not have a solution. 
+
+
+\textbf{CR-Decomposition}: see \ref{sec:matrices} for exaplanation. \setcounter{all}{24}\shorttheorem is described there
+

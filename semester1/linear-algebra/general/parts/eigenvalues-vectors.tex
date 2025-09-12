@@ -1,0 +1,95 @@
+\newsection
+\section{Eigenvalues and Eigenvectors}
+\setcounter{subsection}{-1}
+\subsection{Complex numbers}
+\textbf{Operations}: $i^2 = -1$ (NOT $i = \sqrt{-1}$ bc. otherwise $1 = -1$). Complex number $z_j = a_j + b_ji$. \textit{Addition, Subtraction} $(a_1 \pm a_2) + (b_1 \pm b_2)i$. \textit{Multiplication} $(a_1 a_2 - b_1 b_2) + (a_1 b_2 + a_2 b_1)i$. \textit{Division} $\displaystyle\frac{a_1 b_1 + a_2 b_2}{b_1^2 + b_2^2} + \frac{a_2 b_1 - a_1 b_2}{b_1^2 b_2^2}i$;
+
+\textbf{Parts}: $\mathfrak{R}(a + bi) := a$ (Real part), $\mathfrak{I}(a + bi) := b$ (imaginary part), $|z| := \sqrt{a^2 + b^2}$ (modulus), $\overline{a + bi} := a-bi$ (complex conjugate);
+\setcounter{all}{2}\shortfact\textbf{Polar coordinates}: $a + bi$ (normal form), $r \cdot e^{i \phi}$ (polar form). Transformation polar $\rightarrow$ normal: $r \cdot \cos(\phi) + r \cdot \sin(\phi)i$. Transformation normal $\rightarrow$ polar: $|z| \cdot e^{i \cdot \arcsin(\frac{b}{|z|})}$;
+\textbf{Conjugate Transpose}: $A^* = \overline{A}^{\top}$ (also knows as \textit{hermitian transpose});
+
+\shorttheorem \textbf{Fundamental Theorem of Algebra}: Any polynomial of degree $n \geq 1$ has a zero $\lambda \in \C$ s.t. $P(\lambda) = 0$, precisely, $n$ zeros (=roots). The number of times a certain $\lambda$ appears is called the \textit{algebraic multiplicity}.
+
+\textbf{Complex valued matrices and vectors}: Works very similar to with real numbers, but the transpose has to be replaced by the conjugate transpose.
+
+
+\newsectionNoPB
+\subsection{Eigenvalues \& Eigenvectors}
+\begin{definition}[]{Eigenvalues \& Eigenvectors}
+    We call $\lambda \in \C$ an eigenvalue of $A \in \R^{n\times n}$ and $v \in \C^n\backslash\{0\}$ an eigenvector of $A$ if $Av = \lambda v$. 
+    The two are then called an eigenvalue-eigenvector pair and if $\lambda \in \R$, then it is a real eigenvalue and we have a real eigenvalue-eigenvector pair.
+    $\lambda_1^2, \ldots, \lambda_n^2$ eigenvalues of $A^2$ for $\lambda_1, \ldots, \lambda_n$ eigenvalues of $A$
+\end{definition}
+
+To find an Eigenvalue and Eigenvector of a matrix $M \in \R^{n\times n}$, simply calculate the eigenvalues first, using the zeros of the polynomial obtained from calculating $\det(M - \lambda I)$, which is obtained from \shortproposition $\text{det}(M - \lambda I) = 0$. This means, we simply need to calculate the determinant of $M - \lambda I$, which is fairly straight forward. We can then try to find eigenvectors $v$ such that $Mv = \lambda v$, or in other words a non-zero element of $N(M - \lambda I)\backslash\{0\}$, i.e. the null space of $M - \lambda I$. This means we try to find a solution such that $0 = (M - \lambda I) v$, where $v$ is not the zero vector.
+
+\shortproposition{Characteristic polynomial}: $(-1)^n\det(A - z I) = \det(z I - A) = (z - \lambda_1)(z - \lambda_2)\ldots(z - \lambda_n)$.
+The coefficient of the $\lambda^n$ term is $(-1)^n$. Usually determined from $\det(M - \lambda I)$.
+\shorttheorem From this, the fundamental theorem of algebra implies that every matrix has an eigenvalue $\lambda \in \C$.
+
+
+\setcounter{all}{6}
+\begin{properties}[]{Eigenvalues \& Eigenvectors}
+    \begin{enumerate}[label=\textbf{(\Roman*)}]
+        \item \shortproposition $\lambda$, $v$ eigenvalue-eigenvector pair of matrix $A$, then $\lambda^k$ and $v$ are eigenvalue-eigenvector pair of matrix $A^k$ for $k \geq 1$
+        \item \shortproposition $\lambda$, $v$ eigenvalue-eigenvector pair of matrix $A$, then $\frac{1}{\lambda}$ and $v$ are eigenvalue-eigenvector pair of matrix $A^{-1}$
+        \item \shortproposition If $\lambda_1, \ldots, \lambda_k$ are all distinct, the corresponding eigenvectors $v_1, \ldots, v_k$ are all linearly independent.
+        \item \shorttheorem If matrix $A \in \R^{n \times n}$ has $n$ distinct eigenvalues, then there is a basis of $\R^n$, $v_1, \ldots, v_n$ made up of eigenvectors of $A$.
+        \item \shortproposition The eigenvalues of $A$ are the same as for $A^{\top}$ (but not the eigenvectors)
+        \item \shortdef The trace (see \ref{sec:matrices}) \shortproposition $\text{Tr}(A) = \sum_{i = 1}^{n} \lambda_i$ and $\det(A) = \prod_{i = 1}^{n} \lambda_i$, when the eigenvalues $\lambda_1, \ldots, \lambda_n$ are the $n$ eigenvalues of $A \in \R^{n \times n}$ as they show up in the characteristic polynomial.
+        \item \setcounter{all}{14} \shortlemma We have for matrices $A, B, C \in \R^{n \times n}$:
+              \begin{enumerate}[label=(\roman*)]
+                  \item $\text{Tr}(AB) = \text{Tr}(BA)$
+                  \item $\text{Tr}(ABC) = \text{Tr}(BCA) = \text{Tr}(CAB)$
+              \end{enumerate}
+        \item \setcounter{all}{17} \shortproposition If $\lambda \in \C$ is an eigenvalue of $Q \in \R^{n \times n}$ ($Q$ orthogonal), then $|\lambda| = 1$
+        \item \setcounter{all}{20} \shortdef A matrix has a \textit{complete set of real eigenvectors}, if we can build a basis of $\R^n$ from them.
+        \item \shortproposition A projection matrix on the subspace $U \subseteq \R^n$ has eigenvalues $0$ and $1$ and a complete set of real eigenvectors.
+        \item \shortdef \textit{geometric multiplicity} is the dimension of $N(A - \lambda I)$
+        \item \shortex \hspace{0mm} For a diagonal matrix $D$, the eigenvalues of $D$ are the diagonal entries. The canonical basis $e_1, \ldots, e_n$ is a set of eigenvectors of $D$.
+        \item $AB$ and $BA$ have the same eigenvalues (follows from \textbf{P7.1.12} and \textbf{L7.1.14})
+    \end{enumerate}
+\end{properties}
+
+
+\newsectionNoPB
+\subsection{Change of basis}
+What impress uses to project the original coordinate system onto the camera's coordinate system.
+We have a linear transformation $L: \R^n \rightarrow \R^m$ (given by e.g. $x \in \R^n \rightarrow Ax \in \R^m$), for which we want to find a matrix $B$ that maps it from a basis $u_1, \ldots, u_n$ to another one $v_1, \ldots, v_n$.
+Now that $B$ helps us map a vector $\alpha$ to a vector $\beta$, which has the different basis.
+We now define $U$ as the matrix whose columns are the first basis and $V$ as the matrix whose columns are the second basis.
+Now, if $L(x) = V\beta$ and $x = U\alpha$, so $\beta = V^{-1}AU\alpha$, now $B = V^{-1}AU$.
+
+\subsection{Diagonalization}
+\shorttheorem $A = V\Lambda V^{-1}$, where $V$'s columns are its eigenvectors and $\Lambda$ is a diagonal matrix with $\Lambda_{ii} = \lambda_i$ and all other entries $0$. $A \in \R^{n\times n}$ and has to have a complet set of real eigenvectors.
+
+\shortdef \textbf{Diagonalizable matrix}: A matrix is diagonalizable if there exists an invertible matrix $V$ such that $V^{-1}AV = \Lambda$ where $\Lambda$ is a diagonal matrix.
+
+\shortdef \textbf{Similar matrix}: Two matrices are similar if there exists and invertible matrix $S$ such that $B = S^{-1}AS$.
+\shortproposition Similar matrices have the same eigenvalues.
+
+
+\newsectionNoPB
+\subsection{Spectral Theorem and symmetric matrices}
+\shorttheorem \textbf{Spectral theorem}: Any symmetric matrix $A\in \R^{n \times n}$ has $n$ real eigenvalues and an orthonormal basis made of eigenvectors of $A$.
+\shortcorollary There also exists an orthogonal matrix $V \in \R^{n \times n}$ (whose columns are the eigenvectors of $A$) such that $A = V\Lambda V^{\top}$, where $\Lambda \in \R^{n \times n}$ is diagonal with the diagonal entries being the eigenvalues of $A$ and $V^{\top}V = I$. This decomposition is called the \textbf{\textit{eigendecomposition}}.
+\setcounter{all}{4}\shortcorollary $\text{rank}(A)$ is the number of non-zero eigenvalues (including/counting repetitions repetitions).
+
+For general $n \times n$ matrices, the rank is $n - \dim(N(M))$, i.e. the geometric multiplicity of $\lambda = 0$.
+
+\setcounter{all}{6}\shortproposition $A \in \R^{n \times n}$, $v_1, \ldots, v_n$ orthonormal basis of of eigenvectors of $A$ and $\lambda_1, \ldots, \lambda_n$ the associated eigenvectors, then $A = \displaystyle\sum_{k = 1}^{n}\lambda_i v_i v_i^{\top}$
+$\lambda \in \R$ if $A$ is real symmetric and $\lambda$ is an eigenvalue of $A$.
+\setcounter{all}{8}\shortcorollary Every real symmetric matrix has a real eigenvalue $\lambda$;
+
+\setcounter{all}{10}\shortproposition \textbf{Rayleigh Quotient}: Let $A\in \R^{n \times n}$ be symmetric, then $\displaystyle R(x) = \frac{x^{\top}Ax}{x^{\top}x}$. The minimum of it is at $R(v_{\max}) = \lambda_{\max}$ and the minimum correspondingly at the smallest eigenvalue;
+
+\shortdef \textbf{Positive Semidefinite (PSD)}: all eigenvalues $\lambda_i \geq 0 \hspace{2mm}$ for all eigenvalues of $A \in \R^{n \times n}$ (symmetric),
+\textbf{Positive Definite (PD)}: all eigenvalues $\lambda_i > 0 \hspace{2mm}$ for all eigenvalues of $A \in \R^{n \times n}$ (symmetric);
+
+\setcounter{all}{13}\shortfact If $A$ and $B$ PSD or PD, then also $A + B$; $A$ is PSD $\Leftrightarrow$ $x^{\top}Ax \geq 0$ for all $x \in \R^n$;
+
+\shortdef \textbf{Gram Matrix}: $G_{ij} = v_i^{\top}v_j$, where $v_1, \ldots, v_n \in \R^m$. We have $i, j \leq n$, because $G \in \R^{n \times n}$. If $V \in \R^{m \times n}$'s columns are the $n$ vectors, then $G = V^{\top}V$. Abuse of notation: $AA^{\top}$ is also sometimes called a gram matrix of $A$. If $a_1, \ldots, a_n \in \R^m$ are the columns of $A$, then $AA^{\top}$ is an $m \times m$ matrix and $AA^{\top} = \displaystyle\sum_{i = 1}^{n}a_ia_i^{\top}$.
+\setcounter{all}{16}\shortproposition The non-zero eigenvalues of $A^{\top}A \in \R^{n \times n}$ and $AA^{\top}\in \R^{m \times m}$ are the same for a matrix $A \in \R^{m \times n}$.
+
+\shortproposition \textbf{Cholesky decomposition}: Every symmetric positive semidefinite matrix $M$ is a gram matrix of an upper triangular matrix $C$, so $M = C^{\top}C$ (Cholesky decomposition).
+

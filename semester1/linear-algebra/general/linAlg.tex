@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\newcommand{\dir}{~/projects/latex}
+\input{\dir/include.tex}
+\load{recommended}
+
+\usepackage{tikz}
+\usepackage[T1]{fontenc}
+\usepackage{imakeidx}
+\makeindex
+
+\setup{Linear Algebra}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+\setcounter{section}{-1}
+\setcounter{numberingConfig}{3}
+
+\vspace{3cm}
+\begin{Huge}
+    \[
+        \begin{pmatrix}
+            1 & 2 & 3\\
+            4 & 5 & 6\\
+            7 & 8 & 9
+        \end{pmatrix} + 
+        \begin{pmatrix}
+            9 & 8 & 7\\
+            6 & 5 & 4\\
+            3 & 2 & 1
+        \end{pmatrix} =
+        \begin{pmatrix}
+            10 & 10 & 10\\
+            10 & 10 & 10\\
+            10 & 10 & 10
+        \end{pmatrix}
+    \]
+\end{Huge}
+
+\vspace{3cm}
+\begin{center}
+    \begin{Large}
+        ``\textit{Lineare Algebra ist Kulturgut}''
+    \end{Large}
+
+    \hspace{3cm} - Robert Weissmantel, 2024
+\end{center}
+
+\vspace{3cm}
+\begin{center}
+    HS2024, ETHZ\\[0.2cm]
+    \begin{Large}
+        Exam-Summary of the lecture notes
+    \end{Large}\\[0.2cm]
+    \url{https://ti.inf.ethz.ch/ew/courses/LA24/notes_part_I.pdf} 
+    
+    and 
+
+    \url{https://ti.inf.ethz.ch/ew/courses/LA24/notes_part_II.pdf}
+\end{center}
+\newpage
+
+\printtoc{Aquamarine}
+\newpage
+\newsection
+\section{Introduction}
+This summary is designed to provide the optimal balance between depth and broadness for the exam. To print this summary, print two pages per A4 paper (so A5 size), leaving out the first three pages (Title page, Table of Contents, Introduction)
+
+The introductory sections were kept as short as possible to allow for more space for the more difficult parts
+
+\newpage
+\input{parts/basics}
+\input{parts/solving-sle}
+\input{parts/subspaces}
+
+% Part II
+\input{parts/orthogonality}
+\input{parts/determinant}
+\input{parts/eigenvalues-vectors}
+\input{parts/svd}
+\hspace{1cm}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{assets/meme.png}
+
+    \begin{Large}
+        Good Luck!
+    \end{Large}
+\end{center}
+
+\input{parts/exercises}
+
+
+\end{document}

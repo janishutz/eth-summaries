@@ -1,0 +1,41 @@
+\newsection
+\section{Singular Value Decomposition}
+
+\subsection{Calculating}
+\shortdef \textbf{SVD} \textit{Normal form}: $A = U\Sigma V^{\top}$;
+\textit{Compact Form}: If $A$ has rank $r$, we can write SVD as $A = U_r\Sigma_rV_r^{\top}$
+
+\begin{usage}[]{SVD}
+    We can use remark 8.1.3 from the lecture notes to calculate the SVD. One of the two will be beneficial if $m \neq n$ for $A$ (smaller dimension = easier determinant):
+    \[
+        AA^{\top} = U(\Sigma \Sigma^{\top})U^{\top} \hspace{1cm} \text{and} \hspace{1cm} A^{\top}A = V(\Sigma^{\top}\Sigma)V^{\top}
+    \]
+    to more easily calculate the SVD, because the left signular vectors of $A$ (cols of $U$) are the eigenvectors of $AA^{\top}$ and analogously for the right hand side, the eigenvectors of $A^{\top}A$. The singular values are the square-root of the eigenvalues of $AA^{\top}$ and $A^{\top}A$ respectively, which then are put (sorted in ascending order) into $\Sigma$ (diagonal matrix) and if $m > n$(for $A \in \R^{m \times n}$, (or $n > m$ if using $A^{\top}A$) the not determined eigenvalues are to filled with $0$\\ $\Longrightarrow$ \fhl{Important:} Take $\sqrt{\ldots}$!
+\end{usage}
+
+\subsection{Show that SVD is valid}
+To show that a given $V$, $U$ and $\Sigma$ form an SVD, we need to show that $V$ and $U$ are orthogonal (calculate $V^{\top}V$ and $U^{\top}U$ and check if it is the identitiy), then check if $A = U\Sigma T^{\top}$.
+\shade{yellow}{Quick \& dirty:} $\Sigma$ should only contain entries $\geq 0$, due to square root, check that $U, V$ orthogonal \& ``normalized'' (= common factors extracted) and verify dimensions of the matrices (s.t. matrix multiplication works)
+
+\textbf{SVD of $A^{-1}$:} $V\Sigma^{-1}U^{\top}$. Requires proof: $AA^{-1} = I = A^{\top}A \Leftrightarrowequiv AV\Sigma^{-1}U^{\top} = U\Sigma V^{\top}V\Sigma^{-1}U^{\top} = I$
+
+\setcounter{all}{5}
+\begin{properties}[]{SVD}
+    \begin{enumerate}
+        \item \inlinetheorem Every matrix $A \in \R^{m \times n}$ has an SVD
+        \item \setcounter{all}{1}\setcounter{subsection}{2}\shortdef \textbf{\textit{Frobenius norm}}: $\displaystyle ||A||_F = \sqrt{\sum_{i = 1}^{m}\sum_{j = 1}^{n} A^2_{ij}}$
+        \item \setcounter{all}{1}\shortdef \textbf{\textit{Spectral / Operator norm}}: $\displaystyle ||A||_{op} = \max_{x \in \R^n}||Ax||$ s.t. $||x|| = 1$
+        \item \textbf{\textit{Special cases}}: $\sigma_1 \geq \ldots \geq \sigma_{\min\{m, n\}}$ are eigenvalues of $A \in \R^{m \times n}$
+        \begin{multicols}{2}
+            \begin{enumerate}
+                \item $||A||_F^2 = \text{Tr}(A^{\top}A)$
+                \item $||A||_F^2 = \displaystyle\sum_{i = 1}^{\min\{m, n\}} \sigma_i^2$
+                \item $||A||_{op} = \sigma_1$
+                \item $||A||_{op} \leq ||A||_F \leq \sqrt{\min\{m, n\}}||A||_{op}$
+            \end{enumerate}
+        \end{multicols}
+    \end{enumerate}
+\end{properties}
+
+
+

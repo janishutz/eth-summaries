@@ -1,0 +1,216 @@
+\newsection
+\section{Exercise tricks}
+
+\begin{multicols}{2}
+    $\sin, \cos, \tan$ values ($+\pi \Leftrightarrow x \cdot (-1)$) (to the right)
+
+    \fhlc{red}{IMPORTANT:} For the multiple-choice exercises, try to come up with a short proof for each option
+
+    Non-Trivial null-space $\Rightarrow$ $\text{rank}(A) < n$ if $A \in \R^{n \times n}$
+
+    $A \in \R^{2 \times 2}$ for which $A^{\top} = -A \Leftrightarrow \begin{bmatrix}
+            0  & a \\
+            -a & 0
+        \end{bmatrix}$
+
+
+    \begin{tabular}[h!]{|c|c|c|c|c|}
+        \hline
+        \rowcolor{Aquamarine} ° & rad              & $\sin(\xi)$          & $\cos(\xi)$           & $\tan(\xi)$           \\
+        \hline
+        0°                      & $0$              & $0$                  & $1$                   & $1$                   \\
+        \hline
+        30°                     & $\frac{\pi}{6}$  & $\frac{1}{2}$        & $\frac{\sqrt{3}}{2}$  & $\frac{\sqrt{3}}{2}$  \\
+        \hline
+        45°                     & $\frac{\pi}{4}$  & $\frac{\sqrt{2}}{2}$ & $\frac{\sqrt{2}}{2}$  & $1$                   \\
+        \hline
+        60°                     & $\frac{\pi}{3}$  & $\frac{\sqrt{3}}{3}$ & $\frac{1}{2}$         & $\sqrt{3}$            \\
+        \hline
+        90°                     & $\frac{\pi}{2}$  & $1$                  & $0$                   & $\varnothing$         \\
+        \hline
+        120°                    & $\frac{2\pi}{3}$ & $\frac{\sqrt{3}}{2}$ & $-\frac{1}{2}$        & $-\sqrt{3}$           \\
+        \hline
+        135°                    & $\frac{3\pi}{4}$ & $\frac{\sqrt{2}}{2}$ & $-\frac{\sqrt{2}}{2}$ & $-1$                  \\
+        \hline
+        150°                    & $\frac{5\pi}{6}$ & $\frac{1}{2}$        & $-\frac{\sqrt{3}}{2}$ & $-\frac{\sqrt{3}}{2}$ \\
+        \hline
+        180°                    & $\pi$            & $0$                  & $-1$                  & $0$                   \\
+        \hline
+    \end{tabular}
+\end{multicols}
+
+
+\vspace{-1.5pc}
+\subsection{Vector product}
+$a \times b = \begin{pmatrix}a_x\\a_y\\a_z\end{pmatrix} \times \begin{pmatrix}b_x\\b_y\\b_z\end{pmatrix} =
+    \begin{pmatrix}
+        a_y b_z - a_z b_y \\
+        a_z b_x - a_x b_z \\
+        a_x b_y - a_y b_x
+    \end{pmatrix} = c$
+gives us a vector $c$ for which $c \perp a$ and $c \perp b$
+
+
+\vspace{-0.5pc}
+\subsection{Basics}
+\fhlc{Aquamarine}{Squares of numbers:} $14: 196, 15: 225, 16: 256, 17: 289, 18: 324, 19: 361, 21: 441, 22: 484, 23: 529, 24: 576$
+\fhlc{orange}{Long multiplication:} $a \cdot b$, for $n = \text{len}(a), m = \text{len}(b)$ we have $\displaystyle\sum_{i = 0}^{n - 1} \left(\sum_{j = 0}^{m - 1} a[i] \cdot b[j] * 10^{m - 1  - j}\right) \cdot 10^{n - 1 - i}$
+
+
+\vspace{-0.5pc}
+\subsection{Proof patterns}
+\newcommand{\pattern}[1]{\shade{Cyan}{#1}}
+\begin{enumerate}[label=\textbf{(\Roman*)}]
+    \item \pattern{Composition of Implication:} If $S \Rightarrow T$ and $T \Rightarrow U$ are both true, then $S \Rightarrow U$ is true.
+    \item \pattern{Direct proof of Implication:} Prove $S \Rightarrow T$ assuming $S$ and then proving $S$ under that assumption.
+    \item \pattern{Indirect proof of Implication:} Prove $S \Rightarrow T$ by assuming $\neg T$ and proving $\neg S$ under that assumption.
+    \item \pattern{Case distinction:} Prove $S$ by finding a list of $R_1, \ldots, R_n$ (cases) proving at least one $R_i$, then showing that $R_i \Rightarrow S$ for all $R_i$.
+    \item \pattern{Proof by contradiction}: Prove $S$ by assuming it to be false, deriving statements from it until reaching a contradiction.
+    \item \pattern{Existence proof:} Prove $S$ is true for at least one value
+    \item \pattern{Proof by Induction}: Prove $P(0)$ (base case), then prove for any $k$ that $P(k) \rightarrow P(k + 1)$ is true (Induction step). Using an induction hypothesis can be helpful
+\end{enumerate}
+
+
+\vspace{-0.5pc}
+\subsection{Proving bijection}
+We need to prove surjectivity and injectivity separately.
+
+\fhlc{Aquamarine}{Surjectivity}
+Given a function $f: X \rightarrow Y$, it is surjective, iff $\forall y \in Y, \exists x  \in X : f(x) = y$ (continuous function)
+
+
+\fhlc{Aquamarine}{Injectivity}
+$x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$
+
+
+\vspace{-0.5pc}
+\subsection{Subspace of matrix vector space}
+\inlineex \hspace{0mm} $U = \{A \in \R^{2 \times 2} : \text{Tr}(A) = 0\}$. Prove $\dim(U) = 3$. $U \subseteq \R^{2 \times 2}$:
+
+Claim that the standard basis of $\R^{2 \times 2}$ form a basis of $U$, thus implying $\dim(U) = 3$. These are $B_1 = \begin{bmatrix}0 & 1\\0 & 0\end{bmatrix}, B_2 = \begin{bmatrix}0 & 0\\1 & 0\end{bmatrix}$ and $B_3 = \begin{bmatrix}1 & 0\\0 & -1\end{bmatrix}$. Prove that they are a basis by proving that they span $U$.
+
+
+\newsection
+\vspace{-0.5pc}
+\subsection{Proof of symmetry}
+\inlineex \hspace{0mm} $A \in \R^{n \times n}$ satisfying $AA^{\top} = I$ and $A^2 = I$. Prove that $A$ is symmetric.
+
+$A = AI = A(AA^{\top}) = (AA)A^{\top}= (A^2)A^{\top} = IA^{\top} = A^{\top} \Rightarrow A$ is symmetric
+
+
+\vspace{-0.5pc}
+\newsectionNoPB
+\subsection{SVD}
+\inlineex \hspace{0mm} $A \in \R^{n \times n}$, $A$ invertible. $\sigma_1$ largest SV of $A$, $\sigma_1'$ largest SV of $A^{-1}$. Prove that $\sigma_1\sigma_1' \geq 1$
+
+Use SVD of $A^{-1}$. From this we know that SV of $A^{-1}$ are given by $\frac{1}{\sigma_1} \leq \ldots \leq \frac{1}{\sigma_n}$ (bc. $\Sigma$ is diagonal). Thus, $\sigma_1' = \frac{1}{\sigma_n}$ (largest SV) $\Rightarrow \sigma_1 \cdot \sigma_1' = \frac{\sigma_1}{\sigma_n} \geq 1$ since $\sigma_1 \geq \sigma_n > 0$
+
+
+\vspace{-0.5pc}
+\newsectionNoPB
+\subsection{Least squares}
+Least squares is much more versatile than it might seem.
+It can even be used for optimization problems in multiple variables or for finding coefficients of quadratic, etc equations. Let's take $ax^2 + b$ as an example. We want to find $a$ and $b$. The $A$ matrix is then simply $1$s on the first column and $x_1^2$, \dots on the second column. Insert the values for $x_1, \ldots$ and compute least squares
+
+\newsectionNoPB
+\subsection{Finding values for which a matrix is an inverse for another}
+We can interpret a matrix $A^{-1} = \begin{bmatrix}
+        \vline & \vline & \vline \\
+        x_1    & x_2    & x_3    \\
+        \vline & \vline & \vline
+    \end{bmatrix}$, then solve SLEs, using $AA^{-1} = I$, whereas $I = \begin{bmatrix}
+        \vline & \vline & \vline \\
+        e_1    & e_2    & e_3    \\
+        \vline & \vline & \vline
+    \end{bmatrix}$, where $e_1$ is a standard basis vector. Thus, we get $Ax_1 = e_1$, $Ax_2 = e_2$, \dots
+
+Solving all these SLE gives us solutions for all the variables in the original matrix $A$.
+
+
+\vspace{-0.5pc}
+\subsection{Proving commutativity of matrix operation}
+For some matrices, the matrix product is commutative. To prove that, prove that both matrices have linearly independent columns, using the statements from the task and the proof of the first matrix' linear independence. Then finally, show commutativity, e.g. if $AB = I$ and $BA = I$, by showing that $A(BA - I) = 0$
+
+
+\vspace{-0.5pc}
+\subsection{Dimensions of subspaces}
+Simply argue with the size of the basis. Thus: Find basis, then argue that the basis specified is actually a basis (by showing that all its elements are linearly independent), then count the number of elements, which is the dimension. \shade{red}{$U_1 \backslash U_2$} can never be a subspace, because $0$ is missing!
+
+
+\vspace{-0.5pc}
+\subsection{Vector combination independence}
+\textit{(Other vectors that also form basis)}
+Given a basis of a vector space, we have $n$ new vectors, formed form a basis.
+To decide if the new set forms a basis, try to construct original vectors from the new ones, or to disprove, show that $0$ vector is a linear combination of the vectors with non-zero coefficients.
+
+\vspace{-0.5pc}
+\subsection{CR-Decomposition}
+Perform row sign-inversion only at the very end, as it can lead to nastiness along the way. $R$ is in RREF, $C$ the columns with pivot in $R$
+
+
+\vspace{-0.5pc}
+\subsection{Eigenvalues}
+For triangle and diagonal matrices, the eigenvalues are on the diagonals. Matrices of all $0$'s are positive semi-definite.
+
+For exercises with a complete set of distinct eigenvalues, we can use the $A = V\Lambda V^{-1}$ decomposition, which for $A^n$ simplifies to $V\cdot \Lambda^n V^{-1}$ and then compute $\Lambda^n$, which is simple because $\Lambda$ is a diagonal matrix (so all entries on diagonal $^n$)
+\textbf{Alternate approach}: $\det(A) = \prod_{i = 1}^{n} \lambda_i$ and $\det(A^n) = \det(A)^n$, then check all determinants
+
+
+\vspace{-0.5pc}
+\subsection{SVD}
+The pseudo-inverse using the SVD uses the concepts of the SVD with CR-Decomposition. $A = U_r \Sigma_r V_r^{\top}$, where $U_r = C$ and $\Sigma_r V_r^{\top} = R$
+
+
+\vspace{-0.5pc}
+\subsection{Quadratic solution formula}
+$\displaystyle \frac{\colorbox{yellow}{-}b \pm \sqrt{b^2 - 4ac}}{2a}$, for $f(x) = ax^2 + bx + c$, result $\R$ iff $b^2 - 4ac \geq 0$. Not that it is strictly needed, but there was still some space. There's an excellent song to remember it: \url{https://www.youtube.com/watch?v=E2eVZFy9yzk}
+
+
+
+\vspace{-0.5pc}
+\subsection{Multiplying out with transposes}
+For vectors, we have $(v - u)^{\top}(v - u) = v^{\top} v - 2v^{\top}u + u^{\top}u$
+
+\newsectionNoPB
+\vspace{-0.5pc}
+\subsection{Number of Solutions of SLE}
+System $Ax = b$ has two characteristic numbers, $m$ (number of equations), $n$ (number of variables). For solution space, we have a third one, $r = \text{rank}(A)$. $A$ in REF doesn't guarantee solution. $A$ in RREF does (in $\R$)!
+
+\bg{red}{Number of solutions}:
+\begin{tabular}[h!]{|c|c|c|}
+    \hline
+    \rowcolor{red}$R_0$ & $r = n$   & $r < n$        \\
+    \hline
+    $r = m$             & $1$       & $\infty$       \\
+    \hline
+    $r < m$             & $0$ / $1$ & $0$ / $\infty$ \\
+    \hline
+\end{tabular}
+
+
+
+\newsectionNoPB
+\vspace{-0.5pc}
+\subsection{Farka's Lemma}
+This task is from Assignment 10.
+Let $P_1 \subseteq \R^2$, $P^2 \subseteq \R^2$ in the plane.
+Assume $P_1 \cap P_2 = \emptyset$.
+We want to prove that there exists a vector $v \in \R^2$ and a scalar $w$ such that $P_1 \subseteq \{x \in \R^2 : x \cdot v \leq w\}$ and $P_2 \subseteq \{x \in \R^2 : x \cdot v > w\}$. Intuition: We can draw a line to separate the two polyhedra.
+
+The approach to solve this now, is to assume $P_1 = \{x \in \R^2 : A_1 x \leq b_1\}$ and $P_2 = \{x \in \R^2 : A_2 x \leq b_2\}$ for some $A_1, A_2 \in \Q^{m \times 2}$ and $b_1, b_2 \in \Q^m$ and $m \in \N$.
+We observe that the system $\begin{bmatrix}A_1 \\ A_2\end{bmatrix} x \leq \begin{bmatrix}b_1\\b_2\end{bmatrix}$ has no solution since $P_1 \cap P_2 = \emptyset$.
+Farka's lemma implies the existence of a vector $y \in \R^{2m}$ with $y \geq 0$, $y^{\top} \begin{bmatrix}A_1\\A_2\end{bmatrix} = 0$ and $y^{\top} \begin{bmatrix}b_1 \\b_2\end{bmatrix} < 0$.
+
+
+\vspace{2cm}
+\begin{center}
+    \begin{Large}
+        \shade{red}{CHECK FOR SMALL ERRORS!}
+    \end{Large}
+
+    These errors could be something like a missing minus. Verify all solutions using computations. 
+
+    \textbf{Example 1:} For Eigenvalues check that $\det(A - \lambda I) = 0$ for all eigenvalues. 
+
+    \textbf{Example 2:} For Eigenvectors check that $Av = \lambda v$ for all eigenvalue-eigenvector pairs. 
+\end{center}

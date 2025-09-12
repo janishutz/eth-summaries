@@ -1,0 +1,109 @@
+\newsection
+\setcounter{numberSubsections}{1}
+\section{Orthogonality}
+\subsection{Definition}
+\shortdef \textbf{Orthogonality}: Two vectors are orthogonal, if the their scalar product is $0$, i.e. $v^{\top}w = \sum_{i = 1}^{n} v_i w_i = 0$. 
+\shortlemma Two subspaces are orthogonal to each other if for each $v \in V$ and $w \in W$, $v$ and $w$ are orthogonal. 
+\shortlemma As a consequence, if that is true, all these vectors are linearly independent. 
+\shortcorollary $V \cap W = \{0\}$ and their union is $V \cup W = \{\lambda v + \mu w : \lambda, \mu \in \R, v \in V, w \in W\}$. 
+If $\dim(V) = k$ and $\dim(W) = l$, then $\dim(V\cup W) = k + l \leq n$, for $V, W \subseteq \R^n$;
+
+\shortdef \textbf{Orthogonal complement}: $V^{\bot} := \{w \in \R^n : w^{\top}v = 0, \forall v \in V\}$. 
+\shorttheorem $N(A) = C(A^{\top})^{\bot} = R(A)^{\bot}$ and $C(A^{\top}) = N(A)^{\bot}$.
+\shorttheorem The following is equivalent for orthogonal subspaces of $\R^n$: $W = V^{\bot} \Leftrightarrow \dim(V) + \dim(W) = n \Leftrightarrow u = v + w \forall u \in \R^n$ with unique vectors $v \in V, w \in W$. \shortlemma $V = (V^{\bot})^{\bot}$.
+\shortcorollary $N(A) = C(A^{\top})^{\bot}$ and $C(A^{\top}) = N(A)^{\bot}$
+\shorttheorem $\{x \in \R^n : Ax = b\} = x_1 + N(A)$, where $x_1 \in \R(A)$ such that $Ax_1 = b$
+\shortcorollary $N(A) = N(A^{\top}A)$ and $C(A^{\top}) = C(A^{\top}A)$
+
+\newsectionNoPB
+\subsection{Projections}
+\shortdef \textbf{Projection}:
+Projecting a vector onto a subspace is done with $\displaystyle \text{proj}_S(b) = \text{argmin}_{p\in S} ||b - p||$ and yields the closest point (or vector) in the new subspace $S$
+\shortlemma \textbf{1-Dimensional}: $\displaystyle \text{proj}_S(b) = \frac{aa^{\top}}{a^{\top}a}b$, where we project $b \in \R^m$ on $S = \{\lambda a : \lambda \in \R\} = C(a)$ where $a \in \R^m\backslash\{0\}$.
+We note that $(b - \text{proj}_S(b)) \perp \text{proj}_S(b)$, i.e. the ``error-vector'' is perpendicular to $a$.
+
+\shortlemma \textbf{General case}: PREFER 5.2.6! $S$ is a subspace in $\R^m$ with $\dim(S) = n$.
+Let $a_1, a_2, \ldots, a_n$ be a basis of $S$, i.e. $S = \text{Span}(a_1, \ldots, a_n) = C(A) = \{A\lambda : \lambda \in \R^n\}$ where $A$ is a matrix with column vectors $a_1, \ldots, a_n$.
+We project $b \in \R^m$ onto the subspace $S$, then $\text{proj}_S(b) = A\hat{x}$, where $\hat{x}$ satisfies $A^{\top}A\hat{x} = A^{\top}b$.
+\shortlemma $A^{\top}A$ is invertible $\Leftrightarrow A$ has linearly independent columns $\Rightarrow$ \shortcorollary $A^{\top}A$ is square, invertible and symmetric.
+
+\shorttheorem Projection in terms of projection matrix $P = A(A^{\top}A)^{-1}A^{\top}$: $\text{proj}_S(b) = Pb$, $A$ is the matrix of task
+
+% Page 13 now
+\newsectionNoPB
+\subsection{Least squares, Linear regression}
+\textbf{Least squares}: Approximate a solution to System of equations.
+Concept $\displaystyle \min_{\hat{x} \in \R^n} ||A\hat{x} - b||^2$.
+Using the normal equations, we get $A^{\top}A\hat{x} = A^{\top}b$.
+Using the definition of $\hat{x} = (A^{\top}A)^{-1}A^{\top}b$ to solve the least squares problem borders insanity, so use $A^{\top}A\hat{x} = A^{\top}b$ to solve.
+\begin{usage}[]{Least squares}
+    \begin{enumerate}[label=(\roman*)]
+        \item Calculate $M = A^{\top}A$ (matrix)
+        \item Calculate $b' = A^{\top}b$ (vector)
+        \item Solve resulting System of Equations $M\hat{x} = b'$ normally
+    \end{enumerate}
+\end{usage}
+
+\textbf{Linear regression}: Application of least squares problem, problem is to find $A$ and $b$ such that we can solve the system.
+We define a matrix
+$A = \begin{bmatrix}
+        1      & t_1    \\
+        \vdots & \vdots \\
+        1      & t_n
+    \end{bmatrix}$
+and a result vector
+$b = \begin{bmatrix}
+        b_1 \\\vdots\\b_n
+    \end{bmatrix}$
+where $n$ is the total number of data points and $t_i$ is the slope of the $i$-th function, where $b_i$ is its output.
+The first column is all $1$s because the constant element has no scalar, for obvious reasons.
+This comes from the following concept: $f(t) = \alpha_0 + \alpha_1 t$, so if the first data point is $(1, 2)$, we get $\alpha + \alpha_1 \cdot 1 = 2$, which we will then transform into a SLE with other equations.
+
+\setcounter{all}{2}\shortlemma The columns in $A$ are linearly dependent $\Leftrightarrow t_i = t_j \hspace{0.2em} \forall i \neq j$
+
+
+\newsectionNoPB
+\subsection{Gram Schmidt}
+\shortdef \textbf{Orthonormal vector}: Orthogonal and norm is $1$.
+Alternatively: $q_i^{\top}q_j = \delta_{ij}$, \textbf{\textit{Kronecker delta}} $\delta_{ij} = \begin{cases}
+        0 & \text{if } i \neq j \\
+        1 & \text{if } i = j
+    \end{cases}$;
+\setcounter{all}{3}\shortdef \textbf{Orthogonal matrix}:
+If $Q^{\top}Q = I$, $QQ^{\top} = I$ (if $Q$ square), so $Q^{-1} = Q^{\top}$, columns of $Q$ form orthonormal basis for $\R^n$. \shortex \hspace{0mm} Rotation \& permutation matrices. \setcounter{all}{6}\shortproposition Orthogonal matrices preserve norm and inner product of vectors.
+If $Q\in \R^{n \times n}$, then $\forall x, y \in \R^n$, $||Qx|| = ||x||$ and $(Qx)^{\top}(Qy) = x^{\top}y$;
+Product of any two orthogonal matrices is orthogonal; For $Q$ orthogonal, we want $a \cdot b + c \cdot d = 0$
+
+\textbf{Projections with orthonormal bases}: Much simpler, because $A^{\top}A = I$ if $A$ has orthonormal columns.
+\shortproposition The least squares solution to $Qx = b$, where $Q$ is the matrix whose columns are the vectors forming the orthonormal base of $S \subseteq \R^m$, is given by $\hat{x} = Q^{\top}b$ and the projection matrix is given by $QQ^{\top}$;
+
+\setcounter{all}{9}\shortdef \textbf{Gram-Schmidt}: Used to construct orthonormal bases. We have linearly independent vectors $a_1, \ldots, a_n$ that span a subspace $S$, then Gram-Schmidt constructs $q_1, \ldots, q_n$ by setting $q_1 = \frac{a_1}{||a_1||}$ and for $k = 2, \ldots, n$, $q'_k = a_k - \sum_{i = 1}^{k - 1} (a_k^{\top}q_i) q_i$ then setting $q_k = \frac{q'_k}{||q'_k||}$;
+
+\setcounter{all}{11}\shortdef \textbf{QR-Decomposition}: $A = QR$, where $R = Q^{\top}A$ and $Q$ is obtained from the Gram-Schmidt process, it is made up of the vectors $q_i$ as columns. \shortlemma $R$ is upper triangle and invertible. $QQ^{\top}A = A$, meaning $A = QR$ is well-defined. \shortfact This greatly simplifies calculations involving projections and least squares, since $C(A) = C(Q)$, so $\text{proj}_{C(A)}(b) = QQ^{\top}b$ and for least squares, we have $R\hat{x} = Q^{\top}b$. This can efficiently be solved because $R$ is triangular using back-substitution.
+
+
+\newsectionNoPB
+\subsection{Pseudoinverse}
+\textbf{Pseudoinverse}: $A^+ = (A^{\top}A)^{-1}A^{\top}$; $\text{rank}(A) = \text{rank}(A^+)$
+
+Let $A \in \R^{m \times n}$;
+\shortdef \textbf{Full column rank}: $\text{rank}(A) = n$. $A^+ = (A^{\top}A)^{-1}A^{\top}$.
+\shortproposition $A$ full column rank, $A^+A = I_n$ (left inverse);
+\shortdef \textbf{Full row rank}: $\text{rank}(A) = m$. $A^+ = AA^{\top}(AA^{\top})^{-1}$.
+\shortlemma $A$ full row rank, $AA^+ = I_m$;
+\shortlemma For any matrix $A$ and vector $b \in C(A)$, the unique solution for the least squares problem is given by vector $\hat{x} \in C(A^{\top})$ and satisfies $A\hat{x} = b$.
+\shortproposition For a full row rank matrix $A$, the solution is given by $\hat{x} = A^+ b$ with $A\hat{x} = b$;
+\shortdef \textbf{General case}: $A^+ = R^+ C^+ = R^{\top}(C^{\top}AR^{\top})^{-1}C^{\top}$.
+We can use any full-rank factorization, not just $CR$, i.e. \setcounter{all}{9}\shortproposition let $S\in \R^{m \times r}$ and $T \in \R^{r \times n}$ s.t. $A = ST$, then $A^+ = T^+S^+$.
+
+\setcounter{all}{11}\shorttheorem \textbf{Properties of Pseudoinverse}: $AA^+A = A$, $A^+AA^+ = A^+$, $AA^+$ is symmetric, it is the projection matrix for projections on $C(A)$. $A^+A$ is symmetric, and is the projection matrix on $C(A^{\top})$. $(A^{\top})^+ = (A^+)^{\top}$;
+
+
+\newsectionNoPB
+\subsection{Farka's Lemma \& Projections of sets}
+\setcounter{all}{7}\shorttheorem \textbf{Farka's Lemma} Let $A \in Q^{m \times m}$, $b \in Q^m$. There either:
+\begin{itemize}
+    \item exists a vector $x \in \R^n$ such that $Ax \leq b$ or
+    \item there exists a vector $y \in \R^m$ such that $y \geq 0, y^{\top}A = 0$ and $y^{\top}b < 0$
+\end{itemize}
+
