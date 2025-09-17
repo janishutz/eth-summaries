@@ -1,0 +1,131 @@
+\setcounter{subsection}{3}
+\subsection{Connectivity}
+\setcounter{all}{23}
+% Page 37
+\begin{definition}[]{$k$-Connected graph}
+    A graph $G = (V, E)$ is called $k$\textit{-connected} if $|V| \geq k + 1$ and for all subsets $X \subseteq V$ with $|X| < k$ we have that the graph $G[V\backslash X]$ is connected
+\end{definition}
+If $G[V\backslash X]$ is \bi{not} connected, we call it a \textit{(vertex)-separator}.
+
+A $k$-connected graph is also $k - 1$ connected, etc
+
+\begin{definition}[]{$k$-edge-connected}
+    A graph $G = (V, E)$ is called $k$\textit{-edge-connected} if for all subsets $X \subseteq E$ with $|X| < k$ we have: The graph $(V, E\backslash X)$ is connected
+\end{definition}
+We also have \textit{edge-separators}, defined analogously to above, i.e. the set $X$ above is called a $u$-$v$-edge-separator if by removing it from the graph, $u$ and $v$ no longer lay in the same connected component.
+
+If a graph is $k$-edge-connected, it is also $k - 1$-edge-connected, etc
+
+
+\begin{theorem}[]{Menger's theorem}
+    Let $G = (V, E)$ be a graph and $u \neq v \in V$. Then we have
+    \begin{enumerate}
+        \item Every $u$-$v$-vertex-separator has size at least $k \Leftrightarrow$ Exist at least $k$ internally vertex-disjoint $u$-$v$-paths
+        \item Every $u$-$v$-edge-separator has size at least $k \Leftrightarrow$ Exist at least $k$ edge-disjoint $u$-$v$-paths
+    \end{enumerate}
+\end{theorem}
+
+
+\newpage
+\subsubsection{Articulation points}
+If a graph is connected, but not $2$-connected, there exists at least one vertex $v$ for which, if removed, the graph is not connected, called \textit{articulation points}. Using a modified DFS, we can find these vertices. Instead of just setting a flag for each vertex we visit, we set a number indicating the order in which the vertices were visited. The first vertex we visit, for instance, gets number $1$.
+
+We also add another value, which we call \verb|low[v]| $:=$ the smallest DFS-number that can be reached from $v$ using a path of arbitrarily many edges of the DFS-tree and at most one residual edge.
+
+We also have (where $s$ is the start / source vertex and $E(T)$ is the edge set of the DFS-tree):
+
+$v$ is an articulation point $\Leftrightarrow$ ($v = s$ and $s$ has degree at least $2$ in $T$) or ($v \neq s$ and there exists $w \in V$ with $\{(v, w)\} \in E(T)$ and $\verb|low[w]| \geq \verb|dfs[v]|$)
+
+
+\begin{algorithm}
+    \caption{\textsc{FindArticulationPoints}($G, s$)}
+    \begin{algorithmic}[1]
+        \State $\forall v \in V$: \texttt{dfs[v]}$\gets 0$ \Comment{Stores dfs number for vertex $v$ and also flag for visit}
+        \State $\forall v \in V$: \texttt{low[v]}$\gets 0$ \Comment{Stores low point for vertex $v$}
+        \State $\forall v \in V$: \texttt{isArticulationPoint[v]}$\gets \texttt{false}$ \Comment{Indicates if vertex $v$ is articulation point}
+        \State \texttt{num} $\gets 0$
+        \State $T \gets \emptyset$ \Comment{Depth-First-Search Tree}
+        \State \Call{DFS-Visit}{$G, s$}
+        \If{$s$ has degree at least two in $T$} \Comment{Start vertex classification could be incorrect from \textsc{DFS-Visit}}
+            \State $\texttt{isArticulationPoint[s]} \gets \texttt{true}$
+        \Else
+            \State $\texttt{isArticulationPoint[s]} \gets \texttt{false}$
+        \EndIf
+        \Procedure{DFS-Visit}{$G, v$}
+            \State \texttt{num} $\gets$ \texttt{num} $+ 1$
+            \State \texttt{dfs[v]} $\gets$ \texttt{num}
+            \State \texttt{low[v]} $\gets$ \texttt{dfs[v]}
+            \For{\textbf{all} $\{v, w\} \in E$}
+                \If{\texttt{dfs[w]} = 0}
+                    \State $T \gets T \cup \{\{v, w\}\}$
+                    \State $\texttt{val} \gets$ \Call{DFS-Visit}{$G, w$}
+                    \If{$\texttt{val} \geq \texttt{dfs[v]}$} \Comment{Check articulation point condition}
+                        \State $\texttt{isArticulationPoint[v]} \gets \texttt{true}$
+                    \EndIf
+                    \State $\texttt{low[v]} \gets \min \{\texttt{low[v]}, \texttt{val}\}$
+                \ElsIf{$\texttt{dfs[w]} \neq 0$ \textbf{and} $\{v, w\} \notin T$} \Comment{Update low if already visited}
+                    \State $\texttt{low[v]} \gets \min \{\texttt{low[v]}, \texttt{dfs[w]}\}$
+                \EndIf
+            \EndFor
+            \State \Return \texttt{low[v]}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\stepcounter{all}
+\begin{theorem}[]{Articulation points Computation}
+    For a connected graph $G = (V, E)$ that is stored using an adjacency list, we can compute all articulation points in \tco{|E|}
+\end{theorem}
+
+
+\newpage
+\subsubsection{Bridges}
+While articulation points show that a graph is not $2$-connected, bridges shows that a graph isn't $2$-edge-connected.
+In other words, they are certificates for the graph \textit{not} being $2$-edge-connected or more formally:
+
+\begin{center}
+    \fbox{
+        \textit{
+            An edge $e \in E$ in a connected graph $G = (V, E)$ is called a bridge if the graph $(V, E\backslash \{e\})$ is not connected.
+        }
+    }
+\end{center}
+
+From the definition of bridges we immediately have that a spanning tree has to contain all bridges of a graph, and we can also state that only edges of a Depth-First-Search-Tree are possible candidates for a bridge.
+
+The idea now is that every vertex contained in a bridge is either an articulation point or has degree $1$ in $G$. Or more formally:
+
+\begin{center}
+    \fbox{
+        \textit{
+            A directed edge $(v, w)$ of Depth-First-Search-Tree $T$ is a bridge if and only if $\texttt{low[w]} > \texttt{dfs[v]}$
+        }
+    }
+\end{center}
+
+\begin{theorem}[]{Bridges Computation}
+    For a connected graph $G = (V, E)$ that is stored using an adjacency list, we can compute all bridges and articulation points in \tco{|E|}
+\end{theorem}
+
+\subsubsection{Block-Decomposition}
+\begin{definition}[]{Block-Decomposition}
+    Let $G = (V, E)$ be a connected graph. For $e, f \in E$ we define a relation by
+    \begin{align*}
+        e \sim f \Longleftrightarrow e = f \text{ or exists a common cycle through $e$ and } f
+    \end{align*}
+    Then this relation is an equivalence relation and we call the equivalence classes \textit{blocks}, sometimes also known as $2$-connectivity-components
+\end{definition}
+It is now evident that two blocks, if even, can only intersect in one articulation point.
+The Block-Decomposition is given by:
+\begin{center}
+    \fbox{
+        \parbox{15cm}{
+            Let $T$ be a bipartite graph (in this case a tree), with $V = A \uplus B$ where $A$ is the set of articulation points of $G$ and $B$ the set of blocks of $G$ (This means that every block in $G$ is a vertex in $V$).
+
+            We connect a vertex $a \in A$ with a block $b \in B$ if and only if $a$ is incident to an edge in $b$.
+
+            $T$ is connected if $G$ is and it is free of cycles if $G$ is free of cycles, since every cycle is translatable to a cycle in $G$
+        }
+    }
+\end{center}
+The algorithm to determine bridges and articulation points can again be reused and allows us to determine a Block-Decomposition in linear time.

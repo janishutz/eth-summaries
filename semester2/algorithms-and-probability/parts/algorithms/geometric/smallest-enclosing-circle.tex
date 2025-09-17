@@ -1,0 +1,104 @@
+\newpage
+\subsection{Geometric Algorithms}
+
+\subsubsection{Smallest enclosing circle}
+\newcommand{\cplane}{C^\text{\textbullet}}
+Given a set $P$ of $n$ points in a plane, we want to find a circle $C(P)$ such that $C(P)$ encloses all points of $P$ and whose \textit{radius} is minimal (SEC).
+For a circle $C$ we use $\cplane$ for the circular plane enclosed by $C$, including $C$ and we also allow the points in $P$ to lay on $C(P)$.
+\begin{lemma}[]{Existence of distinct SEC}
+    For each (finite) set of points $P$ in $\R^2$ there exists a distinct smallest enclosing circle $C(P)$
+\end{lemma}
+
+The below lemma forms the basis of our algorithm
+\begin{lemma}[]{Subset of set of points}
+    For each (finite) set of points $P$ in $\R^2$ with $|P| \geq 3$ there exists a subset $Q \subseteq P$ such that $|Q| = 3$ and $C(Q) = C(P)$
+\end{lemma}
+
+\begin{algorithm}
+    \caption{Smallest Enclosing Circle $C(P)$}
+    \begin{algorithmic}[1]
+        \Procedure{CompleteEnumeration}{$P$}
+            \For{\textbf{all} $Q \subseteq P$ with $|Q| = 3$}
+                \State determine $C(Q)$
+                \If{$P \subseteq \cplane(Q)$}
+                    \State \Return $C(Q)$
+                \EndIf
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+The above algorithm has time complexity \tco{n^4}, which is due to having to check at most ${n \choose 3}$ sets $Q$, for which we can determine $C(Q)$ in constant time, since $|Q| = 3$. We then have to check for each point in $P$ if it is contained in $\cplane(Q)$, which we can do in \tco{n}, since we can check for each point in constant time.
+
+This is quite inefficient and using a randomized algorithm, we can achieve \tco{n \ln(n)}
+
+\begin{algorithm}
+    \caption{Smallest Enclosing Circle $C(P)$ randomized}
+    \begin{algorithmic}[1]
+        \Procedure{CompleteEnumerationRandomized}{$P$}
+            \While{\textit{always}}
+                \State select $Q \subseteq P$ with $|Q| = 11$ uniformly randomly
+                \State determine $C(Q)$
+                \If{$P \subseteq \cplane(Q)$}
+                    \State \Return $C(Q)$
+                \EndIf
+                \State double all points in $P$ outside $C(Q)$
+            \EndWhile
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+To implement this algorithm, we also need the doubling function: We initialize an array \verb|num| to length $n$ to $1$. \verb|num[i]| now contains the number of copies of the $i$-th point. If the point lays outside $C(Q)$, we can simply set \verb|num[i] = 2 * num[i]|
+
+\newpage
+To select $11$ points uniformly randomly in \tco{n}, consider
+\begin{lemma}[]{Uniformly random $Q$}
+    Let $n_1, \ldots, n_t \in \N$ and $N := \sum_{i = 1}^{t} n_i$. We generate $X \in \{1, \ldots, t\}$ randomly as seen in Algorithm \ref{alg:t-uniformly-random-numbers}
+
+    Then we have $\Pr[X = i] = \frac{n_i}{N}$ for all $i = 1, \ldots, t$
+\end{lemma}
+
+\begin{algorithm}
+    \caption{Choose uniformly random number}\label{alg:t-uniformly-random-numbers}
+    \begin{algorithmic}[1]
+        \Procedure{ChooseUniformlyRandom}{$t$}
+            \State \Call{UniformInt}{$1, N$}
+            \State $x \gets 1$
+            \While{$\sum_{i = 1}^{x} n_i < k$}
+                \State $x \gets x + 1$
+            \EndWhile
+            \State \Return $x$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{lemma}[]{Uniformly random $Q$}
+    Let $P$ be a set of $n$ not necessarily different points and for $r \in \N$ let $R$ be uniformly randomly chosen from ${P \choose r}$. Then, the expected number of points of $P$ that are outside $C(R)$ is at most $3 \frac{n - r}{r + 1} \leq 3\frac{n}{r + 1}$
+\end{lemma}
+
+\begin{theorem}[]{Correctness of \textsc{CompleteEnumerationRandomized}}
+    The algorithm \textsc{CompleteEnumerationRandomized} computes the smallest enclosing circle of $P$ in time \tco{n \log(n)}
+\end{theorem}
+
+
+\fhlc{Cyan}{Sampling Lemma}
+\begin{definition}[]{Sampling Lemma helpers}
+    Given a finite set $S$, $n := |S|$ and $\phi$ be an arbitrary function on $2^S$ in an arbitrary range. We define
+    \begin{align*}
+        V(R) = V_{\phi}(R) & := \{ s \in S \divides \phi(R) \cup \{s\} \neq \phi(R) \}       \\
+        X(R) = X_{\phi}(R) & := \{ s \in S \divides \phi(R) \backslash \{s\} \neq \phi(R) \}
+    \end{align*}
+    We call elements in $V(R)$ \textit{violators of} $R$ and elements in $X(R)$ we \textit{call external in} $R$
+\end{definition}
+
+The sampling lemma connects the expected number of violating elements to the number of external elements.
+\begin{lemma}[]{Sampling Lemma}
+    Let $k \in \N, 0 \leq k \leq n$. We set $v_k := \E[|V(R)|]$ and $x_k := \E[|X(R)|]$ where $R$ is a subset of $S$ of cardinality $k$, uniformly randomly selected from ${s \choose k}$. Then we have for $r \in \N, 0 \leq r <n$
+    \begin{align*}
+        \frac{v_r}{n - r} = \frac{x_{r + 1}}{r + 1}
+    \end{align*}
+\end{lemma}
+
+\begin{corollary}[]{Expected numbers / ranks}
+    If we choose $r$ elements $R$ from a set $A$ of $n$ numbers randomly, the expected rank of the minimum of $R$ in $A$ is exactly $\frac{n - r}{r + 1} + 1 = \frac{n + 1}{r + 1}$.
+
+    If we choose $r$ points $R$ of a set $P$ of $n$ points in a plane randomly, the expected number of points of $P$ that are outside $C(R)$ is at most $3 \frac{n - r}{r + 1}$
+\end{corollary}

@@ -1,0 +1,49 @@
+\newpage
+\subsection{Conditional Probability}
+\setcounter{all}{8}
+\begin{definition}[]{Conditional Probability}
+    Let $A, B$ be events, with $\Pr[B] > 0$. The \textit{conditional probability} $\Pr[A|B]$ of $A$ given $B$ is defined as
+    \[
+        \Pr[A|B] := \frac{\Pr[A \cap B]}{\Pr[B]}
+    \]
+    We may also rewrite the above as
+    \[
+        \Pr[A \cap B] = \Pr[B|A] \cdot \Pr[A] = \Pr[A|B] \cdot \Pr[B]
+    \]
+\end{definition}
+
+\setcounter{all}{10}
+\begin{theorem}[]{Multiplication law}
+    Let $A_1, \ldots, A_n$ be events. If $\Pr[A_1 \cap \ldots \cap A_n] > 0$, we have
+    \[
+        \Pr[A_1 \cap \ldots \cap A_n] = \Pr[A_1] \cdot \Pr[A_2|A_1] \cdot \Pr[A_3|A_1 \cap A_2] \cdot \ldots \cdot \Pr[A_n|A_1 \cap \ldots \cap A_n]
+    \]
+\end{theorem}
+
+The proof of the above theorem is based on the definition of conditional probability. If we rewrite $\Pr[A_1] = \frac{\Pr[A_1]}{1}$, apply the definition of $\Pr[A_2 | A_1]$, and do the same to all subsequent terms, the equation simplifies to $\Pr[A_1 \cap \ldots \cap A_n]$
+
+
+\fhlc{Cyan}{Use:} The law of total probability is used, as the name implies, to calculate the total probability of all possible ways in which an even $B$ can occur.
+\setcounter{all}{13}
+\begin{theorem}[]{Law of total probability}
+    Let $A_1, \ldots, A_n$ be relatively disjoint events and let $B \subseteq A_1 \cup \ldots \cup A_n$. We then have
+    \[
+        \Pr[B] = \sum_{i = 1}^{n} \Pr[B|A_i] \cdot \Pr[A_i]
+    \]
+    The same applies for $n = \infty$. Then, $B = \bigcup_{i = 1}^{\infty} A_i$
+\end{theorem}
+
+Using the previously defined theorem, we get Bayes' Theorem
+
+\setcounter{all}{15}
+\begin{theorem}[]{Bayes' Theorem}
+    Let $A_1, \ldots, A_n$ be relatively disjoint events and let $B \subseteq A_1 \cup \ldots \cup A_n$ be an event with $\Pr[B] > 0$. Then for each $i = 1, \ldots, n$, we have
+    \[
+        \Pr[A_i|B] = \frac{\Pr[A_i \cap B]}{\Pr[B]} = \frac{\Pr[B|A_i] \cdot \Pr[A_i]}{\sum_{j = 1}^{n} \Pr[B|A_j] \cdot \Pr[A_j]}
+    \]
+    The same applies for $n = \infty$. Then $B = \bigcup_{i = 1}^{\infty} A_i$
+\end{theorem}
+
+\fhlc{Cyan}{Use:} Bayes' Theorem is commonly used to calculate probabilities on different branches or in other words, to rearrange conditional probabilities. The sum in the denominator represents all posible paths to the event summed up
+
+\inlineex \hspace{0mm} Assume we want to find the probability that event $X$ happened given that event $Y$ happened. \textbf{Important:} Event $X$ happened \textit{before} event $Y$ happened and we do \textit{not} know the probability of $X$. Therefore we have $\Pr[X|Y]$ as the probability. But we don't actually know that probability, so we can use Bayes' Theorem to restate the problem in probabilities we can (more) easily determine.

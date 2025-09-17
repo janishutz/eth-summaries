@@ -1,0 +1,35 @@
+\newpage
+\subsection{Approximating probabilities}
+Since it can be very expensive to calculate the true probabilities in some cases, we will now cover some tools that allow us to approximate the probabilities using upper or lower bounds.
+
+\subsubsection{Markov's \& Chebyshev's inequalities}
+\setcounter{all}{67}
+\begin{theorem}[]{Markov's inequality}
+    Let $\mathcal{X}$ be a random variable that may only take non-negative values. Then for all $t > 0 \in \R$, we have
+    \begin{align*}
+        \Pr[\mathcal{X} \geq t] \leq \frac{\E[\mathcal{X}]}{t} \Longleftrightarrow \Pr[\mathcal{X} \geq t \cdot \E[\mathcal{X}]] \leq \frac{1}{t}
+    \end{align*}
+\end{theorem}
+Markov's inequality is fairly straight forward to prove, and it already allows us to make some useful statements, like that for the coupon collector problem, we only need to make more than $100 n \log(n)$ purchases with probability $\frac{1}{100}$. The following inequality usually gives a much more precise bound than Markov's inequality
+
+\begin{theorem}[]{Chebyshev's inequality}
+    Let $\mathcal{X}$ be a random variable and $t > 0 \in\R$. Then we have
+    \begin{align*}
+        \Pr[|\mathcal{X} - \E[\mathcal{X}| \geq t]] \leq \frac{\text{Var}[\mathcal{X}]}{t^2} \Longleftrightarrow \Pr[|\mathcal{X} - \E[\mathcal{X}]| \geq t \cdot \sqrt{\text{Var}[\mathcal{X}]}] \leq \frac{1}{t^2}
+    \end{align*}
+\end{theorem}
+
+A common tactic when using these is to restate the original probability $\Pr[X \geq t]$ as $\Pr[|X - \E[X]| \geq t - \E[X]]$ and then set $t = t'$ for $t' = t - \E[X]$
+
+\subsubsection{Chernoff bounds}
+The Chernoff bounds are specifically designed for Bernoulli-variables
+\setcounter{all}{70}
+\begin{theorem}[]{Chernoff bounds}
+    Let $\mathcal{X}_1, \ldots, \mathcal{X}_n$ be independent Bernoulli-distributed random variables with $\Pr[\mathcal{X}_i = 1] = p_i$ and $\Pr[\mathcal{X}_i = 0] = 1 - p_i$. Then we have for $\mathcal{X} := \sum_{i = 1}^{n} \mathcal{X}_i$
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Pr[\mathcal{X} \geq (1 + \delta)\E[\mathcal{X}]] \leq e^{-\frac{1}{3}\delta^2\E[\mathcal{X}]}$ \largehspace for all $0 < \delta \leq 1$
+        \item $\Pr[\mathcal{X} \leq (1 - \delta)\E[\mathcal{X}]] \leq e^{-\frac{1}{2}\delta^2\E[\mathcal{X}]}$ \largehspace for all $0 < \delta \leq 1$
+        \item $\Pr[\mathcal{X} \geq t] \leq 2^{-t}$ \largehspace for $t \geq 2e\E[\mathcal{X}]$
+    \end{enumerate}
+\end{theorem}
+We determine the $\delta$ in the inequality by finding it such that $t = (1 + \delta)\E[X]$ or, for the second one, $t = (1 - \delta)\E[X]$. For the third one, no $\delta$ is required

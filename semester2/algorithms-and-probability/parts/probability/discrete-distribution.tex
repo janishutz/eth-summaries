@@ -1,0 +1,99 @@
+% Page 126 (actual)
+\newpage
+\subsection{Discrete distribution}
+\subsubsection{Bernoulli-Distribution}
+A random variable $\mathcal{X}$ with $W_{\mathcal{X}}$ is called \textit{\textbf{Bernoulli distributed}} if and only if its probability mass function is of form
+\[
+    f_{\mathcal{X}}(x) = \begin{cases}
+        p     & x = 1       \\
+        1 - p & x = 0       \\
+        0     & \text{else}
+    \end{cases}
+\]
+The parameter $p$ is called the probability of success (Erfolgswahrscheinlichkeit). Bernoulli distribution is used to describe boolean events (that can either occur or not). It is the trivial case of binomial distribution with $n = 1$. If a random variable $\mathcal{X}$ is Bernoulli distributed, we write
+\[
+    \mathcal{X} \sim \text{Bernoulli}(p)
+\]
+and we have
+\[
+    \E[\mathcal{X}] = p \hspace{1cm} \text{and} \hspace{1cm} \text{Var}[\mathcal{X}] = p(1 - p)
+\]
+
+\subsubsection{Binomial Distribution}
+If we perform a Bernoulli trial repeatedly (e.g. we flip a coin $n$ times), the number of times we get one of the outcomes is our random variable $\mathcal{X}$ and it is called \textbf{\textit{binomially distributed}} and we write
+\[
+    \mathcal{X} \sim \text{Bin}(n, p)
+\]
+and we have
+\[
+    \E[\mathcal{X}] = np \hspace{1cm} \text{and} \hspace{1cm} \text{Var}[\mathcal{X}] = np(1 - p)
+\]
+
+
+\subsubsection{Geometric Distribution}
+If we have an experiment that is repeated until we have achieved success, where the probability of success is $p$, the number of trials (which is described by the random variable $\mathcal{X}$) is \textbf{\textit{geometrically distributed}}. We write
+\[
+    \mathcal{X} \sim \text{Geo}(p)
+\]
+The density function is given by
+\[
+    f_{\mathcal{X}}(i) = \begin{cases}
+        p(1 - p)^{i - 1} & \text{for } i \in \N \\
+        0                & \text{else}
+    \end{cases}
+\]
+whilst the expected value and variance are defined as
+\[
+    \E[\mathcal{X}] = \frac{1}{p} \hspace{1cm} \text{and} \hspace{1cm} \text{Var}[\mathcal{X}] = \frac{1 - p}{p^2}
+\]
+The cumulative distribution function is given by
+\[
+    F_{\mathcal{X}}(n) = \Pr[\mathcal{X} \leq n] = \sum_{i = 1}^{n} \Pr[\mathcal{X} = i] = \sum_{i = 1}^{n} p(1 - p)^{i - 1} = 1 - (1 - p)^n
+\]
+\shade{gray}{Note} Every trial in the geometric distribution is unaffected by the previous trials
+\setcounter{all}{45}
+\begin{theorem}[]{Geometric Distribution}
+    If $\mathcal{X} \sim \text{Geo}(p)$, for all $s, t \in \N$ we have
+    \[
+        \Pr[\mathcal{X} \geq s + t | X > s] = \Pr[X \geq t]
+    \]
+\end{theorem}
+
+\newpage
+\fhlc{cyan}{Coupon Collector problem}
+
+First some theory regarding waiting for the $n$th success. The probability mass function is given by $f_{\mathcal{X}}(x) = \begin{pmatrix}z - 1\\ n - 1\end{pmatrix} \cdot p^n \cdot (1- p)^{z - n}$ whereas the expected value is given by $\displaystyle\E[\mathcal{X}] = \sum_{i = 1}^{n} \E[\mathcal{X}_i] = \frac{n}{p}$
+
+The coupon collector problem is a well known problem where we want to collect all coupons on offer. How many coupons do we need to obtain on average to get one of each? We will assume that the probability of getting coupon $i$ is equal to all other coupons and getting a coupon doesn't depend on what coupons we already have (independence)
+
+Let $\mathcal{X}$ be a random variable representing the number of purchases to the completion of the collection. We split up the time into separate phases, where $\mathcal{X}$ is the number of coupons needed to end phase $i$, which ends when we have found one of the $n - i + 1$ coupons not previously collected (i.e. we got a coupon we haven't gotten yet)
+
+Logically, $\mathcal{X} = \sum_{i = 1}^{n} \mathcal{X}_i$. We can already tell from the experiment we are conducting that it is going to be geometrically distributed and thus the probability of success is going to be $p = \frac{n - i + 1}{n}$ and we have $\E[\mathcal{X}_i] = \frac{n}{n - i + 1}$
+
+With that, let's determine
+\[
+    \E[\mathcal{X}] = \sum_{i = 1}^{n} \E[\mathcal{X}_i] = \sum_{i = 1}^{n} \frac{n}{n - i + 1} = n \cdot \sum_{i = 1}^{n} \frac{1}{i} = n \cdot H_n
+\]
+where $H_n := \sum_{i = 1}^{n} \frac{1}{i}$ is the $n$th harmonic number, which we know (from Analysis) is $H_n = \ln(n) +$\tco{1}, thus we have $\E[\mathcal{X}] = n \cdot \ln(n) +$\tco{n}.
+
+The idea of the transformation is to reverse the $(n - i + 1)$, so counting up instead of down, massively simplifying the sum and then extracting the $n$ and using the result of $H_n$ to fully simplify
+
+
+\subsubsection{Poisson distribution}
+The \textbf{\textit{Poisson distribution}} is applied when there is only a small likelihood that an event occurs, but since the cardinality of the sample space in question is large, we can expect at least a few events to occur.
+We write
+\[
+    \mathcal{X} \sim \text{Po}(\lambda)
+\]
+An example for this would be for a person to be involved in an accident over the next hour. The probability mass function is given by
+\[
+    f_{\mathcal{X}}(i) = \begin{cases}
+        \frac{e^{-\lambda}\lambda^i}{i!} & \text{for } i \in \N_o \\
+        0                                & \text{else}
+    \end{cases}
+    \hspace{1cm} \text{and} \hspace{1cm} \E[\mathcal{X}] = \text{Var}[\mathcal{X}] = \lambda
+\]
+
+\shade{cyan}{Using the Poisson distribution as limit for the binomial distribution}
+
+We can approximate the binomial distribution using the Poisson distribution if we have large $n$ and small constant $np$. $\lambda = \E[\mathcal{X}] = np$ in that case.

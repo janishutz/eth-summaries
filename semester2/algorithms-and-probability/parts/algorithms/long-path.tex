@@ -1,0 +1,98 @@
+\newsection
+\section{Algorithms}
+\subsection{Graph algorithms}
+
+\subsubsection{Long path problem}
+Given a tuple $(G, B)$ where $G$ is a graph and $B \in \N_0$, we need to determine whether there exists a path of length $B$ in $G$.
+
+This problem is another one of the infamous $\mathcal{N}\mathcal{P}$-Complete problems, for which there \textit{supposedly} doesn't exist an algorithm that can solve the problem in polynomial time.
+We can show that this problem belongs to said group if we can show that we can \textit{efficiently} construct a graph $G'$ with $n' \leq 2n - 2$ vertices such that $G$ has a Hamiltonian Cycle if and only if $G'$ has a path of length $n$.
+
+We construct a graph $G'$ from graph $G$ by selecting a vertex $v$ and replacing each edge incident to that vertex with edges that lead to newly added vertices $\hat{w_1}, \hat{w_2}, \ldots$.
+$G'$ has $(n - 1) + \deg(v) \leq 2n - 2$ vertices. All the vertices $\hat{w_1}, \ldots, \hat{w_{\deg(v)}}$ all have degree $1$.
+
+The graph $G'$ fulfills the above implication because
+\begin{enumerate}[label=(\roman*)]
+    \item Let $\langle v_1, v_2, \ldots, v_n, v_1 \rangle$ be a Hamiltonian cycle.
+          Assume for contradiction that the resulting graph, constructed according to the description above does not contain a path of length $n$.
+          Let's assume $v_1 = v$ (the vertex removed during construction). However, $\langle \hat{v_2}, v_2, \ldots, \hat{v_n}, v_n \rangle$ is a path of length $n$
+    \item Let $\langle u_0, u_1, \ldots, u_n \rangle$ be a path of length $n$ in $G'$ and let $\deg(u_i) \geq 2 \smallhspace \forall i \in \{1, \ldots, n - 1\}$ These vertices hence have to be the $n - 1$ remaining vertices of $G$, thus we have $u_0 = \hat{w_i}$ and $u_n = \hat{w_j}$ two different ones of new vertices of degree $1$ in $G'$. Thus, we have $u_1 = w_i$ and $u_{n - 1} = w_j$ and we have $\langle v, u_1, \ldots, u_{n - 1}, v \rangle$, which is a Hamiltonian cycle in $G$
+\end{enumerate}
+Due to the construction of the graph $G'$ we can generate it from $G$ in \tco{n^2} steps. We thus have:
+
+\begin{theorem}[]{Long Path Problem}
+    If we can find a \textit{long-path} in a graph with $n$ vertices in time $t(n)$, we can decide if a graph with $n$ vertices has a Hamiltonian cycle in $t(2n - 2) + \text{\tco{n^2}}$
+\end{theorem}
+
+
+\fhlc{Cyan}{Short long paths}
+
+In biological applications, the long paths searched are usually small compared to $n$. It is possible to solve this problem in polynomial time if for the tuple $(G, B)$ $B = \log(n)$.
+
+Notation and useful properties:
+\begin{itemize}
+    \item $[n] := \{1, 2, \ldots, n\}$. $[n]^k$ is the set of sequences over $[n]$ of length $k$ and we have $\left| [n]^k \right| = n^k$. ${[n] \choose k}$ is the set of subsets of $[n]$ of cardinality $k$ and we have $\left| {[n] \choose k} \right| = {n \choose k}$
+    \item For every graph $G = (V, E)$ we have $\sum_{v \in V} \deg(v) = 2|E|$
+    \item $k$ vertices (no matter if part of a path or not) can be coloured using $[k]$ in exactly $k^k$ ways whereas $k!$ of said colourings use each colour exactly once.
+    \item For $c, n \in \R^+$ we have $c^{\log(n)} = n^{\log(c)}$
+    \item For $n \in \N_0$ we have $\sum_{i = 0}^{n} {n \choose i} = 2^n$. (Application of binomial expansion, see \ref{sec:binomial-expansion})
+    \item For $n \in \N_0$ we have $\frac{n!}{n^n} \geq e^{-n}$
+    \item If we repeat an experiment with probability of success $p$ until success, $\E[\mathcal{X}] = \frac{1}{p}$ where $\mathcal{X} :=$ number of trials
+\end{itemize}
+
+
+\newpage
+\shade{ForestGreen}{Colourful paths}
+
+A path is called \textit{colourful} if all vertices on it are coloured differently.
+For $v \in V$ and $i \in \N_0$ let's define
+\begin{align*}
+    P_i(v) := \left\{ S \in {[k] \choose i + 1} \smallhspace \Bigg| \smallhspace \exists \text{ path ending in $v$ coloured with $S$ colours } \right\}
+\end{align*}
+Thus, $P_i(v)$ contains a set $S$ of $i + 1$ colours if and only if there exists a path with vertex $v$ whose colours are the colours in $S$.
+It is important to note that such a path has to be always \textit{exactly} of length $i$.
+
+If we solve this problem for every $v \in V$, we solved our problem and we have
+\begin{align*}
+    \exists \text{ colourful path of length $k - 1$ } \Longleftrightarrow \bigcup_{v \in V} P_{k - 1}(v) \neq \emptyset
+\end{align*}
+For the algorithm, we need to also define $N(v)$ which returns the neighbours of $v$ and $\gamma: V \rightarrow [k]$ which assigns a colour to each vertex.
+
+\begin{algorithm}
+    \caption{Colourful path algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Colourful}{$G, i$}
+            \For{\textbf{all} $v \in V$}
+                \State $P_i(v) \gets \emptyset$
+                \For{\textbf{all} $x \in N(v)$}
+                    \For{\textbf{all} $R \in P_{i - 1}(x)$ with $\gamma(v) \notin R$}
+                        \State $P_i(v) \gets P_i(v) \cup \{R \cup \{\gamma(v)\}\}$
+                    \EndFor
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+The time complexity of this algorithm is \tco{2^k km}. If we now have $k = \text{\tco{\log(n)}}$, the algorithm is polynomial.
+
+
+\shade{ForestGreen}{Random colouring}
+
+The idea to solve the short long path problem in polynomial time is to randomly colour the vertices using colours $[k]$, whereby $k := B + 1$ and check if there is a colourful path of length $k - 1$.
+Since we are guaranteed to have a colourful path if we find one, we can develop a Las Vegas Algorithm that solves this problem. But first
+\begin{theorem}[]{Random Colouring}
+    Let $G$ be a graph with a path of length $k - 1$
+    \begin{enumerate}[label=(\arabic*)]
+        \item We have $p_{\text{success}} = \Pr[\exists \text{ colourful path of length } k - 1] \geq \Pr[P \text{ is colourful}] = \frac{k!}{k^k} \geq e^{-k}$
+        \item The expected number of trials required to get a colourful path of length $k - 1$ is $\frac{1}{p_{\text{success}}} \leq e^k$
+    \end{enumerate}
+\end{theorem}
+For our algorithm we choose a $\lambda > 1 \in \R$ and we repeat the test at most $\ceil{\lambda e^k}$. If we succeed once, we abort and output ``\textsc{Yes}''. If we haven't succeeded in any of the trials, we output ``\textsc{No}''
+
+\begin{theorem}[]{Random Colouring Algorithm}
+    \begin{itemize}
+        \item Time complexity: \tco{\lambda(2e)^k km}
+        \item If we return ``\textsc{Yes}'', the graph is \textit{guaranteed} to contain a path of length $k - 1$
+        \item If we return ``\textsc{No}'', the probability of false negative is $e^{-\lambda}$
+    \end{itemize}
+\end{theorem}

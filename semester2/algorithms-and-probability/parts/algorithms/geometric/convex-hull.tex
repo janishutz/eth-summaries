@@ -1,0 +1,80 @@
+\newpage
+\subsubsection{Convex hull}
+\begin{definition}[]{Convex hull}
+    Let $S \subseteq \R^d, d \in \N$. The \textit{convex hull}, $\text{conv}(S)$ of $S$ is the cut of all convex sets that contains $S$, i.e.
+    \begin{align*}
+        \text{conv}(S) := \bigcap_{S\subseteq C \subseteq \R^d} C
+    \end{align*}
+    where $C$ is convex
+\end{definition}
+A convex hull is always convex again.
+
+
+\setcounter{all}{37}
+\begin{theorem}[]{JarvisWrap}
+    The \verb|JarvisWrap| algorithm can find the convex hull in \tco{nh}, where $h$ is the number of corners of $P$ and $P$ is a set of $n$ points in any position in $\R^2$.
+\end{theorem}
+
+
+\begin{algorithm}
+    \caption{JarvisWrap}
+    \begin{algorithmic}[1]
+        \Procedure{FindNext}{$q$}
+            \State Choose $p_0 \in P\backslash\{q\}$ arbitrarily
+            \State $q_{next} \gets p_0$
+            \For{\textbf{all} $p \in P\backslash \{q, p_0\}$}
+                \If{$p$ is to right of $q q_{next}$}
+                    $q_{next} \gets p$ \Comment{$qq_{next}$ is vector from $q$ to $q_{next}$}
+                \EndIf
+            \EndFor
+            \State \Return $q_{next}$
+        \EndProcedure
+        \Procedure{JarvisWrap}{$P$}
+            \State $h \gets 0$
+            \State $p_{now} \gets$ point in $P$ with lowest $x$-coordinate
+            \While{$p_{now} \neq q_0$}
+                \State $q_h \gets p_{now}$
+                \State $p_now \gets$ \Call{FindNext}{$q_h$}
+                \State $h \gets h + 1$
+            \EndWhile
+            \State \Return $(q_0, q_1, \ldots, q_{h - 1})$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+\newpage
+\fhlc{Cyan}{LocalRepair}
+\begin{algorithm}
+    \caption{LocalRepair}
+    \begin{algorithmic}[1]
+        \Procedure{LocalRepair}{$p_1, \ldots, p_n$}
+            \State $q_0 \gets q_1$ \Comment{input sorted according to $x$-coordinate}
+            \State $h \gets 0$
+            \For{$i \in \{2, \ldots, n\}$} \Comment{Lower convex hull, left to right}
+                \While{$h > 0$ and $q_h$ is to the left of $q_{h - 1}p_i$} \Comment{$q_{h - 1}p_i$ is a vector}
+                    \State $h \gets h - 1$
+                \EndWhile
+                \State $h \gets h + 1$
+                \State $q_h \gets p_i$ \Comment{$(q_0, \ldots, q_h)$ is lower convex hull of $\{p_1, \ldots, p_i\}$}
+            \EndFor
+            \State $h' \gets h$
+            \For{$i \in \{n - 1, \ldots, 1\}$} \Comment{Upper convex hull, right to left}
+                \While{$h > h'$ and $q_h$ is to the left of $q_{h - 1}p_i$} \Comment{$q_{h - 1}p_i$ is a vector}
+                    \State $h \gets h - 1$
+                \EndWhile
+                \State $h \gets h + 1$
+                \State $q_h \gets p_i$
+            \EndFor
+            \State \Return $(q_0, \ldots, q_{h - 1})$ \Comment{The corners of the convex hull, counterclockwise}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\setcounter{all}{42}
+\begin{theorem}[]{LocalRepair}
+    The \verb|LocalRepair| algorithm can find the convex hull of a (in respect to the $x$-coordinate of each point) sorted set $P$ of $n$ points in $\R^2$ in \tco{n}.
+\end{theorem}
+
+The idea of the \verb|LocalRepair| algorithm is to repeatedly correct mistakes in the originally randomly chosen polygon. 
+The improvement steps add edges to the polygon such that eventually all vertices lay withing the smallest enclosing circle of the polygon. 

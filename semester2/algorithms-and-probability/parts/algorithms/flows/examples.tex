@@ -1,0 +1,164 @@
+\newpage
+\fhlc{Cyan}{Bipartite Matching as Flow-Problem}
+
+We can use the concepts of flows to determine matchings in bipartite graphs.
+
+Let $G = (V, E)$ be a bipartite graph, i.e. $\exists$ Partition $(\mathcal{U}, \mathcal{W})$ of $V$ such that $E = \{\{u, w\} \divides u \in \mathcal{U}, w \in \mathcal{W}\}$.
+We construct a network $N = (V \dot{\cup} \{s, t\}, \mathcal{A}, c, s, t)$, i.e. to the vertices of $G$, we added a source and a target.
+The capacity function is $c(e) = 1$.
+We copy the edges from $G$, having all edges be directed ones from vertices in $\mathcal{U}$ to ones in $\mathcal{W}$.
+We add edges from the source $s$ to every vertex in $\mathcal{U}$ and from every vertex in $\mathcal{W}$ to the target $t$.
+
+\begin{lemma}[]{Bipartite Matching - Max-Flow}
+    The maximum matching in a bipartite graph $G$ is equal to the maximum flow in the network $N$ as described above
+\end{lemma}
+
+
+\fhlc{Cyan}{Edge- and Vertex-disjoint paths}
+
+We can determine the degree of the connectivity of a graph (i.e. the number of vertices / edges that have to be removed that the graph becomes disconnected) by determining how many edge- or vertex-disjoint paths exist between two vertices.
+Again, using max-flow, we can solve this problem as follows:
+
+Given an undirected graph $G = (V, E)$ and two vertices $u, v \in V : u \neq v$, we need to define our network $N = (\mathcal{V}, \mathcal{A}, c, s, t)$:
+\begin{itemize}
+    \item Copy the vertex set $V$ and union it with two new vertices $s$ and $t$ and we thus have $\mathcal{V} = V \cup \{s, t\}$
+    \item Add two edges for each undirected edge in $G$, i.e. $\mathcal{A} = E \cup E'$ where $E'$ is has all edge directions reversed
+    \item We define the capacity function as $c(e) = 1$
+    \item We add two edges $(s, u)$ and $(v, t)$ and set the capacity of these edges to $|V|$. These are the two vertices between which we evaluate the edge-disjoint paths
+\end{itemize}
+
+If instead of edge-disjoint paths, we want to find \textit{vertex}-disjoint paths, we simply replace each vertex $x \in V\backslash\{u, v\}$ by $x_{\text{in}}$ and $x_{\text{out}}$ and connect all input-edges to $x_{\text{in}}$ and all output-edges of $x$ to $x_{\text{out}}$
+
+
+\fhlc{Cyan}{Image segmentation}
+
+We can also use cuts to solve image segmentation, i.e. to split background from foreground. We can translate an image to an undirected graph, since every pixel has four neighbours.
+Whatever the pixel values mean in the end, we assume we can deduce two non-negative numbers $\alpha_p$ and $\beta_p$ denoting the probability that $p$ is in the foreground or background respectively.
+
+Since this topic looks to not be too relevant for the exam, a full explanation of this topic can be found in the script on page 186-189
+
+
+\fhlc{Cyan}{Flows and convex sets}
+
+From the definition of flows we have seen, there is always \textit{at least} one flow, the flow \textbf{0}.
+
+\begin{lemma}[]{Flows}
+    Let $f_0$ and $f_1$ be flows in a network $N$ and let $\lambda \in \R : 0 < \lambda < 1$, then the flow $f_{\lambda}$ given by
+    \begin{align*}
+        \forall e \in \mathcal{A} : f_{\lambda}(e) := (1 - \lambda)f_0(e) + \lambda f_1(e)
+    \end{align*}
+    is also a flow in $N$. We have
+    \begin{align*}
+        \text{val}(f_{\lambda}) = (1 - \lambda) \cdot \text{val}(f_0) + \lambda \cdot \text{val}(f_1)
+    \end{align*}
+\end{lemma}
+
+\begin{corollary}[]{Number of flows in networks}
+    \begin{enumerate}[label=(\roman*)]
+        \item A network $N$ has either exactly \textit{one} flow (the flow \textbf{0}) or infinitely many flows
+        \item A network $N$ has either exactly \textit{one} maximum flow or infinitely many maximum flows
+    \end{enumerate}
+\end{corollary}
+
+
+\shade{ForestGreen}{Convex sets}
+We define a function $f: \mathcal{A} \rightarrow \R$ that induces a vector $v_f := (f(e_1), f(e_2), \ldots, f(e_m)) \in \R^m$ whereas $e_1, \ldots, e_m$ is an ordering of the vertices of $\mathcal{A}$ where $m = |\mathcal{A}|$.
+We can interpret the set of (maximum) flows as a subset of $\R^m$
+
+\begin{definition}[]{Convex set}
+    Let $m \in \N$
+    \begin{enumerate}[label=(\roman*)]
+        \item For $v_0, v_1 \in \R^m$ let $\overline{v_0v_1}:=\{(1 - \lambda v_0) + \lambda v_1 \divides \lambda \in \R, 0 \leq \lambda \leq 1\}$ be the \textit{line segment} connecting $v_0$ and $v_1$
+        \item A set $\mathcal{C} \subseteq \R^m$ is called \textit{convex} if for all $v_0, v_1 \in \mathcal{C}$ the whole line segment $\overline{v_0 v_1}$ is in $\mathcal{C}$
+    \end{enumerate}
+\end{definition}
+\textbf{Examples:} Spheres or convex Polytopes (e.g. dice or tetrahedra in $\R^3$)
+\begin{theorem}[]{Convex sets}
+    The set of flows of a network with $m$ edges, interpreted as vectors is a convex subset of $\R^m$. The set of all maximum flows equally forms a convex subset of $\R^m$
+\end{theorem}
+
+
+\newpage
+\subsubsection{Min-Cuts in graphs}
+In the following section we use \textit{multigraphs}.
+\begin{recall}[]{Multigraph}
+    A multigraph is an undirected, unweighted and acyclic graph $G = (V, E)$, where multiple edges are allowed to exist between the same pair of vertices.
+
+    \textit{(Instead of multiple edges, we could also allow weighted edges, but the algorithms and concepts presented here are more easily understandable using multiple edges)}
+\end{recall}
+
+\fhlc{Cyan}{Min-Cut Problem}
+
+We define $\mu(G)$ to be the cardinality of the \textit{min-cut} (this is the problem).
+This problem is similar to the min-cut problem for flows, only that we have a multigraph now. We can however replace multiple edges with a single, weighted edge, allowing us to use the algorithms discussed above.
+Since we need to compute $(n - 1)$ $s$-$t$-cuts, our total time complexity is \tco{n^4 \log(n)}, since we can compute $s$-$t$-cuts in \tco{n^3\log(n)} = \tco{n\cdot m\log(n)}
+
+
+
+\fhlc{Cyan}{Edge contraction}
+
+Let $e = \{u, v\}$ be an edge of our usual multigraph $G$.
+The \textit{contraction of} $e$ replaces the two vertices $u$ and $v$ with a single vertex denoted $x_{u, v}$, which is incident to all edges any of the two vertices it replaced were incident to, apart from the ones between the two vertices $u$ and $v$.
+We call the new graph $G/e$ and $\deg_{G/e}(x_{u, v}) = \deg_G(u) + \deg_G(v) - 2k$ where $k$ denotes the number of edges between $u$ and $v$.
+
+Of note is that there is a bijection: $\text{Edges in G without the ones between $u$ and } v \leftrightarrow \text{Edges in $G/e$}$
+
+\begin{lemma}[]{Edge contraction}
+    Let $G$ be a graph and $e$ be an edge of $G$. Then we have that $\mu(G/e) \geq \mu(G)$ and we have equality if $G$ contains a min-cut $\mathcal{C}$ with $e \notin \mathcal{C}$.
+\end{lemma}
+
+
+\fhlc{Cyan}{Random edge contraction}
+
+\begin{algorithm}
+    \caption{Random Cut where $G$ is a connected Multigraph}
+    \begin{algorithmic}[1]
+        \Procedure{Cut}{$G$}
+            \While{$|V(G)| > 2$} \Comment{Vertices of $G$}
+                \State $e \gets$ uniformly random edge in $G$
+                \State $G \gets G/e$
+            \EndWhile
+            \State \Return Size of a unique cut of $G$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+If we assume that we can perform edge contraction in \tco{n} and we can choose a uniformly random edge in $G$ in \tco{n} as well, it is evident that we can compute \textsc{Cut}($G$) in \tco{n^2}
+
+\begin{lemma}[]{Random edge contraction}
+    If $e$ is uniformly randomly chosen from the edges of multigraph $G$, then we have
+    \begin{align*}
+        \Pr[\mu(G) = \mu(G/e)] \geq 1 - \frac{2}{n}
+    \end{align*}
+\end{lemma}
+
+\newpage
+\begin{lemma}[]{Correctness of \textsc{Cut}$(G)$}
+    To evaluate the correctness of \textsc{Cut}$(G)$, we define
+    \begin{align*}
+        \hat{p}(G) := \text{Probability that \textsc{Cut}($G$) returns the value } \mu(G)
+    \end{align*}
+    and let
+    \begin{align*}
+        \hat{p}(n) := \inf_{G=(V, E), |V| = n}\hat{p}(G)
+    \end{align*}
+    Then, for all $n \geq 3$ we have
+    \begin{align*}
+        \hat{p} \geq \left( 1 - \frac{2}{n} \right) \cdot \hat{p}(n - 1)
+    \end{align*}
+\end{lemma}
+
+\begin{lemma}[]{Probability of Correctness of \textsc{Cut}$(G)$}
+    For all $n \geq 2$ we have $\displaystyle \hat{p}(n) \geq \frac{2}{n(n - 1)} = \frac{1}{{n \choose 2}}$
+\end{lemma}
+Thus, we repeat the algorithm \textsc{Cut}$(G)$ $\lambda {n \choose 2}$ times for $\lambda > 0$ and we return the smallest value we got.
+\begin{theorem}[]{\textsc{Cut}$(G)$}
+    For the algorithm that runs \textsc{Cut}$(G)$ $\lambda{n \choose 2}$ times we have the following properties:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Time complexity: \tco{\lambda n^4}
+        \item The smallest found value is with probability at least $1 - e^{-\lambda}$ equal to $\mu(G)$
+    \end{enumerate}
+\end{theorem}
+If we choose $\lambda = \ln(n)$, we have time complexity \tco{n^4 \ln(n)} with error probability \textit{at most} $\frac{1}{n}$
+
+Of note is that for low $n$, it will be worth it to simply deterministically determine the min-cut

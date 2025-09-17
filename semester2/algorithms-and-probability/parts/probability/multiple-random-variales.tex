@@ -1,0 +1,115 @@
+\newpage
+\subsection{Multiple random variables}
+There are times when we are interested in the outcomes of multiple random variables simultaneously. For two random variables $\mathcal{X}$ and $\mathcal{Y}$, we evaluate probabilities of type
+\[
+    \Pr[\mathcal{X} = x, \mathcal{Y} = y] = \Pr[\{ \omega \in \Omega : \mathcal{X}(\omega) = x, \mathcal{Y}(\omega) = y \}]
+\]
+Here $\Pr[\mathcal{X} = x, \mathcal{Y} = y]$ is a shorthand notation for $\Pr[``\mathcal{X} = x'' \cap ``\mathcal{Y} = y'']$
+
+We define the \textit{common probability mass function} $f_{\mathcal{X}, \mathcal{Y}}$ by
+\[
+    f_{\mathcal{X}, \mathcal{Y}}(x, y) := \Pr[\mathcal{X} = x, \mathcal{Y} = y]
+\]
+We can also get back to the individual probability mass of each random variable
+\begin{align*}
+    f_{\mathcal{X}} = \sum_{y \in W_{\mathcal{Y}}} f_{\mathcal{X}, \mathcal{Y}}(x, y) \hspace{1cm} \text{or} \hspace{1cm} f_{\mathcal{Y}}(y) = \sum_{x \in W_{\mathcal{X}}} f_{\mathcal{X}, \mathcal{Y}}(x, y)
+\end{align*}
+We hereby call $f_{\mathcal{X}}$ and $f_{\mathcal{Y}}$ \textit{marginal density} (Randdichte)
+
+We define the \textbf{\textit{common cumulative distribution function}} by
+\begin{align*}
+    F_{\mathcal{X}, \mathcal{Y}}(x, y) := \Pr[\mathcal{X} \leq x, \mathcal{Y} \leq y] = \Pr[\{ \omega \in \Omega : \mathcal{X}(\omega) \leq x, \mathcal{Y} \leq y \}] = \sum_{x' \leq x} \sum_{y' \leq y} f_{\mathcal{X}, \mathcal{Y}}(x', y')
+\end{align*}
+
+Again, we can use marginal density
+\begin{align*}
+    F_{\mathcal{X}}(x) = \sum_{x'\leq x} f_{\mathcal{X}}(x') = \sum_{x' \leq x} \sum_{y \in W_{\mathcal{Y}}} f_{\mathcal{X}, \mathcal{Y}}(x', y)
+    \hspace{5mm} \text{and} \hspace{5mm}
+    F_{\mathcal{Y}}(y) = \sum_{y'\leq y} f_{\mathcal{Y}}(y') = \sum_{y' \leq y} \sum_{x \in W_{\mathcal{X}}} f_{\mathcal{X}, \mathcal{Y}}(x, y')
+\end{align*}
+
+\subsubsection{Independence of random variables}
+\setcounter{all}{52}
+\begin{definition}[]{Independence}
+    Random variables $\mathcal{X}_1, \ldots, \mathcal{X}_n$ are called \textbf{\textit{independent}}
+    if and only if for all $(x_1, \ldots, x_n) \in W_{\mathcal{X}_1} \times \ldots \times W_{\mathcal{X}_n}$ we have
+    \begin{align*}
+        \Pr[\mathcal{X}_1 = x_1, \ldots, \mathcal{X}_n = x_n] = \Pr[\mathcal{X}_1 = x_1] \cdot \ldots \cdot \Pr[\mathcal{X}_n = x_n]
+    \end{align*}
+    Or alternatively, using probability mass functions
+    \begin{align*}
+        f_{\mathcal{X}_1, \ldots \mathcal{X}_n}(x_1, \ldots, x_n) = f_{\mathcal{X}_1}(x_1) \cdot \ldots \cdot f_{\mathcal{X}_n}(x_n)
+    \end{align*}
+    In words, this means that for independent random variables, their common density is equal to the product of the individual marginal densities
+\end{definition}
+The following lemma shows that the above doesn't only hold for specific values, but also for sets
+\begin{lemma}[]{Independence}
+    Let $\mathcal{X}_1, \ldots, \mathcal{X}_n$ be independent random variables and let $S_1, \ldots, S_n \subseteq \R$ be any set, then we have
+    \begin{align*}
+        \Pr[\mathcal{X}_1 \in S_1, \ldots, \mathcal{X}_n \in S_n] = \Pr[\mathcal{X}_1 \in S_1] \cdot \ldots \cdot \Pr[\mathcal{X}_n \in S_n]
+    \end{align*}
+\end{lemma}
+
+\begin{corollary}[]{Independence}
+    Let $\mathcal{X}_1, \ldots, \mathcal{X}_n$ be independent random variables and let $I = \{i_1, \ldots, i_k\} \subseteq [n]$, then $\mathcal{X}_{i_1}, \ldots, \mathcal{X}_{i_k}$ are also independent
+\end{corollary}
+
+\begin{theorem}[]{Independence}
+    Let $f_1, \ldots, f_n$ be real-valued functions ($f_i : \R \rightarrow \R$ for $i = 1, \ldots, n$). If the random variables $X_1, \ldots, X_n$ are independent, then this also applies to $f_1(\mathcal{X}_1), \ldots, f_n(\mathcal{X}_n)$
+\end{theorem}
+
+
+\subsubsection{Composite random variables}
+Using functions we can combine multiple random variables in a sample space.
+
+\setcounter{all}{58}
+\begin{theorem}[]{Two random variables}
+    For two independent random variables $\mathcal{X}$ and $\mathcal{Y}$, let $\mathcal{Z} := \mathcal{X} + \mathcal{Y}$. Then we have
+    \begin{align*}
+        f_{\mathcal{Z}}(z) = \sum_{x \in W_{\mathcal{X}}} f_{\mathcal{X}} \cdot f_{\mathcal{Y}}(z - x)
+    \end{align*}
+\end{theorem}
+We call, analogously to the terms used for power series, $f_{\mathcal{Z}}(z)$ ``convolution''
+
+
+\subsubsection{Moments of composite random variables}
+\setcounter{all}{60}
+\begin{theorem}[]{Linearity of the expected value}
+    For random variables $\mathcal{X}_1, \ldots, \mathcal{X}_n$ and $\mathcal{X} := a_1 \mathcal{X}_1 + \ldots + a_n \mathcal{X}_n$ with $a_1, \ldots, a_n \in \R$ we have
+    \begin{align*}
+        \E[\mathcal{X}] = a_1 \E[\mathcal{X}_1] + \ldots + a_n \E[\mathcal{X}_n]
+    \end{align*}
+\end{theorem}
+There are no requirements in terms of independence of the random variables, unlike for the multiplicativity
+
+\begin{theorem}[]{Multiplicativity of the expected value}
+    For independent random variables $\mathcal{X}_1, \ldots, \mathcal{X}_n$ we have
+    \begin{align*}
+        \E[\mathcal{X}_1 \cdot \ldots \cdot \mathcal{X}_n] = \E[\mathcal{X}_1] \cdot \ldots \cdot \E[\mathcal{X}_n]
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}[]{Variance of multiple random variables}
+    For independent random variables $\mathcal{X}_1, \ldots, \mathcal{X}_n$ and $\mathcal{X} = \mathcal{X}_1 + \ldots + \mathcal{X}_n$ we have
+    \begin{align*}
+        \text{Var}[\mathcal{X}] = \text{Var}[\mathcal{X}_1] + \ldots + \text{Var}[\mathcal{X}_n]
+    \end{align*}
+\end{theorem}
+
+
+\subsubsection{Wald's Identity}
+Wald's identity is used for cases where the number of summands is not a constant, commonly for algorithms that repeatedly call subroutines until a certain result is attained.
+The time complexity of such an algorithm can be approximated by splitting up the algorithm into phases, where each phase is a call of the subroutine.
+The number of calls to the subroutine, thus the number of phases, is usually not deterministic in that case but rather bound to a random variable.
+
+\setcounter{all}{65}
+\begin{theorem}[]{Wald's Identity}
+    Let $\mathcal{N}$ and $\mathcal{X}$ be two independent random variables with $W_{\mathcal{N}} \subseteq \N$. Let
+    \begin{align*}
+        \mathcal{Z} := \sum_{i = 1}^{\mathcal{N}}\mathcal{X}_i
+    \end{align*}
+    where $\mathcal{X}_1, \mathcal{X}_2, \ldots$ are independent copies of $\mathcal{X}$. Then we have
+    \begin{align*}
+        \E[\mathcal{Z}] = \E[\mathcal{N}] \cdot \E[\mathcal{X}]
+    \end{align*}
+\end{theorem}

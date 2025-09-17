@@ -1,0 +1,59 @@
+\begin{definition}[]{$s$-$t$-cut}
+    An $s$-$t$-cut of a network $N = (\mathcal{V}, \mathcal{A}, c, s, t)$ is a partition $P = (\mathcal{S}, \mathcal{T})$ of $\mathcal{V}$ (i.e. $\mathcal{S} \cup \mathcal{T} = \mathcal{V}$ and $\mathcal{S} \cap \mathcal{T} = \emptyset$) where $s \in \mathcal{S}$ and $t \in \mathcal{T}$.
+    The capacity of a $s$-$t$-cut is then given by
+    \begin{align*}
+        \text{cap}(\mathcal{S}, \mathcal{T}) = \sum_{(u, w) \in (\mathcal{S} \times \mathcal{T}) \cap \mathcal{A}} c(u, w)
+    \end{align*}
+\end{definition}
+
+\begin{lemma}[]{$s$-$t$-cut}
+    Given $f$ is a flow and $(\mathcal{S}, \mathcal{T})$ a $s$-$t$-cut in $N = (\mathcal{V}, \mathcal{A}, c, s, t)$, we have
+    \begin{align*}
+        \text{val}(f) \leq \text{cap}(\mathcal{S}, \mathcal{T})
+    \end{align*}
+\end{lemma}
+
+
+\begin{theorem}[]{Max-flow - min-cut}
+    Every network $N = (\mathcal{V}, \mathcal{A}, c, s, t)$ fulfills ($f$ a flow, $(\mathcal{S}, \mathcal{T})$ an $s$-$t$-cut)
+    \begin{align*}
+        \max_{f \in N} \text{val}(f) = \min_{(\mathcal{S}, \mathcal{T}) \in N} \text{cap}(S, T)
+    \end{align*}
+\end{theorem}
+
+It is easier to calculate the min-cut, since there are only a finite number of $s$-$t$-cuts (albeit exponentially many, i.e. $2^{|\mathcal{V}| - 2}$), thus the importance of the above theorem.
+It forms the basis of the algorithms that calculate a solution to the max-flow problem.
+
+An approach to solve the max-flow problem is to use augmenting paths, but the issue with that is that it isn't guaranteed that we will find a max flow in a finite number of steps.
+
+\fhlc{Cyan}{Residual capacity network}
+
+Using a residual capacity graph also known as a residual network, we can solve the max-flow problem in polynomial time.
+The concept is simple, yet ingenious: It is simply a network of the remaining capacity (or the exceeded capacity) of an edge $e \in \mathcal{A}$ for a flow $f$
+
+\begin{definition}[]{Residual Network}
+    Let $N = (\mathcal{V}, \mathcal{A}, c, s, t)$ be a network without bidirectional edges and let $f$ be a flow in said network $N$. The residual network $N_f = (\mathcal{V}, \mathcal{A}_f, r_f, s, t)$ is given by
+    \begin{enumerate}[label=(\arabic*)]
+        \item If $e \in \mathcal{A}$ with $f(e) < c(e)$, then edge $e$ is also $\in \mathcal{A}_f$ whereas $r_f(e) := c(e) - f(e)$
+        \item If $e \in \mathcal{A}$ with $f(e) > 0$ then edge $e^{\text{opp}}$ in $\mathcal{A}_f$ whereas $r_f(e^{\text{opp}}) = f(e)$
+        \item Only edges as described in (1) and (2) can be found in $\mathcal{A}_f$
+    \end{enumerate}
+
+    We call $r_f(e), e \in \mathcal{A}$ the \textit{residual capacity} of edge $e$
+\end{definition}
+
+When reconstructing a network from the residual network, the original network is given by:
+\begin{itemize}
+    \item The capacity of an edge $(u, v)$ in the original network is the value of $(u, v)$ and $(v, u)$ in the residual network added (if applicable), where $(u, v)$ is directed \textit{towards} the target.
+    \item The flow of an edge is a bit more complicated: An edge that might appear to intuitively not be part of the flow may be and vice-versa.
+          Flow preservation is the key: The same amount of fluid has to enter each vertex (that is not $s$ or $t$) has to also exit it again.
+          To check if an edge is part of the flow, simply see if the start vertex of the edge has an excess of fluid.
+    \item If just one edge is present, the edge is flipped, if two are present, figure out which edge was part of the flow and which one is the remaining capacity.
+\end{itemize}
+Note: A vertex in the residual network directed towards the \textit{target} is usually the remaining capacity!
+
+\begin{theorem}[]{Maximum Flow}
+    A flow $f$ in a network $N = (\mathcal{V}, \mathcal{A}, c, s, t)$ is a maximum flow if and only if there does not exist a directed path between the source and target of the residual network.
+
+    For every such maximum flow there exists a $s$-$t$-cut with $\text{val}(f) = \text{cap}(S, T)$
+\end{theorem}

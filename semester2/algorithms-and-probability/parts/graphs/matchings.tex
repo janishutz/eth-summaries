@@ -1,0 +1,144 @@
+\newpage
+\subsection{Matchings}
+Matchings are assignment problems, which could take the form of assigning a job to a specific CPU core or system.
+That system will have to fulfill the performance requirements of the task, but performance should not be wasted, as there could be a different job with higher performance requirements that would not be processable simultaneously otherwise.
+
+\begin{definition}[]{Matching}
+    An edge set $M \subseteq E$ of a graph $G$ is called a \textit{matching} if no vertex of the graph is assigned to more than one vertex, or more formally:
+    \begin{align*}
+        e \cap f = \emptyset \text{ for all } e, f \in M \text{ with } e \neq f
+    \end{align*}
+    We call a vertex $v$ \textit{covered} by $M$ if there exists an edge $e \in M$ that contains $v$.
+
+    A matching is called a \textit{perfect matching} if every vertex is covered by an edge of $M$, or equivalently $|M| = \frac{|V|}{2}$
+\end{definition}
+
+\stepcounter{all}
+\begin{definition}[]{Maxima}
+    Given a graph $G$ and matching $M$ in $G$
+    \begin{itemize}
+        \item $M$ is called a \textit{maxim\underbar{al} matching} (or in German ``inklusionsmaximal'') if we have $M \cup \{e\}$ is no matching for all $e \in E \backslash M$
+        \item $M$ is called a \textit{maxim\underbar{um} matching} (or in German ``kardinalitätsmaximal'') if we have $|M| \geq |M'|$ for all matchings $M'$ in $G$
+    \end{itemize}
+\end{definition}
+
+\subsubsection{Algorithms}
+\begin{algorithm}
+    \caption{\textsc{Greedy-Matching}$(G)$}
+    \begin{algorithmic}[1]
+        \State $M \gets \emptyset$
+        \While{$E \neq \emptyset$}
+            \State choose an arbitrary edge $e \in E$ \Comment{Randomly choose from $E$}
+            \State $M \gets M \cup \{e\}$
+            \State delete $e$ and all incident edges (to both vertices) in $G$
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+The above algorithm doesn't return the maximum matching, just a matching
+\begin{theorem}[]{Greedy-Matching}
+    The \textsc{Greedy-Matching} determines a maximal matching $M_{Greedy}$ in \tco{|E|} for which we have
+    \begin{align*}
+        |M_{Greedy}| \geq \frac{1}{2} |M_{\max}|
+    \end{align*}
+    where $M_{\max}$ is a maximum matching
+\end{theorem}
+
+\begin{theorem}[]{Berge's Theorem}
+    If $M$ is a not a maximum matching in $G$, there exists an augmenting path to $M$
+\end{theorem}
+\inlineproof If $M$ is not a maximum matching, there exists a matching $M'$ with higher cardinality, where $M \oplus M'$ ($M$ xor $M'$) has a connected component that contains more edges of $M'$ than $M$. Said connected component is the augmenting path for $M$
+
+This idea leads to an algorithm to determine a maximum matching: As long as a matching isn't a maximum matching, there exists an augmenting path that allows us to expand the matching. After \textit{at most} $\frac{|V|}{2} - 1$ steps, we have a maximum matching. For bipartite graphs, we can use modified BFS with time complexity \tco{(|V| + |E|) \cdot |E|} to determine the augmenting paths.
+\begin{algorithm}
+    \caption{\textsc{AugmentingPath}$(G = (A \uplus B, E), M)$}
+    \begin{algorithmic}[1]
+        \State $L_0 := \{ \text{set of all non-covered vertices in $A$} \}$
+        \If{$L_0 = \emptyset$}
+            \State \Return $M$ is a maximum matching
+        \EndIf
+        \State Mark all vertices in $L_0$ as visited
+        \For{$i = 1, \ldots, n$}
+            \If{$i$ is odd} \Comment{We start with an unmatched vertex (by definition)}
+                \State $L_i := \{\text{all unvisited neighbours of $L_{i - 1}$ using edges in } E \backslash M\}$
+            \Else
+                \State $L_i := \{\text{all unvisited neighbours of $L_{i - 1}$ using edges in } M\}$
+            \EndIf
+            \State Mark all vertices in $L_i$ as visited \Comment{We used them in our augmenting path, note that}
+            \If{$L_i$ contains non-covered vertex $v$}
+                \State Find path $P$ starting at $L_0$ and ending at $v$ using backtracking
+                \State \Return $P$
+            \EndIf
+        \EndFor
+        \State \Return $M$ is already a maximum matching
+    \end{algorithmic}
+\end{algorithm}
+\begin{center}
+    \fbox{
+        \parbox{15cm}{
+            \textbf{Augmenting Path}: An \textit{alternating path} that (here) starts from unmatched vertices, where an alternating path is a path that starts with an unmatched vertex and whose edges alternately belong to the matching and not.
+        }
+    }
+\end{center}
+The algorithm discussed above uses layers $L_i$ to find the augmenting paths. Each of the layers is alternatingly part of the matching and not part of it, where the first one is not part of the matching. Augmenting paths also always have length $m$ odd, so the last layer is \textit{not} part of the matching.
+
+
+\fhlc{Cyan}{Hopcroft and Karp Algorithm}
+
+\begin{algorithm}
+    \caption{\textsc{MaximumMatching}$(G = (A \oplus B, E))$}
+    \begin{algorithmic}[1]
+        \State $M \gets \{e\}$ for any edge $e \in E$ \Comment{Initialize Matching with simple one of just one edge (trivially a matching)}
+        \While{there are still augmenting paths in $G$}
+            \State $k \gets$ length of the shortest augmenting path
+            \State find a maximal set $S$ of pairwise disjunct augmenting paths of length $k$
+            \For{\textbf{all} $P$ of $S$}
+                \State $M \gets M \oplus P$ \Comment{Augmenting along all paths of $S$}
+            \EndFor
+        \EndWhile
+        \State \Return $M$
+    \end{algorithmic}
+\end{algorithm}
+To find the shortest augmenting path, we observe that if the last layer has more than one non-covered vertex, we can potentially (actually, likely) find more than one augmenting path.
+We find one first, remove it from the data structure and find more augmenting paths by inverting the tree structure (i.e. cast \textit{flippendo} on the edges) and using DFS to find the all augmenting paths.
+We always delete each visited vertex and we thus have time complexity \tco{|V| + |E|}, since we only visit each vertex and edge once.
+
+\begin{theorem}[]{Hopcroft and Karp Algorithm}
+    The algorithm of Hopcroft and Karp's while loop is only executed \tco{\sqrt{|V|}} times.
+    Hence, the maximum matching is computed in \tco{\sqrt{|V|} \cdot (|V| + |E|)}
+\end{theorem}
+
+\newpage
+\fhlc{Cyan}{Other matching algorithms}
+
+In Section 4, using flows to compute matchings is discussed.
+
+\begin{theorem}[]{Weighted Matching problem}
+    Let $n$ be even and $l: {[n] \choose 2} \rightarrow \N_0$ be a weight function of a complete graph $K_n$. Then, we can compute, in time \tco{n^3}, a minimum perfect matching with
+    \begin{align*}
+        \sum_{e \in M} l(e) = \min\left\{ \sum_{e \in M'} l(e) \smallhspace \Big| \smallhspace M' \text{ is a perfect matching in } K_n \right\}
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}[]{MTSP with approximation}
+    There is a $\frac{3}{2}$-approximation algorithm with time complexity \tco{n^3} for the metric travelling salesman problem
+\end{theorem}
+
+\subsubsection{Hall's Theorem}
+\begin{theorem}[]{Hall's Theorem}
+    For a bipartite graph $G = (A \uplus B, E)$ there exists a matching $M$ with cardinality $|M| = |A|$ if and only if
+    \begin{align*}
+        |N(X)| \geq |X| \smallhspace \forall X \subseteq{A}
+    \end{align*}
+\end{theorem}
+The following theorem follows from Hall's Theorem immediately. We remember that a graph is $k$-regular if and only if every vertex of the graph has degree exactly $k$
+
+\begin{theorem}[]{Matching in $k$-regular bipartite graphs}
+    Let $G$ be a $k$-regular bipartite graph. Then there exists $M_1, \ldots, M_k$ such that $E = M_1 \uplus \ldots \uplus M_k$ where each $M_i$ is a perfect matching
+\end{theorem}
+
+\begin{theorem}[]{Algorithm for the problem}
+    If $G$ is a $2^k$-regular bipartite graph, we can find a perfect matching in time \tco{|E|}
+\end{theorem}
+It is important to note that the algorithms to determine a perfect matching in bipartite graph do not work for non-bipartite graphs, due to the fact that when we remove every other edge from the eulerian cycle, it is conceivable that the graph becomes disconnected. While this is no issue for bipartite graphs (as we can simply execute the graph on all connected components), for $k = 1$, such a connected component can could contain an odd number of vertices, thus there would be a eulerian cycle of odd length from which not every other edge can be deleted. Since that component has odd length, no perfect matching can exist.
+
+\stepcounter{all}

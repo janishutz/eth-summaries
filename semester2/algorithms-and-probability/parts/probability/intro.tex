@@ -1,0 +1,79 @@
+\newsection
+\section{Probability}
+
+\subsection{Basics}
+
+\begin{definition}[]{Discrete Sample Space}
+    A sample space $S$ consists of a set $\Omega$ consisting of \textit{elementary events} $\omega_i$. Each of these elementary events has a probability assigned to it, such that $0 \leq \Pr[\omega_i] \leq 1$ and
+    \[
+        \sum_{\omega \in \Omega} \Pr[\omega] = 1
+    \]
+
+    We call $E \subseteq \Omega$ an \textit{event}. The probability $\Pr[E]$ of said event is given by
+    \[
+        \Pr[E] := \sum_{\omega \in E} \Pr[\omega]
+    \]
+
+    If $E$ is an event, we call $\overline{E} := \Omega \backslash E$ the \textit{complementary event}
+\end{definition}
+
+\begin{lemma}[]{Events}
+    For two events $A, B$, we have:
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item $\Pr[\emptyset] = 0, \Pr[\Omega] = 1$
+            \item $0 \leq \Pr[A] \leq 1$
+            \item $\Pr[\overline{A}] = 1 - \Pr[A]$
+            \item If $A \subseteq B$, we have $\Pr[A] \leq \Pr[B]$
+        \end{enumerate}
+    \end{multicols}
+\end{lemma}
+
+\begin{theorem}[]{Addition law}
+    If events $A_1, \ldots, A_n$ are relatively disjoint (i.e. $\forall (i \neq j) : A_i \cap A_j = \emptyset$), we have (for infinite sets, $n = \infty$)
+    \[
+        \Pr\left[ \bigcup_{i = 1}^{n} A_i \right] = \sum_{i = 1}^{n} \Pr[A_i]
+    \]
+\end{theorem}
+
+\newpage
+\label{sec:prob-basics}
+\setcounter{all}{5}
+The below theorem is known as the Inclusion-Exclusion-Principle, or in German the ``Siebformel'' and is the general case of the addition law, where the events don't have to be disjoint.
+\begin{theorem}[]{Inclusion/Exclusion}
+    Let $A_1, \ldots, A_n$ be events, for $n \geq 2$. Then we we have
+    \begin{align*}
+        \Pr\left[ \bigcup_{i = 1}^{n} A_i \right] & = \sum_{l = 1}^{n} (-1)^{l + 1} \sum_{1 \leq i_1 < \ldots < i_l \leq n} \Pr[A_{i_1} \cap \ldots \cap A_{i_l}] \\
+                                                  & = \sum_{i = 1}^{n} \Pr[A_i] - \sum_{1 \leq i_1 < i_2 \leq n} \Pr[A_{i_1} \cap A_{i_2}]
+        + \sum_{1\leq i_1 < i_2 < i_3 \leq n} \Pr[A_{i_1} \cap A_{i_2} \cap A_{i_3}] -\ldots                                                                      \\
+                                                  & + (-1)^{n + 1} \cdot \Pr[A_1 \cap \ldots \cap A_n]
+    \end{align*}
+\end{theorem}
+
+What is going on here? We add all intersections where an even number of $\cap$-symbols are used and subtract all those who have and odd number of intersections.
+
+\fhlc{Cyan}{Use:} This is useful for all kinds of counting operations where some elements occur repeatedly, like counting the number of integers divisible by a list of integers (see Code-Expert Task 04)
+
+Of note here is that we sum up with e.g. $\displaystyle\sum_{1 \leq i_1 < j_1 \leq n} \Pr[A_{i_1} \cap A_{i_2}]$ is all subsets of the whole set $\Omega$, where two events are intersected / added.
+
+If $\Omega = A_1 \cup \ldots \cup A_n$ and $\Pr[\omega] = \frac{1}{|\Omega|}$, we get
+\[
+    \left|\bigcup_{i = 1}^{n}A_i\right| = \sum_{l = 1}^{n} (-1)^{l + 1} \sum_{1 \leq i_1 < \ldots < i_l \leq n} |A_{i_1} \cap \ldots \cap A_{i_l}
+\]
+
+Since for $n \geq 4$ the Inclusion-Exclusion-Principle formulas become increasingly long and complex, we can use a simple approximation, called the \textbf{Union Bound}, also known as the \textit{Boolean inequality}
+
+\begin{corollary}[]{Union Bound}
+    For events $A_1, \ldots, A_n$ we have (for infinite sequences of events, $n = \infty$)
+    \[
+        \Pr\left[ \bigcup_{i = 1}^{n} A_i \right] \leq \sum_{i = 1}^{n} \Pr[A_i]
+    \]
+\end{corollary}
+
+\vspace{1cm}
+\begin{center}
+    \fbox{\textbf{Laplace principle}: We can assume that all outcomes are equally likely if nothing speaks against it}
+\end{center}
+\vspace{1cm}
+
+Therefore, we have $\Pr[\omega] = \displaystyle \frac{1}{|\Omega|}$ and for any event $E$, we get $\displaystyle \Pr[E] = \frac{|E|}{|\Omega|}$

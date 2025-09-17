@@ -1,0 +1,152 @@
+\newsection
+\subsection{Random Variables}
+\setcounter{all}{25}
+\begin{definition}[]{Random Variable}
+    A \textit{random variable} is an image $\mathcal{X}: \Omega \rightarrow \R$ that maps the sample space to a real number.
+
+    The range $W_{\mathcal{X}} := \mathcal{X}(\Omega) = \{ x \in \R : \forall \omega \in \Omega \text{ with } \mathcal{X}(\omega) = x \}$'s countability depends on the countability of $\Omega$, and is either \textit{countable} or \textit{countably infinite}
+\end{definition}
+
+\begin{scriptsize}
+    \textit{For those who don't have an intuition for what a random variable actually is: See Section \ref{sec:random-var-details}.}
+\end{scriptsize}
+
+Often times when looking at random variables, we are interested in the probabilities at which $\mathcal{X}$ takes certain values.
+We write either $\mathcal{X}^{-1}(x_i)$ or more intuitively $\mathcal{X} = x_i$. Analogously, we have (short: $\Pr[``\mathcal{X} \leq x_i'']$ as $\Pr[\mathcal{X} \leq x_i]$)
+\[
+    \Pr[``\mathcal{X} \leq x_i''] = \sum_{x \in W_{\mathcal{X}} : x \leq x_i} \Pr[``\mathcal{X} = x''] = \Pr[\{ \omega \in \Omega : \mathcal{X}(\omega) \leq x_i \}]
+\]
+From this notation, we easily get two real functions.
+We call $f_{\mathcal{X}}: \R \rightarrow [0, 1]$ for which $x \mapsto \Pr[\mathcal{X} = x]$ the \textbf{\textit{probability mass function}} (PMF, Dichtefunktion) of $\mathcal{X}$, which maps a real number to the probability that the random variable takes this value.
+
+The \textbf{\textit{cumulative distribution function}} (CDF, Verteilungsfunktion) of $\mathcal{X}$ is a function, which maps a real number to the probability that the value taken by the random variable is lower than, or equal to, the real number.
+Often times it suffices to state the PMF of the random variable (since we can easily derive the CDF from it)
+\[
+    F_{\mathcal{X}} : \R \rightarrow [0, 1], \mediumhspace x\rightarrow \Pr[\mathcal{X} \leq x] = \sum_{x' \in W_{\mathcal{X}} : x' \leq x} \Pr[\mathcal{X} = x'] = \sum_{x' \in W_{\mathcal{X}} : x' \leq x} f_{\mathcal{X}}(x')
+\]
+
+
+\subsubsection{Expected value}
+\setcounter{all}{27}
+\begin{definition}[]{Expected Value}
+    The \textit{expected value} $\E[\mathcal{X}]$ describes the average value the random variable $\mathcal{X}$ takes.
+
+    We define the \textit{expected value} $\E[\mathcal{X}]$ as
+    \[
+        \E[\mathcal{X}] := \sum_{x \in W_{\mathcal{X}}} x \cdot \Pr[\mathcal{X} = x]
+    \]
+    only if the sum converges absolutely. Otherwise, the \textit{expected value} is undefined. This is trivially true for finite sample spaces.
+\end{definition}
+\begin{scriptsize}
+    In this lecture, only random variables with an expected value are covered, so that condition does not need to be checked here
+\end{scriptsize}
+
+\setcounter{all}{29}
+Alternative to the above definition over the elements of the range of the random variable, we can also define it as
+\begin{lemma}[]{Expected Value}
+    If $\mathcal{X}$ is a random variable, we have
+    \[
+        \E[\mathcal{X}] = \sum_{\omega \in \Omega} \mathcal{X}(\omega) \cdot \Pr[\omega]
+    \]
+\end{lemma}
+
+If the range of the random variable consists only of non-zero integers, we can calculate the expected value with the following formula
+\begin{theorem}[]{Expected Value}
+    Let $\mathcal{X}$ be a random variable with $W_{\mathcal{X}} \subseteq \N_0$. We then have
+    \begin{align*}
+        \E[\mathcal{X}] = \sum_{i = 1}^{\infty} \Pr[\mathcal{X} \geq i]
+    \end{align*}
+\end{theorem}
+
+\newpage
+\fhlc{Cyan}{Conditional Random Variables}
+
+\begin{definition}[]{Conditional Random Variable}
+    Let $\mathcal{X}$ be a random variable and let $A$ be an event with $\Pr[A] > 0$
+    \begin{align*}
+        \Pr[(\mathcal{X} | A) \leq x] = \Pr[X \leq x | A] = \frac{\Pr[\{\omega \in A : \mathcal{X}(\omega) \leq x\}]}{\Pr[A]}
+    \end{align*}
+\end{definition}
+
+\begin{theorem}[]{Expected Value (Conditional)}
+    Let $\mathcal{X}$ be a random variable. For relatively disjoint events $A_1, \ldots, A_n$ with $A_1 \cup \ldots \cup A_n = \Omega$ and $\Pr[A_1], \ldots, \Pr[A_n] > 0$, we have (analogously for $n = \infty$)
+    \begin{align*}
+        \E[\mathcal{X}] = \sum_{i = 1}^{n} \E[\mathcal{X} | A_i] \cdot \Pr[A_i]
+    \end{align*}
+\end{theorem}
+
+\fhlc{Cyan}{Linearity of the expected value}
+
+We can calculate the expected value of a sum of any number of random variables $\mathcal{X}_1, \ldots, \mathcal{X}_n : \Omega \rightarrow \R$ simply by summing the expected values of each of the random variables $\mathcal{X}_i$
+
+\begin{theorem}[]{Linearity of expected value}
+    Given random variables $\mathcal{X}_1, \ldots, \mathcal{X}_n$ and let $\mathcal{X} := a_1 \mathcal{X}_1 + \ldots + a_n \mathcal{X}_n + b$ for any $a_1, \ldots, a_n, b \in \R$, we have
+    \begin{align*}
+        \E[\mathcal{X}] = a_1 \cdot \E[\mathcal{X}_1] + \ldots + a_n \cdot \E[\mathcal{X}_n] + b
+    \end{align*}
+\end{theorem}
+
+Very simply with two random variables $X$ and $Y$, we have $\E[X + Y] = \E[X] + \E[Y]$
+
+\setcounter{all}{35}
+\begin{definition}[]{Indicator Variable}
+    We use \textit{indicator variables} to formalize the probability that an event $A$ occurs using the expected value
+
+    For an event $A \subseteq \Omega$ the accompanying indicator variable $\mathcal{X}_A$ is given by
+    \begin{align*}
+        \mathcal{X}_A(\omega) := \begin{cases}
+                                     1 & \text{if } \omega \in A \\
+                                     0 & \text{else }
+                                 \end{cases}
+    \end{align*}
+    For the expected value of $\mathcal{X}_A$ we have: $\E[\mathcal{X}_A] = \Pr[A]$
+\end{definition}
+We can now prove the Inclusion-Exclusion-Principle using a fairly simple proof. See Example 2.36 in the script for it.
+
+\fhlc{Cyan}{Use:} We use the indicator variable for experiments where we perform a certain action numerous times where each iteration does not (or does for that matter) depend on the previous outcome.
+
+
+\newpage
+\subsubsection{Variance}
+Even though two random variables may have the same expected value, they can still be significantly different. The Variance describes the dispersion of the results, or how far off the expected value the different values are maximally (up to a certain limit, that is)
+
+\setcounter{all}{39}
+\begin{definition}[]{Variance}
+    For a random variable $\mathcal{X}$ with $\mu = \E[\mathcal{X}]$, the \textit{variance} $\text{Var}[\mathcal{X}]$ is given by
+    \begin{align*}
+        \text{Var}[\mathcal{X}] := \E[(\mathcal{X} - \mu)^2] = \sum_{x \in W_{\mathcal{X}}} (x - \mu)^2 \cdot \Pr[\mathcal{X} = x]
+    \end{align*}
+
+    $\sigma := \sqrt{\text{Var}[\mathcal{X}]}$ is called the \textit{standard deviation} of $\mathcal{X}$
+\end{definition}
+
+\begin{theorem}[]{Variance (easier)}
+    For any random variable $\mathcal{X}$ we have
+    \[
+        \text{Var}[\mathcal{X}] = \E[\mathcal{X}^2] - \E[\mathcal{X}]^2
+    \]
+\end{theorem}
+We also have
+\begin{theorem}[]{Variance}
+    For any random variable $\mathcal{X}$ and $a, b \in \R$ we have
+    \[
+        \text{Var}[a \cdot \mathcal{X} + b] = a^2 \cdot \text{Var}[\mathcal{X}]
+    \]
+\end{theorem}
+The moments of a random variable are given by the expected value and the variance.
+\begin{definition}[]{Moment}
+    The \textbf{\textit{$k$th moment}} of a random variable $\mathcal{X}$ is $\E[\mathcal{X}^k]$ whereas $\E[(\mathcal{X} - \E[\mathcal{X}])^k]$ is called the \textbf{\textit{$k$th central moment}}.
+\end{definition}
+\shade{gray}{Note} The expected value is thus the first moment and the variance the second central moment.
+
+
+\subsubsection{Intuition}
+\label{sec:random-var-details}
+If you struggle to imagine what a random variable $\mathcal{X}$ is, or what for example $\mathcal{X}^2$ is, read on. 
+As definition 3.25 states, a random variable is a function, which is why people tend to get confused. 
+It is not a variable in the normal way of understanding. 
+
+With that in mind, things like $\mathcal{X}^2$ makes much more sense, as it's simply the result of the function squared, which then makes theorem 3.40 make much more sense, given the definition of the expected value.
+
+Of note is that remembering the summation formulas for the variance (or knowing how to get to it) is handy for the exam, as that formula is not listed on the cheat-sheet provided by the teaching team as of FS25. 
+Deriving it is very easy though, as it's simply applying the expected value definition to the initial definition, which is listed on the cheat-sheet.

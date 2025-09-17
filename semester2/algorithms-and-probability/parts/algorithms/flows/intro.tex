@@ -1,0 +1,36 @@
+\newpage
+\setcounter{all}{4}
+\subsubsection{Flows}
+\begin{definition}[]{Network}
+    A \textit{Network} is a tuple $N = (\mathcal{V}, \mathcal{A}, c, s, t)$ whereby
+    \begin{itemize}
+        \item $(\mathcal{V}, \mathcal{A})$ is a directed graph
+        \item $c: \mathcal{A} \rightarrow \R_0^+$ the \textit{capacity function}
+        \item $s \in \mathcal{V}$ is the \textit{source}
+        \item $t \in \mathcal{V}\backslash \{s\}$ is the \textit{target}
+    \end{itemize}
+\end{definition}
+The capacity function hereby describes the maximum flow through each edge. For each vertex that is not the source or target, the flow is constant, i.e. the total amount entering vertex $v$ has to be equal to the amount exiting it again.
+
+\begin{definition}[]{Flow}
+    Given a network $N = (\mathcal{V}, \mathcal{A}, c, s, t)$, a flow in said network is a function $f: \mathcal{A} \rightarrow \R$ where
+    \begin{align*}
+        0 \leq f(e) \leq c(e) \smallhspace \forall e \in \mathcal{A} \text{ The acceptability }
+    \end{align*}
+    \begin{align*}
+        \forall v \in \mathcal{V} \backslash \{s, t\} \sum_{u \in \mathcal{V}: (u, v) \in \mathcal{A}} f(u, v) = \sum_{u \in \mathcal{V}: (v, u) \in \mathcal{A}} f(v, u) \text{ the conservation of flow }
+    \end{align*}
+    The value of a flow $f$ is given by
+    \begin{align*}
+        \text{val}(f) := \sum_{u \in \mathcal{V}: (s, u) \in \mathcal{A}} f(s, u) - \sum_{u \in \mathcal{V}: (u, s) \in \mathcal{A}} f(u, s)
+    \end{align*}
+    We call a flow \textit{integeral} if $f(e) \in \Z \smallhspace \forall e \in \mathcal{A}$
+\end{definition}
+
+
+\begin{lemma}[]{Flow}
+    The total flow to the target equals the value of the flow, i.e.
+    \begin{align*}
+        \text{netinflow}(f) = \text{val}(f) = \sum_{u \in \mathcal{V} : (u, t) \in \mathcal{A}} f(u, t) - \sum_{u \in \mathcal{V}: (t, u) \in \mathcal{A}} f(t, u)
+    \end{align*}
+\end{lemma}
