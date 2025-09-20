@@ -1,0 +1,141 @@
+\section{EBNF}\label{ebnf}
+= Extended Backus Naur Form / Extended Backus Normal Form
+
+\begin{itemize}
+    \item Can be used to describe automatic tests
+\end{itemize}
+
+\subsection{Rules}
+\begin{definition}[]{EBNF-Rule}
+    A rule is described as follows
+
+    \begin{verbatim}
+LHS <- RHS
+    \end{verbatim}
+
+    where LHS is the left hand side, which gives the name of the rule. That name is usually written in italic or inside \texttt{\textless{}...\textgreater{}}. The RHS is the description of the rule using elements, which are literals, names of other EBNF rules defined previously or after or a combination of the four control forms
+\end{definition}
+
+A character as EBNF rule would be something like
+
+\begin{verbatim}
+<digit_zero> <- 0
+\end{verbatim}
+
+Another EBNF rule as RHS would be something like:
+
+\begin{verbatim}
+<number_zero> <- <digit_zero>
+\end{verbatim}
+
+We have to also define an entry rule, which, if nothing else is specified, is the last rule. It marks the entry point from where the checks are run.
+
+\subsection{Control forms}
+
+\subsubsection{Sequence}
+\begin{definition}[]{Sequence}
+    Concatenation of the elements. Noted with a space between the elements.
+
+    \begin{verbatim}
+<rule> <- E1 E2 E3
+    \end{verbatim}
+\end{definition}
+
+\subsubsection{Decision}
+This control form has two options, namely selection and option.
+
+\begin{definition}[]{Selection}
+    We can choose \textit{exactly} one of the elements listed with pipe characters (called stroke).
+
+    \begin{verbatim}
+<rule> <- E1 | E2 | E3
+    \end{verbatim}
+\end{definition}
+
+\begin{definition}[]{Option}
+    We can either choose to use the element or not. Noted with square brackets. $\epsilon$ is the empty element, which is returned if the option is not chosen.
+
+    \begin{verbatim}
+<rule> <- [E]
+    \end{verbatim}
+\end{definition}
+
+\subsubsection{Repetition}
+\begin{definition}[]{Repetition}
+    Repeat an element $n \in \N_0$ times, so repeating it $0$ times is also valid. Noted using curly brackets.
+
+    \begin{verbatim}
+<rule> <- {E}
+    \end{verbatim}
+\end{definition}
+
+
+\subsubsection{Recursion}
+\begin{definition}[]{Recursion}
+    Recursively repeat an element, by adding it to the RHS of itself
+
+    \begin{verbatim}
+<rule> <- <digit> <rule>
+    \end{verbatim}
+\end{definition}
+
+We can have direct or indirect recursion, where indirect recursion is when the recursion is not directly on the rule itself, but through elements of the RHS of the rule.
+
+\subsection{Parenthesis}
+There are precedences, but for where they have not been covered, parenthesis are used to clarify what is meant. Always put them there, if it is not 100\% clear what is meant.
+
+\fhlc{Aquamarine}{Covered precedences:}
+Sequence binds weaker than everything else.
+
+
+\subsection{Special caracters}
+We use boxes around them if we want to use them as literals, not as EBNF characters, i.e. if we want to write \texttt{\{\}}, then we write \fbox{\{\}}, same goes for space, which we can also write using the space symbol, \begin{Large}\textvisiblespace\end{Large}
+
+\newpage
+\subsection{Nomenclature \& Notation}
+\begin{terms}[]{EBNF}
+    \begin{itemize}
+        \item \textbf{\textit{Legal}}: A word is considered legal if there is a derivation of the character sequence
+        \item \textbf{\textit{Derivation}}: Sequence of derivation steps
+        \item \textbf{\textit{Derivation step}}: 
+            \begin{itemize}
+                \item Replace rules with their definition (RHS)
+                \item \textit{Selection}: Select element in a selection
+                \item \textit{Option}: Choose whether to select an optional element
+                \item \textit{Repetition}: Decide on the number of repetitions of the element
+            \end{itemize}
+    \end{itemize}
+\end{terms}
+
+
+\subsubsection{Notation of derivation}
+\begin{notation}[]{Derivation}
+    \begin{itemize}
+        \item Derivation table
+            \begin{itemize}
+                \item First row is the entry rule
+                \item Last row is a sequence of characters
+                \item Transition between rows is a derivation step
+            \end{itemize}
+        \item Derivation tree
+            \begin{itemize}
+                \item Root is the name of the entry rule
+                \item Leafs are characters
+                \item Connections are the derivation steps
+            \end{itemize}
+    \end{itemize}
+\end{notation}
+
+\subsubsection{Syntax vs. Semantics}
+Syntax = Structure / Form (Grammar), Semantics = Meaning / Interpretation
+
+\subsection{Graphical noatation of EBNF}
+With syntax graph. We can replace names in the syntax graph with another graph.
+
+\fhlc{ForestGreen}{Sequence}: \texttt{A B C} $\Longrightarrow$ $\rightarrow$ A - B - C $\rightarrow$
+
+\fhlc{ForestGreen}{Selection}: \texttt{A | B | C} $\Longrightarrow$ $\rightarrow$ Parallel circuit-like notation $\rightarrow$
+
+\fhlc{ForestGreen}{Option}: \texttt{[A]} $\Longrightarrow$ $\rightarrow$ Parallel circuit-like notation, two options, top is the element, bottom is empty $\rightarrow$
+
+\fhlc{ForestGreen}{Repetition}: \texttt{\{A\}} $\Longrightarrow$ $\rightarrow$ Similar to option, but there is a loop back at the top element (allowing repetition) $\rightarrow$

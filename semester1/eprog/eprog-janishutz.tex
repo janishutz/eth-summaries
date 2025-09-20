@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\newcommand{\dir}{~/projects/latex}
+\input{\dir/include.tex}
+\load{recommended}
+
+\setup{Introduction to Programming}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+
+\printtoc{Aquamarine}
+
+\include{./parts/ebnf}
+
+\include{./parts/java}
+
+\section{Loop-Invariant}
+\begin{enumerate}
+    \item Write down a table with the loop iteration number and what the state of each variable in the loop is
+    \item Check what causes the loop to end (in \texttt{while}, it's the inverse of the condtion, in \texttt{for}, it is the same concept)
+    \item Then, use that break condition (inverted) and establish an upper (or lower) bound for the variable involved. (e.g. \texttt{i < arr.length} in the loop condition turns into \texttt{i < 0 arr.length} in the loop invariant)
+    \item Specify all condtions for all the variables known through the pre and post-conditions, as far as applicable
+\end{enumerate}
+
+Also, all other variables that are being changed need to be addressed in the invariant, ensuring that the statements resolve to boolean when executed (\texttt{==} and not \texttt{=} for comparison (because valid Java Syntax required).
+
+For the pre- and postconditions, ensure to also address ALL variables in the loop, even if it seems unnecessary.
+
+
+\section{Mean things}
+\subsection{In EBNF}
+\begin{itemize}
+    \item Unbalanced brackets
+\end{itemize}
+
+\subsection{Java}
+\begin{itemize}
+    \item Non-private attributes that could be changed prior to execution
+    \item Spaces in variable names
+    \item Using reserved names as variable names
+    \item Unbalanced brackets
+\end{itemize}
+
+
+\end{document}
