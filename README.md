@@ -7,6 +7,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 1
 - [Algorithms & Datastructures Summary](./semester1/algorithms-and-datastructures/ad-janishutz.pdf) Author: Janis Hutz
 - [Linear Algebra Cheat-Sheet](./semester1/linear-algebra/linAlg-janishutz.pdf) Author: Janis Hutz
+- [EProg Short summary](./semester1/eprog/eprog-janishutz.pdf) Author: Janis Hutz
 
 ### Semester 2
 - [Analysis Cheat-Sheet](./semester2/analysis-i/cheat-sheet.pdf) Author: Janis Hutz
