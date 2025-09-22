@@ -10,7 +10,34 @@
 \startDocument
 \usetcolorboxes
 
+%          ╭────────────────────────────────────────────────╮
+%          │                   Title page                   │
+%          ╰────────────────────────────────────────────────╯
 \textit{Denken vor Rechnen}
+
+
+% ────────────────────────────────────────────────────────────────────
+
+%          ╭────────────────────────────────────────────────╮
+%          │               Table of Contents                │
+%          ╰────────────────────────────────────────────────╯
+\newpage
+\printtoc{ForestGreen}
+
+
+% ────────────────────────────────────────────────────────────────────
+
+%          ╭────────────────────────────────────────────────╮
+%          │                  Main content                  │
+%          ╰────────────────────────────────────────────────╯
+\newsection
+\section{Introduction}
+\input{parts/introduction/rounding-errors.tex}
+\input{parts/introduction/time-complexity.tex}
+\input{parts/introduction/matrix-multiplication.tex}
+
+
+\input{parts/interpolation.tex}
 
 
 \end{document}
