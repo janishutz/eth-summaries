@@ -7,12 +7,20 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 1
 - [Algorithms & Datastructures Summary](./semester1/algorithms-and-datastructures/ad-janishutz.pdf) Author: Janis Hutz
 - [Linear Algebra Cheat-Sheet](./semester1/linear-algebra/linAlg-janishutz.pdf) Author: Janis Hutz
-- [EProg Short summary](./semester1/eprog/eprog-janishutz.pdf) Author: Janis Hutz
+- [Introduction to Programming Short summary](./semester1/eprog/eprog-janishutz.pdf) Author: Janis Hutz
 
 ### Semester 2
 - [Analysis Cheat-Sheet](./semester2/analysis-i/cheat-sheet.pdf) Author: Janis Hutz
 - [Algorithms & Probability Summary](./semester2/algorithms-and-probability/aw-summary.pdf) Author: Janis Hutz
 - [Parallel Programming Compact Summary](./semester2/parallel-programming-compact/pprog-compact-summary.pdf) Author: Janis Hutz
+
+
+## Contributing
+Clone this repo locally using
+```
+git clone --recursive https://github.com/janishutz/eth-summaries
+```
+to also include the required LaTeX helpers for compiling the documents
 
 ---
 
