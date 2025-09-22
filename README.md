@@ -20,8 +20,12 @@ Clone this repo locally using
 ```
 git clone --recursive https://github.com/janishutz/eth-summaries
 ```
-to also include the required LaTeX helpers for compiling the documents
+to also include the required LaTeX helpers for compiling the documents (thus the `--recursive` flag.
 
+It is recommended that you fork the repo to contribute back to it. To do that, click the fork button on the repo and clone it locally using
+```
+git clone --recursive https://github.com/<your username>/eth-summaries
+```
 ---
 
 <div id="donate" align="center">
