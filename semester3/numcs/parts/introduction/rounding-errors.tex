@@ -1,0 +1,22 @@
+\subsection{Rundungsfehler}
+
+\begin{definition}[]{Absoluter \& Relativer Fehler}
+    \begin{multicols}{2}
+        \begin{itemize}
+            \item \bi{Absoluter Fehler}: $||\tilde{x} - x||$
+            \item \bi{Relativer Fehler}: $\displaystyle \frac{||\tilde{x} - x||}{||x||}$ für $||x|| \neq 0$ 
+        \end{itemize}
+    \end{multicols}
+    wobei $\tilde{x}$ eine Approximation an $x \in \R$ ist
+\end{definition}
+
+Rundungsfehler entstehen durch die (verhältnismässig) geringe Präzision die man mit der Darstellung von Zahlen auf Computern erreichen kann.
+Zusätzlich kommt hinzu, dass durch Unterläufe (in diesem Kurs ist dies eine Zahl die zwischen $0$ und der kleinsten darstellbaren, positiven Zahl liegt) Präzision verloren gehen kann.
+
+Überläufe hingegen sind konventionell definiert, also eine Zahl, die zu gross ist und nicht mehr dargestellt werden kann.
+
+
+\begin{remark}[]{Auslöschung}
+    Bei der Subtraktion von zwei ähnlich grossen Zahlen kann es zu einer Addition der Fehler der beiden Zahlen kommen, was dann den relativen Fehler um einen sehr grossen Faktor vergrössert.
+    Die Subtraktion selbst hat einen vernachlässigbaren Fehler
+\end{remark}
