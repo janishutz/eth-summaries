@@ -20,3 +20,30 @@ Zusätzlich kommt hinzu, dass durch Unterläufe (in diesem Kurs ist dies eine Za
     Bei der Subtraktion von zwei ähnlich grossen Zahlen kann es zu einer Addition der Fehler der beiden Zahlen kommen, was dann den relativen Fehler um einen sehr grossen Faktor vergrössert.
     Die Subtraktion selbst hat einen vernachlässigbaren Fehler
 \end{remark}
+
+% Page 10
+
+
+\subsection{Richardson Konvergenzbeschleunigung}
+\begin{align*}
+    y f'(x) & = y d\left(\frac{h}{2}\right) + \frac{1}{6} f'''(x) h^2 + \frac{1}{480}f^{(s)} h^4 + \ldots - f'(x) \\
+            & = -d(h) - \frac{1}{6}f'''(x) h^2 + \frac{1}{120} f^{(s)}(x) h^n \Leftrightarrow 3 f'(x)             \\
+            & = 4 d\left(\frac{h}{2}\right)  d(h) + \text{\tco{h^4}} \Leftrightarrow
+\end{align*}
+
+
+\fhlc{Cyan}{Schema}
+
+\begin{align*}
+    d(h) = \frac{f(x + h) - f(x - h)}{2h}
+\end{align*}
+
+wobei im Schema dann
+\begin{align*}
+    R_{l, 0} = d\left( \frac{h}{2^l} \right)
+\end{align*}
+und
+\begin{align*}
+    R_{l, k} = \frac{4^k \cdot R_{l, k - 1} - R_{l - 1, k - 1}}{4^k - 1}
+\end{align*}
+und $f'(x) = R_{l, k} + C \cdot \left( \frac{h}{2^l} \right)^{2k + 2}$
