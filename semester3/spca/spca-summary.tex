@@ -1,23 +1,60 @@
 \documentclass{article}
 
-\newcommand{\dir}{~/projects/latex} % IMPORTANT: No trailing slashes!
+\newcommand{\dir}{../../latex}
 \input{\dir/include.tex}
 \load{recommended}
 
-\setup{}
+\setup{Systems Programming and Computer Architecture}
 
 \begin{document}
 \startDocument
 \usetcolorboxes
 
 
-\textit{An LLM is a lossy index over human statements}
-\textit{- Professor Buhmann}
+\vspace{2cm}
+\begin{Huge}
+    \begin{center}
+        TITLE PAGE COMING SOON
+    \end{center}
+\end{Huge}
 
-\textit{If you are using CMake to solve the exercises... First off, sorry that you like CMake}
-\textit{You can't have a refrigerator behave like multiple refrigerators} - 10:55 16.09.
-\textit{Why is C++ called C++ and not ++C? It's like you don't get any value and then it's incremented, which is true} - 11:54 17.09.
-\textit{- Professor Timothy Roscoe}
+
+\vspace{4cm}
+\begin{center}
+    \begin{Large}
+        ``\textit{If you are using CMake to solve the exercises... First off, sorry that you like CMake}``
+    \end{Large}
+
+    \hspace{3cm} - Timothy Roscoe, 2025
+\end{center}
+
+\vspace{3cm}
+\begin{center}
+    HS2025, ETHZ\\[0.2cm]
+    \begin{Large}
+        Summary of the Lectures and Lecture Slides
+    \end{Large}\\[0.2cm]
+\end{center}
+
+
+%          ╭────────────────────────────────────────────────╮
+%          │                     Quotes                     │
+%          ╰────────────────────────────────────────────────╯
+\input{parts/quotes.tex}
+
+
+%          ╭────────────────────────────────────────────────╮
+%          │               Table of contents                │
+%          ╰────────────────────────────────────────────────╯
+\newpage
+\printtoc{magenta}
+
+
+%          ╭────────────────────────────────────────────────╮
+%          │                    Content                     │
+%          ╰────────────────────────────────────────────────╯
+% ── Intro to C ──────────────────────────────────────────────────────
+\input{parts/intro-to-c/start.tex}
 
 
 \end{document}
