@@ -68,7 +68,7 @@ Das Problem hierbei ist jedoch, dass dies nicht so effizient ist, besonders nich
         u < v \Longleftrightarrow |u| < |v| \lor (|u| = |v| \land u = x \cdot s_i \cdot u' \land v = x \cdot s_j \cdot v') \text{ für beliebige $x, u', v' \in \Sigma^*$ und $i < j$}
     \end{align*}
 
-    Oder in Worten, geordnet nach Länge und dann danach, ob man eine gemeinsames Teilwort finden kann
+    Oder in Worten, geordnet nach Länge und dann danach für den ersten nicht gemeinsamen Buchstaben, nach dessen Ordnung.
 \end{definition}
 
 
@@ -78,6 +78,9 @@ Das Problem hierbei ist jedoch, dass dies nicht so effizient ist, besonders nich
 
     Die \bi{Konkatenation} von $L_1$ und $L_2$ ist $L_1 \cdot L_2 = L_1 L_2 = \{ vw \divides v \in L_1 \land w \in L_2 \}$ und $L^0 := L_{\lambda}$ und $L^{i + 1} = L^i \cdot L \smallhspace \forall i \in \N$ und $L^* = \bigcup_{i \in \N} L^{i}$ ist der \bi{Kleene'sche Stern} von $L$, wobei $L^+ = \bigcup_{i \in \N - \{0\}} L^i = L \cdot L^*$
 \end{definition}
+
+Für jede Sprache $L$ gilt $L^2 \subseteq L \Longrightarrow L = \emptyset \lor L = \{ \lambda \} \lor L$ ist undendlich. 
+Diese Aussage muss jedoch an der Prüfung bewiesen werden (nicht im Buch vorhanden)
 
 Da Sprachen Mengen sind, gelten auch die Üblichen Operationen, wie Vereinigung ($\cup$) und Schnitt ($\cap$).
 Die Gleichheit von zwei Sprachen bestimmen wir weiter mit $A \subseteq B \land B \subseteq A \Rightarrow A = B$.
