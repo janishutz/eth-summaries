@@ -16,15 +16,29 @@ Zusätzlich kommt hinzu, dass durch Unterläufe (in diesem Kurs ist dies eine Za
 Überläufe hingegen sind konventionell definiert, also eine Zahl, die zu gross ist und nicht mehr dargestellt werden kann.
 
 
+\setcounter{all}{9}
 \begin{remark}[]{Auslöschung}
     Bei der Subtraktion von zwei ähnlich grossen Zahlen kann es zu einer Addition der Fehler der beiden Zahlen kommen, was dann den relativen Fehler um einen sehr grossen Faktor vergrössert.
     Die Subtraktion selbst hat einen vernachlässigbaren Fehler
 \end{remark}
 
-% Page 10
+\setcounter{all}{18}
+\fancyex{Ableitung mit imaginärem Schritt} Als Referenz in Graphen wird hier oftmals die Implementation des Differenzialquotienten verwendet. 
+
+Der Trick hier ist, dass wir mit Komplexen Zahlen in der Taylor-Approximation einer glatten Funktion in $x_0$ einen rein imaginären Schritt durchführen können:
+\begin{align*}
+    f(x_0 + ih) = f(x_0) + f'(x_0)ih - \frac{1}{2} f''(x_0)h^2 - iC \cdot h^3 \text{ für } h \in \R \text{ und } h \rightarrow 0
+\end{align*}
+Da $f(x_0)$ und $f''(x_0)h^2$ reell sind, verschwinden die Terme, wenn wir nur den Imaginärteil des Ausdruckes weiterverwenden. Nach weiteren Vereinfachungen und Umwandlungen erhalten wir
+\begin{align*}
+    f'(x_0) \approx \frac{\text{Im}(f(x_0 + ih))}{h}
+\end{align*}
+
+Falls jedoch hier die Auswertung von $\text{Im}(f(x_0 + ih))$ nicht exakt ist, so kann der Fehler beträchtlich sein.
 
 
-\subsection{Richardson Konvergenzbeschleunigung}
+\setcounter{all}{20}
+\fancyex{Konvergenzbeschleunigung nach Richardson}
 \begin{align*}
     y f'(x) & = y d\left(\frac{h}{2}\right) + \frac{1}{6} f'''(x) h^2 + \frac{1}{480}f^{(s)} h^4 + \ldots - f'(x) \\
             & = -d(h) - \frac{1}{6}f'''(x) h^2 + \frac{1}{120} f^{(s)}(x) h^n \Leftrightarrow 3 f'(x)             \\
