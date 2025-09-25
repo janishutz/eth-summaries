@@ -1,0 +1,111 @@
+\subsection{Alphabete, Wörter, Sprachen}
+
+\begin{definition}[]{Alphabet}
+    Eine endliche, nicht leere Menge $\Sigma$. Elemente sind Buchstaben (Zeichen \& Symbole). 
+
+    Beispiele: $\Sigma_{\text{bool}}$, $\Sigma_{\text{lat}}$ latin characters, $\Sigma_{\text{Tastatur}}$, $\Sigma_m$ $m$-adische Zahlen ($m$-ary numbers, zero index)
+\end{definition}
+
+\begin{definition}[]{Wort}
+    Über $\Sigma$ eine (möglicherweise leere) Folge von Buchstaben aus $\Sigma$. Leeres Wort $\lambda$ (ab und zu $\varepsilon$) hat keine Buchstaben.
+
+    $|w|$ ist die Länge des Wortes (Anzahl Buchstaben im Wort), während $\Sigma^*$ die Menge aller Wörter über $\Sigma$ ist und $\Sigma^+ = \Sigma^* - \{\lambda\}$
+
+    In diesem Kurs werden Wörter ohne Komma geschrieben, also $x_1x_2\ldots x_n$ statt $x_1, x_2, \ldots, x_n$.
+    Für das Leersymbol gilt $|\text{\textvisiblespace}|$, also ist es nicht dasselbe wie $\lambda$
+\end{definition}
+
+Für viele der Berechnungen in Verbindung mit der Länge der Wörter kann Kombinatorik nützlich werden. 
+In Kapitel \ref{sec:combinatorics} findet sich eine Zusammenfassung über jenes Thema (in English)
+
+Ein mögliches Alphabet beispielsweise um einen Graphen darzustellen ist folgendes: 
+
+Angenommen, wir speichern den Graphen als Adjezenzmatrix ab, dann können wir beispielsweise mit dem Alphabet $\Sigma = \{0, 1, \#\}$ diese Matrix darstellen, in dem wir jede neue Linie mit einem $\#$ abgrenzen.
+Das Problem hierbei ist jedoch, dass dies nicht so effizient ist, besonders nicht, wenn der Graph sparse ist, da wir dann viele \# im Vergleich zu nützlicher Information haben.
+
+\begin{definition}[]{Konkatenation}
+    $\Sigma^* \times \Sigma^* \rightarrow \Sigma^*$, so dass Kon$(x, y) = x \cdot y = xy \smallhspace \forall x, y \in \Sigma^*$.
+
+    Intuitiv ist dies genau das was man denkt: Wörter zusammenhängen (wie in Programmiersprachen). 
+    Die Operation ist assoziativ und hat das Neutralelement $\lambda$, was heisst, dass $(\Sigma^*, \text{Kon})$ ein Monoid ist.
+
+    Offensichtlich ist die Konkatenation nur für ein-elementige Alphabete kommutativ.
+
+    Die Notation $(abc)^n$ wird für die $n$-fache Konkatenation von $abc$ verwendet
+\end{definition}
+
+
+\begin{definition}[]{Umkehrung}
+    Sei $a = a_1 a_2 \ldots a_n$, wobei $a_i \in \Sigma$ für $i \in \{1, 2, \ldots, n\}$, dann ist die Umkehrung von $a$, $a^{\text{R}} = a_n a_{n - 1} \ldots a_1$
+\end{definition}
+
+
+\begin{definition}[]{Iteration}
+    Die $i$-te Iteration $x^i$ von $x \in \Sigma^*$ für alle $i \in \N$ ist definiert als $x^0 = \lambda$, $x^1 = x$ und $x^i = xx^{i - 1}$
+\end{definition}
+
+
+\begin{definition}[]{Teilwort, Präfix, Suffix}
+    Seien $v, w \in \Sigma^*$
+    \begin{itemize}
+        \item $v$ heisst \bi{Präfix} von $w \Longleftrightarrow \exists y \in \Sigma^* : w = vy$
+        \item $v$ heisst \bi{Suffix} von $w \Longleftrightarrow \exists x \in \Sigma^* : w = xv$
+        \item $v$ heisst \bi{Teilwort} von $w \Longleftrightarrow \exists x, y \in \Sigma^* : w = xvy$
+        \item $v \neq \lambda$ heisst \bi{echtes} Teilwort (gilt auch für Präfix, Suffix) von $w$ genau dann, wenn $v \neq w$ und $v$ ein Teilwort (oder eben Präfix oder Suffix) von $w$ ist
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[]{Kardinalität, Vorkommen und Potenzmenge}
+    Für Wort $x \in \Sigma^*$ und Buchstabe $a \in \Sigma$ ist $|x|_a$ definiert als die Anzahl Male, die $a$ in $x$ vorkommt.
+
+    Für jede Menge $A$ ist $|A|$ die Kardinalität und $\mathcal{P}(A) = \{S | S \subseteq A\}$ die Potenzmenge von $A$
+\end{definition}
+
+
+\begin{definition}[]{Kanonische Ordnung}
+    Wir definieren eine Ordnung $s_1 < \ldots < s_m$ auf $\Sigma$. Die \bi{kanonische Ordnung} auf $\Sigma^*$ für $u, v \in \Sigma^*$ ist definiert als:
+    \begin{align*}
+        u < v \Longleftrightarrow |u| < |v| \lor (|u| = |v| \land u = x \cdot s_i \cdot u' \land v = x \cdot s_j \cdot v') \text{ für beliebige $x, u', v' \in \Sigma^*$ und $i < j$}
+    \end{align*}
+
+    Oder in Worten, geordnet nach Länge und dann danach, ob man eine gemeinsames Teilwort finden kann
+\end{definition}
+
+
+\begin{definition}[]{Sprache}
+    $L \subseteq \Sigma^*$ ist eine Sprache, deren Komplement $L^C = \Sigma^* - L$ ist. 
+    Dabei ist $L_{\emptyset}$ die \bi{leere Sprache} und $L_{\lambda}$ die einelementige Sprache die nur aus dem leeren Wort besteht.
+
+    Die \bi{Konkatenation} von $L_1$ und $L_2$ ist $L_1 \cdot L_2 = L_1 L_2 = \{ vw \divides v \in L_1 \land w \in L_2 \}$ und $L^0 := L_{\lambda}$ und $L^{i + 1} = L^i \cdot L \smallhspace \forall i \in \N$ und $L^* = \bigcup_{i \in \N} L^{i}$ ist der \bi{Kleene'sche Stern} von $L$, wobei $L^+ = \bigcup_{i \in \N - \{0\}} L^i = L \cdot L^*$
+\end{definition}
+
+Da Sprachen Mengen sind, gelten auch die Üblichen Operationen, wie Vereinigung ($\cup$) und Schnitt ($\cap$).
+Die Gleichheit von zwei Sprachen bestimmen wir weiter mit $A \subseteq B \land B \subseteq A \Rightarrow A = B$.
+Um $A \subseteq B$ zu zeigen reicht es hier zu zeigen dass für jedes $x \in A$, $x \in B$ hält.
+Wir betrachten nun, wie die üblichen Operationen mit der neu hinzugefügten Konkatenation interagieren.
+
+\begin{lemma}[]{Distributivität von Kon und $\cup$}
+    Für Sprachen $L_1, L_2$ und $L_3$ über $\Sigma$ gilt: $L_1 L_2 \cup L_1 L_3 = L_1 (L_2 \cup L_3)$
+\end{lemma}
+
+Der Beweis hierfür läuft über die oben erwähnte ``Regel'' zur Gleichheit. 
+Um das Ganze einfacher zu machen, teilen wir auf: Wir zeigen also erst $L_1 L_2 \subseteq L_1(L_2 \cup L_3)$ und dann equivalent für $L_1 L_3$.
+
+
+\begin{lemma}[]{Distributivität von Kon und $\cap$}
+    Für Sprachen $L_1, L_2$ und $L_3$ über $\Sigma$ gilt: $L_1 (L_2 \cap L_3) \subseteq L_1 L_2 \cap L_1 L_3$
+\end{lemma}
+
+\shortlemma Es existieren $U_1, U_2, U_3 \in (\Sigma_{\text{bool}})^*$, so dass $U_1 (U_2 \cap U_3) \subsetneq U_1 U_2 \cap U_1 U_3$
+
+
+
+\begin{definition}[]{Homomorphismus}
+    $\Sigma_1, \Sigma_2$ beliebige Alphabete. Ein \bi{Homomorphismus} von $\Sigma^*_1$ nach $\Sigma^*_2$ ist jede Funktion $h: \Sigma_1^* \rightarrow \Sigma_2^*$ mit:
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item $h(\lambda) = \lambda$
+        \item $h(uv) = h(u) \cdot h(v) \smallhspace \forall u, v \in \Sigma_1^*$
+    \end{enumerate}
+\end{definition}
+
+Erneut gilt hier, dass im Vergleich zu allgemeinen Homomorphismen, es zur Definition von einem Homomorphismus ausreichtt, $h(a)$ für alle Buchstaben $a \in \Sigma_1$ festzulegen.

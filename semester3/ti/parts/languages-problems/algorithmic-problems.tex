@@ -1,0 +1,22 @@
+\newpage
+\subsection{Algorithmische Probleme}
+Ein Algorithmus $A : \Sigma_1^* \rightarrow \Sigma_2^*$ ist eine Teilmenge aller Programme, wobei ein Program ein Algorithmus ist, sofern es für jede zulässige Eingabe eine Ausgabe liefert, es darf also nicht eine endlosschleife enthalten.
+
+\begin{definition}[]{Entscheidungsproblem}
+    Das \bi{Entscheidungsproblem} $(\Sigma, L)$ ist für jedes $x \in \Sigma^*$ zu entscheiden, ob $x \in L$ oder $x \notin L$. 
+    Ein Algorithmus $A$ löst $(\Sigma, L)$ (erkennt $L$) falls für alle $x \in \Sigma^*$: $A(x) = \begin{cases}
+        1, &\text{ falls } x \in L\\
+        0, &\text{ falls } x \notin L
+    \end{cases}$.
+\end{definition}
+
+\begin{definition}[]{Funktion}
+    Algorithmus $A$ berechnet (realisiert) eine \bi{Funktion (Transformation)} $f: \Sigma^* \rightarrow \Gamma^*$ falls $A(x) = f(x) \smallhspace \forall x \in \Sigma^*$ für Alphabete $\Sigma$ und $\Gamma$
+\end{definition}
+
+
+\begin{definition}[]{Berechnung}
+    Sei $R \subseteq \Sigma^* \times \Gamma^*$ eine Relation in den Alphabeten $\Sigma$ und $\Gamma$. 
+    Ein Algorithmus $A$ \bi{berechnet} $R$ (\bi{löst das Relationsproblem} $R$) falls für jedes $x \in \Sigma^*$, für das ein $y \in \Gamma^*$ mit $(x, y) \in R$ existiert gilt:
+    $(x, A(x)) \in R$
+\end{definition}

@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\newcommand{\dir}{~/projects/latex}
+\input{\dir/include.tex}
+\load{recommended}
+\setLang{de}
+
+\setup{Theoretische Informatik}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+
+\newpage
+
+\printtoc{Orange}
+
+\newpage
+
+
+% Combinatorics
+\input{parts/combinatorics.tex}
+
+
+\newsection
+\section{Alphabete, Wörter, Sprachen und Darstellung von Problemen}
+\input{parts/languages-problems/alphabet.tex}
+\input{parts/languages-problems/algorithmic-problems.tex}
+
+
+
+
+\end{document}
