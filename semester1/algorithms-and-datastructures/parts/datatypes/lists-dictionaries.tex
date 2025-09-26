@@ -55,10 +55,10 @@ The same disadvantages as for single linked lists apply here as well
         \toprule
         \textbf{Operation}               & \textbf{Array} & \textbf{Single Linked List} & \textbf{Double Linked List} \\
         \midrule
-        $\textsc{insert}(k, L)$          & \tco{1}        & \tco{1}                     & \tco{1}                     \\
-        $\textsc{get}(i, L)$             & \tco{1}        & \tco{l}                     & \tco{l}                     \\
-        $\textsc{insertAfter}(k, k', L)$ & \tco{l}        & \tco{1}                     & \tco{1}                     \\
-        $\textsc{delete}(k, L)$          & \tco{l}        & \tco{l}                     & \tco{1}                     \\
+        $\textsc{insert}(k, L)$          & $\tco{1}$      & $\tco{1}$                   & $\tco{1}$                   \\
+        $\textsc{get}(i, L)$             & $\tco{1}$      & $\tco{l}$                   & $\tco{l}$                   \\
+        $\textsc{insertAfter}(k, k', L)$ & $\tco{l}$      & $\tco{1}$                   & $\tco{1}$                   \\
+        $\textsc{delete}(k, L)$          & $\tco{l}$      & $\tco{l}$                   & $\tco{1}$                   \\
         \bottomrule
     \end{tabular}
     \smallskip
@@ -107,7 +107,7 @@ They are most commonly implemented using some kind of heap, whilst a fibonacci h
 
 \newpage
 \subsection{Dictionaries}
-A \textbf{dictionary} stores a collection of key-value pairs. 
+A \textbf{dictionary} stores a collection of key-value pairs.
 
 \subsubsection{Operations:}
 
@@ -115,32 +115,32 @@ A \textbf{dictionary} stores a collection of key-value pairs.
     \item \textbf{Insertion (\texttt{insert(key,\ value)})}:
           \begin{itemize}
               \item Adds a new key-value pair to the dictionary. If the key already exists, it may update the existing value.
-              \item Time Complexity: Average case \tct{1} (with hashing), worst case \tcl{n} (when all keys hash to the same bucket).
+              \item Time Complexity: Average case $\tct{1}$ (with hashing), worst case $\tcl{n}$ (when all keys hash to the same bucket).
           \end{itemize}
     \item \textbf{Deletion (\texttt{remove(key)})}:
           \begin{itemize}
               \item Removes a key-value pair from the dictionary by key.
-              \item Time Complexity: Average case \tct{1}, worst case \tco{n}.
+              \item Time Complexity: Average case $\tct{1}$, worst case $\tco{n}$.
           \end{itemize}
     \item \textbf{Search/Access (\texttt{get(key)} or \texttt{find(key)})}:
           \begin{itemize}
               \item Retrieves the value associated with a given key.
-              \item Time Complexity: Average case \tct{1}, worst case \tco{n}.
+              \item Time Complexity: Average case $\tct{1}$, worst case $\tco{n}$.
           \end{itemize}
     \item \textbf{Contains (\texttt{containsKey(key)})}:
           \begin{itemize}
               \item Checks if a key is present in the dictionary.
-              \item Time Complexity: Average case \tct{1}, worst case \tco{n}.
+              \item Time Complexity: Average case $\tct{1}$, worst case $\tco{n}$.
           \end{itemize}
     \item \textbf{Size/Length}:
           \begin{itemize}
               \item Returns the number of key-value pairs in the dictionary.
-              \item Time Complexity: \tco{1} (stored separately).
+              \item Time Complexity: $\tco{1}$ (stored separately).
           \end{itemize}
     \item \textbf{Clear}:
           \begin{itemize}
               \item Removes all key-value pairs from the dictionary.
-              \item Time Complexity: \tco{n} (depends on implementation, some implementations might be faster).
+              \item Time Complexity: $\tco{n}$ (depends on implementation, some implementations might be faster).
           \end{itemize}
 \end{enumerate}
 
@@ -152,19 +152,19 @@ to implement the dictionary.
 \begin{enumerate}
     \item \textbf{Hash Table:}
           \begin{itemize}
-              \item Average case: \tct{n}, where $n$ is the number of key-value pairs.
+              \item Average case: $\tct{n}$, where $n$ is the number of key-value pairs.
               \item Additional space can be used for maintaining hash table buckets, which may lead to higher constant factors but not asymptotic growth in complexity.
           \end{itemize}
     \item \textbf{Balanced Binary Search Tree (e.g., AVL tree or Red-Black Tree):}
           \begin{itemize}
-              \item Space Complexity: \tco{n}.
+              \item Space Complexity: $\tco{n}$.
               \item This structure uses more space compared to a hash table due to the need for storing balance information at each node.
           \end{itemize}
     \item \textbf{Dynamic Array:}
           \begin{itemize}
               \item This is not a common implementation for dictionaries due to inefficiencies in search and insertion operations compared to hash tables or balanced trees.
-              \item Space Complexity: \tco{n}.
-              \item Time complexity for insertion, deletion, and access can degrade significantly to \tco{n} without additional optimizations.
+              \item Space Complexity: $\tco{n}$.
+              \item Time complexity for insertion, deletion, and access can degrade significantly to $\tco{n}$ without additional optimizations.
           \end{itemize}
 \end{enumerate}
 
@@ -177,9 +177,9 @@ to implement the dictionary.
         \toprule
         \textbf{Operation} & \textbf{Unsorted Arrays} & \textbf{Sorted Arrays} & \textbf{Doubly Linked Lists} & \textbf{Binary Trees} & \textbf{AVL Trees} \\
         \midrule
-        Insertion          & \tco{1}                  & \tco{n}                & \tco{1}                      & \tco{h}               & \tco{\log n}       \\
-        Deletion           & \tco{n}                  & \tco{(n)}              & \tco{n}                      & \tco{h}               & \tco{\log n}       \\
-        Search             & \tco{n}                  & \tco{\log n}           & \tco{n}                      & \tco{h}               & \tco{\log n}       \\
+        Insertion          & $\tco{1}$                & $\tco{n}$              & $\tco{1}$                    & $\tco{h}$             & $\tco{\log n}$     \\
+        Deletion           & $\tco{n}$                & $\tco{(n)}$            & $\tco{n}$                    & $\tco{h}$             & $\tco{\log n}$     \\
+        Search             & $\tco{n}$                & $\tco{\log n}$         & $\tco{n}$                    & $\tco{h}$             & $\tco{\log n}$     \\
         \bottomrule
     \end{tabular}
     \caption{Time Complexities of Dictionary Operations for Various Data Structures}

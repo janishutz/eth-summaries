@@ -9,11 +9,11 @@
         \item \textbf{Efficiency:} Excellent for in-place sorting with predictable performance.
         \item \textbf{Time Complexity:}
               \begin{itemize}
-                  \item Best case: \tcl{n \log n}
-                  \item Worst case: \tco{n \log n}
-                  \item Average case: \tct{n \log n}
+                  \item Best case: $\tcl{n \log n}$
+                  \item Worst case: $\tco{n \log n}$
+                  \item Average case: $\tct{n \log n}$
               \end{itemize}
-        \item \textbf{Space Complexity:} In-place sorting requires \tct{1} additional space.
+        \item \textbf{Space Complexity:} In-place sorting requires $\tct{1}$ additional space.
         \item \textbf{Limitations:} Inefficient compared to Quick Sort for most practical datasets.
     \end{itemize}
 \end{properties}
@@ -46,11 +46,11 @@ The lecture does not cover the implementation of a heap tree. See the specific s
         \item \textbf{Efficiency:} Performs well for uniformly distributed datasets.
         \item \textbf{Time Complexity:}
               \begin{itemize}
-                  \item Best case: \tcl{n + k} (for uniform distribution and $k$ buckets)
-                  \item Worst case: \tco{n^2} (when all elements fall into a single bucket)
-                  \item Average case: \tct{n + k}
+                  \item Best case: $\tcl{n + k}$ (for uniform distribution and $k$ buckets)
+                  \item Worst case: $\tco{n^2}$ (when all elements fall into a single bucket)
+                  \item Average case: $\tct{n + k}$
               \end{itemize}
-        \item \textbf{Space Complexity:} Requires \tct{n + k} additional space.
+        \item \textbf{Space Complexity:} Requires $\tct{n + k}$ additional space.
         \item \textbf{Limitations:} Performance depends on the choice of bucket size and distribution of input elements.
     \end{itemize}
 \end{properties}
@@ -99,9 +99,9 @@ The lecture does not cover the implementation of a heap tree. See the specific s
               \end{itemize}
         \item \textbf{Time Complexity:}
               \begin{itemize}
-                  \item Insert: \tct{\log n}.
-                  \item Extract Min/Max: \tct{\log n}.
-                  \item Build Heap: \tct{n}.
+                  \item Insert: $\tct{\log n}$.
+                  \item Extract Min/Max: $\tct{\log n}$.
+                  \item Build Heap: $\tct{n}$.
               \end{itemize}
     \end{itemize}
 \end{properties}

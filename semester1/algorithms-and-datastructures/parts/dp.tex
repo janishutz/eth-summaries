@@ -43,13 +43,13 @@ Here, the concept is to either choose an element or not to do so, i.e. the recur
 
 The same algorithm can also be adapted for minimum subarray sum, or other problems using the same idea.
 
-\timecomplexity \tct{n} (Polynomial)
+\timecomplexity $\tct{n}$ (Polynomial)
 
 
 \subsubsection{Jump Game}
 We want to return the minimum number of jumps to get to a position $n$. Each field at an index $i$ has a number $A[i]$ that tells us how far we can jump at most. 
 
-A somewhat efficient way to solve this problem is the recurrence relation $M[k] = \max\{i + A[i] | 1 \leq i \leq M[k - 1]\}$, but an even more efficient one is based on $M[k] = \max \{i + A[i] | M[k - 2] < i \leq M[k - 1]\}$, which essentially uses the fact that we only need to look at all $i$ that can be reached with \textit{exactly} $l - 1$ jumps, since $i \leq M[k - 2]$ can already be reached with $k - 2$ jumps. While the first one has time complexity \tco{n^2}, the new one has \tco{n}
+A somewhat efficient way to solve this problem is the recurrence relation $M[k] = \max\{i + A[i] | 1 \leq i \leq M[k - 1]\}$, but an even more efficient one is based on $M[k] = \max \{i + A[i] | M[k - 2] < i \leq M[k - 1]\}$, which essentially uses the fact that we only need to look at all $i$ that can be reached with \textit{exactly} $l - 1$ jumps, since $i \leq M[k - 2]$ can already be reached with $k - 2$ jumps. While the first one has time complexity $\tco{n^2}$, the new one has $\tco{n}$
 
 
 \newpage
@@ -80,7 +80,7 @@ A somewhat efficient way to solve this problem is the recurrence relation $M[k] 
 
 To find the actual solution (in the sense of which letters are in the longest common subsequence), we need to use backtracking, i.e. finding which letters we picked.
 
-\timecomplexity \tct{n \cdot m} (Polynomial)
+\timecomplexity $\tct{n \cdot m}$ (Polynomial)
 
 
 \subsubsection{Editing distance}
@@ -95,12 +95,12 @@ The recurrence relation is $ED(i, j) = \min \begin{cases}
     \end{cases}
 \end{cases}$
 
-\timecomplexity \tct{n \cdot m} (Polynomial)
+\timecomplexity $\tct{n \cdot m}$ (Polynomial)
 
 \subsubsection{Subset sum}
 We want to find a subset of a set $A[1], \ldots, A[n]$ such that the sum of them equals a number $b$. Its recurrence relation is $T(i, s) = T(i - 1, s) \lor T(i - 1, s - A[i])$, where $i$ is the $i$-th entry in the array and $s$ the current sum. Base cases are $T(0, s) = false$ and $T(0, 0) = true$. In our DP-Table, we store if the subset sum can be constructed up to this element. Therefore, the DP table is a boolean table and the value $T(n, b)$ only tells us if we have a solution or not. To find the solution, we need to backtrack again.
 
-\timecomplexity \tct{n \cdot b} (Pseudopolynomial)
+\timecomplexity $\tct{n \cdot b}$ (Pseudopolynomial)
 
 
 \subsubsection{Knapsack problem}
@@ -111,7 +111,7 @@ The recurrence relation is $DP(i, w) = \begin{cases}
     \max\{DP(i - 1, w), P[i] + DP(i - 1, w - W[i])\} & \text{else}
 \end{cases}$. The solution can be found in $P(n, W)$, where $W$ is the weight limit.
 
-\timecomplexity \tct{n \cdot W} (Pseudopolynomial)
+\timecomplexity $\tct{n \cdot W}$ (Pseudopolynomial)
 
 
 \newpage
@@ -144,7 +144,7 @@ We can use approximation to solve the Knapsack problem in polynomial time. For t
     \end{spacing}
 \end{algorithm}
 
-\timecomplexity \tco{n \cdot \log(n)}
+\timecomplexity $\tco{n \cdot \log(n)}$
 
 
 \subsection{Matrix chain multiplication}
@@ -156,4 +156,5 @@ The recurrence relation for this problem is $M(i, j) = \begin{cases}
 \end{cases}$
 
 
-\timecomplexity \tco{n^3}
+\timecomplexity $\tco{n^3}$
+

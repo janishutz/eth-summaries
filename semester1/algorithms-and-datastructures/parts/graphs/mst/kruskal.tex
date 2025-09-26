@@ -8,9 +8,9 @@
     \begin{itemize}
         \item \textbf{Graph Type:} Works on undirected, weighted graphs.
         \item \textbf{Approach:} Greedy, edge-centric.
-        \item \textbf{Time Complexity:} \tco{|E| \log (|E|)} (for sort), \tco{|V| \log(|V|)} (for union find data structure).\\
-              \timecomplexity \tco{|E| \log(|E|) + |V| \log(|V|)}
-        \item \textbf{Space Complexity:} Depends on the graph representation, typically \tct{E + V}.
+        \item \textbf{Time Complexity:} $\tco{|E| \log (|E|)}$ (for sort), $\tco{|V| \log(|V|)}$ (for union find data structure).\\
+              \timecomplexity $\tco{|E| \log(|E|) + |V| \log(|V|)}$
+        \item \textbf{Space Complexity:} Depends on the graph representation, typically $\tct{E + V}$.
         \item \textbf{Limitations:} Requires sorting of edges, which can dominate runtime.
     \end{itemize}
 \end{properties}
@@ -127,8 +127,8 @@
 
 \begin{properties}[]{Performance}
     \begin{itemize}
-        \item \textsc{make}$(V)$: Initialize data structure \tco{n}
-        \item \textsc{same}$(u, v)$: Check if two components belong to the same set \tco{1} or \tco{n}, depending on if the representant is stored in an array or not
-        \item \textsc{union}$(u, v)$: Combine two sets, \tco{\log(n)}, in Kruskal we call this \tco{n} times, so total number (amortised) is \tco{n \log(n)}
+        \item \textsc{make}$(V)$: Initialize data structure $\tco{n}$
+        \item \textsc{same}$(u, v)$: Check if two components belong to the same set $\tco{1}$ or $\tco{n}$, depending on if the representant is stored in an array or not
+        \item \textsc{union}$(u, v)$: Combine two sets, $\tco{\log(n)}$, in Kruskal we call this $\tco{n}$ times, so total number (amortised) is $\tco{n \log(n)}$
     \end{itemize}
 \end{properties}

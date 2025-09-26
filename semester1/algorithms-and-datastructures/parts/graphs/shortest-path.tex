@@ -29,8 +29,8 @@
     \begin{itemize}
         \item \textbf{Time Complexity:}
               \begin{itemize}
-                  \item \tco{|V|^2} for a simple implementation.
-                  \item \tco{(|V| + |E|) \log |V|} using a priority queue.
+                  \item $\tco{|V|^2}$ for a simple implementation.
+                  \item $\tco{(|V| + |E|) \log |V|}$ using a priority queue.
               \end{itemize}
         \item Only works with non-negative edge weights.
         \item Greedy algorithm that processes vertices in increasing order of distance.
@@ -112,7 +112,7 @@
 
 \begin{properties}[]{Characteristics of Bellman-Ford Algorithm}
     \begin{itemize}
-        \item \textbf{Time Complexity:} \tco{|V| \cdot |E|}.
+        \item \textbf{Time Complexity:} $\tco{|V| \cdot |E|}$.
         \item Can handle graphs with negative edge weights but not graphs with negative weight cycles.
         \item Used for:
               \begin{itemize}
@@ -161,7 +161,7 @@
             \midrule
             Handles Negative Weights & No                            & Yes                             \\
             Detects Negative Cycles  & No                            & Yes                             \\
-            Time Complexity          & \tco{(|V| + |E|) \log |V|}    & \tco{|V| \cdot |E|}             \\
+            Time Complexity          & $\tco{(|V| + |E|) \log |V|}$  & $\tco{|V| \cdot |E|}$           \\
             Algorithm Type           & Greedy                        & Dynamic Programming             \\
             \bottomrule
         \end{tabular}

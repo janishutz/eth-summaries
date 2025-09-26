@@ -27,7 +27,7 @@ We can also use $n$-times dijkstra or any other shortest path algorithm, or any 
 
 \begin{properties}[]{Characteristics of Floyd-Warshall Algorithm}
     \begin{itemize}
-        \item \textbf{Time Complexity:} \tco{|V|^3}.
+        \item \textbf{Time Complexity:} $\tco{|V|^3}$.
         \item Works for graphs with negative edge weights but no negative weight cycles.
         \item Computes shortest paths for all pairs in one execution.
     \end{itemize}
@@ -82,7 +82,7 @@ We can also use $n$-times dijkstra or any other shortest path algorithm, or any 
                   \item Reweight edges to remove negative weights.
                   \item Use Dijkstra's algorithm for each vertex to find shortest paths.
               \end{enumerate}
-        \item \textbf{Time Complexity:} \tco{|V| \cdot (|E| + |V| \log |V|)}.
+        \item \textbf{Time Complexity:} $\tco{|V| \cdot (|E| + |V| \log |V|)}$.
         \item Efficient for sparse graphs compared to Floyd-Warshall.
     \end{itemize}
 \end{properties}
@@ -140,8 +140,8 @@ We can also use $n$-times dijkstra or any other shortest path algorithm, or any 
         \toprule
         \textbf{Algorithm}  & \textbf{Primary Use}  & \textbf{Time Complexity}      & \textbf{Remarks}         \\
         \midrule
-        Floyd-Warshall      & AP-SP                 & \tco{|V|^3}                   & Handles negative weights \\
-        Johnson’s Algorithm & AP-SP (sparse graphs) & \tco{|V|(|E| + |V| \log |V|)} & Requires reweighting     \\
+        Floyd-Warshall      & AP-SP                 & $\tco{|V|^3}$                   & Handles negative weights \\
+        Johnson’s Algorithm & AP-SP (sparse graphs) & $\tco{|V|(|E| + |V| \log |V|)}$ & Requires reweighting     \\
         \bottomrule
     \end{tabular}
     \caption{Comparison of the All-Pair Shortest path (AP-SP) algorithms discussed in the lecture}

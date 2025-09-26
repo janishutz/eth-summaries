@@ -26,7 +26,7 @@ First, how to check if an array is sorted. This can be done in linear time:
         \begin{algorithmic}[1]
             \For{$i \gets 1, 2, \ldots, n$}
                 \For{$j \gets 1, 2, \ldots, n$}
-                    \If{$A[j] > A[j + 1]$} 
+                    \If{$A[j] > A[j + 1]$}
                         \State exchange $A[j]$ and $A[j + 1]$ \Comment{Causes the element to ``bubble up''}
                     \EndIf
                 \EndFor
@@ -54,7 +54,7 @@ The concept for this algorithm is selecting an element (that being the largest o
     \end{spacing}
 \end{algorithm}
 
-\tc{n^2} because we have runtime \tco{n} for the search of the maximal entry and run through the loop \tco{n} times, but we have saved some runtime elsewhere, which is not visible in the asymptotic time complexity compared to bubble sort.
+\tc{n^2} because we have runtime $\tco{n}$ for the search of the maximal entry and run through the loop $\tco{n}$ times, but we have saved some runtime elsewhere, which is not visible in the asymptotic time complexity compared to bubble sort.
 
 
 
@@ -66,16 +66,16 @@ The concept for this algorithm is selecting an element (that being the largest o
 \end{definition}
 
 \begin{properties}[]{Characteristics and Performance}
-\begin{itemize}
-    \item \textbf{Efficiency:} Works well for small datasets or nearly sorted arrays.
-    \item \textbf{Time Complexity:}
     \begin{itemize}
-        \item Best case (already sorted): \tcl{n\log(n)}
-        \item Worst case (reversed order): \tco{n^2}
-        \item Average case: \tct{n^2}
+        \item \textbf{Efficiency:} Works well for small datasets or nearly sorted arrays.
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Best case (already sorted): $\tcl{n\log(n)}$
+                  \item Worst case (reversed order): $\tco{n^2}$
+                  \item Average case: $\tct{n^2}$
+              \end{itemize}
+        \item \textbf{Limitations:} Inefficient on large datasets due to its $\tct{n^2}$ time complexity and requires additional effort for linked list implementations.
     \end{itemize}
-    \item \textbf{Limitations:} Inefficient on large datasets due to its \tct{n^2} time complexity and requires additional effort for linked list implementations.
-\end{itemize}
 \end{properties}
 
 \begin{algorithm}
@@ -83,15 +83,15 @@ The concept for this algorithm is selecting an element (that being the largest o
         \caption{\textsc{insertionSort(A)}}
         \begin{algorithmic}[1]
             \Procedure{InsertionSort}{$A$}
-            \For{$i \gets 2$ to $n$} \Comment{Iterate over the array}
-                \State $key \gets A[i]$ \Comment{Element to be inserted}
-                \State $j \gets i - 1$
-                \While{$j > 0$ and $A[j] > key$}
-                    \State $A[j+1] \gets A[j]$ \Comment{Shift elements}
-                    \State $j \gets j - 1$
-                \EndWhile
-                \State $A[j+1] \gets key$ \Comment{Insert element}
-            \EndFor
+                \For{$i \gets 2$ to $n$} \Comment{Iterate over the array}
+                    \State $key \gets A[i]$ \Comment{Element to be inserted}
+                    \State $j \gets i - 1$
+                    \While{$j > 0$ and $A[j] > key$}
+                        \State $A[j+1] \gets A[j]$ \Comment{Shift elements}
+                        \State $j \gets j - 1$
+                    \EndWhile
+                    \State $A[j+1] \gets key$ \Comment{Insert element}
+                \EndFor
             \EndProcedure
         \end{algorithmic}
     \end{spacing}
@@ -104,21 +104,21 @@ The concept for this algorithm is selecting an element (that being the largest o
 \newpage
 \subsubsection{Merge Sort}
 \begin{definition}[]{Definition of Merge Sort}
-Merge Sort is a divide-and-conquer algorithm that splits the input array into two halves, recursively sorts each half, and then merges the two sorted halves into a single sorted array. This process continues until the base case of a single element or an empty array is reached, as these are inherently sorted.
+    Merge Sort is a divide-and-conquer algorithm that splits the input array into two halves, recursively sorts each half, and then merges the two sorted halves into a single sorted array. This process continues until the base case of a single element or an empty array is reached, as these are inherently sorted.
 \end{definition}
 
 \begin{properties}[]{Characteristics and Performance of Merge Sort}
-\begin{itemize}
-    \item \textbf{Efficiency:} Suitable for large datasets due to its predictable time complexity.
-    \item \textbf{Time Complexity:}
     \begin{itemize}
-        \item Best case: \tcl{n \log n}
-        \item Worst case: \tco{n \log n}
-        \item Average case: \tct{n \log n}
+        \item \textbf{Efficiency:} Suitable for large datasets due to its predictable time complexity.
+        \item \textbf{Time Complexity:}
+              \begin{itemize}
+                  \item Best case: $\tcl{n \log n}$
+                  \item Worst case: $\tco{n \log n}$
+                  \item Average case: $\tct{n \log n}$
+              \end{itemize}
+        \item \textbf{Space Complexity:} Requires additional memory for temporary arrays, typically $\tct{n}$.
+        \item \textbf{Limitations:} Not in-place, and memory overhead can be significant for large datasets.
     \end{itemize}
-    \item \textbf{Space Complexity:} Requires additional memory for temporary arrays, typically \tct{n}.
-    \item \textbf{Limitations:} Not in-place, and memory overhead can be significant for large datasets.
-\end{itemize}
 \end{properties}
 
 \begin{algorithm}
@@ -135,7 +135,7 @@ Merge Sort is a divide-and-conquer algorithm that splits the input array into tw
                 \State \Call{Merge}{$A, l, m, r$}
             \EndProcedure
 
-            \Procedure{Merge}{$A[1..n], l, m, r$} \Comment{Runtime: \tco{n}}
+            \Procedure{Merge}{$A[1..n], l, m, r$} \Comment{Runtime: $\tco{n}$}
                 \State $result \gets$ new array of size $r - l + 1$
                 \State $i \gets l$
                 \State $j \gets m + 1$
@@ -161,12 +161,12 @@ Merge Sort is a divide-and-conquer algorithm that splits the input array into tw
     \centering
     \begin{tabular}{lccccc}
         \toprule
-        \textbf{Algorithm} & \textbf{Comparisons} & \textbf{Operations} & \textbf{Space Complexity} & \textbf{Locality} & \textbf{Time complexity}\\
+        \textbf{Algorithm}      & \textbf{Comparisons}    & \textbf{Operations}     & \textbf{Space Complexity} & \textbf{Locality} & \textbf{Time complexity} \\
         \midrule
-        \textit{Bubble-Sort} & \tco{n^2} & \tco{n^2} & \tco{1} & good & \tco{n^2}\\
-        \textit{Selection-Sort} & \tco{n^2} & \tco{n} & \tco{1} & good & \tco{n^2}\\
-        \textit{Insertion-Sort} & \tco{n \cdot \log(n)} & \tco{n^2} & \tco{1} & good & \tco{n^2}\\
-        \textit{Merge-Sort} & \tco{n\cdot \log(n)} & \tco{n \cdot \log(n)} & \tco{n} & good & \tco{n \cdot \log(n)}\\
+        \textit{Bubble-Sort}    & $\tco{n^2}$             & $\tco{n^2}$             & $\tco{1}$                 & good              & $\tco{n^2}$              \\
+        \textit{Selection-Sort} & $\tco{n^2}$             & $\tco{n}$               & $\tco{1}$                 & good              & $\tco{n^2}$              \\
+        \textit{Insertion-Sort} & $\tco{n \cdot \log(n)}$ & $\tco{n^2}$             & $\tco{1}$                 & good              & $\tco{n^2}$              \\
+        \textit{Merge-Sort}     & $\tco{n\cdot \log(n)}$  & $\tco{n \cdot \log(n)}$ & $\tco{n}$                 & good              & $\tco{n \cdot \log(n)}$  \\
         \bottomrule
     \end{tabular}
     \caption{Comparison of four comparison-based sorting algorithms discussed in the lecture. Operations designates the number of write operations in RAM}
