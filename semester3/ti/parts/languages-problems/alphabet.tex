@@ -3,7 +3,7 @@
 \begin{definition}[]{Alphabet}
     Eine endliche, nicht leere Menge $\Sigma$. Elemente sind Buchstaben (Zeichen \& Symbole). 
 
-    Beispiele: $\Sigma_{\text{bool}}$, $\Sigma_{\text{lat}}$ latin characters, $\Sigma_{\text{Tastatur}}$, $\Sigma_m$ $m$-adische Zahlen ($m$-ary numbers, zero index)
+    Beispiele: $\alphabets{bool}$, $\alphabets{lat}$ latin characters, $\alphabets{Tastatur}$, $\Sigma_m$ $m$-adische Zahlen ($m$-ary numbers, zero index)
 \end{definition}
 
 \begin{definition}[]{Wort}
@@ -36,7 +36,7 @@ Das Problem hierbei ist jedoch, dass dies nicht so effizient ist, besonders nich
 
 
 \begin{definition}[]{Umkehrung}
-    Sei $a = a_1 a_2 \ldots a_n$, wobei $a_i \in \Sigma$ für $i \in \{1, 2, \ldots, n\}$, dann ist die Umkehrung von $a$, $a^{\text{R}} = a_n a_{n - 1} \ldots a_1$
+    Sei $a = a_1 a_2 \ldots a_n$, wobei $a_i \in \Sigma$ für $i \in \{1, 2, \ldots, n\}$, dann ist die Umkehrung von $a$, $a^\tR = a_n a_{n - 1} \ldots a_1$
 \end{definition}
 
 
@@ -99,12 +99,12 @@ Um das Ganze einfacher zu machen, teilen wir auf: Wir zeigen also erst $L_1 L_2 
     Für Sprachen $L_1, L_2$ und $L_3$ über $\Sigma$ gilt: $L_1 (L_2 \cap L_3) \subseteq L_1 L_2 \cap L_1 L_3$
 \end{lemma}
 
-\shortlemma Es existieren $U_1, U_2, U_3 \in (\Sigma_{\text{bool}})^*$, so dass $U_1 (U_2 \cap U_3) \subsetneq U_1 U_2 \cap U_1 U_3$
+\shortlemma Es existieren $U_1, U_2, U_3 \in \wordbool$, so dass $U_1 (U_2 \cap U_3) \subsetneq U_1 U_2 \cap U_1 U_3$
 
 
 
 \begin{definition}[]{Homomorphismus}
-    $\Sigma_1, \Sigma_2$ beliebige Alphabete. Ein \bi{Homomorphismus} von $\Sigma^*_1$ nach $\Sigma^*_2$ ist jede Funktion $h: \Sigma_1^* \rightarrow \Sigma_2^*$ mit:
+    $\Sigma_1, \Sigma_2$ beliebige Alphabete. Ein \bi{Homomorphismus} von $\wordm{1}$ nach $\wordm{2}$ ist jede Funktion $h: \Sigma_1^* \rightarrow \Sigma_2^*$ mit:
     \begin{enumerate}[label=\textit{(\roman*)}]
         \item $h(\lambda) = \lambda$
         \item $h(uv) = h(u) \cdot h(v) \smallhspace \forall u, v \in \Sigma_1^*$

@@ -1,3 +1,43 @@
 \newpage
 \subsection{Kolmogorov-Komplexität}
-Die Idee hinter der Kolmogorov-Komplextät ist zu quanitifizieren, wie viele 
+Falls ein Wort $x$ eine kürzere Darstellung hat, wird es \bi{komprimierbar genannt} und wir nennen die Erzeugung dieser Darstellung eine \bi{Komprimierung} von $x$.
+
+Eine mögliche Idee, um den Informationsgehalt eines Wortes zu bestimmen, wäre einem komprimierbaren Wort einen kleinen Informationsgehalt zuzuordnen und einem unkomprimierbaren Wort einen grossen Informationsgehalt zuzuordnen.
+
+Wenn wir also das Wort $011011011011011011011011$ haben, so kann man es auch als $(011)^8$ darstellen und hat so also einen kleineren Informationsgehalt als bspw. $0101101000101101001110110010$.
+
+Die Idee mit der Komprimierung den Informationsgehalt zu bestimmen ist jedoch nicht ideal, da für jede Komprimierung bei unendlich langen Wörtern immer eine weitere Komprimierung existiert, die für unendlich viele Wörter besser geeignet ist.
+
+Hier kommt die Kolmogorov-Komplexit zum Zuge: Sie bietet eine breit Gültige Definition des Komplexitätsmasses.
+
+
+\begin{definition}[]{Kolmogorov-Komplexität}
+    Für jedes Wort $x \in \wordbool$ ist die \bi{Kolmogorov-Komplexität $K(x)$ des Wortes $x$} das Minimum der binären Längen der Pascal-Programme, die $x$ generieren.
+\end{definition}
+
+Hierbei ist mit der binären Länge die Anzahl Bits gemeint, die beim Übersetzen des Programms in einen vordefinierten Maschinencode entsteht.
+
+Ein Pascal-Programm in diesem Kurs ist zudem nicht zwingend ein Programm in der effektiven Programmiersprache Pascal, sondern eine Abwandlung davon, worin es auch erlaubt ist, gewisse Prozesse zu beschreiben und nicht als Code auszuformulieren, da das nicht das Ziel dieses Kurses ist.
+
+
+\begin{lemma}[]{Kolmogorov-Komplexität}
+    Für jedes Wort $x \in \wordbool$ existiert eine Konstante $d$ so dass $K(x) \leq |x| + d$
+\end{lemma}
+\inlineproof Für jedes $x \in \wordbool$ kann folgendes Programm $A_x$ verwendet werden:
+
+\begin{minted}{pascal}
+A_x: begin
+        write(x);
+     end
+\end{minted}
+Alle Teile, ausser $x$ sind dabei von konstanter Länge, also ist die Länge der Bit-repräsentation des Programms ausschliesslich von der binären Länge des Wortes $x$ abhängig.
+
+\proven
+
+
+Für regelmässige Wörter gibt es natürlich Programme, bei denen das Wort nicht als komplette Variable vorkommt. 
+Deshalb haben diese Wörter auch (meist) eine kleinere Kolmogorov-Komplexität.
+
+
+\fancydef{$K(n)$ für $n \in \N$} Die \bi{Kolmogorov-Komplexität einer natürlichen Zahl $n$} ist $K(n) = K(\text{Bin}(n))$,
+wobei $\text{Bin}(x) = \ceil{\log_2(x + 1)}$ % TODO: Verify correctness here
