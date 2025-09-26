@@ -41,7 +41,7 @@ If we combine the entirety of the explanations of pages 43-45 in the script, we 
 \begin{theorem}[]{Eulerian Graph}
     \begin{enumerate}[label=\alph*)]
         \item A connected graph $G$ is eulerian if and only if the degree of all vertices is even
-        \item In a connected eulerian graph, we can find a eulerian cycle in \tco{|E|}
+        \item In a connected eulerian graph, we can find a eulerian cycle in $\tco{|E|}$
     \end{enumerate}
 \end{theorem}
 
@@ -58,7 +58,7 @@ The issue with Hamiltonian cycles is that the problem is $\mathcal{N}\mathcal{P}
 
 \stepcounter{all}
 \begin{theorem}[]{Hamiltonian Cycle Algorithm}
-    The algorithm \textsc{HamiltonianCycle} is correct and has space complexity \tco{n \cdot 2^n} and time complexity \tco{n^2 \cdot 2^n}, where $n = |V|$
+    The algorithm \textsc{HamiltonianCycle} is correct and has space complexity $\tco{n \cdot 2^n}$ and time complexity $\tco{n^2 \cdot 2^n}$, where $n = |V|$
 \end{theorem}
 
 In the below algorithm, $G = (V, E)$ is a graph for which $V = [n]$ and $N(v)$ as usual the neighbours of $v$ and we define $S$ as a subset of the vertices of $G$ with $1 \in S$.
@@ -137,10 +137,10 @@ We thus reach the following algorithm:
 \end{algorithm}
 
 \begin{theorem}[]{Count Hamiltionian Cycles Algorithm}
-    The algorithm computes the number of Hamiltonian cycles in $G$ with space complexity \tco{n^2} and time complexity \tco{n^{2.81}\log(n) \cdot 2^n}, where $n = |V|$
+    The algorithm computes the number of Hamiltonian cycles in $G$ with space complexity $\tco{n^2}$ and time complexity $\tco{n^{2.81}\log(n) \cdot 2^n}$, where $n = |V|$
 \end{theorem}
-The time complexity bound comes from the fact that we need \tco{\log(n)} matrix multiplications to compute $|W_S|$, which can be found in entry $(s, s)$ in $(A_S)^n$, where $A_S$ is the adjacency matrix of the induced subgraph $G[V\backslash S]$.
-Each matrix multiplication can be done in \tco{n^{2.81}} using Strassen's Algorithm.
+The time complexity bound comes from the fact that we need $\tco{\log(n)}$ matrix multiplications to compute $|W_S|$, which can be found in entry $(s, s)$ in $(A_S)^n$, where $A_S$ is the adjacency matrix of the induced subgraph $G[V\backslash S]$.
+Each matrix multiplication can be done in $\tco{n^{2.81}}$ using Strassen's Algorithm.
 The $2^n$ is given by the fact that we have that many subsets to consider.
 
 
@@ -187,14 +187,14 @@ In words, we are looking for the hamiltonian cycle with the shortest length amon
 
 \stepcounter{all}
 \begin{theorem}[]{Travelling Salesman Problem}
-    If there exists for $\alpha > 1$ a $\alpha$-approximation algorithm for the travelling salesman problem with time complexity \tco{f(n)}, there also exists an algorithm that can decide if a graph with $n$ vertices is Hamiltonian in \tco{f(n)}.
+    If there exists for $\alpha > 1$ a $\alpha$-approximation algorithm for the travelling salesman problem with time complexity $\tco{f(n)}$, there also exists an algorithm that can decide if a graph with $n$ vertices is Hamiltonian in $\tco{f(n)}$.
 \end{theorem}
 This obviously means that this problem is also $\mathcal{N}\mathcal{P}$-complete.
 If we however use the triangle-inequality $l(\{x, z\}) \leq l(\{x, y\}) + l(\{y, z\}))$, which in essence says that a direct connection between two vertices has to always be shorter or equally long compared to a direct connection (which intuitively makes sense),
 we reach the metric travelling salesman problem, where, given a graph $K_n$ and a function $l$ (as above, but this time respecting the triangle-inequality), we are again looking for the same answer as for the non-metric problem.
 
 \begin{theorem}[]{Metric Travelling Salesman Problem}
-    There exists a $2$-approximation algorithm with time complexity \tco{n^2} for the metric travelling salesman problem.
+    There exists a $2$-approximation algorithm with time complexity $\tco{n^2}$ for the metric travelling salesman problem.
 \end{theorem}
 
 \shortproof This algorithm works as follows: Assume we have an MST and we walk around the outside of it. 
@@ -202,4 +202,5 @@ Thus, the length of our path is $2$ \verb|mst|($K_n, l$).
 If we now use the triangle inequality, we can skip a few already visited vertices and at least not lengthen our journey around the outside of the MST.
 Any Hamiltonian cycle can be transformed into an MST by removing an arbitrary edge from it.
 Thus, for the optimal length (minimal length) of a Hamiltonian cycle, we have $\text{opt}(K_n, l) \geq \verb|mst|(K_n, l)$. 
-If we now double the edge set (by duplicating each edge), then, since for $l(C) = \sum_{e \in C} l(e)$ for our Hamiltonian cycle $C$, we have $l(C) \leq 2 \text{opt}(K_n, l)$, we can simply find a eulerian cycle in the graph in \tco{n}, and since it takes \tco{n^2} to compute an MST, our time complexity is \tco{n^2}
+If we now double the edge set (by duplicating each edge), then, since for $l(C) = \sum_{e \in C} l(e)$ for our Hamiltonian cycle $C$, we have $l(C) \leq 2 \text{opt}(K_n, l)$, we can simply find a eulerian cycle in the graph in $\tco{n}$, and since it takes $\tco{n^2}$ to compute an MST, our time complexity is $\tco{n^2}$
+

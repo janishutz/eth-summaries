@@ -1,2 +1,9 @@
 \newsection
 \subsection{Rechnen mit Matrizen}
+\begin{tables}{lcccc}{Name           & Operation & Mult  & Add         & Komplexität}
+              Skalarprodukt          & $x^H y$   & $n$   & $n - 1$     & $\tco{n}$      \\
+              Tensorprodukt          & $x y^H$   & $nm$  & $0$         & $\tco{mn}$     \\
+              Matrix $\times$ Vektor & $Ax$      & $mn$  & $(n - 1)m$  & $\tco{mn}$     \\
+              Matrixprodukt          & $AB$      & $mnp$ & $(n - 1)mp$ & $\tco{mnp}$    \\
+\end{tables}
+Das Matrixprodukt kann mit dem Strassen Algorithmus mithilfe der Block-Partitionierung in $\tco{n^{\log_2(7)}}$

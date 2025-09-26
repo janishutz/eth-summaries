@@ -18,10 +18,10 @@ The graph $G'$ fulfills the above implication because
           Let's assume $v_1 = v$ (the vertex removed during construction). However, $\langle \hat{v_2}, v_2, \ldots, \hat{v_n}, v_n \rangle$ is a path of length $n$
     \item Let $\langle u_0, u_1, \ldots, u_n \rangle$ be a path of length $n$ in $G'$ and let $\deg(u_i) \geq 2 \smallhspace \forall i \in \{1, \ldots, n - 1\}$ These vertices hence have to be the $n - 1$ remaining vertices of $G$, thus we have $u_0 = \hat{w_i}$ and $u_n = \hat{w_j}$ two different ones of new vertices of degree $1$ in $G'$. Thus, we have $u_1 = w_i$ and $u_{n - 1} = w_j$ and we have $\langle v, u_1, \ldots, u_{n - 1}, v \rangle$, which is a Hamiltonian cycle in $G$
 \end{enumerate}
-Due to the construction of the graph $G'$ we can generate it from $G$ in \tco{n^2} steps. We thus have:
+Due to the construction of the graph $G'$ we can generate it from $G$ in $\tco{n^2}$ steps. We thus have:
 
 \begin{theorem}[]{Long Path Problem}
-    If we can find a \textit{long-path} in a graph with $n$ vertices in time $t(n)$, we can decide if a graph with $n$ vertices has a Hamiltonian cycle in $t(2n - 2) + \text{\tco{n^2}}$
+    If we can find a \textit{long-path} in a graph with $n$ vertices in time $t(n)$, we can decide if a graph with $n$ vertices has a Hamiltonian cycle in $t(2n - 2) + \tco{n^2}$
 \end{theorem}
 
 
@@ -73,7 +73,7 @@ For the algorithm, we need to also define $N(v)$ which returns the neighbours of
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-The time complexity of this algorithm is \tco{2^k km}. If we now have $k = \text{\tco{\log(n)}}$, the algorithm is polynomial.
+The time complexity of this algorithm is $\tco{2^k km}$. If we now have $k = \tco{\log(n)}$, the algorithm is polynomial.
 
 
 \shade{ForestGreen}{Random colouring}
@@ -91,7 +91,7 @@ For our algorithm we choose a $\lambda > 1 \in \R$ and we repeat the test at mos
 
 \begin{theorem}[]{Random Colouring Algorithm}
     \begin{itemize}
-        \item Time complexity: \tco{\lambda(2e)^k km}
+        \item Time complexity: $\tco{\lambda(2e)^k km}$
         \item If we return ``\textsc{Yes}'', the graph is \textit{guaranteed} to contain a path of length $k - 1$
         \item If we return ``\textsc{No}'', the probability of false negative is $e^{-\lambda}$
     \end{itemize}

@@ -36,7 +36,7 @@ That system will have to fulfill the performance requirements of the task, but p
 \end{algorithm}
 The above algorithm doesn't return the maximum matching, just a matching
 \begin{theorem}[]{Greedy-Matching}
-    The \textsc{Greedy-Matching} determines a maximal matching $M_{Greedy}$ in \tco{|E|} for which we have
+    The \textsc{Greedy-Matching} determines a maximal matching $M_{Greedy}$ in $\tco{|E|}$ for which we have
     \begin{align*}
         |M_{Greedy}| \geq \frac{1}{2} |M_{\max}|
     \end{align*}
@@ -48,7 +48,7 @@ The above algorithm doesn't return the maximum matching, just a matching
 \end{theorem}
 \inlineproof If $M$ is not a maximum matching, there exists a matching $M'$ with higher cardinality, where $M \oplus M'$ ($M$ xor $M'$) has a connected component that contains more edges of $M'$ than $M$. Said connected component is the augmenting path for $M$
 
-This idea leads to an algorithm to determine a maximum matching: As long as a matching isn't a maximum matching, there exists an augmenting path that allows us to expand the matching. After \textit{at most} $\frac{|V|}{2} - 1$ steps, we have a maximum matching. For bipartite graphs, we can use modified BFS with time complexity \tco{(|V| + |E|) \cdot |E|} to determine the augmenting paths.
+This idea leads to an algorithm to determine a maximum matching: As long as a matching isn't a maximum matching, there exists an augmenting path that allows us to expand the matching. After \textit{at most} $\frac{|V|}{2} - 1$ steps, we have a maximum matching. For bipartite graphs, we can use modified BFS with time complexity $\tco{(|V| + |E|) \cdot |E|}$ to determine the augmenting paths.
 \begin{algorithm}
     \caption{\textsc{AugmentingPath}$(G = (A \uplus B, E), M)$}
     \begin{algorithmic}[1]
@@ -100,11 +100,11 @@ The algorithm discussed above uses layers $L_i$ to find the augmenting paths. Ea
 \end{algorithm}
 To find the shortest augmenting path, we observe that if the last layer has more than one non-covered vertex, we can potentially (actually, likely) find more than one augmenting path.
 We find one first, remove it from the data structure and find more augmenting paths by inverting the tree structure (i.e. cast \textit{flippendo} on the edges) and using DFS to find the all augmenting paths.
-We always delete each visited vertex and we thus have time complexity \tco{|V| + |E|}, since we only visit each vertex and edge once.
+We always delete each visited vertex and we thus have time complexity $\tco{|V| + |E|}$, since we only visit each vertex and edge once.
 
 \begin{theorem}[]{Hopcroft and Karp Algorithm}
-    The algorithm of Hopcroft and Karp's while loop is only executed \tco{\sqrt{|V|}} times.
-    Hence, the maximum matching is computed in \tco{\sqrt{|V|} \cdot (|V| + |E|)}
+    The algorithm of Hopcroft and Karp's while loop is only executed $\tco{\sqrt{|V|}}$ times.
+    Hence, the maximum matching is computed in $\tco{\sqrt{|V|} \cdot (|V| + |E|)}$
 \end{theorem}
 
 \newpage
@@ -113,14 +113,14 @@ We always delete each visited vertex and we thus have time complexity \tco{|V| +
 In Section 4, using flows to compute matchings is discussed.
 
 \begin{theorem}[]{Weighted Matching problem}
-    Let $n$ be even and $l: {[n] \choose 2} \rightarrow \N_0$ be a weight function of a complete graph $K_n$. Then, we can compute, in time \tco{n^3}, a minimum perfect matching with
+    Let $n$ be even and $l: {[n] \choose 2} \rightarrow \N_0$ be a weight function of a complete graph $K_n$. Then, we can compute, in time $\tco{n^3}$, a minimum perfect matching with
     \begin{align*}
         \sum_{e \in M} l(e) = \min\left\{ \sum_{e \in M'} l(e) \smallhspace \Big| \smallhspace M' \text{ is a perfect matching in } K_n \right\}
     \end{align*}
 \end{theorem}
 
 \begin{theorem}[]{MTSP with approximation}
-    There is a $\frac{3}{2}$-approximation algorithm with time complexity \tco{n^3} for the metric travelling salesman problem
+    There is a $\frac{3}{2}$-approximation algorithm with time complexity $\tco{n^3}$ for the metric travelling salesman problem
 \end{theorem}
 
 \subsubsection{Hall's Theorem}
@@ -137,7 +137,7 @@ The following theorem follows from Hall's Theorem immediately. We remember that 
 \end{theorem}
 
 \begin{theorem}[]{Algorithm for the problem}
-    If $G$ is a $2^k$-regular bipartite graph, we can find a perfect matching in time \tco{|E|}
+    If $G$ is a $2^k$-regular bipartite graph, we can find a perfect matching in time $\tco{|E|}$
 \end{theorem}
 It is important to note that the algorithms to determine a perfect matching in bipartite graph do not work for non-bipartite graphs, due to the fact that when we remove every other edge from the eulerian cycle, it is conceivable that the graph becomes disconnected. While this is no issue for bipartite graphs (as we can simply execute the graph on all connected components), for $k = 1$, such a connected component can could contain an odd number of vertices, thus there would be a eulerian cycle of odd length from which not every other edge can be deleted. Since that component has odd length, no perfect matching can exist.
 

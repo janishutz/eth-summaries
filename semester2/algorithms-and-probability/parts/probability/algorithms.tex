@@ -81,7 +81,7 @@ The QuickSort algorithm is a well-known example of a Las-Vegas algorithm. It is 
 \begin{recall}[]{QuickSort}
     As covered in the Algorithms \& Data Structures lecture, here are some important facts
     \begin{itemize}
-        \item Time complexity: \tcl{n \log(n)}, \tct{n \log(n)}, \tco{n^2}
+        \item Time complexity: $\tcl{n \log(n)}$, $\tct{n \log(n)}$, $\tco{n^2}$
         \item Performance is dependent on the selection of the pivot (the closer to the middle the better, but not in relation to its current location, but rather to its value)
         \item In the algorithm below, \textit{ordering} refers to the operation where all elements lower than the pivot element are moved to the left and all larger than it to the right of it.
     \end{itemize}
@@ -104,18 +104,18 @@ The QuickSort algorithm is a well-known example of a Las-Vegas algorithm. It is 
 
 \newcommand{\qsv}{\mathcal{T}_{i, j}}
 We call $\qsv$ the random variable describing the number of comparisons executed during the execution of \textsc{QuickSort}($A, l, r$).
-To prove that the average case of time complexity in fact is \tct{n \log(n)}, we need to show that
+To prove that the average case of time complexity in fact is $\tct{n \log(n)}$, we need to show that
 \begin{align*}
-    \E[\qsv] \leq 2(n + 1) \ln(n) + \text{\tco{n}}
+    \E[\qsv] \leq 2(n + 1) \ln(n) + \tco{n}
 \end{align*}
 which can be achieved using a the linearity of the expected value and an induction proof. (Script: p. 154)
 
 
 \fhlc{Cyan}{Selection problem}
 
-For this problem, we want to find the $k$-th smallest value in a sequence $A[1], \ldots, A[n]$. An easy option would be to simply sort the sequence and then return the $k$-th element of the sorted array. The only problem: \tco{n \log(n)} is the time complexity of sorting.
+For this problem, we want to find the $k$-th smallest value in a sequence $A[1], \ldots, A[n]$. An easy option would be to simply sort the sequence and then return the $k$-th element of the sorted array. The only problem: $\tco{n \log(n)}$ is the time complexity of sorting.
 
-Now, the \textsc{QuickSelect} algorithm can solve that problem in \tco{n}
+Now, the \textsc{QuickSelect} algorithm can solve that problem in $\tco{n}$
 \begin{algorithm}
     \caption{\textsc{QuickSelect}}
     \begin{algorithmic}[1]
@@ -136,11 +136,12 @@ Now, the \textsc{QuickSelect} algorithm can solve that problem in \tco{n}
 
 
 \subsubsection{Primality test}
-Deterministically testing for primality is very expensive if we use a simple algorithm, namely \tco{\sqrt{n}}. There are nowadays deterministic algorithms that can achieve this in polynomial time, but they are very complex.
+Deterministically testing for primality is very expensive if we use a simple algorithm, namely $\tco{\sqrt{n}}$. There are nowadays deterministic algorithms that can achieve this in polynomial time, but they are very complex.
 
 Thus, randomized algorithms to the rescue, as they are much easier to implement and also much faster. With the right precautions, they can also be very accurate, see theorem 2.74 for example.
 
-A simple randomized algorithm would be to randomly pick a number on the interval $[2, \sqrt{n}]$ and checking if that number is a divisor of $n$. The problem: The probability that we find a \textit{certificate} for the composition of $n$ is very low (\tco{\frac{1}{n}}). Looking back at modular arithmetic in Discrete Maths, we find a solution to the problem:
+A simple randomized algorithm would be to randomly pick a number on the interval $[2, \sqrt{n}]$ and checking if that number is a divisor of $n$. 
+The problem: The probability that we find a \textit{certificate} for the composition of $n$ is very low ($\tco{\frac{1}{n}}$). Looking back at modular arithmetic in Discrete Maths, we find a solution to the problem:
 
 \begin{theorem}[]{Fermat's little theorem}
     If $n \in \N$ is prime, for all numbers $0 < a < n$ we have
@@ -148,7 +149,7 @@ A simple randomized algorithm would be to randomly pick a number on the interval
         a^{n - 1} \equiv 1 \texttt{ mod } n
     \end{align*}
 \end{theorem}
-Using exponentiation by squaring, we can calculate $a^{n - 1} \texttt{ mod } n$ in \tco{k^3}.
+Using exponentiation by squaring, we can calculate $a^{n - 1} \texttt{ mod } n$ in $\tco{k^3}$.
 
 \begin{algorithm}
     \caption{\textsc{Miller-Rabin-Primality-Test}}\label{alg:miller-rabin-primality-test}
@@ -178,13 +179,13 @@ Using exponentiation by squaring, we can calculate $a^{n - 1} \texttt{ mod } n$ 
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-This algorithm has time complexity \tco{\ln(n)}. If $n$ is prime, the algorithm always returns \texttt{true}. If $n$ is composed, the algorithm returns \texttt{false} with probability at least $\frac{3}{4}$.
+This algorithm has time complexity $\tco{\ln(n)}$. If $n$ is prime, the algorithm always returns \texttt{true}. If $n$ is composed, the algorithm returns \texttt{false} with probability at least $\frac{3}{4}$.
 
 \newpage
 
 \fhlc{Cyan}{Notes} We can determine $k, d \in \Z$ with $n - 1 = d2^k$ and $d$ odd easily using the following algorithm
 \begin{algorithm}
-    \caption{Get $d$ and $k$ easily}\label{alg:get-d-k}
+    \caption{Get $d$ and $k$ easily}
     \begin{algorithmic}[1]
         \State $k \gets 1$
         \State $d \gets n - 1$

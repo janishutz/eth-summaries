@@ -16,20 +16,20 @@ Most algorithms for the max-flow problem use a residual network, where $\mathcal
     \end{algorithmic}
 \end{algorithm}
 
-The problem with this algorithm is that it may not terminate for irrational capacities. If we however only consider integral networks without bidirectional edges, it can be easily seen that if we denote $U \in \N$ the upper bound for capacities, the time complexity of this algorithm is \tco{nUm} where \tco{m} is the time complexity for constructing residual network.
+The problem with this algorithm is that it may not terminate for irrational capacities. If we however only consider integral networks without bidirectional edges, it can be easily seen that if we denote $U \in \N$ the upper bound for capacities, the time complexity of this algorithm is $\tco{nUm} where \tco{m}$ is the time complexity for constructing residual network.
 \begin{theorem}[]{Max-Flow Algorithm}
-    If in a network without bidirectional edges and all capacities integral and no larger than $U$, there is an integral max-flow we can compute in \tco{mnU}, whereas $m$ is the number of edges and $n$ the number of vertices in the network.
+    If in a network without bidirectional edges and all capacities integral and no larger than $U$, there is an integral max-flow we can compute in $\tco{mnU}$, whereas $m$ is the number of edges and $n$ the number of vertices in the network.
 \end{theorem}
 
 There are more advanced algorithms than this one that can calculate solutions to this problem faster or also for irrational numbers.
 For the following two proposition, $m = |E|$ and $n = |V|$, i.e. $m$ is the number of edges and $n$ the number of vertices
 
 \begin{proposition}[]{Capacity-Scaling}
-    If in a network all capacities are integral and at most $U$, there exists an integral max-flow that can be computed in \tco{mn(1 + \log(U))}
+    If in a network all capacities are integral and at most $U$, there exists an integral max-flow that can be computed in $\tco{mn(1 + \log(U))}$
 \end{proposition}
 
 \begin{proposition}[]{Dynamic-Trees}
-    The max-flow of a flow in a network can be calculated in \tco{mn\log(n)}
+    The max-flow of a flow in a network can be calculated in $\tco{mn\log(n)}$
 \end{proposition}
 
 

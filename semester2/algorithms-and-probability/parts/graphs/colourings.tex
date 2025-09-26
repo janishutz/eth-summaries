@@ -27,7 +27,7 @@ The following algorithm correctly computes \textit{\textbf{a}} valid colouring.
     \begin{align*}
         \mathscr{X}(G) \leq C(G) \leq \Delta(G) + 1
     \end{align*}
-    where $\Delta(G) := \max_{v\in V}\deg(v)$ is the maximum degree of a vertex in $G$. If the graph is stored as an adjacency list, the algorithm finds a colouring \tco{|E|}
+    where $\Delta(G) := \max_{v\in V}\deg(v)$ is the maximum degree of a vertex in $G$. If the graph is stored as an adjacency list, the algorithm finds a colouring $\tco{|E|}$
 \end{theorem}
 
 \begin{algorithm}
@@ -46,12 +46,12 @@ The following algorithm correctly computes \textit{\textbf{a}} valid colouring.
     \begin{align*}
         \mathscr{X}(G) \leq \Delta(G)
     \end{align*}
-    and there is an algorithm that colours the graph using $\Delta(G)$ colours in \tco{|E|}. Otherwise $\mathscr{X}(G) \leq \Delta(G) + 1$
+    and there is an algorithm that colours the graph using $\Delta(G)$ colours in $\tco{|E|}$. Otherwise $\mathscr{X}(G) \leq \Delta(G) + 1$
 \end{theorem}
 Of note is that a graph with an even number of vertices and edges does not contain an uneven cycle, so for an incomplete graph with an even number of edges and vertices, we always have that $\mathscr{X}(G) \leq \Delta(G)$
 
 \begin{theorem}[]{Maximum degree}
-    Let $G$ be a graph and $k \in \N$ the number representing the maximum degree of any vertex of any induced subgraph of $G$. Then we have $\mathscr{X}(G) \leq k + 1$ and a $(k + 1)$-coloring can be found in \tco{|E|}
+    Let $G$ be a graph and $k \in \N$ the number representing the maximum degree of any vertex of any induced subgraph of $G$. Then we have $\mathscr{X}(G) \leq k + 1$ and a $(k + 1)$-coloring can be found in $\tco{|E|}$
 \end{theorem}
 
 \begin{theorem}[]{Mycielski-Construction}
@@ -63,6 +63,6 @@ To conclude this section, one last problem:
 
 We are given a graph $G$ which we are told has $\mathscr{X}(G) = 3$. This means, we know that there is exists an order of processing for the \textsc{Greedy-Colouring} algorithm that only uses three colours. We don't know the colours, but we can find an upper bound for the number of colours needed
 \begin{theorem}[]{$3$-colourable graphs}
-    Every $3$-colourable graph $G$ can be coloured in time \tco{|E|} using at most \tco{\sqrt{|V|}} colours
+    Every $3$-colourable graph $G$ can be coloured in time $\tco{|E|}$ using at most $\tco{\sqrt{|V|}}$ colours
 \end{theorem}
 Since the graph has to be bipartite (because for each vertex $v$, its neighbours can only be coloured in $2$ other colours, because the graph can be $3$-coloured), we can use BFS and thus have linear time. The algorithm works as follows: We choose the vertices with the largest degree and apply three colours to them. For the ones of smaller degree, we apply Brook's theorem.

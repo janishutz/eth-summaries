@@ -91,7 +91,7 @@ In the following section we use \textit{multigraphs}.
 
 We define $\mu(G)$ to be the cardinality of the \textit{min-cut} (this is the problem).
 This problem is similar to the min-cut problem for flows, only that we have a multigraph now. We can however replace multiple edges with a single, weighted edge, allowing us to use the algorithms discussed above.
-Since we need to compute $(n - 1)$ $s$-$t$-cuts, our total time complexity is \tco{n^4 \log(n)}, since we can compute $s$-$t$-cuts in \tco{n^3\log(n)} = \tco{n\cdot m\log(n)}
+Since we need to compute $(n - 1)$ $s$-$t$-cuts, our total time complexity is $\tco{n^4 \log(n)}$, since we can compute $s$-$t$-cuts in $\tco{n^3\log(n)} = \tco{n\cdot m\log(n)}$
 
 
 
@@ -123,7 +123,7 @@ Of note is that there is a bijection: $\text{Edges in G without the ones between
     \end{algorithmic}
 \end{algorithm}
 
-If we assume that we can perform edge contraction in \tco{n} and we can choose a uniformly random edge in $G$ in \tco{n} as well, it is evident that we can compute \textsc{Cut}($G$) in \tco{n^2}
+If we assume that we can perform edge contraction in $\tco{n}$ and we can choose a uniformly random edge in $G$ in $\tco{n}$ as well, it is evident that we can compute \textsc{Cut}($G$) in $\tco{n^2}$
 
 \begin{lemma}[]{Random edge contraction}
     If $e$ is uniformly randomly chosen from the edges of multigraph $G$, then we have
@@ -155,10 +155,10 @@ Thus, we repeat the algorithm \textsc{Cut}$(G)$ $\lambda {n \choose 2}$ times fo
 \begin{theorem}[]{\textsc{Cut}$(G)$}
     For the algorithm that runs \textsc{Cut}$(G)$ $\lambda{n \choose 2}$ times we have the following properties:
     \begin{enumerate}[label=(\arabic*)]
-        \item Time complexity: \tco{\lambda n^4}
+        \item Time complexity: $\tco{\lambda n^4}$
         \item The smallest found value is with probability at least $1 - e^{-\lambda}$ equal to $\mu(G)$
     \end{enumerate}
 \end{theorem}
-If we choose $\lambda = \ln(n)$, we have time complexity \tco{n^4 \ln(n)} with error probability \textit{at most} $\frac{1}{n}$
+If we choose $\lambda = \ln(n)$, we have time complexity $\tco{n^4 \ln(n)}$ with error probability \textit{at most} $\frac{1}{n}$
 
 Of note is that for low $n$, it will be worth it to simply deterministically determine the min-cut

@@ -74,7 +74,7 @@ With that, let's determine
 \[
     \E[\mathcal{X}] = \sum_{i = 1}^{n} \E[\mathcal{X}_i] = \sum_{i = 1}^{n} \frac{n}{n - i + 1} = n \cdot \sum_{i = 1}^{n} \frac{1}{i} = n \cdot H_n
 \]
-where $H_n := \sum_{i = 1}^{n} \frac{1}{i}$ is the $n$th harmonic number, which we know (from Analysis) is $H_n = \ln(n) +$\tco{1}, thus we have $\E[\mathcal{X}] = n \cdot \ln(n) +$\tco{n}.
+where $H_n := \sum_{i = 1}^{n} \frac{1}{i}$ is the $n$th harmonic number, which we know (from Analysis) is $H_n = \ln(n) + \tco{1}$, thus we have $\E[\mathcal{X}] = n \cdot \ln(n) + \tco{n}$.
 
 The idea of the transformation is to reverse the $(n - i + 1)$, so counting up instead of down, massively simplifying the sum and then extracting the $n$ and using the result of $H_n$ to fully simplify
 
