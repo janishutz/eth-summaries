@@ -31,16 +31,16 @@ Andere Möglichkeiten: $b_j = \cos((j-1)\cos^-1(x))$ \textit{(Chebyshev)} oder $
 % This could go into a special "maths theory" section
 
 \setcounter{all}{5}
-\inlinetheorem \textit{(Peano)} $f$ stetig $\implies \exists p(x)$ welches $f$ in $||\cdot||_\infty$ beliebig gut approximiert.
+\fancytheorem{Peano} $f$ stetig $\implies \exists p(x)$ welches $f$ in $||\cdot||_\infty$ beliebig gut approximiert.
 
 \setcounter{all}{7}
-\inlinedef \textit{(Raum der Polynome)} $\mathcal{P}_k := \{ x \mapsto \sum_{j = 0}^{k} \alpha_j x^j \}$ \inlinedef \textit{(Monom)} $f: x \mapsto x^k$
+\fancydef{Raum der Polynome} $\mathcal{P}_k := \{ x \mapsto \sum_{j = 0}^{k} \alpha_j x^j \}$ \inlinedef \textit{(Monom)} $f: x \mapsto x^k$
 
-\inlinetheorem \textit{(Eigensch. von $\mathcal{P}_k$)} $\mathcal{P}_k$ ist ein Vektorraum mit $\dim(\mathcal{P}_k) = k+1$.
+\fancytheorem{Eigensch. von $\mathcal{P}_k$} $\mathcal{P}_k$ ist ein Vektorraum mit $\dim(\mathcal{P}_k) = k+1$.
 
 \subsection{per Monombasis}
 
-\inlinetheorem \textit{(Eindeutigkeit)} $p(x) \in \mathcal(P)_k$ ist durch $k+1$ Punkte $y_i = p(x_i)$ eindeutig bestimmt.
+\fancytheorem{Eindeutigkeit} $p(x) \in \mathcal(P)_k$ ist durch $k+1$ Punkte $y_i = p(x_i)$ eindeutig bestimmt.
 
 Dieser Satz kann direkt angewendet werden zur Interpolation, in dem man $p(x)$ als Gleichungssystem schreibt.
 
@@ -73,7 +73,7 @@ Um $\alpha_i$ zu finden ist die Vandermonde Matrix unbrauchbar, da die Matrix sc
 
 Zur Auswertung von $p(x)$ kann man direkt die Matrix-darstellung nutzen, oder effizienter:
 
-\inlinedef \textit{(Horner Schema)} $p(x) = (x \ldots x ( x (\alpha_n x + \alpha_{n-1}) + \ldots + \alpha_1) + \alpha_0)$
+\fancydef{Horner Schema} $p(x) = (x \ldots x ( x (\alpha_n x + \alpha_{n-1}) + \ldots + \alpha_1) + \alpha_0)$
 
 \fhlc{Cyan}{In NumPy} \verb|polyfit| liefert die direkte Auswertung, \verb|polyval| wertet Polynome via Horner-Schema aus.
 
