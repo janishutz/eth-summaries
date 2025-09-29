@@ -62,15 +62,28 @@
 %          ╭────────────────────────────────────────────────╮
 %          │                  Main content                  │
 %          ╰────────────────────────────────────────────────╯
+
+% ── Introduction ────────────────────────────────────────────────────
 \newsection
 \section{Einführung}
-\input{parts/introduction/rounding-errors.tex}
-\input{parts/introduction/time-complexity.tex}
-\input{parts/introduction/matrix-multiplication.tex}
+\input{parts/00_introduction/00_rounding-errors.tex}
+\input{parts/00_introduction/01_time-complexity.tex}
+\input{parts/00_introduction/02_matrix-multiplication.tex}
+
+% ── polynomial interpolation ────────────────────────────────────────
+\newsection
+\section{Polynomiale Interpolation}
+\input{parts/01_interpolation/00_polynomial/00_intro.tex}
+\input{parts/01_interpolation/00_polynomial/01_monome.tex}
+\input{parts/01_interpolation/00_polynomial/02_newton-basis.tex}
+\input{parts/01_interpolation/00_polynomial/03_barzycentric-formula.tex}
+\input{parts/01_interpolation/00_polynomial/04_chebychev-interpolation.tex}
 
 
-\input{parts/interpolation.tex}
-\input{parts/fourier.tex}
+% ── trigonometric interpolation ─────────────────────────────────────
+\newsection
+\section{Trigonometrische Interpolation}
+\input{parts/01_interpolation/01_trigonometric/00_intro.tex}
 
 
 \end{document}

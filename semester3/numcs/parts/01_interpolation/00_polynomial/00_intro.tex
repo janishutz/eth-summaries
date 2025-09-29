@@ -1,0 +1,37 @@
+Bei der Interpolation versuchen wir eine Funktion $\tilde{f}$ durch eine Menge an Datenpunkten einer Funktion $f$ zu finden.\\
+Die $x_i$ heissen Stützstellen/Knoten, für welche $\tilde{f}(x_i) = y_i$ gelten soll. (Interpolationsbedingung)
+\begin{align*}
+	\begin{bmatrix}
+		x_0 & x_1 & \ldots & x_n \\
+		y_0 & y_1 & \ldots & y_n
+	\end{bmatrix},
+	\quad x_i, y_i \in \mathbb{R}
+\end{align*}
+
+Normalerweise stellt $f$ eine echte Messung dar, d.h. macht es Sinn anzunehmen dass $f$ glatt ist.
+
+Die informelle Problemstellung oben lässt sich durch Vektorräume formalisieren:
+
+$f \in \mathcal{V}$, wobei $\mathcal{V}$ ein Vektorraum mit $\dim(\mathcal{V}) = \infty$ ist. \\
+Wir suchen d.h. $\tilde{f}$ in einem Unterraum $\mathcal{V}_n$ mit endlicher $\dim(\mathcal{V}_n) = n$.
+Sei $B_n = \{b_1,\ldots,b_n\}$ eine Basis für $\mathcal{V}_n$.
+Dann lässt sich der Bezug zwischen $f$ und $\tilde{f} = f_n(x)$ so ausdrücken:
+\begin{align*}
+	f(x) \approx f_n(x) = \sum_{j=1}^n \alpha_j b_j(x)
+\end{align*}
+
+\setcounter{all}{2}
+\inlineremark Unterräume $\mathcal{V}_n$ existieren nicht nur für Polynome, wir beschränken uns aber auf $b_j(x) = x^{i-1}$.
+Andere Möglichkeiten: $b_j = \cos((j-1)\cos^-1(x))$ \textit{(Chebyshev)} oder $b_j = e^{i2\pi j x}$ \textit{(Trigonometrisch)}
+
+% FIXME: This could go into a special "maths theory" section -> GOOD
+
+\setcounter{all}{5}
+\fancytheorem{Peano} $f$ stetig $\implies \exists p(x)$ welches $f$ in $||\cdot||_\infty$ beliebig gut approximiert.
+
+\setcounter{all}{7}
+% FIXME: \inlinedef \textit{(Monom)} = \fancydef{Monom} (exactly the definition of fancy* macros)
+\fancydef{Raum der Polynome} $\mathcal{P}_k := \{ x \mapsto \sum_{j = 0}^{k} \alpha_j x^j \}$
+\inlinedef \textit{(Monom)} $f: x \mapsto x^k$
+
+\fancytheorem{Eigenschaft von $\mathcal{P}_k$} $\mathcal{P}_k$ ist ein Vektorraum mit $\dim(\mathcal{P}_k) = k+1$.
