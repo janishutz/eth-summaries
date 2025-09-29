@@ -73,13 +73,17 @@ Zur Auswertung von $p(x)$ kann man direkt die Matrix-darstellung nutzen, oder ef
 
 \fancydef{Horner Schema} $p(x) = (x \ldots x ( x (\alpha_n x + \alpha_{n-1}) + \ldots + \alpha_1) + \alpha_0)$
 
-\fhlc{Cyan}{In NumPy} \verb|polyfit| liefert die direkte Auswertung, \verb|polyval| wertet Polynome via Horner-Schema aus.
+\fhlc{Cyan}{In NumPy} \verb|polyfit| liefert die direkte Auswertung, \verb|polyval| wertet Polynome via Horner-Schema aus. (Gemäss Script, in der Praxis sind diese Funktionen \verb|deprecated|)
 
 \subsection{Newton Basis}
+Session: Herleitung unwichtig, konzentrieren auf Funktion/Eigenschaften von Newton/Lagrange.
 
 \subsection{Baryzentrische Formel}
+Session: Gemäss TA sehr gut beschrieben im alten Script
 
 \subsection{Chebychev Interpolation}
+
+Session: Chebyshev Pol. : Abzisse = Extrema, Knoten = Nullstellen
 
 Lecture: Orthogonalität ist eine wichtige Eigenschaft: Siehe Lecture notes (handgeschr.) für Veranschaulichung. \\
 $\rightarrow$ Orth. liefert die Koeff. ohne Rechenaufwand.
