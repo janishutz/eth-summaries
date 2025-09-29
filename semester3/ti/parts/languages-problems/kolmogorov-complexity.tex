@@ -88,3 +88,14 @@ Die Annäherung von $\text{Prim}(n)$ and $\frac{n}{\ln(n)}$ wird durch folgende 
     Für jedes $i \in \N - \{ 0 \}$ sei $q_i$ die grösste Primzahl, die $n_i$ teilt. 
     Dann ist die Menge $Q = \{ q_i \divides i \in \N - \{ 0 \} \}$
 \end{lemma}
+
+Lemma 2.6 zeigt nicht nur, dass es unendlich viele Primzahlen geben muss, sondern sogar, dass die Menge der grössten Primzahlfaktoren einer beliebigen unendlichen Folge natürlicher Zahlen mit nichttrivialer Kolmogorov-Komplexität unendlich ist.
+
+\begin{theorem}[]{Untere Schranke für Anzahl Primzahlen}
+    Für unendlich viele $k \in \N$ gilt
+    \begin{align*}
+        \text{Prim}(k) \geq \frac{k}{2^17 \log_2(k) \cdot (\log_2(\log_2(k)))^2}
+    \end{align*}
+\end{theorem}
+
+Der Beweis hierfür ist sehr ausführlich ab Seite 42 im Buch erklärt
