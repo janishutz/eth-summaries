@@ -1,5 +1,5 @@
 \newsection
-\section{Interpolation}
+\section{Polynomiale Interpolation}
 Bei der Interpolation versuchen wir eine Funktion $\tilde{f}$ durch eine Menge an Datenpunkten einer Funktion $f$ zu finden.\\
 Die $x_i$ heissen Stützstellen/Knoten, für welche $\tilde{f}(x_i) = y_i$ gelten soll. (Interpolationsbedingung)
 
@@ -12,8 +12,6 @@ $$
 $$
 
 Normalerweise stellt $f$ eine echte Messung dar, d.h. macht es Sinn anzunehmen dass $f$ glatt ist.
-
-\subsection{Polynomiale Interpolation}
 
 Die informelle Problemstellung oben lässt sich durch Vektorräume formalisieren:
 
@@ -38,7 +36,7 @@ Andere Möglichkeiten: $b_j = \cos((j-1)\cos^-1(x))$ \textit{(Chebyshev)} oder $
 
 \fancytheorem{Eigensch. von $\mathcal{P}_k$} $\mathcal{P}_k$ ist ein Vektorraum mit $\dim(\mathcal{P}_k) = k+1$.
 
-\subsection{per Monombasis}
+\subsection{Monombasis}
 
 \fancytheorem{Eindeutigkeit} $p(x) \in \mathcal(P)_k$ ist durch $k+1$ Punkte $y_i = p(x_i)$ eindeutig bestimmt.
 
@@ -78,3 +76,12 @@ Zur Auswertung von $p(x)$ kann man direkt die Matrix-darstellung nutzen, oder ef
 \fhlc{Cyan}{In NumPy} \verb|polyfit| liefert die direkte Auswertung, \verb|polyval| wertet Polynome via Horner-Schema aus.
 
 \subsection{Newton Basis}
+
+\subsection{Baryzentrische Formel}
+
+\subsection{Chebychev Interpolation}
+
+Lecture: Orthogonalität ist eine wichtige Eigenschaft: Siehe Lecture notes (handgeschr.) für Veranschaulichung. \\
+$\rightarrow$ Orth. liefert die Koeff. ohne Rechenaufwand.
+
+Lecture: Clenshaw-Alg. relativ zentral (Taschenrechner nutzen diesen intern)
