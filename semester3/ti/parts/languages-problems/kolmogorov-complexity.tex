@@ -1,5 +1,6 @@
 \newpage
 \subsection{Kolmogorov-Komplexität}
+\setcounter{definitions}{17}
 Falls ein Wort $x$ eine kürzere Darstellung hat, wird es \bi{komprimierbar genannt} und wir nennen die Erzeugung dieser Darstellung eine \bi{Komprimierung} von $x$.
 
 Eine mögliche Idee, um den Informationsgehalt eines Wortes zu bestimmen, wäre einem komprimierbaren Wort einen kleinen Informationsgehalt zuzuordnen und einem unkomprimierbaren Wort einen grossen Informationsgehalt zuzuordnen.
@@ -53,3 +54,37 @@ Man kann also beliebig auch \texttt{C++}, \texttt{Swift}, \texttt{Python}, \text
 		|K_A(x) - K_B(x)| \leq c_{A, B}
 	\end{align*}
 \end{theorem}
+
+\fhlc{orange}{Anwendungen der Kolmogorov-Komplexität}
+
+\shade{orange}{Zufall} Der Zufall ist ein intuitiver, aber nicht sehr formeller Begriff, der mit der Kolmogorov-Komplexität formalisiert werden kann:
+\begin{definition}[]{Zufall}
+    Ein Wort $x \in \wordbool$ (eine Zahl $n$) heisst \bi{zufällig}, falls $K(x) \geq |x|$ ($K(n) = K(\text{Bin}(n)) \geq \ceil{\log_2(n + 1)} - 1$)
+\end{definition}
+
+\shade{orange}{Existenz eines Programms vs Kolmogorov-Komplexität} 
+\begin{theorem}[]{Programm vs Komplexität}
+    Sei $L$ eine Sprache über $\alphabets{bool}$ und für jedes $n \in \N - \{0\}$ sei $z_n$ das $n$-te Wort in $L$ bezüglich der kanonischen Ordnung.
+    Falls ein Programm $A_L$ existiert, das das Entscheidungsproblem $(\alphabets{bool}, L)$ löst, so gilt für alle $n \in \N - \{ 0 \}$ dass
+    \begin{align*}
+        K(z_n) \leq \ceil{\log_2(n + 1)} + c & & (c \text{ ist eine von } n \text{ unabhängige Konstante })
+    \end{align*}
+\end{theorem}
+
+\shade{orange}{Primality testing}
+\begin{theorem}[]{Primzahlensatz}
+    \vspace{-0.3cm}
+    \begin{align*}
+        \limni \frac{\text{Prim}(n)}{\frac{n}{\ln(n)}} = 1
+    \end{align*}
+\end{theorem}
+Die Annäherung von $\text{Prim}(n)$ and $\frac{n}{\ln(n)}$ wird durch folgende Ungleichung gezeigt:
+\begin{align*}
+    \ln(n) - \frac{3}{2} < \frac{n}{\text{Prim}(n)} < \ln(n) - \frac{1}{2} \smallhspace \forall n \geq 67 \in \N
+\end{align*}
+
+\begin{lemma}[]{Anzahl Primzahlen mit Eigenschaften}
+    Sei $n_1, n_2, \ldots$ eine stetig steigende unendliche Folge natürlicher Zahlen mit $K(n_i) \geq \frac{\ceil{\log_2(n_i)}}{2}$.
+    Für jedes $i \in \N - \{ 0 \}$ sei $q_i$ die grösste Primzahl, die $n_i$ teilt. 
+    Dann ist die Menge $Q = \{ q_i \divides i \in \N - \{ 0 \} \}$
+\end{lemma}
