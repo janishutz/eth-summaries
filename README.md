@@ -16,20 +16,25 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 
 ### Semester 3
 - [Theoretical Computer Science Summary (DE)](./semester3/ti/ti-summary.pdf) Author: Janis Hutz
-- [Numerical Methods for Computer Science Summary (DE)](./semester3/numcs/numcs-summary.pdf) Author: Robin Bacher, Janis Hutz
-- [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Author: Janis Hutz
+- [Numerical Methods for Computer Science Summary (DE)](./semester3/numcs/numcs-summary.pdf) Authors: Robin Bacher, Janis Hutz
+- [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Author: Janis Hutz (*NOTE: has not been started yet, may or may not happen*)
 - [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/analysis-ii-cheat-sheet.pdf) Author: Janis Hutz
 
 
 ## Contributing
 Clone this repo locally using
-```
+```bash
 git clone --recursive https://github.com/janishutz/eth-summaries
 ```
-to also include the required LaTeX helpers for compiling the documents (thus the `--recursive` flag.
-
-It is recommended that you fork the repo to contribute back to it. To do that, click the fork button on the repo and clone it locally using
+to also include the required LaTeX helpers for compiling the documents (thus the `--recursive` flag. 
+If you forgot, you can still download them using `git submodule update --init --recursive` and whenever an update is published to them, you can pull the changes using
+```bash
+git submodule update --remote
 ```
+
+-------
+***NOTE***: It is recommended that you fork the repo to contribute back to it. To do that, click the fork button on the repo and clone it locally using
+```bash
 git clone --recursive https://github.com/<your username>/eth-summaries
 ```
 ---
