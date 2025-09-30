@@ -1,0 +1,97 @@
+\newsection
+\subsection{Lagrange- und Baryzentrische Interpolationsformeln}
+Session: Gemäss TA sehr gut beschrieben im alten Script
+
+\begin{definition}[]{Lagrange Polynome}
+	Für Knoten (auch gennannt Stützstellen) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome:
+	\begin{align*}
+		l_i(x) = \prod_{j = 0 \neq i}^n \frac{x - x_j}{x_i - x_j}
+	\end{align*}
+\end{definition}
+Falls $j = i$ im Produkt, so überspringt $j$ diese Zahl.
+
+\inlineex Seien $x_0, x_1, x_2$ die Stützstellen für die Lagrange-Polynome (mit $n = 2$):
+\begin{align*}
+	l_0(x) & = \frac{x - x_1}{x_0 - x_1} \cdot \frac{x - x_2}{x_0 - x_2} &
+	l_1(x) & = \frac{x - x_0}{x_1 - x_0} \cdot \frac{x - x_2}{x_1 - x_2} &
+	l_2(x) & = \frac{x - x_0}{x_2 - x_0} \cdot \frac{x - x_1}{x_2 - x_1}
+\end{align*}
+
+
+\begin{theorem}[]{Lagrange-Interpolationsformel}
+	Die Lagrange-Polynome $l_i$ zu den Stützstellen $(x_0, y_0), \ldots, (x_n, y_n)$ bilden eine Basis der Polynome $\mathcal{P}_n$ und es gilt:
+	\begin{align*}
+		p(x) = \sum_{i = 0}^{n} y_i l_i(x) \text{ mit } l_i(x) = \prod_{j \neq i} \frac{x - x_j}{x_i - x_j}
+	\end{align*}
+\end{theorem}
+
+
+\fancyremark{Eigenschaften der Lagrange-Polynome}
+\rmvspace
+\begin{multicols}{2}
+	\begin{enumerate}
+		\item $l_i(x_j) = 0 \smallhspace \forall j \neq i$
+		\item $l_i(x_i) = 1 \smallhspace \forall i$
+		\item $\deg(l_i) = n \smallhspace \forall i$
+		\item $\sum_{k = 0}^{n} l_k(x) = 1 \text{ und } \sum_{k = 0}^{n} l_k^{(m)}(x) = 0 \text{ für } m > 0$
+	\end{enumerate}
+\end{multicols}
+
+Da eine Implementation, welche direkt auf den Lagrange-Polynomen basiert, eine Laufzeit von $\tco{n^3}$ hätte, suchte man nach einer besseren Methode.
+Mit der \bi{baryzentrischen Interpolationsformel} wird zuerst ein Pre-Computing auf Teilen der Lagrange-Polynome durchgeführt, was dann dazu führt, dass die Laufzeit auf $\tco{n^2}$ sinkt ($\tco{n}$ für die Auswertung der Formel und $\tco{n^2}$ für die Berechnung der $\lambda_k$):
+
+\setcounter{numberingConfig}{0}
+\begin{formula}[]{Baryzentrische Interpolationsformel}
+	\vspace{-1.5pc}
+	\begin{align*}
+		p(x) = \frac{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k} y_k}{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k}}
+	\end{align*}
+\end{formula}
+\setcounter{numberingConfig}{3}
+
+Falls wir die Stützstellen als $(n + 1)$ Chebyshev-Abszissen $\displaystyle x_k = \cos\left( \frac{k\pi}{n} \right)$ wählen,
+so sind alle $\lambda_k$ gegeben durch $\lambda_k = (-1)^k \delta_k$ mit $\delta_0 = \delta_n = 0.5$ und $\delta_i = 1$.
+
+Mit anderen $\lambda_k$ eröffnet die baryzentrische Formel einen Weg zur Verallgemeinerung der Interpolation mittels rationaler Funktionen und ist entsprechend kein Polynom mehr.
+
+Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode für Differenzialgleichungen.
+
+
+% ────────────────────────────────────────────────────────────────────
+\newpage
+\subsubsection{Fehler}
+Falls an den Stützstellen $x_i$ durch beispielsweise ungenaue Messungen unpräzise Werte $\tilde{y_i}$ haben, so entsteht logischerweise auch ein unpräzises Polynom $\tilde{p}(x)$.
+Verglichen in der Lagrange-Basis zum korrekten Interpolationspolynom $p(x)$ ergibt sich folgender Fehler:
+\begin{align*}
+	|p(x) - \tilde{p}(x)| = \left| \sum_{i = 0}^{n} (y_i - \tilde{y_i}) l_i(x) \right| \leq \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}| \cdot \sum_{i = 0}^{n} |l_i(x)|
+\end{align*}
+
+
+\fancydef{Lebesgue-Konstante} Zu den Stützstellen $x_0, \ldots, x_n$ im Intervall $[a, b]$ ist sie definiert durch
+\rmvspace
+\begin{align*}
+	\Lambda_n = \max_{x \in [a, b]} \sum_{i = 0}^{n} |l_i(x)|
+\end{align*}
+
+
+\stepcounter{all}
+\fancytheorem{Auswirkung von Messfehlern} Es gilt (wenn $\Lambda_n$ die beste Lebesgue-Konstante für die Ungleichung ist):
+\rmvspace
+\begin{align*}
+	\max_{x \in [a, b]} |p(x) - \tilde{p}(x)| \leq \Lambda_n \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}|
+\end{align*}
+
+\begin{theorem}[]{Fehler}
+	Sei $f : [a, b] \rightarrow \R$ und $p$ das Interpolationspolynom zu $f$. Seien $x_0, \ldots, x_n$ die Stützstellen, dann gilt:
+    \rmvspace
+    \begin{align*}
+        ||f(x) - p(x)||_{\infty} = \max_{x \in [a, b]}|f(x) - p(x)| \leq (1 + \Lambda_n) \min_{q \in \mathcal{P}_n} \max_{x \in [a, b]} |f(x) - q(x)|
+    \end{align*}
+\end{theorem}
+
+\stepcounter{all}
+\inlineremark Für gleichmässig auf $I$ verteilte Stützstellen gilt $\displaystyle \Lambda_n \approx \frac{2^{n + 1}}{e n \log(n)}$
+
+\shade{gray}{Wichtig:} \bi{Niemals gleichmässig verteilte Stützstellen verwenden für die Interpolation von Polynomen hohen Grades}
+
+Präzisere Interpolationen lassen sich beispielsweise durch Unterteilen des Intervalls in kleinere Intervalle finden, indem man für jedes Intervall ein separates Polynom berechnet, oder indem eine ideale Verteilung der Stützstellen wählt (was wiederum nicht einfach zu erzielen ist, siehe nächstes Kapitel).
