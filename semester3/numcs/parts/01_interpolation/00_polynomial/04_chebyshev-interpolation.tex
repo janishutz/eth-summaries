@@ -1,0 +1,141 @@
+% ┌                                                ┐
+% │     AUTHOR: Janis Hutz<info@janishutz.com>     │
+% └                                                ┘
+
+\newsection
+\subsection{Chebyshev Interpolation}
+
+% Session: Chebyshev Pol. : Abszisse = Extrema, Knoten = Nullstellen
+%
+% Lecture: Orthogonalität ist eine wichtige Eigenschaft: Siehe Lecture notes (handgeschr.) für Veranschaulichung. \\
+% $\rightarrow$ Orth. liefert die Koeff. ohne Rechenaufwand.
+%
+% Lecture: Clenshaw-Alg. relativ zentral (Taschenrechner nutzen diesen intern)
+
+
+\begin{definition}[]{Chebyshev-Polynome}
+	\begin{multicols}{2}
+		\fhl{Erster Art}
+		\rmvspace
+		\begin{align*}
+			T_n(x) = \cos(n \arccos(x)), \smallhspace x \in [-1, 1]
+		\end{align*}
+
+		\fhl{Zweiter Art}
+		\rmvspace
+		\begin{align*}
+			U_n(x) = \frac{\sin((n + 1) \arccos(x))}{\sin(\arccos(x))}, \smallhspace x \in [-1, 1]
+		\end{align*}
+	\end{multicols}
+\end{definition}
+$T_n(x)$ scheint erst nicht ein Polynom zu sein, aber wir haben einen $\arccos$ in einem $\cos$. Zudem:
+
+\stepcounter{all}
+\fancytheorem{Eigenschaften}
+Das $n$-te Chebyshev-Polynom ist ein Polynom von Grad $n$ und für $x \in [-1, 1]$ gilt:
+\begin{multicols}{2}
+	\begin{enumerate}
+		\item $T_0(x) = 1, T_1(x) = x$,\\ $T_{n + 1}(x) = 2x T_n(x) - T_{n - 1}(x)$
+		\item $|T_n(x)| \leq 1$
+		\item $T_n\left(\cos\left( \frac{k\pi}{n} \right)\right) = (-1)^k \text{ für } k = 0, \ldots, n$
+		\item $T_n\left( \cos\left( \frac{(2k + 1) \pi}{2n} \right) \right) = 0 \text{ für } k = 0, \ldots, n - 1$
+	\end{enumerate}
+\end{multicols}
+
+\fancydef{Chebyshev-Knoten} Die $(n + 1)$ Chebyshev-Knoten $x_0, \ldots, x_n$ im Intervall $[-1, 1]$ sind die Nullstellen von $T_{n + 1}(x)$
+
+\fancyremark{Chebyshev-Knoten für beliebiges Intervall} Für $I = [a, b]$ sind die Chebyshev-Knoten:
+\rmvspace
+\begin{align*}
+	x_k = a + \frac{1}{2} (b - a) \left( \cos \left( \frac{2k + 1}{2(n + 1)} \pi \right) + 1 \right) \smallhspace k = 0, \ldots, n
+\end{align*}
+
+\fancydef{Chebyshev-Abszissen} Die $(n - 1)$ Chebyshev-Abszissen $x_0, \ldots, x_{n - 2}$ im Intervall $[-1, 1]$ sind die Extrema des Chebyshev-Polynoms $T_n(x)$ und zeitgleich die Nullstellen von $U_{n - 1}(x)$.
+Je nach Kontext nimmt man noch die Grenzen des Intervalls ($1$ und $-1$) hinzu und hat dann $(n + 1)$ Abszissen.
+
+\fancyremark{Chebyshev-Abszissen für beliebiges Intervall} Für $I = [a, b]$ sind die Chebyshev-Abszissen:
+\rmvspace
+\begin{align*}
+	x_k = a + \frac{1}{2} (b - a) \left( \cos \left( \frac{k}{n} \pi \right) + 1 \right) \smallhspace k = 0, \ldots, n
+\end{align*}
+Oder $k = 1, \ldots, n - 1$ bei ausgeschlossenen Endpunkten $a$ und $b$
+
+\inlineremark Gegen die Ränder des Intervalls werden die Chebyshev-Knoten dichter.
+
+\begin{theorem}[]{Orthogonalität}
+	Die Chebyshev-Polynome sind orthogonal bezüglich des Skalarprodukts
+	\rmvspace
+	\begin{align*}
+		\langle f, g \rangle = \int_{-1}^{1} f(x) g(x) \frac{1}{\sqrt{1 - x^2}} \dx x
+	\end{align*}
+
+	Sie ($T_0, \ldots, T_n$) sind zudem orthogonal bezüglich des diskreten Skalarprodukts im Raum der Polynome von Grad $\leq n$
+	\rmvspace
+	\begin{align*}
+		(f, g) = \sum_{l = 0}^{n} f(x_l)g(x_l)
+	\end{align*}
+	wobei $(x_0, \ldots, x_n)$ die Nullstellen von $T_{n + 1}$ sind.
+\end{theorem}
+
+
+% ────────────────────────────────────────────────────────────────────
+\stepcounter{all}
+\newpage
+\subsubsection{Fehler}
+Was hat die neue Verteilung für einen Einfluss auf den Fehler?
+
+\begin{theorem}[]{Fehlerabschätzung}
+	Unter allen $(x_0, \ldots, x_n)$ mit $x_i \in \R$ wird (wobei $x_k$ die Nullstellen von $T_{n + 1}$ sind)
+	\rmvspace
+	\begin{align*}
+		\max_{x \in [-1, 1]} |(x - x_0) \cdot \ldots \cdot (x - x_n)| &  & \text{minimal für } x_k = \cos \left( \frac{2k + 1}{2(n + 1)}\pi \right)
+	\end{align*}
+\end{theorem}
+
+Folglich sind also die Nullstellen der Chebyshev-Polynome $T_n$ die bestmögliche Wahl für die Stützstellen.
+Da die Abszissen mit FFT einfacher zu berechnen sind, werden diese oft bevorzugt berechnet.
+Dies, da die Nullstellen von $T_n$ in den Extrema von $T_{2n}$ enthalten sind, während zudem zwischen zwei nebeneinanderliegenden Chebyshev-Abszissen jeweils eine Nullstelle von $T_{2n}$ liegt
+
+\stepcounter{all}
+\fancytheorem{Lebesgue-Konstante} Für die Chebyshev-Interpolation: $\displaystyle \Lambda_n \approx \frac{2}{\pi} \log(n) \text{ für } n \rightarrow \infty$
+
+
+% ────────────────────────────────────────────────────────────────────
+\stepcounter{all}
+\begin{theorem}[]{Interpolationspolynom}
+	Das Interpolationspolynom $p$ zu $f$ mit Chebyshev-Knoten gleich der Nullstellen von $T_{n + 1}$ ist gegeben durch
+	\begin{align*}
+		p(x) = c_0 + c_1 T_1(x) + \ldots + c_n T_n(x)
+	\end{align*}
+	wobei für die $c_k$ gilt:
+	\begin{align*}
+		c_k                                                      & = \frac{2}{n + 1} \sum_{l = 0}^{n} f\left( \underbrace{\cos \left( \frac{2l + 1}{n + 1} \frac{\pi}{2} \right)}_{= x_i (\text{Knoten})} \right)
+		\cos \left( k \frac{2l + 1}{n + 1} \frac{\pi}{2} \right) &                                                                                                                                                & \text{für } k = 1, \ldots, n \\
+		c_k                                                      & = \frac{1}{n + 1} \sum_{l = 0}^{n} f\left( \underbrace{\cos \left( \frac{2l + 1}{n + 1} \frac{\pi}{2} \right)}_{= x_i (\text{Knoten})} \right)
+		\cos \left( k \frac{2l + 1}{n + 1} \frac{\pi}{2} \right) &                                                                                                                                                & \text{für } k = 0
+	\end{align*}
+\end{theorem}
+
+Für $n \geq 15$ berechnet man $c_k$ mit der Schnellen Fourier Transformation (FFT).
+
+\fancyremark{Laufzeit} Für die Interpolation ergibt sich folgender Aufwand:
+\begin{center}
+	\begin{tabular}{ll}
+		Direkte Berechnung der $c_k$ & $\tco{(n + 1)^2}$ Operationen                           \\
+		Dividierte Differenzen       & $\tco{\frac{n (n + 1)}{2}}$ Operationen (zum Vergleich) \\
+		$c_k$ mittels FFT            & $\tco{n \log(n)}$ Operationen
+	\end{tabular}
+\end{center}
+
+
+\fancytheorem{Clenshaw-Algorithmus} Seien $d_{n + 2} = d_{n + 1} = 0$. Sei $d_k = c_k + (2x)d_{k + 1} - d_{k + 2} \text{ für } k = n, \ldots, 0$\\
+Dann gilt: $p(x) = \frac{1}{2}(d_0 - d_2)$ und man kann $p(x)$ mit Hilfe einer Rückwärtsrekursion berechnen
+
+Der Clenshaw-Algorithmus ist sehr stabil, auch wenn er mit (oft) unstabilen Rekursionen implementiert ist.
+
+
+
+% ────────────────────────────────────────────────────────────────────
+\subsection{DFT und Chebyshev-Interpolation}
+Der folgende Abschnitt wurde ausgelassen, da dieser (noch) nicht während den Vorlesungen behandelt wurde.
+Er behandelt primär die Implementation der Chebyshev-Interpolation.
