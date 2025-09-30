@@ -4,11 +4,13 @@
 \input{\dir/include.tex}
 \load{recommended}
 
-\setup{Analysis II}
+\setupCheatSheet{Analysis II}
 
 \begin{document}
-\startDocument
+\maketitle
 \usetcolorboxes
+\setcounter{numberingConfig}{3}
+\setcounter{numberSubsections}{1}
 
 
 %          ╭────────────────────────────────────────────────╮
@@ -56,13 +58,19 @@ If you discover any errors, please open an issue or fix the issue yourself and t
 
 This Cheat-Sheet was designed with the HS2025 page limit of 10 A4 pages in mind. 
 Thus, the whole Cheat-Sheet can be printed full-sized, if you exclude the title page, contents and this page.
+You could also print it as two A5 pages per A4 page and also print the 
+\color{MidnightBlue}\fbox{\href{https://github.com/janishutz/eth-summaries/blob/master/semester2/analysis-i/cheat-sheet.pdf}{Analysis I summary}}\color{black} 
+\smallhspace in the same manner, allowing you to bring both to the exam
 
 
 
 %          ╭────────────────────────────────────────────────╮
 %          │                    Content                     │
 %          ╰────────────────────────────────────────────────╯
-\input{parts/diff-eq.tex}
+\newsection
+\section{Differential Equations}
+\input{parts/diffeq/00_intro.tex}
+
 
 
 \end{document}
