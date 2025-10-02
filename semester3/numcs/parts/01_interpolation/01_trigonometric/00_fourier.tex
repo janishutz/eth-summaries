@@ -18,6 +18,7 @@ Eine Anwendung der Schnellen Fourier-Transformation (FFT) ist die Komprimierung 
 \inlineremark $p_m : \R \rightarrow \C$ ist periodisch mit Periode $1$.
 Falls $\gamma_{-j} = \overline{\gamma_j}$ für alle $j$, dann ist $p_m$ reellwertig und
 % NOTE: Uhh... do we want to use the fancy symbols for real and imaginary part or just use $\text{Re}$?
+% RESPONE: whatever he uses in the script, preferably \text{Re}() etc.
 $p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\Re(\gamma_j)$ und $b_j = -2\Im(\gamma_j)$):
 \rmvspace
 \begin{align*}
@@ -72,6 +73,8 @@ Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{
     \end{align*}
 \end{theorem}
 \inlineremark Oder viel einfacher und kürzer: Die Funktionen $\varphi_k(x)$ bilden eine vollständige Orthonormalbasis in $L^2(0, 1)$.
+
+% A (small) intuitive explanation of what the fourier series / coefficients are & what they are useful for would be great, script *briefly* touches on it.
 
 \setcounter{all}{14}
 \inlineremark Die Parseval'sche Gleichung beschreibt einfach gesagt einen ``schnellen'' Abfall der $\hat{f}(k)$.
