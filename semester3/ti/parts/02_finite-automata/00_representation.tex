@@ -1,0 +1,27 @@
+\subsection{Darstellung}
+Folgende Fragen müssen zur Definition eines Berechnungsmodells beantwortet werden:
+\begin{enumerate}
+    \item Welche elementaren Operationen stehen zur Verfügung (um das Programm zusammenzustellen)?
+    \item Wie funktioniert der Speicher?
+    \item Wie funktioniert die Eingabe (und welches Alphabet verwendet sie)?
+    \item Wie funktioniert die Ausgabe (und welches Alphabet verwendet sie)?
+\end{enumerate}
+Endliche Automaten haben keinen Speicher, mit Ausnahme des Zeigers (can be understood similarly to a program counter)
+
+Ein endlicher Automat mit dem Eingabealphabet $\Sigma = \{ a_1, \ldots, a_k \}$ darf nur den Operationstyp \texttt{select} verwenden.
+\begin{align*}
+    \texttt{select } input & = a_1 \texttt{ goto } i_1 \\[-0.2cm]
+    \vdots                                             \\
+    input                  & = a_k \texttt{ goto } i_k
+\end{align*}
+Alternativ, falls $|\Sigma| = 2$ (typischerweise für $\alphabets{bool}$), kann man statt \texttt{select} auch \texttt{if\dots then\dots else} nutzen.
+Typischerweise werden solche Programme für Entscheidungsprobleme genutzt und die Checks sind dann:
+\begin{align*}
+    \texttt{if } input = 1 \texttt{ then goto } i \texttt{ else goto } j
+\end{align*}
+Wir wählen eine Teilmenge $F \subseteq \{ 0, \ldots, m - 1 \}$, wobei $m$ die Anzahl Zeilen des Programms ist.
+Ist die Zeile auf der das Programm endet ein Element von $F$, so akzeptiert das Programm die Eingabe.
+Die Menge $F$ wird auch die \bi{vom Programm akzeptierte Sprache} genannt
+%
+Ein Programm $A$ arbeitet dann Buchstabe für Buchstabe das Eingabewort ab und springt so also kontinuierlich durch das Programm bis die Eingabe endet.
+Mit formaleren Begriffen ist das Eingabewort als \bi{Band} dargestellt, welches von einem \bi{Lesekopf}, der sich nur nach links oder rechts bewegen kann gelesen wird und die gelesene Eingabe dann dem \bi{Programm} weitergibt.

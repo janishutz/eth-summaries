@@ -52,13 +52,25 @@
 \input{parts/combinatorics.tex}
 
 
+% ┌                                                ┐
+% │                   Alphabets                    │
+% └                                                ┘
 \newsection
 \section{Alphabete, Wörter, Sprachen und Darstellung von Problemen}
-\input{parts/languages-problems/alphabet.tex}
-\input{parts/languages-problems/algorithmic-problems.tex}
-\input{parts/languages-problems/kolmogorov-complexity.tex}
+\stepcounter{subsection}
+\input{parts/01_languages-problems/00_alphabet.tex}
+\input{parts/01_languages-problems/01_algorithmic-problems.tex}
+\input{parts/01_languages-problems/02_kolmogorov-complexity.tex}
 
 
+% ────────────────────────────────────────────────────────────────────
+% ┌                                                ┐
+% │                    Automata                    │
+% └                                                ┘
+\newsection
+\section{Endliche Automaten}
+\stepcounter{subsection}
+\input{parts/02_finite-automata/00_representation.tex}
 
 
 \end{document}
