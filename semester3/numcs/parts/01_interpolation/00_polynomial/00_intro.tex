@@ -3,7 +3,7 @@
 % └                                                ┘
 % TODO: If you want your email to be in there, note it down here. 
 % I also did not touch the unedited files to avoid conflicts
-% FIXME: Add subsection here and use \newsection on all further subsections to reset the counters and add a page break
+\subsection{Interpolation und Polynome}
 Bei der Interpolation versuchen wir eine Funktion $\tilde{f}$ durch eine Menge an Datenpunkten einer Funktion $f$ zu finden.\\
 Die $x_i$ heissen Stützstellen/Knoten, für welche $\tilde{f}(x_i) = y_i$ gelten soll. (Interpolationsbedingung)
 \begin{align*}
@@ -36,8 +36,7 @@ Andere Möglichkeiten: $b_j = \cos((j-1)\cos^-1(x))$ \textit{(Chebyshev)} oder $
 \fancytheorem{Peano} $f$ stetig $\implies \exists p(x)$ welches $f$ in $||\cdot||_\infty$ beliebig gut approximiert.
 
 \setcounter{all}{7}
-% FIXME: \inlinedef \textit{(Monom)} = \fancydef{Monom} (exactly the definition of fancy* macros)
 \fancydef{Raum der Polynome} $\mathcal{P}_k := \{ x \mapsto \sum_{j = 0}^{k} \alpha_j x^j \}$
-\inlinedef \textit{(Monom)} $f: x \mapsto x^k$
+\fancydef{Monom} $f: x \mapsto x^k$
 
 \fancytheorem{Eigenschaft von $\mathcal{P}_k$} $\mathcal{P}_k$ ist ein Vektorraum mit $\dim(\mathcal{P}_k) = k+1$.
