@@ -24,18 +24,16 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ## Contributing
 Clone this repo locally using
 ```bash
-git clone --recursive https://github.com/janishutz/eth-summaries
+git clone https://github.com/janishutz/eth-summaries
 ```
-to also include the required LaTeX helpers for compiling the documents (thus the `--recursive` flag. 
-If you forgot, you can still download them using `git submodule update --init --recursive` and whenever an update is published to them, you can pull the changes using
-```bash
-git submodule update --remote
-```
+
+You will need to also clone the helpers to `~/projects/latex`, which you can find [here](https://git.janishutz.com/janishutz/latex).
+If you want to use a different folder, simply duplicate the import line, change it and when opening a PR, simply change it back.
 
 -------
 ***NOTE***: It is recommended that you fork the repo to contribute back to it. To do that, click the fork button on the repo and clone it locally using
 ```bash
-git clone --recursive https://github.com/<your username>/eth-summaries
+git clone https://github.com/<your username>/eth-summaries
 ```
 ---
 
