@@ -55,14 +55,44 @@ Heute verwendet man meist einen gerichteten Graphen $G(A)$:
     \rmvspace
     \rmvspace
     \begin{itemize}
-        \item \bi{Schritt}: Relation auf Konfigurationen $\vdash_M \subseteq (Q \times \Sigma^*) \times (Q \times \Sigma^*$ definiert durch $(q, w) \vdash_M (p, x) \Leftrightarrow w = ax, a \in \Sigma \text{ und } \delta(q, a) = p$. Einfacher: Anwendung von $\delta$ auf die aktuelle Konfiguration
-        \item \bi{Berechnung} $C$: Endliche Folge von Konfigurationen, $C_i \vdash_M C_{i + 1}$.
+        \item \bi{Schritt}: Relation auf Konfigurationen $\bigvdash{M}{} \subseteq (Q \times \Sigma^*) \times (Q \times \Sigma^*$ definiert durch $(q, w) \bigvdash{M}{} (p, x) \Leftrightarrow w = ax, a \in \Sigma \text{ und } \delta(q, a) = p$. Einfacher: Anwendung von $\delta$ auf die aktuelle Konfiguration
+        \item \bi{Berechnung} $C$: Endliche Folge von Konfigurationen, $C_i \bigvdash{M}{} C_{i + 1}$.
               Auf Eingabe $x \in \Sigma^*$, $C_0$ Startkonfiguration und $C_n$ Endkonfiguration.
               Falls $C_n \in F \times \{ \lambda \}$, $C$ \bi{akzeptierende Berechnung}, $M$ \bi{akzeptiert Wort} $x$.
               Anderenfalls ist $C$ eine \bi{verwerfende Berechnung} und $M$ \bi{verwirft (akzeptiert nicht) das Wort} $x$
-          \item \bi{Akzeptierte Sprache} $L(M) = \{ w \in \Sigma^* \divides \text{$M$ akzeptiert das Wort } w \text{ und $M$ endet in Endkonfig.} \}$
-          \item $\mathcal{L}_{EA} = \{ L(M) | M \text{ ist ein EA}\}$ ist die Klasse aller Sprachen die von endlichen Automaten akzeptiert werden, auch genannt \bi{Klasse der regulären Sprachen} und für jede Sprache $L \in \mathcal{L}_{EA}$ gilt: $L$ regulär
+        \item \bi{Akzeptierte Sprache} $L(M) = \{ w \in \Sigma^* \divides \text{$M$ akzeptiert das Wort } w \text{ und $M$ endet in Endkonfig.} \}$
+        \item $\mathcal{L}_{EA} = \{ L(M) | M \text{ ist ein EA}\}$ ist die Klasse aller Sprachen die von endlichen Automaten akzeptiert werden, auch genannt \bi{Klasse der regulären Sprachen} und für jede Sprache $L \in \mathcal{L}_{EA}$ gilt: $L$ regulär
     \end{itemize}
 \end{definition}
+Die Übergangsfunktion kann auch gut graphisch oder tabellarisch (wie eine Truth-Table) dargestellt werden.
 
-% P68
+\begin{definition}[]{Reflexive und transitive Hülle}
+    Sei $M = (Q, \Sigma, \delta, q_0, F)$ ein endlicher Automat. Die reflexive und transitive Hülle $\bigvdash{M}{*}$ der Schrittrelation $\bigvdash{M}{}$ von $M$ als
+    $(q, w) \bigvdash{M}{*} (p, u) \Leftrightarrow (q = p \land w = u) \lor \exists k \in \N - \{ 0 \}$ so dass
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item $w = a_1\ldots a_ku, a_i \in \Sigma$ für $i = 1, \ldots, k$
+        \item $\exists r_1, \ldots, r_{k - 1} \in Q$, so dass
+              $(q, w) \bigvdash{M}{} (r_1, a_2 \ldots a_k u) \bigvdash{M}{} (r_2, a_3 \ldots a_k u) \bigvdash{M}{} \ldots (r_{k - 1}, a_k u) \bigvdash{M}{} (p, u)$
+    \end{enumerate}
+    Wir definieren $\hat{\delta}: Q \times \Sigma^* \rightarrow Q$ durch
+    \rmvspace
+    \rmvspace
+    \begin{multicols}{2}
+        \begin{enumerate}[label=\textit{(\roman*)}]
+            \item $\hat{\delta}(q, \lambda) = q \smallhspace \forall q \in Q$
+            \item $\hat{\delta}(q, wa) = \delta(\hat{\delta}(q, w), a) \forall a \in \Sigma, w \in \Sigma^*, q \in Q$
+        \end{enumerate}
+    \end{multicols}
+\end{definition}
+Und $(q, w) \bigvdash{M}{*} (p, u)$ bedeutet, dass es eine Berechnung von $M$ gibt, die von der Konfiguration $(q, w)$ zu $(p, u)$ führt,
+während $\hat{\delta}(q, w) = p$ bedeutet einfach $(q, w) \bigvdash{M}{*} (p, \lambda)$, also falls $M$ im Zustand $q$ das Wort $w$ zu lesen beginnt, $M$ im Zustand $p$ endet.
+Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \text{ mit } p \in F \} = \{ w \in \Sigma^* \divides \hat{\delta}(q_0, w) \in F \}$
+
+\inlinelemma $L(M) = \{ w \in \{ 0, 1 \}^* \divides |w|_0 + |w|_1 \equiv 0 \text{ mod } 2 \}$
+
+Jeder EA teilt die Menge $\Sigma^*$ in $|Q|$ Klassen 
+$\text{Kl}[p] = \{ w \in \Sigma^* \divides \hat{\delta}(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$
+und entsprechend $\bigcup_{p \in Q} \text{Kl}[p] = \Sigma^*$ und $\text{Kl}[p] \text{Kl}[q] = \emptyset \smallhspace \forall p \neq q \in Q$.
+In dieser Terminologie gilt dann $L(M) = \bigcup_{p \in F} \text{Kl}[p]$
+
+Wir können $L(M)$ mit Klassen bestimmen und haben eine Äquivalenzrelation $x R_\delta y \Leftrightarrow \hat{\delta}(q_0, x) = \hat{\delta}(q_0, y)$ auf $\Sigma^*$.
