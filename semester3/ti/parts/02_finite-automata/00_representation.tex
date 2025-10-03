@@ -25,3 +25,44 @@ Die Menge $F$ wird auch die \bi{vom Programm akzeptierte Sprache} genannt
 %
 Ein Programm $A$ arbeitet dann Buchstabe für Buchstabe das Eingabewort ab und springt so also kontinuierlich durch das Programm bis die Eingabe endet.
 Mit formaleren Begriffen ist das Eingabewort als \bi{Band} dargestellt, welches von einem \bi{Lesekopf}, der sich nur nach links oder rechts bewegen kann gelesen wird und die gelesene Eingabe dann dem \bi{Programm} weitergibt.
+
+Diese Notation wird jedoch heute kaum mehr verwendet (because \texttt{goto} bad, Prof. Roscoe would approve).
+Heute verwendet man meist einen gerichteten Graphen $G(A)$:
+\begin{itemize}
+    \item Hat so viele Knoten (= \bi{Zustände}) wie das Programm $A$ Zeilen hat
+    \item Wenn das Programm beim Lesen von Symbol $b$ von Zeile $i$ auf $j$ sprint, so gibt es in $G(A)$ eine gerichtete Kante $(i, j)$ von Knoten $i$ nach Knoten $j$ mit Markierung $b$. Sie wird als \bi{Übergangsfunktion} bezeichnet
+    \item Jeder Knoten hat den Ausgangsgrad $|\Sigma|$ (wir müssen alle Fälle abdecken)
+\end{itemize}
+
+\begin{definition}[]{Endlicher Automat}
+    Ist eine Quitupel $M = (Q, \Sigma, \delta, q_0, F)$:
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item $Q$ ist eine endliche Menge von \bi{Zuständen}
+        \item $\Sigma$ ist das \bi{Eingabealphabet}
+        \item $\delta: Q \times \Sigma \rightarrow Q$ ist die \bi{Übergangsfunktion}. $\delta(q, a) = p$ bedeutet Übergang von Zustand $q$ nach $p$ falls in $q$ $a$ gelesen wurde
+        \item $q_0 \in Q$ ist der \bi{Anfangszustand}
+        \item $F \subseteq Q$ ist die \bi{Menge der akzeptierenden Zustände}
+    \end{enumerate}
+    \rmvspace
+    \rmvspace
+    \begin{multicols}{2}
+        \begin{itemize}
+            \item \bi{Konfiguration}: Element aus $Q \times \Sigma^*$
+            \item \bi{Startkonfiguration} auf $x$: $(q_0, x)$
+            \item \bi{Endkonfiguration}: Jede aus $Q \times \{ \lambda \}$
+        \end{itemize}
+    \end{multicols}
+    \rmvspace
+    \rmvspace
+    \begin{itemize}
+        \item \bi{Schritt}: Relation auf Konfigurationen $\vdash_M \subseteq (Q \times \Sigma^*) \times (Q \times \Sigma^*$ definiert durch $(q, w) \vdash_M (p, x) \Leftrightarrow w = ax, a \in \Sigma \text{ und } \delta(q, a) = p$. Einfacher: Anwendung von $\delta$ auf die aktuelle Konfiguration
+        \item \bi{Berechnung} $C$: Endliche Folge von Konfigurationen, $C_i \vdash_M C_{i + 1}$.
+              Auf Eingabe $x \in \Sigma^*$, $C_0$ Startkonfiguration und $C_n$ Endkonfiguration.
+              Falls $C_n \in F \times \{ \lambda \}$, $C$ \bi{akzeptierende Berechnung}, $M$ \bi{akzeptiert Wort} $x$.
+              Anderenfalls ist $C$ eine \bi{verwerfende Berechnung} und $M$ \bi{verwirft (akzeptiert nicht) das Wort} $x$
+          \item \bi{Akzeptierte Sprache} $L(M) = \{ w \in \Sigma^* \divides \text{$M$ akzeptiert das Wort } w \text{ und $M$ endet in Endkonfig.} \}$
+          \item $\mathcal{L}_{EA} = \{ L(M) | M \text{ ist ein EA}\}$ ist die Klasse aller Sprachen die von endlichen Automaten akzeptiert werden, auch genannt \bi{Klasse der regulären Sprachen} und für jede Sprache $L \in \mathcal{L}_{EA}$ gilt: $L$ regulär
+    \end{itemize}
+\end{definition}
+
+% P68
