@@ -5,6 +5,7 @@
 \newsection
 \subsection{Lagrange- und Baryzentrische Interpolationsformeln}
 % Session: Gemäss TA sehr gut beschrieben im alten Script
+\label{sec:barycentric-interpolation}
 
 \begin{definition}[]{Lagrange Polynome}
 	Für Knoten (auch gennannt Stützstellen) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome:
@@ -42,8 +43,34 @@ Falls $j = i$ im Produkt, so überspringt $j$ diese Zahl.
 \end{multicols}
 
 Da eine Implementation, welche direkt auf den Lagrange-Polynomen basiert, eine Laufzeit von $\tco{n^3}$ hätte, suchte man nach einer besseren Methode.
-Mit der \bi{baryzentrischen Interpolationsformel} wird zuerst ein Pre-Computing auf Teilen der Lagrange-Polynome durchgeführt, was dann dazu führt, dass die Laufzeit auf $\tco{n^2}$ sinkt ($\tco{n}$ für die Auswertung der Formel und $\tco{n^2}$ für die Berechnung der $\lambda_k$):
+Mit der \bi{baryzentrischen Interpolationsformel} wird zuerst ein Pre-Computing auf Teilen der Lagrange-Polynome durchgeführt, was dann dazu führt, dass die Laufzeit auf $\tco{n^2}$ sinkt ($\tco{n}$ für die Auswertung der Formel und $\tco{n^2}$ für die Berechnung der $\lambda_k$).
+Man berechnet die baryzentrischen Gewichte $\lambda_k$ folgendermassen:
+\rmvspace
+\begin{align*}
+    \lambda_k = \prod_{j \neq k} \frac{1}{x_k - x_j}
+\end{align*}
+oder das ganze mithilfe von Numpy:
+\begin{code}{python}
+    def barycentric_weights(x: np.ndarray) -> np.ndarray:
+        n = len(x)
+        # Initialize to zeros
+        barweight = np.ones(n)
+        for k in range(n):
+            # Vectorized differences between $x_k$ and all $x$s
+            differences = x[k] - x
 
+            # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
+            if k < n - 1 and k > 0:
+                diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
+                barweight[k] = 1 / np.prod(diff_processed)
+            elif k == 0:
+                barweight[k] = 1 / np.prod(differences[1:])
+            else:
+                barweight[k] = 1 / np.prod(differences[:k])
+        return barweight
+\end{code}
+
+Mit dem können wir dann ein Polynom mit der baryzentrischen Interpolationsformel interpolieren:
 \setcounter{numberingConfig}{0}
 \begin{formula}[]{Baryzentrische Interpolationsformel}
 	\vspace{-1.5pc}
@@ -59,6 +86,40 @@ so sind alle $\lambda_k$ gegeben durch $\lambda_k = (-1)^k \delta_k$ mit $\delta
 Mit anderen $\lambda_k$ eröffnet die baryzentrische Formel einen Weg zur Verallgemeinerung der Interpolation mittels rationaler Funktionen und ist entsprechend kein Polynom mehr.
 
 Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode für Differenzialgleichungen.
+
+\begin{code}{python}
+    def interp_barycentric(
+        data_point_x: np.ndarray,
+        data_point_y: np.ndarray,
+        barweight: np.ndarray,
+        x: np.ndarray
+    ):
+        """Compute an Interpolation polynomial p(x) using the barycentric interpolation formula
+
+        Args:
+            data_point_x: The data points' x-coordinate from which to interpolate (Stützstellen)
+            data_point_y: The data points' y-coordinates (Stützwerte)
+            barweight: Barycentric weights
+            x: The argument of the polynomial (the x in p(x))
+
+        Returns:
+            The Interpolation polynomial evaluated at each x
+        """
+        p_x = np.zeros_like(x)
+        n = data_point_x.shape[0]
+
+        for i in range(x.shape[0]):
+            # Separate sums to divide in the end
+            upper_sum = 0
+            lower_sum = 0
+            for k in range(n):
+                frac = barweight[k] / (x[i] - data_point_x[k])
+                upper_sum += frac * data_point_y[k]
+                lower_sum += frac
+            p_x[i] = upper_sum / lower_sum
+
+        return p_x
+\end{code}
 
 
 % ────────────────────────────────────────────────────────────────────
