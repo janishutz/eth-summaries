@@ -90,9 +90,38 @@ Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambd
 
 \inlinelemma $L(M) = \{ w \in \{ 0, 1 \}^* \divides |w|_0 + |w|_1 \equiv 0 \text{ mod } 2 \}$
 
-Jeder EA teilt die Menge $\Sigma^*$ in $|Q|$ Klassen 
+Jeder EA teilt die Menge $\Sigma^*$ in $|Q|$ Klassen
 $\text{Kl}[p] = \{ w \in \Sigma^* \divides \hat{\delta}(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$
 und entsprechend $\bigcup_{p \in Q} \text{Kl}[p] = \Sigma^*$ und $\text{Kl}[p] \text{Kl}[q] = \emptyset \smallhspace \forall p \neq q \in Q$.
-In dieser Terminologie gilt dann $L(M) = \bigcup_{p \in F} \text{Kl}[p]$
+In dieser Terminologie gilt dann $L(M) = \bigcup_{p \in F} \text{Kl}[p]$.
+Die Notation $|w|_i$ bedeutet die Länge der Buchstaben $i$ in $w$.
 
 Wir können $L(M)$ mit Klassen bestimmen und haben eine Äquivalenzrelation $x R_\delta y \Leftrightarrow \hat{\delta}(q_0, x) = \hat{\delta}(q_0, y)$ auf $\Sigma^*$.
+Man beweist die Korrektheit der gewählten Klassen oft mithilfe von Induktion über die Länge der Wörter.
+Wir beginnen mit der Länge an Wörtern der Länge kleiner gleich zwei und erhöhen dies dann während unseres Induktionsschrittes.
+
+Die Klassen bestimmen wir vor dem Beginn der Induktion auf und jede Klasse repräsentiert einen der Zustände.
+\begin{wrapfigure}[5]{l}{0.3\textwidth}
+    \begin{tables}{ccc}{Zustand & 0     & 1}
+              $q_0$         & $q_2$ & $q_1$ \\
+              $q_1$         & $q_3$ & $q_0$ \\
+              $q_2$         & $q_0$ & $q_3$ \\
+              $q_3$         & $q_1$ & $q_2$ \\
+    \end{tables}
+\end{wrapfigure}
+Haben wir einen EA mit nebenstehender Tabelle, so sind die Klassen für unseren EA $M$ sind $\class[q_0], \ldots, \class[q_3]$, definiert durch:
+\rmvspace
+\begin{align*}
+    \class[q_0] & = \{ w \in \wordbool \divides |w|_0 \text{ und } |w|_1 \text{ sind gerade} \}          \\
+    \class[q_1] & = \{ w \in \wordbool \divides |w|_0 \text{ ist gerade, } |w|_1 \text{ ist ungerade} \} \\
+    \class[q_2] & = \{ w \in \wordbool \divides |w|_0 \text{ ist ungerade, } |w|_1 \text{ ist gerade} \} \\
+    \class[q_3] & = \{ w \in \wordbool \divides |w|_0 \text{ und } |w|_1 \text{ sind ungerade} \}
+\end{align*}
+%
+Falls ein EA $A$ genügend anschaulich und strukturiert dargestellt ist, kann man die Sprache $L(A)$ auch ohne Beweis bestimmen.
+
+Idealerweise konstruieren wir einen EA so, dass wir die Menge aller Wörter aus $\Sigma^*$ so in Klassen aufteilen,
+sodass Wörter mit denselben Eigenschaften in derselben Klasse liegen und wir dann Übergangsfunktionen zu anderen Klassen finden,
+die nur einen Buchstaben aus $\Sigma$ zum Wort hinzufügen
+
+\inlineex Das Buch enthält einige zwei gute Beispiele (Beispiel 3.1 und 3.2) mit ausführlichen Erklärungen ab Seite 58 (= Seite 73 im PDF).
