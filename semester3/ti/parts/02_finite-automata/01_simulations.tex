@@ -1,4 +1,23 @@
 % Starting P63 = P78
 \newpage
 \subsection{Simulationen}
+Der Begriff der Simulation ist nicht ein formalisiert, da er je nach Fachgebiet, eine etwas andere Definition hat.
+Die engste Definition fordert, dass jeder elementare Schritt der zu Berechnung, welche simuliert wird, durch eine Berechnung in der Simulation nachgemacht wird.
+Eine etwas schwächere Forderung legt fest, dass in der Simulation auch mehrere Schritte verwendet werden dürfen.
 
+Es gibt auch eine allgemeinere Definition, die besagt, dass nur das gleiche Eingabe-Ausgabe-Verhalten gilt und der Weg, oder die Berechnungen, welche die Simulation geht, respektive durchführt, wird ignoriert, respektive wird nicht durch die Definition beschränkt.
+
+\textit{Hier werden wir aber die enge Definition verwenden}
+
+\inlinelemma Wir haben zwei EA $M_1 = (Q_1, \Sigma, \delta_1, q_{01}, F_1)$ und $M_2 = (Q_2, \Sigma, \delta_2, q_{02}, F_2)$, die auf dem Alphabet $\Sigma$ operieren.
+Für jede Mengenoperation $\odot \in \{ \cup, \cap, - \}$ existiert ein EA $M$, so dass $L(M) = L(M_1) \odot L(M_2)$
+
+Was dieses Lemma nun aussagt ist folgendes: Man kann einen endlichen Automaten bauen, so dass das Verhalten von zwei anderen EA im Bezug auf die Mengenoperation simuliert wird.
+Ein guter, ausführlicher Beweis dieses Lemmas findet sich im Buch auf Seite 64 (= Seite 79 im PDF)
+
+Dieses Lemma hat weitreichende Nutzen. Besonders ist es also möglich einen modularen EA zu bauen, in dem Teile davon in kleinere und einfachere EA auszulagern, die dann wiederverwendet werden können.
+
+\stepcounter{examples}
+\inlineex Dieses Beispiel im Buch ist sehr gut erklärt und findet sich auf Seiten 65, 66 \& 67 (= Seite 80, 81 \& 82 im PDF)
+
+% TODO: Continue from page 83 (PDF)
