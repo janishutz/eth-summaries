@@ -95,7 +95,7 @@ Falls $x_j = x_0 + \underbrace{j \cdot h}_{:= \Delta^j}$ gilt vereinfacht sich e
 
     \begin{code}{python}
     # Slow matrix approach
-    def divdiff(x,y):
+    def divdiff_slow(x,y):
         n = y.size
         T = np.zeros((n,n))
         T[:,0] = y
@@ -104,6 +104,8 @@ Falls $x_j = x_0 + \underbrace{j \cdot h}_{:= \Delta^j}$ gilt vereinfacht sich e
             for i in range(n-l):
                 T[i, l] = (T[i+1,l-1] - T[i, l-1])
                 T[i, l] /= (x[i+l] - x[i])
+        
+        return T[0,:]
     \end{code}
 
     \newcolumn
@@ -113,16 +115,15 @@ Falls $x_j = x_0 + \underbrace{j \cdot h}_{:= \Delta^j}$ gilt vereinfacht sich e
     Vektorisierter Ansatz in $\mathcal{O}(n^2)$, Speicher $\mathcal{O}(n)$
 
     \begin{code}{python}
-    # NOT THE CORRECT CODE YET
-    def divdiff(x,y):
-        n = y.size
-        T = np.zeros((n,n))
-        T[:,0] = y
+    # Fast vectorized approach
+    def divdiff_fast(x,y):
+        n = y.shape[0]
 
-        for l in range(1,n):
-            for i in range(n-l):
-                T[i, l] = (T[i+1,l-1]-T[i, l-1])
-                T[i, l] /= (x[i+l] - x[i])
+        for k in range(1, n):
+            y[k:] = (y[k:] - y[(k-1):n-1]) 
+            y[k:] /= (x[k:] - x[0:n-k])
+    
+        return y
     \end{code}
 
 \end{multicols}
@@ -130,6 +131,9 @@ Falls $x_j = x_0 + \underbrace{j \cdot h}_{:= \Delta^j}$ gilt vereinfacht sich e
 \subsubsection{Auswertung}
 
 Auswertung eines Newton-Polynoms funktioniert in $\mathcal{O}(n)$ durch ein modifiziertes Horner-Schema:
+
+\begin{multicols}{2}
+    
 \begin{align*}
     p_0 &:= \beta_n \\
     p_1 &:= (x - x_{n-1})p_0 + \beta_{n-1} \\
@@ -137,6 +141,22 @@ Auswertung eines Newton-Polynoms funktioniert in $\mathcal{O}(n)$ durch ein modi
     \vdots \\
     p_n &= p(x)
 \end{align*}
+
+\newcolumn
+
+\begin{code}{python}
+    def evalNewton(x_data, beta, x):
+        p = np.zeros(x.shape[0])
+        p += beta[beta.shape[0]-1]
+    
+        for i in range(1, n+1):
+            p = (x - x_data[n-i])*p + beta[n-i]
+      
+        return p
+\end{code}
+
+\end{multicols}
+
 
 \subsubsection{Fehler}
 
