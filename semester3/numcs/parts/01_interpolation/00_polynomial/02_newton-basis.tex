@@ -1,2 +1,153 @@
+\newpage
 \subsection{Newton Basis}
-Session: Herleitung unwichtig, konzentrieren auf Funktion/Eigenschaften von Newton/Lagrange.
+% Session: Herleitung unwichtig, konzentrieren auf Funktion/Eigenschaften von Newton/Lagrange.
+
+Die Newton-Basis hat den Vorteil, dass sie leichter erweiterbar als die Monombasis ist.
+
+Die Konstruktion verläuft iterativ, und vorherige Datenpunkte müssen nicht neuberechnet werden.
+
+\begin{align*}
+    p_0(x) &= y_0 &\textit{(Anfang: triviales Polynom)} \\
+    p_1(x) &= p_0(x) + (x-x_0)\frac{(y_1-y_0)}{(x_1-x_0)} & \textit{(Addition des zweiten Datenpunktes)} \\
+    p_2(x) &= p_1(x) + \frac{\frac{(y_2-y_1)}{(x_2-x_1)}-\frac{(y_1-y_0)}{x_1-x_0}}{x_2-x_0} (x-x_0)(x-x_1) & \textit{(Schema lässt sich beliebig weiterführen)}\\
+    p_3(x) &= p_2(x) + \ldots
+\end{align*}
+
+\setcounter{all}{3}
+\fancytheorem{Newton-Basis} $\{ N_0,\ \ldots\ ,N_n\}$ ist eine Basis von $\mathcal{P}_n$
+\begin{align*}
+    N_0(x) &:= 1 \quad
+    N_1(x) := x - x_0 \quad
+    N_2(x) := (x-x_0)(x-x_1) \quad \ldots \\
+    N_n(x) &:= \prod_{i=0}^{n-1} (x-x_i)
+\end{align*}
+
+\subsubsection{Koeffizienten}
+
+Wegen Satz 2.2.3 lässt sich jedes $p_n \in \mathcal{P}_n$ als $p_n(x) =\displaystyle\sum_{i=0}^{n} \beta_i N_i(x)$ darstellen. Ein Gleichungssystem liefert alle $\beta_i$:
+\begin{align*}
+    \begin{bmatrix}
+        1 & 0   & \cdots & 0 \\
+        1 & N_0 & \cdots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & N_0 & \cdots & N_n
+    \end{bmatrix}
+    \begin{bmatrix}
+        \beta_0 \\
+        \beta_1 \\
+        \vdots \\
+        \beta_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        y_0 \\
+        y_1 \\
+        \vdots \\
+        y_n
+    \end{bmatrix}
+\end{align*}
+
+Die Matrixmultiplikation in $\mathcal{O}(n^3)$ ist aber nicht nötig: Es gibt ein effizienteres System. 
+
+\setcounter{all}{5}
+\fancydef{Dividierte Differenzen} 
+\begin{multicols}{2}
+    \begin{align*}
+        y[x_i] &:= y_i \\
+        y[x_i,\ \ldots\ ,x_{i+k}] &\overset{\text{Rec.}}{:=} \frac{y[x_{i+1},\ \ldots\ , x_{i+k}] - y[x_i,\ \ldots\ , x_{i+k-1}]}{x_{i+k}-x_i}
+    \end{align*}
+
+    \newcolumn
+
+    \begin{center}
+    \begin{tabular}{l|llll}
+        $x_0$ & $y[x_0]$ \\
+            &          & $>y[x_0,x_1]$        \\
+        $x_1$ & $y[x_1]$ &  & $>y[x_0,x_1,x_2]$ \\ 
+            &          & $>y[x_1,x_2]$        \\
+        $x_2$ & $y[x_2]$ &  & $>y[x_1,x_2,x_3]$ \\
+            &          & $>y[x_2,x_3]$        \\
+        $x_3$ & $y[x_3]$                        \\
+    \end{tabular}
+    \end{center}
+\end{multicols}
+
+\fancyremark{Äquidistante Stellen}
+
+Falls $x_j = x_0 + \underbrace{j \cdot h}_{:= \Delta^j}$ gilt vereinfacht sich einiges:
+\begin{align*}
+    y[x_0,x_1] &= \frac{1}{h}\Delta y_0 \\
+    y[x_0,x_1,x_2] &= \frac{1}{2!h} \Delta^2 y_0 \\
+    y[x_0,\ \ldots\ , x_n] &= \frac{1}{n! h^n} \Delta^n y_0 
+\end{align*}
+
+\setcounter{all}{8}
+\fancytheorem{Newton} Falls $\beta_j = y[x_0,\ \ldots\ , x_j]$ geht das resultierende Polynom durch alle $(x_i,y_i)$.\\
+\footnotesize
+(D.h. die dividierten Differenzen sind korrekt.)
+\normalsize
+
+
+\newpage
+\begin{multicols}{2}
+
+    Matrixmultiplikation in $\mathcal{O}(n^3)$, Speicher $\mathcal{O}(n^2)$
+
+    \begin{code}{python}
+    # Slow matrix approach
+    def divdiff(x,y):
+        n = y.size
+        T = np.zeros((n,n))
+        T[:,0] = y
+
+        for l in range(1,n):
+            for i in range(n-l):
+                T[i, l] = (T[i+1,l-1] - T[i, l-1])
+                T[i, l] /= (x[i+l] - x[i])
+    \end{code}
+
+    \newcolumn
+
+    % Add the vectorized HW solution here
+
+    Vektorisierter Ansatz in $\mathcal{O}(n^2)$, Speicher $\mathcal{O}(n)$
+
+    \begin{code}{python}
+    # NOT THE CORRECT CODE YET
+    def divdiff(x,y):
+        n = y.size
+        T = np.zeros((n,n))
+        T[:,0] = y
+
+        for l in range(1,n):
+            for i in range(n-l):
+                T[i, l] = (T[i+1,l-1]-T[i, l-1])
+                T[i, l] /= (x[i+l] - x[i])
+    \end{code}
+
+\end{multicols}
+
+\subsubsection{Auswertung}
+
+Auswertung eines Newton-Polynoms funktioniert in $\mathcal{O}(n)$ durch ein modifiziertes Horner-Schema:
+\begin{align*}
+    p_0 &:= \beta_n \\
+    p_1 &:= (x - x_{n-1})p_0 + \beta_{n-1} \\
+    p_2 &:= (x - x_{n-2})p_1 + \beta_{n-2} \\
+    \vdots \\
+    p_n &= p(x)
+\end{align*}
+
+\subsubsection{Fehler}
+
+\setcounter{all}{11}
+\inlinetheorem $f$ $n$-mal diff.-bar, $y_i = f(x_i) \implies \exists \xi \in (\min_i x_i, \max_i x_i)$ s.d. $y[x_0,x_1,\ldots,x_n] = \frac{f^{(n)}(\xi)}{(n+1)!}$
+
+\fancytheorem{Fehler} $f: [a,b] \to \R$ ist $(n+1)$-mal diff.-bar, $p$ ist das Polynom zu $f$ in $x_0,\ldots,x_n \in [a,b]$. 
+$$
+    \forall x \in [a,b]\ \exists \xi \in (a,b):\quad\quad \underbrace{f(x)-p(x)}_{\text{Fehler}} = \prod_{i=0}^{n}(x-x_i)\cdot\frac{f^{(n+1)}(\xi)}{(n+1)!}
+$$
+
+Man bemerke: Die Wahl der Stützpunkte hat direkten Einfluss auf den Fehler.
+
+
