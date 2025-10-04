@@ -8,7 +8,7 @@
 \label{sec:barycentric-interpolation}
 
 \begin{definition}[]{Lagrange Polynome}
-	Für Knoten (auch gennannt Stützstellen) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome:
+    Für Knoten (auch gennannt Stützstellen) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome für $n = \text{Anzahl Stützstellen}$, also haben wir $n - 1$ Brüche, da wir eine Iteration überspringen, weil bei dieser $j = i$ ist:
 	\begin{align*}
 		l_i(x) = \prod_{j = 0 \neq i}^n \frac{x - x_j}{x_i - x_j}
 	\end{align*}
