@@ -93,6 +93,10 @@ Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambd
 Jeder EA teilt die Menge $\Sigma^*$ in $|Q|$ Klassen
 $\text{Kl}[p] = \{ w \in \Sigma^* \divides \hat{\delta}(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$
 und entsprechend $\bigcup_{p \in Q} \text{Kl}[p] = \Sigma^*$ und $\text{Kl}[p] \text{Kl}[q] = \emptyset \smallhspace \forall p \neq q \in Q$.
+
+\shade{Cyan}{Intuition}: Die Klassen sind Mengen, die hier Wörter mit gewissen Eigenschaften, die der EA bestimmt hat, wenn er in Zustand $q_i$ endet, enthalten.
+Diese Eigenschaften sind beispielsweise, dass alle Wörter, für die der EA in Zustand $q_i$ endet mit einer gewissen Sequenz enden, sie einen gewissen Zahlenwert haben, etc.
+
 In dieser Terminologie gilt dann $L(M) = \bigcup_{p \in F} \text{Kl}[p]$.
 Die Notation $|w|_i$ bedeutet die Länge der Buchstaben $i$ in $w$.
 
