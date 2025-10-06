@@ -104,7 +104,7 @@ def fast_kron_vector_product(A: np.ndarray, B: np.ndarray, x: np.ndarray):
     # This will actually crash if x.shape[0] is not divisible by A.shape[0]
     bx = B * x.reshape(A.shape[0], round(x.shape[0] / A.shape[0]))
     # Then multiply a with the resulting vector
-    y = A * bx
+    y = A @ bx
 \end{code}
 
 Um die oben erwähnte Laufzeit zu erreichen muss erst ein neuer Vektor berechnet werden, oben im Code \verb|bx| genannt, der eine Multiplikation von \verb|Bx_i| als Einträge hat.

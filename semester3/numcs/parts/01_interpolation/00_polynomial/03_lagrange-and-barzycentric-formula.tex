@@ -58,7 +58,6 @@ oder das ganze mithilfe von Numpy:
         for k in range(n):
             # Vectorized differences between $x_k$ and all $x$s
             differences = x[k] - x
-
             # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
             if k < n - 1 and k > 0:
                 diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
@@ -68,6 +67,20 @@ oder das ganze mithilfe von Numpy:
             else:
                 barweight[k] = 1 / np.prod(differences[:k])
         return barweight
+\end{code}
+
+Gleiche funktion, etwas kürzer:
+
+\begin{code}{python}
+    def barycentric_weights(x: np.ndarray) -> np.ndarray:
+        n = len(x)
+        w = np.ones(n) # = barweight
+        # Compute the (non-inverted) product, avoiding case (x[i] - x[i]) = 0
+        for i in range(0, n, 1):
+            if (i-1 > 0): w[0:(i-1)] *= (x[0:(i-1)] - x[i])
+            if (i+1 < n): w[i+1:n]   *= (x[i+1:n]   - x[i])
+        # Invert all at once
+        return 1/w
 \end{code}
 
 Mit dem können wir dann ein Polynom mit der baryzentrischen Interpolationsformel interpolieren:
@@ -94,17 +107,6 @@ Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode 
         barweight: np.ndarray,
         x: np.ndarray
     ):
-        """Compute an Interpolation polynomial p(x) using the barycentric interpolation formula
-
-        Args:
-            data_point_x: The data points' x-coordinate from which to interpolate (Stützstellen)
-            data_point_y: The data points' y-coordinates (Stützwerte)
-            barweight: Barycentric weights
-            x: The argument of the polynomial (the x in p(x))
-
-        Returns:
-            The Interpolation polynomial evaluated at each x
-        """
         p_x = np.zeros_like(x)
         n = data_point_x.shape[0]
 
