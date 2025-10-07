@@ -126,3 +126,27 @@ wobei $l = 0, 1 \ldots, N - 1$ und $N$ die Anzahl der Intervalle ist:
 \begin{align*}
     \hat{f}_N(k) := \frac{1}{N} \sum_{l = 0}^{N - 1} f(t_l) e^{-2\pi ikt_l} \approx \hat{f}(k)
 \end{align*}
+
+% TODO: Consider if we should use the below
+
+% \begin{tikzpicture}
+%     \begin{axis}[
+%         legend pos=outer north east,
+%         title=Function plot of $f(x)$ (parts coloured),
+%         axis lines = box,
+%         xlabel = $x$,
+%         ylabel = $y$,
+%         variable = t,
+%         trig format plots = rad,
+%     ]
+%         \addplot [
+%             domain=1:4,
+%             samples=70,
+%             color=blue,
+%         ]
+%         {log2(x)};
+%         \addlegendentry{$ y=x^2 - x - 0.5$}
+%     \end{axis}
+%     \node (0) at (0, 0) {};
+% \end{tikzpicture}
+
