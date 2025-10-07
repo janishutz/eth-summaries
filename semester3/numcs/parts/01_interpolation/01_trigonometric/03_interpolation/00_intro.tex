@@ -1,0 +1,64 @@
+\newsection
+\subsection{Trigonometrische Interpolation}
+\subsubsection{Von Approximation zur Interpolation}
+Wir erinnern uns daran, dass wir die Fourier-Approximation durch den Abbruch der unendlichen Fourier-Reihe erhalten, oder in anderen Worten, wir verkleinern die Limiten der Summe.
+
+\fancyremark{DFT mit $N = 2n$ Koeffizienten an Punkten $\frac{l}{N}$ für $l = 0, 1, \ldots, N - 1$}
+
+Der Shift ist hier gegeben durch (für $k \geq 0$ ist $\gamma_k = \hat{f}_N(k)$ und für $k < 0$ ist $\gamma_k = \hat{f}_N(N + k)$)
+\begin{align*}
+    f_{N - 1}(x)                 & = \sum_{k = -n}^{n - 1} \gamma_k e^{2 \pi ikx} = \sum_{k = 0}^{n - 1} \gamma_k e^{2\pi ikx} + \sum_{k = -n}^{-1} \gamma_k e^{2\pi ikx} \\
+    \Leftrightarrow f_{N - 1}(x) & = \frac{1}{N} \left( \sum_{j = 0}^{N - 1} \left( f\left( \frac{j}{n} \right)
+        \sum_{k = -n}^{n - 1} e^{2\pi ik \left( x - \frac{j}{N} \right)} \right) \right)
+\end{align*}
+
+\vspace{-1pc}
+
+Wenn wir die Funktion nun an der Stelle $\frac{l}{N}$ auswerten so erhalten wir:
+\rmvspace
+\begin{align*}
+    f_{N - 1}\left( \frac{l}{N} \right) = \ldots = f\left( \frac{l}{N} \right)
+\end{align*}
+
+\vspace{-1.8pc}
+was aufgrund der Orthogonalität der diskreten Fourier-Vektoren funktioniert, welche besagt, dass $\displaystyle \sum_{k = -n}^{n - 1} \omega_N^{k(j - l)} = 0$, für alle $j \neq l$.
+Für $j = l$ ergibt die Summe $N$.
+
+Dies heisst also, dass die Fourier-Approximation die Interpolationsbedingungen an den Punkten $\frac{l}{N}$ erfüllt,
+also können wir die Lösung der Interpolationsaufgabe $p_{N - 1} \left( \frac{l}{N} \right) = f\left( \frac{l}{N} \right)$ f $l = 0, 1, \ldots, N - 1$ im Raum
+\rmvspace
+\begin{align*}
+    \mathcal{T}_N = \text{span}\{ e^{2\pi ijt} \divides j = - \floor{\frac{N - 1}{2}}, \ldots, \floor{\frac{N}{2}} \}
+\end{align*}
+
+\rmvspace\rmvspace
+folgendermassen finden können: 
+\begin{enumerate}[label=(\arabic*)]
+    \item Mittels Gleichungssystem $\sum_{j} \gamma_j e^{2\pi ijt_l} = f(t_l)$ für $l = 0, \ldots, N - 1$. Operationen: $\tco{N^3}$
+    \item Mittels FFT in $\tco{N \log(N)}$ Operationen, aber nur falls die Punkte äquidistant sind, also $t_l = \frac{l}{N}$.
+        Dann ist die Matrix des obigen Gleichungssystems $F^{-1}_N$
+\end{enumerate}
+
+\vspace{0.2cm}
+
+Unten findet sich Python code der mit den unterschiedlichen Methoden die Koeffizienten des Trigonometrischen Polynoms bestimmt.
+\rmvspace
+\begin{code}{python}
+    def get_coeff_trig_poly(t: np.ndarray, y: np.ndarray):
+    N = y.shape[0]
+    if N % 2 == 1:
+    n = (N - 1.0) / 2.0
+    M = np.exp(2 * np.pi * 1j * np.outer(t, np.arange(-n, n + 1)))
+    else:
+    n = N / 2.0
+    M = np.exp(2 * np.pi * 1j * np.outer(t, np.arange(-n, n)))
+    c = np.linalg.solve(M, y)
+    return c
+
+    N = 2**12
+    t = np.linspace(0, 1, N, endpoint=False)
+    y = np.random.rand(N)
+    direct = get_coeff_trig_poly(t, y)
+    using_fft = np.fft.fftshift(np.fft.fft(y) / N)
+    using_ifft = np.conj(np.fft.fftshift(np.fft.ifft(y)))
+\end{code}

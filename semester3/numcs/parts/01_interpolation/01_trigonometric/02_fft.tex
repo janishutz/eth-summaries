@@ -21,7 +21,7 @@ dass man die Berechnung einer DFT der Länge $n$ auf die Berechnung vieler DFTs 
 
 Für den Algorithmus müssen folgende vier Optionen betrachtet werden:
 \begin{enumerate}[label=\Roman*]
-    \item Vektoren der Länge $N = 2m \Longrightarrow$ Laufzeit ideal
+    \item Vektoren der Länge $N = 2m \Longrightarrow$ Laufzeit gut
     \item Vektoren der Länge $N = 2^L \Longrightarrow$ Laufzeit ideal
     \item Vektoren der Länge $N = pq$ mit $p, q \in \Z \Longrightarrow$ Etwas langsamer
     \item Vektoren der Länge $N$, mit $N$ prim $\Longrightarrow$ ca. $\tco{N^2}$, besonders für $N$ gross
@@ -36,3 +36,5 @@ Wir formen die Fourier-Transformation um für den ersten Fall ($N = 2m$):
 Der zweite Fall ist einfach eine rekursive Weiterführung des ersten Falls,
 bei welchem dann das $m$ kontinuierlich weiter dividiert wird bis zum Trivialfall mit einer $1 \times 1$-Matrix.
 
+\fhlc{Cyan}{In NumPy} gibt es die Funktionen \texttt{np.fft.fft} (Vorwärts FFT), \texttt{np.fft.ifft} (Rückwärts FFT). 
+\texttt{scipy.fft} liefert dieselben Funktionen und sie sind oft etwas schneller als die von \texttt{numpy}
