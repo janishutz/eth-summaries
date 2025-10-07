@@ -11,7 +11,7 @@ Eine Anwendung der Schnellen Fourier-Transformation (FFT) ist die Komprimierung 
 \fancydef{Trigonometrisches Polynom von Grad $\leq m$} Die Funktion:
 \rmvspace
 \begin{align*}
-	p_m(t) := t \mapsto \sum_{j = -m}^{m} \gamma_j e^{2 \pi ijt} \text{ wobei } \gamma_j \in \C \text{ und } t \in \R
+    p_m(t) := t \mapsto \sum_{j = -m}^{m} \gamma_j e^{2 \pi ijt} \text{ wobei } \gamma_j \in \C \text{ und } t \in \R
 \end{align*}
 %
 %
@@ -22,28 +22,28 @@ Falls $\gamma_{-j} = \overline{\gamma_j}$ für alle $j$, dann ist $p_m$ reellwer
 $p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\Re(\gamma_j)$ und $b_j = -2\Im(\gamma_j)$):
 \rmvspace
 \begin{align*}
-	p_m(t) = \frac{a_0}{2} + \sum_{j = 1}^{m} (a_j \cos(2\pi jt) + b_j \sin(2\pi jt))
+    p_m(t) = \frac{a_0}{2} + \sum_{j = 1}^{m} (a_j \cos(2\pi jt) + b_j \sin(2\pi jt))
 \end{align*}
 
 \begin{definition}[]{$L^2$-Funktionen}
-	Wir definieren die $L^2$-Funktionen auf dem Intervall $(0, 1)$ als
-	\rmvspace
-	\begin{align*}
-		L^2(0, 1) := \{ f: (0, 1) \rightarrow \C \divides ||f||_{L^2(0, 1)} < \infty \}
-	\end{align*}
-	während die $L^2$-Norm auf $(0, 1)$ durch das Skalarprodukt
-	\rmvspace
-	\begin{align*}
-		\langle g, f \rangle_{L^2(0, 1)} := \int_{0}^{1} \overline{g(x)} f(x) \dx x
-	\end{align*}
-	über $||f||_{L^2(0, 1)} = \sqrt{\langle f, f \rangle_{L^2(0, 1)}}$ induziert wird
+    Wir definieren die $L^2$-Funktionen auf dem Intervall $(0, 1)$ als
+    \rmvspace
+    \begin{align*}
+        L^2(0, 1) := \{ f: (0, 1) \rightarrow \C \divides ||f||_{L^2(0, 1)} < \infty \}
+    \end{align*}
+    während die $L^2$-Norm auf $(0, 1)$ durch das Skalarprodukt
+    \rmvspace
+    \begin{align*}
+        \langle g, f \rangle_{L^2(0, 1)} := \int_{0}^{1} \overline{g(x)} f(x) \dx x
+    \end{align*}
+    über $||f||_{L^2(0, 1)} = \sqrt{\langle f, f \rangle_{L^2(0, 1)}}$ induziert wird
 \end{definition}
 
 \inlineremark $L^2(a, b)$ lässt sich analog definieren mit
 \rmvspace
 \begin{align*}
-	\langle g, f \rangle_{L^2(a, b)} & := \int_{a}^{b} \overline{g(x)} f(x) \dx x                              \\
-	                                 & = (b - a) \int_{0}^{1} \overline{g(a + (b - a)t)} f(a + (b - a)t) \dx t
+    \langle g, f \rangle_{L^2(a, b)} & := \int_{a}^{b} \overline{g(x)} f(x) \dx x                              \\
+                                     & = (b - a) \int_{0}^{1} \overline{g(a + (b - a)t)} f(a + (b - a)t) \dx t
 \end{align*}
 In Anwendungen findet sich oft das Intervall $\left[ -\frac{T}{2}, \frac{T}{2} \right]$.
 Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{-\frac{T}{2}} (\ldots) \dx t$ und $\exp(2\pi ijt)$ durch $\exp(i \frac{2\pi j}{T} t)$ ersetzt wird.
@@ -61,7 +61,7 @@ Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{
     \begin{align*}
         f(t) = \sum_{k = -\infty}^{\infty} \hat{f}(k) e^{2\pi ikt}
     \end{align*}
-    wobei die Fourier-Koeffizienten 
+    wobei die Fourier-Koeffizienten
     \rmvspace
     \begin{align*}
         \hat{f}(k) = \int_{0}^{1} f(t)e^{-2\pi ikt} \dx t \smallhspace k \in \Z
@@ -79,7 +79,7 @@ Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{
 \setcounter{all}{14}
 \inlineremark Die Parseval'sche Gleichung beschreibt einfach gesagt einen ``schnellen'' Abfall der $\hat{f}(k)$.
 Genauer gesagt, klingen die Koeffizienten schneller als $\frac{1}{\sqrt{k}}$ ab.
-Sie sagt zudem aus, dass die $L^2$-Norm der Funktion aus einer Summe berechnet werden kann (nicht nur als Integral). 
+Sie sagt zudem aus, dass die $L^2$-Norm der Funktion aus einer Summe berechnet werden kann (nicht nur als Integral).
 Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
 \rmvspace
 \begin{align*}
@@ -98,3 +98,31 @@ Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
 
 
 \inlinetheorem Wenn $\displaystyle \int_{0}^{1} |f^{(n)}(t)|\dx t < \infty$, dann ist $\hat{f}(k) = \tco{k^{-n}}$
+
+Falls die Funktion jedoch nicht glatt ist, dann entstehen \textit{Überschwingungen} an den Sprungstellen, die näher und näher an die Sprünge herankommen, aber nicht kleiner werden, wenn wir mehr Terme der Fourier-Reihe aufsummieren.
+Das Phänomen wird das \bi{Gibbs-Phänomen} gennant und wir haben $L^2$-Konvergenz, aber keine punktweise Konvergenz an der Sprungstelle.
+
+\inlineremark
+Diese Überschwingungen entstehen durch die Definition der Fourier-Reihe und sind in der untenstehenden Abbildung \ref{fig:trigo-interp-overarcing} aus dem Skript sehr gut ersichtlich.
+Die dargestellte Funktion ist die Fourier-Reihe der charakteristischen Funktion des Intervalls $[a, b] \subseteq ]0, 1[$, welche sich folgendermassen analytisch berechnen lässt:
+\begin{align*}
+    b - a + \frac{1}{\pi} \sum_{k \neq 0} e^{-ikc}\frac{\sin(kd)}{k} e^{i2\pi kt}, \mediumhspace t \in [0, 1]
+\end{align*}
+
+% TODO: Replace with rendered image from matplotlib (will be higher quality than screenshot from script and can tweak it to our liking)
+% we will have it anyway after solving the exercises, so might as well
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{assets/01_interpolation/01_trigonometric/overarcing.png}
+    \end{center}
+    \caption{Überschwingungen der Fourier-Reihe der charakteristischen Funktion des Intervalls $[a, b] \subseteq ]0, 1[$}
+    \label{fig:trigo-interp-overarcing}
+\end{figure}
+
+\stepcounter{all}
+\inlineremark Meist ist es nicht möglich (oder nicht sinnvoll) die Fourier-Koeffizienten analytisch zu berechnen,
+weshalb man wieder zur Numerik und der Trapezformel greift, die folgendermassen definiert ist für $t_l = \frac{l}{N}$,
+wobei $l = 0, 1 \ldots, N - 1$ und $N$ die Anzahl der Intervalle ist:
+\begin{align*}
+    \hat{f}_N(k) := \frac{1}{N} \sum_{l = 0}^{N - 1} f(t_l) e^{-2\pi ikt_l} \approx \hat{f}(k)
+\end{align*}
