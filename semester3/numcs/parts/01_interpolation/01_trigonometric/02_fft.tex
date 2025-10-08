@@ -11,7 +11,8 @@ mit der sie produziert wurde im Skript auf Seite 86-88
     \begin{center}
         \includegraphics[width=0.7\textwidth]{assets/01_interpolation/01_trigonometric/fft-runtimes.png}
     \end{center}
-    \caption{Vergleich der Laufzeit von verschiedenen Fourier-Transformations-Algorithmen}
+    \caption{Vergleich der Laufzeit von verschiedenen Fourier-Transformations-Algorithmen.
+    (Abbildung 3.3.3 aus dem Vorlesungsdokument von Prof. V. Gradinaru, Seite 88)}
     \label{fig:trigo-interp-fft-runtimes}
 \end{figure}
 
@@ -27,6 +28,7 @@ Für den Algorithmus müssen folgende vier Optionen betrachtet werden:
     \item Vektoren der Länge $N$, mit $N$ prim $\Longrightarrow$ ca. $\tco{N^2}$, besonders für $N$ gross
 \end{enumerate}
 Wir formen die Fourier-Transformation um für den ersten Fall ($N = 2m$):
+\rmvspace
 \begin{align*}
     c_k & = \sum_{j = 0}^{N - 1} y_j e^{- \frac{2\pi i}{N} jk}                                                                     \\
         & = \sum_{j = 0}^{m - 1} y_{2j} e^{-\frac{2 \pi i}{N}2jk} + \sum_{j = 0}^{m - 1} y_{2j + 1} e^{-\frac{2\pi i}{N}(2j + 1)k} \\
