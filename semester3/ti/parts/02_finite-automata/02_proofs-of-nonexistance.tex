@@ -1,0 +1,22 @@
+\subsection{Beweise der Nichtexistenz}
+Im Gegensatz zum Beweis, dass eine bestimmte Klasse von Programmen (Algorithmen) ein Problem lösen kann
+(was ein einfacher Existenzbeweis ist, bei welchem man eine korrekte Implementation liefern kann),
+ist der Beweis, dass diese Klasse von Programmen (Algorithmen) dies nicht tun kann viel schwieriger,
+da man (logischerweise) nicht für alle (undendlich vielen) Programme zeigen kann, dass sie das Problem nicht lösen.
+
+In diesem Kurs werden wir aber vorerst nur die Klasse der endlichen Automaten behandlen, welche sehr stark eingeschränkt sind,
+was diese Beweise verhältnismässig einfach macht.
+Falls also ein EA $A$ für zwei unterschiedliche Wörter $x$ und $y$ im gleichen Zustand endet (also $\hdelta(q_0, x) = \hdelta(q_0, y))$),
+so heisst das für uns von jetzt an, dass $A$ nicht zwischen $x$ und $y$ unterscheiden kann:
+
+\begin{lemma}[]{Unterscheidung von Wörtern}
+    Sei $A$ ein EA über $\Sigma$ und $x \neq y \in \Sigma^*$ so dass
+    \begin{align*}
+        (q_0, x) \bigvdash{A}{*} (p, \lambda) \text{ und } (q_0, y) \bigvdash{A}{*} (p, \lambda)
+    \end{align*}
+    für ein $p \in Q$ (also $\hdelta_A (q_0, x) = \hdelta(q_0, y) = p(x, y \in \class [p])$).
+    Dann existiert für jedes $z \in \Sigma^*$ ein $r \in Q$, so dass $xz, yz \in \class[p]$, also gilt insbesondere
+    \begin{align*}
+        xz \in L(A) \Longleftrightarrow yz \in L(A)
+    \end{align*}
+\end{lemma}
