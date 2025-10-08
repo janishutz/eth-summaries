@@ -2,11 +2,22 @@
 \subsection{Linear Differential Equations}
 An ODE is considered linear if and only if the $y$s are only scaled and not part of powers.\\
 \compactdef{Linear differential equation of order $k$} (order = highest derivative)
-$y^{(k)} + a_{k - 1}y^{(k - 1)} + \ldots + a_1 y' + a_0 y = b$, with $a_i$ and $b$ functions in $x$. 
+$y^{(k)} + a_{k - 1}y^{(k - 1)} + \ldots + a_1 y' + a_0 y = b$, with $a_i$ and $b$ functions in $x$.
 If $b(x) = 0 \smallhspace \forall x$, \bi{homogeneous}, else \bi{inhomogeneous}\\
 %
 \shorttheorem For open $I \subseteq \R$ and $k \geq 1$, for lin. ODE over $I$ with cont. $a_i$ we have:
-\bi{(1)} Set $\mathcal{S}$ of $k \times$ diff. sol. $f: I \rightarrow \C (\R)$ of the eq. is a complex (real) subspace of complex (real)-valued func. over $I$;
-\bi{(2)} $\dim(\mathcal{S}) = k \smallhspace\forall x_0 \in I$ and any $(y_0, \ldots, y_{k - 1}) \in \C^k$, exists unique $f \in \mathcal{S}$ s.t. $f(x_0) = y_0, f'(x_0) = y_1, \ldots, f^{(k - 1)}(x_0) = y_{k - 1}$. If $a_i$ real-valued, same applies, but $\C$ replaced by $\R$.
-\bi{(3)} Let $b$ cont. on $I$. Exists solution $f_0$ to inhom. lin. ODE and $\mathcal{S}_b$ is set of funct. $f + f_0$ where $f \in \mathcal{S}$\\
+\begin{enumerate}
+    \item Set $\mathcal{S}$ of $k \times$ diff. sol. $f: I \rightarrow \C (\R)$ of the eq. is a complex (real) subspace of complex (real)-valued func. over $I$
+    \item $\dim(\mathcal{S}) = k \smallhspace\forall x_0 \in I$ and any $(y_0, \ldots, y_{k - 1}) \in \C^k$, exists unique
+          $f \in \mathcal{S}$ s.t. $f(x_0) = y_0, f'(x_0) = y_1, \ldots, f^{(k - 1)}(x_0) = y_{k - 1}$.
+          If $a_i$ real-valued, same applies, but $\C$ replaced by $\R$.
+    \item Let $b$ cont. on $I$. Exists solution $f_0$ to inhom. lin. ODE and $\mathcal{S}_b$ is set of funct. $f + f_0$ where $f \in \mathcal{S}$\\
+\end{enumerate}
 The solution space $\mathcal{S}$ is spanned by $k$ functions, which thus form a basis of $\mathcal{S}$. If inhomogeneous, $\mathcal{S}$ not vector space.
+
+\shade{gray}{Finding solutions (in general)}
+\begin{enumerate}[label=\bi{(\arabic*)}]
+    \item Find basis $\{ f_1, \ldots, f_k \}$ for $\mathcal{S}_0$ for homogeneous equation (set $b(x) = 0$).
+    \item If inhom. find $f_p$ that solves the equation. The set of solutions $\mathcal{S}_b = \{ f_h + f_p \divides f_h \in \mathcal{S_0} \}$.
+    \item If initial conditions, find equations $\in \mathcal{S}_b$ which fulfill conditions using SLE (as always)
+\end{enumerate}
