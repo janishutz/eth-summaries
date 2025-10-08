@@ -1,0 +1,26 @@
+\subsubsection{Konstruktion}
+
+\fancydef{Trigonometrische Basis} $\{v_0, v_{N-1}\}$ ist eine Basis von $\mathbb{C}^N$, wobei $v_k = \begin{bmatrix}
+    \omega_N^{0\cdot k} \\ \omega_N^{1\cdot k}1 \\ \vdots \\ \omega_N^{(N-1)\cdot k}
+\end{bmatrix} \in \mathbb{C}^N$ 
+
+Die symmetrische, nicht hermitesche Matrix $V = [v_0,\ \ldots\ , v_{N-1}]$ ist dann eine orthogonale Basis für $\mathbb{C}^N$: $V^HV = N\cdot I_N$.
+
+Ebenfalls ist $V$ die Basiswechsel Matrix Trigonometrische Basis ($z$) $\mapsto$ Standardbasis ($y$). Algebraisch:
+\begin{align*}
+    y = Vz \implies z = V^{-1}y = \frac{1}{N}V^Hy = \frac{1}{N}\underbrace{F_N}_{:= V^H} y
+\end{align*}
+
+\fancydef{Fourier-Matrix} $F_N := V^H = \begin{bmatrix}
+    \omega_N^0 & \omega_N^0 & \cdots & \omega_N^0 \\
+    \omega_N^0 & \omega_N^1 & \cdots & \omega_N^{N-1} \\
+    \omega_N^0 & \omega_N^2 & \cdots & \omega_N^{2(N-1)} \\
+    \vdots     & \vdots     &        & \vdots \\
+    \omega_N^0 & \omega_N^{N-1} &\cdots & \omega_N^{(N-1)^2} 
+\end{bmatrix}
+= \begin{bmatrix}
+    \omega_N^{jk}
+\end{bmatrix}^{N-1}_{j,k = 0} \in \mathbb{C}^N
+$
+
+\fancydef{Diskrete Fourier Transformation} $\mathcal{F}_N: \mathbb{C} \to \mathbb{C}$ s.d. $\mathcal{F}_N(y) = F_N y$

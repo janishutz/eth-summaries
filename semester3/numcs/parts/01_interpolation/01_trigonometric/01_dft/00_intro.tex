@@ -1,3 +1,4 @@
+\newsection
 \subsection{Diskrete Fourier Transformation}
 
 % NOTE: I'll do these 2 subchapters. Based on the lecture, we can leave out quite a lot here.
@@ -8,3 +9,37 @@
 
 % 2.3.4 relativ wichtig (Einführung Faltungen), tendenziell viel
 % 2.4 FFT wichtig, aber kurz
+
+\subsubsection{Motivation}
+
+Nutzen wir die Trapezregel um approximativ die Fourierkoeffizienten $\hat{f}_N(k)$ auf äquidistanten Punkten $l_t=\frac{l}{N}$ $(0 \leq l \leq N-1)$ zu bestimmen, erhalten wir tatsächlich ein Polynom $p_{N-1}$ welches die Interpolationsbedingung erfüllt:
+\begin{align*}
+    p_{N-1}(t) = \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} \hat{f}_N(k)e^{2\pi ikt}
+\end{align*}
+
+Der Beweis hierfür ist im Skript auf p. $71$. Die $N$-te Einheitswurzel wird hier definiert:
+
+\fancydef{$N$-te Einheitswurzel} $\omega_N := \exp(\frac{-2\pi i}{N})$
+
+\fancyremark{Eigenschaften von $\omega_N$}
+\begin{multicols}{3}
+\begin{align*}
+    \forall j,k \in \mathbb{Z}:\quad                 & \omega_N^{k+jN}=\omega_N^k \\
+    \forall k \in \mathbb{Z}, t \in \mathbb{R}:\quad & \omega_N^{t+kN}=\omega_N^t 
+\end{align*}
+
+\newcolumn
+\begin{align*}
+    \omega_N^N=1 \\
+    \omega_N^{N/2}=-1
+\end{align*}
+
+\newcolumn
+\begin{align*}
+    \sum_{k=0}^{N-1} \omega_N^{kj} = \begin{cases}
+        N, & j \equiv_N 0 \\
+        0, & \text{ sonst}
+    \end{cases}
+\end{align*}
+\newcolumn
+\end{multicols}
