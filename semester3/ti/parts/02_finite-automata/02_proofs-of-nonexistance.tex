@@ -21,6 +21,7 @@ so heisst das für uns von jetzt an, dass $A$ nicht zwischen $x$ und $y$ untersc
     \end{align*}
 \end{lemma}
 Das obenstehende Lemma 3.3 ist ein Spezialfall einer Eigenschaft, die für jedes (deterministische) Rechnermodell gilt.
+Es besagt eigentlich nichts anderes, als dass wenn das Wort $xz$ akzeptiert wird, so wird auch das Wort $yz$
 
 Mithilfe von Lemma 3.3 kann man für viele Sprachen deren Nichtregularität beweisen.
 
@@ -30,10 +31,24 @@ Wir müssen hier nur formal ausdrücken, dass das Zählen benötigt wird, dass $
 
 Dazu benutzen wir einen indirekten Beweis. Sei $A$ ein EA über $\alphabets{bool}$ und $L(A) = L$.
 Wir betrachten die Wörter $0^1, 0^2, \ldots, 0^{|Q| + 1}$.
-Weil wir $|Q| + 1$ Wörter haben, existiert $i, j \in \{ 1, 2, \ldots, |Q| + 1 \}$, so dass $\hdelta_A(q_0, 0^i) = \hdelta_A(q_0, 0^j)$, 
-also gilt nach Lemma $0^i z \in L \Leftrightarrow 0^j z \in L \smallhspace \forall z \in \wordbool$. 
+Weil wir $|Q| + 1$ Wörter haben, existiert $i, j \in \{ 1, 2, \ldots, |Q| + 1 \}$, so dass $\hdelta_A(q_0, 0^i) = \hdelta_A(q_0, 0^j)$,
+also gilt nach Lemma $0^i z \in L \Leftrightarrow 0^j z \in L \smallhspace \forall z \in \wordbool$.
 Dies gilt jedoch nicht, weil für jedes $z = 1^i$ zwar jedes $0^i 1^i \in L$ gilt, aber $0^j 1^j \notin L$
 
 
-Um die Nichtregularität konkreter Sprachen zu beweisen, sucht man nach einfach verifizierbaren Eigenschaften, 
+Um die Nichtregularität konkreter Sprachen zu beweisen, sucht man nach einfach verifizierbaren Eigenschaften,
 denn wenn eine Sprache eine dieser Eigenschaften \textit{nicht} erfüllt, so ist sie nicht regulär.
+
+% TODO: For Kolmogorov complexity elaborate some more, i.e. how to do proofs properly / how to derive a word more easily
+% -> TA Slides explain that really well
+
+Eine Methode zum Beweis von Aussagen $L \notin \mathcal{L}_{\text{EA}}$ nennt sich \bi{Pumping} und basiert auf folgender Idee:
+Wenn für ein Wort $x$ und einen Zustand $p$ gilt, dass $(p, x) \bigvdash{A}{*} (p, \lambda)$, so gilt auch für alle $i \in \N$, dass $(p, x^i) \bigvdash{A}{*} (p, \lambda)$.
+Also kann $A$ nicht zwischen $x$ und $x^i$ unterscheiden, oder in anderen Worten, wie viele $x$ er gelesen hat,
+also akzeptiert $A$ entweder alle Wörter der Form $yx^iz$ (für $i \in \N$) oder keines davon
+
+\begin{lemma}[]{Pumping-Lemma für reguläre Sprachen}
+    Sei $L$ regulär. Dann existiert ein Wort $w \in \word$
+\end{lemma}
+
+Bei der Wahl von den Teilen von $w$ sollte man idealerweise einen Teil bereits gross genug zu wählen, so dass (i) zutrifft, was es nachher einfacher macht.

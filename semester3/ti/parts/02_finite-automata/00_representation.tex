@@ -34,6 +34,7 @@ Heute verwendet man meist einen gerichteten Graphen $G(A)$:
     \item Jeder Knoten hat den Ausgangsgrad $|\Sigma|$ (wir müssen alle Fälle abdecken)
 \end{itemize}
 
+% TODO: Clean up (make it look less crowded)
 \begin{definition}[]{Endlicher Automat}
     Ist eine Quitupel $M = (Q, \Sigma, \delta, q_0, F)$:
     \begin{enumerate}[label=\textit{(\roman*)}]
@@ -65,6 +66,7 @@ Heute verwendet man meist einen gerichteten Graphen $G(A)$:
     \end{itemize}
 \end{definition}
 Die Übergangsfunktion kann auch gut graphisch oder tabellarisch (wie eine Truth-Table) dargestellt werden.
+$M$ ist in der Konfiguration $(q, w) \in Q \times \word$, wenn $M$ in Zustand $q$ ist und noch das Suffix $w$ zu lesen hat (also auf dem Eingabeband hinter dem Zeiger noch $w$ steht)
 
 \begin{definition}[]{Reflexive und transitive Hülle}
     Sei $M = (Q, \Sigma, \delta, q_0, F)$ ein endlicher Automat. Die reflexive und transitive Hülle $\bigvdash{M}{*}$ der Schrittrelation $\bigvdash{M}{}$ von $M$ als
@@ -85,14 +87,19 @@ Die Übergangsfunktion kann auch gut graphisch oder tabellarisch (wie eine Truth
     \end{multicols}
 \end{definition}
 Und $(q, w) \bigvdash{M}{*} (p, u)$ bedeutet, dass es eine Berechnung von $M$ gibt, die von der Konfiguration $(q, w)$ zu $(p, u)$ führt,
-während $\hat{\delta}(q, w) = p$ bedeutet einfach $(q, w) \bigvdash{M}{*} (p, \lambda)$, also falls $M$ im Zustand $q$ das Wort $w$ zu lesen beginnt, $M$ im Zustand $p$ endet.
-Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \text{ mit } p \in F \} = \{ w \in \Sigma^* \divides \hat{\delta}(q_0, w) \in F \}$
+während $\hdelta(q, w) = p$ bedeutet einfach $(q, w) \bigvdash{M}{*} (p, \lambda)$, also falls $M$ im Zustand $q$ das Wort $w$ zu lesen beginnt, $M$ im Zustand $p$ endet.
+Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \smallhspace \forall p \in F \} = \{ w \in \Sigma^* \divides \hdelta(q_0, w) \in F \}$
+
+Intuition $\bigvdash{M}{*}$: Transitivität, also es existieren Zwischenschritte, so dass die Relation erfüllt ist.
+Oder noch viel einfacher: Es gibt irgendwieviele Zwischenschritte zwischen dem linken und rechten Zustand
+
+Intuition $\hdelta$: Der letzte Zustand in der Berechnung ausgehend vom gegebenen Zustand
 
 \inlinelemma $L(M) = \{ w \in \{ 0, 1 \}^* \divides |w|_0 + |w|_1 \equiv 0 \text{ mod } 2 \}$
 
 Jeder EA teilt die Menge $\Sigma^*$ in $|Q|$ Klassen
-$\text{Kl}[p] = \{ w \in \Sigma^* \divides \hat{\delta}(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$
-und entsprechend $\bigcup_{p \in Q} \text{Kl}[p] = \Sigma^*$ und $\text{Kl}[p] \text{Kl}[q] = \emptyset \smallhspace \forall p \neq q \in Q$.
+$\text{Kl}[p] = \{ w \in \Sigma^* \divides \hdelta(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$
+und entsprechend $\bigcup_{p \in Q} \class[p] = \Sigma^*$ und $\class[p] \cup \class[q] = \emptyset \smallhspace \forall p \neq q \in Q$.
 
 \shade{Cyan}{Intuition}: Die Klassen sind Mengen, die hier Wörter mit gewissen Eigenschaften, die der EA bestimmt hat, wenn er in Zustand $q_i$ endet, enthalten.
 Diese Eigenschaften sind beispielsweise, dass alle Wörter, für die der EA in Zustand $q_i$ endet mit einer gewissen Sequenz enden, sie einen gewissen Zahlenwert haben, etc.
@@ -129,3 +136,10 @@ sodass Wörter mit denselben Eigenschaften in derselben Klasse liegen und wir da
 die nur einen Buchstaben aus $\Sigma$ zum Wort hinzufügen
 
 \inlineex Das Buch enthält einige zwei gute Beispiele (Beispiel 3.1 und 3.2) mit ausführlichen Erklärungen ab Seite 58 (= Seite 73 im PDF).
+
+% TODO: Move to correct place
+Produktautomaten erstellt man, in dem man die (meist zwei) Automaten als einen Gridgraph aufschreibt und eine Art Graph-Layering betreibt,
+so dass der eine Graph horizontal und der andere Graph vertikal orientiert ist.
+Dann werden die Übergänge folgendermassen definiert: 
+Für jeden Eingang liefert der Graph, der horizontal ausgerichtet ist, ob wir nach links oder rechts gehen (oder bleiben),
+während der vertikal ausgerichtete Graph entscheidet, ob wir nach oben oder unten gehen (oder bleiben).
