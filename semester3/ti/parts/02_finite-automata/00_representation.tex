@@ -66,6 +66,7 @@ Heute verwendet man meist einen gerichteten Graphen $G(A)$:
     \end{itemize}
 \end{definition}
 Die Übergangsfunktion kann auch gut graphisch oder tabellarisch (wie eine Truth-Table) dargestellt werden.
+
 $M$ ist in der Konfiguration $(q, w) \in Q \times \word$, wenn $M$ in Zustand $q$ ist und noch das Suffix $w$ zu lesen hat (also auf dem Eingabeband hinter dem Zeiger noch $w$ steht)
 
 \begin{definition}[]{Reflexive und transitive Hülle}
@@ -86,30 +87,39 @@ $M$ ist in der Konfiguration $(q, w) \in Q \times \word$, wenn $M$ in Zustand $q
         \end{enumerate}
     \end{multicols}
 \end{definition}
-Und $(q, w) \bigvdash{M}{*} (p, u)$ bedeutet, dass es eine Berechnung von $M$ gibt, die von der Konfiguration $(q, w)$ zu $(p, u)$ führt,
-während $\hdelta(q, w) = p$ bedeutet einfach $(q, w) \bigvdash{M}{*} (p, \lambda)$, also falls $M$ im Zustand $q$ das Wort $w$ zu lesen beginnt, $M$ im Zustand $p$ endet.
-Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \smallhspace \forall p \in F \} = \{ w \in \Sigma^* \divides \hdelta(q_0, w) \in F \}$
 
-Intuition $\bigvdash{M}{*}$: Transitivität, also es existieren Zwischenschritte, so dass die Relation erfüllt ist.
-Oder noch viel einfacher: Es gibt irgendwieviele Zwischenschritte zwischen dem linken und rechten Zustand
+\begin{intuition}[]{$\bigvdash{M}{*}$ und $\hdelta(q, w)$}
+    $(q, w) \bigvdash{M}{*} (p, u)$ bedeutet, dass es eine Berechnung von $M$ gibt, die von der Konfiguration $(q, w)$ zu $(p, u)$ führt.
+    Eine wichtiger Aspekt ist die Transitivität, was ja dann bedeutet, dass es (beliebig viele) Zwischenschritte gibt, so dass die Relation erfüllt ist.
+    Oder noch viel einfacher: Es gibt irgendwieviele Zwischenschritte zwischen dem linken und rechten Zustand
 
-Intuition $\hdelta$: Der letzte Zustand in der Berechnung ausgehend vom gegebenen Zustand
+    $\hdelta(q, w) = p$ repräsentiert den letzen Zustand der Berechnung ausgehend von $(q, w)$.
+    Etwas formaler bedeutet dies $(q, w) \bigvdash{M}{*} (p, \lambda)$, also falls $M$ im Zustand $q$ das Wort $w$ zu lesen beginnt, $M$ im Zustand $p$ endet.
+\end{intuition}
+Also gilt $L(M) = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \smallhspace \forall p \in F \} = \{ w \in \Sigma^* \divides \hdelta(q_0, w) \in F \}$.
+
+Das folgende Lemma bezieht sich auf den Automaten $M$, den wir in der Tabelle weiter unten definieren.
+Der Automat entscheidet, ob die beiden Zahlen gerade oder ungerade sind.
+Dies kann man aber auch folgendermassen in formaler Ausdrucksweise ausdrücken:
 
 \inlinelemma $L(M) = \{ w \in \{ 0, 1 \}^* \divides |w|_0 + |w|_1 \equiv 0 \text{ mod } 2 \}$
 
 Jeder EA teilt die Menge $\Sigma^*$ in $|Q|$ Klassen
-$\text{Kl}[p] = \{ w \in \Sigma^* \divides \hdelta(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$
-und entsprechend $\bigcup_{p \in Q} \class[p] = \Sigma^*$ und $\class[p] \cup \class[q] = \emptyset \smallhspace \forall p \neq q \in Q$.
+$\class[p] = \{ w \in \Sigma^* \divides \hdelta(q_0, w) = p \} = \{ w \in \Sigma^* \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \}$ auf
+und entsprechend gilt:
+\begin{align*}
+    \bigcup_{p \in Q} \class[p] = \Sigma^* \text{ und } \class[p] \cup \class[q] = \emptyset \smallhspace \forall p \neq q \in Q
+\end{align*}
 
-\shade{Cyan}{Intuition}: Die Klassen sind Mengen, die hier Wörter mit gewissen Eigenschaften, die der EA bestimmt hat, wenn er in Zustand $q_i$ endet, enthalten.
-Diese Eigenschaften sind beispielsweise, dass alle Wörter, für die der EA in Zustand $q_i$ endet mit einer gewissen Sequenz enden, sie einen gewissen Zahlenwert haben, etc.
-
-In dieser Terminologie gilt dann $L(M) = \bigcup_{p \in F} \text{Kl}[p]$.
+In dieser Terminologie gilt dann $L(M) = \bigcup_{p \in F} \class[p]$.
 Die Notation $|w|_i$ bedeutet die Länge der Buchstaben $i$ in $w$.
 
 Wir können $L(M)$ mit Klassen bestimmen und haben eine Äquivalenzrelation $x R_\delta y \Leftrightarrow \hat{\delta}(q_0, x) = \hat{\delta}(q_0, y)$ auf $\Sigma^*$.
 Man beweist die Korrektheit der gewählten Klassen oft mithilfe von Induktion über die Länge der Wörter.
 Wir beginnen mit der Länge an Wörtern der Länge kleiner gleich zwei und erhöhen dies dann während unseres Induktionsschrittes.
+
+\inlineintuition Die Klassen sind Mengen, die hier Wörter mit gewissen Eigenschaften, die der EA bestimmt hat, wenn er in Zustand $q_i$ endet, enthalten.
+Diese Eigenschaften sind beispielsweise, dass alle Wörter, für die der EA in Zustand $q_i$ endet mit einer gewissen Sequenz enden, sie einen gewissen Zahlenwert haben, etc.
 
 Die Klassen bestimmen wir vor dem Beginn der Induktion auf und jede Klasse repräsentiert einen der Zustände.
 \begin{wrapfigure}[5]{l}{0.3\textwidth}
@@ -120,7 +130,7 @@ Die Klassen bestimmen wir vor dem Beginn der Induktion auf und jede Klasse repr�
               $q_3$         & $q_1$ & $q_2$ \\
     \end{tables}
 \end{wrapfigure}
-Haben wir einen EA mit nebenstehender Tabelle, so sind die Klassen für unseren EA $M$ sind $\class[q_0], \ldots, \class[q_3]$, definiert durch:
+Haben wir einen EA $M$ mit nebenstehender Tabelle, so sind die Klassen $\class[q_0], \ldots, \class[q_3]$, definiert durch:
 \rmvspace
 \begin{align*}
     \class[q_0] & = \{ w \in \wordbool \divides |w|_0 \text{ und } |w|_1 \text{ sind gerade} \}          \\
@@ -136,10 +146,3 @@ sodass Wörter mit denselben Eigenschaften in derselben Klasse liegen und wir da
 die nur einen Buchstaben aus $\Sigma$ zum Wort hinzufügen
 
 \inlineex Das Buch enthält einige zwei gute Beispiele (Beispiel 3.1 und 3.2) mit ausführlichen Erklärungen ab Seite 58 (= Seite 73 im PDF).
-
-% TODO: Move to correct place
-Produktautomaten erstellt man, in dem man die (meist zwei) Automaten als einen Gridgraph aufschreibt und eine Art Graph-Layering betreibt,
-so dass der eine Graph horizontal und der andere Graph vertikal orientiert ist.
-Dann werden die Übergänge folgendermassen definiert: 
-Für jeden Eingang liefert der Graph, der horizontal ausgerichtet ist, ob wir nach links oder rechts gehen (oder bleiben),
-während der vertikal ausgerichtete Graph entscheidet, ob wir nach oben oder unten gehen (oder bleiben).
