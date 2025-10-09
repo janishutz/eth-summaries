@@ -35,6 +35,7 @@
 \begin{center}
     \begin{Large}
         ``\textit{Denken vor Rechnen}''
+        ``\textit{Wer in Python Type annotation benötigt, der soll kein Python verwenden}'' (2025-10-09T10:43)
     \end{Large}
 
     \hspace{3cm} - Vasile Gradinaru, 2025
@@ -72,6 +73,16 @@ We have decided to write it in German, as is the new script and for some of the 
 The numbering should match the script's numbering exactly (apart from the cases where two definitions were combined due to being closely related and short), making it easier for you to look up the relevant definitions, theorems, etc in context in the script.
 
 Many of the figures in this summary were taken directly from the Script or Lecture notes created by Professor Vasile Gradinaru.
+
+To add to the one quote regarding Python and type annotation: This is objectively wrong and a really hot take.
+Yes, this applies for small projects, but libraries \textit{DO} need type annotation, as you can't possibly read the entire library's code to use it.
+The reason this quote was even included here is that his coding style is really awful (yes, there were semicolons in his Python-code sometimes)
+and he rambled about bad coding style for about 10 minutes in this lecture.
+
+Meanwhile his code has variable names that neither future him, nor anybody else can make much sense of intuitively.
+You can get away without type annotation in Python, even in larger projects, but only if you give variables proper names!
+
+Moral of the story: Use descriptive variable names and do NOT use $t$, $tt$, $ttt$, \dots
 
 % ────────────────────────────────────────────────────────────────────
 
