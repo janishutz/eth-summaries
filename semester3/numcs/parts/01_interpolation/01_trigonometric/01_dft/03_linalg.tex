@@ -1,0 +1,104 @@
+\newpage
+\subsection{DFT \& Lineare Algebra}
+
+\setcounter{all}{25}
+\fancydef{Zirkulant} Für einen vektor $c \in \mathbb{R}^N$ hat der Zirkulant $C \in \mathbb{R}^{N \times N}$ die Form:
+\begin{align*}
+    C = \begin{bmatrix}
+        c_0 & c_{N-1} & c_{N-2} & \cdots & c_3 & c_2 & c_1 \\
+        c_1 & c_0     & c_{N-1} & \cdots & c_4 & c_3 & c_2 \\
+        c_2 & c_1     & c_{0}   & \cdots & c_5 & c_4 & c_3 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+        c_{N-3} & c_{N-4} & c_{N-5} & \cdots & c_0 & c_{N-1} & c_{N-2} \\
+        c_{N-2} & c_{N-3} & c_{N-4} & \cdots & c_{1} & c_0 & c_{N-1} \\
+        c_{N-1} & c_{N-2} & c_{N-3} & \cdots & c_{2} & c_1 & c_0
+    \end{bmatrix}
+    \quad \quad \quad 
+    S_N = \begin{bmatrix}
+        0 & 0 & \cdots & \cdots & 0 & 1 \\
+        1 & 0 & \cdots & \cdots & 0 & 0 \\
+        \vdots & \vdots & \ddots & \ddots & \vdots & \vdots \\
+        0 & 0 & \cdots & \cdots & 0 & 0 \\
+        0 & 0 & \cdots & \cdots & 1 & 0 
+    \end{bmatrix}
+\end{align*}
+
+Die Shift Matrix $S_N$ ist der Zirkulant für $c=e_2$. $S_N$ ist eine Permutationsmatrix, die alle Einträge nach vorne schiebt.
+\begin{align*}
+    S_N \begin{bmatrix}
+        x_0 \\
+        x_1 \\
+        \vdots \\
+        x_{N-1}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        x_{N-1} \\
+        x_0 \\
+        \vdots \\
+        x_{N-2}
+    \end{bmatrix}
+    \quad \quad \quad 
+    S_N^\top \begin{bmatrix}
+        x_{N-1} \\
+        x_0 \\
+        \vdots \\
+        x_{N-2}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        x_0 \\
+        x_1 \\
+        \vdots \\
+        x_{N-1}
+    \end{bmatrix}
+\end{align*}
+
+Die Shift-Matrix hat einen speziellen Bezug zu den Spaltenvektoren $v_k$ von $F_N$, und auch allen anderen Zirkulanten $C$.
+
+\inlineremark Der $k$-te Fourier-vektor $v_k$ ist ein Eigenvektor von $S_N$ zu $\lambda_k = e^{2\pi i \frac{k}{N}}$.
+
+\fancytheorem{Diagonalisierung von Zirkulanten} Die Eigenvektoren von $S_N$ diagonalisieren jeden Zirkulanten $C$, und sind d.h. auch die Eigenvektoren von $C$.
+Die Eigenwerte erhält man aus $p(z) = c_0z^0 + \ldots + c_{N-1}z^{N-1}$.
+
+Eine Operation mit vielen Anwendungen ist die Faltung. Sie hat einige Beziehungen zur Fourier-Transformation.
+
+\fancydef{Faltung} $a * b := (c_k)_{k \in \mathbb{Z}} = \displaystyle\sum_{n=-\infty}^{\infty}a_nb_{k-n}$, wobei $(a_k)_{k \in \mathbb{Z}}$, $(b_k)_{k \in \mathbb{Z}}$ unendliche Folgen sind.
+
+Die Faltung von $a = [a_0,\ldots,a_{N-1}]^\top, b = [b_0,\ldots,b_{N-1}]^\top$ ist leicht: Man erweitert beide Vektoren mit Nullen.
+
+% ^ This needs an example
+
+\fancydef{Zyklische Faltung} Für $N$-periodische Folgen oder Vektoren der Länge $N$:
+\begin{align*}
+    c = a \circledast b\quad\quad \text{s.d. } \sum_{n=0}^{N-1} a_nb_{k-n} \equiv_N \sum_{n=0}^{N-1}b_na_{n-k}
+\end{align*}
+
+\setcounter{all}{32}
+\inlineremark Zyklische Faltungen von Vektoren kann man mit Zirkulanten berechnen. 
+\begin{align*}
+    c = a \circledast b = Ab = \underbrace{\begin{bmatrix}
+        a_0 & \cdots & a_{N-1} \\
+        \vdots & \ddots & \vdots \\
+        a_{N-1} & \cdots & a_0
+    \end{bmatrix}}_{\text{Zirkulant von } a}
+    b
+\end{align*}
+
+% NOTE: I'm not sure if this below is correct. This is how I interpret what is written in the script
+
+\setcounter{all}{30}
+\inlineremark Eine Multiplikation von Polynomen $g,h$ entspricht einer Faltung im Frequenzbereich.
+\begin{align*}
+    \mathcal{F}_N(\underbrace{g * h}_{\text{Standard Basis}}) = \underbrace{\mathcal{F}_N(g) \cdot \mathcal{F}_N(h)}_{\text{Trigonometrische Basis}}
+\end{align*}
+Im Fall von $T$-periodischen Funktionen gilt: $(g * h)(x) = \frac{1}{T}\displaystyle\int_{0}^{T}g(t)h(x-t)$.
+
+\inlineremark Da $F_N$ jeden Zirkulant $C$ diagonalisiert (Satz 3.4.27), gilt sogar:
+\begin{align*}
+    c = a \circledast b = Ab = F_N^{-1}p(D)F_Nb \quad \quad \quad (p(D) \text{ ist Diagonalmatrix der } \lambda \text{ von } C )
+\end{align*}
+Man erhält so letzendlich das Faltungs-Theorem: Die $F_N$-Transformierte einer Faltung ist genau das gleiche wie die Multiplikation zweier $F_N$-Transormierten. Da die DFT in $\mathcal{O}(n\log(n))$ (Kap. 3.5) geht, gilt dies nun auch für die Faltung.
+\begin{align*}
+    F_Nc = \text{diag}(F_N a) F_N b
+\end{align*}
