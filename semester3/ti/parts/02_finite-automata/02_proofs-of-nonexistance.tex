@@ -29,4 +29,11 @@ Intuitiv ist diese Sprache Nichtregulär, da $n$ undendlich gross sein kann, abe
 Wir müssen hier nur formal ausdrücken, dass das Zählen benötigt wird, dass $L$ akzeptiert wird:
 
 Dazu benutzen wir einen indirekten Beweis. Sei $A$ ein EA über $\alphabets{bool}$ und $L(A) = L$.
-Die Idee des Beweises ist nun zu zeigen, dass für alle $0, 0^1, \ldots 0^{|Q| + 1}$, man ein $i, j$ hat für welches Lemma 3.3 nicht zutrifft.
+Wir betrachten die Wörter $0^1, 0^2, \ldots, 0^{|Q| + 1}$.
+Weil wir $|Q| + 1$ Wörter haben, existiert $i, j \in \{ 1, 2, \ldots, |Q| + 1 \}$, so dass $\hdelta_A(q_0, 0^i) = \hdelta_A(q_0, 0^j)$, 
+also gilt nach Lemma $0^i z \in L \Leftrightarrow 0^j z \in L \smallhspace \forall z \in \wordbool$. 
+Dies gilt jedoch nicht, weil für jedes $z = 1^i$ zwar jedes $0^i 1^i \in L$ gilt, aber $0^j 1^j \notin L$
+
+
+Um die Nichtregularität konkreter Sprachen zu beweisen, sucht man nach einfach verifizierbaren Eigenschaften, 
+denn wenn eine Sprache eine dieser Eigenschaften \textit{nicht} erfüllt, so ist sie nicht regulär.
