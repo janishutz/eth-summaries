@@ -1,5 +1,5 @@
 \newpage
-\subsection{DFT \& Lineare Algebra}
+\subsubsection{DFT \& Lineare Algebra}
 
 \setcounter{all}{25}
 \fancydef{Zirkulant} Für einen vektor $c \in \mathbb{R}^N$ hat der Zirkulant $C \in \mathbb{R}^{N \times N}$ die Form:
@@ -98,7 +98,7 @@ Im Fall von $T$-periodischen Funktionen gilt: $(g * h)(x) = \frac{1}{T}\displays
 \begin{align*}
     c = a \circledast b = Ab = F_N^{-1}p(D)F_Nb \quad \quad \quad (p(D) \text{ ist Diagonalmatrix der } \lambda \text{ von } C )
 \end{align*}
-Man erhält so letzendlich das Faltungs-Theorem: Die $F_N$-Transformierte einer Faltung ist genau das gleiche wie die Multiplikation zweier $F_N$-Transormierten. Da die DFT in $\mathcal{O}(n\log(n))$ (Kap. 3.5) geht, gilt dies nun auch für die Faltung.
+Man erhält so letzendlich das Faltungs-Theorem: Die $F_N$-Transformierte einer Faltung ist genau das gleiche wie die Multiplikation zweier $F_N$-Transormierten. Da die DFT in $\mathcal{O}(n\log(n))$ (Kap. 3.3) geht, gilt dies nun auch für die Faltung.
 \begin{align*}
     F_Nc = \text{diag}(F_N a) F_N b
 \end{align*}

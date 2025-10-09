@@ -1,4 +1,4 @@
-\subsection{DFT in Numpy}
+\subsubsection{DFT in Numpy}
 
 Sei $y$ in der Standardbasis, und $c = \mathcal{F}_N(y)$, also $y$ in der trig. Basis.
 $$
@@ -10,7 +10,6 @@ Seien $z = \frac{1}{N} F_N y$ und  $\zeta = \verb|fft.fftshift|(z)$.
 \begin{align*}
     f(x) \approx \underbrace{\sum_{k=-N/2}^{N/2-1} \zeta_k \cdot e^{2 \pi ikx} }_{\text{Form des trig. Polynoms}}
 \end{align*}
-
 \setcounter{all}{13}
 \inlineremark Man kann mit dieser Approximation einfach die $L^2$-Norm und Ableitungen berechnen:
 \begin{multicols}{2}
@@ -24,5 +23,3 @@ Seien $z = \frac{1}{N} F_N y$ und  $\zeta = \verb|fft.fftshift|(z)$.
     f'(t) \approx \sum_{k=-N/2}^{N/2-1} (2\pi ik) \zeta_k \cdot e^{2 \pi ikx} 
 \end{align*}
 \end{multicols}
-
-Im Skript S. 78 - 83 befinden sich einige sehr gute Anwendungsbeispiele.
