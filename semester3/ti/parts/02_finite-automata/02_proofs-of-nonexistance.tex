@@ -20,3 +20,13 @@ so heisst das für uns von jetzt an, dass $A$ nicht zwischen $x$ und $y$ untersc
         xz \in L(A) \Longleftrightarrow yz \in L(A)
     \end{align*}
 \end{lemma}
+Das obenstehende Lemma 3.3 ist ein Spezialfall einer Eigenschaft, die für jedes (deterministische) Rechnermodell gilt.
+
+Mithilfe von Lemma 3.3 kann man für viele Sprachen deren Nichtregularität beweisen.
+
+\inlineex Sei $L = \{ 0^n1^n \divides n \in \N \}$.
+Intuitiv ist diese Sprache Nichtregulär, da $n$ undendlich gross sein kann, aber ein EA logischerweise endlich ist.
+Wir müssen hier nur formal ausdrücken, dass das Zählen benötigt wird, dass $L$ akzeptiert wird:
+
+Dazu benutzen wir einen indirekten Beweis. Sei $A$ ein EA über $\alphabets{bool}$ und $L(A) = L$.
+Die Idee des Beweises ist nun zu zeigen, dass für alle $0, 0^1, \ldots 0^{|Q| + 1}$, man ein $i, j$ hat für welches Lemma 3.3 nicht zutrifft.
