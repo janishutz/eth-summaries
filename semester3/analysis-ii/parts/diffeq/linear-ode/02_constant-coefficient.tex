@@ -2,6 +2,29 @@
 \subsection{Linear differential equations with constant coefficients}
 The coefficients $a_i$ are constant functions of form $a_i(x) = k$ with $k$ constant, where $b(x)$ can be any function.\\
 %
-\shade{gray}{Homogeneous Equation} Find \textit{characteristic polynomial} (of form $\lambda^k + a_{k - 1} \lambda^{k - 1} + \ldots + a_1 \lambda + a_0$ for order $k$ lin. ODE with coefficients $a_i$).
-Find the roots of polynomial. The solution space is given by $\{ x^{v_j - 1} e^{\gamma_i x} \divides v_j \in \N, \gamma_i \in \R \}$ where $v_j$ is the multiplicity of the root $\gamma_i$.
-For $\gamma_i = \alpha + \beta i \in \C$, we have $e^{\alpha x}\cos(\beta x)$, $e^{\alpha x}\sin(\beta x)$.
+\shade{gray}{Homogeneous Equation}\rmvspace
+\begin{enumerate}[noitemsep]
+    \item Find \textit{characteristic polynomial} (of form $\lambda^k + a_{k - 1} \lambda^{k - 1} + \ldots + a_1 \lambda + a_0$ for order $k$ lin. ODE with coefficients $a_i \in \R$).
+    \item Find the roots of polynomial. The solution space is given by $\{ z_j \cdot x^{v_j - 1} e^{\gamma_i x} \divides v_j \in \N, \gamma_i \in \R \}$ where $v_j$ is the multiplicity of the root $\gamma_i$.
+          For $\gamma_i = \alpha + \beta i \in \C$, we have $z_1 \cdot e^{\alpha x}\cos(\beta x)$, $z_2 \cdot e^{\alpha x}\sin(\beta x)$, representing the two complex conjugated solutions.
+\end{enumerate}
+
+\rmvspace
+\shade{gray}{Inhomogeneous Equation}\rmvspace
+\begin{enumerate}[noitemsep]
+    \item \bi{(Case 1)} $b(x) = c x^d e^{\alpha x}$, with special cases $x^d$ and $e^{\alpha x}$:
+          $f_p = Q(x) e^{\alpha x}$ with $Q$ a polynomial with $\deg(Q) \leq j + d$, where $j$ is multiplicity of root $\alpha$ (if $P(\alpha) \neq 0$, then $j = 0$) of characteristic polynomial
+    \item \bi{(Case 2)} $b(x) = c x^d \cos(\alpha x)$, or $b(x) = c x^d \sin(\alpha x)$:
+          $f_p = Q_1(x) \cdot \cos(\alpha x) + Q_2(x9 \cdot \sin(\alpha x))$,
+          where $Q_i(x)$ a polynomial with $\deg(Q_i) \leq d + j$, where $j$ is the multiplicity of root $\alpha i$ (if $P(\alpha i) \neq 0$, then $j = 0$) of characteristic polynomial
+\end{enumerate}
+
+\rmvspace\shade{gray}{Other methods}\rmvspace
+\begin{itemize}[noitemsep]
+    \item \bi{Change of variable} Apply substitution method here, substituting for example for $y' = f(ax + by + c)$ $u = ax + by$ to make the integral simpler.
+          Mostly intuition-based (as is the case with integration by substitution)
+    \item \bi{Separation of variables} For equations of form $y' = a(y) \cdot b(x)$ (NOTE: Not linear),
+          we transform into $\frac{y'}{a(y)} = b(x)$ and then integrate by substituting $y'(x) dx = dy$, changing the variable of integration.
+          Solution: $A(y) = B(x) + c$, with $A = \int \frac{1}{a}$ and $B(x) = \int b(x)$.
+          To get final solution, solve for the above equation for $y$.
+\end{itemize}

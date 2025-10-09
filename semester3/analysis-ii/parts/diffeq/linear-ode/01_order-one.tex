@@ -1,7 +1,12 @@
 \newsectionNoPB
 \subsection{Linear differential equations of first order}
-\shade{gray}{Homogeneous equation} Move all $y$ to one side and all other vars to other. Integrate both
-
+\rmvspace
 \shortproposition Solution of $y' + ay = 0$ is of form $f(x) = z e^{-A(x)}$ with $A$ anti-derivative of $a$
 
-\TODO Improve procedure with notes from session \& SPAM
+\rmvspace
+\shade{gray}{Imhomogeneous equation} 
+\rmvspace
+\begin{enumerate}[noitemsep]
+    \item Plug all values into $y_p = \int b(x) e^{A(x)}$ ($A(x)$ in the exponent instead of $-A(x)$ as in the homogeneous solution)
+    \item Solve and the final $y(x) = y_h + y_p$. For initial value problem, determine coefficient $z$
+\end{enumerate}
