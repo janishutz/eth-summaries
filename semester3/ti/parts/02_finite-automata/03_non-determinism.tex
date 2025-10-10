@@ -15,17 +15,84 @@ Wir notieren das Ganze in graphischer Darstellung so, dass wir aus einem Zustand
         \item \bi{Anfangszustand:} $q_0 \in Q$
         \item \bi{Akzeptierende Zustände:} $F \subseteq Q$
     \end{enumerate}
-    Der Rest der Eigenschaften ist sehr ähnlich wie die des deterministischen EA, mit der bedeutenden Ausnahme,
-    dass ein Schritt in der $\delta$-Notation nicht $\delta(q, a) = p$, sondern $p \in \delta(q, a)$ ist, da die Übergangsfunktion ja jetzt ins
-    Powerset von $Q$ anstelle von nach $Q$ direkt mapped. Die komplette Definition des Schritts ist also:
+    Ein \bi{Schritt} in der $\delta$-Notation ist im Vergleich zum deterministischen EA nicht $\delta(q, a) = p$,
+    sondern $p \in \delta(q, a)$ ist, da die Übergangsfunktion ja jetzt ins Powerset von $Q$,
+    anstelle von nach $Q$ direkt mapped. Die komplette Definition des Schritts ist also:
     \begin{align*}
         (q, w) \bigvdash{M}{} (p, x) \Longleftrightarrow w = ax \text{ für ein } a \in \Sigma \text{ und } p \in \delta(q, a)
     \end{align*}
+    
+    Eine \bi{Berechnung von $M$} ist eine endliche Folge $D_1, D_2, \ldots, D_k$ von Konfigurationen, 
+    wobei $D_i \bigvdash{M}{} D_{i + 1}$ für $i = 1, \ldots, k - 1$
+
+    Eine \bi{Berechnung von $M$ auf $x$} hingegen ist eine Berechnung $C_0, C_1, \ldots, C_m$ von $M$, 
+    wobei $C_0 = (q_0, x)$ und entweder $C_m \in Q \times \{ \lambda \}$ oder $C_M = (q, ay)$ für ein $a \in \Sigma, y \in \word$ und $q \in Q$,
+    so dass $\delta(q, a) = \emptyset$.
+
+    $C_0, \ldots, C_m$ ist \bi{akzeptierend} falls $C_m = (p, \lambda)$ für ein $p \in F$
+
+    Die Sprache $L(M) = \{ w \in \word \divides (q_0, w) \bigvdash{M}{*} (p, \lambda) \text{ für ein } p \in F \}$
 
     Für die $\hdelta$-Funktion, gilt nun $\hdelta(q, \lambda) = \{ q \}$ für jedes $q \in Q$ und wir definieren:
     \begin{align*}
         \hdelta(q, wa) & = \{ p \in Q \divides \text{es existiert ein } r \in \hdelta(q, w), \text{ so dass } p \in \delta(r, a) \} \\
                        & = \bigcup_{r \in \hdelta(q, w)} \delta(r, a) \smallhspace \forall q \in Q, a \in \Sigma, w \in \word
     \end{align*}
-    % Page 92 in PDF currently
 \end{definition}
+Ein Wort ist in $L(M)$, falls $M$ mindestens eine akzeptierende Berechnung auf $x$ hat.
+
+Bei einer akzeptierenden Berechnung \textit{auf} $x$ wird wie beim EA gefordert, dass das ganze Wort $x$ gelesen worden ist und $M$ nach dem Lesen in einem akzeptierenden Zustand ist.
+
+Bei NEA kann eine nicht akzeptierende Berechnung auch vor Beendung des Lesevorgangs enden, da wir hier nicht vorschreiben,
+dass es für jedes Symbol des Eingabealphabets eine definierte Übergangsfunktion gibt, es ist also erlaubt, dass bspw. $\delta(q, a) = \emptyset$.
+
+Zudem haben wir aus der Definition von $\hdelta$ eine alternative Definition der von $M$ akzeptierten Sprache:
+$L(M) = \{ w \in \word \divides \hdelta(q_0, w) \cap F \neq \emptyset \}$
+
+Für NEA kann man einen \bi{Berechnungsbaum $\mathcal{B}_M(x)$ von $M$ auf $x$} erstellen, der dann anschaulich alle möglichen Enden der Berechnung darstellt.
+Wir beginnen den Baum mit Konfiguration $(q_0, x)$ und führen dann mit den Kanten alle möglichen Berechnungen aus, die mit dem ersten Symbol des Wortes möglich sind.
+
+Wir erreichen so also zum Beispiel die Konfiguration $(q_1, x_1)$, wobei $x_1$ $x$ ohne das erste Zeichen ist.
+
+
+\fancylemma{NEA aus Abbildung 3.15 im Buch} Sei $M$ der NEA aus Abbildung 3.15 im Buch (auf Seite 77 (= 92 im PDF) zu finden). 
+Dann ist $L(M) = \{ x11y \divides x, y \in \wordbool \}$
+
+Der Beweis für eine solche Aussage läuft oft über Teilmengen (also mit $X \subseteq Y \land Y \subseteq X \Leftrightarrow X = Y$).
+
+
+Eine zentrale Frage dieses Kapitels ist es, ob $\mathcal{L}_{\text{NEA}} = \mathcal{L}_{\text{EA}}$, wobei $\mathcal{L}_{\text{NEA}} = \{ L(M) \divides M \text{ ist ein NEA} \}$.
+In anderen Worten: Können EA die Arbeit von NEA simulieren? 
+
+Ja, es ist möglich und gilt allgemein, dass die Simulation von Nichtdeterminismus durch Determinismus nur dann realisierbar ist, 
+wenn es möglich ist, alle nichtdeterministischen Berechnungen durch deterministische Berechnungen nachzuahmen.
+
+Bei EA (nennen einen $A$ im Folgenden) basiert diese Idee auf BFS der Berechnungsbäume von $M$.
+Die Idee ist dann, dass alle Knoten mit Entfernung $i$ von der Wurzel die ersten $i$ Symbole von $x$ gelesen haben.
+Da NEA endlich viele Konfigurationen bei Entfernung $i$ haben ist es möglich, die Transformation durchzuführen.
+Wenn es zwei Knoten $u \neq v$ identisch sind, so müssen wir nur in einem der Teilbäume nach einer akzeptierenden Berechnung suchen.
+
+\bi{Potenzmengenkonstruktion:} Ein Zustand $\langle P \rangle$ von $A$ für $P \subseteq Q$ erhält die Bedeutung,
+dass nach der gegebenen Anzahl an Berechnungsschritten genau die Zustände aus $P$ in den Berechnungen von $M$ auf der gegebenen Ebene erreichbar sind, also $P = \hdelta(q_0, z)$.
+Ein Berechnungsschritt in $A$ aus einem Zustand $\langle P \rangle$ für ein gelesenes Symbol $a$ bedeutet die Bestimmung der Menge $\bigcup_{p \in P} \delta(p, a)$, 
+also aller Zustände, die aus irgendeinem Zustand $p \in P$ beim Lesen von $a$ erreichbar sind.
+
+Dabei benutzen wir $\langle P \rangle$ statt $P$, um zu verdeutlichen, dass wir eine Zustand von $A$ und nicht die Menge der Zustände von $M$ bezeichnen.
+
+\inlinetheorem Zu jedem NEA $M$ existiert ein EA $A$, so dass $L(M) = L(A)$
+
+Um $L(M) = L(A)$ zu zeigen, müssen wir folgende Äquivalenz beweisen:
+\rmvspace
+\begin{align*}
+    \forall x \in \word : \hdelta_M(q_0, x) = P \Longleftrightarrow \hdelta(q_{0 A}, x) = \langle P \rangle
+\end{align*}
+
+\rmvspace
+Wir können dies über einen Induktionsbeweis tun und ein vollständiger Beweis findet sich unten auf Seite 82 (= Seite 97 im PDF) im Buch.
+
+Wir sagen, dass zwei Automaten \bi{äquivalent} sind, falls $L(A) = L(B)$.
+
+Eine Folge von Satz 3.2 ist eben, dass $\mathcal{L}_{\text{EA}} = \mathcal{L}_{\text{NEA}}$, also sind die EA genau so stark wie die NEA im Bezug auf die Sprachakzeptierung.
+Was hingegen ein Problem sein kann, ist dass die durch die Potenzmengenkonstruktion erzeugten Automaten (exponentiell) grösser sind als die NEA.
+
+% Currently on Page 98, below Task 3.22 half way in the text block
