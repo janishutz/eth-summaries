@@ -1,1 +1,36 @@
 % Lecture: \chi here are used as RELU function!
+Globale Interpolation (also Interpolation auf dem ganzen Intervall $]-\infty, \infty[$) funktioniert nur dann gut, wenn:
+\rmvspace
+\begin{enumerate}[label=(\alph*), noitemsep]
+    \item die gegebenen Interpolationspunkte als Chebyshev-Knoten oder -Abszissen verwendet werden können
+    \item die Funktion glatt ist
+\end{enumerate}
+Es müssen beide obige Eigenschaften zutreffen. 
+Eine Idee um die Einschränkungen zu reduzieren oder komplett zu entfernen ist es, das Intervall zu unterteilen, oder formaler,
+das Intervall $I = [a, b]$ in viele kleinere Intervalle zu zerlegen.
+
+Wir haben dann ein Polynom vom Grad $n$ auf jedem Teilintervall mit $n + 1$ Punkten, was den Fehler verringert:
+\begin{align*}
+    |f(x) - s(x)| < \frac{h^{n + 1}}{(n + 1)!} ||f^{(n + 1)}||_{\infty}
+\end{align*}
+
+Seien $N + 1$ Messpunkte gegeben. Wir verwenden sie als Knoten 
+(im Englischen \textit{breakpoints} gennant. Die Knoten sind also nicht dasselbe wie in den vorigen Kapiteln, es gibt aber keinen wirklich sinnvollen Namen im Deutschen)
+diese $N + 1$ Messpunkte. Die Knoten dienen Paarweise als Abgrenzung der neuen, kleinen Intervalle, die wir erstellt haben. 
+Die linearen Interpolanten für jedes Intervall sind (mit $h_j = x_j - x_{j - 1}$):
+\begin{align*}
+    s_j(x) = y_{j - 1}\frac{x_j - x}{h_j} + y_j \frac{x - x_{j - 1}}{h_j} \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
+\end{align*}
+% NOTE: This might just be little more than a page in the script, but he talked about it for like 20 min in the lecture... 
+% and he even went as far as telling people to really pay attention... 
+% so I guess that means it is *not* important (could well not be important actually)
+Wie man nun zu dieser Formel kommt:
+Sei $\chi(t) = t \smallhspace \forall t \in [0, 1]$. 
+Die Funktion $f(t) = y_0 \chi(1 - t) + y_1 \chi(t)$ hat also die Interpolationseigenschaften $f(0) = y_0$ und $f(1) = y_1$ und ist linear in $t$.
+Die Interpolation $s_j(x)$ auf $[x_{j - 1}, x_j]$ entsteht dann also aus $f$ mit Variablenwechsel $t = \frac{x - x_{j - 1}}{h_j} \in [0, 1] \leftrightarrow x = x_{j - 1} + h_j t$,
+also gilt:
+\begin{align*}
+    s_j(x) = y_{j - 1} \chi \left( \frac{x_j - x}{h_j} \right) + y_j \chi \left( \frac{x - x_{j - 1}}{h_j} \right) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
+\end{align*}
+Dies ist eine lokale Interpolation und $s_j$ ist $0$ ausser im definierten Intervall. 
+Die Idee des Variablenwechsel ist es, das Intervall, auf welchem die Funktion definiert ist von $[0, 1]$ nach $[x_{j - 1}, x_j]$ zu verschieben.

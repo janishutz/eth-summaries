@@ -1,2 +1,43 @@
-% 3rd order polynomial has 4 degrees of freedom (a, b, c and d), we have 4 coefficients for cubic hermite interpolation
-% CHIP algorithm ist formerhaltend
+\subsection{Kubische Hermite-Interpolation}
+Die Kubische Hermite-Interpolation (CHIP) produziert eine auf $[a, b]$ stetig differenzierbare Funktion, welche auf den Teilintervallen $[x_{j - 1}, x_j]$ jeweils ein Polynom von Grad 3 ist.
+Wichtige Eigenschaft von Polynomen $n$-ten Grades ist, dass sie $n + 1$ Freiheitsgrade haben (da sie $n + 1$ freie Variabeln enthalten).
+
+Nutzen wir wieder das Konzept von oben, und wählen eine Funktion $\varphi(t) = t^2(3 - 2t)$ für $t \in [0, 1]$,
+so erfüllt $f(t) = y_0\varphi(1 - t) + y_1 \varphi(t)$ wieder unsere Interpolationseigenschaften $f(0) = y_0$ und $f(1) = y_1$ und wir vollziehen denselben Variablenwechsel wie oben.
+So erhalten wir:
+\begin{align*}
+    p_j(x) = y_{j - 1} \varphi \left( \frac{x_j - x}{h_j} \right) + y_j \varphi \left( \frac{x - x_{j - 1}}{h_j} \right) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
+\end{align*}
+Wir haben folgende Ableitungen: $\varphi'(t) = 6t(1 - t)$, also sind die Nullstellen dieser Funktion bei $t \in \{ 0, 1 \}$,
+weshalb auch die Ableitungen von $p_j$ an den Stellen $x_{j - 1}$ und $x_j$ verschwinden.
+
+Für die Ableitungen definieren wir eine zweite Funktion $\psi(t) = t^2(t - 1)$, welche offensichtlich die Nullstellen an $t \in \{ 0, 1 \}$ hat
+und deren Ableitung $\psi'(t) = t(3t - 2)$. Mit demselben Variablenwechsel müssen wir die Kettenregel beachten:
+\begin{align*}
+    q_j(x) = c_{j - 1} h_j \psi \left( \frac{x - x_{j - 1}}{h_j} \right) - c_j h_j \psi \left( \frac{x_j - x}{h_j} \right) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
+\end{align*}
+Die Interpolationsfunktion ist dann einfach die Summe $s_j(x) = p_j(x) + q_j(x) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]$
+
+\fhlc{Cyan}{In Numpy} verwendet man \texttt{scipy.interpolate.Akima1DInterpolator} oder \texttt{PchipInterpolator}, welcher ``formerhaltender'' ist,
+also wenn eine Funktion lokal monoton ist, so ist der Interpolant dort auch monoton.
+Bei anderen Interpolationsmethoden ist dies nicht garantiert (so auch nicht beim \texttt{Akima1DInterpolator})
+
+\begin{footnotesize}
+    \textit{Wenn man den Parameter \texttt{method="makima"} bei \texttt{Akima1DInterpolator} mitgibt, wird eine neuere modifizierte Variante davon ausgeführt}
+\end{footnotesize}
+
+\stepcounter{all}
+\begin{theorem}[]{Fehler der CHIP}
+    % FIXME: Explain what the C is or if it is \C, then replace
+    Sei $f \in C^4[a, b]$ und $s$ der stückweise CHIP mit exakten Werten der Ableitungen $s'(x_j) = f'(x_j), s(x_j) = f(x_j)$ für $j = 0, \ldots, N$
+    % und sei $s_{|[x_{j - 1, x_j}]|}$ ein Polynom vom Grad $3$, für $j = 1, \ldots, N$.
+    und sei $s_j$ ein Polynom vom Grad $3$, für $j = 1, \ldots, N$. Dann gilt:
+    \rmvspace
+    \begin{align*}
+        ||f^{(k)} - s^{(k)}||_{L^\infty} \leq \frac{1}{384} h^{4 - k} ||f^{(4)}||_{L^\infty}
+    \end{align*}
+
+    \rmvspace
+    mit $h = \max_{j = 1, \ldots, N} (x_j - x_{j - 1})$ und $k = 0, 1$
+\end{theorem}
+% FIXME: There is an important *looking* remark below this theorem... only issue... half of it is missing... Gemmini gobble gobble
