@@ -3,7 +3,7 @@
 Im Gegensatz zum Beweis, dass eine bestimmte Klasse von Programmen (Algorithmen) ein Problem lösen kann
 (was ein einfacher Existenzbeweis ist, bei welchem man eine korrekte Implementation liefern kann),
 ist der Beweis, dass diese Klasse von Programmen (Algorithmen) dies nicht tun kann viel schwieriger,
-da man (logischerweise) nicht für alle (undendlich vielen) Programme zeigen kann, dass sie das Problem nicht lösen.
+da man (logischerweise) nicht für alle (unendlich vielen) Programme zeigen kann, dass sie das Problem nicht lösen.
 
 In diesem Kurs werden wir aber vorerst nur die Klasse der endlichen Automaten behandlen, welche sehr stark eingeschränkt sind,
 was diese Beweise verhältnismässig einfach macht.
@@ -28,7 +28,7 @@ Mithilfe von Lemma 3.3 kann man für viele Sprachen deren Nichtregularität bewe
 
 \numberingOff
 \inlineex Sei $L = \{ 0^n1^n \divides n \in \N \}$.
-Intuitiv ist diese Sprache Nichtregulär, da $n$ undendlich gross sein kann, aber ein EA logischerweise endlich ist.
+Intuitiv ist diese Sprache Nichtregulär, da $n$ unendlich gross sein kann, aber ein EA logischerweise endlich ist.
 Wir müssen hier nur formal ausdrücken, dass das Zählen benötigt wird, dass $L$ akzeptiert wird:
 
 Dazu benutzen wir einen Widerspruchsbeweis. Sei $A$ ein EA über $\alphabets{bool}$ und $L(A) = L$.
@@ -110,7 +110,7 @@ Die Addition im Exponent kommt dann deshalb zustande, da dies ja nicht ein expon
 \inlineex Wir verwenden wieder die Sprache $L = \{ 0^n 1^n \divides n \in \N \}$ und wieder einen Widerspruchsbeweis:
 
 Dazu nehmen wir wieder an, dass $L$ regulär ist. Für jedes $m \in \N$ ist $1^m$ das erste Wort in der Sprache $L_{0^m} = \{ y \divides 0^m y \in L \} = \{ 0^j 1^{m + j} \divides j \in \N \}$.
-Die zweite Menge beinhaltet also alle möglichen Wörter, die $y$, die noch immer in $L$ sind, wenn man sie mit $0^m$ konkateniert
+Die zweite Menge beinhaltet also alle möglichen Wörter $y$, die noch immer in $L$ sind, wenn man sie mit $0^m$ als $0^m 0^j 1^{m + j}$ konkateniert
 und ist deshalb eine konkrete Beschreibung von $L_{0^m}$.
 
 Also gibt es laut Satz 3.1 eine Konstante $c$, die unabhängig von $x = 0^m$ und $y = 1^m$ und somit von $m$ ist, so dass $K(1^m) \leq \ceil{\log_2(1 + 1)} + c = 1 + c$
@@ -118,8 +118,8 @@ Also gibt es laut Satz 3.1 eine Konstante $c$, die unabhängig von $x = 0^m$ und
 also gilt für eine Konstante $d = 1 + c$, dass $K(1^m) \leq d$.
 Dies ist aber unmöglich, da:
 \begin{enumerate}[label=(\roman*)]
-    \item die Anzahl aller Programme, deren Länge $\leq d$ ist höchstens $2^d$ und entsprechend endlich
-    \item die Menge $\{ 1^m \divides m \in \N \}$ undendlich ist
+    \item die Anzahl aller Programme, deren Länge $\leq d$ ist, ist höchstens $2^d$ und entsprechend endlich
+    \item die Menge $\{ 1^m \divides m \in \N \}$ unendlich ist
 \end{enumerate}
 
 \numberingOn
