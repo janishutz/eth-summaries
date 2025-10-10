@@ -45,15 +45,15 @@ Unten findet sich Python code der mit den unterschiedlichen Methoden die Koeffiz
 \rmvspace
 \begin{code}{python}
     def get_coeff_trig_poly(t: np.ndarray, y: np.ndarray):
-    N = y.shape[0]
-    if N % 2 == 1:
-    n = (N - 1.0) / 2.0
-    M = np.exp(2 * np.pi * 1j * np.outer(t, np.arange(-n, n + 1)))
-    else:
-    n = N / 2.0
-    M = np.exp(2 * np.pi * 1j * np.outer(t, np.arange(-n, n)))
-    c = np.linalg.solve(M, y)
-    return c
+        N = y.shape[0]
+        if N % 2 == 1:
+            n = (N - 1.0) / 2.0
+            M = np.exp(2 * np.pi * 1j * np.outer(t, np.arange(-n, n + 1)))
+        else:
+            n = N / 2.0
+            M = np.exp(2 * np.pi * 1j * np.outer(t, np.arange(-n, n)))
+        c = np.linalg.solve(M, y)
+        return c
 
     N = 2**12
     t = np.linspace(0, 1, N, endpoint=False)

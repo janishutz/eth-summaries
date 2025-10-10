@@ -1,25 +1,26 @@
 \subsubsection{DFT in Numpy}
 
 Sei $y$ in der Standardbasis, und $c = \mathcal{F}_N(y)$, also $y$ in der trig. Basis.
-$$
-    c = F_N \times y = \verb|fft|(y)\quad \textit{(DFT in numpy)} \quad \quad \quad y = \frac{1}{N}F_N^Hc = \verb|ifft|(c)\quad \textit{(Inverse DFT in numpy)}
-$$
+\begin{align*}
+    c = F_N \times y = \texttt{fft}(y)\quad \text{\textit{(DFT in numpy)}} & y = \frac{1}{N}F_N^Hc = \texttt{ifft}(c)\quad \textit{(Inverse DFT in numpy)}
+\end{align*}
 
 Um zur ursprünglichen Darstellung des trig. Polynoms zurück zu kommen, müssen wir die Koeffizienten umsortieren: \\
-Seien $z = \frac{1}{N} F_N y$ und  $\zeta = \verb|fft.fftshift|(z)$. 
+Seien $z = \frac{1}{N} F_N y$ und  $\zeta = \verb|fft.fftshift|(z)$.
 \begin{align*}
     f(x) \approx \underbrace{\sum_{k=-N/2}^{N/2-1} \zeta_k \cdot e^{2 \pi ikx} }_{\text{Form des trig. Polynoms}}
 \end{align*}
 \setcounter{all}{13}
 \inlineremark Man kann mit dieser Approximation einfach die $L^2$-Norm und Ableitungen berechnen:
+\vspace{-1.5pc}
 \begin{multicols}{2}
-\begin{align*}
-    ||f||^2_{L^2} \approx \left\Vert \sum_{k=-N/2}^{N/2-1} \zeta_k \cdot e^{2 \pi ikx} \right\Vert^2_{L^2} = \sum_{k=-N/2}^{N/2-1} |\zeta_k|^2 = \Vert z \Vert^2_{L^2}
-\end{align*}
+    \begin{align*}
+        ||f||^2_{L^2} \approx \left\Vert \sum_{k=-N/2}^{N/2-1} \zeta_k \cdot e^{2 \pi ikx} \right\Vert^2_{L^2} = \sum_{k=-N/2}^{N/2-1} |\zeta_k|^2 = \Vert z \Vert^2_{L^2}
+    \end{align*}
 
-\newcolumn
+    \newcolumn
 
-\begin{align*}
-    f'(t) \approx \sum_{k=-N/2}^{N/2-1} (2\pi ik) \zeta_k \cdot e^{2 \pi ikx} 
-\end{align*}
+    \begin{align*}
+        f'(t) \approx \sum_{k=-N/2}^{N/2-1} (2\pi ik) \zeta_k \cdot e^{2 \pi ikx}
+    \end{align*}
 \end{multicols}

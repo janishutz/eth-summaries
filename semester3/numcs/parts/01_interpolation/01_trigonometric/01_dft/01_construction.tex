@@ -2,54 +2,57 @@
 
 Wir definieren die Trigonometrische Basis. Den Basiswechsel zu dieser Basis nennen wir diskrete Fourier Transformation.
 
-\fancydef{Trigonometrische Basis}\\ 
+\fancydef{Trigonometrische Basis}\\
 \begin{align*}
-    \{v_0, v_{N-1}\} \text{ ist eine Basis von } \mathbb{C}^N, \text{ wobei } v_k = 
+    \{v_0, \ldots, v_{N-1}\} \text{ ist eine Basis von } \mathbb{C}^N, \text{ wobei } v_k =
     \begin{bmatrix}
-        \omega_N^{0\cdot k} \\ \omega_N^{1\cdot k}1 \\ \vdots \\ \omega_N^{(N-1)\cdot k}
-    \end{bmatrix} 
+        \omega_N^{0\cdot k} \\ \omega_N^{1\cdot k} \\ \vdots \\ \omega_N^{(N-1)\cdot k}
+    \end{bmatrix}
     \in \mathbb{C}^N
 \end{align*}
 
 Die symmetrische, nicht hermitesche Matrix $V = [v_0,\ \ldots\ , v_{N-1}]$ ist eine orthogonale Basis für $\mathbb{C}^N$: $V^HV = N\cdot I_N$.\\
-Ebenfalls ist $V$ die Basiswechsel Matrix Trigonometrische Basis ($z$) $\mapsto$ Standardbasis ($y$).\\ 
+Ebenfalls ist $V$ die Basiswechsel Matrix Trigonometrische Basis ($z$) $\mapsto$ Standardbasis ($y$).\\
 An Hand von $V$ definieren wir gleich die Fourier-Matrix $F_N$.
 \begin{align*}
     y = Vz \implies z = V^{-1}y = \frac{1}{N}V^Hy = \frac{1}{N}\underbrace{F_N}_{:= V^H} y
 \end{align*}
 
 Der Eintrag $y_l$ enstspricht einem Glied der Fourier-Reihe ausgewertet in $\frac{l}{N} \in [0,1)$. \\
-Die diskreten Fourier-Koeffizienten $\gamma_k$ sind eine Umsortierung der trigonometrischen Basis Koeffizienten.
+Die diskreten Fourier-Koeffizienten $\gamma_k$ sind eine Umsortierung der Koeffizienten der trigonometrischen Basis.
 \begin{multicols}{2}
-\begin{align*}
-    y = \underbrace{\sum_{k=0}^{N-1} y_k e_{k+1}}_{y \text{ in Komponenten}} = \underbrace{\sum_{k=0}^{N-1} z_k v_k}_{\text{in Trig. Basis}} = \sum_{k=0}^{N-1} z_k \begin{bmatrix}
-        \omega_N^{0 \cdot k} \\ \omega_N^{1 \cdot k} \\ \omega_N^{2 \cdot k} \\ \vdots \\ \omega_N^{(N-1) \cdot k}
-    \end{bmatrix}
-\end{align*}
-\newcolumn
+    \begin{align*}
+        y = \underbrace{\sum_{k=0}^{N-1} y_k e_{k+1}}_{y \text{ in Komponenten}} = \underbrace{\sum_{k=0}^{N-1} z_k v_k}_{\text{in Trig. Basis}} = \sum_{k=0}^{N-1} z_k
+        \begin{bmatrix}
+            \omega_N^{0 \cdot k} \\ \omega_N^{1 \cdot k} \\ \omega_N^{2 \cdot k} \\ \vdots \\ \omega_N^{(N-1) \cdot k}
+        \end{bmatrix}
+    \end{align*}
+    \newcolumn
 
-\begin{align*}
-    y_l &= \sum_{k=0}^{N-1} z_k \omega_N^{l \cdot k} \overset{\text{S. 75}}{=} \sum_{k=-N/2}^{N/2-1} \gamma_k \cdot \exp(\frac{2\pi i}{N}lk) \\
-    \text{wobei }\gamma_k &= \begin{cases}
-        z_k,   & 0 < k \leq \frac{N}{2}-1 \\
-        z_k+N, & -\frac{N}{2} \leq k < 0
-    \end{cases}
-\end{align*}
+    \begin{align*}
+        y_l                   & = \sum_{k=0}^{N-1} z_k \omega_N^{l \cdot k} \overset{\text{S. 75}}{=} \sum_{k=-N/2}^{N/2-1} \gamma_k \cdot \exp(\frac{2\pi i}{N}lk) \\
+        \text{wobei }\gamma_k & =
+        \begin{cases}
+            z_k,   & 0 < k \leq \frac{N}{2}-1 \\
+            z_k+N, & -\frac{N}{2} \leq k < 0
+        \end{cases}
+    \end{align*}
 \end{multicols}
 
-\fancydef{Fourier-Matrix}\\
+\fancydef{Fourier-Matrix}
 \begin{align*}
-    F_N := V^H = [v_0, \ldots, v_{N-1}]^H = \begin{bmatrix}
-        \omega_N^0 & \omega_N^0 & \cdots & \omega_N^0 \\
-        \omega_N^0 & \omega_N^1 & \cdots & \omega_N^{N-1} \\
-        \omega_N^0 & \omega_N^2 & \cdots & \omega_N^{2(N-1)} \\
-        \vdots     & \vdots     &        & \vdots \\
-        \omega_N^0 & \omega_N^{N-1} &\cdots & \omega_N^{(N-1)^2} 
+    F_N := V^H = [v_0, \ldots, v_{N-1}]^H =
+    \begin{bmatrix}
+        \omega_N^0 & \omega_N^0     & \cdots & \omega_N^0         \\
+        \omega_N^0 & \omega_N^1     & \cdots & \omega_N^{N-1}     \\
+        \omega_N^0 & \omega_N^2     & \cdots & \omega_N^{2(N-1)}  \\
+        \vdots     & \vdots         &        & \vdots             \\
+        \omega_N^0 & \omega_N^{N-1} & \cdots & \omega_N^{(N-1)^2}
     \end{bmatrix}
-    = 
+    =
     \begin{bmatrix}
         \omega_N^{jk}
-    \end{bmatrix}^{N-1}_{j,k = 0} 
+    \end{bmatrix}^{N-1}_{j,k = 0}
     \in \mathbb{C}^{N\times N}
 \end{align*}
 
