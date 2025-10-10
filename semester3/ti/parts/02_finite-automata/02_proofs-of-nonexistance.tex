@@ -26,16 +26,19 @@ Es besagt eigentlich nichts anderes, als dass wenn das Wort $xz$ akzeptiert wird
 
 Mithilfe von Lemma 3.3 kann man für viele Sprachen deren Nichtregularität beweisen.
 
+\numberingOff
 \inlineex Sei $L = \{ 0^n1^n \divides n \in \N \}$.
 Intuitiv ist diese Sprache Nichtregulär, da $n$ undendlich gross sein kann, aber ein EA logischerweise endlich ist.
 Wir müssen hier nur formal ausdrücken, dass das Zählen benötigt wird, dass $L$ akzeptiert wird:
 
-Dazu benutzen wir einen indirekten Beweis. Sei $A$ ein EA über $\alphabets{bool}$ und $L(A) = L$.
-Wir betrachten die Wörter $0^1, 0^2, \ldots, 0^{|Q| + 1}$.
-Weil wir $|Q| + 1$ Wörter haben, existiert $i, j \in \{ 1, 2, \ldots, |Q| + 1 \}$, so dass $\hdelta_A(q_0, 0^i) = \hdelta_A(q_0, 0^j)$,
-also gilt nach Lemma $0^i z \in L \Leftrightarrow 0^j z \in L \smallhspace \forall z \in \wordbool$.
+Dazu benutzen wir einen Widerspruchsbeweis. Sei $A$ ein EA über $\alphabets{bool}$ und $L(A) = L$.
+Wir nehmen an, dass $L$ regulär ist und betrachten die Wörter $0^1, 0^2, \ldots, 0^{|Q| + 1}$.
+Weil wir $|Q| + 1$ Wörter haben, existiert per Pigeonhole-Principle o.B.d.A $i < j \in \{ 1, 2, \ldots, |Q| + 1 \}$
+(die Ungleichheit kann in komplexeren Beweisen sehr nützlich werden, da wir dann besser mit Längen argumentieren können),
+so dass $\hdelta_A(q_0, 0^i) = \hdelta_A(q_0, 0^j)$, also gilt nach Lemma $0^i z \in L \Leftrightarrow 0^j z \in L \smallhspace \forall z \in \wordbool$.
 Dies gilt jedoch nicht, weil für jedes $z = 1^i$ zwar jedes $0^i 1^i \in L$ gilt, aber $0^j 1^j \notin L$
 
+\numberingOn
 
 Um die Nichtregularität konkreter Sprachen zu beweisen, sucht man nach einfach verifizierbaren Eigenschaften,
 denn wenn eine Sprache eine dieser Eigenschaften \textit{nicht} erfüllt, so ist sie nicht regulär.
@@ -43,13 +46,80 @@ denn wenn eine Sprache eine dieser Eigenschaften \textit{nicht} erfüllt, so ist
 % TODO: For Kolmogorov complexity elaborate some more, i.e. how to do proofs properly / how to derive a word more easily
 % -> TA Slides explain that really well
 
+\vspace{0.3cm}
+\hrule
+\vspace{0.2cm}
+
+\fhlc{Cyan}{Pumping}
+
 Eine Methode zum Beweis von Aussagen $L \notin \mathcal{L}_{\text{EA}}$ nennt sich \bi{Pumping} und basiert auf folgender Idee:
 Wenn für ein Wort $x$ und einen Zustand $p$ gilt, dass $(p, x) \bigvdash{A}{*} (p, \lambda)$, so gilt auch für alle $i \in \N$, dass $(p, x^i) \bigvdash{A}{*} (p, \lambda)$.
 Also kann $A$ nicht zwischen $x$ und $x^i$ unterscheiden, oder in anderen Worten, wie viele $x$ er gelesen hat,
 also akzeptiert $A$ entweder alle Wörter der Form $yx^iz$ (für $i \in \N$) oder keines davon
 
 \begin{lemma}[]{Pumping-Lemma für reguläre Sprachen}
-    Sei $L$ regulär. Dann existiert ein Wort $w \in \word$
+    Sei $L$ regulär. Dann existiert eine Konstante $n_0 \in \N$, so dass sich jedes Wort $w \in \word$ mit $|w| \geq n_0$ in $w = yxz$ zerlegen lässt, wobei
+    \rmvspace
+    \begin{multicols}{2}
+        \begin{enumerate}[label=\textit{(\roman*)}]
+            \item $|yx| \leq n_0$
+            \item $|x| \geq 1$
+            \item Für $X = \{ yx^kz \divides k\in \N \}$ \textit{entweder} $X \subseteq L$ oder $X \cap L = \emptyset$ gilt
+        \end{enumerate}
+    \end{multicols}
 \end{lemma}
+Bei der Wahl von den Teilen von $w$ sollte man idealerweise einen Teil (der dann $=y$ in $w = yxz$ ist) bereits gross genug zu wählen, so dass (i) zutrifft, was es nachher einfacher macht.
 
-Bei der Wahl von den Teilen von $w$ sollte man idealerweise einen Teil bereits gross genug zu wählen, so dass (i) zutrifft, was es nachher einfacher macht.
+\newpage
+\numberingOff
+\inlineex Wir verwenden wieder die Sprache $L = \{ 0^n 1^n \divides n \in \N \}$ und wieder einen Widerspruchsbeweis:
+
+Wir nehmen an, dass $L$ regulär ist, also gilt Lemma 3.4 und es existiert eine Konstante $n_0$ so dass $|w| \geq n_0$.
+Um zu zeigen, dass eine Sprache nicht regulär ist, reicht es aus, zu zeigen, dass es ein (hinreichend langes) Wort gibt, für das eine der Eigenschaften in Lemma 3.4 nicht zutrifft.
+
+Wir wählen $w = 0^{n_0} 1^{n_0}$, also ist $|w| = 2n_0 \geq n_0$.
+Zudem müssen wir eine sinnvolle Zerlegung wählen -- denn eine solche existiert für jedes Wort $w$ mit $|w| \geq n_0$ laut Lemma 3.4 --
+wir wählen $yx = 0^{n_0}$, also ist $y = 0^l$ und $x = 0^m$ für irgendwelche $l, m \in \N$, so dass $l + m \leq n_0$.
+
+Nach Lemma 3.4 (ii) ist $m \neq 0$ ($|x| \geq 1$).
+Nun, da $w = 0^{n_0} 1^{n_0} \in L$, ist $\{ yx^kz \divides k \in \N \} = \{ 0^{n_0 - m + km} 1^{n_0} \divides k \in \N \} \subseteq L$, was aber ein Widerspruch ist,
+da $yx^0z = yz = 0^{n_0 - m} 1^{n_0} \notin L$ ($0^{n_0}1^{n_0}$ ist sogard das einzige Wort aus der Menge, das in $L$ liegt)
+
+\inlineintuition Woher kommt $0^{n_0 - m + km}$?
+Das Ganze wird mit Klammern bedeutend offensichtlicher: $0^{(n_0 - m) + (km)}$.
+Also ist der Ursprung der Koeffizienten auch klar, und sie kommen von $|y| = n_0 - m$ und $|x^k| = km$.
+Die Addition im Exponent kommt dann deshalb zustande, da dies ja nicht ein exponent ist, sondern die Anzahl der Repetitionen.
+
+\numberingOn
+
+\fhlc{Cyan}{Kolmogorov-Komplexität basiert}
+
+\begin{theorem}[]{Kolmogorov-Komplexität regulärer Sprachen}
+    Sei $L \subseteq \wordbool$ eine reguläre Sprache. Sei $L_x = \{ y \in \wordbool \divides xy \in L \}$ für jedes $x \in \wordbool$.
+    Dann existiert eine Konstante $c$, so dass für alle $x, y \in \wordbool$ gilt, dass
+    \rmvspace
+    \begin{align*}
+        K(y) \leq \ceil{\log_2(n + 1)} + c
+    \end{align*}
+
+    \rmvspace
+    falls $y$ das $n$-te Wort in der Sprache $L_x$ ist
+\end{theorem}
+
+\numberingOff
+\inlineex Wir verwenden wieder die Sprache $L = \{ 0^n 1^n \divides n \in \N \}$ und wieder einen Widerspruchsbeweis:
+
+Dazu nehmen wir wieder an, dass $L$ regulär ist. Für jedes $m \in \N$ ist $1^m$ das erste Wort in der Sprache $L_{0^m} = \{ y \divides 0^m y \in L \} = \{ 0^j 1^{m + j} \divides j \in \N \}$.
+Die zweite Menge beinhaltet also alle möglichen Wörter, die $y$, die noch immer in $L$ sind, wenn man sie mit $0^m$ konkateniert
+und ist deshalb eine konkrete Beschreibung von $L_{0^m}$.
+
+Also gibt es laut Satz 3.1 eine Konstante $c$, die unabhängig von $x = 0^m$ und $y = 1^m$ und somit von $m$ ist, so dass $K(1^m) \leq \ceil{\log_2(1 + 1)} + c = 1 + c$
+($n = 1$ hier, da $1^m$ das erste Wort in $L_{0^m}$ ist und wir dieses Wort betrachten wollen),
+also gilt für eine Konstante $d = 1 + c$, dass $K(1^m) \leq d$.
+Dies ist aber unmöglich, da:
+\begin{enumerate}[label=(\roman*)]
+    \item die Anzahl aller Programme, deren Länge $\leq d$ ist höchstens $2^d$ und entsprechend endlich
+    \item die Menge $\{ 1^m \divides m \in \N \}$ undendlich ist
+\end{enumerate}
+
+\numberingOn
