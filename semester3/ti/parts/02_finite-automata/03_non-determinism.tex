@@ -1,2 +1,31 @@
 \newsection
 \subsection{Nichtdeterminismus}
+Einfach gesagt werden hier Automaten behandelt, die zufällige (genannt \bi{nichtdeterministische}) Entscheidungen treffen.
+Beispielsweise für ein Entscheidungsproblem $(\Sigma, L)$ bedeutet dies, dass ein nichtdeterministischer EA $A$ eine Sprache $L$ akzeptiert,
+falls für jedes $x \in L$ mindestens eine akzeptierende Berechnung von $A$ auf $x$ existiert und für $y \in \word - L$ keine solve existiert.
+
+Wir notieren das Ganze in graphischer Darstellung so, dass wir aus einem Zustand mehrere Übergänge mit dem gleichen Eingabesymbol erlauben.
+
+\begin{definition}[]{nichtdeterministischer Endlicher Automat (NEA)}
+    Ein NEA ist eine Quitupel $M = (Q, \Sigma, \delta, q_0, F)$:
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item \bi{Zustandsmenge:} $Q$ ist eine endliche Menge
+        \item \bi{Eingabealphabet:} $\Sigma$ ist ein Alphabet
+        \item \bi{Übergangsfunktion:} $\delta : Q \times \Sigma \rightarrow \mathcal{P}(Q)$. $\mathcal{P}(Q)$ ist das Powerset hierbei
+        \item \bi{Anfangszustand:} $q_0 \in Q$
+        \item \bi{Akzeptierende Zustände:} $F \subseteq Q$
+    \end{enumerate}
+    Der Rest der Eigenschaften ist sehr ähnlich wie die des deterministischen EA, mit der bedeutenden Ausnahme,
+    dass ein Schritt in der $\delta$-Notation nicht $\delta(q, a) = p$, sondern $p \in \delta(q, a)$ ist, da die Übergangsfunktion ja jetzt ins
+    Powerset von $Q$ anstelle von nach $Q$ direkt mapped. Die komplette Definition des Schritts ist also:
+    \begin{align*}
+        (q, w) \bigvdash{M}{} (p, x) \Longleftrightarrow w = ax \text{ für ein } a \in \Sigma \text{ und } p \in \delta(q, a)
+    \end{align*}
+
+    Für die $\hdelta$-Funktion, gilt nun $\hdelta(q, \lambda) = \{ q \}$ für jedes $q \in Q$ und wir definieren:
+    \begin{align*}
+        \hdelta(q, wa) & = \{ p \in Q \divides \text{es existiert ein } r \in \hdelta(q, w), \text{ so dass } p \in \delta(r, a) \} \\
+                       & = \bigcup_{r \in \hdelta(q, w)} \delta(r, a) \smallhspace \forall q \in Q, a \in \Sigma, w \in \word
+    \end{align*}
+    % Page 92 in PDF currently
+\end{definition}
