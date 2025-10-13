@@ -1,0 +1,13 @@
+\subsection{DFT und Chebyshev-Interpolation}
+Mithilfe der DFT können günstig und einfach die Chebyshev-Koeffizienten berechnet werden.
+Die Idee basiert auf dem Satz 2.4.16, durch welchen schon schnell klar wird, dass es eine Verbindung zwischen den Fourier-Koeffizienten und Chebyshev-Koeffizienten gibt.
+
+Die Chebyshev-Knoten sind folgendermassen definiert:
+\begin{align*}
+    t_k := \cos\left( \frac{2k + 1}{2(n + 1)} \pi \right), \smallhspace k = 0, \ldots, n
+\end{align*}
+Mit den Hilfsfunktionen $g: [-1, 1] \rightarrow \C, s \mapsto f(\cos(2\pi s))$ und $q: [-1, 1] \rightarrow \C, s \mapsto p(\cos(2\pi s))$,
+können wir folgendes mit der Interpolationsbedingung $f(t_k) = p(t_k)$ tun:
+\begin{align*}
+    f(t_k) = p(t_k)
+\end{align*}
