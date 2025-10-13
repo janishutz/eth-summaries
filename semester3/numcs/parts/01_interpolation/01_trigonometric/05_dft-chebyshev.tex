@@ -9,5 +9,18 @@ Die Chebyshev-Knoten sind folgendermassen definiert:
 Mit den Hilfsfunktionen $g: [-1, 1] \rightarrow \C, s \mapsto f(\cos(2\pi s))$ und $q: [-1, 1] \rightarrow \C, s \mapsto p(\cos(2\pi s))$,
 können wir folgendes mit der Interpolationsbedingung $f(t_k) = p(t_k)$ tun:
 \begin{align*}
-    f(t_k) = p(t_k)
+    f(t_k) = p(t_k) \Longleftrightarrow g\left( \frac{2k + 1}{4(n + 1)} \right) = p\left( \frac{2k + 1}{4(n + 1)} \right)
 \end{align*}
+Wir wenden nun die Translation $s^* = s + \frac{1}{4n + 1}$ an, die Hilfsfunktionen sind dann $g*(s) = g(s^*)$ und $q^*(s) = q(s^*)$
+und man kann zeigen (Seite 101 im Skript), dass $q^*$ das trigonometrische Interpolationspolynom von $g^*$ ist,
+also kann man eine Chebyshev-Interpolation durch eine DFT durchführen.
+Folglich überträgt sich auch die Fehlerabschätzung. Die Interpolationsbedingungen sind folgendermassen definiert:
+\begin{align*}
+    q\left( \frac{k}{2(n + 1)} + \frac{1}{4(n + 1)} \right) = z_k :=
+    \begin{cases}
+        y_k            & \text{ für } k = 0, \ldots, n \\
+        y_{2n + 1 - k} & \text{ für } k = n, \ldots, 2n + 1
+    \end{cases}
+\end{align*}
+
+Um das ganze zu implementieren ist eine andere Darstellung nützlich.
