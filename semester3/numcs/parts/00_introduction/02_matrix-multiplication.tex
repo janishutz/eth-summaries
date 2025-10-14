@@ -6,7 +6,7 @@
 \subsection{Rechnen mit Matrizen}
 Wie in Lineare Algebra besprochen, ist das Resultat der Multiplikation einer Matrix $A \in \C^{m \times n}$ und einer Matrix $B \in \C^{n \times p}$ ist eine Matrix $AB = \in \C^{m \times p}$
 
-\fhlc{Cyan}{In NumPy} haben wir folgende Funktionen:
+\innumpy haben wir folgende Funktionen:
 \begin{itemize}
     \item \verb|b @ a| (oder \verb|np.dot(b, a)| oder \verb|np.einsum('i,i', b, a)| für das Skalarprodukt
     \item \verb|A @ B| (oder \verb|np.einsum('ik,kj->ij', )|) für das Matrixprodukt
@@ -59,7 +59,7 @@ Sei $A = ab^\top$. Dann gilt $y = Ax \Leftrightarrow y = a(b^\top x)$, was dasse
 \inlineex Für zwei Matrizen $A, B \in \R^{n \times p}$ mit geringem Rang $p \ll n$, dann kann mithilfe eines Tricks die Rechenzeit von \verb|np.triu(A @ B.T) @ x| von $\tco{pn^2}$ auf $\tco{pn}$ reduziert werden.
 Die hier beschriebene Operation berechnet $\text{Upper}(AB^\top) x$ wobei $\text{Upper}(X)$ das obere Dreieck der Matrix $X$ zurück gibt.
 Wir nennen diese Matrix hier $R$.
-Wir können in NumPy den folgenden Ansatz verwenden, um die Laufzeit zu verringern:
+\innumpy können wir den folgenden Ansatz verwenden, um die Laufzeit zu verringern:
 Da die Matrix $R$ eine obere Dreiecksmatrix ist, ist das Ergebnis die Teilsummen von unserem Umgekehrten Vektor $x$, also können wir mit \verb|np.cumsum(x[::-1], axis=0)[::-1]| die Kummulative Summe berechnen.
 Das \verb|[::-1]| dient hier lediglich dazu, den Vektor $x$ umzudrehen, sodass das richtige Resultat entsteht.
 Die vollständige Implementation sieht so aus:
@@ -80,7 +80,9 @@ Die vollständige Implementation sieht so aus:
 
 
 \setcounter{all}{21}
-\fancydef{Kronecker-Produkt} Das Kronecker-Produkt ist eine $(ml) \times (nk)$-Matrix, für $A \in \R^{m \times n}$ und $B \in \R^{l \times k}$, die wir in NumPy einfach mit \verb|np.kron(A, B)| berechnen können (ist jedoch nicht immer ideal):
+\fancydef{Kronecker-Produkt} Das Kronecker-Produkt ist eine $(ml) \times (nk)$-Matrix, für $A \in \R^{m \times n}$ und $B \in \R^{l \times k}$.
+
+\innumpy können wir dieses einfach mit \verb|np.kron(A, B)| berechnen (ist jedoch nicht immer ideal):
 \begin{align*}
     A \otimes B :=
     \begin{bmatrix}

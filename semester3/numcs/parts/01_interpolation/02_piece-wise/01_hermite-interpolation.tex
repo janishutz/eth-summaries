@@ -18,7 +18,7 @@ und deren Ableitung $\psi'(t) = t(3t - 2)$. Mit demselben Variablenwechsel müss
 \end{align*}
 Die Interpolationsfunktion ist dann einfach die Summe $s_j(x) = p_j(x) + q_j(x) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]$
 
-\fhlc{Cyan}{In Numpy} verwendet man \texttt{scipy.interpolate.Akima1DInterpolator} oder \texttt{PchipInterpolator}, welcher ``formerhaltender'' ist,
+\innumpy verwendet man \texttt{scipy.interpolate.Akima1DInterpolator} oder \texttt{PchipInterpolator}, welcher ``formerhaltender'' ist,
 also wenn eine Funktion lokal monoton ist, so ist der Interpolant dort auch monoton.
 Bei anderen Interpolationsmethoden ist dies nicht garantiert (so auch nicht beim \texttt{Akima1DInterpolator})
 

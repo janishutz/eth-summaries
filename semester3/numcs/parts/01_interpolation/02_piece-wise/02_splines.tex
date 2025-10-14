@@ -1,0 +1,16 @@
+\newsectionNoPB
+\subsection{Splines}
+\begin{definition}[]{Raum der Splines}
+    Sei $[a, b] \subseteq \R$ ein Intervall, sei $\mathcal{G} = \{ a = x_0 < x_1 < \ldots < x_N = b \}$ und sei $d \geq 1 \in \N$.
+    Die Menge
+    \begin{align*}
+        \mathcal{S}_{d, \mathcal{G}} = \{ s \in C^{d - 1}[a, b], \smallhspace s_j := s_{|[x_{j - 1}, x_j]|} \text{ ist ein polynom von Grad höchstens } d \}
+    \end{align*}
+    ist die Menge aller auf $[a, b]$ $(d - 1)$ mal stetig ableitbaren Funktionen, die auf $\mathcal{G}$ aus stückweisen Polynomen von Grad höchtens $d$ bestehen
+    und wir der Raum der Splines vom Grad $d$, oder der Ordnung $(d + 1)$ genannt
+\end{definition}
+
+\inlineremark Obige Definition ist undefiniert für $d = 0$, aber $\mathcal{S}_{d, \mathcal{G}}$ kann als die Menge der stückweise Konstanten Funktionen betrachtet werden.
+Im Vergleich zu den Kubischen Hermite-Interpolanten sind die Kubischen-Splines (für $d = 3$) \textit{zweimal} Ableitbar statt nur \textit{einmal}
+
+\inlineremark $\dim(\mathcal{S}_{d, \mathcal{G}}) = N + d$. Es werden oft kubische Splines in Anwendungen verwendet
