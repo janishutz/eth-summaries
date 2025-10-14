@@ -3,6 +3,7 @@
 \begin{definition}[]{Raum der Splines}
     Sei $[a, b] \subseteq \R$ ein Intervall, sei $\mathcal{G} = \{ a = x_0 < x_1 < \ldots < x_N = b \}$ und sei $d \geq 1 \in \N$.
     Die Menge
+    % FIXME: What's up with the |[x_{j - 1}, x_j] Notation? Isn't there a | missing? And what does it even mean?
     \begin{align*}
         \mathcal{S}_{d, \mathcal{G}} = \{ s \in C^{d - 1}[a, b], \smallhspace s_j := s_{|[x_{j - 1}, x_j]|} \text{ ist ein polynom von Grad höchstens } d \}
     \end{align*}
@@ -13,4 +14,91 @@
 \inlineremark Obige Definition ist undefiniert für $d = 0$, aber $\mathcal{S}_{d, \mathcal{G}}$ kann als die Menge der stückweise Konstanten Funktionen betrachtet werden.
 Im Vergleich zu den Kubischen Hermite-Interpolanten sind die Kubischen-Splines (für $d = 3$) \textit{zweimal} Ableitbar statt nur \textit{einmal}
 
-\inlineremark $\dim(\mathcal{S}_{d, \mathcal{G}}) = N + d$. Es werden oft kubische Splines in Anwendungen verwendet
+\inlineremark $\dim(\mathcal{S}_{d, \mathcal{G}}) = N + d$. Es werden oft kubische Splines in Anwendungen verwendet, also ist\\
+$\dim(\mathcal{S}_{d, \mathcal{G}}) = N + 3$, wir haben aber nur $N + 1$ Funktionswerte, also beleiben noch zwei Freiheitsgrade übrig.
+
+Dies bedeutet, dass wir ein underdeterminiertes lineares Gleichungssystem haben für $h_j = x_j - x_{j - 1}$:
+\rmvspace
+\begin{align*}
+    \begin{bmatrix}
+        b_0    & a_1   & b_1    & 0      & \dots  &           & \dots     & 0         \\
+        0      & b_1   & a_2    & b_2    &        &           &           &           \\
+               & 0     & \ddots & \ddots & \ddots &           &           & \vdots    \\
+        \vdots &       &        & \ddots & \ddots & \ddots    &           &           \\
+               &       &        &        & \ddots & a_{N - 2} & b_{N - 2} & 0         \\
+        0      & \dots &        & \dots  & 0      & b_{N - 2} & a_{N - 1} & b_{N - 1}
+    \end{bmatrix}
+    \begin{bmatrix}
+        c_0 \\ c_1\\ \\[0.2cm] \vdots \\ \\[0.2cm] c_{N - 1} \\ c_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        3 \left( \frac{y_1 - y_0}{h_1^2} + \frac{y_2 - y_1}{h_2^2} \right)                         \\
+        \\ \vdots \\ \\
+        3 \left( \frac{y_{N - 1} - y_{N - 2}}{h_{N - 1}^2} + \frac{y_N - y_{N - 1}}{h_N^2} \right) \\
+    \end{bmatrix}
+\end{align*}
+
+\rmvspace
+Wobei im Resultatvektor Einträge der Form
+\rmvspace
+\begin{align*}
+    3 \left( \frac{y_j - y_{j - 1}}{h_j^2} + \frac{y_{j + 1} - y_j}{h^2_{j + 1}} \right)
+\end{align*}
+enthalten sind und mit $a_j := \frac{2}{h_j} + \frac{2}{h_{j + 1}}$ und $b_j := \frac{1}{h_{j + 1}}$ für $j = 0, 1, \ldots, N - 1$
+
+Wir müssen also zwei weitere Gleichungen finden (oder zwei Freiheitsgrade eliminieren).
+
+\fancydef{Vollständige kubische Spline-Interpolation} Falls wir die zusätzlichen Bedingungen $s'(x_0) = c_0$ und $s'(x_N) = c_N$ mit gegebenen $c_0$ und $c_N$ haben.
+Sie ist auch bekannt als \textit{clamped cubic spline}.
+In der obigen Matrix können dann die erste und letzte Spalte weggelassen werden.
+
+\fancydef{Natürliche kubische Spline-Interpolation} Falls wir die zusätzlichen Bedingungen $s''(x_0) = 0$ und $s''(x_N) = 0$ haben.
+Dann fügen wir obigem SLE zwei Zeilen hinzu (1. und $(N + 1)$-te), die $2, 1, 0, 0, \ldots = \frac{y_1 - y_0}{h_1}$ und $0, \ldots, 0, 1, 2 = \frac{y_N - y_{N - 1}}{h_N}$.
+Die Matrix ist nun also positive-definite und symmetrisch
+
+\vspace{-1.25pc}
+{
+    \begin{wrapfigure}[6]{l}{0.5\textwidth}
+        \fancydef{Periodische kubische Spline-Interpolation} Falls wir die zusätzlichen Bedingungen $s'(x_0) = s'(x_N)$ und $s''(x_0) = s''(x_N)$ haben.
+        Dies macht nur Sinn, wenn $y_0 = y_N$, also nehmen wir das an und wir haben eine Spalte weniger und eine Reihe mehr, also ist die Systemmatrix rechts
+    \end{wrapfigure}
+    \begin{align*}
+        A :=
+        \begin{bmatrix}
+            a_1 & b_1    & 0      & \dots  & 0         & b_0       \\
+            b_1 & a_2    & b_2    &        &           & 0         \\
+            0   & \ddots & \ddots & \ddots &           & \vdots    \\
+            0   &        &        & \ddots & a_{N - 1} & b_{N - 1} \\
+            b_0 & 0      & \dots  & 0      & b_{N - 1} & a_0
+        \end{bmatrix}
+    \end{align*}
+}
+
+\inlineremark Die SLE können in $\tco{n}$ gelöst werden.
+
+\inlineremark Mit der ``not-a-knot''-Bedingung $s'''$ ist stetig in $x_1$ und $x_{N - 1}$ braucht man mindestens $4$ Knoten.
+Da wir kubische Splines betrachten erzwing die Bedingung dass ein Polynom nur in den ersten beiden und ein anderes in den letzten beiden Subintervallen erscheint,
+also gilt $s_1 = s_2$ und $s_{N - 1} = s_N$
+
+\inlineremark Der natürliche Spline minimiert die Gesamtkrümmung des Funktionsgraphen:
+\begin{align*}
+    \int_{a}^{b} |s''(x)|^2 \dx x \leq \int_{a}^{b} |g''(x)|^2 \dx x
+\end{align*}
+für alle Funktionen zweimal stetig differenzierbaren Funktionen $g$, für welche $g(x_j) = y_j$ gilt für jedes $j = 0, \ldots, N$
+
+\begin{theorem}[]{Interpolationsfehler vollständiger kubischer Splines}
+    Wenn $f \in C^4[a, b]$ und $s$ der vollständige kubische Spline-Interpolation von $f$ auf einem äquidistantem Gitter mit Gitterweite $h$ ist, 
+    dann ist der Fehler für $k = 0, 1, 2, 3$:
+    \begin{align*}
+        ||f^{(k)} - s^{(k)}||_{L^\infty} \leq \frac{5}{384} h^{4 - k} ||f^{(4)}||_{L^\infty}
+    \end{align*}
+\end{theorem}
+
+\innumpy verwendet \texttt{scipy.interpolate.CubicSpline} aktuell die ``not-a-knot''-Bedingung. 
+Es ist möglich mithilfe von \texttt{bc\_type} beim Instanziieren der Klasse die Art des Splines zu ändern.
+Folgende (relevante) Optionen stehen laut 
+\color{NavyBlue}\href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html}{Dokumentation}\color{black}\smallhspace
+zur Verfügung: \texttt{"not-a-knot"} (was der Default ist), \texttt{"periodic"}, \texttt{"clamped"} und \texttt{"natural"}
+
+Auf Seite 114-115 im Skript finden sich einige Abbildungen zur Konvergenz der verschiedenen Varianten des \texttt{CubicSplices}
