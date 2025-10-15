@@ -1,2 +1,50 @@
 % Starts on Page 94 (= 108 in PDF)
 \subsection{Das Modell der Turingmaschine}
+Eine Turingmaschine (oft auch Turing-Maschine geschrieben) besteht informell aus
+\begin{enumerate}[label=(\roman*)]
+    \item einer endlichen Kontrolle, die das Programm enthält
+    \item einem Arbeitsband unendlicher Länge (das es Erlaubt, im Vergleich zum EA, Daten zu speichern)
+    \item einem Lese-/Schreibkopf, der sich in beide Richtungen auf dem Band bewegen kann
+\end{enumerate}
+Formaler:
+\begin{definition}[]{Turingmaschine (TM)}
+    Eine \bi{Turingmaschine} ist eine $7$-Tupel $M = (Q, \Sigma, \Gamma, \delta, q_0, \qacc, \qrej)$, wobei:
+    \begin{enumerate}[label=(\roman*)]
+        \item $Q$ ist die \bi{Zustandsmenge}
+        \item $\Sigma$ ist das \bi{Eingabealphabet} mit $\cent, \textvisiblespace \notin \Sigma$
+        \item $\Gamma$ ist das \bi{Arbeitsalphabet} mit $\Sigma \subseteq \Gamma$, $\cent, \textvisiblespace \in \Gamma$ und $\Gamma \cap Q = \emptyset$
+              ($\cent$ = Startmarker, $\textvisiblespace$ = Blanksymbol)
+        \item $\delta : (Q - \{ \qacc, \qrej \}) \times \Gamma \longrightarrow Q \times \Gamma \times \{ L, R, N \}$ ist die \bi{Übergangsfunktion von $M$},
+              wobei $\{ L, R, N \}$ die möglichen Bewegunsrichtungen des Lese-/Schreibkopfs sind
+              und hat die Eigenschaft $\delta(q, \cent) \in Q \times \{ \cent \} \times \{ R, N \}$ für alle $q \in Q$
+        \item $q_0$ ist der \bi{Anfangszustand}
+        \item $\qacc$ ist der \bi{akzeptierende Zustand} (genau einer in jedem $M$)
+        \item $\qrej$ ist der \bi{verwerfende Zustand} (genau einer in jedem $M$)
+    \end{enumerate}
+    Eine \bi{Konfiguration} $C$ von $M$ ist ein Element aus $\text{Konf}(M) = \{ \cent \} \cdot \Gamma^* \cdot Q \cdot \Gamma^+ \cup Q \cdot \{ \cent \} \Gamma^+$
+    (wobei $\cdot$ die Konkatenation ist)
+
+    Eine \bi{Startkonfiguration} für ein Eingabewort $x$ ist $q_0\cent x$
+
+    Ein \bi{Schritt von $M$} ist eine Relation $\bigvdash{M}{}$ auf der Menge der Konfigurationen, also $\bigvdash{M}{} \subseteq \text{Konf}(M) \times \text{Konf}(M)$.
+
+    Der Rest der Definition findet sich auf Seiten 96 - 98 (= Seiten 110 - 112 im PDF)
+\end{definition}
+Turingmaschinen, die immer halten, repräsentieren Algorithmen, die immer terminieren und die richtige Ausgabe liefern.
+Rekursive Sprachen und entscheidbare Entscheidungsprobleme sind algorithmisch erkennbar, respektive lösbar.
+
+Es gibt auch definitionen der TM, die ohne Startmarker $\cent$ auskommen, bei denen ist das Arbeitsband in beide Richtungen unendlich.
+
+Graphisch stellt man Turingmaschinen folgendermassen dar:
+Wir haben wieder einen Graphen mit gerichteten Kanten.
+Für $\delta(q, a) = (p, b, X)$ mit $q, p \in Q$, $a, b \in \Sigma$ und $X \in \{ L, R, N \}$ werden die Kanten mit folgendem Format beschriftet:
+$q \rightarrow a, X$.
+
+Mit einem TM die Sprache $\{ 0^n 1^n \divides n \in \N \}$ erkennen kann man nun, indem man jeweils das linkeste und rechteste Symbol durch ein anderes Symbol ersetzt,
+beispielsweise, wenn das Eingabealphabet $\Sigma = \{ 0, 1 \}$, dann könnte man $\Gamma$ das Symbol $2$ hinzufügen, mit dem man jedes bearbeitete Symbol ersetzt.
+
+Im Buch wird als Beispiel auf Seite 99ff (= Seite 114ff im PDF) ein komplexeres Wort gewählt, 
+bei welchem ein zeichen $a \in \alphabetbool$ durch $(a, B) \in \alphabetbool \times \{ A, B \}$ ersetzt wird, 
+da wir zwei Phasen haben und zwischen denen unterscheiden wollen können.
+
+% 113
