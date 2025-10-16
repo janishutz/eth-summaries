@@ -1,0 +1,31 @@
+\setcounter{subsection}{2}
+\subsection{Grundbegriffe und -Ideen}
+Es ist oft nicht möglich oder sinnvoll einen Integral analytisch zu berechnen.
+Mit Methoden der Quadratur können wir Integrale nummerisch berechnen.
+
+\innumpy kann \texttt{scipy.integrate.quad} verwendet werden.
+Falls man jedoch eine manuelle Implementation erstellen will, so nutzt man oft die Trapez- oder Simpson-Regel, da sie sowohl einfach zu implementieren, wie auch effizient sind.
+In gewissen Anwendungen sind Gauss-Quadratur-Formeln nützlich, welche man durch Spektralmethoden ersetzen kann, welche die FFT verwenden und effizienter sind.
+
+\begin{definition}[]{Quadratur}
+    Ein Integral kann durch eine gewichtete Summe von Funktionswerten der Funktion $f$ an verschiedenen Stellen $c_i^n$ approximiert werden:
+    \begin{align*}
+        \int_{a}^{b} f(x) \dx \approx Q_n(f; a, b) := \sum_{i = 1}^{n} \omega_i^n f(c_i^n)
+    \end{align*}
+    wobei $\omega_i^n$ die \textit{Gewichte} und $c_i^n \in [a, b]$ die \textit{Knoten} der Quadraturformel sind.
+\end{definition}
+
+Wir wollen natürlich wieder $c_i^n \in [a, b]$ und $w_i^n$ so wählen, dass der Fehler minimiert wird.
+\begin{definition}[]{Fehler}
+    Der Fehler der Quadratur $Q_n(f)$ ist
+    \begin{align*}
+        E(n) = \left| \int_{a}^{b} f(x) \dx - Q_n(f; a, b) \right|
+    \end{align*}
+    Wir haben \bi{algebraische Konvergenz} wenn $E(n) = \tco{\frac{1}{n^p}}$ mit $p > 0$ und 
+    \bi{exponentielle Konvergenz} wenn $E(n) = \tco{q^n}$ mit $0 \leq q < 1$
+\end{definition}
+
+Die Idee, den Integral einer schweren Funktion zu berechnen, ist diese mit einer einfachen Funktion, die analytisch integrierbar ist, zu approximieren.
+Wenn wir diese Funktion geschickt wählen, dann ist es sogar möglich, dass wir nur eine solche Funktion für alle Funktionen $f$ benötigen.
+
+% Der Polynom, das Ansatz, yep... excellent German there
