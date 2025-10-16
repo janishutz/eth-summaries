@@ -5,3 +5,20 @@ Dazu muss das Polynom $p_{N - 1} \in \mathcal{T}_N \subseteq \mathcal{T}_M$ in d
 in dem man \bi{Zero-Padding} verwendet, also Nullen im Koeffizientenvektor an den Stellen höheren Frequenzen einfügt.
 
 \TODO Insert cleaned up code from Page 95 (part of exercises)
+
+Die folgende Funktion wird im Script \texttt{evaliptrig} genannt.
+\rmvspace
+\begin{code}{python}
+    def evaluate_trigonometric_interpolation_polynomial(y: np.ndarray, N: int):
+        n = len(y)
+        if (n % 2) == 0:
+            c = np.fft.ifft(y)  # Fourier coefficients
+            a = np.zeros(N, dtype=complex)
+
+            # Zero padding
+            a[: n // 2] = c[: n // 2]
+            a[N - n // 2 :] = c[n // 2 :]
+            return np.fft.fft(a)
+        else:
+            raise ValueError("odd length")
+\end{code}
