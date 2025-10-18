@@ -1,1 +1,58 @@
-\section{Quadratur}
+\setcounter{subsection}{2}
+\subsection{Grundbegriffe und -Ideen}
+Es ist oft nicht möglich oder sinnvoll einen Integral analytisch zu berechnen.
+Mit Methoden der Quadratur können wir Integrale nummerisch berechnen.
+
+\innumpy kann \texttt{scipy.integrate.quad} verwendet werden.
+Falls man jedoch eine manuelle Implementation erstellen will, so nutzt man oft die Trapez- oder Simpson-Regel, da sie sowohl einfach zu implementieren, wie auch effizient sind.
+In gewissen Anwendungen sind Gauss-Quadratur-Formeln nützlich, welche man durch Spektralmethoden ersetzen kann, welche die FFT verwenden und effizienter sind.
+
+\begin{definition}[]{Quadratur}
+    Ein Integral kann durch eine gewichtete Summe von Funktionswerten der Funktion $f$ an verschiedenen Stellen $c_i^n$ approximiert werden:
+    \begin{align*}
+        \int_{a}^{b} f(x) \dx \approx Q_n(f; a, b) := \sum_{i = 1}^{n} \omega_i^n f(c_i^n)
+    \end{align*}
+    wobei $\omega_i^n$ die \textit{Gewichte} und $c_i^n \in [a, b]$ die \textit{Knoten} der Quadraturformel sind.
+\end{definition}
+
+Wir wollen natürlich wieder $c_i^n \in [a, b]$ und $w_i^n$ so wählen, dass der Fehler minimiert wird.
+\begin{definition}[]{Fehler}
+    Der Fehler der Quadratur $Q_n(f)$ ist
+    \begin{align*}
+        E(n) = \left| \int_{a}^{b} f(x) \dx - Q_n(f; a, b) \right|
+    \end{align*}
+    Wir haben \bi{algebraische Konvergenz} wenn $E(n) = \tco{\frac{1}{n^p}}$ mit $p > 0$ und 
+    \bi{exponentielle Konvergenz} wenn $E(n) = \tco{q^n}$ mit $0 \leq q < 1$
+\end{definition}
+
+% Der Polynom, das Ansatz, yep... excellent German there
+Die Idee, den Integral einer schweren Funktion zu berechnen, ist diese mit einer einfachen Funktion, die analytisch integrierbar ist, zu approximieren.
+Wenn wir diese Funktion geschickt wählen, dann ist es sogar möglich, dass wir nur eine solche Funktion für alle Funktionen $f$ benötigen.
+
+% NOTE: Called the b_j from the script c_i here, as the clash with the limits of the integral looked a bit confusing
+Wir ersetzen also $f$ durch $f_n \in \text{span} \{ c_0, c_1, \ldots, c_n \}$, wobei die $c_i$ eine Basis des Raums der Funktionen auf $[a, b]$ bilden:
+\rmvspace
+\begin{align*}
+    \int_{a}^{b} f(x) \dx x \approx \int_{a}^{b} f_n(x) \dx x = \int_{a}^{b} \left( \sum_{k = 0}^{n} \alpha_k b_k(x) \right) \dx x = \sum_{k = 0}^{n} \alpha_k \int_{a}^{b} c_k(x) \dx x
+\end{align*}
+Falls wir $c_k(x) = x^k$ haben (was oft der Fall ist, je nach Funktion aber könnte eine rationale Funktion oder andere Arten besser geeignet sein), dann erhalten wir:
+\rmvspace
+\begin{align*}
+    \int_{a}^{b} c_k(x) \dx x = \frac{b^{k + 1} - a^{k + 1}}{k + 1}
+\end{align*}
+% Mit äquidistanten Punkten $x_0, x_1, \ldots, x_n$ können wir die Koeffizienten $\alpha_0, \alpha_1, \ldots, \alpha_n$ mithilfe eines linearen Gleichunssystems berechnen, 
+% wessen Matrix eine $(n + 1) \times (n + 1)$-Vandermonde Matrix ist, so dass $p_n(x) = \alpha_0 + \alpha_1 x + \ldots + \alpha_n x^n$,
+% also sind unsere Gleichungen $p_n(x_j) = f(x_j)$ für alle $j = 0, 1, \ldots, n$.
+% Dieser Ansatz hat jedoch grosse Rundungsfehler.
+
+\begin{definition}[]{Lagrange-Polynome}
+    Für die Knoten $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Polynome
+    \rmvspace
+    \begin{align*}
+        l_i(x) = \prod_{j = 0 \atop j \neq i}^n \frac{x - x_j}{x_i - x_j}
+    \end{align*}
+
+    \rmvspace
+    als die Lagrange-Polynome zu den Stützstellen $x_0, x_1, \ldots, x_n$
+\end{definition}
+Für ein Beispiel verweisen wir auf Abschnitt \ref{sec:barycentric-interpolation}
