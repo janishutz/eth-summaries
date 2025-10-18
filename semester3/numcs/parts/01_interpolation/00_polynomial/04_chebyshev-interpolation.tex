@@ -30,7 +30,7 @@
 \end{definition}
 $T_n(x)$ scheint erst nicht ein Polynom zu sein, aber wir haben einen $\arccos$ in einem $\cos$. Zudem:
 
-\stepcounter{all}
+\stepLabelNumber{all}
 \fancytheorem{Eigenschaften}
 Das $n$-te Chebyshev-Polynom ist ein Polynom von Grad $n$ und für $x \in [-1, 1]$ gilt:
 \begin{multicols}{2}
@@ -81,7 +81,7 @@ Oder $k = 1, \ldots, n - 1$ bei ausgeschlossenen Endpunkten $a$ und $b$
 
 
 % ────────────────────────────────────────────────────────────────────
-\stepcounter{all}
+\stepLabelNumber{all}
 \newpage
 \subsubsection{Fehler}
 Was hat die neue Verteilung für einen Einfluss auf den Fehler?
@@ -98,12 +98,12 @@ Folglich sind also die Nullstellen der Chebyshev-Polynome $T_n$ die bestmöglich
 Da die Abszissen mit FFT einfacher zu berechnen sind, werden diese oft bevorzugt berechnet.
 Dies, da die Nullstellen von $T_n$ in den Extrema von $T_{2n}$ enthalten sind, während zudem zwischen zwei nebeneinanderliegenden Chebyshev-Abszissen jeweils eine Nullstelle von $T_{2n}$ liegt
 
-\stepcounter{all}
+\stepLabelNumber{all}
 \fancytheorem{Lebesgue-Konstante} Für die Chebyshev-Interpolation: $\displaystyle \Lambda_n \approx \frac{2}{\pi} \log(n) \text{ für } n \rightarrow \infty$
 
 
 % ────────────────────────────────────────────────────────────────────
-\stepcounter{all}
+\stepLabelNumber{all}
 \begin{theorem}[]{Interpolationspolynom}
 	Das Interpolationspolynom $p$ zu $f$ mit Chebyshev-Knoten gleich der Nullstellen von $T_{n + 1}$ ist gegeben durch
 	\begin{align*}

@@ -84,14 +84,14 @@ Gleiche funktion, etwas kürzer:
 \end{code}
 
 Mit dem können wir dann ein Polynom mit der baryzentrischen Interpolationsformel interpolieren:
-\setcounter{numberingConfig}{0}
+\numberingOff
 \begin{formula}[]{Baryzentrische Interpolationsformel}
 	\vspace{-1.5pc}
 	\begin{align*}
 		p(x) = \frac{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k} y_k}{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k}}
 	\end{align*}
 \end{formula}
-\setcounter{numberingConfig}{3}
+\numberingOn
 
 Falls wir die Stützstellen als $(n + 1)$ Chebyshev-Abszissen $\displaystyle x_k = \cos\left( \frac{k\pi}{n} \right)$ wählen,
 so sind alle $\lambda_k$ gegeben durch $\lambda_k = (-1)^k \delta_k$ mit $\delta_0 = \delta_n = 0.5$ und $\delta_i = 1$.
@@ -141,7 +141,7 @@ Verglichen in der Lagrange-Basis zum korrekten Interpolationspolynom $p(x)$ ergi
 \end{align*}
 
 
-\stepcounter{all}
+\stepLabelNumber{all}
 \fancytheorem{Auswirkung von Messfehlern} Es gilt (wenn $\Lambda_n$ die beste Lebesgue-Konstante für die Ungleichung ist):
 \rmvspace
 \begin{align*}
@@ -156,7 +156,7 @@ Verglichen in der Lagrange-Basis zum korrekten Interpolationspolynom $p(x)$ ergi
     \end{align*}
 \end{theorem}
 
-\stepcounter{all}
+\stepLabelNumber{all}
 \inlineremark Für gleichmässig auf $I$ verteilte Stützstellen gilt $\displaystyle \Lambda_n \approx \frac{2^{n + 1}}{e n \log(n)}$
 
 \shade{gray}{Wichtig:} \bi{Niemals gleichmässig verteilte Stützstellen verwenden für die Interpolation von Polynomen hohen Grades}

@@ -18,17 +18,17 @@ Wie in Lineare Algebra besprochen, ist das Resultat der Multiplikation einer Mat
 \end{itemize}
 
 
-\setcounter{all}{4}
+\setLabelNumber{all}{4}
 \fancyremark{Rang der Matrixmultiplikation} $\text{Rang}(AX) = \min(\text{Rang}(A), \text{Rang}(X))$
 
-\setcounter{all}{7}
+\setLabelNumber{all}{7}
 \fancyremark{Multiplikation mit Diagonalmatrix $D$} $D \times A$ skaliert die Zeilen von $A$ während $A \times D$ die Spalten skaliert
 
 \stepcounter{all}
 \inlineex \verb|D @ A| braucht $\tco{n^3}$ Operationen, wenn wir jedoch \verb|D.diagonal()[:, np.newaxis] * A| verwenden, so haben wir nur noch $\tco{n^2}$ Operationen, da wir die vorige Bemerkung Nutzen und also nur noch eine Skalierung vornehmen.
 So können wir also eine ganze Menge an Speicherzugriffen sparen, was das Ganze bedeutend effizienter macht
 
-\setcounter{all}{14}
+\setLabelNumber{all}{14}
 \inlineremark Wir können bestimmte Zeilen oder Spalten einer Matrix skalieren, in dem wir einer Identitätsmatrix im unteren Dreieck ein Element hinzufügen.
 Wenn wir nun diese Matrix $E$ (wie die in der $LU$-Zerlegung) linksseitig mit der Matrix $A$ multiplizieren (bspw. $E^{(2, 1)}A$), dann wird die zugehörige Zeile skaliert.
 Falls wir aber $AE^{(2, 1)}$ berechnen, so skalieren wir die Spalte
@@ -79,7 +79,7 @@ Die vollständige Implementation sieht so aus:
 \end{code}
 
 
-\setcounter{all}{21}
+\setLabelNumber{all}{21}
 \fancydef{Kronecker-Produkt} Das Kronecker-Produkt ist eine $(ml) \times (nk)$-Matrix, für $A \in \R^{m \times n}$ und $B \in \R^{l \times k}$.
 
 \innumpy können wir dieses einfach mit \verb|np.kron(A, B)| berechnen (ist jedoch nicht immer ideal):

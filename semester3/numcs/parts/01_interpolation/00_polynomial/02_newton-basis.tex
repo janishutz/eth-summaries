@@ -13,7 +13,7 @@ Die Konstruktion verläuft iterativ, und vorherige Datenpunkte müssen nicht neu
     p_3(x) &= p_2(x) + \ldots
 \end{align*}
 
-\setcounter{all}{3}
+\setLabelNumber{all}{2}
 \fancytheorem{Newton-Basis} $\{ N_0,\ \ldots\ ,N_n\}$ ist eine Basis von $\mathcal{P}_n$
 \begin{align*}
     N_0(x) &:= 1 \quad
@@ -49,7 +49,7 @@ Wegen Satz 2.2.3 lässt sich jedes $p_n \in \mathcal{P}_n$ als $p_n(x) =\display
 
 Die Matrixmultiplikation in $\mathcal{O}(n^3)$ ist aber nicht nötig: Es gibt ein effizienteres System. 
 
-\setcounter{all}{5}
+\setLabelNumber{all}{4}
 \fancydef{Dividierte Differenzen} 
 \begin{multicols}{2}
     \begin{align*}
@@ -81,7 +81,7 @@ Falls $x_j = x_0 + \underbrace{j \cdot h}_{:= \Delta^j}$ gilt vereinfacht sich e
     y[x_0,\ \ldots\ , x_n] &= \frac{1}{n! h^n} \Delta^n y_0 
 \end{align*}
 
-\setcounter{all}{8}
+\setLabelNumber{all}{8}
 \fancytheorem{Newton} Falls $\beta_j = y[x_0,\ \ldots\ , x_j]$ geht das resultierende Polynom durch alle $(x_i,y_i)$.\\
 \footnotesize
 (D.h. die dividierten Differenzen sind korrekt.)
@@ -164,7 +164,7 @@ Auswertung eines Newton-Polynoms funktioniert in $\mathcal{O}(n)$ durch ein modi
 
 \subsubsection{Fehler}
 
-\setcounter{all}{11}
+\setLabelNumber{all}{10}
 \inlinetheorem $f$ $n$-mal diff.-bar, $y_i = f(x_i) \implies \exists \xi \in (\min_i x_i, \max_i x_i)$ s.d. $y[x_0,x_1,\ldots,x_n] = \frac{f^{(n)}(\xi)}{(n+1)!}$
 
 \fancytheorem{Fehler} $f: [a,b] \to \R$ ist $(n+1)$-mal diff.-bar, $p$ ist das Polynom zu $f$ in $x_0,\ldots,x_n \in [a,b]$. 

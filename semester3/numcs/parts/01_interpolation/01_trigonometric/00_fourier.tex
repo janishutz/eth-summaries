@@ -60,7 +60,7 @@ $p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\Re(\gam
 In Anwendungen findet sich oft das Intervall $\left[ -\frac{T}{2}, \frac{T}{2} \right]$.
 Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{-\frac{T}{2}} (\ldots) \dx t$ und $\exp(2\pi ijt)$ durch $\exp(i \frac{2\pi j}{T} t)$ ersetzt wird.
 
-\stepcounter{all}
+\stepLabelNumber{all}
 \inlineremark Die Funktionen $\varphi_k(x) = \exp(2\pi ikx)$ sind orthogonal bezüglich des $L^2(0, 1)$-Skalarprodukts, bilden also eine Basis für den Unterraum der trigonometrischen polynome.
 
 
@@ -89,7 +89,7 @@ Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{
 
 % A (small) intuitive explanation of what the fourier series / coefficients are & what they are useful for would be great, script *briefly* touches on it.
 
-\setcounter{all}{14}
+\setLabelNumber{all}{14}
 \inlineremark Die Parseval'sche Gleichung beschreibt einfach gesagt einen ``schnellen'' Abfall der $\hat{f}(k)$.
 Genauer gesagt, klingen die Koeffizienten schneller als $\frac{1}{\sqrt{k}}$ ab.
 Sie sagt zudem aus, dass die $L^2$-Norm der Funktion aus einer Summe berechnet werden kann (nicht nur als Integral).
@@ -134,7 +134,7 @@ Mit $c = \pi(a + b)$ und $d = \pi(b - a)$
     \label{fig:trigo-interp-overarcing}
 \end{figure}
 
-\stepcounter{all}
+\stepLabelNumber{all}
 \inlineremark Meist ist es nicht möglich (oder nicht sinnvoll) die Fourier-Koeffizienten analytisch zu berechnen,
 weshalb man wieder zur Numerik und der Trapezformel greift, die folgendermassen definiert ist für $t_l = \frac{l}{N}$,
 wobei $l = 0, 1 \ldots, N - 1$ und $N$ die Anzahl der Intervalle ist:

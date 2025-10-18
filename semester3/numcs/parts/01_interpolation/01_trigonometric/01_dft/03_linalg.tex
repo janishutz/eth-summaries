@@ -1,7 +1,7 @@
 \newpage
 \subsubsection{DFT \& Lineare Algebra}
 
-\setcounter{all}{25}
+\setLabelNumber{all}{25}
 \fancydef{Zirkulant} Für einen vektor $c \in \mathbb{R}^N$ hat der Zirkulant $C \in \mathbb{R}^{N \times N}$ die Form:
 \begin{align*}
     C = \begin{bmatrix}
@@ -74,7 +74,7 @@ Die Faltung von $a = [a_0,\ldots,a_{N-1}]^\top, b = [b_0,\ldots,b_{N-1}]^\top$ i
     c = a \circledast b\quad\quad \text{s.d. } \sum_{n=0}^{N-1} a_nb_{k-n} \equiv_N \sum_{n=0}^{N-1}b_na_{n-k}
 \end{align*}
 
-\setcounter{all}{32}
+\setLabelNumber{all}{32}
 \inlineremark Zyklische Faltungen von Vektoren kann man mit Zirkulanten berechnen. 
 \begin{align*}
     c = a \circledast b = Ab = \underbrace{\begin{bmatrix}
@@ -87,7 +87,7 @@ Die Faltung von $a = [a_0,\ldots,a_{N-1}]^\top, b = [b_0,\ldots,b_{N-1}]^\top$ i
 
 % NOTE: I'm not sure if this below is correct. This is how I interpret what is written in the script
 
-\setcounter{all}{30}
+\setLabelNumber{all}{30}
 \inlineremark Eine Multiplikation von Polynomen $g,h$ entspricht einer Faltung im Frequenzbereich.
 \begin{align*}
     \mathcal{F}_N(\underbrace{g * h}_{\text{Standard Basis}}) = \underbrace{\mathcal{F}_N(g) \cdot \mathcal{F}_N(h)}_{\text{Trigonometrische Basis}}
