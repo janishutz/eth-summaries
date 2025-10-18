@@ -21,7 +21,7 @@ Wir wollen natürlich wieder $c_i^n \in [a, b]$ und $w_i^n$ so wählen, dass der
     \begin{align*}
         E(n) = \left| \int_{a}^{b} f(x) \dx - Q_n(f; a, b) \right|
     \end{align*}
-    Wir haben \bi{algebraische Konvergenz} wenn $E(n) = \tco{\frac{1}{n^p}}$ mit $p > 0$ und 
+    Wir haben \bi{algebraische Konvergenz} wenn $E(n) = \tco{\frac{1}{n^p}}$ mit $p > 0$ und
     \bi{exponentielle Konvergenz} wenn $E(n) = \tco{q^n}$ mit $0 \leq q < 1$
 \end{definition}
 
@@ -58,4 +58,90 @@ Falls wir $c_k(x) = x^k$ haben (was oft der Fall ist, je nach Funktion aber kön
 Für ein Beispiel verweisen wir auf Beispiel \ref{all:2-3-2}
 
 \setLabelNumber{all}{6}
-\fancyremark{Eigenschaften der Lagrange-Polynome} Zusätzlich zu den Eigenschaften in \ref{all:2-3-4} ist folgende Eigenschaft erwähnenswert
+\fancyremark{Eigenschaften der Lagrange-Polynome} Zu den Eigenschaften aus \ref{all:2-3-4} fügen wir an (die Eigenschaften aus Bemerkung \ref{all:2-3-4} sind hier erneut aufgeführt)
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item $l_i(x_j) = 0 \smallhspace \forall j \neq i$
+        \item $l_i(x_i) = 1 \smallhspace \forall i$
+        \item $\deg(l_i) = n \smallhspace \forall i$
+        \item $\sum_{k = 0}^{n} l_k(x) = 1 \smallhspace \forall x \in \R$
+        \item $\sum_{k = 0}^{n} l_k^{(m)}(x) = 0 \text{ für } m > 0$
+        \item $l_0, l_1, \ldots, l_n$ bilden Basis von $\mathcal{P}_{n + 1}$
+    \end{enumerate}
+\end{multicols}
+
+\vspace{-1.5pc}
+wobei $\mathcal{P}_{n + 1}$ der Raum der Polynome von Grad maximal $n$ ist.
+
+\fancyremark{Quadraturgewichte aus den Lagrange-Polynomen}
+Das Interpolationspolynom ist gegeben durch:
+\drmvspace
+\begin{align*}
+    p(x) = \sum_{j = 0}^{n} f(x_j) l_j(x)
+\end{align*}
+
+\drmvspace
+Durch die Eigenschaften der Lagrange-Polynome haben wir $p(x_j) = f(x_j)$ und die Konstruktion von $p(x)$ ist eindeutig in $\mathcal{P}_{n + 1}$.
+Wir erhalten nun eine Quadraturformel, wenn wir $p$ als Approximation von $f$ verwenden:
+\rmvspace
+\begin{align*}
+    w_j = \int_{a}^{b} l_j(x), \smallhspace j = 0, 1, \ldots, n
+\end{align*}
+
+\drmvspace
+Durch die Konstruktion der Formel ist sie exakt für alle Polynome aus $\mathcal{P}_{n + 1}$ und der Fehler ist:
+\rmvspace
+\begin{align*}
+    \left| \int_{a}^{b} f(x) \dx x - \int_{a}^{b} p_n(x) \dx x \right| \leq \frac{1}{n!}(b - a)^{n + 1} \max|f^{(n)}(z)|
+\end{align*}
+
+\drmvspace
+Wir wollen also ein kleines Intervall (oft $b - a < 1$ da wir so das Integral besser approximieren können) und wir setzen voraus, dass $f$ glatt ist.
+
+Da wir aber oft ein grösseres Intervall betrachten möchten, ist ein möglicher Ansatz, das grosse Intervall in kleinere Intervalle zu zerlegen.
+Wir nehmen ein äquidistantes Gitter, mit $x_k = x_0 + k \cdot h$ für $h = \frac{b - a}{N}$ und $k = 0, \ldots, N$:
+\rmvspace
+\begin{align*}
+    \int_{a}^{b} f(x) \dx x = \sum_{k = 0}^{N - 1} \int_{x_k}^{x_{k + 1}} f(x) \dx x
+\end{align*}
+
+\drmvspace
+Die obige Formel wird auch die \textit{summierte} Quadraturformel genannt. Der Fehler ist dann also:
+\rmvspace
+\begin{align*}
+    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 0}^{N - 1} Q(f, x_k, x_{k + 1}) \right| \leq \ldots \leq C \frac{h^n}{n!}(b - a) &  &
+    \text{ mit } C = \max_{z \in [a, b]} |f^{(n)}(z)| = ||f^n||_{\max}
+\end{align*}
+
+\rmvspace
+Der obige Ansatz ist gewissermassen ``divide and conquer'' (zu Deutsch: ``Teile und Herrsche'', wir werden aber DnC verwenden)
+und wir der lokale Fehler liegt in $\tco{h^{n + 1}}$ und mit $N = (b - a) \div h$ Intervallen der Grösse $h$ haben wir einen globalen Fehler in $\tco{h^n}$.
+Folglich ist also der Fehler kleiner, je kleiner $h$ ist.
+
+Wir benutzen erneut einen Variablenwechsel, um von einem Referenzintervall $[-1, 1]$ auf eines unserer Teilintervalle $[x_k, x_{k + 1}]$ zu wechseln.
+Dies heisst also allgemein für Intervall $[a, b]$ nach $[-1, 1]$:
+\begin{align*}
+    \int_{a}^{b} f(t) \dx t = \frac{1}{2} (b - a) \int_{-1}^{1} \hat{f}(\tau) \dx \tau & \text{ mit } \hat{f}(\tau) := f\left( \frac{1}{2}(1 - \tau) a + \frac{1}{2}(\tau + 1) b \right)
+\end{align*}
+Für dieses Referenzintervall können wir die Gewichte $\hat{w}_j$ und die Knoten $\hat{c}_j$ bestimmen.
+% OMG, wtf, why can't he decide on using w, \omega or \hat{w} for the weights in the reference interval? That is so dumb.
+% FIXME: Choose uniform naming (advocating for \hat{w}_j on the reference intervall and w_j on the [a, b] interval)
+\rmvspace
+\begin{align*}
+    \int_{a}^{b} f(t) \dx t \approx \frac{1}{2}(b - a) \sum_{j = 1}^{n} \hat{w}_j \hat{f}(\hat{c}_j) = \sum_{j = 1}^{n} w_j f(c_j)
+     &  & \text{ mit } {c_j = \frac{1}{2} (1 - \hat{c}_j) a + \frac{1}{2}(1 + \hat{c}_j) b \atop{w_j = \frac{1}{2}(b - a)\hat{w}_j}}
+\end{align*}
+
+\rmvspace\rmvspace
+\inlinedef Die Ordnung einer Quadraturformel ist $n$ wenn sie Polynome vom Grad $(n - 1)$ exakt integriert.
+
+Dies folgt natürlich direkt davon, dass wir ein Polynom $n$-ten Grades mit $n + 1$ Koeffizienten darstellen können.
+
+\fancydef{Symmetrie} Eine Quadraturformel auf $[-1, 1]$ heisst symmetrisch, falls $\omega_i = \omega_{n + 1 - i}$ und \\
+$c_i = -c_{n + 1 -i}$ gilt für die Gewichte $\omega_i$ und Knoten $c_i$
+
+\inlineremark Die Mittelpunkts-, Trapez- und Simpson-Regeln aus Abschnitt \ref{sec:equidistant-nodes} sind symmetrisch
+
+\inlinetheorem Die Ordnung einer symmetrischen Quadraturformel ist gerade
+
+\inlineproof Kann mittels Induktion bewiesen werden, siehe dazu Seite 123 im Skript
