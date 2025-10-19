@@ -9,37 +9,37 @@
 
 \begin{definition}[]{Lagrange Polynome}
     Für Knoten (auch gennannt Stützstellen) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome für $n = \text{Anzahl Stützstellen}$, also haben wir $n - 1$ Brüche, da wir eine Iteration überspringen, weil bei dieser $j = i$ ist:
-	\begin{align*}
-		l_i(x) = \prod_{j = 0 \atop j \neq i}^n \frac{x - x_j}{x_i - x_j}
-	\end{align*}
+    \begin{align*}
+        l_i(x) = \prod_{\elementstack{j = 0}{j \neq i}}^n \frac{x - x_j}{x_i - x_j}
+    \end{align*}
 \end{definition}
 Falls $j = i$ im Produkt, so überspringt $j$ diese Zahl.
 
 \inlineex Seien $x_0, x_1, x_2$ die Stützstellen für die Lagrange-Polynome (mit $n = 2$):
 \begin{align*}
-	l_0(x) & = \frac{x - x_1}{x_0 - x_1} \cdot \frac{x - x_2}{x_0 - x_2} &
-	l_1(x) & = \frac{x - x_0}{x_1 - x_0} \cdot \frac{x - x_2}{x_1 - x_2} &
-	l_2(x) & = \frac{x - x_0}{x_2 - x_0} \cdot \frac{x - x_1}{x_2 - x_1}
+    l_0(x) & = \frac{x - x_1}{x_0 - x_1} \cdot \frac{x - x_2}{x_0 - x_2} &
+    l_1(x) & = \frac{x - x_0}{x_1 - x_0} \cdot \frac{x - x_2}{x_1 - x_2} &
+    l_2(x) & = \frac{x - x_0}{x_2 - x_0} \cdot \frac{x - x_1}{x_2 - x_1}
 \end{align*}
 
 
 \begin{theorem}[]{Lagrange-Interpolationsformel}
-	Die Lagrange-Polynome $l_i$ zu den Stützstellen $(x_0, y_0), \ldots, (x_n, y_n)$ bilden eine Basis der Polynome $\mathcal{P}_n$ und es gilt:
-	\begin{align*}
-		p(x) = \sum_{i = 0}^{n} y_i l_i(x) \text{ mit } l_i(x) = \prod_{j \neq i} \frac{x - x_j}{x_i - x_j}
-	\end{align*}
+    Die Lagrange-Polynome $l_i$ zu den Stützstellen $(x_0, y_0), \ldots, (x_n, y_n)$ bilden eine Basis der Polynome $\mathcal{P}_n$ und es gilt:
+    \begin{align*}
+        p(x) = \sum_{i = 0}^{n} y_i l_i(x) \text{ mit } l_i(x) = \prod_{j \neq i} \frac{x - x_j}{x_i - x_j}
+    \end{align*}
 \end{theorem}
 
 
 \fancyremark{Eigenschaften der Lagrange-Polynome}
 \rmvspace
 \begin{multicols}{2}
-	\begin{enumerate}
-		\item $l_i(x_j) = 0 \smallhspace \forall j \neq i$
-		\item $l_i(x_i) = 1 \smallhspace \forall i$
-		\item $\deg(l_i) = n \smallhspace \forall i$
-		\item $\sum_{k = 0}^{n} l_k(x) = 1 \text{ und } \sum_{k = 0}^{n} l_k^{(m)}(x) = 0 \text{ für } m > 0$
-	\end{enumerate}
+    \begin{enumerate}
+        \item $l_i(x_j) = 0 \smallhspace \forall j \neq i$
+        \item $l_i(x_i) = 1 \smallhspace \forall i$
+        \item $\deg(l_i) = n \smallhspace \forall i$
+        \item $\sum_{k = 0}^{n} l_k(x) = 1 \text{ und } \sum_{k = 0}^{n} l_k^{(m)}(x) = 0 \text{ für } m > 0$
+    \end{enumerate}
 \end{multicols}
 
 Da eine Implementation, welche direkt auf den Lagrange-Polynomen basiert, eine Laufzeit von $\tco{n^3}$ hätte, suchte man nach einer besseren Methode.
@@ -52,44 +52,44 @@ Man berechnet die baryzentrischen Gewichte $\lambda_k$ folgendermassen:
 oder das ganze mithilfe von Numpy:
 \begin{code}{python}
     def barycentric_weights(x: np.ndarray) -> np.ndarray:
-        n = len(x)
-        # Initialize to zeros
-        barweight = np.ones(n)
-        for k in range(n):
-            # Vectorized differences between $x_k$ and all $x$s
-            differences = x[k] - x
-            # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
-            if k < n - 1 and k > 0:
-                diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
-                barweight[k] = 1 / np.prod(diff_processed)
-            elif k == 0:
-                barweight[k] = 1 / np.prod(differences[1:])
-            else:
-                barweight[k] = 1 / np.prod(differences[:k])
-        return barweight
+    n = len(x)
+    # Initialize to zeros
+    barweight = np.ones(n)
+    for k in range(n):
+    # Vectorized differences between $x_k$ and all $x$s
+    differences = x[k] - x
+    # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
+    if k < n - 1 and k > 0:
+    diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
+    barweight[k] = 1 / np.prod(diff_processed)
+    elif k == 0:
+    barweight[k] = 1 / np.prod(differences[1:])
+    else:
+    barweight[k] = 1 / np.prod(differences[:k])
+    return barweight
 \end{code}
 
 Gleiche funktion, etwas kürzer:
 
 \begin{code}{python}
     def barycentric_weights(x: np.ndarray) -> np.ndarray:
-        n = len(x)
-        w = np.ones(n) # = barweight
-        # Compute the (non-inverted) product, avoiding case (x[i] - x[i]) = 0
-        for i in range(0, n, 1):
-            if (i-1 > 0): w[0:(i-1)] *= (x[0:(i-1)] - x[i])
-            if (i+1 < n): w[i+1:n]   *= (x[i+1:n]   - x[i])
-        # Invert all at once
-        return 1/w
+    n = len(x)
+    w = np.ones(n) # = barweight
+    # Compute the (non-inverted) product, avoiding case (x[i] - x[i]) = 0
+    for i in range(0, n, 1):
+    if (i-1 > 0): w[0:(i-1)] *= (x[0:(i-1)] - x[i])
+    if (i+1 < n): w[i+1:n]   *= (x[i+1:n]   - x[i])
+    # Invert all at once
+    return 1/w
 \end{code}
 
 Mit dem können wir dann ein Polynom mit der baryzentrischen Interpolationsformel interpolieren:
 \numberingOff
 \begin{formula}[]{Baryzentrische Interpolationsformel}
-	\vspace{-1.5pc}
-	\begin{align*}
-		p(x) = \frac{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k} y_k}{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k}}
-	\end{align*}
+    \vspace{-1.5pc}
+    \begin{align*}
+        p(x) = \frac{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k} y_k}{\displaystyle \sum_{k = 0}^{n} \frac{\lambda_k}{x - x_k}}
+    \end{align*}
 \end{formula}
 \numberingOn
 
@@ -102,25 +102,25 @@ Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode 
 
 \begin{code}{python}
     def interp_barycentric(
-        data_point_x: np.ndarray,
-        data_point_y: np.ndarray,
-        barweight: np.ndarray,
-        x: np.ndarray
+    data_point_x: np.ndarray,
+    data_point_y: np.ndarray,
+    barweight: np.ndarray,
+    x: np.ndarray
     ):
-        p_x = np.zeros_like(x)
-        n = data_point_x.shape[0]
+    p_x = np.zeros_like(x)
+    n = data_point_x.shape[0]
 
-        for i in range(x.shape[0]):
-            # Separate sums to divide in the end
-            upper_sum = 0
-            lower_sum = 0
-            for k in range(n):
-                frac = barweight[k] / (x[i] - data_point_x[k])
-                upper_sum += frac * data_point_y[k]
-                lower_sum += frac
-            p_x[i] = upper_sum / lower_sum
+    for i in range(x.shape[0]):
+    # Separate sums to divide in the end
+    upper_sum = 0
+    lower_sum = 0
+    for k in range(n):
+    frac = barweight[k] / (x[i] - data_point_x[k])
+    upper_sum += frac * data_point_y[k]
+    lower_sum += frac
+    p_x[i] = upper_sum / lower_sum
 
-        return p_x
+    return p_x
 \end{code}
 
 
@@ -130,14 +130,14 @@ Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode 
 Falls an den Stützstellen $x_i$ durch beispielsweise ungenaue Messungen unpräzise Werte $\tilde{y_i}$ haben, so entsteht logischerweise auch ein unpräzises Polynom $\tilde{p}(x)$.
 Verglichen in der Lagrange-Basis zum korrekten Interpolationspolynom $p(x)$ ergibt sich folgender Fehler:
 \begin{align*}
-	|p(x) - \tilde{p}(x)| = \left| \sum_{i = 0}^{n} (y_i - \tilde{y_i}) l_i(x) \right| \leq \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}| \cdot \sum_{i = 0}^{n} |l_i(x)|
+    |p(x) - \tilde{p}(x)| = \left| \sum_{i = 0}^{n} (y_i - \tilde{y_i}) l_i(x) \right| \leq \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}| \cdot \sum_{i = 0}^{n} |l_i(x)|
 \end{align*}
 
 
 \fancydef{Lebesgue-Konstante} Zu den Stützstellen $x_0, \ldots, x_n$ im Intervall $[a, b]$ ist sie definiert durch
 \rmvspace
 \begin{align*}
-	\Lambda_n = \max_{x \in [a, b]} \sum_{i = 0}^{n} |l_i(x)|
+    \Lambda_n = \max_{x \in [a, b]} \sum_{i = 0}^{n} |l_i(x)|
 \end{align*}
 
 
@@ -145,11 +145,11 @@ Verglichen in der Lagrange-Basis zum korrekten Interpolationspolynom $p(x)$ ergi
 \fancytheorem{Auswirkung von Messfehlern} Es gilt (wenn $\Lambda_n$ die beste Lebesgue-Konstante für die Ungleichung ist):
 \rmvspace
 \begin{align*}
-	\max_{x \in [a, b]} |p(x) - \tilde{p}(x)| \leq \Lambda_n \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}|
+    \max_{x \in [a, b]} |p(x) - \tilde{p}(x)| \leq \Lambda_n \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}|
 \end{align*}
 
 \begin{theorem}[]{Fehler}
-	Sei $f : [a, b] \rightarrow \R$ und $p$ das Interpolationspolynom zu $f$. Seien $x_0, \ldots, x_n$ die Stützstellen, dann gilt:
+    Sei $f : [a, b] \rightarrow \R$ und $p$ das Interpolationspolynom zu $f$. Seien $x_0, \ldots, x_n$ die Stützstellen, dann gilt:
     \rmvspace
     \begin{align*}
         ||f(x) - p(x)||_{\infty} = \max_{x \in [a, b]}|f(x) - p(x)| \leq (1 + \Lambda_n) \min_{q \in \mathcal{P}_n} \max_{x \in [a, b]} |f(x) - q(x)|

@@ -49,7 +49,7 @@ Falls wir $c_k(x) = x^k$ haben (was oft der Fall ist, je nach Funktion aber kön
     Für die Knoten $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Polynome
     \rmvspace
     \begin{align*}
-        l_i(x) = \prod_{j = 0 \atop j \neq i}^n \frac{x - x_j}{x_i - x_j}
+        l_i(x) = \prod_{\substack{j = 0\\ j \neq i}}^n \frac{x - x_j}{x_i - x_j}
     \end{align*}
 
     \rmvspace
@@ -129,7 +129,7 @@ Für dieses Referenzintervall können wir die Gewichte $\hat{w}_j$ und die Knote
 \rmvspace
 \begin{align*}
     \int_{a}^{b} f(t) \dx t \approx \frac{1}{2}(b - a) \sum_{j = 1}^{n} \hat{w}_j \hat{f}(\hat{c}_j) = \sum_{j = 1}^{n} w_j f(c_j)
-     &  & \text{ mit } {c_j = \frac{1}{2} (1 - \hat{c}_j) a + \frac{1}{2}(1 + \hat{c}_j) b \atop{w_j = \frac{1}{2}(b - a)\hat{w}_j}}
+     &  & \text{ mit } \elementstack{c_j = \frac{1}{2} (1 - \hat{c}_j) a + \frac{1}{2}(1 + \hat{c}_j) b}{w_j = \frac{1}{2}(b - a)\hat{w}_j}
 \end{align*}
 
 \rmvspace\rmvspace
