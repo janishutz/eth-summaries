@@ -1,2 +1,24 @@
 \newsectionNoPB
 \subsection{Partial derivatives}
+\shortdef $X \subseteq \R^n$ \bi{open} if for any $x = (x_1, \ldots, x_n) \in X$ $\exists \delta > 0$ s.t.
+$\{ y = (y_1, \ldots, y_n) \in \R^n : |x_i - y_i| < \delta \smallhspace \forall i \}$ is contained in $X$.
+(= changing a coordinate of $x$ by $< \delta \rightarrow x' \in X$)
+\shortproposition $X \subseteq \R^n$ open $\Leftrightarrow$ \bi{complement} $Y = \{ x \in \R^n : x \notin X \}$ is closed
+\shortcorollary If $f: \R^n \rightarrow \R^m$ cont. and $Y \subseteq \R^m$ open, then $f^{-1}(Y)$ is open in $\R^n$
+\shortex \bi{(1)} $\emptyset$ and $\R^n$ are both open and closed.
+\bi{(2)} Open ball $D = \{ x \in \R^n : ||x - x_0|| < r \}$ is open in $\R^n$ ($x_0$ the center and $r$ radius)
+\bi{(3)} $I_1 \times \dots \times I_n$ is open in $\R^n$ for $I_i$ open
+\bi{(4)} $X \subseteq \R^n$ open $\Leftrightarrow$ $\forall x \in X \exists \delta > 0$ s.t. open ball of center $x$ and radius $\delta$ is contained in $X$
+
+\compactdef{Partial derivative} Let $X \subseteq \R^n$ open, $f: X \rightarrow \R^m$ and $1 \leq i \leq n$.
+Then $f$ has partial derivative on $X$ with respect to the $i$-th variable (or coordinate),
+if $\forall x_0 = (x_{0, 1}, \ldots, x_{0, n}) \in X$, $g(t) = f(x_{0, 1}, \ldots, x_{0, i - 1}, t, x_{0, i + 1}, x_{0, n})$ on set
+$I = \{ t \in \R : (x_{0, 1}, \ldots, x_{0, i - 1}, t, x_{0, i + 1}, \ldots, x_{0, n}) \in X \}$ is differentiable at $t = x_{0, i}$.
+The derivative $g'(x_{0, i})$ at $x_{0, i}$ is denoted:
+$\frac{\partial f}{\partial x_i}(x_0), \partial_{x_i} f(x_0) \text{ or } \partial_i f(x_0)$\\
+%
+\shortproposition Let $X \subseteq \R^n$ open, $f, g : X \rightarrow \R^m$ and $1 \leq i \leq n$. Then:
+\bi{(1)} If $f$ \& $g$ have $\partial_i$ on $X$, then so does $f + g$ and $\partial_{x_i} (f + g) = \partial_{x_i}(f) + \partial_{x_i}(g)$
+\bi{(2)} If $m = 1$ (i.e. $\R^1$) and $f$ \& $g$ have $\partial_i$ on $X$, then so does $fg$ and $\partial_{x_i} (fg) = \partial_{x_i}(f)g + f \partial_{x_i}(g)$
+and if $g(x) \neq 0 \smallhspace \forall x \in X$, then if $f \div g$ has $\partial_i$ on $X$, then so does $f \div g$ and
+$\partial_{x_i}(f \div g) = (\partial_{x_i}(f) g - f \partial_{x_i}(g)) \div g^2$
