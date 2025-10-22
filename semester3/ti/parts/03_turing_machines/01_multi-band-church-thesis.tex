@@ -1,9 +1,33 @@
 \newsection
 \subsection{Mehrband-Turingmaschinen und Church'sche These}
-Die Turingmaschinen sind das Standardmodell der Berechenbarkeitstheorie, aber benötigen einige Modifikationen, um wirklich geeignet zu sein 
+Die Turingmaschinen sind das Standardmodell der Berechenbarkeitstheorie, aber benötigen einige Modifikationen, um wirklich geeignet zu sein
 (da das Von-Neumann Modell physisch unterschiedliche CPU, Eingabemedium und Speicher für Programme und Daten fordert, aber die TM ein gemeinsames Eingabemedium und Speicher hat).
 
-Eine $k$-Ban-Turingmaschine (für $k \in \N_0$) hat folgende Komponenten:
+Eine $k$-Band-Turingmaschine (für $k \in \N_0$) hat folgende Komponenten:
 \begin{itemize}
-    \item 
+    \item eine endliche Kontrolle (= Programm)
+    \item ein endliches Band mit einem Lesekopf
+    \item $k$ Arbeitsbänder, jedes mit eigenem Lese-/Schreibkopf
 \end{itemize}
+Zu Beginn ist die MTM in folgender Situation:
+\begin{itemize}
+    \item Das Eingabeband enthält $\cent w \$$, wobei $\cent$ und $\$$ die linke / rechte Seite der Eingabe markieren
+    \item Der Lesekopf des Eingabebands zeigt auf $\cent$
+    \item Alle Arbeitsbänder beinhalten $\cent \text{\textvisiblespace\textvisiblespace} \ldots$ und deren Lese-/Schreibköpfe zeigen auf $\cent$
+    \item Die endliche Kontrolle ist im Anfangszustand $q_0$
+\end{itemize}
+Alle $k + 1$ Köpfe dürfen sich während der Berechnung in beide Richtungen bewegen (solange das nicht out-of-bounds geht).
+Zudem darf der Lesekopf nicht schreiben, also beleibt der Inhalt des Eingabebands gleich.
+
+Gleich wie bei einer TM ist das Arbeitsalphabet der Arbeitsbänder $\Gamma$ und alle Felder der Arbeitsbänder sind von links nach rechts nummeriert, wobei $0$ bei $\cent$ liegt.
+
+Eine Konfiguration einer $k$-Band-TM $M$ ist $(q, w, i, u_1, i_1, u_2, i_2, \ldots, u_k, i_k) \in Q \times \word \times \N \times (\Gamma^* \times \N)^k$,
+wobei $q$ der Zustand ist, der Inhalt des Eingabebands ist $\cent w \$$, der Lesekopf zeigt auf das $i$-te Feld,
+für $j \in \{ 1, 2, \ldots, k \}$ ist der Inhalt des $j$-ten Bandes $\cent u_k \text{\textvisiblespace} \ldots$ und $i_j \leq |u_j|$ ist die Position des Feldes.
+
+Ein Berechnungsschritt von $M$ kann mit $\delta: Q \times (\Sigma \cup \{ \cent, \$ \}) \times \Gamma^k \rightarrow Q \times \{ L, R, N \} \times (\Gamma \times \{ L, R, N \})^k$
+    dargestellt werden, wobei die Argumente $(q, a, b_1, \ldots, b_k)$ der aktuelle Zustand $q$, das gelesene Eingabesymbol $a$ und die $k$ Symbole $b_i \in \Gamma$,
+auf welchen die Köpfe der Arbeitsbänder stehen.
+
+Die Eingabe $w$ wird von $M$ akzeptiert, falls $M$ den Zustand $\qacc$ erreicht und falls $M$ den Zustand $\qrej$ erreicht oder nicht terminiert, wird die Eingabe verworfen.
+% Page 120
