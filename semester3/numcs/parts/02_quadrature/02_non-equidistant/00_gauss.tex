@@ -8,3 +8,17 @@ welches hier $[0, 1]$ ist, mit $c_1, c_2, \ldots, c_s \in [0, 1]$ bezeichnet.
 
 % TODO: It would probably be a good idea to link the document together much better (and maybe create an index in the end?)
 Wir möchten unsere Gewichte $b_i$ und Knoten $c_i$ so bestimmen, dass die Quadraturordnung maximal ist.
+
+Wir definieren die Notation $\langle M, g \rangle = \int_{0}^{1} M(t) g(t) \dx t$ (also das Skalarprodukt).
+
+\begin{theorem}[]{Ordnung der Quadraturformel}
+    Die Ordnung ist $s + m$ genau dann, wenn $\langle M, g \rangle = 0$ für alle Polynome $g$ mit $\deg(g) \leq m - 1$ und 
+    $M(t) = (t - c_1) \cdot (t - c_2) \cdot \ldots \cdot (t - c_s)$ für $s$. Also steht $M$ senkrecht zu allen $g$.
+\end{theorem}
+
+\fancytheorem{Maximale Ordnung einer Quadraturformel} Die Ordnung einer Quadraturformel mit $s$ Knoten ist $\leq 2s$
+
+
+\fhlc{lime}{Orthogonale Polynome}
+
+Für $I = ]a, b[$ sei $w: I \rightarrow \R$ eine stetige Gewichtsfunktion mit $w(x) > 0 \smallhspace \forall x \in I$
