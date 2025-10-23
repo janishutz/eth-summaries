@@ -21,11 +21,11 @@ Wir notieren das Ganze in graphischer Darstellung so, dass wir aus einem Zustand
     \begin{align*}
         (q, w) \bigvdash{M}{} (p, x) \Longleftrightarrow w = ax \text{ für ein } a \in \Sigma \text{ und } p \in \delta(q, a)
     \end{align*}
-    
-    Eine \bi{Berechnung von $M$} ist eine endliche Folge $D_1, D_2, \ldots, D_k$ von Konfigurationen, 
+
+    Eine \bi{Berechnung von $M$} ist eine endliche Folge $D_1, D_2, \ldots, D_k$ von Konfigurationen,
     wobei $D_i \bigvdash{M}{} D_{i + 1}$ für $i = 1, \ldots, k - 1$
 
-    Eine \bi{Berechnung von $M$ auf $x$} hingegen ist eine Berechnung $C_0, C_1, \ldots, C_m$ von $M$, 
+    Eine \bi{Berechnung von $M$ auf $x$} hingegen ist eine Berechnung $C_0, C_1, \ldots, C_m$ von $M$,
     wobei $C_0 = (q_0, x)$ und entweder $C_m \in Q \times \{ \lambda \}$ oder $C_M = (q, ay)$ für ein $a \in \Sigma, y \in \word$ und $q \in Q$,
     so dass $\delta(q, a) = \emptyset$.
 
@@ -55,16 +55,16 @@ Wir beginnen den Baum mit Konfiguration $(q_0, x)$ und führen dann mit den Kant
 Wir erreichen so also zum Beispiel die Konfiguration $(q_1, x_1)$, wobei $x_1$ $x$ ohne das erste Zeichen ist.
 
 
-\fancylemma{NEA aus Abbildung 3.15 im Buch} Sei $M$ der NEA aus Abbildung 3.15 im Buch (auf Seite 77 (= 92 im PDF) zu finden). 
+\fancylemma{NEA aus Abbildung 3.15 im Buch} Sei $M$ der NEA aus Abbildung 3.15 im Buch (auf Seite 77 (= 92 im PDF) zu finden).
 Dann ist $L(M) = \{ x11y \divides x, y \in \wordbool \}$
 
 Der Beweis für eine solche Aussage läuft oft über Teilmengen (also mit $X \subseteq Y \land Y \subseteq X \Leftrightarrow X = Y$).
 
 
 Eine zentrale Frage dieses Kapitels ist es, ob $\mathcal{L}_{\text{NEA}} = \mathcal{L}_{\text{EA}}$, wobei $\mathcal{L}_{\text{NEA}} = \{ L(M) \divides M \text{ ist ein NEA} \}$.
-In anderen Worten: Können EA die Arbeit von NEA simulieren? 
+In anderen Worten: Können EA die Arbeit von NEA simulieren?
 
-Ja, es ist möglich und gilt allgemein, dass die Simulation von Nichtdeterminismus durch Determinismus nur dann realisierbar ist, 
+Ja, es ist möglich und gilt allgemein, dass die Simulation von Nichtdeterminismus durch Determinismus nur dann realisierbar ist,
 wenn es möglich ist, alle nichtdeterministischen Berechnungen durch deterministische Berechnungen nachzuahmen.
 
 Bei EA (nennen einen $A$ im Folgenden) basiert diese Idee auf BFS der Berechnungsbäume von $M$.
@@ -74,12 +74,12 @@ Wenn es zwei Knoten $u \neq v$ identisch sind, so müssen wir nur in einem der T
 
 \bi{Potenzmengenkonstruktion:} Ein Zustand $\langle P \rangle$ von $A$ für $P \subseteq Q$ erhält die Bedeutung,
 dass nach der gegebenen Anzahl an Berechnungsschritten genau die Zustände aus $P$ in den Berechnungen von $M$ auf der gegebenen Ebene erreichbar sind, also $P = \hdelta(q_0, z)$.
-Ein Berechnungsschritt in $A$ aus einem Zustand $\langle P \rangle$ für ein gelesenes Symbol $a$ bedeutet die Bestimmung der Menge $\bigcup_{p \in P} \delta(p, a)$, 
+Ein Berechnungsschritt in $A$ aus einem Zustand $\langle P \rangle$ für ein gelesenes Symbol $a$ bedeutet die Bestimmung der Menge $\bigcup_{p \in P} \delta(p, a)$,
 also aller Zustände, die aus irgendeinem Zustand $p \in P$ beim Lesen von $a$ erreichbar sind.
 
 Dabei benutzen wir $\langle P \rangle$ statt $P$, um zu verdeutlichen, dass wir eine Zustand von $A$ und nicht die Menge der Zustände von $M$ bezeichnen.
 
-Ein EA, der die Sprache, bei welcher das $k$-letzte Symbol $1$ ist, benötigt $2^k$ Zustände. 
+Ein EA, der die Sprache, bei welcher das $k$-letzte Symbol $1$ ist, benötigt $2^k$ Zustände.
 Er wird dabei aus dem NEA dieser Sprache mit der Potenzmengenkonstruktion gebildet.
 
 \inlinetheorem Zu jedem NEA $M$ existiert ein EA $A$, so dass $L(M) = L(A)$
@@ -99,3 +99,23 @@ Eine Folge von Satz 3.2 ist eben, dass $\mathcal{L}_{\text{EA}} = \mathcal{L}_{\
 Was hingegen ein Problem sein kann, ist dass die durch die Potenzmengenkonstruktion erzeugten Automaten (exponentiell) grösser sind als die NEA.
 
 % Currently on Page 98, below Task 3.22 half way in the text block
+
+\fhlc{ForestGreen}{Worked Example} Zeige, das jeder endliche Automat,
+der die Sprache $L = \{ w \in \{ a , b \}^* \divides w \text{ enthält Teilwort $ab$ gleich oft wie das Teilwort $ba$ enthält} \}$
+mindestens $n := 5$ Zustände haben muss.
+
+\begin{table}[h!]
+    \begin{center}
+        \begin{tabular}[c]{c|ccccc}
+                     & $ab$ & $(ab)^2$ & $(ab)^3$ & $(ab)^4$ & $(ab)^5$ \\
+            \hline
+            $ab$     & -    & $(ba)^2$ & $(ba)^3$ & $(ba)^4$ & $(ba)^5$ \\
+            $(ab)^2$ &      & -        & $(ba)^3$ & $(ba)^4$ & $(ba)^5$ \\
+            $(ab)^3$ &      &          & -        & $(ba)^4$ & $(ba)^5$ \\
+            $(ab)^4$ &      &          &          & -        & $(ba)^5$ \\
+            $(ab)^5$ &      &          &          &          & -        \\
+        \end{tabular}
+    \end{center}
+\end{table}
+Sei $S = \{ ab, (ab)^2, (ab)^3, (ab)^4, (ab)^5 \}$.
+Laut Lemma 3.3
