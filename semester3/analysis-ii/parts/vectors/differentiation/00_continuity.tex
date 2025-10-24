@@ -1,16 +1,17 @@
 \stepcounter{subsection}
 \subsection{Continuity}
 \compactdef{Convergence in $\R^n$} Let $(x_k)_{k \in \N}$ where $x_k \in \R^n$ with $x_k = (x_{k, 1}, \ldots, x_{k, n})$ and let $y = (y_1, \ldots, y_n) \in \R^n$.
-$(x_k)$ converges to $y$ as $k \rightarrow +\infty$ if $\forall \varepsilon > 0 \smallhspace \exists N \geq 1$ s.t. $\forall n \geq N$ we have $||x_k - y|| < \varepsilon$
+$(x_k)$ converges to $y$ as $k \rightarrow +\infty$ if $\forall \varepsilon > 0 \smallhspace \exists N \geq 1$ s.t. $\forall n \geq N$ we have $||x_k - y|| < \varepsilon$\\
 % ────────────────────────────────────────────────────────────────────
 \shortlemma $(x_k)$ converges to $y$ as $k \rightarrow +\infty$ iff one of following equiv. statements holds:
 \bi{(1)} $\forall 1 \leq i \leq n$, the sequence $(x_{k, i})$ with $x_{k, i} \in \R$ converges to $y_i$
-\bi{(2)} $(||x_k - y||)$ converges to $0$ as $k \rightarrow +\infty$
+\bi{(2)} $(||x_k - y||)$ converges to $0$ as $k \rightarrow +\infty$\\
 % ────────────────────────────────────────────────────────────────────
 \compactdef{Continuity} Let $X \subseteq \R^n$ and $f: X \rightarrow \R^m$.
 \bi{(1)} Let $x_0 \in X$. $f$ continuous in $\R^n$ if $\forall \varepsilon > 0 \smallhspace \exists \delta > 0$ s.t. if $x \in X$ satisfies $||x - x_0|| < \delta$,
 then $||f(x) - f(x_0)|| < \varepsilon$
 \bi{(2)} $f$ continuous \textit{on} $X$ if continuous at $x_0 \smallhspace \forall x_0 \in X$
+% TODO: Add tricks from TA slides here (week 05 / 04)
 % ────────────────────────────────────────────────────────────────────
 \shortproposition Let $X$ and $f$ as prev. Let $x_0 \in X$. $f$ continuous at $x_0$ iff $\forall (x_k)_{k \geq 1}$ in $X$ s.t.
 $x_k \rightarrow x_0$ as $k \rightarrow +\infty$, $(f(x_k))_{k \geq 1}$ in $\R^m$ converges to $f(x)$\\
