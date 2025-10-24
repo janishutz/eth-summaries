@@ -1,0 +1,43 @@
+\newpage
+\subsection{Nichtdeterministische Turingmaschinen}
+Die Ideen sind hier sehr ähnlich wie der Übergang zwischen deterministischen und nichtdeterministischen Endlichen Automaten.
+
+\begin{definition}[]{Nichtdeterministische Turingmaschine (NTM)}
+    \begin{scriptsize}
+        Hier werden nur die wichtigsten Unterschiede aufgezeigt. Formale Definition auf Seiten 113ff. (= Seiten 127ff im PDF) im Buch.
+    \end{scriptsize}
+
+    Die Übergangsfunktion geht wieder in die Potenzmenge, also gilt:
+    \rmvspace
+    \begin{align*}
+        \delta : (Q - \{ \qacc, \qrej \}) \times \Gamma \rightarrow \mathcal{P}(Q \times \Gamma \times \{ L, R, N \}
+    \end{align*}
+
+    \rmvspace
+    und $\delta(p, \cent) \subseteq (\{ (q, \cent, X) \divides q \in Q, X \in \{R, N\} \})$\\
+
+    Die von der NTM $M$ akzeptierte Sprache ist:
+    \rmvspace
+    \begin{align*}
+        L(M) = \{ w \in \word \divides q_0\cent w \bigvdash{M}{*}y\qacc z \text{ für irgendwelche } y, z \in \Gamma^* \}
+    \end{align*}
+\end{definition}
+Ein gutes Beispiel für eine NTM findet sich auf Seiten 114ff. im Buch (= Seite 128ff. im PDF)
+
+
+\begin{definition}[]{Berechnungsbaum}
+    Ein Berechnungsbaum $T_{M, x}$ von $M$ (eine NTM) auf $x$ (Wort aus Eingabealphabet von $M$) ist ein (potentiell un)gerichteter Baum mit einer Wurzel:
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item Jeder Knoten von $T_{M, x}$ ist mit einer Konfiguration beschriftet
+        \item Die Wurzel ist der einzige Knoten mit $\deg_{\text{in}}(v) = 0$, ist die Startkonfiguration $q_0\cent x$
+        \item Jeder mit $C$ beschriftete Knoten hat genauso viele Kinder wie $C$ Nachfolgekonfigurationen hat und die Kinder sind mit diesen Nachfolgekonfigurationen markiert.
+    \end{enumerate}
+\end{definition}
+Diese Bäume können natürlich auch für nichtdeterministischen MTM verwendet werden.
+
+Im Vergleich zu den Berechnungsbäumen von NEA sind die Bäume von NTM nicht immer endlich.
+
+\inlinetheorem Sei $M$ eine NTM. Dann existiert eine TM $A$, so dass $L(M) = L(A)$ 
+und falls $M$ keine unendlichen Berechnungen auf Wörtern aus $(L(M))^C$ hat, dann hält $A$ immer.
+
+\inlineproof Auf Seite 117 im Buch (= 131 im PDF). Die Idee zur Umwandlung von $M$ in die TM $A$ ist, dass $A$ Breitensuche im Berechnungsbaum von $M$ durchführt.

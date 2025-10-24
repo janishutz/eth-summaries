@@ -25,9 +25,64 @@ Eine Konfiguration einer $k$-Band-TM $M$ ist $(q, w, i, u_1, i_1, u_2, i_2, \ldo
 wobei $q$ der Zustand ist, der Inhalt des Eingabebands ist $\cent w \$$, der Lesekopf zeigt auf das $i$-te Feld,
 für $j \in \{ 1, 2, \ldots, k \}$ ist der Inhalt des $j$-ten Bandes $\cent u_k \text{\textvisiblespace} \ldots$ und $i_j \leq |u_j|$ ist die Position des Feldes.
 
-Ein Berechnungsschritt von $M$ kann mit $\delta: Q \times (\Sigma \cup \{ \cent, \$ \}) \times \Gamma^k \rightarrow Q \times \{ L, R, N \} \times (\Gamma \times \{ L, R, N \})^k$
-    dargestellt werden, wobei die Argumente $(q, a, b_1, \ldots, b_k)$ der aktuelle Zustand $q$, das gelesene Eingabesymbol $a$ und die $k$ Symbole $b_i \in \Gamma$,
+Ein Berechnungsschritt von $M$ kann mit
+\rmvspace
+\begin{align*}
+    \delta: Q \times (\Sigma \cup \{ \cent, \$ \}) \times \Gamma^k \rightarrow Q \times \{ L, R, N \} \times (\Gamma \times \{ L, R, N \})^k
+\end{align*}
+
+\drmvspace
+dargestellt werden, wobei die Argumente $(q, a, b_1, \ldots, b_k)$ der aktuelle Zustand $q$, das gelesene Eingabesymbol $a$ und die $k$ Symbole $b_i \in \Gamma$,
 auf welchen die Köpfe der Arbeitsbänder stehen.
 
 Die Eingabe $w$ wird von $M$ akzeptiert, falls $M$ den Zustand $\qacc$ erreicht und falls $M$ den Zustand $\qrej$ erreicht oder nicht terminiert, wird die Eingabe verworfen.
-% Page 120
+
+\vspace{0.3cm}
+\hrule
+\vspace{0.2cm}
+
+Wir sagen, dass eine Maschine $A$ äquivalent zu einer Maschine $B$ ist, falls für jede Eingabe $x \in \wordbool$ gilt:
+$A \text{ $<$property$>$ } x \Longleftrightarrow B \text{ $<$property$>$ } x$ mit
+$<$property$> \ \in \{ \text{akzeptiert}, \text{ verwrift}, \text{ arbeitet unendlich lange auf} \}$, also ist $L(A) = L(B)$
+
+\inlinelemma Zu jeder TM $A$ existiert eine zu $A$ äquivalente $1$-Band-TM $B$
+
+\inlinelemma Zu jeder Mehrband-Turingmaschine $A$ existiert eine zu $A$ äquivalente TM $B$
+
+Die Beweise dazu finden sich auf Seite 107, beziehungsweise Seite 109 (= 121 \& 123 im PDF).
+
+In diesem Kurs müssen wir glücklicherweise meist nicht Beweise der Äquivalenz durchführen, wie auch nicht dass die TM die gewünschte Tätigkeit realisiert.
+
+\inlinedef Zwei Maschinenmodelle (Maschinenklassen) $\mathcal{A}$ und $\mathcal{B}$ sind äquivalent wenn beides zutrifft:
+\begin{enumerate}[label=(\roman*)]
+    \item für jede Maschine $A \in \mathcal{A}$ eine zu $A$ äquivalente Maschine $B \in \mathcal{B}$ existiert
+    \item für jede Maschine $C \in \mathcal{B}$ eine zu $C$ äquivalente Maschine $D \in \mathcal{A}$ existiert
+\end{enumerate}
+
+\inlinetheorem Die Maschinenmodelle von Turingmaschinen und Mehrband-Turingmaschinen sind äquivalent
+
+\inlineproof Impliziert von Lemmas \ref{lemma:4-1} und \ref{lemma:4-2}
+
+Um zu beweisen, dass Turing-Maschinen äquivalent zu höheren Programmiersprachen sind argumentiert man über die Existenz eines Interpreters für TM.
+
+
+% ────────────────────────────────────────────────────────────────────
+\subsubsection{Church'sche These}
+\begin{center}
+    \fbox{
+        \parbox{16cm}{
+            \textit{Die Turingmaschinen sind die Formalisierung des Begriffes ``Algorithmus'', das heisst,
+                die Klasse der rekursiven Sprachen (der entscheidbaren Entscheidungsproblem)
+                stimmt mit der Klasse der algorithmisch (automatisch) erkennbaren Sprache überein
+            }
+        }
+    }
+\end{center}
+Die These ist nicht beweisbar, da dazu der Begriff des Algorithmus formalisiert werden müsste, was er bekanntlich nicht ist.
+
+Dies führt zu einer interessanten Situation, in welcher es \textit{theoretisch} möglich wäre, dass jemand ein stärkeres Modell findet, als die TM sind,
+eines nämlich, welches Entscheidungsprobleme lösen kann, die die TM nicht kann.
+
+Wir nehmen also (wie in vielen Bereichen der Physik (die Relativitätstheorie ist ein gutes Beispiel) und Mathematik) und postulieren sie als Axiom.
+
+\shade{Orange}{Fun fact} Die Church'sche These ist das einzige informatikspezifische Axiom.
