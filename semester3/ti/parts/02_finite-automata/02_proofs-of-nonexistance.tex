@@ -88,9 +88,14 @@ da $yx^0z = yz = 0^{n_0 - m} 1^{n_0} \notin L$ ($0^{n_0}1^{n_0}$ ist sogar das e
 \inlineintuition Woher kommt $0^{n_0 - m + km}$?
 Das Ganze wird mit Klammern bedeutend offensichtlicher: $0^{(n_0 - m) + (km)}$.
 Also ist der Ursprung der Koeffizienten auch klar, und sie kommen von $|y| = n_0 - m$ und $|x^k| = km$.
-Die Addition im Exponent kommt dann deshalb zustande, da dies ja nicht ein exponent ist, sondern die Anzahl der Repetitionen.
+Die Addition im Exponent kommt dann deshalb zustande, da dies ja nicht ein Exponent ist, sondern die Anzahl der Repetitionen.
 
 \numberingOn
+
+
+\vspace{0.3cm}
+\hrule
+\vspace{0.2cm}
 
 \fhlc{Cyan}{Kolmogorov-Komplexität basiert}
 
@@ -128,7 +133,7 @@ $y_1$ (das erste Wort der Sprache $L_x$) ist dann $y_1 = 0^{(m + 1)^2 \cdot 2(m 
 
 Wir können dann mit der Länge des Wortes $|y_1|$ und dem Theorem 3.1 argumentieren, dass wir einen Widerspruch erreichen und so also die Sprache nichtregulär ist.
 
-Dazu sagen wir, dass für jedes $m \in \N$ ein $c$ existiert, so dass $K(y_1) \leq \ceil{\log_2(1 + 1)} + c = 1 + c$.
+Dazu sagen wir, dass für jedes $m \in \N$ eine Konstante $c$ existiert, so dass $K(y_1) \leq \ceil{\log_2(1 + 1)} + c = 1 + c$.
 Da unser Wort $y_1$ unendlich lang werden kann, gibt es unendlich viele solcher Wörter. 
 Dies widerspricht jedoch dem Fakt, dass es nur endlich viele Programme mit Kolmogorov-Komplexität $\leq 1 + c$ gibt.
 
