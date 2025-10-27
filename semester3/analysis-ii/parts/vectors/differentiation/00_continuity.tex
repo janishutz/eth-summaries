@@ -25,7 +25,16 @@ We write $\lim_{\elementstack{x \rightarrow x_0}{x \neq x_0}} f(x) = y$
 iff $\forall (x_k)$ in $X$ s.t. $x_k \rightarrow x$ as $k \rightarrow +\infty$ and $x_k \neq x_0$ $(f(x_k))$ in $\R^m$ converges to $y$
 \stepLabelNumber{all}
 \shortproposition Let $X \subseteq \R^n$, $y \subseteq \R^m$, $p \in \N$ and let $f: X \rightarrow Y$ and $g: Y \rightarrow \R^p$ be cont. Then $g \circ f$ is continuous
+% ────────────────────────────────────────────────────────────────────
+\numberingOff
+\inlineremark To find the limits, we have two tricks (for $\limit{(x, y)}{(a, b)}$):
+\rmvspace
+\begin{enumerate}[noitemsep]
+    \item \bi{(Substitution)} Substitute $y = x + (b - a)$, then limit is $\limit{x}{(a - b)}$
+    \item \bi{(Polar coordinates)} Substitute $x = r \cos(\varphi)$ and $y = r \sin(\varphi)$ and the limit is $\limit{r}{0}$
+\end{enumerate}
 
+\numberingOn\rmvspace
 \shortex \bi{(1)} $f_1 : \R^n \rightarrow \R^{m_1}$ and $f_2 : \R^n \rightarrow \R^{m_2}$ continuous
 $\Rightarrow f = (f_1, f_2): \R^n \rightarrow \R^{m_1 + m_2}$ is continuous (Cartesian product)
 \bi{(2)} Any linear map $f: \R^n \rightarrow \R^m$ is continuous. In particular, the identity map is continuous
