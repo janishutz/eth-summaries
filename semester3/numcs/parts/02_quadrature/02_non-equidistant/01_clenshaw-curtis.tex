@@ -1,1 +1,8 @@
 \subsubsection{Clenshaw-Curtis Quadraturformel}
+Die erste Quadraturformel von Fejér benutzt die Chebyshev-Knoten (Nullstellen der Chebyshev-Polynome erster Art), welche aber nicht verschachtelt sind.
+Die zweite Quadraturformel von Fejér benutzt die Filippi-Knoten $x_k = \cos\left( k \frac{\pi}{n} \right)$ für $k = 1, \ldots, n - 1$
+und Clenshaw und Curtis haben dann zusätzlich noch die Endknoten hinzugefügt (also $k = 0, \ldots, n$).
+Die Clenshaw-Curtis-Knoten sind die Chebyshev-Abszissen und die Formel verhält sich mit den entsprechenden Gewichten ähnlich gleich wie die Gauss-Quadratur.
+
+Da die Clenshaw-Curtis-Quadratur mithilfe der DFT berechnet werden kann ist sie sehr effizient.
+Dazu müssen wir aber zuerst etwas umformen
