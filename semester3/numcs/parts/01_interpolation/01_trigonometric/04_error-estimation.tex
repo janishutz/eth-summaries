@@ -15,6 +15,7 @@
     \end{multicols}
 \end{definition}
 
+\numberingOff
 \inlineex Zur Fehlerbetrachtung verwenden wir drei Funktionen $f : [0, 1] \rightarrow \R$, welche wir mit trigonometrischer Interpolation an den Punkten $\frac{k}{N}$ approximieren:
 \begin{enumerate}[label=(\Roman*)]
     % FIXME: Possibly wrong function definition in script
@@ -27,6 +28,7 @@
     \item Hutfunktion (periodische Fortsetzung von $h$) $g : [0, 1] \rightarrow \R$ mit $g(t) = \left| t - \frac{1}{2} \right|$
 \end{enumerate}
 Die untenstehende Abbildung \ref{fig:interpolation-error-examples} beinhaltet einen Plot, auf dem die Konvergenz in Abhängigkeit des Grades des Interpolationspolynoms aufgetragen ist.
+\numberingOn
 
 \begin{figure}[h!]
     \begin{center}
@@ -80,10 +82,12 @@ heisst das folgendes für die Approximation von Polynomen von Grad $\deg(P(x)) <
 
 \fancycorollary{Abtasttheorem} Sei $f$ $1$-periodisch mit maximaler Frequenz $m$, also $\hat{f}(k) = 0 \smallhspace \forall |k| > m$. Falls $N > 2m$, dann gilt $p_N(x) = f(x) \smallhspace \forall x$
 
+\numberingOff
 \inlineex Ein Beispiel aus der Musik: Wir haben ein analoges Signal und wollen es digitalisieren. 
 Wir messen die Spannungswerte in äquidistanten Punkten. 
 Falls wir jedoch die Frequenz der Messung zu niedrig wählen, so kann ein total falsches Interpolationspolynom entstehen,
 wie in der untenstehenden Abbildung \ref{fig:aliasing} zu sehen:
+\numberingOn
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=0.95\textwidth]{assets/01_interpolation/01_trigonometric/aliasing-in-music.png}

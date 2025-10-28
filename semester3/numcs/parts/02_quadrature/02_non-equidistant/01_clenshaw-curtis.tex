@@ -5,4 +5,33 @@ und Clenshaw und Curtis haben dann zusätzlich noch die Endknoten hinzugefügt (
 Die Clenshaw-Curtis-Knoten sind die Chebyshev-Abszissen und die Formel verhält sich mit den entsprechenden Gewichten ähnlich gleich wie die Gauss-Quadratur.
 
 Da die Clenshaw-Curtis-Quadratur mithilfe der DFT berechnet werden kann ist sie sehr effizient.
-Dazu müssen wir aber zuerst etwas umformen
+Dazu müssen wir aber zuerst etwas umformen, mit $x = \cos(\theta)$, so dass das Integral eine periodische Funktion wird:
+\rmvspace
+\begin{align*}
+    \int_{-1}^{1} f(x) \dx x = \int_{0}^{\pi} f(\cos(\theta)) \sin(\theta) \dx \theta = f(\cos(\theta))
+\end{align*}
+
+\drmvspace
+$F(\theta)$ ist $2\pi$-periodisch und gerade, kann sich also in eine Kosinius-Reihe entwickeln, also: $F(\theta) = \sum_{k = 0}^{\infty} a_k \cos(k \theta)$, woraus folgt, dass
+\drmvspace
+\begin{align*}
+    \int_{0}^{\pi} F(\theta) \sin(\theta) \dx \theta = \ldots = a_0 + \sum_{2 \leq k \text{ gerade}} \frac{2a_k}{1 - k^2}
+\end{align*}
+
+\drmvspace
+wobei sich die Koeffizienten $a_k$ mit FFT oder DCT berechnen lassen
+
+% TODO: Insert code from TA slides here
+
+Eine wichtige Erkenntnis ist, dass die Newton-Cotes bei grösserer Ordnung komplett unbrauchbar werden, wie das in Abbildung 5.5.24 im Skript zu sehen ist,
+während die Clenshaw-Curtis-Quadratur ähnlich gut ist wie die Gauss-Quadratur (gleiche Konvergenzordnung).
+
+\begin{fullTable}{llllll}{Quadratur         & Intervall     & Gewichtsfunktion               & Polynom      & Notation                & \texttt{scipy.special.}}
+    {Gewichtsfunktionen für Quadraturformeln}
+    Gauss                      & $(-1, 1)$     & $1$                            & Legendre     & $P_k$                   & \texttt{roots\_legendre}    \\
+    Chebyshev I                & $(-1, 1)$     & $\frac{1}{\sqrt{1 - x^2}}$     & Chebyshev I  & $T_k$                   & \texttt{roots\_chebyt}      \\
+    Chebyshev II               & $(-1, 1)$     & $\sqrt{1 - x^2}$               & Chebyshev II & $U_k$                   & \texttt{roots\_chebyu}      \\
+    Jacobi $\alpha, \beta > 1$ & $(-1, 1)$     & $(1 - x)^\alpha (1 + x)^\beta$ & Jacobi       & $P_k^{(\alpha, \beta)}$ & \texttt{roots\_jacobi}      \\
+    Hermite                    & $\R$          & $e^{-x^2}$                     & Hermite      & $H_k$                   & \texttt{roots\_hermite}     \\
+    Laguerre                   & $(0, \infty)$ & $x^\alpha e^{-x^2}$            & Laguerre     & $L_k$                   & \texttt{roots\_genlaguerre} \\
+\end{fullTable}
