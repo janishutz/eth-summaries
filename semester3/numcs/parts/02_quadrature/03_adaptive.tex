@@ -1,4 +1,17 @@
 \newsection
 \subsection{Adaptive Quadratur}
-Der lokale Fehler einer zusammengesetzten Quadraturformel auf dem Gitter $\mathcal{M} := \{ a = x_0 < x_1 < \dots < x_m = b \}$ ist (für $f \in C^2([a, b])$).
-Test
+Der lokale Fehler einer zusammengesetzten Quadraturformel auf dem Gitter $\mathcal{M} := \{ a = x_0 < x_1 < \dots < x_m = b \}$ ist (für $f \in C^2([a, b])$):
+\begin{align*}
+    \left| \int_{x_k}^{x_{k + 1}} f(t) \dx t - \frac{f(x_k) + f(x_{k + 1})}{2}(x_{k + 1} - x_k) \right| \leq (x_{k + 1} - x_k)^3 ||f''||_{L^\infty([x_k, x_{k + 1}])}
+\end{align*}
+Also ist es nur sinnvoll, das Gitter zu verfeinern wo $|f''|$ gross ist.
+
+Auf Seiten 150 - 151 im Skript findet sich Code, um eine adaptive Quadratur durchzuführen.
+
+\setLabelNumber{all}{3}
+\fancyremark{Adaptive Quadratur in Python} Mit \texttt{scipy.integrate.quad} können wir einfach eine adaptive Quadratur durchführen und benutzt \texttt{QUADPACK}.
+Mit \texttt{scipy.integrate.quadrature} können wir die Gauss-Quadratur verwenden.
+
+Für $x \in \R^d$, also eine mehrdimensionale Funktion der Dimension $d$ können wir \texttt{scipy.integrate.nquad} verwenden. Mehr dazu im nächsten Kapitel
+
+% TODO: Possibly explain the graphs and / or add code for computation using scipy
