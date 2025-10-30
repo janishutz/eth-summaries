@@ -1,0 +1,50 @@
+\subsection{Diagonalisierung}
+Wir definieren $\text{KodTM}$ als die \textit{Menge der binären Kodierungen aller Turingmaschinen}.
+Wir haben $\text{KodTM} \subseteq \wordbool$ und die obere Schranke der Kardinalität ist $|\wordbool|$, da es unendlich viele Turingmaschinen gibt.
+
+Im Folgenden wird wieder Cantor's Diagonalisierungsmethode verwendet
+\begin{recall}[]{Cantor's Diagonalization Argument}
+    % TODO: Finish
+    \TODO Finish
+\end{recall}
+
+\inlinedef $A$ und $B$ sind Mengen. Dann ist $|A| \leq |B|$ falls eine \textit{injektive} Funktion $f$ von $A$ nach $B$ existiert;
+$|A| = |B|$ falls $|A| \leq |B|$ und $|B| \leq |A|$ (es existiert eine Bijektion);
+$|A| < |B|$ falls $|A| \leq |B|$ und keine injektive Abbildung von $B$ nach $A$ existiert.
+
+Um zu zeigen, dass es nicht rekursiv aufzählbare (also von Turingmaschinen nicht erkennbare) Sprachen gibt.
+Also müssen wir laut Definition \ref{definition:5-1} nur zeigen, dass keine Injektion von $\wordbool$ nach $\mathcal{L}_{RE}$ existiert.
+
+\fancydef{Abzählbarkeit} $A$ heisst abzählbar, falls $A$ endlich ist oder $|A| = |\N|$
+
+\inlinelemma Sei $\Sigma$ ein beliebiges Alphabet. Dann ist $\word$ abzählbar
+
+\inlinetheorem Die Menge $\text{KodTM}$ der Turingmaschinenkodierungen ist abzählbar
+
+\inlinelemma $(\N - \{ 0 \}) \times (\N - \{ 0 \})$ ist abzählbar. Die Idee ist dieselbe wie für $|Q^+| = |\N|$, nämlich, dass wir jedem Element einen Index zuordnen können.
+
+\inlinetheorem $\Q^+$ ist abzählbar. Die Idee für den Beweis ist eine Bijektion nach obiger Menge zu finden.
+
+\inlinetheorem $[0, 1] \subseteq \R$ ist nicht abzählbar. Dies kann mit Cantor's Diagonalization Argument bewiesen werden.
+
+\inlinetheorem $\mathcal{P}(\wordbool)$ ist nicht abzählbar
+
+\inlinecorollary $|\text{KodTM}| < |\mathcal{P}(\wordbool)|$ und es existieren also unendlich viele nicht rekursiv aufzählbare Funktionen.
+
+Um für eine spezifische Sprache zu beweisen, dass sie rekursiv aufzählbar ist, können wir einfach eine Turingmaschine konstruieren.
+Für eine Beweis dafür, dass eine Sprache nicht rekursiv aufzählbar ist können wir folgende Methode verwenden. Sei dazu mit $d_{ij} = 1 \Longleftrightarrow M_i \text{ akzeptiert } w_j$
+\begin{align*}
+    L_{\text{diag}} & = \{ w \in \wordbool \divides w = w_i \text{ für ein } i \in \N - \{ 0 \} \text{ und } M_i \text{ akzeptiert } w_i \text{ nicht} \} \\
+                    & = \{ w \in \wordbool \divides w = w_i \text{ für ein } i \in \N - \{ 0 \} \text{ und } d_{ii} = 0 \}
+\end{align*}
+
+\inlinetheorem $L_{\text{diag}} \notin \mathcal{L}_{RE}$
+\inlineproof Zum Widerspruch nehmen wir an, dass $L_\text{diag} \in \mathcal{L}_{RE}$.
+Dann gilt, dass $L_\text{diag} = L(M)$ für eine Turingmaschine $M$.
+$M$ ist eine Turingmaschine in der kanonischen Ordnung der Turingmaschinen, also existiert ein $i \in \N - \{ 0 \}$, so dass $M = M_i$.
+
+Dies führt zu einem Widerspruch, denn $L_\text{diag}$ kann nicht gleich $L(M_i)$ sein, da
+\begin{align*}
+    w_i \in L_\text{diag} \Longleftrightarrow d_{ii} \Longleftrightarrow w_i \notin L(M_i)
+\end{align*}
+also ist $w_i$ genau dann in $L_\text{diag}$ wenn $w_i$ \textit{nicht} in $L(M_i)$ ist und umgekehrt. (= in genau einer der Sprachen $L_\text{diag}$ oder $L(M_i)$)
