@@ -13,7 +13,7 @@ Hier kommt die Kolmogorov-Komplexit zum Zuge: Sie bietet eine breit Gültige Def
 
 
 \begin{definition}[]{Kolmogorov-Komplexität}
-	Für jedes Wort $x \in \wordbool$ ist die \bi{Kolmogorov-Komplexität $K(x)$ des Wortes $x$} das Minimum der binären Längen der Pascal-Programme, die $x$ generieren.
+    Für jedes Wort $x \in \wordbool$ ist die \bi{Kolmogorov-Komplexität $K(x)$ des Wortes $x$} das Minimum der binären Längen der Pascal-Programme, die $x$ generieren.
 \end{definition}
 
 Hierbei ist mit der binären Länge die Anzahl Bits gemeint, die beim Übersetzen des Programms in einen vordefinierten Maschinencode entsteht.
@@ -22,14 +22,14 @@ Ein Pascal-Programm in diesem Kurs ist zudem nicht zwingend ein Programm in der 
 
 
 \begin{lemma}[]{Kolmogorov-Komplexität}
-	Für jedes Wort $x \in \wordbool$ existiert eine Konstante $d$ so dass $K(x) \leq |x| + d$
+    Für jedes Wort $x \in \wordbool$ existiert eine Konstante $d$ so dass $K(x) \leq |x| + d$
 \end{lemma}
 \inlineproof Für jedes $x \in \wordbool$ kann folgendes Programm $A_x$ verwendet werden:
 
 \begin{code}{pascal}
-$A_x$: begin
-        write(x);
-     end
+    $A_x$: begin
+    write(x);
+    end
 \end{code}
 Alle Teile, ausser $x$ sind dabei von konstanter Länge, also ist die Länge der Bit-repräsentation des Programms ausschliesslich von der binären Länge des Wortes $x$ abhängig.
 
@@ -49,10 +49,10 @@ Eine wichtige Eigenschaft der Kolmogorov-Komplexität ist, dass sie nicht wirkli
 Man kann also beliebig auch \texttt{C++}, \texttt{Swift}, \texttt{Python}, \texttt{Java} oder welche auch immer, ohne dass die Kolmogorov-Komplexität um mehr als eine Konstante wächst (auch wenn diese bei \texttt{Java} sehr gross ist):
 
 \begin{theorem}[]{Unterschiedliche Programmiersprachen}
-	Für jede Programmiersprachen $A$ und $B$ existiert eine Konstante $c_{A,B}$, die nur von $A$ und $B$ abhängig ist, so dass für alle $x \in \wordbool$ gilt:
-	\begin{align*}
-		|K_A(x) - K_B(x)| \leq c_{A, B}
-	\end{align*}
+    Für jede Programmiersprachen $A$ und $B$ existiert eine Konstante $c_{A,B}$, die nur von $A$ und $B$ abhängig ist, so dass für alle $x \in \wordbool$ gilt:
+    \begin{align*}
+        |K_A(x) - K_B(x)| \leq c_{A, B}
+    \end{align*}
 \end{theorem}
 
 \fhlc{orange}{Anwendungen der Kolmogorov-Komplexität}
@@ -62,12 +62,12 @@ Man kann also beliebig auch \texttt{C++}, \texttt{Swift}, \texttt{Python}, \text
     Ein Wort $x \in \wordbool$ (eine Zahl $n$) heisst \bi{zufällig}, falls $K(x) \geq |x|$ ($K(n) = K(\text{Bin}(n)) \geq \ceil{\log_2(n + 1)} - 1$)
 \end{definition}
 
-\shade{orange}{Existenz eines Programms vs Kolmogorov-Komplexität} 
+\shade{orange}{Existenz eines Programms vs Kolmogorov-Komplexität}
 \begin{theorem}[]{Programm vs Komplexität}
     Sei $L$ eine Sprache über $\alphabets{bool}$ und für jedes $n \in \N - \{0\}$ sei $z_n$ das $n$-te Wort in $L$ bezüglich der kanonischen Ordnung.
     Falls ein Programm $A_L$ existiert, das das Entscheidungsproblem $(\alphabets{bool}, L)$ löst, so gilt für alle $n \in \N - \{ 0 \}$ dass
     \begin{align*}
-        K(z_n) \leq \ceil{\log_2(n + 1)} + c & & (c \text{ ist eine von } n \text{ unabhängige Konstante })
+        K(z_n) \leq \ceil{\log_2(n + 1)} + c &  & (c \text{ ist eine von } n \text{ unabhängige Konstante })
     \end{align*}
 \end{theorem}
 
@@ -85,7 +85,7 @@ Die Annäherung von $\text{Prim}(n)$ and $\frac{n}{\ln(n)}$ wird durch folgende 
 
 \begin{lemma}[]{Anzahl Primzahlen mit Eigenschaften}
     Sei $n_1, n_2, \ldots$ eine stetig steigende unendliche Folge natürlicher Zahlen mit $K(n_i) \geq \frac{\ceil{\log_2(n_i)}}{2}$.
-    Für jedes $i \in \N - \{ 0 \}$ sei $q_i$ die grösste Primzahl, die $n_i$ teilt. 
+    Für jedes $i \in \N - \{ 0 \}$ sei $q_i$ die grösste Primzahl, die $n_i$ teilt.
     Dann ist die Menge $Q = \{ q_i \divides i \in \N - \{ 0 \} \}$ unendlich.
 \end{lemma}
 
@@ -94,7 +94,7 @@ Lemma 2.6 zeigt nicht nur, dass es unendlich viele Primzahlen geben muss, sonder
 \begin{theorem}[]{Untere Schranke für Anzahl Primzahlen}
     Für unendlich viele $k \in \N$ gilt
     \begin{align*}
-        \text{Prim}(k) \geq \frac{k}{2^17 \log_2(k) \cdot (\log_2(\log_2(k)))^2}
+        \text{Prim}(k) \geq \frac{k}{2^{17} \log_2(k) \cdot (\log_2(\log_2(k)))^2}
     \end{align*}
 \end{theorem}
 

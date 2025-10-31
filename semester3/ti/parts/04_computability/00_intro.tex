@@ -29,7 +29,7 @@ Also müssen wir laut Definition \ref{definition:5-1} nur zeigen, dass keine Inj
 
 \inlinetheorem $\mathcal{P}(\wordbool)$ ist nicht abzählbar
 
-\inlinecorollary $|\text{KodTM}| < |\mathcal{P}(\wordbool)|$ und es existieren also unendlich viele nicht rekursiv aufzählbare Funktionen.
+\inlinecorollary $|\text{KodTM}| < |\mathcal{P}(\wordbool)|$ und es existieren also unendlich viele nicht rekursiv aufzählbare Sprachen.
 
 Um für eine spezifische Sprache zu beweisen, dass sie rekursiv aufzählbar ist, können wir einfach eine Turingmaschine konstruieren.
 Für eine Beweis dafür, dass eine Sprache nicht rekursiv aufzählbar ist können wir folgende Methode verwenden. Sei dazu mit $d_{ij} = 1 \Longleftrightarrow M_i \text{ akzeptiert } w_j$
@@ -45,6 +45,6 @@ $M$ ist eine Turingmaschine in der kanonischen Ordnung der Turingmaschinen, also
 
 Dies führt zu einem Widerspruch, denn $L_\text{diag}$ kann nicht gleich $L(M_i)$ sein, da
 \begin{align*}
-    w_i \in L_\text{diag} \Longleftrightarrow d_{ii} \Longleftrightarrow w_i \notin L(M_i)
+    w_i \in L_\text{diag} \Longleftrightarrow d_{ii} = 0 \Longleftrightarrow w_i \notin L(M_i)
 \end{align*}
-also ist $w_i$ genau dann in $L_\text{diag}$ wenn $w_i$ \textit{nicht} in $L(M_i)$ ist und umgekehrt. (= in genau einer der Sprachen $L_\text{diag}$ oder $L(M_i)$)
+also ist $w_i$ genau dann in $L_\text{diag}$ wenn $w_i$ \textit{nicht} in $L(M_i)$ ist. (= in genau einer der Sprachen $L_\text{diag}$ oder $L(M_i)$)
