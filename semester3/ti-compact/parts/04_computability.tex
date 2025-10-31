@@ -1,0 +1,43 @@
+\newsection
+\section{Computability}
+\stepcounter{subsection}
+\subsection{Diagonalization}
+The \bi{set of binary encodings of all TMs} is denoted $\text{KodTM}$ and $\text{KodTM} \subseteq \wordbool$ and the upper bound of the cardinality is $|\wordbool|$,
+as there are infinitely many TMs.
+
+Below is a list of countable objects. They all have corresponding Lemmas in the script, but omitted here:
+\drmvspace
+\begin{multicols}{4}
+    \begin{itemize}
+        \item $\word$ for any $\Sigma$
+        \item $\text{KodTM}$
+        \item $\N \times \N$
+        \item $\Q^+$
+    \end{itemize}
+\end{multicols}
+
+\rmvspace
+\drmvspace
+The following objects are uncountable: $[0, 1]$, $\R$, $\mathcal{P}(\wordbool)$
+
+\inlinecorollary $|\text{KodTM}| < |\mathcal{P}(\wordbool)|$ and thus there exist infinitely many not recursively enumerable languages over $\alphabetbool$
+
+\fhlc{Cyan}{Proof of $L$ (not) recursively enumerable}
+
+Proving that a language \textit{is} recursively enumerable is as easy as providing a Turing Machine that accepts it.
+
+Proving that a language is \textit{not} recursively enumerable is a bit harder. For it, let $d_{ij} = 1 \Longleftrightarrow M_i$ accepts $w_j$.
+
+As an example, we'll use the following language
+
+Assume towards contradiction that $L_\text{diag} \in \mathcal{L}_{RE}$. Let 
+\begin{align*}
+    L_{\text{diag}} & = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and $M_i$ does not accept } w_i \} \\
+                    & = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and } d_{ii} = 0\}
+\end{align*}
+Thus assume that, $L_\text{diag} = L(M)$ for a Turing Machine $M$.
+Since $M$ is a Turing Machine in the canonical ordering of all Turing Machines, so there exists an $i \in \N - \{ 0 \}$, such that $M = M_i$.
+
+This however leads to a contradiction, as $w_i \in L_\text{diag} \Longleftrightarrow d_{ii} = 0 \Longleftrightarrow w_i \notin L(M_i)$.
+
+In other words, $w_i$ is in $L_\text{diag}$ if and only if $w_i$ is not in $L(M_i)$, which contradicts our statement above.

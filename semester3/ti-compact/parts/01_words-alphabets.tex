@@ -1,0 +1,57 @@
+\newsection
+\section{Alphabets, Words, etc}
+\stepcounter{subsection}
+\subsection{Alphabets, Words, Languages}
+\fancydef{Alphabet} Set $\Sigma$.
+Important alphabets: $\alphabetbool$, $\alphabets{lat}$ (all latin chars), $\alphabets{Keyboard}$ (all chars on keyboard), $\Sigma_m$ ($m$-ary numbers)
+
+\fancydef{Word} Possibly empty (denoted $\lambda$) sequences of characters from $\Sigma$. $|w|$ is the length, 
+$\Sigma^*$ is the set of all words and $\Sigma^+ = \Sigma^* - \{ \lambda \}$
+
+\fancydef{Konkatenation} $\text{Kon}(x, y) = xy$, (so like string concat). $(xy)^n$ is $n$-times repeated concat.
+
+\fancydef{Reversal} $a^R$, simply read the word backwards.
+
+\stepLabelNumber{definition}
+\fancydef{Prefix, Suffix, Subword} $v$ in $w = vy$; $s$ in $w = sx$; Subword is $u$ in $w = xuy$
+
+\fancydef{Appearance} $|x|_a$ is the number of times $a \in \Sigma$ appears in $x$
+
+\fancydef{Canonical ordering} Ordered by length and then by first non-common letter:
+\rmvspace
+\begin{align*}
+    u < v \Longleftrightarrow |u| < |v| \lor (|u| = |v| \land u = x \cdot s_i \cdot u' \land v = x \cdot s_j \cdot v') \text{ for any } x, u', v' \in \word \text{ and } i < j
+\end{align*}
+
+\drmvspace
+\fancydef{Language} $L \subseteq \word$, and we define $L^C = \word - L$ as the complement, with $L_{\emptyset}$ being the empty language, 
+whereas $L_\lambda$ is the language with just the empty word in it.
+
+\bi{Concatenation}: $L_1 \cdot L_2 = \{ vw | v \in L_1 \land w \in L_2 \}$ and $L^{i + 1} = L^i \cdot L \ \forall i \in \N$.
+
+\bi{Cleen Star}: $L^* = \bigcup_{i \in \N} L^i$ and $L^+ = L \cdot L^*$
+
+
+\inlinelemma $L_1L_2 \cup L_1 L_2 = L_1(L_2 \cup L_3)$
+\inlinelemma $L_1(K_2 \cap L_3) \subseteq L_1 L_2 \cap L_1 L_3$
+
+
+\stepcounter{subsection}
+\subsection{Kolmogorov-Complexity}
+\setLabelNumber{definition}{17}
+\fancydef{Kolmogorov-Complexity} $K(x)$ for $x \in \wordbool$ is the minimum of all binary lengths of Pascal programs that output $x$, 
+where the Program doesn't have to compile, i.e. we can describe processes informally
+
+\stepLabelNumber{lemma}
+\inlinelemma For each word $x$ exists constant $d$ s.t. $K(x) \leq |x| + d$, for which we can use a program that simply includes a \texttt{write(x)} command
+
+\fancydef{Of natural number} $K(n) = K(\text{Bin}(x))$ with $|\text{Bin}(x)| = \ceil{\log_2(x + 1)}$
+
+\inlinelemma For each $n \in \N \exists w_n \in (\alphabetbool)^n$ s.t. $K(w_n) \geq |w_n| = n$, i.e. exists a non-compressible word.
+
+\inlinetheorem Kolmogorov-Complexity doesn't depend on programming language. It only differs in constant
+
+\fancydef{Randomness} $x$ random if $K(x) \geq |x|$, thus for $n$, $K(n) \geq \ceil{\log_2(n + 1)} - 1$
+
+\stepLabelNumber{theorem}
+\fancytheorem{Prime number} $\displaystyle \limni \frac{\text{Prime}(n)}{\frac{n}{\ln(n)}}$

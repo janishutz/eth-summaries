@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\newcommand{\dir}{~/projects/latex} % IMPORTANT: No trailing slashes!
+\input{\dir/include.tex}
+\load{recommended}
+\usetikzlibrary{automata, positioning, arrows.meta}
+\newcommand{\hdelta}{\hat{\delta}}
+\newcommand{\qacc}{q_{\text{accept}}}
+\newcommand{\qrej}{q_{\text{reject}}}
+
+\setup{Theoretical Computer Science - Compact}
+
+\begin{document}
+\startDocument
+\usetcolorboxes
+
+
+\section{Introduction}
+This summary aims to provide a simple, easy to understand and short overview over the topics covered, with approaches for proofs, important theorems and lemmas,
+as well as definitions.
+
+It does not aim to serve as a full replacement for the book or my main summary, but as a supplement to both of them.
+
+It also lacks some formalism and is only intended to give some intuition
+
+
+\input{parts/01_words-alphabets.tex}
+\input{parts/02_finite-automata.tex}
+\input{parts/03_turing-machines.tex}
+\input{parts/04_computability.tex}
+
+
+
+\end{document}

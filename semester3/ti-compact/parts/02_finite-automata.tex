@@ -1,0 +1,119 @@
+\newsection
+\section{Finite Automata}
+\stepcounter{subsection}
+\subsection{Representation}
+We can note the automata using graphical notation similar to graphs or as a series of instructions like this:
+\rmvspace
+\begin{align*}
+    \texttt{select } input & = a_1 \texttt{ goto } i_1 \\[-0.2cm]
+    \vdots                                             \\
+    input                  & = a_k \texttt{ goto } i_k
+\end{align*}
+
+\drmvspace
+\fancydef{Finite Automaton}
+\drmvspace
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $Q$ set of states
+        \item $\Sigma$ input alphabet
+        \item $\delta(q, a) = p$ transition from $q$ on reading $a$ to $p$
+        \item $q_0$ initial state
+        \item $F \subseteq Q$ accepting states
+        \item $\mathcal{L}_{EA}$ regular languages (accepted by FA)
+    \end{itemize}
+\end{multicols}
+
+\drmvspace
+$\hat{\delta}(q_0, w) = p$ is the end state reached when we process word $w$ from state $q_0$, and $(q, w) \bigvdash{M}{*} (p, \lambda)$ is the formal definition,
+with $\bigvdash{M}{*}$ representing any number of steps $\bigvdash{M}{}$ executed.
+
+The class $\class[q_i]$ represents all possible words for which the FA is in this state.
+Be cautious when defining them, make sure that no extra words from other classes could appear in the current class, if this is not intended.
+
+Sometimes, we need to combine two (or more) FA to form one larger one.
+We can do this easily with product automata. To create one from two automata $M_1$ (states $q_i$) and $M_2$ (states $p_j$) we do the following steps:
+\rmvspace
+\begin{enumerate}[noitemsep]
+    \item Write down the states as tuples of the form $(q_i, p_j)$ (i.e. form a grid by writing down one of the automata vertically and the other horizontally)
+    \item From each state, the automata on the horizontal axis decides for the input symbol if we move left or right,
+          whereas the automata on the vertical axis decides if we move up or down.
+\end{enumerate}
+
+\input{parts/02a_example-automata.tex}
+
+
+\stepcounter{subsection}
+\subsection{Proofs of nonexistence}
+We have three approaches to prove non-regularity of words.
+Below is an informal guide as to how to do proofs using each of the methods and possible pitfalls.
+
+For all of them start by assuming that $L$ is regular.
+
+\fhlc{Cyan}{Lemma 3.3}
+\rmvspace
+\begin{enumerate}[noitemsep]
+    \item Pick a FA $A$ over $\Sigma$ and say that $L(A) = L$
+    \item Pick $|Q| + 1$ words $x$ such that $xy = w \in L$ with $|y| > 0$.
+    \item State that via pigeonhole principle there exists w.l.o.g $i < j \in \{ 1, \ldots, |Q| + 1 \}$, s.t. $\hdelta_A(q_0, x_i) = \hdelta_A(q_0, x_j)$.
+    \item Build contradiction by picking $z$ such that $x_i z \in L$.
+    \item Then, if $z$ was picked properly, since $i < j$, we have that $x_j z \notin L$, since the lengths do not match
+\end{enumerate}
+
+\rmvspace
+That is a contradiction, which concludes our proof
+
+
+\fhlc{Cyan}{Pumping Lemma}
+\rmvspace
+\begin{enumerate}[noitemsep]
+    \item State that according to Lemma 3.4 there exists a constant $n_0$ such that $|w| \geq n_0$.
+    \item Choose a word $w \in L$ that is sufficiently long to enable a sensible decomposition for the next step.
+    \item Choose a decomposition, such that $|yx| = n_0$ (makes it quite easy later). Specify $y$ and $x$ in such a way that for $|y| = l$ and $|x| = m$ we have $l + m \leq n_0$
+    \item According to Lemma 3.4 (ii), $m \geq 1$ and thus $|x| \geq 1$. Fix $z$ to be the suffix of $w = yxz$
+    \item Then according to Lemma 3.4 (iii), fill in for $X = \{ yx^k z \divides k \in \N \}$ we have $X \subseteq L$.
+    \item This will lead to a contradiction commonly when setting $k = 0$, as for a language like $0^n1^n$, we have $0^{(n_0 - m) + km}1^{n_0}$ as the word (with $n_0 - m = l$),
+          which for $k = 0$ is $u= 0^{n_0 - m} 1^{n_0}$ and since $m \geq 1$, $u \notin L$ and thus by Lemma 3.4, $X \cap L = \emptyset$
+\end{enumerate}
+
+
+\fhlc{Cyan}{Kolmogorov Complexity}
+\begin{enumerate}[noitemsep]
+    \item We first need to choose an $x$ such that $L_x = \{ y | xy \in L \}$.
+          If not immediately apparent, choosing $x = a^{\alpha + 1}$ for $a \in \Sigma$
+          and $\alpha$ being the exponent of the exponent of the words in the language after a variable rename.
+          For example, for $\{ 0^{n^2 + 2n} \divides n \in \N \}$, $\alpha(m) = m^2 + 2m$.
+          Another common way to do this is for languages of the form $\{ a^n b^n \divides n \in \N \}$ to use $x = a^m$ and
+          $L_{0^m} = \{ y | 0^m y \in L \} = \{ 0^j 1^{m + j} | j \in \N \}$.
+    \item Find the first word $y_1 \in L_x$. In the first example, this word would be $y_1 = 0^{(m + 1)^2 \cdot 2(m + 1) - m^2 \cdot 2m + 1}$,
+          or in general $a^{\alpha(m + 1) - \alpha(m) + 1}$.
+          For the second example, the word would be $y_1 = 1^m$, i.e. with $j = 0$
+    \item According to Theorem 3.1, there exists constant $c$ such that $K(y_k) \leq \ceil{\log_2(k + 1)} + c$. We often choose $k = 1$,
+          so we have $K(y_1) \leq \ceil{\log_2(1 + 1)} + c = 1 + c$ and with $d = 1 + c$, $K(y_1) \leq d$
+    \item This however leads to a contradiction, since the number of programs with length $\leq d$ is at most $2^d$ and thus finite and our set $L_x$ is infinite.
+\end{enumerate}
+
+
+\subsection{Non-determinism}
+The most notable differences between deterministic and non-deterministic FA is that the transition function maps is different: $\delta: Q \times \Sigma \rightarrow \mathcal{P}(Q)$.
+I.e., there can be any number of transitions for one symbol from $\Sigma$ from each state.
+This is (in graphical notation) represented by arrows that have the same label going to different nodes.
+
+It is also possible for there to not be a transition function for a certain element of the input alphabet.
+In that case, regardless of state, the NFA rejects, as it ``gets stuck'' in a state and can't finish processing.
+
+Additionally, the NFA accepts $x$ if it has at least one accepting calculation on $x$.
+
+\stepLabelNumber{theorem}
+\inlinetheorem For every NFA $M$ there exists a FA $A$ such that $L(M) = L(A)$. They are then called \bi{equivalent}
+
+
+\fhlc{Cyan}{Potenzmengenkonstruktion}
+States are no now sets of states of the NFA in which the NFA could be in after processing the preceding input elements and we have a special state called $q_{\text{trash}}$.
+
+For each state, the set of states $P = \hdelta(q_0, z)$ for $|z| = n$ represents all possible states that the NFA could be in after doing the first $n$ calculations.
+
+Correspondingly, we add new states if there is no other state that is in the same branch of the calculation tree $\mathcal{B}_M(x)$.
+So, in other words, we execute BFS on the calculation tree.
+
+% TODO: Insert worked example for minimum number of states

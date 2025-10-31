@@ -1,0 +1,81 @@
+\begin{center}
+    \begin{tikzpicture}[node distance = 1cm and 2cm, >={Stealth[round]}]
+        \node[state, initial left, accepting] (q0p0) {$q_0, p_0$};
+        \node[state] (q0p1) [right=of q0p0] {$q_0, p_1$};
+        \node[state] (q0p2) [right=of q0p1] {$q_0, p_2$};
+        \node[state, accepting] (q1p0) [below=of q0p0] {$q_1, p_0$};
+        \node[state] (q1p1) [right=of q1p0] {$q_1, p_1$};
+        \node[state] (q1p2) [right=of q1p1] {$q_1, p_2$};
+        \node[state, accepting] (q2p0) [below=of q1p0] {$q_2, p_0$};
+        \node[state, accepting] (q2p1) [right=of q2p0] {$q_2, p_1$};
+        \node[state, accepting] (q2p2) [right=of q2p1] {$q_2, p_2$};
+
+        \path[->]
+        % Level 0
+        (q0p0) edge node [above] {a} (q0p1)
+        (q0p1) edge node [above] {a} (q0p2)
+        (q0p2) edge [bend right] node [above] {a} (q0p0)
+        % Level 0 to level 1
+        (q0p0) edge node [right] {b} (q1p0)
+        (q0p1) edge node [right] {b} (q1p1)
+        (q0p2) edge node [right] {b} (q1p2)
+        % Level 1 to level 2
+        (q1p0) edge node [above] {a} (q2p1)
+        (q1p1) edge node [above] {a} (q2p2)
+        (q1p2) edge node [right, xshift=0.3cm] {a} (q2p0)
+        % Level 2 to level 1
+        (q2p0) edge node [right] {b} (q1p0)
+        (q2p1) edge node [above left, yshift=0.1cm] {b} (q1p1)
+        (q2p2) edge node [right] {b} (q1p2)
+        % Level 2
+        (q2p0) edge node [above] {a} (q2p1)
+        (q2p1) edge node [above] {a} (q2p2)
+        (q2p2) edge [bend left] node [below] {a} (q2p0)
+        % ────────────────────────────────────────────────────────────────────
+        % Loops on level 1
+        (q1p0) edge [loop left] node {b} ()
+        (q1p1) edge [loop left] node {b} ()
+        (q1p2) edge [loop left] node {b} ();
+    \end{tikzpicture}
+\end{center}
+
+For the automata
+\begin{figure}[h!]
+    \begin{subfigure}{0.49\textwidth}
+        \begin{center}
+            \begin{tikzpicture}[node distance = 1cm, >={Stealth[round]}]
+                \node[state, initial left, accepting] (p_0) {$p_0$};
+                \node[state] (p_1) [right=of p_0] {$p_1$};
+                \node[state] (p_2) [right=of p_1] {$p_2$};
+
+                \path[->]
+                (p_0) edge node [above] {a} (p_1)
+                (p_1) edge node [above] {a} (p_2)
+                (p_2) edge [bend left] node [below] {a} (p_0)
+                (p_0) edge [loop above] node {b} ()
+                (p_1) edge [loop above] node {b} ()
+                (p_2) edge [loop above] node {b} ();
+            \end{tikzpicture}
+        \end{center}
+        \caption{Module to compute $|w|_b \equiv |w| (\text{mod } 3$). States $q \in Q_a$}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \begin{center}
+            \begin{tikzpicture}[node distance = 1cm, >={Stealth[round]}]
+                \node[state, initial left] (q_0) {$q_0$};
+                \node[state] (q_1) [right=of q_0] {$q_1$};
+                \node[state, accepting] (q_2) [right=of q_1] {$q_2$};
+
+                \path[->]
+                (q_0) edge node [above] {b} (q_1)
+                (q_1) edge [bend left] node [above] {a} (q_2)
+                (q_2) edge [bend left] node [below] {b} (q_1)
+                (q_0) edge [loop above] node {a} ()
+                (q_1) edge [loop above] node {b} ()
+                (q_2) edge [loop above] node {a} ();
+            \end{tikzpicture}
+        \end{center}
+        \caption{Module to compute $w$ contains sub. $ba$ and ends in $a$. States $p \in Q_b$}
+    \end{subfigure}
+    \caption{Graphical representation of the Finite Automaton of Task 9 in 2025}
+\end{figure}
