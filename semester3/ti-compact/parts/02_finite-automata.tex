@@ -51,7 +51,15 @@ Below is an informal guide as to how to do proofs using each of the methods and 
 For all of them start by assuming that $L$ is regular.
 
 \fhlc{Cyan}{Lemma 3.3}
-\rmvspace
+\setLabelNumber{lemma}{3}
+\begin{lemma}[]{Unterscheidung von Wörtern}
+    Sei $A$ ein EA über $\Sigma$ und $x \neq y \in \Sigma^*$ so dass $\hdelta_A (q_0, x) = \hdelta(q_0, y)$.
+    Dann existiert für jedes $z \in \Sigma^*$ ein $r \in Q$, so dass $xz, yz \in \class[r]$, also gilt insbesondere
+    \rmvspace
+    \begin{align*}
+        xz \in L(A) \Longleftrightarrow yz \in L(A)
+    \end{align*}
+\end{lemma}
 \begin{enumerate}[noitemsep]
     \item Pick a FA $A$ over $\Sigma$ and say that $L(A) = L$
     \item Pick $|Q| + 1$ words $x$ such that $xy = w \in L$ with $|y| > 0$.
@@ -65,7 +73,18 @@ That is a contradiction, which concludes our proof
 
 
 \fhlc{Cyan}{Pumping Lemma}
-\rmvspace
+\begin{lemma}[]{Pumping-Lemma für reguläre Sprachen}
+    Sei $L$ regulär. Dann existiert eine Konstante $n_0 \in \N$, so dass sich jedes Wort $w \in \word$ mit $|w| \geq n_0$ in $w = yxz$ zerlegen lässt, wobei
+    \rmvspace
+    \begin{multicols}{2}
+        \begin{enumerate}[label=\textit{(\roman*)}]
+            \item $|yx| \leq n_0$
+            \item $|x| \geq 1$
+            \item Für $X = \{ yx^kz \divides k\in \N \}$ \textit{entweder} $X \subseteq L$ oder $X \cap L = \emptyset$ gilt
+        \end{enumerate}
+    \end{multicols}
+\end{lemma}
+
 \begin{enumerate}[noitemsep]
     \item State that according to Lemma 3.4 there exists a constant $n_0$ such that $|w| \geq n_0$.
     \item Choose a word $w \in L$ that is sufficiently long to enable a sensible decomposition for the next step.
@@ -94,6 +113,34 @@ That is a contradiction, which concludes our proof
 \end{enumerate}
 
 
+\newpage
+\fhlc{Cyan}{Minimum number of states}
+To show that a language needs \textit{at least} $n$ states, use Lemma 3.3 and $n$ words. We thus again do a proof by contradiction:
+\begin{enumerate}
+    \item Assume that there exists FA with $|Q| < n$. We now choose $n$ words (as short as possible), as we would for non-regularity proofs using Lemma 3.3 (i.e. find some prefixes)
+    \item Construct a table for the suffixes using the $n$ chosen words such that one of the words at entry $x_{ij}$ is in the language and the other is not. ($n \times n$ matrix, see below in example)
+    \item Conclude that we have reached a contradiction as every field $x_{ij}$ contains a suffix such that one of the two words is in the language and the other one is not.
+\end{enumerate}
+\inlineex Let $L = \{ x1y \divides x \in \wordbool, y \in \{ 0, 1 \}^2 \}$. Show that any FA that accepts $L$ needs at least four states.
+
+Assume for contradiction that there exists EA $A = (Q, \alphabetbool, \delta_A, q_0, F)$ with $|Q| < 4$.
+Let's take the $4$ words $00, 01, 10, 11$. Then according to Lemma 3.3, there needs to exist a $z$ such that $xz \in L(A) \Longleftrightarrow yz \in L(A)$
+with $\hdelta_A(q_0, x) = \hdelta_A(q_0, y)$ for $x, y \in \{ 00, 01, 10, 11 \}$.
+
+This however is a contradiction, as we can find a $z$ for each of the pairs $(x, y)$, such that $xz \in L(A)$, but $yz \notin L(A)$. 
+See for reference the below table (it contains suffixes $z$ fulfilling prior condition):
+
+\begin{tables}{c|cccc}{ & $00$ & $01$ & $10$ & $11$}
+              $00$      & -    & $00$ & $0$  & $0$   \\
+              $01$      &      & -    & $0$  & $0$   \\
+              $10$      &      &      & -    & $00$   \\
+              $11$      &      &      &      & -     \\
+\end{tables}
+Thus, all four words have to lay in pairwise distinct states and we thus need at least $4$ states to detect this language.
+
+
+
+
 \subsection{Non-determinism}
 The most notable differences between deterministic and non-deterministic FA is that the transition function maps is different: $\delta: Q \times \Sigma \rightarrow \mathcal{P}(Q)$.
 I.e., there can be any number of transitions for one symbol from $\Sigma$ from each state.
@@ -115,5 +162,3 @@ For each state, the set of states $P = \hdelta(q_0, z)$ for $|z| = n$ represents
 
 Correspondingly, we add new states if there is no other state that is in the same branch of the calculation tree $\mathcal{B}_M(x)$.
 So, in other words, we execute BFS on the calculation tree.
-
-% TODO: Insert worked example for minimum number of states
