@@ -16,3 +16,40 @@ Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \t
         \item Darstellung des Ergebnis, hier $\Pr[I \in X] = 0.683$
     \end{itemize}
 \end{multicols}
+Mit $\displaystyle I_N = \int_{0}^{1} z(t) \dx t = \frac{1}{N} \sum_{i = 1}^{N} z(t_i)$, wobei $t_i$ Zufallszahlen sind und
+\rmvspace
+\begin{align*}
+    \tsigma_N = \sqrt{\frac{\frac{1}{N} \sum_{i = 1}^{N} z(t_i)^2 - \left( \frac{1}{N} \sum_{i = 1}^{N} z(t_i) \right)^2}{N - 1}} = \frac{\sigma_N}{\sqrt{N}}
+\end{align*}
+
+% TODO: Consider adding some of the theory on random variables here (especially consider normal distribution)
+
+
+Das Monte-Carlo-Verfahren beruht auf folgendem:
+\rmvspace
+\begin{align*}
+    \int_{[0, 1]^d} z(x) \dx x = \E z(\mathcal{X}) \text{ mit } \mathcal{X} \sim \mathcal{U}([0, 1]^d)
+\end{align*}
+% TODO: Clarify what \mathcal{U} is
+
+\drmvspace
+Das Ziel der Monte-Carlo-Methode ist es, den Erwartungswert durch den Mittelwert der Funktionswerte der simulierten Zufallsvariable mit einem Schätzer $m_N(z(\mathcal{X}))$, bzw. einer Schätzung $m_N(z(x))$ zu approximieren:
+\rmvspace
+\begin{align*}
+    m_N(z(\cX)) & := \frac{1}{N} \sum_{i = 1}^{N} z(\cX_i) &
+    m_N(z(x))           & := \frac{1}{N} \sum_{i = 1}^{N} z(x_i)
+\end{align*}
+
+\setLabelNumber{all}{16}
+\inlineremark Wir verwenden $m_N(z(x))$ für das $z(x)$ im obigen Integral:
+\rmvspace
+\begin{align*}
+    \E m_N(z(\cX)) = N \frac{1}{N} \E z(\cX) = \int_{[0, 1]^d} z(x) \dx x
+\end{align*}
+
+\drmvspace
+Die Approximation ist besser, je kleiner die Varianz ist:
+\rmvspace
+\begin{align*}
+    \V m_N(z(\cX)) = \V \left( \frac{1}{N} \sum_{i = 1}^{N} z(\cX_i) \right) = \frac{1}{N^2} N \V(z(\cX)) = \frac{1}{N} \V(z(\cX)) \rightarrow 0
+\end{align*}
