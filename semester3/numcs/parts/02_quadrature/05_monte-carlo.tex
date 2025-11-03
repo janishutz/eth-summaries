@@ -1,2 +1,18 @@
 \newsection
+\newcommand{\tsigma}{\tilde{\sigma}}
 \subsection{Monte-Carlo Quadratur}
+Bei der Monte-Carlo Quadratur wird, wie bei anderen Monte-Carlo-Algorithmen der Zufall genutzt
+
+\inlineremark Die Konvergenz ist sehr langsam ($\sqrt{N}$), aber nicht abhängig von der Dimension oder Glattheit.
+Zudem kann das Ergebnis falsch sein, da es probabilistisch ist.
+
+Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \tsigma_N]$:
+\rmvspace
+\begin{multicols}{2}
+    \begin{itemize}[noitemsep]
+        \item ein Gebiet für das ``Experiment'', hier $[0, 1]^d$
+        \item gute Zufallszahlen
+        \item gute deterministische Berechnungen, hier $\tsigma_N$ und $I_N$
+        \item Darstellung des Ergebnis, hier $\Pr[I \in X] = 0.683$
+    \end{itemize}
+\end{multicols}
