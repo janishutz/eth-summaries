@@ -51,7 +51,9 @@ where the Program doesn't have to compile, i.e. we can describe processes inform
 
 \inlinetheorem Kolmogorov-Complexity doesn't depend on programming language. It only differs in constant
 
-\fancydef{Randomness} $x$ random if $K(x) \geq |x|$, thus for $n$, $K(n) \geq \ceil{\log_2(n + 1)} - 1$
+\fancydef{Randomness} $x \in \wordbool$ random if $K(x) \geq |x|$, thus for $n \in \N$, $K(n) \geq \ceil{\log_2(n + 1)} - 1$
 
 \stepLabelNumber{theorem}
 \fancytheorem{Prime number} $\displaystyle \limni \frac{\text{Prime}(n)}{\frac{n}{\ln(n)}}$
+
+\fhlc{Cyan}{Proofs} Most of the proofs start with defining the number of words of exactly the required length and we can then usually deduce some kind of indirect proof (using the fact that there are at most $2^n - 1$ words $x$ with $K(x) < n$).
