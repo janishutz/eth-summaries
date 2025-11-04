@@ -1,2 +1,79 @@
 \newsection
 \subsection{Methoden zur Reduktion der Varianz}
+% NOTE: Mostly from TA slides, as the script is quite convoluted there
+Bei höheren Dimensionen $d$ ist die Monte-Carlo-Methode oft die einzige praktikable Option.
+Deshalb ist es wichtig, Methoden zu haben, um die Varianz zu verringern.
+
+\subsubsection{Control Variates}
+Die Idee ist hier, bekannte Integrale zu verwenden, um die Varianz zu reduzieren.
+Wir schreiben unser Integral unter Verwendung eines bekannten, exakten Integrals $\varphi(x)$ neu:
+\rmvspace
+\begin{align*}
+    \iiint f(x) = \iiint (z(x) - \varphi(x)) = \iiint z(x) + \iiint \varphi(x)
+\end{align*}
+
+\drmvspace
+Das Ganze funktioniert natürlich für jedes $d \in \N$.
+Oft wird die Taylor-Entwicklung von $f(x)$ gewählt, da diese einfach analytisch integrierbar ist.
+
+Die Varianz wird dadurch reduziert, dass wir nur noch für $z(x)$ einen Fehler haben.
+
+\innumpy können wir dies folgendermassen implementieren:
+\begin{code}{python}
+    def control_variate_mc(func, phi, analytic_int_phi, a, b, N):
+    t = np.random.uniform(a, b, N)
+    val = func(t) - phi(t)
+    I = np.mean(val) * (b - a) + analytic_int_phi
+    return I
+\end{code}
+
+
+\subsubsection{Importance Sampling}
+\begin{intuition}[]{Importance Sampling}
+    \begin{itemize}
+        \item Nicht alle Punkte, die während der Monte-Carlo Integration gezogen werden sind, sind gleich wichtig
+        \item Importance Sampling optimiert die Verteilung der Punkte
+        \item Man gewichtet die Punkte mit einer Dichtefunktion $g(x)$, die wichtige Bereiche betont
+        \item Der Erwartungswert wird als gewichteter Mittelwert berechnet, sodass keine Verzerrung auftritt
+    \end{itemize}
+\end{intuition}
+Wir schreiben unser zu berechnendes Integral mit $D = [0, 1]^d$ ein Intervall
+\rmvspace
+\begin{align*}
+    I = \int_D f(x) \dx x
+\end{align*}
+
+\drmvspace
+mit der Hilfsdichte $g(x)$ (für welche gilt $\int_{D} \dx = 1$)
+\rmvspace
+\begin{align*}
+    I = \int_D \frac{z(x)}{g(x)} g(x) \dx x = \E_g \left( \frac{z(\cX)}{g(\cX)} \right)
+\end{align*}
+
+\drmvspace
+Der entsprechende Monte-Carlo-Schätzer mit $N$ Stichproben $\cX_i \sim g$ ist
+\rmvspace
+\begin{align*}
+    \hat{I}_N = \frac{1}{N} \sum_{i = 1}^{N} \frac{z(\cX_i)}{g(\cX_i)}
+\end{align*}
+
+\drmvspace
+und dessen Varianz ist
+\rmvspace
+\begin{align*}
+    \V_g\left( \frac{z(\cX)}{g(\cX)} \right) = \int_{D} \frac{z^2(x)}{g(x)} \dx x - I^2
+\end{align*}
+
+\drmvspace
+Ideal ist $g(x) \propto |f(x)|$, also proportional zum Betrag von $f(x)$
+
+
+
+\subsubsection{Quasi-Monte-Carlo}
+Oft ist ein deterministischer Fehler nützlich, weshalb man bei der Quasi-Monte-Carlo-Methode die Zufallszahlen durch quasi-zufällige Folgen ersetzt.
+Diese Folgen decken den Integrationsbereich systematisch ab.
+
+Dies führt dazu, dass unser Fehler mit $\tco{N^{-1} \cdot (\log(N))^d}$ abnimmt.
+Für kleine $d$ haben wir ungefähr eine Abnahme in $\tco{N^1}$, aber bei grossen $d$ ist die Verbesserung kaum mehr sichtbar.
+
+In der Realität sind diese Methoden (besonders die Sobol-Sequenzen) trotzdem effektiv, da viele Integrale ``effektiv niedrigdimensional'' sind.

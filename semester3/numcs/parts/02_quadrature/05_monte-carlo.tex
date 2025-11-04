@@ -3,10 +3,23 @@
 \subsection{Monte-Carlo Quadratur}
 Bei der Monte-Carlo Quadratur wird, wie bei anderen Monte-Carlo-Algorithmen der Zufall genutzt
 
+\shade{Orange}{Grundrezept} Wir nehmen $N$ zahlen $t_i$ die zufällig aus der uniformen Verteilung auf $[0, 1]$ gewählt werden.
+\rmvspace
+\begin{align*}
+    I = \int_{0}^{1} z(t) \dx t \approx \frac{1}{N} \sum_{i = 1}^{N} z(t_i)
+\end{align*}
+
+\drmvspace Auf einem anderen Intervall $[a, b]$ haben wir dann für $s_i = a + (b - a) \cdot t_i$
+\rmvspace
+\begin{align*}
+    I = \int_{a}^{b} z(s) \dx s \approx |b - a| \frac{1}{N} \sum_{i = 1}^{z(s_i)} =: I_N
+\end{align*}
+
 \inlineremark Die Konvergenz ist sehr langsam ($\sqrt{N}$), aber nicht abhängig von der Dimension oder Glattheit.
 Zudem kann das Ergebnis falsch sein, da es probabilistisch ist.
 
-Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \tsigma_N]$:
+Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \tsigma_N]$ und $X$ enthält den wahren Wert $\int_{[0, 1]^d} z(t) \dx t$ in ungefähr $68.3\%$ der Fälle
+für $N$ $t_i$ uniform Verteilt in $[0, 1]^d$:
 \rmvspace
 \begin{multicols}{2}
     \begin{itemize}[noitemsep]
@@ -16,28 +29,33 @@ Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \t
         \item Darstellung des Ergebnis, hier $\Pr[I \in X] = 0.683$
     \end{itemize}
 \end{multicols}
-Mit $\displaystyle I_N = \int_{0}^{1} z(t) \dx t = \frac{1}{N} \sum_{i = 1}^{N} z(t_i)$, wobei $t_i$ Zufallszahlen sind und
-\rmvspace
+
+\drmvspace\drmvspace
 \begin{align*}
-    \tsigma_N = \sqrt{\frac{\frac{1}{N} \sum_{i = 1}^{N} z(t_i)^2 - \left( \frac{1}{N} \sum_{i = 1}^{N} z(t_i) \right)^2}{N - 1}} = \frac{\sigma_N}{\sqrt{N}}
+    \text{Sei }\tsigma_N = \sqrt{\frac{\frac{1}{N} \sum_{i = 1}^{N} z(t_i)^2 - \left( \frac{1}{N} \sum_{i = 1}^{N} z(t_i) \right)^2}{N - 1}} = \frac{\sigma_N}{\sqrt{N}}
 \end{align*}
+
+
+% ────────────────────────────────────────────────────────────────────
 
 % TODO: Consider adding some of the theory on random variables here (especially consider normal distribution)
 
+% ────────────────────────────────────────────────────────────────────
 
 Das Monte-Carlo-Verfahren beruht auf folgendem:
 \rmvspace
 \begin{align*}
-    \int_{[0, 1]^d} z(x) \dx x = \E z(\mathcal{X}) \text{ mit } \mathcal{X} \sim \mathcal{U}([0, 1]^d)
+    \int_{[0, 1]^d} z(x) \dx x = \E z(\cX) \text{ mit } \cX \sim \cU([0, 1]^d)
 \end{align*}
-% TODO: Clarify what \mathcal{U} is
 
 \drmvspace
+wobei $\cU([0, 1]^d)$ die uniforme Verteilung der Zufallsvariable auf dem $d$-dimensionalen Intervall $[0, 1]^d$ ist.
+
 Das Ziel der Monte-Carlo-Methode ist es, den Erwartungswert durch den Mittelwert der Funktionswerte der simulierten Zufallsvariable mit einem Schätzer $m_N(z(\mathcal{X}))$, bzw. einer Schätzung $m_N(z(x))$ zu approximieren:
 \rmvspace
 \begin{align*}
     m_N(z(\cX)) & := \frac{1}{N} \sum_{i = 1}^{N} z(\cX_i) &
-    m_N(z(x))           & := \frac{1}{N} \sum_{i = 1}^{N} z(x_i)
+    m_N(z(x))   & := \frac{1}{N} \sum_{i = 1}^{N} z(x_i)
 \end{align*}
 
 \setLabelNumber{all}{16}
@@ -48,8 +66,82 @@ Das Ziel der Monte-Carlo-Methode ist es, den Erwartungswert durch den Mittelwert
 \end{align*}
 
 \drmvspace
-Die Approximation ist besser, je kleiner die Varianz ist:
+Die Approximation von $\E z(\cX)$ durch $m_N(x)$ ist besser, je kleiner die Varianz ist:
 \rmvspace
 \begin{align*}
     \V m_N(z(\cX)) = \V \left( \frac{1}{N} \sum_{i = 1}^{N} z(\cX_i) \right) = \frac{1}{N^2} N \V(z(\cX)) = \frac{1}{N} \V(z(\cX)) \rightarrow 0
 \end{align*}
+
+\drmvspace
+Der Zentrale Grenzwertsatz (Central Limit Theorem) besagt, dass für grosse $N$
+\rmvspace
+\begin{align*}
+    \frac{m_N(z(\cX)) - \E z(\cX)}{\sqrt{\frac{1}{N} \V(z(\cX))}}
+\end{align*}
+
+\drmvspace
+sich fast wie eine normalverteilte Zufallsvariable $\cY \sim \cN(0, 1)$ verhält.
+Daraus folgt mit $\sigma(z(\cX)) = \sqrt{\V(z(\cX))}$:
+\rmvspace
+\begin{align*}
+    \Pr\left[ |m_N(z(\cX)) - \E z(\cX)| \leq \frac{\lambda \sigma}{\sqrt{N}} \right]
+    = \frac{1}{\sqrt{2\pi}} \int_{-\lambda}^{\lambda} e^{-\frac{x^2}{2}} \dx x + \tco{\frac{1}{\sqrt{N}}}
+    = p(\lambda) + \tco{\frac{1}{N}}
+\end{align*}
+
+\drmvspace
+wobei $2 \lambda$ die Länge des Integrationsintervalls ist, mit $\lambda$ definiert als die Länge des untersuchten Intervalls.
+Wir haben also eine langsame Konvergenz mit Fehler in $\tco{\frac{1}{\sqrt{N}}}$.
+
+Oben (Bemerkung \ref{all:5-8-1}) wurde bereits erwähnt, dass wir $68.3\%$ als die Wahrscheinlichkeit haben, dass wir den exakten Wert in unserem Intervall haben.
+Woher kommt aber dieser Wert?
+Wenn wir $\lambda = 1$ wählen (wie es der Fall ist für das gewählte Intervall), dann erhalten wir $p(1) \approx 0.683$.
+Dies trifft allerdings nur zu, wenn $N$ genügen gross ($N \geq 30$) ist.
+
+Um die Präzision abzuschätzen, benötigen wir einen Schätzer für $\V(z(\cX)) = \E(z(\cX)^2) - (\E(z(\cX)))^2$:
+\rmvspace
+\begin{align*}
+    d^*_2(z(\cX)) := \frac{1}{N - 1} \sum_{j = 1}^{N} (z(\cX_j) - m_N(z(\cX)))^2 = \frac{N}{N - 1} \left( m_N(z(\cX))^2 - (m_N(z(\cX)))^2 \right)
+\end{align*}
+
+\drmvspace
+Aus dem kann die Schätzung für $\tsigma_N$ von oben hergeleitet werden:
+\rmvspace
+\begin{align*}
+    \sqrt{\frac{N}{N - 1} \left( m_N(z(x)^2)) - (m_N(z(x)))^2 \right)}
+\end{align*}
+
+\drmvspace für $y = \sqrt{\V(z(\cX))}$ (oder ohne das $N$ im Zähler für $\frac{y}{\sqrt{N}}$) und $\V(z(\cX)) = \E d_2^*(z(\cX))$
+
+\begin{theorem}[]{Vertrauensintervall}
+    Das Intervall mit $y = \lambda d^*_2(z(\cX))$
+    \rmvspace
+    \begin{align*}
+        \left[ m_N(z(\cX)) - \frac{y}{\sqrt{N}}, m_N(z(\cX)) + \frac{y}{\sqrt{N}} \right]
+    \end{align*}
+
+    \rmvspace
+    enthält den wahren Wert $I = \E(z(\cX))$ mit Wahrscheinlichkeit $p(\lambda)$ bis auf einen Fehler in $\tco{\frac{1}{\sqrt{N}}}$ und das Vertrauensintervall ist:
+    \drmvspace
+    \begin{align*}
+        [m_N(z(\cX)) - \lambda \tsigma_N, m_N(z(\cX)) + \lambda \tsigma_N]
+    \end{align*}
+\end{theorem}
+Wiederholen wir das Experiment $M$ mal, mit $M$ gross, so enthält das Vertrauensintervall den Wert $I$ in ungefähr $100 p(\lambda)$ Prozent der $M$ Fälle.
+
+\setLabelNumber{all}{21}
+\inlineremark Ein kurzes Vertrauensintervall entspricht einer hohen Wahrscheinlichkeit, dass das Vertrauensintervall den wahren Wert enthält.
+Im Grundrezept wird $\lambda = 1$ mit $p(1) = 0.683$ verwendet.
+Um ein kürzeres Vertrauensintervall zu erzielen können wir $N$ erhöhen, oder die Berechnungen so reorganisieren, dass die Varianz kleiner wird.
+Wir brauchen also für einen Fehler $\varepsilon$ ungefähr $\frac{1}{\varepsilon^2}$ Evaluierungen.
+
+Seiten 171 bis 176 im Skript enthalten eine Implementation. Unten eine simple Implementation ohne Plotting:
+\begin{code}{python}
+    import numpy as np
+    def monte_carlo_integral(func, a, b, N):
+        t = np.random.uniform(a, b, N)
+        fx = func(t)
+        I = np.mean(fx) * (b - a)
+        var = np.std(fx, ddof=1) / np.sqrt(N)
+        return I, var
+\end{code}
