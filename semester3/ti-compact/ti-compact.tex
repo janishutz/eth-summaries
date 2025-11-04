@@ -1,8 +1,7 @@
 \documentclass{article}
 
-\newcommand{\dir}{~/projects/latex} % IMPORTANT: No trailing slashes!
-\input{\dir/include.tex}
-\load{recommended}
+\input{~/projects/latex/dist/recommended.tex}
+
 \usetikzlibrary{automata, positioning, arrows.meta}
 \newcommand{\hdelta}{\hat{\delta}}
 \newcommand{\qacc}{q_{\text{accept}}}
@@ -14,14 +13,42 @@
 \startDocument
 \usetcolorboxes
 
+\vspace{2cm}
+\begin{Huge}
+    \begin{center}
+        TITLE PAGE COMING SOON
+    \end{center}
+\end{Huge}
 
+
+\vspace{4cm}
+\begin{center}
+    \begin{Large}
+        ``\textit{Sie können also alle C Programme in Kanonischer Ordnung aufzählen. Sollten Sie dies tun. Wahrscheinlich nicht. Was aber zählt ist, sie \textbf{können} es tun}''
+    \end{Large}
+
+    \hspace{3cm} - Prof. Dr. Dennis Komm, 2025
+\end{center}
+
+\vspace{3cm}
+\begin{center}
+    HS2025, ETHZ\\[0.2cm]
+    \begin{Large}
+        Compact Summary of the book \color{MidnightBlue}\fbox{\href{https://link.springer.com/book/10.1007/978-3-658-06433-4}{Theoretische Informatik}}\color{black}
+    \end{Large}\\[0.2cm]
+    by Prof. Dr. Juraj Hromkovic
+\end{center}
+
+
+\newpage
+\printtoc{Orange}
 \section{Introduction}
 This summary aims to provide a simple, easy to understand and short overview over the topics covered, with approaches for proofs, important theorems and lemmas,
 as well as definitions.
 
 It does not aim to serve as a full replacement for the book or my main summary, but as a supplement to both of them.
 
-It also lacks some formalism and is only intended to give some intuition
+It also lacks some formalism and is only intended to give some intuition, six pages are really not enough for a formal and complete overview of the topic.
 
 
 \input{parts/01_words-alphabets.tex}

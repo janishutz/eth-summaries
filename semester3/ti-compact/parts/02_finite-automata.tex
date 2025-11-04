@@ -11,10 +11,10 @@ We can note the automata using graphical notation similar to graphs or as a seri
 \end{align*}
 
 \drmvspace
-\fancydef{Finite Automaton}
+\fancydef{Finite Automaton} $A = (Q, \Sigma, \delta, q_0, F)$ with
 \drmvspace
 \begin{multicols}{2}
-    \begin{itemize}
+    \begin{itemize}[noitemsep]
         \item $Q$ set of states
         \item $\Sigma$ input alphabet
         \item $\delta(q, a) = p$ transition from $q$ on reading $a$ to $p$
@@ -26,7 +26,7 @@ We can note the automata using graphical notation similar to graphs or as a seri
 
 \drmvspace
 $\hat{\delta}(q_0, w) = p$ is the end state reached when we process word $w$ from state $q_0$, and $(q, w) \bigvdash{M}{*} (p, \lambda)$ is the formal definition,
-with $\bigvdash{M}{*}$ representing any number of steps $\bigvdash{M}{}$ executed.
+with $\bigvdash{M}{*}$ representing any number of steps $\bigvdash{M}{}$ executed (transitive hull).
 
 The class $\class[q_i]$ represents all possible words for which the FA is in this state.
 Be cautious when defining them, make sure that no extra words from other classes could appear in the current class, if this is not intended.
@@ -52,9 +52,9 @@ For all of them start by assuming that $L$ is regular.
 
 \fhlc{Cyan}{Lemma 3.3}
 \setLabelNumber{lemma}{3}
-\begin{lemma}[]{Unterscheidung von Wörtern}
-    Sei $A$ ein EA über $\Sigma$ und $x \neq y \in \Sigma^*$ so dass $\hdelta_A (q_0, x) = \hdelta(q_0, y)$.
-    Dann existiert für jedes $z \in \Sigma^*$ ein $r \in Q$, so dass $xz, yz \in \class[r]$, also gilt insbesondere
+\begin{lemma}[]{Regular words}
+    Let $A$ be a FA over $\Sigma$ and let $x \neq y \in \Sigma^*$, such that $\hdelta_A (q_0, x) = \hdelta(q_0, y)$.
+    Then for each $z \in \Sigma^*$ there exists a $r \in Q$, such that $xz, yz \in \class[r]$, and we thus have
     \rmvspace
     \begin{align*}
         xz \in L(A) \Longleftrightarrow yz \in L(A)
@@ -74,13 +74,13 @@ That is a contradiction, which concludes our proof
 
 \fhlc{Cyan}{Pumping Lemma}
 \begin{lemma}[]{Pumping-Lemma für reguläre Sprachen}
-    Sei $L$ regulär. Dann existiert eine Konstante $n_0 \in \N$, so dass sich jedes Wort $w \in \word$ mit $|w| \geq n_0$ in $w = yxz$ zerlegen lässt, wobei
-    \rmvspace
+    Let $L$ be regular. Then there exists a constant $n_0 \in \N$, such that each word $w \in \word$ with $|w| \geq n_0$ can be decomposed into $w = yxz$, with
+    \drmvspace
     \begin{multicols}{2}
         \begin{enumerate}[label=\textit{(\roman*)}]
             \item $|yx| \leq n_0$
             \item $|x| \geq 1$
-            \item Für $X = \{ yx^kz \divides k\in \N \}$ \textit{entweder} $X \subseteq L$ oder $X \cap L = \emptyset$ gilt
+            \item For $X = \{ yx^kz \divides k\in \N \}$ \textit{either} $X \subseteq L$ or $X \cap L = \emptyset$ applies
         \end{enumerate}
     \end{multicols}
 \end{lemma}
@@ -98,26 +98,28 @@ That is a contradiction, which concludes our proof
 
 \fhlc{Cyan}{Kolmogorov Complexity}
 \begin{enumerate}[noitemsep]
-    \item We first need to choose an $x$ such that $L_x = \{ y | xy \in L \}$.
+    \item We first need to choose an $x$ such that $L_x = \{ y \divides xy \in L \}$.
           If not immediately apparent, choosing $x = a^{\alpha + 1}$ for $a \in \Sigma$
           and $\alpha$ being the exponent of the exponent of the words in the language after a variable rename.
           For example, for $\{ 0^{n^2 + 2n} \divides n \in \N \}$, $\alpha(m) = m^2 + 2m$.
           Another common way to do this is for languages of the form $\{ a^n b^n \divides n \in \N \}$ to use $x = a^m$ and
-          $L_{0^m} = \{ y | 0^m y \in L \} = \{ 0^j 1^{m + j} | j \in \N \}$.
+          $L_{0^m} = \{ y \divides 0^m y \in L \} = \{ 0^j 1^{m + j} \divides j \in \N \}$.
     \item Find the first word $y_1 \in L_x$. In the first example, this word would be $y_1 = 0^{(m + 1)^2 \cdot 2(m + 1) - m^2 \cdot 2m + 1}$,
           or in general $a^{\alpha(m + 1) - \alpha(m) + 1}$.
           For the second example, the word would be $y_1 = 1^m$, i.e. with $j = 0$
     \item According to Theorem 3.1, there exists constant $c$ such that $K(y_k) \leq \ceil{\log_2(k + 1)} + c$. We often choose $k = 1$,
           so we have $K(y_1) \leq \ceil{\log_2(1 + 1)} + c = 1 + c$ and with $d = 1 + c$, $K(y_1) \leq d$
-    \item This however leads to a contradiction, since the number of programs with length $\leq d$ is at most $2^d$ and thus finite and our set $L_x$ is infinite.
+    \item This however leads to a contradiction, since the number of programs with length $\leq d$ is at most $2^d$ and thus finite, but our set $L_x$ is infinite.
 \end{enumerate}
 
 
 \newpage
 \fhlc{Cyan}{Minimum number of states}
+
 To show that a language needs \textit{at least} $n$ states, use Lemma 3.3 and $n$ words. We thus again do a proof by contradiction:
 \begin{enumerate}
-    \item Assume that there exists FA with $|Q| < n$. We now choose $n$ words (as short as possible), as we would for non-regularity proofs using Lemma 3.3 (i.e. find some prefixes)
+    \item Assume that there exists FA with $|Q| < n$. We now choose $n$ words (as short as possible), as we would for non-regularity proofs using Lemma 3.3 (i.e. find some prefixes).
+        It is usually beneficial to choose prefixes with $|w|$ small (consider just one letter, $\lambda$, then two and more letter words)
     \item Construct a table for the suffixes using the $n$ chosen words such that one of the words at entry $x_{ij}$ is in the language and the other is not. ($n \times n$ matrix, see below in example)
     \item Conclude that we have reached a contradiction as every field $x_{ij}$ contains a suffix such that one of the two words is in the language and the other one is not.
 \end{enumerate}

@@ -8,7 +8,7 @@ For example, to detect a recursive language like $\{ 0^n 1^n \divides n \in \N \
 and repeat until we only have the new symbol, at which point we accept, or there are no more $0$s or $1$s, at which point we reject.
 
 The Turing Machines have an accepting $\qacc$ and a rejecting state $\qrej$ and a configuration is an element of
-$\{ \cent \}\cdot \Gamma^* \cdot Q \cdot \Gamma^+ \cup Q \cdot \{ \cent \} \cdot \Gamma^+ \}$ with $\cdot$ being the concatenation and $\cent$ the marker of the start of the band.
+$\{ \{ \cent \}\cdot \Gamma^* \cdot Q \cdot \Gamma^+ \cup Q \cdot \{ \cent \} \cdot \Gamma^+ \}$ with $\cdot$ being the concatenation and $\cent$ the marker of the start of the band.
 
 
 \subsection{Multi-tape TM and Church's Thesis}
@@ -18,7 +18,7 @@ All read/write-heads of the memory tapes can move in either direction, granted t
 
 As with normal TMs, the Turing Machine $M$ accepts $w$ if and only if $M$ reaches the state $\qacc$ and rejects if it does not terminate or reaches the state $\qrej$
 
-\inlinelemma There exists and equivalent $1$-Tape-TM for every TM.
+\inlinelemma There exists an equivalent $1$-Tape-TM for every TM.
 
 \inlinelemma There exists an equivalent TM for each Multi-tape TM.
 
@@ -29,7 +29,7 @@ It is the only axiom specific to Computer Science.
 All the words that can be accepted by a Turing Machine are elements of $\mathcal{L}_{RE}$ and are called \bi{recursively enumerable}.
 
 
-\subsection{Non-Deterministic Turin Machines}
+\subsection{Non-Deterministic Turing Machines}
 The same ideas as with NFA apply here. The transition function also maps into the power set:
 \rmvspace
 \begin{align*}

@@ -5,7 +5,7 @@
 \fancydef{Alphabet} Set $\Sigma$.
 Important alphabets: $\alphabetbool$, $\alphabets{lat}$ (all latin chars), $\alphabets{Keyboard}$ (all chars on keyboard), $\Sigma_m$ ($m$-ary numbers)
 
-\fancydef{Word} Possibly empty (denoted $\lambda$) sequences of characters from $\Sigma$. $|w|$ is the length, 
+\fancydef{Word} Possibly empty (denoted $\lambda$) sequences of characters from $\Sigma$. $|w|$ is the length,
 $\Sigma^*$ is the set of all words and $\Sigma^+ = \Sigma^* - \{ \lambda \}$
 
 \fancydef{Konkatenation} $\text{Kon}(x, y) = xy$, (so like string concat). $(xy)^n$ is $n$-times repeated concat.
@@ -13,7 +13,7 @@ $\Sigma^*$ is the set of all words and $\Sigma^+ = \Sigma^* - \{ \lambda \}$
 \fancydef{Reversal} $a^R$, simply read the word backwards.
 
 \stepLabelNumber{definition}
-\fancydef{Prefix, Suffix, Subword} $v$ in $w = vy$; $s$ in $w = sx$; Subword is $u$ in $w = xuy$
+\fancydef{Prefix, Suffix, Subword} $v$ in $w = vy$; $s$ in $w = xs$; Subword $u$ in $w = xuy$; $x$, $y$ possibly $\lambda$
 
 \fancydef{Appearance} $|x|_a$ is the number of times $a \in \Sigma$ appears in $x$
 
@@ -24,7 +24,7 @@ $\Sigma^*$ is the set of all words and $\Sigma^+ = \Sigma^* - \{ \lambda \}$
 \end{align*}
 
 \drmvspace
-\fancydef{Language} $L \subseteq \word$, and we define $L^C = \word - L$ as the complement, with $L_{\emptyset}$ being the empty language, 
+\fancydef{Language} $L \subseteq \word$, and we define $L^C = \word - L$ as the complement, with $L_{\emptyset}$ being the empty language,
 whereas $L_\lambda$ is the language with just the empty word in it.
 
 \bi{Concatenation}: $L_1 \cdot L_2 = \{ vw | v \in L_1 \land w \in L_2 \}$ and $L^{i + 1} = L^i \cdot L \ \forall i \in \N$.
@@ -39,7 +39,7 @@ whereas $L_\lambda$ is the language with just the empty word in it.
 \stepcounter{subsection}
 \subsection{Kolmogorov-Complexity}
 \setLabelNumber{definition}{17}
-\fancydef{Kolmogorov-Complexity} $K(x)$ for $x \in \wordbool$ is the minimum of all binary lengths of Pascal programs that output $x$, 
+\fancydef{Kolmogorov-Complexity} $K(x)$ for $x \in \wordbool$ is the minimum of all binary lengths of Pascal programs that output $x$,
 where the Program doesn't have to compile, i.e. we can describe processes informally
 
 \stepLabelNumber{lemma}
@@ -56,4 +56,20 @@ where the Program doesn't have to compile, i.e. we can describe processes inform
 \stepLabelNumber{theorem}
 \fancytheorem{Prime number} $\displaystyle \limni \frac{\text{Prime}(n)}{\frac{n}{\ln(n)}}$
 
-\fhlc{Cyan}{Proofs} Most of the proofs start with defining the number of words of exactly the required length and we can then usually deduce some kind of indirect proof (using the fact that there are at most $2^n - 1$ words $x$ with $K(x) < n$).
+\fhlc{Cyan}{Proofs} Most of the proofs start with defining the number of words of exactly the required length and we can then usually deduce some kind of indirect proof
+(using the fact that there are at most $2^k - 1$ words $x$ with $K(x) < k$).
+
+It is useful to remember the laws of logarithm and the fact that there are $\floor{\frac{n}{k}} + 1$ numbers divisible by $k$ in the set $\{ 0, 1, \ldots, n \}$.
+Additionally, the pigeonhole principle can come in very handy
+
+\shade{Orange}{Laws of logarithm}
+\drmvspace
+\begin{multicols}{3}
+    \begin{itemize}[noitemsep]
+        \item $\log_a(x) + \log_a(y) = \log_a(x \cdot y)$
+        \item $\log_a(x) - \log_a(y) = \log_a(x \div y)$
+        \item $y \log_a(x) = \log_a(x^y)$
+        \item $\log_a(x) = \frac{\ln(x)}{\ln(a)}$
+        \item $\log_a(1) = 0$
+    \end{itemize}
+\end{multicols}
