@@ -26,14 +26,14 @@ As with normal TMs, the Turing Machine $M$ accepts $w$ if and only if $M$ reache
 Church's Thesis states that the Turing Machines are a formalization of the term ``Algorithm''.
 It is the only axiom specific to Computer Science.
 
-All the words that can be accepted by a Turing Machine are elements of $\mathcal{L}_{RE}$ and are called \bi{recursively enumerable}.
+All the words that can be accepted by a Turing Machine are elements of $\cL_{RE}$ and are called \bi{recursively enumerable}.
 
 
 \subsection{Non-Deterministic Turing Machines}
 The same ideas as with NFA apply here. The transition function also maps into the power set:
 \rmvspace
 \begin{align*}
-    \delta : (Q - \{ \qacc, \qrej \}) \times \Gamma \rightarrow \mathcal{P}(Q \times \Gamma \times \{ L, R, N \})
+    \delta : (Q - \{ \qacc, \qrej \}) \times \Gamma \rightarrow \cP(Q \times \Gamma \times \{ L, R, N \})
 \end{align*}
 
 Again, when constructing a normal TM from a NTM (which is not required at the Midterm, or any other exam for that matter in this course),

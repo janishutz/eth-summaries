@@ -18,19 +18,18 @@ Below is a list of countable objects. They all have corresponding Lemmas in the 
 
 \rmvspace
 \drmvspace
-The following objects are uncountable: $[0, 1]$, $\R$, $\mathcal{P}(\wordbool)$
+The following objects are uncountable: $[0, 1]$, $\R$, $\cP(\wordbool)$
 
-\inlinecorollary $|\text{KodTM}| < |\mathcal{P}(\wordbool)|$ and thus there exist infinitely many not recursively enumerable languages over $\alphabetbool$
+\inlinecorollary $|\text{KodTM}| < |\cP(\wordbool)|$ and thus there exist infinitely many not recursively enumerable languages over $\alphabetbool$
 
 \fhlc{Cyan}{Proof of $L$ (not) recursively enumerable}
 
-Proving that a language \textit{is} recursively enumerable is as easy as providing a Turing Machine that accepts it.
+Proving that a language \textit{is} recursively enumerable is as difficult as providing a Turing Machine that accepts it.
 
-Proving that a language is \textit{not} recursively enumerable is a bit harder. For it, let $d_{ij} = 1 \Longleftrightarrow M_i$ accepts $w_j$.
+Proving that a language is \textit{not} recursively enumerable is likely easier. For it, let $d_{ij} = 1 \Longleftrightarrow M_i$ accepts $w_j$.
 
-As an example, we'll use the following language
-
-Assume towards contradiction that $L_\text{diag} \in \mathcal{L}_{RE}$. Let 
+\inlineex Assume towards contradiction that $L_\text{diag} \in \cL_{RE}$. Let 
+\rmvspace
 \begin{align*}
     L_{\text{diag}} & = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and $M_i$ does not accept } w_i \} \\
                     & = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and } d_{ii} = 0\}
@@ -40,7 +39,9 @@ Since $M$ is a Turing Machine in the canonical ordering of all Turing Machines, 
 
 This however leads to a contradiction, as $w_i \in L_\text{diag} \Longleftrightarrow d_{ii} = 0 \Longleftrightarrow w_i \notin L(M_i)$.
 
-In other words, $w_i$ is in $L_\text{diag}$ if and only if $w_i$ is not in $L(M_i)$, which contradicts our statement above.
+In other words, $w_i$ is in $L_\text{diag}$ if and only if $w_i$ is not in $L(M_i)$, which contradicts our statement above, in which we assumed that $L_\text{diag} \in \cL_{RE}$
+
+In other, more different, words, $w_i$ being in $L_\text{diag}$ implies (from the definition) that $d_{ii} = 0$, which from its definition implies that $w_i \notin L(M_i)$
 
 \setLabelNumber{theorem}{3}
-\inlinetheorem $L_\text{diag} \notin \mathcal{L}_{RE}$
+\inlinetheorem $L_\text{diag} \notin \cL_{RE}$

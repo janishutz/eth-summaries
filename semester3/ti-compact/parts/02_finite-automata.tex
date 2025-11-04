@@ -20,7 +20,7 @@ We can note the automata using graphical notation similar to graphs or as a seri
         \item $\delta(q, a) = p$ transition from $q$ on reading $a$ to $p$
         \item $q_0$ initial state
         \item $F \subseteq Q$ accepting states
-        \item $\mathcal{L}_{EA}$ regular languages (accepted by FA)
+        \item $\cL_{EA}$ regular languages (accepted by FA)
     \end{itemize}
 \end{multicols}
 
@@ -144,7 +144,7 @@ Thus, all four words have to lay in pairwise distinct states and we thus need at
 
 
 \subsection{Non-determinism}
-The most notable differences between deterministic and non-deterministic FA is that the transition function maps is different: $\delta: Q \times \Sigma \rightarrow \mathcal{P}(Q)$.
+The most notable differences between deterministic and non-deterministic FA is that the transition function maps is different: $\delta: Q \times \Sigma \rightarrow \cP(Q)$.
 I.e., there can be any number of transitions for one symbol from $\Sigma$ from each state.
 This is (in graphical notation) represented by arrows that have the same label going to different nodes.
 
@@ -162,5 +162,5 @@ States are no now sets of states of the NFA in which the NFA could be in after p
 
 For each state, the set of states $P = \hdelta(q_0, z)$ for $|z| = n$ represents all possible states that the NFA could be in after doing the first $n$ calculations.
 
-Correspondingly, we add new states if there is no other state that is in the same branch of the calculation tree $\mathcal{B}_M(x)$.
+Correspondingly, we add new states if there is no other state that is in the same branch of the calculation tree $\cB_M(x)$.
 So, in other words, we execute BFS on the calculation tree.
