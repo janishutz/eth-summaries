@@ -62,11 +62,13 @@ where the Program doesn't have to compile, i.e. we can describe processes inform
 \stepLabelNumber{theorem}
 \fancytheorem{Prime number} $\displaystyle \limni \frac{\text{Prime}(n)}{\frac{n}{\ln(n)}}$
 
-\fhlc{Cyan}{Proofs} Most of the proofs start with defining the number of words of exactly the required length and we can then usually deduce some kind of indirect proof
-(using the fact that there are at most $2^k - 1$ words $x$ with $K(x) < k$).
+\fhlc{Cyan}{Proofs} Proofs in which we need to show a lower bound for Kolmogorov-Complexity (almost) always work as follows:
+Assume for contradiction that there are no words with $K(w) > f$ for all $w \in W$.
+We count the number $m$ of words in $W$ and the number $n$ of programs of length $\leq f$ ($f$ being the given, lower bound).
+We will have $m - n > 0$, which means, there are more different words than there are Programs with Kolmogorov-Complexity $\leq f$,
+which is a contradiction to our assumption.
 
-It is useful to remember the laws of logarithm and the fact that there are $\floor{\frac{n}{k}} + 1$ numbers divisible by $k$ in the set $\{ 0, 1, \ldots, n \}$.
-Additionally, the pigeonhole principle can come in very handy
+There are $\floor{\frac{n}{k}} + 1$ numbers divisible by $k$ in the set $\{ 0, 1, \ldots, n \}$.
 
 \shade{Orange}{Laws of logarithm}
 \drmvspace
