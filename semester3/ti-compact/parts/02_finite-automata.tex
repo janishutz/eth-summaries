@@ -119,7 +119,8 @@ That is a contradiction, which concludes our proof
 To show that a language needs \textit{at least} $n$ states, use Lemma 3.3 and $n$ words. We thus again do a proof by contradiction:
 \begin{enumerate}
     \item Assume that there exists FA with $|Q| < n$. We now choose $n$ words (as short as possible), as we would for non-regularity proofs using Lemma 3.3 (i.e. find some prefixes).
-        It is usually beneficial to choose prefixes with $|w|$ small (consider just one letter, $\lambda$, then two and more letter words)
+        It is usually beneficial to choose prefixes with $|w|$ small (consider just one letter, $\lambda$, then two and more letter words).
+        An ``easy'' way to find the prefixes is to construct a finite automaton and then picking a prefix from each class
     \item Construct a table for the suffixes using the $n$ chosen words such that one of the words at entry $x_{ij}$ is in the language and the other is not. ($n \times n$ matrix, see below in example)
     \item Conclude that we have reached a contradiction as every field $x_{ij}$ contains a suffix such that one of the two words is in the language and the other one is not.
 \end{enumerate}
