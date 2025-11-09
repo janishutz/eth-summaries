@@ -92,7 +92,8 @@ That is a contradiction, which concludes our proof
     \item According to Lemma 3.4 (ii), $m \geq 1$ and thus $|x| \geq 1$. Fix $z$ to be the suffix of $w = yxz$
     \item Then according to Lemma 3.4 (iii), fill in for $X = \{ yx^k z \divides k \in \N \}$ we have $X \subseteq L$.
     \item This will lead to a contradiction commonly when setting $k = 0$, as for a language like $0^n1^n$, we have $0^{(n_0 - m) + km}1^{n_0}$ as the word (with $n_0 - m = l$),
-          which for $k = 0$ is $u= 0^{n_0 - m} 1^{n_0}$ and since $m \geq 1$, $u \notin L$ and thus by Lemma 3.4, $X \cap L = \emptyset$
+          which for $k = 0$ is $u= 0^{n_0 - m} 1^{n_0}$ and since $m \geq 1$, $u \notin L$ and thus by Lemma 3.4, $X \cap L = \emptyset$, 
+          but that is also not true, as the intersection is not empty (for $k = 1$)
 \end{enumerate}
 
 
