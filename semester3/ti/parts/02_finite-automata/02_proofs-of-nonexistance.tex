@@ -24,7 +24,7 @@ so heisst das für uns von jetzt an, dass $A$ nicht zwischen $x$ und $y$ untersc
 Das obenstehende Lemma 3.3 ist ein Spezialfall einer Eigenschaft, die für jedes (deterministische) Rechnermodell gilt.
 Es besagt eigentlich nichts anderes, als dass wenn das Wort $xz$ akzeptiert wird, so wird auch das Wort $yz$
 
-Mithilfe von Lemma 3.3 kann man für viele Sprachen deren Nichtregularität beweisen.
+Mithilfe von Lemma 3.3 kann man für einen grossteil Sprachen deren Nichtregularität beweisen.
 
 \numberingOff
 \inlineex Sei $L = \{ 0^n1^n \divides n \in \N \}$.
@@ -36,7 +36,7 @@ Wir nehmen an, dass $L$ regulär ist und betrachten die Wörter $0^1, 0^2, \ldot
 Weil wir $|Q| + 1$ Wörter haben, existiert per Pigeonhole-Principle o.B.d.A $i < j \in \{ 1, 2, \ldots, |Q| + 1 \}$
 (die Ungleichheit kann in komplexeren Beweisen sehr nützlich werden, da wir dann besser mit Längen argumentieren können),
 so dass $\hdelta_A(q_0, 0^i) = \hdelta_A(q_0, 0^j)$, also gilt nach Lemma $0^i z \in L \Leftrightarrow 0^j z \in L \smallhspace \forall z \in \wordbool$.
-Dies gilt jedoch nicht, weil für jedes $z = 1^i$ zwar jedes $0^i 1^i \in L$ gilt, aber $0^j 1^j \notin L$
+Dies gilt jedoch nicht, weil für jedes $z = 1^i$ zwar jedes $0^i 1^i \in L$ gilt, aber $0^i 1^j \notin Lh$
 
 \numberingOn
 
@@ -52,7 +52,7 @@ denn wenn eine Sprache eine dieser Eigenschaften \textit{nicht} erfüllt, so ist
 
 \fhlc{Cyan}{Pumping}
 
-Eine Methode zum Beweis von Aussagen $L \notin \mathcal{L}_{\text{EA}}$ nennt sich \bi{Pumping} und basiert auf folgender Idee:
+Eine weitere Methode zum Beweis von Aussagen $L \notin \mathcal{L}_{\text{EA}}$ nennt sich \bi{Pumping} und basiert auf folgender Idee:\\
 Wenn für ein Wort $x$ und einen Zustand $p$ gilt, dass $(p, x) \bigvdash{A}{*} (p, \lambda)$, so gilt auch für alle $i \in \N$, dass $(p, x^i) \bigvdash{A}{*} (p, \lambda)$.
 Also kann $A$ nicht zwischen $x$ und $x^i$ unterscheiden, oder in anderen Worten, wie viele $x$ er gelesen hat,
 also akzeptiert $A$ entweder alle Wörter der Form $yx^iz$ (für $i \in \N$) oder keines davon
