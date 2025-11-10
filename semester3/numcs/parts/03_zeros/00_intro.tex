@@ -1,0 +1,48 @@
+% ┌                                                ┐
+% │     AUTHOR: Janis Hutz<info@janishutz.com>     │
+% └                                                ┘
+
+\subsection{Iterative Verfahren}
+\inlinedef Ein iteratives Verfahren ist ein Algorithmus $\phi_F$, der die Folge $x^{(0)}, x^{(1)}, \ldots$ von approximativen Lösungen $x^{(j)}$ generiert.
+Die Definition ist dabei rekursiv: $x^{(k)} := \phi_F(x^{(k - 1)})$, sofern $x^{(0)}$ und $\phi$ gegeben sind.
+
+\setLabelNumber{all}{5}
+\fancydef{Konvergenz} $\phi_F$ zur Lösung $F(x^*) = 0$ konvergiert, wenn $x^{(k)} \rightarrow x^*$, mit $x^*$ der gesuchte Wert.
+
+\setLabelNumber{all}{8}
+\fancydef{Norm}
+
+\innumpy haben wir \texttt{numpy.linalg.norm}, welches zwei Argumente nimmt. Dabei ist das erste Argument der Vektor und das Zweite die Art der Norm.
+Ohne zweites Argument wird die Euklidische Norm $||x||_2$, mit Argument $1$ wird die $1$-Norm $||x||_1 := |x_1| + \ldots + |x_n|$
+und mit mit \texttt{inf} als Argument wird die $\infty$-Norm, bzw die Max-Norm $||x||_\infty := \max\{ |x_1|, \ldots, |x_n| \}$ berechnet.
+
+\stepLabelNumber{all}
+\inlinedef Zwei Normen $||\cdot||_1$ und $||\cdot||_2$ sind äquivalent auf $\cV$, falls es Konstanten $\underline{C}$ und $\overline{C}$ gibt so dass
+\rmvspace
+\begin{align*}
+    \underline{C} \cdot ||v||_1 \leq ||v||_2 \leq \overline{C} \cdot ||v||_1 \mediumhspace \forall v \in \cV, \text{ mit } \cV \text{ ein linearer Raum}
+\end{align*}
+
+\drmvspace
+\inlinetheorem Falls $\dim(\cV) < \infty$, dann sind alle Normen auf $\cV$ äquivalent
+
+\stepLabelNumber{all}
+\fancydef{Lineare Konvergenz} $x^{(k)}$ konvergiert linear gegen $x^*$, falls es ein $L < 1$ gibt, so dass
+\rmvspace
+\begin{align*}
+    ||x^{(k + 1)} - x^*|| \leq L||x^{(k)} - x^*|| \smallhspace \forall k \geq k_0, \smallhspace L \text{ gennant Konvergenzrate }
+\end{align*}
+
+\drmvspace\stepLabelNumber{all}
+\fancydef{Konvergenzordnung} $p$ für das Verfahren, falls es ein $C > 0$ gibt, so dass
+\rmvspace
+\begin{align*}
+    ||x^{(k + 1)} - x^*|| \leq C||x^{(k)} - x^*||^p \smallhspace \forall k \in \N \text{ mit } C < 1 \text{ für } p = 1
+\end{align*}
+
+\drmvspace
+Wir nehmen dabei an, dass $||x^{(0)} - x^*|| < 1$, damit wir eine konvergente Folge haben.
+
+\numberingOff
+\inlineremark Eine höhere Konvergenzordnung ist in Lin-Log-Skala an einer gekrümmten Konvergenzkurve erkennbar.
+\numberingOn
