@@ -60,7 +60,7 @@ where the Program doesn't have to compile, i.e. we can describe processes inform
 \fancydef{Randomness} $x \in \wordbool$ random if $K(x) \geq |x|$, thus for $n \in \N$, $K(n) \geq \ceil{\log_2(n + 1)} - 1$
 
 \stepLabelNumber{theorem}
-\fancytheorem{Prime number} $\displaystyle \limni \frac{\text{Prime}(n)}{\frac{n}{\ln(n)}}$
+\fancytheorem{Prime number} $\displaystyle \limni \frac{\text{Prime}(n)}{\frac{n}{\ln(n)}} = 1$ with $\text{Prime}(n)$ the number of prime numbers on $[0, n] \subseteq \N$
 
 \fhlc{Cyan}{Proofs} Proofs in which we need to show a lower bound for Kolmogorov-Complexity (almost) always work as follows:
 Assume for contradiction that there are no words with $K(w) > f$ for all $w \in W$.
