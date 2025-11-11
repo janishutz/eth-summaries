@@ -1,7 +1,66 @@
-\drmvspace\drmvspace
-\newsectionNoPB
+% ┌                                                ┐
+% │     AUTHOR: Janis Hutz<info@janishutz.com>     │
+% └                                                ┘
+
+\rmvspace\newsectionNoPB
 \subsection{Fixpunktiteration}
 Ein $1$-Punkt-Verfahren benötigt nur den vorigen Wert: $x^{(k + 1)} = \phi(x^{(k)})$
 
 % FIXME: Below konsistent is probably wrong, but is what is in the script
 \inlinedef Eine Fixpunktiteration heisst konsistent mit $F(x) = 0$ falls $F(x) = 0 \Leftrightarrow \phi(x) = x$
+
+\inlineex Für $F(x) = xe^x - 1$ mit $x \in [0, 1]$ liefert $\phi_1(x) = e^{-x}$ lineare Konvergenz,
+$\phi_2(x) = \frac{1 + x}{1 + e^x}$ quadratische Konvergenz und $\phi_3(x) = x + 1 - xe^x$ eine divergente Folge.
+
+\setLabelNumber{all}{5}
+\fancydef{Kontraktion} $\phi$ falls es ein $L < 1$ gibt, so dass $||\phi(x) - \phi(y)|| \leq L||x - y|| \ \forall x, y$
+
+\inlineremark Falls $x^*$ ein Fixpunkt der Kontraktion $\phi$ ist, dann ist
+\drmvspace
+\begin{align*}
+    ||x^{(k + 1)} - x^*|| = ||\phi(x^{(k)}) - \phi(x^*)|| \leq L||x^{(k)} - x^*||
+\end{align*}
+
+\drmvspace
+\begin{theorem}[]{Banach'scher Fixpunktsatz}
+    Sei $D \subseteq \K^n$ ($\K = \R, \C$) mit $D$ abgeschlossen und $\phi: D \rightarrow D$ eine Kontraktion.
+    Dann existiert ein eindeutiger Fixpunkt $x^*$, für welchen also gilt, dass $\phi(x^*) = x^*$.
+    Dieser ist der Grenzwert der Folge $x^{(k + 1)} = \phi(x^{(k)})$.
+\end{theorem}
+
+% NOTE: If need be, we can switch to theorem here, or I can add a new environment for "support theorem" or the like,
+% I however feel like a Lemma suits the idea of "Hilfstheorem" quite well
+\inlinelemma Für $U \subseteq \R^n$ konvex und $\phi : U \rightarrow \R^n$ stetig differenzierbar mit $L := \sup_{x \in U} ||D_\phi(x)|| < 1$
+($D_\phi(x)$ ist die Jacobi-Matrix von $\phi(x)$).
+Wenn $\phi(x^*) = x^*$ für $x^* \in U$, dann konvergiert $x^{(k + 1)} = \phi(x^{(k)})$ gegen $x^*$ lokal mindestens linear.
+Dies ist eine hinreichende (= sufficient) Bedingung.
+
+\setLabelNumber{all}{11}
+\inlinelemma Für $\phi : \R^n \rightarrow \R^n$ mit $\phi(x^*) = x^*$ und $\phi$ stetig differenzierbar in $x^*$.
+Ist $||D_\phi(x^*)|| < 1$, dann konvergiert $x^{(k + 1)} = \phi(x^{(k)})$ lokal und mindestens linear mit $L = ||D_\phi(x^*)||$
+
+\stepLabelNumber{all}
+\fancytheorem{Satz von Taylor} Sei $I \subseteq \R$ ein Intervall, $\phi : I \rightarrow \R$ $(m + 1)$-mal differenzierbar und $x \in I$.
+Dann gilt für jedes $y \in I$
+\drmvspace
+\begin{align*}
+    \phi(y) - \phi(x) = \sum_{k = 1}^{m} \frac{1}{k!} \left( \phi^{(k)}(x) (y - x)^k \right) + \tco{|y - x|^{m + 1}}
+\end{align*}
+
+\drmvspace
+\inlinelemma Sei $I$ und $\phi$ wie in Satz \ref{all:6-3-13}. Sei zudem $\phi^{(l)}(x^*) = 0$ für $l \in \{ 1, \ldots, m \}$ mit $m \geq 1$.
+Dann konvergiert $x^{(k + 1)} = \phi(x^{(k)})$ lokal gegen $x^*$ mit Ordnung $p \geq m + 1$
+
+\stepLabelNumber{all}
+\inlinelemma Konvergiert $\phi$ linear mit $L < 1$, dann gilt:
+\drmvspace
+\begin{align*}
+    ||x^{*} - x^{(k)}|| \leq \frac{L^{k - l}}{1 - L} ||x^{(l + 1)} - x^{(l)}||
+\end{align*}
+
+\drmvspace
+\inlinecorollary für $l = 0$ haben wir ein \textit{a priori} und für $l = k - 1$ ein \textit{a posteriori} Abbruchkriterium:
+\drmvspace
+\begin{align*}
+    ||x^* - x^{(k)}|| \leq \frac{L^k}{1 - L} ||x^{(1)} - x^{(0)}|| \leq \tau & & ||x^* - x^{(k)}|| \leq \frac{L}{1 - L} ||x^{(k)} - x^{(k - 1)}|| \leq \tau
+\end{align*}
