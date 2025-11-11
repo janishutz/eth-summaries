@@ -1,1 +1,74 @@
+\newpage
 \subsection{Die Methode der Reduktion}
+\fancydef{Rekursiv reduzierbare Sprache} Eine Sprache $L_1 \subseteq \word_1$ ist auf $L_2 \subseteq \word_2$ rekursiv reduzierbar, geschrieben $L_1 \leq_R L_2$,
+falls $L_2 \in \cL_R \Rightarrow L_1 \in \cL_R$.
+
+\shade{teal}{Intuition:} $L_2$ ist bezüglich der algorithmischen Lösbarkeit mindestens so schwer wie $L_1$. $\cL_R$ ist die Menge aller rekursiv reduzierbaren Sprachen.
+Ist also $L_2$ lösbar, so muss auch $L_1$ lösbar sein.
+
+\fancydef{EE-reduzierbare Sprache} $L_1$ ist auf $L_2$ \bi{EE-reduzierbar}, geschrieben $L_1 \leq_{EE} L_2$, wenn eine TM $M$ existiert,
+die eine Abbildung $f_M : \word_1 \rightarrow \word_2$ mit der Eigenschaft $x \in L_1 \Leftrightarrow f_M(x) \in L_2$ für alle $x \in \word_1$ berechnet.
+Anders ausgedrückt: die TM $M$ reduziert die Sprache $L_1$ auf die Sprache $L_2$
+
+\inlinelemma Falls $L_1 \leq_{EE} L_2$, dann auch $L_1 \leq_R L_2$. \inlineproof Im Buch auf Seite 135 (= 148 im PDF)
+
+Wir müssen also nur zeigen, dass $L_1 \leq_{EE} L_2$ um zu zeigen, dass $L_1 \leq_R L_2$
+
+\inlinelemma Für jede Sprache $L \subseteq \word$ gilt: $L \leq_R L^C$ und $L^C \leq_R L$
+
+\inlinecorollary $(L_\text{diag})^C \notin \cL_R$
+\inlineproof Folgt davon, dass $L_\text{diag} \notin \cL_{RE}$ (was heisst, dass $L_\text{diag} \notin \cL_R$)
+und nach Lemma 5.4 $L_\text{diag} \leq_R (L_\text{diag})^C$ und das umgekehrte gelten muss.
+
+\inlinelemma $(\ldiag)^C \in \cL_{RE}$
+\inlineproof Auf Seite 137 (= 150 im PDF) wird eine Turingmaschine aufgezeigt, die $(L_\text{diag})^C$ akzeptiert.
+
+\inlinecorollary $(\ldiag)^C \in \cL_{RE} - \cL_R$ und daher $\cL_R \subsetneq \cL_{RE}$
+
+Folgende Sprachen sind nicht rekursiv, liegen aber in $\cL_{RE}$
+
+\fancydef{Universelle Sprache} $L_U = \{ \text{Kod}(M)\# w \divides w \in \wordbool \text{ und TM } M \text{ akzeptiert } w \}$
+
+\fancytheorem{Universelle TM} Eine TM $U$, so dass $L(U) = L_U$, also gilt $L_U \in \cL_{RE}$\\
+%
+\inlineproof Auf Seite 138 (= 151 im PDF)
+
+Was dies bedeutet, es existiert eine TM ohne Haltegarantie, die eine beliebige Turingmaschine auf einer gegebenen Eingabe simulieren kann.
+Untenstehendes Resultat bedeutet, dass man das Resultat der Berechnung einer TM $M$ auf einer Eingabe $x$ anders berechnen kann, als die Berechnung von $M$ auf $x$ zu simulieren.
+
+\inlinetheorem $L_U \notin \cL_R$
+
+Wenn jetzt aber $M$ unendlich lange auf $x$ arbeitet, so wissen wir nicht, ob wir die Simulation beenden können. Dies führt zum Halteproblem
+
+\begin{definition}[]{Halteproblem}
+    Das Halteproblem ist das Entscheidungsproblem $(\{ 0, 1, \# \}, L_H)$ mit
+    \begin{align*}
+        L_H = \{ \text{Kod}(M)\# x \divides x \in \{ 0, 1 \}^* \text{ und } M \text{ hält auf } x \}
+    \end{align*}
+\end{definition}
+
+Dies scheint vorerst nicht ein allzu grosses Problem zu sein, jedoch besagt das nächste Resultat, dass es keinen Algorithmus gibt,
+der testen kann, ob ein gegebenes Programm immer terminiert.
+
+\inlinetheorem $L_H \in \cL_R$
+\inlineproof Auf Seiten 140 - 142 (153 - 155 im PDF)
+
+Betrachten wir die Sprache $\lempty = \{ \text{Kod}(M) \divides L(M) = \emptyset \}$, die die Kodierungen aller Turingmaschinen enthält,
+die die leere Menge (kein Wort) akzeptieren. Es gilt
+\rmvspace
+\begin{align*}
+    (\lempty)^C = \{ x \in \wordbool \divides x \notin \text{Kod}(\overline{M}) \forall \text{ TM } \overline{M} \text{ oder } x = \text{Kod}(M) \text{ und } L(M) \neq \emptyset \}
+\end{align*}
+
+\drmvspace
+\inlinelemma $(\lempty)^C \in \cL_{RE}$
+\inlineproof Auf Seiten 142 - 143 (155 - 156 im PDF)
+
+\inlinelemma $(\lempty)^C \notin \cL_R$
+
+Wir haben als wiederum die Nichtexistenz eines Algorithmus zur Überprüfung, ob ein gegebenes Programm die leere Menge akzeptiert.
+Ein Beweis dazu findet sich auf Seiten 143 und 144 im Buch (156 - 157 im PDF)
+
+\inlinecorollary $\lempty \notin \cL_R$
+
+\inlinecorollary $L_{EQ} = \{ \text{Kod}(M)\# \text{Kod}(\overline{M}) \divides L(M) = L(\overline{M}) \}$ ist nicht entscheidbar (also $L_{EQ} \notin \cL_R$)
