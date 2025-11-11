@@ -14,7 +14,7 @@ Die Definition ist dabei rekursiv: $x^{(k)} := \phi_F(x^{(k - 1)})$, sofern $x^{
 
 \innumpy haben wir \texttt{numpy.linalg.norm}, welches zwei Argumente nimmt. Dabei ist das erste Argument der Vektor und das Zweite die Art der Norm.
 Ohne zweites Argument wird die Euklidische Norm $||x||_2$, mit Argument $1$ wird die $1$-Norm $||x||_1 := |x_1| + \ldots + |x_n|$
-und mit mit \texttt{inf} als Argument wird die $\infty$-Norm, bzw die Max-Norm $||x||_\infty := \max\{ |x_1|, \ldots, |x_n| \}$ berechnet.
+und mit mit \texttt{inf} als Argument wird die $\infty$-Norm, bzw. die Max-Norm $||x||_\infty := \max\{ |x_1|, \ldots, |x_n| \}$ berechnet.
 
 \stepLabelNumber{all}
 \inlinedef Zwei Normen $||\cdot||_1$ und $||\cdot||_2$ sind äquivalent auf $\cV$, falls es Konstanten $\underline{C}$ und $\overline{C}$ gibt so dass
@@ -30,7 +30,7 @@ und mit mit \texttt{inf} als Argument wird die $\infty$-Norm, bzw die Max-Norm $
 \fancydef{Lineare Konvergenz} $x^{(k)}$ konvergiert linear gegen $x^*$, falls es ein $L < 1$ gibt, so dass
 \rmvspace
 \begin{align*}
-    ||x^{(k + 1)} - x^*|| \leq L||x^{(k)} - x^*|| \smallhspace \forall k \geq k_0, \smallhspace L \text{ gennant Konvergenzrate }
+    ||x^{(k + 1)} - x^*|| \leq L||x^{(k)} - x^*|| \smallhspace \forall k \geq k_0, \smallhspace L \text{ genannt Konvergenzrate }
 \end{align*}
 
 \drmvspace\stepLabelNumber{all}
@@ -42,7 +42,40 @@ und mit mit \texttt{inf} als Argument wird die $\infty$-Norm, bzw die Max-Norm $
 
 \drmvspace
 Wir nehmen dabei an, dass $||x^{(0)} - x^*|| < 1$, damit wir eine konvergente Folge haben.
+Man kann die Konvergenzordnung folgendermassen abschätzen, mit $\varepsilon_k := ||x^{(k)} - x^*||$ (Konvergenzrate in Bemerkung \ref{all:6-1-19}):
+\rmvspace
+\begin{align*}
+    p \approx \frac{\log(\varepsilon_{k + 1}) - \log(\varepsilon_k)}{\log(\varepsilon_k) - \varepsilon_{k - 1}}
+\end{align*}
+
+\drmvspace
+Intuitiv haben wir Quadratische (oder Kubische, etc.) Konvergenzordnung, wenn sich die Anzahl Nullen im Fehler jede Iteration verdoppeln (verdreifachen, etc.)
 
 \numberingOff
 \inlineremark Eine höhere Konvergenzordnung ist in Lin-Log-Skala an einer gekrümmten Konvergenzkurve erkennbar.
 \numberingOn
+
+\rmvspace\setLabelNumber{all}{19}
+\fancyremark{Abschätzung der Konvergenzrate} Sei $\varepsilon_k := ||x^{(k)} - x^*||$ die Norm des Fehlers im $k$-ten Schritt.
+\drmvspace\rmvspace
+\begin{align*}
+    \varepsilon_{k + 1} \approx L \cdot \varepsilon_k \Longrightarrow \log(\varepsilon_{k + 1}) \approx \log(L) + \log(\varepsilon_k)
+    \Longrightarrow \varepsilon_{k + 1} \approx k \log(L) + \log(\varepsilon_0)
+\end{align*}
+
+\drmvspace
+Untenstehender Code berechnet den Fehler und die Konvergenzrate von $\displaystyle x^{(k + 1)} = x^{(k)} + \frac{\cos(x^{(k)}) + 1}{\sin(x^{(k)})}$.
+Dabei verwenden wir $x^{(15)}$ anstelle von $x^*$ zur Berechnung der Konvergenzrate, da $x^*$ meist unbekannt ist.
+
+\drmvspace
+\begin{code}{python}
+    def linear_convergance(x):
+        y = []  # container for the x(j)
+        for k in range(15):
+            x = x + (np.cos(x) + 1) / np.sin(x)  # apply the iteration formula
+            y += [x]  # store the value in the container
+        err = abs(np.array(y) - x)  # estimation for the error
+        rate = err[1:] / err[:-1]
+        # estimation for convergence rate
+        return err, rate
+\end{code}

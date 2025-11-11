@@ -1,0 +1,16 @@
+\newsection
+\subsection{Abbruchkriterien}
+Wir müssen irgendwann unsere Iteration abbrechen können, dazu haben wir folgende Möglichkeiten:
+\begin{fullTable}{p{2.5cm}p{5.5cm}p{3cm}p{4.5cm}}{Typ & Idee                                                                                    & Vorteile                  & Nachteile}{Vergleich der Abbruchkriterien}
+    \bi{A priori}                        & Fixe Anzahl $k_0$ Schritte                                                              & Einfach zu implementieren & Zu ungenau                                                                        \\
+    \bi{A posteriori}                    & Berechnen bis Toleranz $\varepsilon < \tau$ erreicht                                    & Präzise                   & Man kennt $x^*$ nicht                                                             \\
+    \bi{Ungefähr gleich}                 & Itaration bis$x^{(k + 1)} \approx x^{(k)}$                                              & Keine Voraussetzungen     & Ineffizient                                                                       \\
+    \bi{Residuum}                        & Abbruch wenn $||F(x^{(k)})|| < \tau$ (wir also fast bei $0$ sind mit dem Funktionswert) & Einfach zu implementieren & Bei flachen Funktionen kann $||F(x^{(k)}||$ klein sein, aber $\varepsilon$ gross) \\
+\end{fullTable}
+
+\drmvspace
+\inlineremark Für das \textit{a posteriori} Abbruchkriterium mit linearer Konvergenz und bekanntem $L$ gilt folgende Abschätzung:
+\drmvspace
+\begin{align*}
+    ||x^{(k + 1)} - x^*|| \leq \frac{L}{1 - L} ||x^{(k + 1)} - x^{(k)}||
+\end{align*}
