@@ -1,0 +1,18 @@
+\subsection{Der Satz von Rice}
+\inlinedef $L$ heisst \bi{semantisch nichttriviales Entscheidungsproblem über Turingmaschinen}, falls folgende Bedingungen gelten:
+\begin{enumerate}[label=(\roman*)]
+    \item Es gibt eine TM $M_1$, so dass $\text{Kod}(M_1) \in L$ (also $L \neq \emptyset$)
+    \item Es gibt eine TM $M_2$, so dass $\text{Kod}(M_2) \notin L$ (also sind nicht alle Kodierungen in $L$)
+    \item für zwei TM $A$ und $B$: $L(A) = L(B) \Rightarrow \text{Kod}(A) \in L \Leftrightarrow \text{Kod}(B) \in L$
+\end{enumerate}
+
+Sei $L_{H, \lambda} = \{ \text{Kod}(M) \divides M \text{ hält auf } \lambda \}$ ein spezifisches Halteproblem.
+
+\inlinelemma $L_{H, \lambda} \notin \cL_R$
+\inlineproof Auf Seite 146 im Buch (= 159 im PDF)
+
+\begin{theorem}[]{Satz von Rice}
+    Jedes semantisch nichttriviale Entscheidungsproblem über Turingmaschinen ist unentscheidbar.
+\end{theorem}
+\inlineproof Ausführlich im Buch auf Seiten 146 - 149 beschrieben (= 159 - 162 im PDF)
+\stepcounter{subsection}
