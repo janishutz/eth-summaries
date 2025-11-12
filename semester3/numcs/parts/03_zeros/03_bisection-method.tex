@@ -1,0 +1,12 @@
+\newsection
+\subsection{Intervallhalbierungsverfahren}
+Die Idee hier ist, das Intervall immer weiter zu halbieren und ein bekannterer Namen für dieses Verfahren ist \bi{Bisektionsverfahren}.
+
+\innumpy haben wir \texttt{scipy.optimize.bisect} und \texttt{scipy.optimize.fsolve}, wobei \texttt{fsolve} ein alter Algorithmus ist.
+
+Im Skript auf Seiten 206 - 207 findet sich eine manuelle implementation des Bisektionsverfahren.
+Der Code ist jedoch (at the time of writing) nicht ausführbar aufgrund von \texttt{IndentationErrors}
+
+Das Bisektionsverfahren konvergiert linear und kann nur für Funktionen verwenden, bei welchen die Nullstellen auf beiden Seiten jeweils ungleiche Vorzeichen haben.
+
+% TODO: Need to add the formula from SPAM script
