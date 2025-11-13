@@ -1,0 +1,44 @@
+Das Skript-Kapitel hierzu existiert nicht. Die Vorlesung orientiert sich an dem äquivalenten Teil des NumCSE Dokuments.
+
+\textbf{Perturbierte LGS}
+
+Statt $Ax = b$ ist das LGS ungenau gegeben: $(A + \Delta A)(\tilde{x} - x) = \Delta b - \Delta Ax$.
+
+$\text{cond}(A) := \left\lvert\left\lvert A^{-1} \right\rvert\right\rvert \cdot \lvert\lvert A \rvert\rvert \in \mathbb{R}$ (Konditionszahl von $A$)
+
+$\text{cond}(A) \gg 1$ bedeutet intuitiv: kleine Änderung der Daten $\mapsto$ grosse Änderung in der Lösung
+
+\textbf{Gauss Elimination / LU Zerlegung}
+
+$A \in \mathbb{R}^{n\times m} = PLU$ wie bekannt.
+
+\textbf{Cholesky Zerlegung} ($A$ pos. def. und hermitesch)
+
+$A = LDL^\top = \underbrace{L\sqrt{D}}_{R^\top}\underbrace{\sqrt{D}L^\top}_{R} = R^\top R$
+
+Kann $Ax = b$ potenziell schneller lösen als LU.
+
+\begin{code}{python}
+    L = np.linalg.solve(A)      # A = L @ L.T
+    y = np.linalg.solve(L, b)
+    x = np.linalg.solve(L.T, y)
+\end{code}
+
+\textbf{Grosse Matrizen}
+
+Passen oft nicht (direkt) in den Speicher: effizientere Speicherung nötig, möglich für z.B. Diagonalmatrizen, Dreiecksmatrizen. Auch für Cholesky möglich.
+
+\textbf{Dünnbesetzte Matrizen}
+
+$\text{nnz}(A) := |\{ (i,j) \ |\ a_{ij} \in A, a_{ij} \neq 0 \}| \ll m\cdot n$
+
+$\underset{l \to \infty}{\lim} \frac{\text{nnz}(A^{(l)})}{n_l m_l} = 0$
+
+Einfacher zu speichern: \verb|val, col, row| vektoren s.d. \verb|val[k]| $ = a_{ij}$ wobei $i=$ \verb|row[k]|, $j=$ \verb|col[k]|. (nur $a_{ij} \neq 0$)
+
+Viele Formate, je nach Anwendung gewisse sinnvoller als andere. (Siehe Tabelle, NumCSE)
+
+\verb|scipy.sparse.csr_matrix(A)| $\mapsto$ Dramatische Speichereinsparung.\\
+Deprecated: \verb|bsr_array| und \verb|coo_array| verwenden, kompatibel mit \verb|numpy| arrays.
+
+\verb|CSC, CSR| erlauben weitere Optimierungen, je nach Gewichtung der $a_{ij}$ auf Zeilen, Spalten.
