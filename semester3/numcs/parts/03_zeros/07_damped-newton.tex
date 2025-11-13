@@ -1,0 +1,16 @@
+\newsection
+\subsection{Gedämpftes Newton-Verfahren}
+Wir wenden einen einen Dämpfungsfaktor $\lambda^{(k)}$ an, welcher heuristisch gewählt wird:
+\rmvspace
+\begin{align*}
+    x^{(k + 1)} := x^{(k)} - \lambda^{(k)}DF(x^{(k)})^{-1} F(x^{(k)})
+\end{align*}
+
+\drmvspace
+Wir wählen $\lambda^{(k)}$ so, dass für $\Delta x^{(k)} = DF(x^{(k)})^{-1} F(x^{(k)})$ und $\Delta(\lambda^{(k)}) = DF(x^{(k)})^{-1} F(x^{(k)} - \lambda^{(k)} \Delta x^{(k)})$
+\rmvspace
+\begin{align*}
+    ||\Delta x(\lambda^{(k)})||_2 \leq \left( 1 - \frac{\lambda^{(k)}}{2} \right) ||\Delta x^{(k)}||_2
+\end{align*}
+
+\drmvspace

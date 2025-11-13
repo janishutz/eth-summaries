@@ -1,2 +1,17 @@
 \newsectionNoPB
 \subsection{Newtonverfahren in 1D}
+Beim Newtonverfahren verwendet man für jeden Iterationsschritt die lineare Funktion $\tilde{F} = F(x^(k)) + F'(x^{(k)})(x - x^{(k)})$. Die Nullstelle ist dann:
+\rmvspace
+\begin{align*}
+    x^{(k + 1)} := x^{(k)} - \frac{F(x^{(k)})}{F'(x^{(k)})}, \mediumhspace \text{falls } F'(x^{(k)}) \neq 0
+\end{align*}
+
+\stepLabelNumber{all}
+\inlineremark Die Newton-Iteration ist eine Fixpunktiteration mit quadratischer lokaler Konvergenz, mit
+\rmvspace
+\begin{align*}
+    \phi(x) = x - \frac{F(x)}{F'(x)} \Longrightarrow \phi'(x) = \frac{F(x) F''(x)}{(F'(x))^2} \Longrightarrow \phi'(x^*) = 0
+\end{align*}
+
+\drmvspace
+falls $F(x^*) = 0$ und $F^(x^*) \neq 0$

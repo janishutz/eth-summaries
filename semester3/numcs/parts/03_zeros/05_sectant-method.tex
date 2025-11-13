@@ -1,0 +1,8 @@
+\newsectionNoPB
+\subsection{Sekantenverfahren}
+Falls die Ableitung zu teuer oder nicht verfügbar ist, kann man sie durch $q^(k) := \frac{F(x^{(k)}) - F(x^{(k - 1)})}{x^{(k)} - x^{(k - 1)}}$.
+Dann ist ein Schritt:
+\rmvspace
+\begin{align*}
+    \tilde{F}(x) = F(x^{(k)}) + q^{(k)} (x - x^{(k)}) \Longrightarrow x^{(k + 1)} := x^{(k)} - \frac{F(x^{(k)})}{q^{(k)}}, \smallhspace \text{ falls } q^{(k)} \neq 0
+\end{align*}

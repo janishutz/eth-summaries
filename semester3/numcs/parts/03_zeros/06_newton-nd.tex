@@ -1,0 +1,36 @@
+\newsectionNoPB
+\subsection{Newton-Verfahren in $n$ Dimensionen}
+Sei $D \subseteq \R^n$ und $F: D \rightarrow \R^n$ stetig differenzierbar. Die Nullstelle ist
+\rmvspace
+\begin{align*}
+    x^{(k + 1)} := x^{(k)} - DF(x^{(k)})^{-1} F(x^{(k)})
+\end{align*}
+
+\drmvspace
+wobei $DF(x^{(k)}) =
+    \begin{bmatrix}
+        \frac{\partial F_j}{\partial x_k} (x)
+    \end{bmatrix}_{j, k = 1, 2, \ldots, n}$ die Jacobi-Matrix von $F$ ist.
+
+Wichtig ist dabei, dass wir \bi{niemals} das Inverse der Jacobi-Matrix (oder irgend einer anderen Matrix) von der Form $s = A^{-1} b$,
+sondern immer das Gleichungssystem $As = b$ lösen sollten, da dies effizienter ist:
+
+\begin{code}{python}
+def newton(x, F, DF, tol=1e-12, maxit=50):
+    x = np.atleast_2d(x)  # ’solve’ erwartet x als 2-dimensionaler numpy array
+    # Newton Iteration
+    for _ in range(maxit):
+        s = np.linal.solve(DF(x), F(x))
+        x -= s
+        if np.linalgnorm(s) < tol * np.linalg.norm(x):
+            return x
+\end{code}
+
+Wollen wir aber garantiert einen Fehler kleiner als unsere Toleranz $\tau$ können wir das Abbruchkriterium
+\rmvspace
+\begin{align*}
+    ||DF(x^{(k - 1)})^{-1}F(x^{(k)})|| \leq \tau
+\end{align*}
+
+\drmvspace
+verwenden. Code, welcher dies implementiert findet sich auf Seite 213-216 im Skript.
