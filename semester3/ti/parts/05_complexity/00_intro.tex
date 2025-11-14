@@ -1,0 +1,61 @@
+\subsection{Komplexitätsmasse}
+\begin{definition}[]{Zeitkomplexität}
+    Sei $M$ eine Mehrband-TM oder TM, die immer hält, $x \in \word$ und $D = C_1, C_2, \ldots, C_k$ die Berechnung von $M$ auf $x$, deren Zeitkomplexität definiert ist durch:
+    \rmvspace
+    \begin{align*}
+        \tc_M(x) = k - 1
+    \end{align*}
+
+    \rmvspace
+    also durch die Anzahl der Berechnungsschritte in $D$
+    Die Zeitkomplexität der TM $M$ ist dabei definiert durch:
+    \drmvspace
+    \begin{align*}
+        \tc_M(n) = \max\{ \tc_M(x) \divides x \in \Sigma^n \}
+    \end{align*}
+\end{definition}
+Wir können weiterhin die big-O-notation verwenden um den Worstcase anzugeben.
+
+\begin{definition}[]{Speicherplatzkomplexität}
+    Sei $C = (q, x, i, \alpha_1, i_1, \alpha_2, i_2, \ldots, \alpha_k, i_k)$ mit $0 \leq i |x| + 1$ und $0 \leq i_j \leq |\alpha_j|$
+    für $j = 1, \ldots, k$ eine Konfiguration von $M$, welche eine $k$-Band TM ist.
+    \bi{Die Speicherplatzkomplexität von} $C$ ist
+    \rmvspace
+    \begin{align*}
+        \spc_M(C) = \max\{ |\alpha_i| \divides i = 1, \ldots, k \}
+    \end{align*}
+
+    \rmvspace
+    Für die Berechnung $C_1, C_2, \ldots, C_l$ von $M$ auf $x$ haben wir:
+    \rmvspace
+    \begin{align*}
+        \spc_M(x) = \max\{ \spc_M(C_i) \divides i = 1, \ldots, l \}
+    \end{align*}
+
+    \rmvspace
+    Und die \bi{Speicherplatzkomplexität von} $M$ ist
+    \rmvspace
+    \begin{align*}
+        \spc_M(n) = \max\{ \spc_M(x) \divides x \in \Sigma^n \}
+    \end{align*}
+\end{definition}
+Es ist auch möglich $\spc_M(n)$ als eine Summe zu definieren, aber laut Lemma \ref{lemma:4-2} wissen wir, dass man eine $k$-Band-TM mit einer $1$-Band-TM simulieren kann.
+
+\inlinelemma Sei $k \in \N$. Für jede $k$-Band-TM $A$, die immer hält existiert eine äquivalente $1$-Band-TM $B$, so dass $\spc_B(n) \leq \spc_A(n)$
+
+\inlinelemma Für jede $k$-Band-TM $A$, existiert eine äquivalente $k$-Band-TM $B$, so dass $L(A) = L(B)$ und $\spc_B(n) \leq \frac{\spc_A(n)}{2} + 2$
+
+\inlinedef Wir notieren mit der big-O-notation folgendermassen: Falls $r \in \tco{f(n)}$, so wächst $r$ asymptotisch nicht schneller als $f$.
+Äquivalent für $s \in \tcl{g(n)}$ und $l \in \tct{h(n)}$ sagen wir asymptotisch mindestens so (gleich) schnell.
+Falls $\limni \frac{f(n)}{g(n)} = 0$, dann wächst $g$ asymptotisch schneller als $f$ und $f(n) = o(g(n))$
+% TODO: Check if above really is a typo (pretty sure it is)
+
+\inlinetheorem Es existiert ein Entscheidungsproblem $(\alphabetbool, L)$, so dass für jede MTM $A$, die $(\alphabetbool, L)$ entscheidet,
+eine MTM $B$ existiert, die es auch entscheidet und für die gilt: $\tc_B(n) \leq \log_2(\tc_A(n))$ für alle $n \in \N$
+
+\begin{definition}[]{Schranken, Optimal}
+    $\tco{g(n)}$ ($\tcl{f(n)}$) ist eine \bi{obere (untere) Schranke für die Zeitkomplexität von} $L$,
+    falls eine MTM $A$ ($B$) existiert, die $L$ entscheidet und $\tc_A(n) \in \tco{g(n)}$ ($\tc_B(n) \in \tcl{f(n)}$)
+
+    Eine MTM $C$ heisst \bi{optimal für} $L$, falls $\tc_C(n) \in \tco{f(n)}$ gilt und $\tct{f(n)}$ eine untere Schranke für die Zeitkomplexität von $K$ ist.
+\end{definition}

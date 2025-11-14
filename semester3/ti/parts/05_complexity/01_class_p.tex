@@ -1,0 +1,86 @@
+\newpage
+\subsection{Komplexitätsklassen und die Klasse P}
+\begin{definition}[]{Komplexitätsklasen}
+    Für alle Funktionen $f, g : \N \rightarrow \R^+$ definieren wir:
+    \begin{align*}
+        \text{TIME}(f)  & = \{ L(B) \divides B \text{ ist eine MTM mit } \tc_B(n) \in \tco{f(n)} \}  \\
+        \text{SPACE}(g) & = \{ L(A) \divides A \text{ ist eine MTM mit } \spc_A(n) \in \tco{g(n)} \} \\
+        \text{DLOG}     & = \text{SPACE}(\log_2(n))                                                  \\
+        \text{P}        & = \bigcup_{c \in \N} \text{TIME}(n^c)                                      \\
+        \text{PSPACE}   & = \bigcup_{c \in \N} \text{SPACE}(n^c)                                     \\
+        \text{EXPTIME}  & = \bigcup_{d \in \N} \text{TIME}(2^{n^d})
+    \end{align*}
+\end{definition}
+
+\inlinelemma Für alle $t : \N \rightarrow \R^+$ gilt $\text{TIME}(t(n)) \subseteq \text{SPACE}(t(n))$
+\inlinecorollary $\text{P} \subseteq \text{PSPACE}$
+
+\begin{definition}[]{Platz- und Zeitkonstruierbarkeit}
+    Eine Funktion $t : \N \rightarrow \N$ heisst \bi{platzkonstruierbar}, falls eine $1$-Band-TM $M$ existiert, so dass
+    \begin{enumerate}
+        \item $\spc_M(n) \leq s(n) \smallhspace \forall n \in \N$
+        \item für jede Eingabe $0^n$ für $n \in \N$, generiert $M$ das Wort $0^{s(n)}$ auf ihrem Arbeitsband und hält in $\qacc$
+    \end{enumerate}
+
+    \vspace{0.25cm}
+
+    Eine Funktion $s : \N \rightarrow \N$ heisst \bi{zeitkonstruierbar}, falls eine MTM $A$ existiert, so dass
+    \begin{enumerate}
+        \item $\tc_A(n) \in \tco{t(n)}$
+        \item für jede Eingabe $0^n$ für $n \in \N$, generiert $A$ das Wort $0^{t(n)}$ auf dem ersten Arbeitsband und hält in $\qacc$
+    \end{enumerate}
+\end{definition}
+Wichtig ist, dass wir hier nicht \textit{zwingend} eine $1$-Band-TM konstruieren müssen, eine MTM geht auch.
+
+% TODO: Possibly include construction guide here
+
+\inlinelemma Sei $s$ platzkonstruierbar und $M$ eine MTM mit $\spc_M(x) \leq s(|x|) \ \forall x \in L(M)$.
+Dann existiert MTM $A$ mit $L(A) = L(M)$ und $\spc_A(n) \leq s(n)$, es gilt also $\spc_A(y) \leq s(|y|) \ \forall y \in \Sigma_M$
+
+\inlinelemma Sei $t$ zeitkonstruierbar und $M$ eine MTM mit $\tc_M(x) \leq t(|x|) \ \forall x \in L(M)$.
+Dann existiert eine MTM $A$ mit $L(A) = L(M)$ und $\tc_A(n) \in \tco{t(n)}$
+
+\inlinetheorem Für jede Funktion $s$ mit $s(n) \geq \log_2(n)$ gilt $\text{SPACE}(s(n)) \subseteq \bigcup_{c\in \N} \text{TIME}(c^{s(n)})$
+
+Obiger Satz trifft auch für $s(n)$-platzbeschränkten TM zu, die nicht halten, aber nur, wenn $s(n)$ platzkonstruierbar ist.
+
+\inlinecorollary $\text{DLOG} \subseteq \text{P}$ und $\text{PSPACE} \subseteq \text{EXPTIME}$
+
+Die Korollare \ref{corollary:6-1} und \ref{corollary:6-2} geben zusammen $\text{DLOG} \subseteq \text{P} \subseteq \text{PSPACE} \subseteq \text{EXPTIME}$
+
+
+\inlinetheorem Für $s_1, s_2 : \N \rightarrow \N$ mit folgenden Eigenschaften:
+\drmvspace
+\begin{multicols}{3}
+    \begin{enumerate}
+        \item $s_2(n) \geq \log_2(n)$
+        \item $s_2$ ist platzkonstruierbar
+        \item $s_1(n) = o(s_2(n))$
+    \end{enumerate}
+\end{multicols}
+
+\drmvspace\rmvspace
+Dann gilt: $\text{SPACE}(s_1) \subsetneq \text{SPACE}(s_2)$
+
+
+\inlinetheorem Für $t_1, t_2 : \N \rightarrow \N$ mit folgenden Eigenschaften:
+\drmvspace
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item $t_2$ ist platzkonstruierbar
+        \item $t_1(n) \cdot \log_2(t_1(n)) = o(t_2(n))$
+    \end{enumerate}
+\end{multicols}
+
+\drmvspace\rmvspace
+Dann gilt: $\text{TIME}(s_1) \subsetneq \text{TIME}(s_2)$
+
+In den Sechzigerjahren entstand folgende ``Definition'' von parktisch lösbaren Problemen:
+\begin{center}
+    \fbox{
+        \parbox{16cm}{
+            \textit{Ein Problem ist praktisch lösbar genau dann, wenn ein polynomialer Algorithmus zu seiner Lösung existiert.
+                Die Klasse P ist die Klasse der praktisch entscheidbaren Probleme}
+        }
+    }
+\end{center}
