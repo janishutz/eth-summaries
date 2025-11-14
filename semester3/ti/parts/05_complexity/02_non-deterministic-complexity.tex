@@ -1,2 +1,65 @@
 \newpage
 \subsection{Nichtdeterministische Komplexitätsmasse}
+
+\begin{definition}[]{Zeit- und Speicherkomplexität}
+    Sei $M$ eine NMTM oder MTM und $x \in L(M) \subseteq \word$. $\tc_M(x)$ ist die länge einer kürzesten akzeptierenden Berechnung von $M$ auf $x$
+    und $\tc_M(n) = \max(\{ \tc_M(x) \divides x \in L(M) \text{ und }|x| = n \} \cup \{ 0 \} )$.
+
+    \vspace{0.25cm}
+
+    $\spc_M(C_i)$ ist die Speicherkomplexität von Konfiguration $C_i$ und $\spc_M(C) = \max\{ \spc_M(C_i) \divides i = 1, 2, \ldots, m \}$.
+    Zudem ist $\spc_M(x) = \min\{ \spc_M(C) \divides C \text{ ist akzeptierende Berechnung von $M$ auf } x \}$.
+    Ausserdem ist $\spc_M(n) = \max(\{ \spc_M(x) \divides x \in L(M) \text{ und } |x| = n \} \cup \{ 0 \})$
+\end{definition}
+
+
+\begin{definition}[]{Komplexitätsklassen}
+    Für alle $f, g : \N \rightarrow \R^+$ definieren wir:
+    \begin{align*}
+        \text{NTIME}(f)  & = \{ L(M) \divides M \text{ ist eine NMTM mit } \tc_M(n) \in \tco{f(n)} \}  \\
+        \text{NSPACE}(g) & = \{ L(M) \divides M \text{ ist eine NMTM mit } \spc_M(n) \in \tco{g(n)} \} \\
+        \text{NLOG}      & = \text{NSPACE}(\log_2(n))                                                  \\
+        \text{NP}        & = \bigcup_{c \in \N} \text{NTIME}(n^c)                                      \\
+        \text{NPSPACE}   & = \bigcup_{c \in \N} \text{NSPACE}(n^c)
+    \end{align*}
+\end{definition}
+
+
+\inlinelemma Für alle $t$ und $s$ mit $s(n) \geq \log_2(n)$ gilt: $\text{NTIME}(t) \subseteq \text{NSPACE}(t)$, $\text{NSPACE}(s) \subseteq \bigcup_{c \in \N} \text{NTIME}(c^{s(n)})$
+
+\inlinetheorem Für jedes $t : \N \rightarrow \R^+$ und jedes platzkonstruierbare $s$ mit $s(n) \geq \log_2(n)$ gilt:
+\rmvspace
+\begin{multicols}{2}
+    \begin{enumerate}[label=(\roman*)]
+        \item $\text{TIME}(t) \subseteq \text{NTIME}(t)$
+        \item $\text{SPACE}(t) \subseteq \text{NSPACE}(t)$
+        \item $\text{NTIME}(s(n)) \subseteq \text{SPACE}(s(n)) \subseteq \bigcup_{c \in \N} \text{TIME}(c^{s(n)})$
+    \end{enumerate}
+\end{multicols}
+
+\drmvspace
+\inlinecorollary $\text{NP} \subseteq \text{PSPACE}$
+
+\inlineremark Für jede platzkonstruierbare Funktion $s$ mit $s(n) \geq \log_2(n)$ gilt 
+\rmvspace
+\begin{align*}
+    \text{NSPACE}(s(n)) \subseteq \bigcup_{c \in \N} \text{TIME}(c^{s(n)})
+\end{align*}
+
+\drmvspace
+\inlinecorollary $\text{NLOG} \subseteq \text{P}$ und $\text{NPSPACE} \subseteq \text{EXPTIME}$
+
+
+\fancytheorem{Satz von Savitch} Sei $s$ mit $s(n) \geq \log_2(n)$ eine platzkonstruierbare Funktion. Dann gilt:
+\rmvspace
+\begin{align*}
+    \text{NSPACE}(s(n)) \subseteq \text{SPACE}(s(n)^2)
+\end{align*}
+
+\drmvspace
+\inlinecorollary $\text{PSPACE} = \text{NPSPACE}$
+
+Aus den obigen Resultaten resultiert die Komplexitätsklassenhierarchie der sequentiellen Berechnungen:
+\begin{align*}
+    \text{DLOG} \subseteq \text{NLOG} \subseteq \text{P} \subseteq \text{NP} \subseteq \text{PSPACE} \subseteq \text{EXPTIME}
+\end{align*}
