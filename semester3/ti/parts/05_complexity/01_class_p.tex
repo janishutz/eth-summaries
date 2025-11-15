@@ -16,7 +16,7 @@
 \inlinecorollary $\text{P} \subseteq \text{PSPACE}$
 
 \begin{definition}[]{Platz- und Zeitkonstruierbarkeit}
-    Eine Funktion $t : \N \rightarrow \N$ heisst \bi{platzkonstruierbar}, falls eine $1$-Band-TM $M$ existiert, so dass
+    Eine Funktion $s : \N \rightarrow \N$ heisst \bi{platzkonstruierbar}, falls eine $1$-Band-TM $M$ existiert, so dass
     \begin{enumerate}
         \item $\spc_M(n) \leq s(n) \smallhspace \forall n \in \N$
         \item für jede Eingabe $0^n$ für $n \in \N$, generiert $M$ das Wort $0^{s(n)}$ auf ihrem Arbeitsband und hält in $\qacc$
@@ -24,7 +24,7 @@
 
     \vspace{0.25cm}
 
-    Eine Funktion $s : \N \rightarrow \N$ heisst \bi{zeitkonstruierbar}, falls eine MTM $A$ existiert, so dass
+    Eine Funktion $t : \N \rightarrow \N$ heisst \bi{zeitkonstruierbar}, falls eine MTM $A$ existiert, so dass
     \begin{enumerate}
         \item $\tc_A(n) \in \tco{t(n)}$
         \item für jede Eingabe $0^n$ für $n \in \N$, generiert $A$ das Wort $0^{t(n)}$ auf dem ersten Arbeitsband und hält in $\qacc$
