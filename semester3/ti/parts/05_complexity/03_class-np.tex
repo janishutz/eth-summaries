@@ -1,2 +1,31 @@
 \newpage
 \subsection{Die Klasse NP und Beweisverifikation}
+Da praktische Lösbarkeit eines Problems mit polynomieller Zeit verbunden wird, ist es wichtig zu wissen, welche Probleme in polynomieller Zeit lösbar sind und welche nicht.
+
+Der Vergleich zwischen den Klassen $P$ und $NP$ ist äquivalent zu der Frage, ob es einfacher ist, gegebene Beweise zu verifizieren, als sie herzustellen.
+
+Betrachten wir folgendes: Sei $L = SAT$, wobei
+\rmvspace
+\begin{align*}
+    SAT = \{ x \in \words{logic} \divides x \text{ kodiert eine erfüllbare Formel in CNF} \}.
+\end{align*}
+
+\drmvspace
+Dann ist die Aussage $\Phi \in SAT$ äquivalent zu der Behauptung ``$\Phi$ ist eine erfüllbare Formel in CNF''
+
+Für nichtdeterministische Berechnungen nennen wir $\alpha_1, \ldots, \alpha_n$ \bi{Zertifikate} für eine Aussage $\Xi$, falls für diese $\Xi(\alpha_1, \ldots, \alpha_n)$ hält.
+
+\begin{definition}[]{Verifizierer}
+    Sei $L \subseteq \word$ und $p : \N \rightarrow \N$.
+    Eine MTM $A$ ist ein $p$-Verifizierer und $V(A) = L$, falls $A$ mit folgenden Eigenschaften auf allen Eingaben aus $\word \times \wordbool$ arbeitet:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\tc_A(w, x) \leq p(|w|)$ für jede Eingabe $(w, x) \in \word \times \wordbool$
+        \item Für jedes $w \in L$ existiert ein $x \in \wordbool$, so dass $|x| \leq p(|w|)$ und $(w, x) \in L(A)$. $x$ ist \bi{Zeugen} (oder \bi{Beweis}) der Behauptung $w \in L$
+        \item Für jedes $y \notin L$ gilt $(y, z) \notin L(A)$ für alle $z \in \wordbool$
+        \item Falls $p(n) \in \tco{n^k}$ für ein $k \in \N$, so ist $p$ ein \bi{Polynomialzeit-Verifizierer}. Die Klasse ist
+              \vspace{-0.8pc}
+              \begin{align*}
+                  VP = \{ V(A) \divides A \text{ ist ein Polynomialzeit-Verifizierer } \}
+              \end{align*}
+    \end{enumerate}
+\end{definition}
