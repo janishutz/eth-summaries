@@ -1,2 +1,44 @@
 \newpage
 \subsection{NP-Vollständigkeit}
+Es sind mittlerweile über 3000 Probleme bekannt, für welche wir keinen Algorithmus kennen, der in polynomieller Zeit läuft.
+Es ist aber bis jetzt niemandem gelungen, eine höhere untere Schranke für alle zu beweisen, als $\tcl{n}$.
+
+Wie bereits bei der Berechenbarkeit benutzen wir eine Reduktion.
+Falls jedes Problem aus $NP$ effizient auf ein Problem $L \in NP$ reduzierbar ist, so ist $L$ schwer.
+
+\begin{definition}[]{Polynomielle Reduktion}
+    $L_1 \subseteq \word_1$ ist \bi{polynomiell reduzierbar auf} $L_2 \subseteq \word_2$, geschrieben $L_1 \leq_p L_2$,
+    falls eine polynomielle TM $A$ existiert, die für jedes Wort $x \in \word_1$ ein Word $A(x) \in \word_2$ berechnet, so dass
+    \rmvspace
+    \begin{align*}
+        x \in L_1 \Longleftrightarrow A(x) \in L_2
+    \end{align*}
+
+    \drmvspace
+    $A$ wird eine polynomielle Reduktion von $L_1$ auf $L_2$ genannt.
+\end{definition}
+Wieder bedeutet $L_1 \leq_p L_2$, dass $L_2$ mindestens so schwer ist wie $L_1$
+
+\begin{definition}[]{$NP$-Schwer}
+    Eine Sprache $L$ ist \bi{$NP$-Schwer}, falls für alle $L' \in NP$ gilt $L' \leq_p L$.
+
+    Eine Sprache $L$ ist \bi{$NP$-Vollständig}, falls
+    \drmvspace
+    \begin{multicols}{2}
+        \begin{enumerate}[label=\textit{(\roman*)}]
+            \item $L \in NP$
+            \item $L$ $NP$-Schwer ist.
+        \end{enumerate}
+    \end{multicols}
+\end{definition}
+
+\inlinelemma Falls $L \in P$ und $L$ ist $NP$-schwer, dann gilt $P = NP$
+
+\fancytheorem{Cook} $SAT$ ist $NP$-Vollständig
+
+Der Beweis hierfür liefert eine grobe Struktur für weitere Beweise dieser Art und ist auf Seiten 199 - 205 im Buch (= Seiten 211 - 217 im PDF) zu finden.
+
+
+\inlinelemma Falls $L_1 \leq_p L_2$ und $L_1$ ist $NP$-Schwer, so ist auch $L_2$ $NP$-Schwer
+
+Betrachten wir folgende 
