@@ -32,13 +32,43 @@ Wieder bedeutet $L_1 \leq_p L_2$, dass $L_2$ mindestens so schwer ist wie $L_1$
     \end{multicols}
 \end{definition}
 
+
 \inlinelemma Falls $L \in P$ und $L$ ist $NP$-schwer, dann gilt $P = NP$
 
 \fancytheorem{Cook} $SAT$ ist $NP$-Vollständig
 
 Der Beweis hierfür liefert eine grobe Struktur für weitere Beweise dieser Art und ist auf Seiten 199 - 205 im Buch (= Seiten 211 - 217 im PDF) zu finden.
+Jedoch sind diese Beweise sehr gross und deshalb nicht prüfungsrelevant.
 
 
 \inlinelemma Falls $L_1 \leq_p L_2$ und $L_1$ ist $NP$-Schwer, so ist auch $L_2$ $NP$-Schwer
 
-Betrachten wir folgende 
+Betrachten wir folgende Sprachen:
+\begin{align*}
+    SAT    & = \{ \Phi \divides \Phi \text{ ist eine erfüllbare Formel in CNF} \}                                                   \\
+    CLIQUE & = \{ (G, k) \divides G \text{ ist ein ungerichteter Graph, der eine $k$-clique enthält} \}                             \\
+    VC     & = \{ (G, k) \divides G \text{ ist ein ungerichteter Graph mit einer Kontenüberdeckung der Mächtigkeit höchstens } k \}
+\end{align*}
+Wir erinnern uns daran, dass eine Kontenüberdeckung eines Graphen $G = (V, E)$ jede Menge von Konten $U \subseteq V$ ist,
+so dass jede Kante aus $E$ mindestens einen Endpunkt in $U$ hat.
+
+\inlinelemma $SAT \leq_p CLIQUE$
+
+\inlinelemma $CLIQUE \leq_p VC$
+
+\inlinelemma $SAT \leq_p 3SAT$, wobei wir beim $3SAT$-Problem bestimmen wollen, ob eine Formel in $3CNF$ (CNF, aber alle Klauseln enthalten höchstens $3$ Variabeln) erfüllbar ist.
+
+
+\begin{definition}[]{$NPO$}
+    $NPO$ ist die Klasse der Optimierungsprobleme, mit $U = (\Sigma_I, \Sigma_O, L, \cM, \text{cost}, \text{goal}) \in NPO$, falls folgende Bedingungen erfüllt sind:
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item $L \in P$
+        \item Es existiert ein Polynom $p_U$, so dass
+              \begin{enumerate}[label=(\alph*)]
+                  \item Für jedes $x \in L$ und jedes $y \in \cM(x)$
+                  \item es existiert ein polynomieller Algorithmus $A$, der für jedes $y \in \word_O$ und jedes $x \in L$ mit $|y| \leq p_U(|x|)$ entscheidet,
+                        ob $y \in \cM(x)$ oder nicht
+              \end{enumerate}
+        \item Die Funktion $\text{cost}$ kann man in polynomieller Zeit berechnen.
+    \end{enumerate}
+\end{definition}
