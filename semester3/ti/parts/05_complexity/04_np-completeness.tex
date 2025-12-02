@@ -72,3 +72,53 @@ so dass jede Kante aus $E$ mindestens einen Endpunkt in $U$ hat.
         \item Die Funktion $\text{cost}$ kann man in polynomieller Zeit berechnen.
     \end{enumerate}
 \end{definition}
+
+\newpage
+Ein Optimierungsproblem $U$ ist also in $NPO$, falls
+\rmvspace
+\begin{enumerate}[noitemsep]
+    \item man effizient überprüfen kann, ob ein gegebenes Wort ein Problemfall von $U$ ist
+    \item die Grösse der Lösungen polynomiell in der Grösse des Problemfalls (Eingabe) und in polynomieller Zeit verifizert werden kann,
+          ob $y$ eine zulässige Lösung für einen gegebenen Problemfall ist
+    \item man die Kosten der zulässigen Lösung effizient berechnen kann
+\end{enumerate}
+
+$\text{MAX-SAT}$ liegt in $NPO$
+
+\begin{definition}[]{PO}
+    $PO$ ist die Klasse von Optimierungsproblemen $U = (\Sigma_I, \Sigma_O, L, \cM, \text{cost}, \text{goal})$, so dass
+    \begin{enumerate}[label=(\roman*)]
+        \item $U \in NPO$
+        \item $\exists$ polynomieller Algorithmus $A$, so dass $A(x)$ für jedes $x \in L$ die optimale Lösung für $x$ ist.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[]{Schwellenwert-Sprache}
+    Die Schwellenwert-Sprache für $U$ (ein Optimierungsproblem aus $NPO$) ist
+    \rmvspace
+    \begin{align*}
+        \text{Lang}_U = \{ (x, a) \in L \times \wordbool \divides \text{Opt}_U(x) \leq \text{Nummer}(a) \}
+    \end{align*}
+
+    \rmvspace
+    mit $\text{Opt}_U(x)$ die optimale Lösung, falls $\text{goal} = \text{Minimum}$, und
+    \rmvspace
+    \begin{align*}
+        \text{Lang}_U = \{ (x, a) \in L \times \wordbool \divides \text{Opt}_U(x) \leq \text{Nummer}(a) \}
+    \end{align*}
+
+    \rmvspace
+    falls $\text{goal} = \text{Maximum}$
+
+    Wir sagen, dass $U$ \bi{NP-schwer} ist, falls $\text{Lang}_U$ NP-schwer ist.
+\end{definition}
+
+\inlinelemma Falls ein Optimierungsproblem $U \in PO$, dann $\text{Lang}_U \in P$
+
+\inlinetheorem Sei $U \in NPO$. Falls $U$ NP-schwer ist und $P \neq NP$, dann $U \notin PO$
+
+\inlinelemma MAX-SAT ist NP-schwer.
+
+\inlinelemma MAX-CL (Das Problem der maximalen Clique) ist NP-schwer
+
+Um zu zeigen, dass solche Probleme $U$ NP-schwer sind, reicht es zu zeigen, dass $\text{Lang}_U$ NP-schwer ist, was wir mit einer $P$-Reduktion machen können.
