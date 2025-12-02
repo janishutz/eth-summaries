@@ -28,7 +28,7 @@ Proving that a language \textit{is} recursively enumerable is as difficult as pr
 
 Proving that a language is \textit{not} recursively enumerable is likely easier. For it, let $d_{ij} = 1 \Longleftrightarrow M_i$ accepts $w_j$.
 
-\inlineex Assume towards contradiction that $L_\text{diag} \in \cL_{RE}$. Let 
+\inlineex Assume towards contradiction that $L_\text{diag} \in \cL_{RE}$. Let
 \rmvspace
 \begin{align*}
     L_{\text{diag}} & = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and $M_i$ does not accept } w_i \} \\
@@ -45,3 +45,31 @@ In other, more different, words, $w_i$ being in $L_\text{diag}$ implies (from th
 
 \setLabelNumber{theorem}{3}
 \inlinetheorem $L_\text{diag} \notin \cL_{RE}$
+
+% ────────────────────────────────────────────────────────────────────
+
+
+\subsection{Reductions}
+This is the start of the topics that are part of the endterm.
+
+First off, a list of important languages for this and the next section:
+\begin{itemize}
+    \item $L_U = \{ \text{Kod}(M)\# w \divides w \in \wordbool \text{ and TM $M$ accepts } w \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $L_H = \{ \text{Kod}(M)\# x \divides x \in \wordbool \text{ and TM $M$ halts on } x \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $L_{\text{diag}} = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and $M_i$ does not accept } w_i \}$ ($\notin \cL_{RE}$ and thus $\notin \cL_R$)
+    \item $(L_{\text{diag}})^C$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $L_{EQ} = \{ \text{Kod}(M)\# \text{Kod}(\overline{M}) \divides L(M) = L(\overline{M}) \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $\lempty = \{ \text{Kod}(M) \divides L(M) = \emptyset \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $(\lempty)^C = \{ x \in \wordbool \divides x \notin \text{Kod}(\overline{M}) \forall \text{ TM } \overline{M} \text{ or } x = \text{Kod}(M) \text{ and } L(M) \neq \emptyset \}$
+          ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $L_{H, \lambda} = \{ \text{Kod}(M) \divides M \text{ halts on } \lambda \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+\end{itemize}
+
+\setLabelNumber{theorem}{6}
+\fancytheorem{Universal TM} A TM $U$, such that $L(U) = L_U$
+
+% ────────────────────────────────────────────────────────────────────
+
+\subsection{Rice's Theorem}
+\setLabelNumber{theorem}{9}
+\fancytheorem{Rice's Theorem}
