@@ -65,11 +65,90 @@ First off, a list of important languages for this and the next section:
     \item $L_{H, \lambda} = \{ \text{Kod}(M) \divides M \text{ halts on } \lambda \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
 \end{itemize}
 
+\newpage
+\setLabelNumber{definition}{3}
+\fancydef{Recursively reducible languages} $L_1 \leq_R L_2$ ($L_1$ reducible into $L_2$), if $L_2 \in \cL_R \Rightarrow L_1 \in \cL_R$
+
+\fancydef{$EE$-Reductions} $L_1 \leq_{EE} L_2$ if there exists a TM $M$ that implements image $f_M : \word_1 \rightarrow \word_2$,
+for which we have $x \in L_1 \Leftrightarrow f_M(x) \in L_2$ for all $x \in \wordbool_1$
+
+\setLabelNumber{lemma}{3}
+\inlinelemma If $L_1 \leq_{EE} L_2$ then also $L_1 \leq_R L_2$
+
+\inlinelemma For each language $L \subseteq \word$ we have: $L \leq_R L^C$ and $L^C \leq_R L$
+
 \setLabelNumber{theorem}{6}
 \fancytheorem{Universal TM} A TM $U$, such that $L(U) = L_U$
 
+
+\fhlc{Cyan}{Showing reductions} First, a general guide to reductions and below what else we need to keep in mind for specific reductions:
+\begin{enumerate}
+    \item We construct a TM $A$ that:
+        \begin{enumerate}
+            \item Checks if the input has the right form and if it does not, returns some output that is $\notin L_2$
+            \item Applies the transformation to all remaining input
+        \end{enumerate}
+    \item We show $x \in L_1 \Leftrightarrow A(x) \in L_2$ by showing the implications:
+        \begin{enumerate}
+            \item For $\Rightarrow$, we show it directly, by assuming that $x \in L_1$ (obviously) and we can ignore the invalid input (as that $\notin L_1$ anyway)
+            \item For $\Leftarrow$, we have two options (mention what happens to invalid input here):
+                \begin{itemize}
+                    \item We show $A(x) \in L_2 \Rightarrow x \in L_1$ directly (usually harder)
+                    \item We show $x \notin L_1 \Rightarrow A(x) \notin L_2$ (contraposition)
+                \end{itemize}
+        \end{enumerate}
+    \item Show that the TM always halts (for $P$, $EE$ and $R$ reductions at least)
+\end{enumerate}
+
+\shade{Cyan}{$EE$-reductions} They follow the above scheme exactly
+
+\shade{Cyan}{$R$-reductions} It is usually a good idea to draw the setup here. We have a TM $C$ that basically executes an $EE$-reduction and we have a TM $A$ that can check $L_2$.
+Then, we have a TM $B$ that wraps the whole thing: It first executes TM $C$, which will either output an transformation of $L_1$ for $L_2$ (i.e. execute an $EE$-reduction) or
+output some encoding for \textit{invalid word}.
+If it outputs the encoding for \textit{invalid word}, $B$ will output $x \notin L_1$.
+
+If $C$ does not output an encoding for \textit{invalid word}, then $B$ will execute $A$ on the output of $C$ and then use the output of $A$ (either accepting or rejecting)
+to output the same (i.e. if $A$ accepts, then $B$ will output $x \in L_1$ and if $A$ rejects, $B$ outputs $x \notin L_1$)
+
+\inlineintuition In $R$-reductions, we construct a full verifier for $L_1$ using the verifier for $L_2$, i.e. we can use TM $B$ directly to check if a given word is in $L_1$
+given that the transformed word is also in $L_2$.
+
+
+\shade{Cyan}{$P$-reductions} (Used in Chapter \ref{sec:complexity}). We need to also show that $A$ terminates in polynomial time.
+
+\shade{orange}{Tips \& Tricks:}
+\begin{itemize}
+    \item The TM $A$ has to terminate always
+    \item Check the input for the correct form first
+    \item For the correctness, show $x \in L_1 \Leftrightarrow A(x) \in L_2$
+    \item The following tricks can be useful:
+          \begin{itemize}
+              \item Transitions into $\qacc$ and $\qrej$ can be redirected to $\qacc / \qrej$ or into an infinite loop
+              \item Construct TM $M'$ that ignores input and does the same, regardless of input
+          \end{itemize}
+    \item Generate encoding of a $TM$ with special properties (e.g. accepts all input, never halts, \dots)
+\end{itemize}
+
+
 % ────────────────────────────────────────────────────────────────────
 
+
+\newpage
 \subsection{Rice's Theorem}
+\setLabelNumber{definition}{7}
+\inlinedef $L$ is called a \bi{semantically non-trivial decision problem}, if these conditions apply:
+\begin{enumerate}[label=\textit{(\roman*)}]
+    \item There exists a TM $M_1$, such that $\text{Kod}(M_1) \in L$ (i.e. $L \neq \emptyset$)
+    \item There exists a TM $M_2$, such that $\text{Kod}(M_2) \notin L$ (not all encodings are in $L$)
+    \item For two TM $A$ and $B$: $L(A) = L(B) \Rightarrow \text{Kod}(A) \in L \Rightarrow \text{Kod}(B) \in L$
+\end{enumerate}
+
+
 \setLabelNumber{theorem}{9}
-\fancytheorem{Rice's Theorem}
+\fancytheorem{Rice's Theorem} Every semantically non-trivial decision problem over TMs is undecidable
+
+\fhlc{Cyan}{Using Rice's Theorem} We only need to show that a language is semantically non-trivial, which we do by checking the above conditions.
+For the third condition, intuitively, we only need to check if in the definition of $L$ only $L(M)$ appears and nowhere $M$ directly (except of course, to say that $M$ has to be a TM),
+or the condition can be restated such that only $L(M)$ is described by it.
+
+For a more formal proof of that condition, simply show that the implication holds
