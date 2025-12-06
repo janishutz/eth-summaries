@@ -23,12 +23,18 @@ For the TM $M$ itself, we have $\text{Time}_M(n) = \max\{ \text{Time}_M(x) \divi
 
 \inlinedef The big-O-notation is defined as in A\&D, we however write $\text{Time}_A(n) \in \tco{g(n)}$, etc
 
+\inlinetheorem There exists decision problem $(\alphabetbool, L)$, such that for each MTM $A$ that decides it,
+there exists an MTM $B$ that also decides it and for which $\text{Time}_B(n) \leq \log_2(\text{Time}_A(n))$
+
 \inlinedef An MTM $C$ is \bi{optimal} for $L$, if $\text{Time}_C(n) \in \tco{f(n)}$ and $\tcl(f(n))$ is a lower bound for the time complexity of $L$
 
+
+% ────────────────────────────────────────────────────────────────────
 
 \subsection{Complexity classes}
 Below is a list of complexity classes
 \begin{definition}[]{Complexity classes}
+    \drmvspace\rmvspace
     \begin{align*}
         \text{TIME}(f)  & = \{ L(B) \divides B \text{ is an MTM with } \tc_B(n) \in \tco{f(n)} \}  \\
         \text{SPACE}(g) & = \{ L(A) \divides A \text{ is an MTM with } \spc_A(n) \in \tco{g(n)} \} \\
@@ -39,7 +45,8 @@ Below is a list of complexity classes
     \end{align*}
 \end{definition}
 
-For any function $t : \N \rightarrow \R^+$, we have $\text{TIME}(t(n)) \subseteq \text{SPACE}(t(n))$.
+\inlinelemma For any function $t : \N \rightarrow \R^+$, we have $\text{TIME}(t(n)) \subseteq \text{SPACE}(t(n))$.
+
 A list of relationships for these classes:
 \rmvspace
 \begin{multicols}{2}
@@ -47,8 +54,106 @@ A list of relationships for these classes:
         \item $P \subseteq \text{PSPACE}$
         \item $\text{DLOG} \subseteq P$
         \item $\text{PSPACE} \subseteq \text{EXPTIME}$
-        \item $\text{DLOG} \subseteq P \subseteq \text{PSPACE} \subseteq \text{EXPTIME}
+        \item $\text{DLOG} \subseteq P \subseteq \text{PSPACE} \subseteq \text{EXPTIME}$
     \end{itemize}
 \end{multicols}
 
-\inlinedef 
+\drmvspace
+\begin{definition}[]{Space- and time-constructible}
+    Let $s, t : \N \rightarrow \N$. $s$ is called \bi{space-constructible} if there exists $1$-Band-TM $M$, such that
+    \begin{enumerate}
+        \item $\text{Space}_M(n) \leq s(n) \ \forall n \in \N$
+        \item for each input $0^n$ with $n \in \N$, $M$ generates the word $0^{s(n)}$ on its memory tape and stops in $\qacc$
+    \end{enumerate}
+
+    $t$ is called \bi{time-constructible}, if there exists an MTM $A$, such that
+    \begin{enumerate}
+        \item $\text{Time}_A(n) \in \tco{t(n)}$
+        \item For each input $0^n$ with $n \in \N$, $A$ generates $0^{t(n)}$ on its first memory tape and stops in $\qacc$
+    \end{enumerate}
+\end{definition}
+
+\inlinelemma Let $s$ be space-constructible, $M$ an MTM with $\text{Space}_M(x) \leq s(|x|) \ \forall x \in L(M)$.
+Then exists MTM $A$ with $L(A) = L(M)$ and $\text{Space}_A(n) \leq s(n)$, i.e. we have
+$\text{Space}_A(y) \leq s(|y|) \ \forall y \in \Sigma_M$.
+
+\inlinelemma Let $t$ be time-constructible, $M$ an MTM with $\text{Time}_M(x) \leq t(|x|) \ \forall x \in L(M)$.
+Then exists MTM $A$ with $L(A) = L(M)$ and $\text{Time}_A(n) \in \tco{t(n)}$
+
+\inlinetheorem $\forall s : \N \rightarrow \N$ with $s(n) \geq \log_2(n)$, we have $\text{SPACE}(s(n)) \subseteq \bigcup_{c \in \N} \text{TIME}(c^{s(n)})$
+
+\inlinetheorem Given $s_1, s_2: \N \rightarrow \N$ with properties $s_2(n) \geq \log_2(n)$, $s_2$ is space-constructible and $s_1(n) = o(s_2(n))$
+($s_2(n)$ grows asymptotically faster than $s_1$).
+Then we have $\text{SPACE}(s_1) \subsetneq \text{SPACE}(s_2)$
+
+
+\inlinetheorem Given $t_1, t_2: \N \rightarrow \N$ with properties $t_2$ is time-constructible and $t_1(n) \cdot \log_2(t_1(n)) = o(t_2(n))$
+Then we have $\text{TIME}(s_1) \subsetneq \text{TIME}(s_2)$
+
+
+
+% ────────────────────────────────────────────────────────────────────
+
+\subsection{Non-deterministic measurements of complexity}
+\inlinedef For NMTM or NTM, the time complexity is the length of the shortest accepting calculation of $M$ on $x$ and the same applies to space complexity as well.
+The rest of the definition is equivalent to the one for deterministic TM and MTM.
+
+\begin{definition}[]{Complexity classes}
+    For all $f, g: \N \rightarrow \R^+$, we define
+    \rmvspace
+    \begin{align*}
+        \text{NTIME}(f)  & = \{ L(M) \divides M \text{ ist eine NMTM mit } \tc_M(n) \in \tco{f(n)} \}  \\
+        \text{NSPACE}(g) & = \{ L(M) \divides M \text{ ist eine NMTM mit } \spc_M(n) \in \tco{g(n)} \} \\
+        \text{NLOG}      & = \text{NSPACE}(\log_2(n))                                                  \\
+        \text{NP}        & = \bigcup_{c \in \N} \text{NTIME}(n^c)                                      \\
+        \text{NPSPACE}   & = \bigcup_{c \in \N} \text{NSPACE}(n^c)
+    \end{align*}
+\end{definition}
+
+\inlinelemma For all $t$ and $s$ with $s(n) \geq \log_2(n)$: $\text{NTIME} \subseteq \text{NSPACE}(t)$ and
+$\text{NSPACE}(s) \subseteq \bigcup_{c \in \N} \text{NTIME}(c^{s(n)})$
+
+For $t: \N \rightarrow \R^+$ and every space-constructible $s$ with $s(n) \geq \log_2(n)$, we have:
+\rmvspace
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item $\text{TIME}(t) \subseteq \text{NTIME}(t)$
+        \item $\text{SPACE}(t) \subseteq \text{NSPACE}(t)$
+        \item $\text{NTIME}(s(n)) \subseteq \text{SPACE}(s(n)) \subseteq \bigcup_{c \in \N} \text{TIME}(c^{s(n)})$
+        \item $\text{NP} \subseteq \text{PSPACE}$
+        \item $\text{NSPACE}(s(n)) \subseteq \bigcup_{c \in \N} \text{TIME}(c^{s(n)})$
+        \item $\text{NLOG} \subseteq P$
+        \item $\text{NPSPACE} \subseteq \text{EXPTIME}$
+        \item $\text{NSPACE}(s(n)) \subseteq \text{SPACE}(s(n)^2)$ (Savitch)
+        \item $\text{PSPACE} = \text{NPSPACE}$
+    \end{enumerate}
+\end{multicols}
+
+\rmvspace
+If we combine some of the above results, we get:
+\rmvspace
+\begin{align*}
+    \text{DLOG} \subseteq \text{NLOG} \subseteq P \subseteq NP \subseteq \text{PSPACE} \subseteq \text{EXPTIME}
+\end{align*}
+
+
+% ────────────────────────────────────────────────────────────────────
+
+\subsection{Proof verification}
+\begin{definition}[]{$p$-Verifier}
+    And MTM $A$ is a $p$-Verifier (for $p : \N \rightarrow \N$) and $V(A) = L$ for $L \subseteq \word$, if $A$ has the following properties and works on all inputs $\word \times \wordbool$:
+    \begin{enumerate}[label=\textit{(\roman*)}]
+        \item $\text{Time}_A(w, x) \leq p(|w|)$ for each input $(w, x) \in \word \times \wordbool$
+        \item $\forall w \in L, \exists x \in \wordbool$, such that $|x| \leq p(|w|)$ and $(w, x) \in L(A)$. $x$ is \bi{proof} of the claim $w \in L$
+        \item $\forall y \notin L$ we have $(y, z) \notin L(A)$ for all $z \in \wordbool$
+        \item If $p(n) \in \tco{n^k}, k \in \N$, then $p$ is a polynomial time verifier. The class of polynomial time verifiers is
+              \rmvspace
+              \begin{align*}
+                  VP = \{ V(A) \divides A \text{ is polynomial time verifier } \}
+              \end{align*}
+    \end{enumerate}
+\end{definition}
+
+\inlinetheorem $VP = NP$
+
+\subsection{NP-Completeness}
