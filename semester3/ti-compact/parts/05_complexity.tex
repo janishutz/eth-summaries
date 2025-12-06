@@ -1,3 +1,54 @@
 \newsection
 \section{Complexity}
 \label{sec:complexity}
+\stepcounter{subsection}
+\subsection{Measurements of Complexity}
+\compactdef{Time complexity} For a computation $D = C_1, \ldots, C_k$ of $M$ on $x$ is defined by $\text{Time}_M(x) = k - 1$.
+For the TM $M$ itself, we have $\text{Time}_M(n) = \max\{ \text{Time}_M(x) \divides x \in \Sigma^n \}$
+
+\begin{definition}[]{Space complexity}
+    Let $C = (q, x, i, \alpha_1, i_1, \ldots, \alpha_k, i_k)$,
+    with $0 \leq i \leq |x| + 1$ and $0 \leq i_j \leq |\alpha_j|$ for $j = 1, \ldots, k$ be a configuration.
+
+    The space complexity of configuration $C$ is $\text{Space}_M(C) = \max\{ |\alpha_i| \divides i = 1, \ldots, k \}$.
+
+    The space complexity of a calculation $D = C_1, \ldots, C_l$ on $x$ is $\text{Space}_M(x) = \max\{ \text{Space}_M(C_i) \divides i = 1, \ldots, l \}$
+
+    The space complexity of a TM $M$ is $\text{Space}_M(n) = \max\{ \text{Space}_M(x) \divides x \in \Sigma^n \}$
+\end{definition}
+
+\inlinelemma For every $k$-tape-TM $A$, there exists an equivalent $1$-tape-TM $B$ such that $\text{Space}_B(n) \leq \text{Space}_A(n)$
+
+\inlinelemma For every $k$-tape-TM $A$, $\exists$ a $k$-tape-TM such that $L(A) = L(B)$ and $\text{Space}_B(n) \leq \frac{\text{Space}_A(n)}{2} + 2$
+
+\inlinedef The big-O-notation is defined as in A\&D, we however write $\text{Time}_A(n) \in \tco{g(n)}$, etc
+
+\inlinedef An MTM $C$ is \bi{optimal} for $L$, if $\text{Time}_C(n) \in \tco{f(n)}$ and $\tcl(f(n))$ is a lower bound for the time complexity of $L$
+
+
+\subsection{Complexity classes}
+Below is a list of complexity classes
+\begin{definition}[]{Complexity classes}
+    \begin{align*}
+        \text{TIME}(f)  & = \{ L(B) \divides B \text{ is an MTM with } \tc_B(n) \in \tco{f(n)} \}  \\
+        \text{SPACE}(g) & = \{ L(A) \divides A \text{ is an MTM with } \spc_A(n) \in \tco{g(n)} \} \\
+        \text{DLOG}     & = \text{SPACE}(\log_2(n))                                                \\
+        \text{P}        & = \bigcup_{c \in \N} \text{TIME}(n^c)                                    \\
+        \text{PSPACE}   & = \bigcup_{c \in \N} \text{SPACE}(n^c)                                   \\
+        \text{EXPTIME}  & = \bigcup_{d \in \N} \text{TIME}(2^{n^d})
+    \end{align*}
+\end{definition}
+
+For any function $t : \N \rightarrow \R^+$, we have $\text{TIME}(t(n)) \subseteq \text{SPACE}(t(n))$.
+A list of relationships for these classes:
+\rmvspace
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $P \subseteq \text{PSPACE}$
+        \item $\text{DLOG} \subseteq P$
+        \item $\text{PSPACE} \subseteq \text{EXPTIME}$
+        \item $\text{DLOG} \subseteq P \subseteq \text{PSPACE} \subseteq \text{EXPTIME}
+    \end{itemize}
+\end{multicols}
+
+\inlinedef 
