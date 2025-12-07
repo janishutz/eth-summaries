@@ -17,6 +17,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 3
 - [Theoretical Computer Science Summary (DE)](./semester3/ti/ti-summary.pdf) Author: Janis Hutz
 - [Theoretical Computer Science Compact Summary (EN)](./semester3/ti-compact/ti-compact.pdf) Author: Janis Hutz
+- [Theoretical Computer Science Formulary (DE)](./semester3/ti-formulary/ti-formulary.pdf) Author: Robin Bacher
 - [Numerical Methods for Computer Science Summary (DE)](./semester3/numcs/numcs-summary.pdf) Authors: Robin Bacher, Janis Hutz
 - [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Author: Janis Hutz (*NOTE: has not been started yet, may or may not happen*)
 - [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/analysis-ii-cheat-sheet.pdf) Author: Janis Hutz

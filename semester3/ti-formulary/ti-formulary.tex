@@ -1,0 +1,714 @@
+\documentclass{article}
+
+% TODO: extract chapters into seperate files
+
+% Language setting
+\usepackage[english]{babel}
+
+% Set page size and margins
+\usepackage[a4paper,top=1cm,bottom=1.5cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}    
+\usepackage{amsfonts} % contains 'mathbb' among others
+\usepackage{amssymb}  % subsetneq, among others
+\usepackage{wasysym}  % \cent for TMs
+\usepackage{graphicx}   
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\usepackage{multicol}   
+\usepackage{parskip}    % Disables new paragraph indent
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Automata Theory relation symbols
+\usepackage{turnstile}
+
+% MIPS excerpts
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand{\familydefault}{\sfdefault}
+% Make bold text a different color
+% \NewCommandCopy\oldtextbf\textbf
+% \renewcommand{\textbf}[1]{\textcolor{orange}{\oldtextbf{#1}}}
+
+% General
+\def\iffdef{\overset{\text{def}}{\iff}}
+\def\sep{\ |\ }
+% Languages
+\def\rev{\text{R}}
+\def\bool{\Sigma_{\text{bool}}}
+\def\bools{(\Sigma_\text{bool})^*}
+\def\comp{\text{C}}
+% Finite Automata
+\def\Kl{\text{Kl}}
+\def\Num{\text{Num}}
+% Reductions
+\def\leqee{\leq_\text{EE}}
+\def\leqr{\leq_\text{R}}
+\def\leqp{\leq_\text{p}}
+% Language classes
+\def\Lr{\mathcal{L}_\text{R}}
+\def\Lre{\mathcal{L}_\text{RE}}
+\def\Lreg{\mathcal{L}_{\text{EA}}}
+
+% Colors for Def/Lemma/Theorem/Note
+\definecolor{bisque}{rgb}{1.0, 0.89, 0.77}
+\definecolor{lightpastelpurple}{rgb}{0.69, 0.61, 0.85}
+\definecolor{lightmauve}{rgb}{0.86, 0.82, 1.0}
+\definecolor{pastelgreen}{rgb}{0.47, 0.87, 0.47}
+\definecolor{pastelblue}{rgb}{0.68, 0.78, 0.81}
+\definecolor{pastelred}{rgb}{1.0, 0.41, 0.38}
+
+% \newcommand{\intuition}{\fcolorbox{white}{bisque}{\textbf{\textcolor{black}{Intuition:}}} }
+\newcommand{\Def}{\fcolorbox{white}{pastelblue}{\textbf{\textcolor{black}{Def:}}} }
+\newcommand{\Note}{\fcolorbox{white}{lightmauve}{\textbf{\textcolor{black}{Note:}}} }
+\newcommand{\Lemma}{\fcolorbox{white}{pastelgreen}{\textbf{\textcolor{black}{Lemma:}}} }
+\newcommand{\Theorem}{\fcolorbox{white}{pastelred}{\textbf{\textcolor{black}{Theorem:}}} }
+
+% Force empty
+\title{}
+\author{}
+\date{}
+% Custom TOC header text, if needed
+\addto\captionsenglish{ \renewcommand*\contentsname{Contents} }
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{Theoretische Informatik}
+            
+        \vspace{0.5cm}
+        \LARGE
+        Formelsammlung
+            
+        \vspace{1.5cm}
+
+        \includegraphics[width=0.6\linewidth]{res/title.png}
+            
+        \vfill
+        \small\begin{multicols}{2}
+
+            \tableofcontents
+            Anmerkung: \textit{Unterkapitel-Nummern entsprechen nicht dem Buch}
+        \end{multicols}\normalsize
+            
+        \vspace{0.8cm}
+            
+    \end{center}
+    \textbf{Einleitung}\\
+    Der Sinn dieses Dokuments ist, alle Resultate und Definitionen schnell auffindbar an einem Ort zu haben, z.B. für Hausaufgaben. Dieses Dokument ist keine Zusammenfassung, enthält aber einige Kommentare und Intuitive Erläuterungen (\color{gray}Text in grau\color{black}).\\
+    Gute ausführliche Zusammenfassungen existieren bereits: z.B. die von Nicolas Wehrli, auf Community Solutions.
+
+    Wie immer: Keine Garantie auf Komplettheit oder Korrektheit.
+    \vspace{0.5cm}
+    
+    Robin Bacher\\
+    \hrule
+    \Large
+    ETH Zürich, HS25\\\\
+    \small
+    Basierend auf:\\
+    Theoretische Informatik, J. Hromkovic
+\end{titlepage}
+
+% Start at Chap. 2 to match Book 
+\setcounter{section}{1}
+\section{Formale Sprachen}
+
+\begin{multicols}{2}
+
+\Def \textbf{Alphabet} $\Sigma \iffdef \Sigma$ endlich und $\Sigma \neq \emptyset$ \\
+$x \in \Sigma$ heisst Buchstabe, Zeichen, Symbol.
+
+\Def \textbf{Wort} $w$ über $\Sigma \iffdef w = (x_1, \ldots, x_n)$ endlich, $x_i \in \Sigma$.\\
+$\Sigma^* := \{ w\ |\ w \text{ ist Wort über } \Sigma\}$\\
+$\lambda := w$ s.d. $|w| = 0$ (Leeres Wort)\\
+$\Sigma^+ := \Sigma^* \setminus \{\lambda\}$
+
+\begin{tabular}{llcl}
+  \textbf{Teilwort} & $v$ von $w$ &$\iffdef$& $\exists x,y \in \Sigma^*: w = xvy$\\
+  \textbf{Präfix}   & $v$ von $w$ &$\iffdef$& $\exists y \in \Sigma^*: w = vy$\\
+  \textbf{Suffix}   & $v$ von $w$ &$\iffdef$& $\exists x \in \Sigma^*: w = xv$
+\end{tabular}
+
+\Note Notation: $x_1x_2\ldots x_n = (x_1,x_2,\ldots,x_n)$
+
+$\text{Nummer}(x) := \sum_{i=1}^{n} x_i \cdot 2^{n-i}$.\\
+Bin$(m) := $ kürzeste Binärkodierung von $m$ in $\Sigma_{\text{Bool}}$.\\
+Bin$(0) := 0$
+
+\Def \textbf{Konkatenation} Kon$(x,y) = x \cdot y = xy$\\
+$\forall w: \lambda \cdot w = w$\\
+Kon ist assoziativ
+
+\Def \textbf{Reversal} Für $a \in \Sigma^*$: $a^\rev := a_na_{n-1}\ldots a_1$
+
+\Def \textbf{Iteration} Für $x \in \Sigma^*$: $x^0 := \lambda, x^1 := x, x^i := xx^{i-1}$
+
+\Def \textbf{Vorkommen} von $a$ in $w \in \Sigma^*$: $|w|_a :=  |\{i \ |\ w_i = a\}|$
+
+\end{multicols}
+
+
+\Def \textbf{Kanonische Ordnung} von $\Sigma^*$: Sei $<$ eine Ordnung über $\Sigma$. $u,v \in \Sigma^*$. $x, u', v' \in \Sigma^*$ und $i < j$.
+$$ u < v \iff |u| < |v| \quad \lor \quad |u| = |v| \land u = x \cdot s_i \cdot u' \land v =  x \cdot s_j \cdot v'$$
+\scriptsize
+\textit{(Das ist die lexikographische Ordnung bekannt aus DM)}
+\normalsize
+
+\begin{multicols}{2}
+
+\Def \textbf{Sprache} $L$ über $\Sigma \iffdef L \subset \Sigma^*$
+
+\Def \textbf{Komplement} $L^\comp := \Sigma^* \setminus L$ 
+
+\Def \textbf{Konkatenation} von $L_1,L_2$: $L^0 := L_\lambda, L^i := L^{i-1}\cdot L$
+
+\Def \textbf{Kleene'scher Stern} $L^* := \underset{i \geq 0}{\bigcup} L^i, \quad L^+ := L^* \setminus \{\lambda\}$
+
+\end{multicols}
+
+\Lemma $\cup$ ist distributiv über Sprachen: 
+$$L_1L_2 \cup L_1L_3 = L_1(L_2 \cup L_3)$$
+
+\subsection{Algorithmische Probleme}
+
+\subsection{Kolmogorov Komplexität}
+Ziel: Komprimierung von Wörtern, Schliessen auf Informationsdichte basierend auf Komprimierbarkeits-schwierigkeit.
+
+\Def \textbf{Kolmogorov Komplexität} $\forall x \in \bool^*: K(x) :=$ kürzestes \verb|Pascal|-Programm für $x$.\\
+\scriptsize\color{gray}
+Vermeidet die Festlegung auf einen spezifischen Komprimieralgorithmus. Buch beweist ebenfalls, dass \verb|Pascal| hier \textit{keine} Einschränkung ist.
+\normalsize\color{black}
+
+\begin{multicols}{2}
+
+\Def \text{$K(x)$ von Natürlichen Zahlen}: $K(n) := K(\text{Bin}(n))$
+
+$\text{Bin}(|x|)$ hat Länge $\lceil \log_2(|x|+1) \rceil$
+\newcolumn
+
+\Lemma $\exists d\ \forall x \in \bool^*: \quad K(x) \leq |x| + d$
+
+\Lemma $\forall n \geq 1\ \exists w_n \in \bool^n:\quad K(w_n) \geq |w_n| = n$\\
+\footnotesize\color{gray}
+Intuitiv: Es existieren unkomprimierbare $w$ jeder Länge.
+\normalsize\color{black}
+
+\end{multicols}
+
+\footnotesize
+\textit{Formalisierung der Zufälligkeit}\\
+\normalsize
+\Def \textbf{Zufällig} $\iffdef x \in \bool^*$ erfüllt $K(x) \geq |x|$\\
+$n \geq 0$ ist zufällig $\iffdef K(n) = K(\text{Bin}(n)) \geq \lceil \log_2(n+1) \rceil - 1$\\
+\scriptsize\color{gray}
+Diese Definition hat nichts mit dem Zufallsbegriff aus der Wahrscheinlichkeit zu tun, hier geht es um den Informationsgehalt.
+\normalsize\color{black}
+
+\footnotesize
+\textit{Verbindung: Entscheidungsprobleme und Komplexität}\\
+\normalsize
+\Theorem \textbf{(2.2)} $\exists \text{ Programmm } A_L  \text{ welches } (\bool, L) \text{ löst } \implies \forall n \geq 1: K(z_n) \leq \lceil \log_2(n+1) \rceil + c$\\
+\footnotesize\color{gray}
+$L \subset \bool^*$. $z_n := n$-tes Wort bzgl. kan. Ordnung. $(\bool, L)$ ist ein Entscheidungsproblem.
+\normalsize\color{black}
+
+\footnotesize
+\textit{Primzahlverteilung}\\
+\normalsize
+\Theorem $\underset{n \to \infty}{\lim} \frac{\text{Prim}(n)}{n / \ln(n)} = 1$\\
+\scriptsize\color{gray}
+Prim$(x) :=$ Anzahl Primzahlen kleiner $x$. Intuitiv: Anzahl Primzahlen wächst gleich schnell wie Anzahl Zahlen.
+\normalsize\color{black}
+
+\newpage
+\section{Endliche Automaten (EA)}
+
+\begin{multicols}{2}
+
+\Def \textbf{Endlicher Automat} $M := (Q,\Sigma, \delta, q_0, F)$
+
+\begin{tabular}{llcl}
+  \textbf{Zustände}& $Q$ \textit{(endlich)} \\
+  \textbf{Eingabealphabet}& $\Sigma$ \textit{(Alphabet)} \\
+  \textbf{Anfangszustand}& $q_0 \in Q$ \\
+  \textbf{Akzeptierende Zustände}& $F \subseteq Q$\\
+  \textbf{Übergangsfunktion}& $\delta: Q \times \Sigma \to Q$
+\end{tabular}
+
+$\delta(q, a) = p \implies$ im Zustand $q$ bei Eingabe $a$, gehe zu $p$.
+
+Darstellungsformen: \verb|goto|-Programm, gerichteter Graph
+
+\Def \textbf{Konfiguration} von $M$: $(q, w) \in Q \times \Sigma^*$\\
+\footnotesize\color{gray}
+Intuitiv: M hat Zustand $q$ und liest noch den Suffix $w$
+\normalsize\color{black}
+
+\newcolumn
+
+$(q,w)$ Endkonfiguration $\iffdef (q,w) \in Q \times \{\lambda\}$
+
+\Def \textbf{Schritt} $:=\ \sststile{M}{}\ \subseteq (Q \times \Sigma^*) \times (Q \times \Sigma^*)$\\
+wobei $(q,w)\ \sststile{M}{}\ (p,x) \iffdef w = ax \land a \in \Sigma \land \delta(q,a) = p$\\
+\footnotesize\color{gray}
+Intuitiv: Übergangsfunktion auf $M$ im Zustand $q$ anwenden, bei $a$.
+\normalsize\color{black}
+
+\Def \textbf{Berechnung} $C := C_0,\ldots,C_n$ s.d. $C_i$ Konfiguration\\
+wobei $\forall i \leq n-1: C_i\ \sststile{M}{}\ C_{i+1}$ gilt
+
+\end{multicols}
+
+\begin{multicols}{2}
+
+\Def \textbf{Akzeptierte Sprache} $L(M) := \{w \in \Sigma^*\ |\ \hat{\delta}(q_0,w) \in F\}$\\
+\footnotesize\color{gray}
+Intuitiv: Menge aller Wörter, die $M$ akzeptiert
+\normalsize\color{black}
+
+Klasse regulärer Sprachen: $\mathcal{L}_{EA} := \{L(M)\ |\ \text{M ist EA}\}$
+
+\Def \textbf{Klasse} $\text{Kl}[p] := \{w \in \Sigma^* \ |\ \hat{\delta}(q_0,w) = p\}$\\
+\footnotesize\color{gray}
+Klassen bilden eine Partition von $\Sigma^*$. Ähnlich zu Äquivalenzklassen aus DM.
+\normalsize\color{black}
+
+\Lemma $L(M) = \underset{p \in F}{\bigcup} \text{Kl}[p]$
+
+\newcolumn
+
+\Def \textbf{Relationen} bzgl. endlichen Automaten
+
+$(q,w)\ \sststile{M}{*}\ (p,u) \iffdef \exists $ Berechnung in $M$ von $(q,w)$ zu $(p,u)$.\\
+\footnotesize\color{gray}
+Die formelle Definition ist sehr lang. (S.54)
+\normalsize\color{black}
+
+$\hat{\delta}(q,w) = p \iffdef (q,w)\ \sststile{M}{*}\ (p, \lambda)$\\
+\footnotesize\color{gray}
+Intuitiv: Wenn $M$ in Zustand $q$ Wort $w$ liest, endet $M$ in $p$
+\normalsize\color{black}
+\\
+
+\Lemma $\forall \odot \in \{\cup,\cap,- \}\ \exists M:\quad L(M) = L(M_1) \odot L(M_2)$\\
+\footnotesize
+Für alle EA $M_1,M_2$ über $\Sigma$\\
+\scriptsize\color{gray}
+Wegen diesem Lemma ist es möglich, EAs aus Teilautomaten zu bauen
+\normalsize\color{black}
+\newcolumn
+\end{multicols}
+
+\subsection{Irregularität beweisen}
+Einige Ansätze um Aussagen der Art $L \notin \mathcal{L}_{\text{EA}}$ zu beweisen:
+
+\Lemma \textbf{(Direkt via Zustände)} Sei $A = (Q, \Sigma, \delta_A, q_0, F)$, $x \neq y \in \Sigma^*$:
+\begin{align*}
+  \exists p \in Q:\ \underbrace{(q_0, x) \ \sststile{A}{*}\ (p, \lambda)\ \land\ (q_0, y)\ \sststile{A}{*}\ (p, \lambda)}_{\hat{\delta}_A(q_0, x)\ =\ \hat{\delta}_A(q_0,y)\ =\ p \text{ und } x,y\ \in\ \Kl[p] } \implies \forall z \in \Sigma^*,\ \exists r \in Q:\quad xz \in L(A) \iff yz \in L(A)
+\end{align*}
+\footnotesize\color{gray}
+Intuitiv: Wenn man für zwei (auch unterschiedliche!) Eingaben die selbe Konfiguration erreicht, ist der weitere Verlauf identisch. Dieses Lemma formalisiert die intuitiv klare "Gedächtnislosigkeit" von EAs, d.h. dass ein EA keinen Speicher (ausser dem aktuellen Zustand) besitzt.
+\normalsize\color{black}
+
+\Lemma \textbf{(Pumping)} für $L \in \Lreg$:$\quad \exists n_0 \in \mathbb{N}$ s.d. $\forall w \in \Sigma^*$ mit $|w| \geq n_0: \ \exists x,y,z: w = yxz$ und:
+\begin{align*}
+  (i)\ & |yx| \leq n_0 \quad\quad (ii)\ |x| \geq 1 \\
+  (iii)\ & \{yx^kz \ |\ k \in \mathbb{N}\} \in L \text{ oder } \{yx^kz \ |\ k \in \mathbb{N}\} \cap L = \emptyset
+\end{align*}
+\footnotesize\color{gray}
+Intuitiv: Alle Wörter länger als $n_0$ lassen sich als $w=yxz$ zerlegen: wenn $w$ (nicht) akzeptiert wird müssen alle anderen $w_k=yx^kz$ auch (nicht) akzeptiert werden. Ein $n_0$ welches diese Zerlegung erlaubt existiert immer, wenn $L$ regulär ist.
+\normalsize\color{black}
+
+\Theorem \textbf{(Kolmogorov)} Sei $L \subseteq (\bool)^*$ regulär. Sei $L_x = \{y \in (\bool)^* \ |\ xy \in L \}$, $y_n$ das $n$-te Wort in $L_x$
+\begin{align*}
+  \exists c\quad \forall x,y \in (\bool)^*: \quad K(y_n) \leq \lceil \log_2(n+1) \rceil + c
+\end{align*} 
+\footnotesize\color{gray}
+Intuitiv: Suffixe von Wörtern einer regulären Sprache besitzen eine kleine Kolmogorov-Komplexität. Man versucht meistens eine unendliche Menge unterschiedlicher $y_1$ zu finden, was dann einen Widerspruch bildet zu diesem Satz.
+\normalsize\color{black}
+
+\subsection{Nicht-deterministische endliche Automaten (NEA)}
+
+\begin{multicols}{2}
+
+\Def \textbf{NEA} $M = (Q, \Sigma, \delta, q_0, F)$
+
+\begin{tabular}{llcl}
+  \textbf{Übergangsfunktion}& $\delta: Q \times \Sigma \to \mathcal{P}(Q)$ 
+\end{tabular}\\
+\color{gray}\footnotesize
+Intuitiv: $\delta$ gibt alle möglichen Zustände, statt nur Einen.
+\color{black}\normalsize
+
+\Def \textbf{Relationen} bzgl. NEAs
+
+$\hat{\delta}(q, \lambda) := \{q\}\quad\forall q \in Q$\\
+$\hat{\delta}(q, wa) := \{ p \in Q \sep \exists r \in \hat{\delta}(q, w): p \in \delta(r, a)\}$\\
+\color{gray}\footnotesize
+Intuitiv: $\hat{\delta}$ gibt alle möglichen Endzustände, statt nur Einen.
+\color{black}\normalsize
+
+\newcolumn
+
+\Def \textbf{Akzeptierte Sprache} in NEAs
+$$ L(M_{\text{NEA}}) := \{w \in \Sigma^* \sep \hat{\delta}(q, w) \cap F \neq \emptyset\} $$
+\color{gray}\footnotesize
+Intuitiv: Alle Wörter mit möglichen Berechnungsweg zu $q \in F$.\\
+D.h. Akzeptierte Wörter müssen nicht immer akzeptiert werden.
+\color{black}\normalsize  
+
+\Theorem \textbf{(3.2) Potenzmengen Konstruktion}
+$$\mathcal{L}_{\text{EA}} = \mathcal{L}_{\text{NEA}}$$
+\color{gray}\footnotesize
+Intuitiv: Für jeden NEA gibt es einen äquivalenten EA.
+\color{black}\normalsize  
+
+
+\end{multicols}
+
+
+\newpage
+\section{Turing-Maschinen}
+Eine Formalisierung des Begriffs "Algorithmus".
+
+
+
+\begin{multicols}{2}
+
+\Def \textbf{Turing Maschine} $ M := (Q, \Sigma, \Gamma, \delta, q_0, q_\text{accept}, q_\text{reject})$
+
+\begin{tabular}{llcl}
+  \textbf{Zustände}& $Q$ \textit{(endlich)} \\
+  \textbf{Eingabealphabet}& $\Sigma$ \textit{(Alphabet)} \\
+  \textbf{Arbeitsalphabet}& $\Gamma$ s.d. $\Sigma \subset \Gamma, \Gamma \cap Q = \emptyset$\\
+  \textbf{Anfangszustand}& $q_0 \in Q$ \\
+  \textbf{Akzeptierende Zustände}& $F \subseteq Q$\\
+  \textbf{Übergangsfunktion}& $\delta: Q \times \Sigma \to Q$
+\end{tabular}
+
+\newcolumn
+
+\Def $\textbf{Konf}(M) := \{\cent\} \cdot \Gamma^* \cdot Q \cdot \Gamma^+ \cup Q \cdot \{\cent\} \cdot \Gamma^* $
+
+\small
+\textbf{Beispiel:} $\cent w_1 qa w_2 \in \text{Konf}(M)$ heisst:\\
+$M$ in Zustand $q$, hat Kopf bei $|w_1|+1$ auf $a$. Bandinhalt: $\cent w_1 a w_2$
+\normalsize
+
+\Def \textbf{Äquivalenz} TMs $A,B$ s.d. $\Sigma_A = \Sigma_B$: 
+\begin{enumerate}
+  \item $x \in L(A) \iff x \in L(B)$
+  \item $A$ hält nicht auf $x \iff B$ hält nicht auf $x$
+\end{enumerate}
+\color{gray}\footnotesize
+D.h. $\lnot(L(A) = L(B) \implies A, B$ äquivalent$)$.
+\color{black}\normalsize
+
+\end{multicols}
+
+
+\subsection{Mehrband Turing-Maschinen}
+
+\begin{multicols}{2}
+
+\Def \textbf{Mehrband TMs}
+\begin{enumerate}
+  \item Endliche Kontroll-logik
+  \item Endliches Eingabeband
+  \item $k$ nach rechts unendliche Arbeitsbänder
+\end{enumerate}
+\color{gray}\footnotesize
+Die Formelle Definition im Skript ist sehr lang.\\
+Intuitiv bleiben alle Definitionen gleich, akzeptieren aber nun $k$ Bänder.
+\color{black}\normalsize
+
+\newcolumn
+
+\Lemma $\forall$ TM $A: \exists $ MTM $B$ s.d. $A,B$ äquivalent.\\
+\Lemma $\forall$ MTM $B: \exists$ TM $A$ s.d. $A, B$ äquivalent.
+
+\Theorem TMs und MTMs sind äquivalente Modelle.\\
+\color{gray}\footnotesize
+D.h. es existiert immer eine äquivalente Maschine im jeweils anderen Modell.
+\color{black}\normalsize
+
+\end{multicols}
+
+
+\subsection{Nicht-deterministische TMs}
+
+\Theorem $\forall $ NTM $M: \exists$ TM $A$ s.d.
+\begin{enumerate}
+  \item $L(M) = L(A)$
+  \item $A$ hält immer falls $M$ keine unendlichen Berechnungen hat
+\end{enumerate}
+\color{gray}\footnotesize
+D.h. auch NTMs sind konzeptuell äquivalent zu regulären TMs.
+\color{black}\normalsize
+
+
+\subsection{Sprach-Klassen}
+
+\Def \textbf{Rekursiv aufzählbar} $\Lre := \{ L(M) \sep M \text{ ist TM } \}$
+
+\Def \textbf{Rekursiv entscheidbar} $\Lr := \{ L(M) \sep M \text{ ist TM, hält immer } \}$
+
+
+\newpage
+
+\section{Berechenbarkeit}
+Methoden zur Klassifizierung Algorithmischer Lösbarkeit.
+
+\subsection{Diagonalisierung}
+
+\begin{multicols}{2}
+
+
+\Def \textbf{Mächtigkeit}
+
+\begin{tabular}{lcl}
+  $|A| \leq |B|$ & $\iffdef$ & $\exists f : A \to B$ injektiv \\
+  $|A| = |B|$ & $\iffdef$ & $|A| \leq |B| \land |B| \leq |A|$ \\
+  $|A| < |B|$ & $\iffdef$ & $|A| \leq |B| \land \lnot |B| \leq |A|$
+\end{tabular}
+
+\Lemma $A \subset B \implies |A| \leq |B|$
+
+\Lemma $\leq$ ist Transitiv.
+
+\Def \textbf{Abzählbarkeit} $\iffdef |A| = |\mathbb{N}| \lor A$ endlich
+
+\Lemma $\forall \Sigma: \Sigma^*$ ist abzählbar\\
+\color{gray}\footnotesize
+Intuitiv: Da $\Sigma$ endlich ist.
+\color{black}\normalsize
+
+Weitere abzählbare Mengen: $\mathbb{Z}, \mathbb{N}^k, \mathbb{Q}, \text{KodTM}$
+
+Überabzählbare Mengen: $\mathbb{R}, [0,1], \mathcal{P}((\bool)^*)$
+
+\Theorem $|\text{KodTM}| \leq \mathcal{P}((\bool)^*)$\\
+\color{gray}\footnotesize
+D.h. existieren unendliche viele nicht rekursiv aufzählbare Sprachen.
+\color{black}\normalsize
+
+\end{multicols}
+
+\subsection{Reduktion}
+Ansatz für Beweise von Aussagen der Form $L \in \Lr$ oder $L \notin \Lr$.
+
+\Def \textbf{Rekursive Reduzierbarkeit}\\ 
+$L_1 \leqr L_2 \iffdef L_2 \in \mathcal{L}_\text{R} \implies L_1 \in \mathcal{L}_\text{R}$\\
+\color{gray}\footnotesize
+D.h. $L_2$ zu lösen, bedeuted auch $L_1$ zu lösen.
+\color{black}\normalsize
+
+\Def \textbf{Eingabe-zu-Eingabe Reduzierbarkeit}\\ 
+$L_1 \leqee L_2 \iffdef \exists M \text{ (TM)}: \exists f_M: \Sigma^*_1 \to \Sigma^*_2$ s.d. $x \in L_1 \iff f_M(x) \in L_2$\\
+\color{gray}\footnotesize
+D.h. Es existiert eine TM $M$, die eine Abbildung $f_M$ darstellt, mit welcher man $L_1$ via $L_2$ direkt bestimmen kann.
+\color{black}\normalsize
+
+\begin{multicols}{2}
+
+\Lemma $L_1 \leqee L_2 \implies L_1 \leqr L_2$
+
+\Lemma $\leqee$ ist Transitiv.
+
+\Lemma $\forall L \subseteq \Sigma^*: L \leqr L^\comp\ \land\ L^\comp \leqr L$
+
+\Lemma $\mathcal{L}_\text{R} \subsetneq \mathcal{L}_\text{RE}$
+
+\Def \textbf{Universelle Sprache}
+
+$L_\text{U} := \{ \text{Kod}(M)\#w \sep w \in \bool^* \land w \in L(M) \}$
+
+\Theorem $L_\text{U} \in \mathcal{L}_\text{RE}$ aber $L_\text{U} \notin \mathcal{L}_\text{R}$
+
+\newcolumn
+
+\Def \textbf{Halteproblem} 
+
+$L_\text{H} := \{\text{Kod}(M)\#x \sep x \in \bool^* \land M \text{ hält auf } x\}$
+
+\Theorem $L_\text{H} \notin \mathcal{L}_\text{R}$\\
+\color{gray}\footnotesize
+D.h. man kann nie wissen, ob eine Turingmaschine anhalten wird.
+\color{black}\normalsize
+
+\Def $L_\text{Empty} := \{ \text{Kod}(M) \sep L(M) = \emptyset \}$
+
+\Theorem $(L_\text{Empty})^\comp \in L_\text{RE}$ aber $(L_\text{Empty})^\comp \notin \mathcal{L}_\text{R}$
+
+\Def \textbf{Äquivalenzproblem} 
+
+$L_\text{EQ} = \{ \text{Kod}(M)\#\text{Kod}(\overline{M}) \sep L(M) = L(\overline{M}) \}$
+
+\Theorem $L_\text{EQ} \notin \mathcal{L}_\text{R}$\\
+\color{gray}\footnotesize
+D.h. man kann nicht 2 TMs auf Äquivalenz prüfen, in endlicher Zeit.
+\color{black}\normalsize
+
+TODO: reformat Def, Theorems as a table for languages
+
+\end{multicols}
+
+\subsection{Rice}
+Ansatz für Beweise von Aussagen der Form $L \notin \Lr$, für $L \subseteq \text{KodTM}$.
+
+\Def \textbf{Semantisch nicht-triviales Entscheidungsproblem über TMs}
+$$L \subseteq \text{KodTM}: \underbrace{(\exists \text{ TM } M_1: \text{Kod}(M_1) \in L)}_{L \neq \emptyset} \land \underbrace{(\exists \text{ TM } M_2 : \text{Kod}(M_2) \notin L)}_{L \neq \text{KodTM}} \land \underbrace{(\forall \text{ TM } A,B: L(A) = L(B) \implies (A \in L \iff B \in L))}_{L \text{ behandelt semantisch gleiche TMs gleich}}$$
+
+\begin{multicols}{2}
+
+\Def $L_{\text{H, } \lambda} := \{\text{Kod}(M) \ |\ M \text{ hält auf } \lambda \}$
+
+\Theorem $L_{\text{H}, \lambda} \notin \mathcal{L}_\text{R}$
+
+\end{multicols}
+
+\Theorem \textbf{Satz von Rice}: \text{ Alle sem. nicht-triv. Probleme } $L$ \text{ sind unentscheidbar}. ($L \notin \Lr$)\\
+\color{gray}\footnotesize
+D.h. es reicht aus zu zeigen, dass $L \subseteq \text{KodTM}$ die Bedingungen oben erfüllt, um $L \notin \Lr$ zu zeigen.
+\color{black}\normalsize
+
+
+\subsection{Kolmogorov}
+
+\Theorem \textbf{Unlösbarkeit von Kolmogorov}: Das Problem, $\forall x \in \bools$ die Komplexität $K(x)$ zu berechnen, ist unlösbar.\\
+\color{gray}\footnotesize
+Ein Alternativer Ansatz um Unlösbarkeit zu zeigen, unabhängig von Diagonalisierung.
+\color{black}\normalsize
+\newpage
+\section{Komplexität}
+Eine Formalisierung der "Schwierigkeit" von Algorithmisch lösbaren Problemen.
+
+\subsection{Zeit \& Speicher}
+\Def $\textbf{Time}_\textbf{M}(x) := k - 1$
+
+\Def $\textbf{Time}_\textbf{M}(n) := \text{max}\{ \text{Time}_\text{M}(x) \sep x \in \Sigma^n \}$\\
+\color{gray}\footnotesize
+Intuitiv: Die Komplexität im Schlechtesten Fall einer Eingabe der Länge $n$
+\color{black}\normalsize
+
+$\text{Wobei: } M \text{ immer hält, } x \in \Sigma^* \text{ und } D = C_1C_2\ldots C_k \text{ Die Berechnung von } M \text{ auf } x $
+
+\Def $\textbf{Space}_\textbf{M}(C) := \text{max}\{ |\alpha_i| \sep i=1,\ldots,k  \}$\\
+\color{gray}\footnotesize
+Intuitiv: Die Länge des längsten Arbeitsbandes in $M$, bei der Konfiguration $C$.
+\color{black}\normalsize
+
+\Def $\textbf{Space}_\textbf{M}(x) := \text{max}\{ \text{Space}_M(C_i) \sep i = 1,\ldots,l \}$
+
+\Def $\textbf{Space}_\textbf{M}(n) := \text{max}\{ \text{Space}_M(x) \sep x \in \Sigma^n \}$
+
+Wobei $M$ eine $k$-Band MTM, $C=(q, x, i, \alpha_1, i_1\ldots, \alpha_k, i_k)$ eine Konfiguration.
+
+\Lemma $\forall\ k$-MTM $A: \exists\ \text{äquivalente } 1$-MTM $B: \text{Space}_B(n) \leq \text{Space}_A(n)$
+
+\Lemma $\forall\ k$-MTM $A: \exists \text{ äquivalente } k$-MTM $B: \text{Space}_B(n) \leq \frac{\text{Space}_A(n)}{2} + 2$\\
+\color{gray}\footnotesize
+Intuitiv: Die Speicherkomplexität von $M$ lässt sich für jedes $d \in \mathbb{N}$ um den Faktor $d$ verkleinern. Das selbe gilt für $\text{Time}_M(n)$.
+\color{black}\normalsize
+
+\Theorem $\exists (L, \bool)\ \forall \text{ MTM } A$ s.d. $L(A) = L$: $\exists \text{ MTM } B$ s.d. $L(B) = L$ und $\text{Time}_B(n) \leq \log_2(\text{Time}_A(n))$\\
+\color{gray}\footnotesize
+Intuitiv: Es gibt Probleme, wobei wir einen Lösungsalgorithmus unendlich oft signifikant verbessern können. D.h. macht es keinen Sinn allgemein von einem "Besten Algorithmus" für ein Problem zu reden.
+\color{black}\normalsize
+
+\subsection{O-Notation}
+
+\Def $\mathcal{O}(f(n)) := \{ r: \mathbb{N} \to \mathbb{R}^+ \sep \exists n_0 \in \mathbb{N}, \exists c \in \mathbb{N} \text{ s.d. } \forall n \geq n_0:\quad r(n) \leq c \cdot f(n) \}$\\
+\Def $\Omega(f(n)) := \{ r: \mathbb{N} \to \mathbb{R}^+ \sep \exists n_0 \in \mathbb{N}, \exists c \in \mathbb{N} \text{ s.d. } \forall n \geq n_0:\quad r(n) \geq \frac{1}{c}\cdot f(n) \}$\\
+\Def $\Theta(f(n)) := \mathcal{O}(f(n))\ \cap\ \Omega(f(n))$\\
+\Def $\text{o}(f(n)) := \{ r: \mathbb{N} \to \mathbb{R}^+ \sep \underset{n \to \infty}{\lim} \frac{r(n)}{f(n)} = 0\}$\\
+\color{gray}\footnotesize
+Intuitiv: $f$ wächst asymptotisch schneller als $r$.
+\color{black}\normalsize
+
+\subsection{Komplexitätsklassen}
+$f,g: \mathbb{N} \to \mathbb{R}^+$
+
+\begin{multicols}{2}
+\Def $\textbf{TIME}(f) := \{ L(M) \sep M \text{ s.d. } \text{Time}_M(n) \in \mathcal{O}(f(n)) \}$\\
+\Def $\textbf{SPACE}(f) := \{ L(M) \sep M \text{ s.d } \text{Space}_M(n) \in \mathcal{O}(f(n))) \}$\\
+\Def $\textbf{P} := \underset{c \in \mathbb{N}}{\bigcup} \text{TIME}(n^c)$\\
+\Def $\textbf{PSPACE} := \underset{c \in \mathbb{N}}{\bigcup} \text{SPACE}(n^c)$\\
+\Def $\textbf{EXPTIME} := \underset{d \in \mathbb{N}}{\bigcup} \text{TIME}(2^{n^d})$
+\end{multicols}
+
+\begin{multicols}{2}
+
+\Lemma $\forall t: \mathbb{N} \to \mathbb{R}^+:\quad \text{TIME}(t(n)) \subseteq \text{SPACE}(t(n))$
+
+\Lemma DLOG $\subseteq$ P $\subseteq$ PSPACE $\subseteq$ EXPTIME
+  
+\end{multicols}
+
+TODO: Konstruierbarkeit
+
+\subsection{Nicht-deterministische Komplexität}
+$M :=$ Nicht deterministische (M)TM. $C = C_1\ldots C_m$ ist eine akzeptierende Berechnung auf $x$.
+
+\Def $\textbf{Time}_M(x) := $ Länge kürzester akzept. Berechnung für $x$.\\
+\Def $\textbf{Time}_M(n) := \max(\{ \text{Time}_M(x) \sep x \in L(M) \land |x|=n \} \cup \{0\})$
+
+\Def $\textbf{Space}_M(C) := \max\{ \text{Space}_M(C_i) \sep i \leq m \}$\\
+\Def $\textbf{Space}_M(x) := \min\{ C \sep C \text{ akzeptiert } x \}$\\
+\Def $\textbf{Space}_M(n) := \max(\{ x \in L(M) \land |x|=n\} \cup \{0\})$
+
+\Def \textbf{Kompelxitätsklassen}: \textbf{NTIME}, \textbf{NSPACE}, \textbf{NLOG}, \textbf{NP}, \textbf{NSPACE} analog zur detereministischen Definition. 
+
+
+\newpage
+\subsection{NP-Vollständigkeit}
+Unter der Annahme: $P \subsetneq NP$, kann man Beweise der Form $L \notin P$ machen.
+
+\Def \textbf{Polynomielle Reduzierbarkeit}\\
+$L_1 \leqp L_2 \iffdef \exists \text{ polynomielle } M \text{ s.d. } \forall x \in (\Sigma_1)^*:\quad x \in L_1 \iff M(x) \in L_2$\\
+\color{gray}\footnotesize
+Intuitiv: EE-Reduktion, muss aber polynomielle Zeitkomplexität haben.
+\color{black}\normalsize
+
+\begin{multicols}{2}
+
+\Def \textbf{NP-Schwer} $L$ s.d. $\forall L' \in \text{NP}: L' \leqp L$\\
+\color{gray}\footnotesize
+$L$ NP-Schwer bedeutet \textit{nicht}, dass $L$ in NP ist.
+\color{black}\normalsize
+
+\Def \textbf{NP-Vollständigkeit} $L$ s.d. $L \in \text{NP}$ und NP-Schwer
+  
+\end{multicols}
+
+\Lemma $\exists L:\ L \in \text{P} \land \text{NP-Schwer} \implies \text{P} = \text{NP}$\\
+\color{gray}\footnotesize
+Ein NP-Schweres Problem polynomiell zu lösen beutet alle NP-Probleme polynomiell zu lösen.
+\color{black}\normalsize
+
+\Lemma $L_1 \leqp L_2 \implies\quad ( L_1 \text{ NP-schwer } \implies L_2 \text{ NP-schwer} ) $\\
+\color{gray}\footnotesize
+D.h. Mit P-Reduktionen kann man beweisen, dass $L_2$ NP-Schwer ist.
+\color{black}\normalsize
+
+\Def $\textbf{SAT} := \{ x \in (\Sigma_\text{logic})^* \sep x \text{ kodiert erfüllbare Formel in KNF} \}$
+
+\Theorem \textbf{(Cook)} SAT ist NP-vollständig.\\
+\color{gray}\footnotesize
+Der Beweis ist sehr lang. Im Endeffekt bedeutet dies, Boole'sche Formeln sind enorm ausdrucksstark.
+\color{black}\normalsize
+
+\subsection{Klausel-Formeln}
+Nützliche Gleichungen für Beweise mit KNF-Formeln
+
+
+
+
+\end{document}
