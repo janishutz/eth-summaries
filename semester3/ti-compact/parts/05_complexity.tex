@@ -157,3 +157,27 @@ If we combine some of the above results, we get:
 \inlinetheorem $VP = NP$
 
 \subsection{NP-Completeness}
+\fancydef{Polynomial Reduction} $L_1 \leq_p L_2$, if there exists polynomial TM $A$ with $x \in L_1 \Leftrightarrow A(x) \in L_2$.
+$A$ is called a polynomial reduction of $L_1$ into $L_2$
+
+\begin{definition}[]{$NP$-Hard and $NP$-Complete}
+    A language $L$ is called $NP$-hard, if for all $L' \in NP$, we have $L' \leq_p L$
+
+    A language $L$ is called $NP$-complete, if it is $NP$-hard and and $L \in NP$
+\end{definition}
+
+\inlinelemma If $L \in P$ and $L$ is $NP$-hard, then $P = NP$
+
+\fancydef{Cook} $SAT$ is $NP$-complete
+
+\inlinelemma If $L_1 \leq_p L_2$ and $L_1$ is $NP$-hard, then $L_2$ is $NP$-hard
+
+A few languages commonly used to show $NP$-completeness:
+\begin{itemize}
+    \item $SAT = \{ \Phi \divides \Phi \text{ is a satisfiable formula in CNF} \}$
+    \item $\text{CLIQUE} = \{ (G, k) \divides G \text{ is an undirected graph that contains a $k$-clique } \}$
+    \item $VC = \{ (G, k) \divides G \text{ is an undirected graph with a vertex cover of size $\leq k$ } \}$
+    \item $3SAT = \{ \Phi \divides \Phi \text{ is a satisfiable formula in CNF with all clauses containing \textit{at most} three literals} \}$
+\end{itemize}
+where a clique is \TODO Add.
+and a vertex cover is any set $U \subseteq V$ where all edges $\{ u, v \} \in E$ have at least one endpoint $u, v \in U$
