@@ -84,7 +84,7 @@
             
         \vspace{0.5cm}
         \LARGE
-        Formelsammlung
+        Cheat Sheet
             
         \vspace{1.5cm}
 
@@ -92,9 +92,7 @@
             
         \vfill
         \small\begin{multicols}{2}
-
             \tableofcontents
-            Anmerkung: \textit{Unterkapitel-Nummern entsprechen nicht dem Buch}
         \end{multicols}\normalsize
             
         \vspace{0.8cm}
@@ -104,7 +102,7 @@
     Der Sinn dieses Dokuments ist, alle Resultate und Definitionen schnell auffindbar an einem Ort zu haben, z.B. für Hausaufgaben. Dieses Dokument ist keine Zusammenfassung, enthält aber einige Kommentare und Intuitive Erläuterungen (\color{gray}Text in grau\color{black}).\\
     Gute ausführliche Zusammenfassungen existieren bereits: z.B. die von Nicolas Wehrli, auf Community Solutions.
 
-    Wie immer: Keine Garantie auf Komplettheit oder Korrektheit.
+    Wie immer: Keine Garantie auf Komplettheit (primär Inhalt für HS$25$ Mid/Enterm) oder Korrektheit.
     \vspace{0.5cm}
     
     Robin Bacher\\
@@ -113,12 +111,13 @@
     ETH Zürich, HS25\\\\
     \small
     Basierend auf:\\
-    Theoretische Informatik, J. Hromkovic
+    Theoretische Informatik, J. Hromkovic\\
+    TheoInf Summary, N. Wehrli
 \end{titlepage}
 
-% Start at Chap. 2 to match Book 
-\setcounter{section}{1}
 \section{Formale Sprachen}
+
+Grundlage, nötig für die Formalisierung von Algorithmen.
 
 \begin{multicols}{2}
 
@@ -157,9 +156,6 @@ Kon ist assoziativ
 
 \Def \textbf{Kanonische Ordnung} von $\Sigma^*$: Sei $<$ eine Ordnung über $\Sigma$. $u,v \in \Sigma^*$. $x, u', v' \in \Sigma^*$ und $i < j$.
 $$ u < v \iff |u| < |v| \quad \lor \quad |u| = |v| \land u = x \cdot s_i \cdot u' \land v =  x \cdot s_j \cdot v'$$
-\scriptsize
-\textit{(Das ist die lexikographische Ordnung bekannt aus DM)}
-\normalsize
 
 \begin{multicols}{2}
 
@@ -177,6 +173,7 @@ $$ u < v \iff |u| < |v| \quad \lor \quad |u| = |v| \land u = x \cdot s_i \cdot u
 $$L_1L_2 \cup L_1L_3 = L_1(L_2 \cup L_3)$$
 
 \subsection{Algorithmische Probleme}
+TODO
 
 \subsection{Kolmogorov Komplexität}
 Ziel: Komprimierung von Wörtern, Schliessen auf Informationsdichte basierend auf Komprimierbarkeits-schwierigkeit.
@@ -202,26 +199,20 @@ Intuitiv: Es existieren unkomprimierbare $w$ jeder Länge.
 
 \end{multicols}
 
-\footnotesize
-\textit{Formalisierung der Zufälligkeit}\\
-\normalsize
+\subsection{Anwendungen der Kolmogorov Komplexität}
+
 \Def \textbf{Zufällig} $\iffdef x \in \bool^*$ erfüllt $K(x) \geq |x|$\\
 $n \geq 0$ ist zufällig $\iffdef K(n) = K(\text{Bin}(n)) \geq \lceil \log_2(n+1) \rceil - 1$\\
 \scriptsize\color{gray}
-Diese Definition hat nichts mit dem Zufallsbegriff aus der Wahrscheinlichkeit zu tun, hier geht es um den Informationsgehalt.
+Diese Definition hat intuitiv nichts mit dem Zufallsbegriff aus der Wahrscheinlichkeit zu tun, hier geht es um den Informationsgehalt.
 \normalsize\color{black}
 
-\footnotesize
-\textit{Verbindung: Entscheidungsprobleme und Komplexität}\\
-\normalsize
 \Theorem \textbf{(2.2)} $\exists \text{ Programmm } A_L  \text{ welches } (\bool, L) \text{ löst } \implies \forall n \geq 1: K(z_n) \leq \lceil \log_2(n+1) \rceil + c$\\
 \footnotesize\color{gray}
-$L \subset \bool^*$. $z_n := n$-tes Wort bzgl. kan. Ordnung. $(\bool, L)$ ist ein Entscheidungsproblem.
+$L \subset \bool^*$. $z_n := n$-tes Wort bzgl. kan. Ordnung. $(\bool, L)$ ist ein Entscheidungsproblem.\\
+Vereinfacht häufig Beweise zur Kolmogorov Komplexität stark.
 \normalsize\color{black}
 
-\footnotesize
-\textit{Primzahlverteilung}\\
-\normalsize
 \Theorem $\underset{n \to \infty}{\lim} \frac{\text{Prim}(n)}{n / \ln(n)} = 1$\\
 \scriptsize\color{gray}
 Prim$(x) :=$ Anzahl Primzahlen kleiner $x$. Intuitiv: Anzahl Primzahlen wächst gleich schnell wie Anzahl Zahlen.
@@ -413,6 +404,11 @@ D.h. $\lnot(L(A) = L(B) \implies A, B$ äquivalent$)$.
 
 \end{multicols}
 
+\Theorem \textbf{(Church'sche These)} Turing-Maschinen formalisieren tatsächlich das intuitive Konzept "Algorithmus".\\
+\color{gray}\footnotesize
+Paraphrasiert, bedeutet dass das Modell der TMs (vermutlich) alle möglichen Algorithmen abbildet.
+\color{black}\normalsize
+
 
 \subsection{Mehrband Turing-Maschinen}
 
@@ -444,6 +440,8 @@ D.h. es existiert immer eine äquivalente Maschine im jeweils anderen Modell.
 
 \subsection{Nicht-deterministische TMs}
 
+Definitionen analog zu TMs, $w \in L(\text{NTM})$ falls \textit{irgendeine} akzeptierende Berechnung existiert.
+
 \Theorem $\forall $ NTM $M: \exists$ TM $A$ s.d.
 \begin{enumerate}
   \item $L(M) = L(A)$
@@ -456,10 +454,16 @@ D.h. auch NTMs sind konzeptuell äquivalent zu regulären TMs.
 
 \subsection{Sprach-Klassen}
 
+Relevant für Kapitel $5$.
+
 \Def \textbf{Rekursiv aufzählbar} $\Lre := \{ L(M) \sep M \text{ ist TM } \}$
 
 \Def \textbf{Rekursiv entscheidbar} $\Lr := \{ L(M) \sep M \text{ ist TM, hält immer } \}$
 
+\Lemma $L \in \Lre \land L^\comp \in \Lre \iff L \in \Lr$\\
+\color{gray}\footnotesize
+Sehr nützlich für Beweise der Form $L \notin \Lre$.
+\color{black}\normalsize
 
 \newpage
 
@@ -467,6 +471,7 @@ D.h. auch NTMs sind konzeptuell äquivalent zu regulären TMs.
 Methoden zur Klassifizierung Algorithmischer Lösbarkeit.
 
 \subsection{Diagonalisierung}
+DM Repetition.
 
 \begin{multicols}{2}
 
@@ -518,11 +523,17 @@ D.h. Es existiert eine TM $M$, die eine Abbildung $f_M$ darstellt, mit welcher m
 
 \begin{multicols}{2}
 
-\Lemma $L_1 \leqee L_2 \implies L_1 \leqr L_2$
+\Lemma $L_1 \leqee L_2 \implies L_1 \leqr L_2$\\
+\color{gray}\footnotesize
+Gilt nicht umgekehrt!
+\color{black}\normalsize
 
 \Lemma $\leqee$ ist Transitiv.
 
-\Lemma $\forall L \subseteq \Sigma^*: L \leqr L^\comp\ \land\ L^\comp \leqr L$
+\Lemma $\forall L \subseteq \Sigma^*: L \leqr L^\comp\ \land\ L^\comp \leqr L$\\
+\color{gray}\footnotesize
+Also $L \in \Lr \iff L^\comp \in \Lr$
+\color{black}\normalsize
 
 \Lemma $\mathcal{L}_\text{R} \subsetneq \mathcal{L}_\text{RE}$
 
@@ -530,7 +541,10 @@ D.h. Es existiert eine TM $M$, die eine Abbildung $f_M$ darstellt, mit welcher m
 
 $L_\text{U} := \{ \text{Kod}(M)\#w \sep w \in \bool^* \land w \in L(M) \}$
 
-\Theorem $L_\text{U} \in \mathcal{L}_\text{RE}$ aber $L_\text{U} \notin \mathcal{L}_\text{R}$
+\Theorem $L_\text{U} \in \mathcal{L}_\text{RE}$ aber $L_\text{U} \notin \mathcal{L}_\text{R}$\\
+\color{gray}\footnotesize
+D.h. man kann nicht (in endlicher Zeit) prüfen, ob $M$ ein Wort $w$ akzeptiert.
+\color{black}\normalsize
 
 \newcolumn
 
@@ -666,6 +680,10 @@ $M :=$ Nicht deterministische (M)TM. $C = C_1\ldots C_m$ ist eine akzeptierende 
 
 \Def \textbf{Kompelxitätsklassen}: \textbf{NTIME}, \textbf{NSPACE}, \textbf{NLOG}, \textbf{NP}, \textbf{NSPACE} analog zur detereministischen Definition. 
 
+\Theorem \textbf{NP} $=$ \textbf{VP} (Polynomielle Verifizierer)\\
+\color{gray}\footnotesize
+D.h. ein polynomieller Verifizierer für $L$ beweist direkt, dass $L$ in \textbf{NP} ist.
+\color{black}\normalsize
 
 \newpage
 \subsection{NP-Vollständigkeit}
@@ -705,10 +723,27 @@ D.h. Mit P-Reduktionen kann man beweisen, dass $L_2$ NP-Schwer ist.
 Der Beweis ist sehr lang. Im Endeffekt bedeutet dies, Boole'sche Formeln sind enorm ausdrucksstark.
 \color{black}\normalsize
 
+Weitere NP-Schwere Probleme: SAT-Variationen (3SAT, E3SAT), Clique, Vertex-Cover, Dominating Sets
+
 \subsection{Klausel-Formeln}
 Nützliche Gleichungen für Beweise mit KNF-Formeln
 
+\newpage
+\section{Grammatiken}
+Wurden in HS25 nur kurz angesprochen.
 
+\Def \textbf{Grammatik} $G := (\Sigma_\text{N}, \Sigma_\text{T}, P , S)$
 
+\begin{tabular}{ll}
+  \textbf{Nicht-Terminale} & $\Sigma_\text{N}$ \\
+  \textbf{Terminale}       & $\Sigma_\text{T}$ \\
+  \small
+  s.d. $ \Sigma_\text{N} \cap \Sigma_\text{T} = \emptyset$ &\\
+  \normalsize
+  \textbf{Startsymbol}     & $S \in \Sigma_\text{N}$ \\
+  \textbf{Ableitungsregeln} & $P \subseteq \Sigma^*\Sigma_\text{N}\Sigma^* \times \Sigma^*$
+\end{tabular}
+
+Wobei $\Sigma := \Sigma_\text{N} \cup \Sigma_\text{T}$
 
 \end{document}
