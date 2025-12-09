@@ -179,7 +179,10 @@ A few languages commonly used to show $NP$-completeness:
     \item $VC = \{ (G, k) \divides G \text{ is an undirected graph with a vertex cover of size $\leq k$ } \}$
     \item $3SAT = \{ \Phi \divides \Phi \text{ is a satisfiable formula in CNF with all clauses containing \textit{at most} three literals} \}$
 \end{itemize}
-where a clique is \TODO Add.
+where a $k$-clique is a complete subgraph consisting of $k$ vertices in $G$, with $k \leq |V|$.
 and a vertex cover is any set $U \subseteq V$ where all edges $\{ u, v \} \in E$ have at least one endpoint $u, v \in U$
 
-We have $SAT \leq_p \text{CLIQUE}$, $SAT \leq 3SAT$, $\text{CLIQUE} \leq VC$
+We have $SAT \leq_p \text{CLIQUE}$, $SAT \leq_p 3SAT$, $\text{CLIQUE} \leq_p VC$
+
+Additionally, $\text{MAX-SAT}$ and $\text{MAX-CL}$, the problem to determine the maximum number of fulfillable clauses in a formula $\Phi$
+and the problem to determine the maximum clique, respectively, are $NP$-hard

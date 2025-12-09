@@ -39,9 +39,9 @@ Since $M$ is a Turing Machine in the canonical ordering of all Turing Machines, 
 
 This however leads to a contradiction, as $w_i \in L_\text{diag} \Longleftrightarrow d_{ii} = 0 \Longleftrightarrow w_i \notin L(M_i)$.
 
-In other words, $w_i$ is in $L_\text{diag}$ if and only if $w_i$ is not in $L(M_i)$, which contradicts our statement above, in which we assumed that $L_\text{diag} \in \cL_{RE}$
+In other words, $w_i$ is in $L_\text{diag}$ if and only if $w_i$ is not in $L(M_i)$, which contradicts our statement above, in which we assumed that $L_\text{diag} \in \cL_{RE}$.
 
-In other, more different, words, $w_i$ being in $L_\text{diag}$ implies (from the definition) that $d_{ii} = 0$, which from its definition implies that $w_i \notin L(M_i)$
+In other, more different, words, $w_i$ being in $L_\text{diag}$ implies (from the definition) that $d_{ii} = 0$, which from its definition implies that $w_i \notin L(M_i)$.
 
 \setLabelNumber{theorem}{3}
 \inlinetheorem $L_\text{diag} \notin \cL_{RE}$
@@ -50,7 +50,12 @@ In other, more different, words, $w_i$ being in $L_\text{diag}$ implies (from th
 
 
 \subsection{Reductions}
-This is the start of the topics that are part of the endterm.
+\label{sec:reductions}
+This is the start of the topics that are explicitly part of the endterm.
+
+For a language to be in $\cL_R$, in contrast to $L \in \cL_{RE}$, the TM has to halt also for \texttt{no} instances, i.e. it has to be an algorithm.
+In other words: A TM $A$ can enumerate all valid strings of a \textit{recursively enumerable language} ($L \in \cL_{RE}$),
+where for \textit{recursive languages}, it has to be able to difinitively answer for both \texttt{yes} and \texttt{no} and thus halt in finite time for both.
 
 First off, a list of important languages for this and the next section:
 \begin{itemize}
