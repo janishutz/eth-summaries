@@ -9,6 +9,11 @@ and repeat until we only have the new symbol, at which point we accept, or there
 
 The Turing Machines have an accepting $\qacc$ and a rejecting state $\qrej$ and a configuration is an element of
 $\{ \{ \cent \}\cdot \Gamma^* \cdot Q \cdot \Gamma^+ \cup Q \cdot \{ \cent \} \cdot \Gamma^+ \}$ with $\cdot$ being the concatenation and $\cent$ the marker of the start of the band.
+\rmvspace
+\begin{align*}
+    \cL_{RE} & = \{ L(M) \divides M \text{ is a TM} \}\\
+    \cL_R    & = \{ L(M) \divides M \text{ is a TM and it always halts} \}
+\end{align*}
 
 
 \subsection{Multi-tape TM and Church's Thesis}

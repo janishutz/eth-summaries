@@ -175,14 +175,19 @@ $A$ is called a polynomial reduction of $L_1$ into $L_2$
 A few languages commonly used to show $NP$-completeness:
 \begin{itemize}
     \item $SAT = \{ \Phi \divides \Phi \text{ is a satisfiable formula in CNF} \}$
+    \item $3SAT = \{ \Phi \divides \Phi \text{ is a satisfiable formula in CNF with all clauses containing \textit{at most} three literals} \}$
     \item $\text{CLIQUE} = \{ (G, k) \divides G \text{ is an undirected graph that contains a $k$-clique } \}$
     \item $VC = \{ (G, k) \divides G \text{ is an undirected graph with a vertex cover of size $\leq k$ } \}$
-    \item $3SAT = \{ \Phi \divides \Phi \text{ is a satisfiable formula in CNF with all clauses containing \textit{at most} three literals} \}$
+    \item $SCP = \{ (X, \cS, k) \divides X \text{ has a set cover $\cC \subseteq \cS$ such that  $|\cC| \leq k$ } \}$
+    \item $DS = \{ (G, k) \divides G \text{ has a dominating set $D$ such that } |D| \leq k \}$
 \end{itemize}
-where a $k$-clique is a complete subgraph consisting of $k$ vertices in $G$, with $k \leq |V|$.
-and a vertex cover is any set $U \subseteq V$ where all edges $\{ u, v \} \in E$ have at least one endpoint $u, v \in U$
+where a $k$-clique is a complete subgraph consisting of $k$ vertices in $G$, with $k \leq |V|$;
+where a subset $\cC \subseteq \cS$ is a \textit{set cover} of $X$ if $X = \bigcup_{S \in \cC}$;
+where a \textit{dominating} set is is a set $D \subseteq V$ such that for every vertex $v \in V$, $v \in D$ or exists $w \in D$ such that $\{ v, w \} \in E$
+and where a vertex cover is any set $U \subseteq V$ where all edges $\{ u, v \} \in E$ have at least one endpoint $u, v \in U$
 
-We have $SAT \leq_p \text{CLIQUE}$, $SAT \leq_p 3SAT$, $\text{CLIQUE} \leq_p VC$
+We have $SAT \leq_p \text{CLIQUE}$, $SAT \leq_p 3SAT$, $\text{CLIQUE} \leq_p VC$, $VC \leq_p SCP$ and $SCP \leq_p DS$.
+Logically, we also have $SAT \leq_p DS$, etc, since $\leq_p$ is transitive (in fact, all reductions are transitive)
 
 Additionally, $\text{MAX-SAT}$ and $\text{MAX-CL}$, the problem to determine the maximum number of fulfillable clauses in a formula $\Phi$
 and the problem to determine the maximum clique, respectively, are $NP$-hard

@@ -22,6 +22,9 @@ The following objects are uncountable: $[0, 1]$, $\R$, $\cP(\wordbool)$
 
 \inlinecorollary $|\text{KodTM}| < |\cP(\wordbool)|$ and thus there exist infinitely many not recursively enumerable languages over $\alphabetbool$
 
+\setLabelNumber{theorem}{3}
+\inlinetheorem $L_\text{diag} \notin \cL_{RE}$
+
 \fhlc{Cyan}{Proof of $L$ (not) recursively enumerable}
 
 Proving that a language \textit{is} recursively enumerable is as difficult as providing a Turing Machine that accepts it.
@@ -43,12 +46,26 @@ In other words, $w_i$ is in $L_\text{diag}$ if and only if $w_i$ is not in $L(M_
 
 In other, more different, words, $w_i$ being in $L_\text{diag}$ implies (from the definition) that $d_{ii} = 0$, which from its definition implies that $w_i \notin L(M_i)$.
 
-\setLabelNumber{theorem}{3}
-\inlinetheorem $L_\text{diag} \notin \cL_{RE}$
+\drmvspace
+\proven
+
+
+Another result (not formally proven in the script, but there is a proof by intimidation) that can come in useful, especially when trying to show $L \notin \cL_{RE}$ is:
+\rmvspace
+\begin{align*}
+    L, L^C \in \cL_{RE} \Longleftrightarrow L \in \cL_R
+\end{align*}
+
+\drmvspace
+Additionally, as a reminder, $\cL_{RE} = \{ L(M) \divides M \text{ is a TM} \}$, so to prove that a language $L \notin \cL_{RE}$,
+we only need to show that there exists no TM $M$, for which $L(M) \in \cL_{RE}$.
+
+
 
 % ────────────────────────────────────────────────────────────────────
 
 
+\newpage
 \subsection{Reductions}
 \label{sec:reductions}
 This is the start of the topics that are explicitly part of the endterm.
@@ -70,7 +87,7 @@ First off, a list of important languages for this and the next section:
     \item $L_{H, \lambda} = \{ \text{Kod}(M) \divides M \text{ halts on } \lambda \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
 \end{itemize}
 
-\newpage
+
 \setLabelNumber{definition}{3}
 \fancydef{Recursively reducible languages} $L_1 \leq_R L_2$ ($L_1$ reducible into $L_2$), if $L_2 \in \cL_R \Rightarrow L_1 \in \cL_R$
 
@@ -138,7 +155,6 @@ given that the transformed word is also in $L_2$.
 % ────────────────────────────────────────────────────────────────────
 
 
-\newpage
 \subsection{Rice's Theorem}
 \setLabelNumber{definition}{7}
 \inlinedef $L$ is called a \bi{semantically non-trivial decision problem}, if these conditions apply:
@@ -157,13 +173,6 @@ For the third condition, intuitively, we only need to check if in the definition
 or the condition can be restated such that only $L(M)$ is described by it.
 
 For a more formal proof of that condition, simply show that the implication holds
-
-
-Another result (not formally proven in the script, but there is a proof by intimidation) that can come in useful, especially when trying to show $L \notin \cL_{RE}$ is:
-\rmvspace
-\begin{align*}
-    L, L^C \in \cL_{RE} \Longleftrightarrow L \in \cL_R
-\end{align*}
 
 
 \stepcounter{subsection}
