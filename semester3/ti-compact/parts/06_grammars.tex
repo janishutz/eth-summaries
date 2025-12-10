@@ -1,0 +1,27 @@
+\newsection
+\section{Grammars}
+\fancydef{Grammar} $G := (\Sigma_\text{N}, \Sigma_\text{T}, P, S)$
+
+\begin{enumerate}[noitemsep]
+    \item \bi{Non-Terminals} $\Sigma_\text{N}$ (Are used for the rules)
+    \item \bi{Terminals} $\Sigma_\text{T}$ (The symbols at the end (i.e. only they can be remaining after the last derivation))
+    \item \bi{Start symbol} $S \in \Sigma_\text{N}$
+    \item \bi{Derivation rules} $P \subseteq \Sigma^*\Sigma_\text{N}\Sigma^* \times \Sigma^*$
+\end{enumerate}
+where $\Sigma_\text{N} \cap \Sigma_\text{T} = \emptyset$ and $\Sigma := \Sigma_\text{N} \cup \Sigma_\text{T}$
+
+\begin{definition}[]{Types of grammars}
+    \begin{enumerate}
+        \item $G$ is a \bi{Type-0-Grammar} if it has no further restrictions.
+        \item $G$ is a \bi{Type-1-Grammar} (or \bi{context-sensitive} (= Kontextsensitiv) Grammar) if we cannot replace a subword $\alpha$ with a shorter subword $\beta$.
+        \item $G$ is a \bi{Type-2-Grammar} (or \bi{context-free} (= Kontextfrei) Grammar) if all rules have the form $X \rightarrow \beta$ for a non-terminal $X$.
+        \item $G$ is a \bi{Type-3-Grammar} (or \bi{regular} (= regulär) Grammar) if all rules have the form $X \rightarrow u$ or $X \rightarrow uY$
+    \end{enumerate}
+\end{definition}
+A few examples to highlight what kind of derivation rules are allowed. The rules disallowed in $n$ are also disallowed in $n + 1$:
+\begin{enumerate}
+    \item All kind of rules are allowed
+    \item Rules like $X \rightarrow \lambda$ or $0Y1 \rightarrow 00$ are not allowed (they shorten the output)
+    \item Rules like $aA \rightarrow Sb$ are not allowed, as they are not context-free (i.e. all rules have to be of form $X \rightarrow \ldots$)
+    \item Rules like $S \rightarrow abbAB$ are not allowed, as two non-terminals appear
+\end{enumerate}
