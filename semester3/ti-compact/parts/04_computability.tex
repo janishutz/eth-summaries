@@ -70,6 +70,10 @@ we only need to show that there exists no TM $M$, for which $L(M) \in \cL_{RE}$.
 \label{sec:reductions}
 This is the start of the topics that are explicitly part of the endterm.
 
+For the reductions, it is important to get the order right.\\
+To show that a language $L_1$ is not part of e.g. $\cL_R$, show that there exists a reduction into a language $L_2 \notin \cL_R$, i.e. e.g. show $L_2 \leq_R L_1$.\\
+To show that a language $L_1$ is part of e.g. $\cL_R$, show that there exists a reduction into a language $L_2 \in \cL_R$, i.e. e.g. show $L_1 \leq_R L_2$.
+
 For a language to be in $\cL_R$, in contrast to $L \in \cL_{RE}$, the TM has to halt also for \texttt{no} instances, i.e. it has to be an algorithm.
 In other words: A TM $A$ can enumerate all valid strings of a \textit{recursively enumerable language} ($L \in \cL_{RE}$),
 where for \textit{recursive languages}, it has to be able to difinitively answer for both \texttt{yes} and \texttt{no} and thus halt in finite time for both.
