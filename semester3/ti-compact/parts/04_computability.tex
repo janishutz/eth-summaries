@@ -84,12 +84,15 @@ First off, a list of important languages for this and the next section:
     \item $L_H = \{ \text{Kod}(M)\# x \divides x \in \wordbool \text{ and TM $M$ halts on } x \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
     \item $L_{\text{diag}} = \{ w \in \wordbool \divides w = w_i \text{ for an } i \in \N - \{ 0 \} \text{ and $M_i$ does not accept } w_i \}$ ($\notin \cL_{RE}$ and thus $\notin \cL_R$)
     \item $(L_{\text{diag}})^C$ ($\in \cL_{RE}$, but $\notin \cL_R$)
-    \item $L_{EQ} = \{ \text{Kod}(M)\# \text{Kod}(\overline{M}) \divides L(M) = L(\overline{M}) \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
+    \item $L_{EQ} = \{ \text{Kod}(M)\# \text{Kod}(\overline{M}) \divides L(M) = L(\overline{M}) \}$ ($\notin \cL_{RE}$, and thus $\notin \cL_R$)
+    \item $(L_{EQ})^C = \{ \text{Kod}(M)\# \text{Kod}(\overline{M}) \divides L(M) \neq L(\overline{M}) \}$ ($\notin \cL_{RE}$, and thus $\notin \cL_R$)
     \item $\lempty = \{ \text{Kod}(M) \divides L(M) = \emptyset \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
     \item $(\lempty)^C = \{ x \in \wordbool \divides x \notin \text{Kod}(\overline{M}) \forall \text{ TM } \overline{M} \text{ or } x = \text{Kod}(M) \text{ and } L(M) \neq \emptyset \}$
           ($\in \cL_{RE}$, but $\notin \cL_R$)
     \item $L_{H, \lambda} = \{ \text{Kod}(M) \divides M \text{ halts on } \lambda \}$ ($\in \cL_{RE}$, but $\notin \cL_R$)
 \end{itemize}
+An important consequence of the fact that both $L_{EQ}$ and its complement are $\notin \cL_{RE}$ is that it is not guaranteed
+for a language's complement to \textit{necessarily} be in $\cL_{RE}$, if the language is not.
 
 
 \setLabelNumber{definition}{3}
