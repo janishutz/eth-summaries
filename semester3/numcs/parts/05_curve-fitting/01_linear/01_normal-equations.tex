@@ -1,0 +1,39 @@
+\subsubsection{Normalengleichung}
+\setLabelNumber{all}{9}
+\fancydef{Normalengleichung} $A^H Ax = A^H$
+
+\inlineremark $A^H A$ ist Hermite-Symmetrisch, und falls $A$ vollen Rank hat, dannn ist $A^H A$ positiv-definit und die Normalengleichung hat eine eindeutige Lösung.
+Jedoch ist die Normalengleichung schlecht konditioniert (es gilt: $\cond(A^H A) = \cond(A)^2$).
+Für gut konditionierte Matrizen ist dies kein Problem, jedoch ist die Normalengleichung für schlecht konditionierte Matrizen ungeeignet.
+
+
+\inlineremark Man kann die Normalengleichung auch ohne die Berechnung von $A^H A$ berechnen:
+\rmvspace
+\begin{align*}
+    A^H Ax = A^H b
+    \Longleftrightarrow B
+    \begin{bmatrix}
+        r \\ x
+    \end{bmatrix}
+    :=
+    \begin{bmatrix}
+        -I  & A \\
+        A^H & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        r \\ x
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        b \\ 0
+    \end{bmatrix}
+\end{align*}
+
+\drmvspace
+für $r := \frac{1}{a} (Ax - b)$ mit $a > 0$, dann können wir $B$ in obiger Gleichung durch
+$B_a =
+    \begin{bmatrix}
+        -aI & A \\
+        A^H & 0
+    \end{bmatrix}
+$

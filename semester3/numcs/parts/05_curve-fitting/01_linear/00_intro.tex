@@ -1,1 +1,12 @@
 \subsection{Lineare Ausgleichsrechnung}
+Die Ansatz der Methode der kleinsten Quadrate ist (ausgedrückt mit Matrizen) ist $\displaystyle \min_{\hat{x} \in \R^n} ||A\hat{x} - b||^2$ und als Summe:
+\drmvspace
+\begin{align*}
+    (a, c) = \argmin{p \in \R^n, q \in \R} \sum_{i = 1}^{m} |y_i - p^{\top} x_i - q|^2
+\end{align*}
+
+\drmvspace
+Wobei $y_i$ die $y$-Koordinaten der Messpunkte zugehörig zu $x_i$ sind.
+
+\innumpy haben wir die Funktionen \texttt{numpy.polyfit} (um ein Polynom zu fitten), oder die allgemeinere Methode \texttt{numpy.linalg.lstsq}.
+Um eine eindeutige Lösung zu erhalten können wir die Moore-Penrose (eine Art der Pseudoinversen) verwenden, wofür \texttt{numpy.linalg.pinv} und \texttt{numpy.linalg.pinv2} zur Verfügung stehen
