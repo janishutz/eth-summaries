@@ -1,0 +1,54 @@
+\subsubsection{Lösung mittels orthogonaler Transformation}
+Nicht nur die Normalengleichungen, aber auch das LU-Verfahren kann für gewisse Matrizen (im Falle von LU sind es Matrizen mit $m > n$) ungeeignet sein.
+
+Wir versuchen wieder $||r||_2^2$ zu minimieren, mit $r = Ax - b$.
+Mithilfe der $QR$-Zerlegung lässt sich ein Lösungsansatz herleiten, der höhere numerische Stabilität aufweist, als die Normalengleichungen.
+Sei $A = QR = Q \begin{bmatrix}
+        \tilde{R} \\ 0
+    \end{bmatrix}$.
+Dann, nach Umformungen erhalten wir $||Rx - \tilde{b}||_2^2$ mit $\tilde{b} = Q^Hb$.
+
+Nutzt man beispielsweise Housholder-Spiegelungen zur Berechnung der $QR$-Zerlegung, so kann man die Transformationen direkt auf $b$ anwenden
+und so kann man sich das Abspeichern der Matrix $Q$ komplett sparen.
+
+Falls jedoch die Matrix $A$ nicht vollen Rang hat (was sehr oft der Fall ist), dann ist es besser, die Singulärwertzerlegung zu verwenden.
+Dann ist:
+\rmvspace
+\begin{align*}
+    ||Ax - b||_2 = ||U \Sigma V^H x - b||_2 = ||\Sigma V^H x - U^H b||_2
+\end{align*}
+
+\drmvspace
+\innumpy verwendet \texttt{numpy.linalg.lstsq} die SVD für das Lösen
+
+\setLabelNumber{all}{15}
+\fancydef{Pseudoinverse} $A^+ = (A^H A)^{-1} A^H = V_1 \Sigma_r^+ U_1^H$
+
+Die drei bisher besprochenen Verfahren lassen sich in zwei Kategorien einordnen:
+\begin{enumerate}
+    \item $A \in K^{m \times n}$ ist voll besetzt und $n$ ist klein ($m \gg n$)
+    \item $A \in K^{m \times n}$ ist dünn besetzt und $m, n$ sind gross
+\end{enumerate}
+Im ersten Fall wird aufgrund der numerischen Stabilität die $QR$ oder SVD-Methode verwendet.
+Im zweiten Fall verwendet man die Normalengleichungen, da diese die Struktur der dünn besetzten Matrizen verwenden können.
+
+\begin{code}{python}
+import numpy as np
+
+A = np.array([[98.269, 1.0], [0.0, 1.0], [-194.96, 1.0]])
+b = np.array([852.7, 624.5, 172.7])
+
+def least_squares_svd(A, b, epsilon=1e-6):
+    U, s, Vh = np.linalg.svd(A)
+    r = 1 + np.where(s / s[0] > epsilon)[0].max()  # numerical rank
+    y = np.dot(Vh[:r, :].T, np.dot(U[:, :r].T, b) / s[:r])
+    return y
+
+# qr-decomposition:
+def least_squares_qr(A, b):
+    Q, R = np.linalg.qr(A)
+    b_tilde = np.dot(Q.T, b)
+    return np.linalg.solve(R, b_tilde)
+
+np.linalg.lstsq(A, b)
+\end{code}

@@ -1,0 +1,40 @@
+\subsubsection{Totale Ausgleichsrechnung}
+Es kann vorkommen, dass sowohl die Matrix $A$, wie auch der Vektor $b$ fehlerhaft sind.
+Dann ersetzen wir das System $Ax = b$ durch ein neues System $\hat{A}\hat{x} = \hat{b}$,
+welches so nah wie möglich am ursprünglichen System liegt und so für welches gilt $\hat{b} \in \text{Bild}(\hat{A})$.
+
+Wir versuchen also die folgende Norm zu minimieren:
+\begin{align*}
+    ||C - \hat{C}||_F
+    =
+    \left|\left|
+    \begin{bmatrix}
+        A & b
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+        \hat{A} & \hat{b}
+    \end{bmatrix}
+    \right|\right|_F
+\end{align*}
+
+\drmvspace
+Das Problem lässt sich umschreiben als
+\rmvspace
+\begin{align*}
+    \min_{\text{Rang}(\hat{C}) = n} ||C - \hat{C}||_F
+\end{align*}
+
+\drmvspace
+Theorem \ref{all:7-1-50} liefert die Lösung. Die Singulärwertzerlegung
+\rmvspace
+\begin{align*}
+    C = U\Sigma V^H = \sum_{j = 1}^{n + 1} \sigma_j (u)_j (v)_j^H
+\end{align*}
+
+\drmvspace
+gibt das Optimum
+\rmvspace
+\begin{align*}
+    \hat{C} = \sum_{j = 1}^{n} \sigma_j (u)_j (v)_j^H
+\end{align*}
