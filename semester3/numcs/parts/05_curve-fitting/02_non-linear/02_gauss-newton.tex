@@ -1,0 +1,20 @@
+\subsubsection{Gauss-Newton Verfahren}
+Direkt das Newton-Verfahren auf ein Problem anzuwenden kann unmöglich oder schwer praktikabel sein.
+
+Die Idee des Gauss-Newton Verfahrens ist es, die komplizierte Funktion $F(x)$ lokal durch eine lineare Funktion approximiert, also:
+\begin{align*}
+    F(x) \approx F(y) + DF(y) (x - y) = F(y) + DF(y)x - DF(y)y
+\end{align*}
+Falls man $A := DF(y)$ und $b = DF(y)y - F(y)$ definiert, so erhält man ein lineares Ausgleichsproblem:
+\rmvspace
+\begin{align*}
+    \argmin{x \in \R^n} \frac{1}{2} ||F(x)||^2_2 \approx \argmin{x \in \R^n} \frac{1}{2} ||F(y) + DF(y) x||^2_2 = \argmin{x \in \R^n} \frac{1}{2} ||Ax - b||^2_2
+\end{align*}
+
+\drmvspace
+wobei $y$ eine Näherung der Lösung $x$ ist.
+Die Iterationsvorschrift ist gegeben durch:
+\rmvspace
+\begin{align*}
+    x^{(k + 1)} = x^{(k)} - s \smallhspace \text{ mit } s := \argmin{z \in \R^n} ||F(x^{(k)}) - DF(x^{(k)})z||^2_2
+\end{align*}

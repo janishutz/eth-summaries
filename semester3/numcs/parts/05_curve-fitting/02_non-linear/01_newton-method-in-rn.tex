@@ -1,0 +1,15 @@
+\subsubsection{Newton-Verfahren}
+Aus der Analysis ist bekannt, dass für gesuchtes $x \in \R^n$, so dass $\Phi(x)$ minimal ist, eine notwendige Bedingung durch $\text{grad}(\Phi(x)) = 0$ gegeben ist.
+
+Da wir also eine Nullstellensuche in $\R^n$ haben, können wir dies mit dem Newton-Verfahren lösen:
+\rmvspace
+\begin{align*}
+    x^{(k + 1)} = x^{(k)} - (D \text{grad}(\Phi(x)))^{-1}\text{grad}(\Phi(x))
+\end{align*}
+
+\drmvspace
+Da $H_\Phi(x) := D(\text(grad)(\Phi(x)))$ ist, haben wir also:
+\rmvspace
+\begin{align*}
+    x^{(k + 1)} = x^{(k)} - (H_\Phi(x))^{-1}\text{grad}(\Phi(x))
+\end{align*}
