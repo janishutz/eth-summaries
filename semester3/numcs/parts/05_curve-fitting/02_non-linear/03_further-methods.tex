@@ -1,0 +1,20 @@
+\newpage
+\subsubsection{Weitere Methoden: BFGS, GD, SGC, CG, LM, ADAM}
+Für unterschiedliche Probleme können andere Funktionen günstiger oder besser geeignet sein.
+Eine Liste einiger bekannter Methoden:
+\begin{itemize}
+    \item \bi{BFGS} (basiert auf Broyden): $D\Phi(x^{(k)}) = DF(x^{(k)})^\top F(x^{(k)})$, oder günstiger mit $D\Phi(x^{(k)})^\top DF(x^{(k)})s = DF(x^{(k)})^\top F(x^{(k)})$
+    \item \bi{GD} (Gradient Descent): $s = \lambda_k D\Phi(x^{(k)})$ (in ML wird $\lambda_k$ als ``Learning rate'' bezeichnet)
+    \item \bi{LM} (Levenberg-Marquant): wir minimieren $||F(x^{(k)}) + DF(x^{(k)})||^2 + \lambda ||s||^2_2$ (also werden kleine Schritte bevorzugt)
+    \item \bi{CG} (Conjugated Gradient): GD ist sehr langsam, aber auch günstig. Mit höheren Kosten kann durch Wahl von
+          $s = \lambda z^k$ und $z^k = D\Phi(x^{(k)}) + \beta z^(k - 1)$ eine schnellere Konvergenz erreicht werden (Dämpfung)
+    \item \bi{ADAM} Hier werden spezielle $\lambda$ und $\beta$ gewählt und liefert die einfache Iterationen
+          \rmvspace
+          \begin{align*}
+              x^{(k + 1)} & = x^k - \lambda z^k              \\
+              z^{(k + 1)} & = D\Phi(x^{(k)}) + \beta z^{(k)} \\
+          \end{align*}
+\end{itemize}
+
+\drmvspace\drmvspace
+\innumpy gibt es via \texttt{scipy.optimize.leastsq} eine Implementation mit verschiedenen Iterationsmethoden, oder alternativ \texttt{scipy.optimize.minimize}
