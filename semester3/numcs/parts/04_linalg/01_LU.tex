@@ -1,0 +1,23 @@
+\subsubsection{Gauss Elimination / LU Zerlegung}
+
+Das Anwenden der Gauss-Elimintation ergibt die LU-Zerlegung, gegeben durch $A \in \mathbb{R}^{n\times m} = PLU$,
+wobei $U$ eine obere Dreiecksmatrix (die resultierende Matrix der Gauss-Elimintation), $L$ eine untere Dreiecksmatrix (Matrix aller Schritte der Gauss-Elimintation)
+und $P$ eine Permutationsmatrix ist.
+
+\innumpy können wir \texttt{P, L, U = scipy.linalg.lu(A)} (\texttt{Numpy} liefert keine LU-Zerlegung). Mit \texttt{scipy.linalg.lu\_solve(P, L, U)} kann man dann das System lösen.
+Jedoch ist dies nicht sinnvoll, wenn wir die Dreiecksmatrizen gar nicht benötigen. In diesem Fall verwenden wir einfach \texttt{numpy.linalg.solve(A)}
+
+\begin{code}{python}
+    L = np.linalg.solve(A)      # A = L @ L.T
+    y = np.linalg.solve(L, b)
+    x = np.linalg.solve(L.T, y)
+\end{code}
+
+
+\shade{Cyan}{Cholesky Zerlegung} ($A$ ist positiv defefinit und hermetisch)
+
+$A = LDL^H = \underbrace{L\sqrt{D}}_{R^H}\underbrace{\sqrt{D}L^H}_{R} = R^H R$
+
+Diese Zerlegung kann $Ax = b$ potenziell schneller lösen als LU.
+
+\innumpy haben wir via \texttt{scipy.linalg} die Funktionen \texttt{cholesky}, \texttt{cho\_factor} und \texttt{cho\_solve}, wie auch bereits äquivalent für die LU-Zerlegung

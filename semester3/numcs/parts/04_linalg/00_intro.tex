@@ -1,5 +1,45 @@
-% FIXME: Not true anymore!
-Das Skript-Kapitel hierzu existiert nicht. Die Vorlesung orientiert sich an dem äquivalenten Teil des NumCSE Dokuments.
+\subsection{Grundlagen}
+\inlineremark Eine Tabelle mit invertierbaren und nicht invertierbaren Matrizen findet sich unten:
+\begin{tables}{ll}{Invertierbar                                             & Nicht Invertierbar}
+              $A$ ist regulär                                               & $A$ ist singulär                                                  \\
+              Spalten sind linear unabhängig                                & Spalten sind linear abhängig                                      \\
+              Zeilen sind linear unabhängig                                 & Zeilen sind linear abhängig                                       \\
+              $\det(A) \neq 0$                                              & $\det(A) = 0$                                                     \\
+              $Ax = 0$ hat eine Lösung $x = b$                              & $Ax = 0$ hat unendlich viele Lösungen                             \\
+              $Ax = b$ hat eine Lösung $x = A^{-1}b$                        & $Ax = b$ hat keine oder unendlich viele Lösungen                  \\
+              $A$ hat vollen Rang                                           & $A$ hat Rang $r < n$                                              \\
+              $A$ hat $n$ non-zero Pivots                                   & $A$ hat $r < n$ Pivots                                            \\
+              $\text{span}\{A_{:, 1}, \ldots, A_{:, n}\}$ hat Dimension $n$ & $\text{span}\{A_{:, 1}, \ldots, A_{:, n}\}$ hat Dimension $r < n$ \\
+              $\text{span}\{A_{1, :}, \ldots, A_{n, :}\}$ hat Dimension $n$ & $\text{span}\{A_{1, :}, \ldots, A_{n, :}\}$ hat Dimension $r < n$ \\
+              Alle Eigenwerte von $A$ sind nicht Null                       & $0$ ist der Eigenwert von $A$                                     \\
+              $0 \notin \sigma(A) =$ Spektrum von $A$                       & $0 \in \sigma(A)$                                                 \\
+              $A^H A$ ist symmetrisch positiv definit                       & $A^H A$ ist nur semidefinit                                       \\
+              $A$ hat $n$ (positive) Singulärwerte                          & $A$ hat $r < n$ (positive) Singulärwerte                          \\
+\end{tables}
+
+\fancydef{Orthogonale Vektoren} Vektoren $q_1, \ldots, q_n$ heissen \bi{orthogonal}, falls
+\rmvspace
+\begin{align*}
+    q_i^H \cdot q_j = 0 \smallhspace \forall i, j \leq n \text{ with } i \neq j
+\end{align*}
+
+\drmvspace
+Wenn sie zudem normiert sind (also $||q_i||_2 = 1 \smallhspace \forall i \leq n$), dann heissen sie \bi{orthonormal}
+
+\inlineremark In der vorigen Definition wird die \bi{Euklidische Norm} $||q||_2^2 = q^H \cdot q$ verwendet
+
+\setLabelNumber{all}{7}
+\fancyremark{Rotationen} Die Rotationsmatrix für eine Rotation um Winkel $\theta$ ist gegeben durch:
+\rmvspace
+\begin{align*}
+    R_\theta =
+    \begin{bmatrix}
+        \cos(\theta) & 0 & -\sin(\theta) \\
+        0            & 1 & 0             \\
+        \sin(\theta) & 0 & \cos(\theta)
+    \end{bmatrix}
+\end{align*}
+
 
 \textbf{Perturbierte LGS}
 
@@ -9,22 +49,6 @@ $\text{cond}(A) := \left\lvert\left\lvert A^{-1} \right\rvert\right\rvert \cdot 
 
 $\text{cond}(A) \gg 1$ bedeutet intuitiv: kleine Änderung der Daten $\mapsto$ grosse Änderung in der Lösung
 
-\textbf{Gauss Elimination / LU Zerlegung}
-
-$A \in \mathbb{R}^{n\times m} = PLU$ wie bekannt.
-
-\textbf{Cholesky Zerlegung} ($A$ pos. def. und hermitesch)
-
-$A = LDL^\top = \underbrace{L\sqrt{D}}_{R^\top}\underbrace{\sqrt{D}L^\top}_{R} = R^\top R$
-
-Kann $Ax = b$ potenziell schneller lösen als LU.
-
-\begin{code}{python}
-    L = np.linalg.solve(A)      # A = L @ L.T
-    y = np.linalg.solve(L, b)
-    x = np.linalg.solve(L.T, y)
-\end{code}
-
 \textbf{Grosse Matrizen}
 
 Passen oft nicht (direkt) in den Speicher: effizientere Speicherung nötig, möglich für z.B. Diagonalmatrizen, Dreiecksmatrizen. Auch für Cholesky möglich.
@@ -33,9 +57,9 @@ Passen oft nicht (direkt) in den Speicher: effizientere Speicherung nötig, mög
 
 $\text{nnz}(A) := |\{ (i,j) \ |\ a_{ij} \in A, a_{ij} \neq 0 \}| \ll m\cdot n$
 
-$\underset{l \to \infty}{\lim} \frac{\text{nnz}(A^{(l)})}{n_l m_l} = 0$
+$\limit{l}{\infty} \frac{\text{nnz}(A^{(l)})}{n_l m_l} = 0$
 
-Einfacher zu speichern: \verb|val, col, row| vektoren s.d. \verb|val[k]| $ = a_{ij}$ wobei $i=$ \verb|row[k]|, $j=$ \verb|col[k]|. (nur $a_{ij} \neq 0$)
+Einfacher zu speichern: \verb|val, col, row| sind Vektoren so dass \verb|val[k]| $ = a_{ij}$, wobei $i=$ \verb|row[k]|, $j=$ \verb|col[k]|. (nur $a_{ij} \neq 0$)
 
 Viele Formate, je nach Anwendung gewisse sinnvoller als andere. (Siehe Tabelle, NumCSE)
 
