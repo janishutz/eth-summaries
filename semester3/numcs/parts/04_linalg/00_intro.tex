@@ -41,19 +41,44 @@ Wenn sie zudem normiert sind (also $||q_i||_2 = 1 \smallhspace \forall i \leq n$
 \end{align*}
 
 
-\textbf{Perturbierte LGS}
+\drmvspace
+\shade{gray}{Perturbierte LGS}
 
 Statt $Ax = b$ ist das LGS ungenau gegeben: $(A + \Delta A)(\tilde{x} - x) = \Delta b - \Delta Ax$.
 
-$\text{cond}(A) := \left\lvert\left\lvert A^{-1} \right\rvert\right\rvert \cdot \lvert\lvert A \rvert\rvert \in \mathbb{R}$ (Konditionszahl von $A$)
+\fancydef{Konditionszahl} $\text{cond}(A) := ||A^{-1}|| \cdot ||A||$. Manchmal auch mit $\kappa(A)$ notiert
+
+Auch hier gibt es sie wieder für verschiedene Normen:
+\begin{itemize}[noitemsep]
+    \item $\kappa_2(A) = \frac{\sigma_\text{max} (A)}{\sigma_\text{min}(A)}$ (Spektralnorm mit Singulärwerten)
+    \item $\kappa_\infty(A) = ||A||_\infty \cdot ||A^{-1}||_\infty$
+    \item $\kappa_1(A) = ||A||_1 \cdot ||A^{-1}||_1$
+\end{itemize}
 
 $\text{cond}(A) \gg 1$ bedeutet intuitiv: kleine Änderung der Daten $\mapsto$ grosse Änderung in der Lösung
 
-\textbf{Grosse Matrizen}
+Zudem haben wir folgende Eigenschaften:
+\drmvspace
+\begin{multicols}{2}
+    \begin{itemize}[noitemsep]
+        \item $\kappa(A) \geq 1$
+        \item $\kappa(cA) = \kappa(A) \smallhspace \forall c \neq 0$
+        \item $\kappa(A) = \kappa(A^{-1})$
+        \item Für orthogonale und unitäre Matrizen $Q$: $\kappa_2(Q) = 1$
+    \end{itemize}
+\end{multicols}
+
+
+
+\drmvspace
+\shade{gray}{Grosse Matrizen}
 
 Passen oft nicht (direkt) in den Speicher: effizientere Speicherung nötig, möglich für z.B. Diagonalmatrizen, Dreiecksmatrizen. Auch für Cholesky möglich.
 
+
+% TODO: Update with notes from TA and script
 \textbf{Dünnbesetzte Matrizen}
+
 
 $\text{nnz}(A) := |\{ (i,j) \ |\ a_{ij} \in A, a_{ij} \neq 0 \}| \ll m\cdot n$
 
@@ -61,7 +86,7 @@ $\limit{l}{\infty} \frac{\text{nnz}(A^{(l)})}{n_l m_l} = 0$
 
 Einfacher zu speichern: \verb|val, col, row| sind Vektoren so dass \verb|val[k]| $ = a_{ij}$, wobei $i=$ \verb|row[k]|, $j=$ \verb|col[k]|. (nur $a_{ij} \neq 0$)
 
-Viele Formate, je nach Anwendung gewisse sinnvoller als andere. (Siehe Tabelle, NumCSE)
+Es gibt viele Formate, je nach Anwendung sind gewisse sinnvoller als andere. (Siehe Tabelle, NumCSE) % TODO: Insert here
 
 \verb|scipy.sparse.csr_matrix(A)| $\mapsto$ Dramatische Speichereinsparung.\\
 Deprecated: \verb|bsr_array| und \verb|coo_array| verwenden, kompatibel mit \verb|numpy| arrays.

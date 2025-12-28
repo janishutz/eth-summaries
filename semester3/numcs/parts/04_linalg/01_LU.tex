@@ -18,6 +18,25 @@ Jedoch ist dies nicht sinnvoll, wenn wir die Dreiecksmatrizen gar nicht benötig
 
 $A = LDL^H = \underbrace{L\sqrt{D}}_{R^H}\underbrace{\sqrt{D}L^H}_{R} = R^H R$
 
-Diese Zerlegung kann $Ax = b$ potenziell schneller lösen als LU.
+Diese Zerlegung kann $Ax = b$ potenziell schneller lösen als LU und wir verwenden nur halb so viel Speicher.
+Zudem ist keine Pivotierung nötig, also ist das Verfahren für symmetrisch positiv definite Matrizen numerisch stabil.
+
+Im Folgenden ist der Cholesky algorithmus in Pseudocode beschrieben:
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{cholesky}(A)}
+        \begin{algorithmic}[1]
+            \State $n \gets \texttt{A.shape[0]}$
+            \State $l \gets$ Initialisiere ein $n \times n$ array
+            \For{$j = 1, 2, \ldots, n$}
+                \State $l_{jj} \gets \sqrt{A_{jj} - \sum_{k = 1}^{j - 1} l_{jk}^2}$
+                \For{$i = j + 1, \ldots, n$}
+                    \State $l_{ij} \gets \displaystyle\frac{1}{l_{jj}} \left( A_{ij} - \sum_{k = 1}^{j - 1} l_{ik} l_{jk} \right)$
+                \EndFor
+            \EndFor
+            \State \Return $l$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
 
 \innumpy haben wir via \texttt{scipy.linalg} die Funktionen \texttt{cholesky}, \texttt{cho\_factor} und \texttt{cho\_solve}, wie auch bereits äquivalent für die LU-Zerlegung

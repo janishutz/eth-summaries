@@ -1,0 +1,134 @@
+\subsubsection{QR-Zerlegung}
+Wir können eine Matrix $A \in \R^{m \times n}$ mit $m \geq n$ als $A = QR$ zerlegen, wobei $Q \in \R^{m \times n}$
+orthonormale Spalten besitzt und $R \in \R^{n \times n}$ ist eine obere Dreiecksmatrix.
+
+Die QR-Zerlegung ist numerisch stabiler bei schlecht konditionierten Problemen, ist die Basis vieler Eigenwertverfahren und ist ideal für Least Squares.
+
+Wir können mit der QR-Zerlegung auch LGS $Ax = b$ lösen:
+\rmvspace
+\begin{align*}
+    Ax = b \Longleftrightarrow QRx = b \Longleftrightarrow Rx = Q^\top b
+\end{align*}
+
+Da $Q$ orthogonal ist, haben wir $Q^{-1} = Q^\top$.
+Um das Ganze einfacher zu machen, lösen wir das System $Rx = y$, wobei $y := Q^\top b$.
+In numpy können wir direkt mit \texttt{np.linalg.solve()} dies lösen (nutzt automatisch Rückwärtssubstitution)
+
+
+\newpage
+\bg{purple}{Givens-Rotations}
+
+Bei der Givens-Rotation generiert man eine Rotationsmatrix, die die $(i, j)$-Ebene um einen Winkel $\theta$ rotiert.
+Die dazu konstruierte Matrix hat dabei die folgende Form (rechts eine Beschreibung des Eintrags $(k, l)$):
+\rmvspace
+\begin{align*}
+    G(i, j, \theta) =
+    \begin{bmatrix}
+        1      & 0      &        & \cdots &        &        & 0      \\
+        0      & \ddots &        &        &        &        &        \\
+               &        & c      & \cdots & s      &        &        \\
+        \vdots &        & \vdots &        & \vdots &        & \vdots \\
+               &        & -s     & \cdots & c      &        &        \\
+        0      &        &        &        &        & \ddots &        \\
+        0      &        &        & \cdots &        &        & 1      \\
+    \end{bmatrix}
+    \text{ oder }
+    G(i, j, \theta)_{k, l} =
+    \begin{cases}
+        k = l \land k \neq i, j        & 1  \\
+        k = l \land (k = i \lor k = j) & c  \\
+        k = i \land l = j              & -s \\
+        k = j \land l = i              & s  \\
+        \text{sonst}                   & 0
+    \end{cases}
+\end{align*}
+
+\drmvspace
+Dabei ist $c = \cos(\theta)$ und $s = \sin(\theta)$.
+Diese Matrix hat einige nützliche Eigenschaften: $G^\top G = I$ (also ist $G$ orthogonal), also gilt auch $G^{-1} = G^\top$ und $G$ modifiziert nur Zeilen $i$ und $j$
+
+Im Zweidimensionalen Raum können wir die Werte für $c$ und $s$ so bestimmen:
+\rmvspace
+\begin{align*}
+    \begin{bmatrix}
+        c  & s \\
+        -s & c
+    \end{bmatrix}
+    \begin{bmatrix}
+        a \\ b
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        r \\ 0
+    \end{bmatrix} \\
+    r = \sqrt{a^2 + b^2}, \smallhspace c = \frac{a}{r}, \smallhspace s = \frac{b}{r}
+\end{align*}
+Wir haben jedoch das Problem, dass die Berechnung von $r$ überlaufen kann. Dies lösen wir, indem wir skalieren:
+\drmvspace
+\begin{multicols}{2}
+    Falls $|b| > |a|$:
+    \rmvspace
+    \begin{align*}
+        t = \frac{a}{b}, \smallhspace s = \frac{1}{\sqrt{1 + t^2}}, \smallhspace c = s \cdot t
+    \end{align*}
+
+    Falls $|a| \geq |b|$:
+    \drmvspace
+    \begin{align*}
+        t = \frac{b}{a}, \smallhspace s = c \cdot t, \smallhspace c = \frac{1}{\sqrt{1 + t^2}}
+    \end{align*}
+\end{multicols}
+Es ist wichtig, dass wir das $r = \text{sign}(a) \sqrt{a^2 + b^2}$ mit Vorzeichen berechnen, um Auslöschung zu vermeiden
+
+
+\newpage
+\bg{purple}{Gram-Schmidt}
+
+Die Idee des Gram-Schmidt-Algorithmus ist es, orthonormale Vektoren zu konstruieren und diese dann zur Matrix $Q$ zusammenzubasteln.
+
+Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode:
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{classicalGramSchmidt}(A)}
+        \begin{algorithmic}[1]
+            \State $n \gets \texttt{A.shape[0]}$
+            \State $q \gets$ Initialisiere ein $n \times n$ array
+            \State $r \gets$ Initialisiere ein $n \times n$ array
+            \For{$k = 1, 2, \ldots, n$}
+                \State $v_k \gets a_k$ \Comment{Der $k$-te Spaltenvektor}
+                \For{$i = 1, \ldots, k - 1$}
+                    \State $r_{ik} \gets q_i^\top a_k$
+                    \State $v_k \gets a_k - \sum_{i = 1}^{k - 1} r_{ik} q_i$
+                \EndFor
+                \State $r_{kk} = ||v_k||$
+                \State $q_k = v_k / r_{kk}$ \Comment{Vektor normieren}
+            \EndFor
+            \State \Return $q$, $r$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+\drmvspace
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{modifiedGramSchmidt}(A)}
+        \begin{algorithmic}[1]
+            \State $n \gets \texttt{A.shape[0]}$
+            \State $q \gets$ Initialisiere ein $n \times n$ array
+            \State $r \gets$ Initialisiere ein $n \times n$ array
+            \For{$k = 1, 2, \ldots, n$}
+                \State $v_k \gets a_k$ \Comment{Der $k$-te Spaltenvektor}
+                \For{$i = 1, \ldots, k - 1$}
+                    \State $r_{ik} \gets q_i^\top v_k$
+                    \State $v_k \gets v_k - r_{ik} q_i$
+                \EndFor
+                \State $q_k = v_k / r_{kk}$ \Comment{Vektor normieren}
+            \EndFor
+            \State \Return $q$, $r$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+Falls $R$ nicht benötigt wird, kann viel Speicher gespart werden, indem man das $r_{ik}$ als eine scoped variable verwendet.
+
+
+\bg{purple}{Householder-Reflektor}
