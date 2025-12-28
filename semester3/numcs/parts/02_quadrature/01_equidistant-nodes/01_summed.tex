@@ -1,0 +1,43 @@
+\drmvspace
+\subsubsection{Summierte Quadratur}
+Mit Anwendung von Divide and Conquer kann die Präzision der Integration verbessert werden, man unterteilt dazu einfach das Integrationsintervall in viele kleine Intervalle:
+\rmvspace
+\begin{align*}
+    \int_{a}^{b} f(x) \dx x = \sum_{i = 0}^{N - 1} \int_{x_i}^{x_{i + 1}} f(x) \dx x = \sum_{i = 0}^{N - 1} Q_n (f; x_i, x_{i + 1})
+\end{align*}
+
+\drmvspace
+Im Folgenden ist $h = \frac{b - a}{N}$, $x_0 = a$, $x_i = x_0 + ih$ und $x_N = b$
+
+\shade{gray}{Summierte Mittelpunkt-Regel}
+$\displaystyle I(f; a, b) \approx \sum_{i = 0}^{N - 1} h \cdot f \left( \frac{x_i + x_{i + 1}}{2} \right)$
+
+\shade{gray}{Summierte Trapez-Regel}
+$\displaystyle I(f; a, b) \approx \sum_{i = 0}^{N - 1} \frac{h}{2} (f(x_i) + f(x_{i + 1})) = \frac{h}{2} \left( f(a) + 2 \sum_{i = 1}^{N - 1} f(x_i) + f(b) \right)$\\
+Fehler: $\displaystyle E(n) \leq \frac{h^2}{12} (b - a) \max_{x \in [a, b]} |f''(x)|$. Ist exakt bei periodischen, unendlich oft differenzierbaren Funktionen.
+Untenstehend eine Implementation der Trapez-Regel in Numpy
+
+\rmvspace
+\begin{code}{python}
+def trapezoidal(f, a, b, N):
+    x, h = np.linspace(a, b, int(N) + 1, retstep=True)
+    I = h / 2.0 * (f(x[0]) + 2.0 * np.sum(f(x[1:-1])) + f(x[-1]))
+    return I
+\end{code}
+
+\newpage
+\shade{gray}{Summierte Simpson-Regel}
+\rmvspace
+\begin{align*}
+    I(f; a, b) & \approx \frac{h}{6} \left( f(a) + 2 \sum_{i = 1}^{N - 1} f(x_i) + 4 \sum_{i = 1}^{N} f\left( \frac{x_{i - 1} + x_i}{2} \right) + f(b) \right)                 \\
+               & = \frac{\tilde{h}}{3} \left( f(\tilde{x_0}) + 2 \sum_{i = 1}^{N - 1} f(\tilde{x}_{2i}) + 4 \sum_{i = 1}^{N} f(\tilde{x}_{2i - 1}) + f(\tilde{x}_{2N}) \right)
+    \mediumhspace \text{ mit } \tilde{h} = \frac{h}{2} \text{, } \tilde{x}_{2i} = x_i \text{ und } \tilde{x}_{2i - 1} = \frac{x_{i - 1} + x_i}{2}
+\end{align*}
+
+\drmvspace Untenstehend eine Implementation der Simpson-Regel
+\begin{code}{python}
+def simpson(f, a, b, N):
+    x, h = np.linspace(a, b, 2 * int(N) + 1, retstep=True)
+    I = h / 3.0 * (np.sum(f(x[::2])) + 4.0 * np.sum(f(x[1::2])) + f(x[0]) - f(x[-1]))
+    return I
+\end{code}

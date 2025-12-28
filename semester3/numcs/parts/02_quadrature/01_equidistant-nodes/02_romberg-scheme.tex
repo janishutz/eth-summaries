@@ -1,0 +1,45 @@
+\subsubsection{Romberg Schema}
+Für glatte Funktionen haben wir: $T (h) = I [f] + c_1 h^2 + c_2 h^4 + \ldots + c_p h^{2p} + \tco{h^{2p+2}}$
+
+Die Idee des Romberg-Schemas ist es, die führenden Fehlerterme durch Linearkombinationen zu eliminieren
+
+\bg{orange}{Schritt 1} Berechnung von $T(h)$ und $T(\frac{h}{2})$:
+\rmvspace
+\begin{align*}
+    T(h) & = I + c_1 h^2 + c_2 h^4 + \ldots \\
+    T\left( \frac{h}{2} \right) & = I + c_1 \frac{h^2}{4} + c_2 \frac{h^4}{16} + \ldots \\
+\end{align*}
+
+\drmvspace
+\bg{orange}{Schritt 2} Linearkombination zur Elimination des $h^2$-Terms (Ordnung dann $4$):
+\rmvspace
+\begin{align*}
+    R_{1, 1} = \frac{4 T(h / 2) - T(h)}{3} = I + c_2' h^4 + \ldots
+\end{align*}
+
+\drmvspace
+\bg{orange}{Schritt 3} Wiederholen bis zur gewünschten Präzision mit der allgemeinen Rekursionsformel:
+\rmvspace
+\begin{align*}
+    R_{l, k} = \frac{4^k R_{l, k - 1} - R_{l - 1, k - 1}}{4^k - 1}
+\end{align*}
+
+\drmvspace
+Der Einfachheit halber können die Terme auch in das sogenannte ``Romberg-Tableau'' eingefüllt werden:
+\begin{table}[h!]
+    \begin{center}
+        \begin{tabular}[c]{c|cccc}
+            k & 0 & 1 & 2 & 3\\
+            \hline
+            0 & $T(h)$ & $R_{0, 1}$ \\
+            1 & $T(h / 2)$ & $R_{1, 1}$ & $R_{1, 2}$ \\
+            1 & $T(h / 4)$ & $R_{2, 1}$ & $R_{2, 2}$ & $R_{2, 3}$ \\
+            1 & $T(h / 8)$ & $R_{3, 1}$ & $R_{3, 2}$ & $R_{3, 3}$ \\
+        \end{tabular}
+    \end{center}
+\end{table}
+Das Romberg-Schema konvergiert sehr schnell für glatte Funktionen.
+
+
+\subsubsection{Anwendung}
+In der Praxis keine Newton-Cotes höherer Ordnung mit äquidistanten Stützpunkten

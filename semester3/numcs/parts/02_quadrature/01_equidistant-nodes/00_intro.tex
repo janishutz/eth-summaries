@@ -1,0 +1,31 @@
+\newsection
+\subsection{Äquidistante Punkte}
+\label{sec:equidistant-nodes}
+Untenstehend eine Liste verschiedener Quadraturverfahren (Reminder: Eine Funktion der Orgnung $2$ ist eine exakte Approximation einer konstanten oder linearen Funktion):
+
+\begin{tables}{cccc}{Eigenschaft & Mittelpunkt & Trapez      & Simpson}
+              Knoten             & 1           & 2           & 3           \\
+              Ordnung            & 2           & 2           & 4           \\
+              Fehler             & $\tco{h^2}$ & $\tco{h^2}$ & $\tco{h^4}$ \\
+              Symmetrisch        & Ja          & Ja          & Ja          \\
+\end{tables}
+
+\shade{gray}{Mittelpunkt-Regel} $\displaystyle Q^M(f; a, b) = (b - a) f\left( \frac{a + b}{2} \right)$.
+Gewicht: $\omega = b - a$
+
+\shade{gray}{Trapez-Regel} $\displaystyle Q^T(f; a, b) = \frac{b - a}{2} (f(a) + f(b))$.
+Fehler: $\displaystyle E(n) = \left| -\frac{1}{12} (b - a)^3 f^{(2)}(\xi) \right| \text{ mit } \xi \in [a, b]$\\
+Fehlerabschätzung: $\displaystyle |E_n| \leq \frac{(b - a)^3}{12} ||f''||_\infty$.
+Gewichte: $\omega_1 = \omega_2 = \frac{b - a}{2}$
+
+\shade{gray}{Simpson-Regel} $\displaystyle Q^S(f; a, b) = \frac{b - a}{6} \left( f(a) + 4f\left( \frac{a + b}{2} + f(b) \right) \right)$.
+Fehler: $\displaystyle E(n) = \left| -\frac{1}{90} \left( \frac{b - a}{2} f^{(4)} \right) f^{(4)}(\xi) \right|$\\
+Fehlerabschätzung: $\displaystyle |E_n| \leq \left( \frac{b - a}{2} \right)^2 f^{(4)}(\xi)$.
+Gewichte: $\frac{b - a}{6}, \frac{4(b - a)}{6}, \frac{b - a}{6}$
+
+
+\inlineremark Die Schranken für den Fehler erhält man aus den Lagrange-Polynomen vom Grad $n - 1$:
+\rmvspace
+\begin{align*}
+    f \in \C^n([a, b]) \Rightarrow \left| f(t) \dx t - Q_n(f) \right| \leq \frac{1}{n!} (b - a)^{n + 1} ||f^{(n)}||_{L^\infty([a, b])}
+\end{align*}
