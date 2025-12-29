@@ -10,18 +10,24 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 - [Introduction to Programming Short summary (EN)](./semester1/eprog/eprog-janishutz.pdf) Author: Janis Hutz
 
 ### Semester 2
-- [Analysis Cheat-Sheet (EN & DE)](./semester2/analysis-i/cheat-sheet.pdf) Author: Janis Hutz
-- [Analysis Cheat-Sheet (DE)](./semester2/analysis-i-rb/main.pdf) Author: Robin Bacher
+#### Analysis I
+- [Cheat-Sheet (EN & DE)](./semester2/analysis-i/cheat-sheet-jh/cheat-sheet.pdf) Author: Janis Hutz
+- [Cheat-Sheet (DE)](./semester2/analysis-i/cheat-sheet-rb/main.pdf) Author: Robin Bacher
+#### Other Courses
 - [Algorithms & Probability Summary (EN)](./semester2/algorithms-and-probability/aw-summary.pdf) Author: Janis Hutz
 - [Parallel Programming Compact Summary (EN)](./semester2/parallel-programming-compact/pprog-compact-summary.pdf) Author: Janis Hutz
 
 ### Semester 3
-- [Theoretical Computer Science Summary (DE)](./semester3/ti/ti-summary.pdf) Author: Janis Hutz
-- [Theoretical Computer Science Compact Summary (EN)](./semester3/ti-compact/ti-compact.pdf) Author: Janis Hutz
-- [Theoretical Computer Science Cheatsheet (DE)](./semester3/ti-cheatsheet/ti-cheatsheet.pdf) Author: Robin Bacher
+#### Theoretical Computer Science
+- [Summary (DE)](./semester3/ti/ti-summary.pdf) Author: Janis Hutz
+- [Compact Summary (EN)](./semester3/ti-compact/ti-compact.pdf) Author: Janis Hutz
+- [Cheatsheet (DE)](./semester3/ti-cheatsheet/ti-cheatsheet.pdf) Author: Robin Bacher
+#### Analysis II
+- [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/cheat-sheet-jh/analysis-ii-cheat-sheet.pdf) Author: Janis Hutz
+- [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/cheat-sheet-rb/main.pdf) Author: Robin Bacher
+#### Other Courses
 - [Numerical Methods for Computer Science Summary (DE)](./semester3/numcs/numcs-summary.pdf) Authors: Robin Bacher, Janis Hutz
 - [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Author: Janis Hutz (*NOTE: has not been started yet, may or may not happen*)
-- [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/analysis-ii-cheat-sheet.pdf) Author: Janis Hutz
 
 
 ## Contributing
