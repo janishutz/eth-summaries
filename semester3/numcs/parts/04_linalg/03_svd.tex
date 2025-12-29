@@ -1,1 +1,83 @@
 \subsubsection{Singulärwertzerlegung}
+\setLabelNumber{all}{35}
+\inlinetheorem Jede Matrix $A \in \C^{m \times n}$ kann in unitäre Matrizen $U \in \C^{m \times m}$ und $V \in \C^{n \times n}$ und die Diagonalmatrix
+$\Sigma = \text{diag}(\sigma_1, \ldots, \sigma_p) \in \C^{m \times n}$, wobei $p = \min\{ m, n \}$ und $\sigma_1 \geq \ldots \geq \sigma_p \geq 0$,
+wobei $\sigma_i$ der $i$-te Eigenwert ist, so dass
+\rmvspace
+\begin{align*}
+    A = U\Sigma V^H
+\end{align*}
+
+Die PCA (principal component analysis, zu Deutsch Hauptkomponentenanalysis) setzt sich zum Ziel, die Menge an Informationen so zu reduzieren, so dass nur das Notwendige übrig bleibt.
+
+Idealerweise sind die Daten frei von jeglichem Rauschen:
+\rmvspace
+\begin{align*}
+    a_j \approx \text{span}\{ u_1, \ldots, u_p \} \text{ mit } p \ll n
+\end{align*}
+
+\drmvspace
+In der Realität haben wir jedoch oft ein Rauschen in den Daten:
+\rmvspace
+\begin{align*}
+    a_j = \sum_{i = 1}^{p} \sigma_i u_i v_{ij} + \text{ kleine Störungen }
+\end{align*}
+
+\drmvspace
+Die PCA versucht nun das $p$ zu bestimmen und die orthonormalen Trendvektoren $u_1, \ldots, u_p$ zu finden.
+Die Spalten von $U$ aus der SVD sind genau die gesuchten Trendvektoren (können geordnet werden nach den zugehörigen Singulärwerten):
+\rmvspace
+\begin{align*}
+    A_{:, j} \approx \sum_{i = 1}^{p} \sigma_i u_i v_{ij}
+\end{align*}
+
+\drmvspace
+Hierbei ist $A$ eine Datenmatrix, bei welcher die Spalten die Datenpunkte oder Messungen sind und die Zeilen die verschiedenen Merkmale oder Zeitpunkte in den Messungen sind.
+
+Die Matrix $V^H$ enthält in ihrer $j$-ten Spalte die Gewichte, die die $p$-Trends zum $j$-ten Datenpunkt beitragen.
+
+Die ersten $p$ Komponenten erfassen ca. $\displaystyle \frac{\sum_{i = 1}^{p} \sigma_i^2}{\sum_{i = 1}^{m} \sigma_i^2}$
+
+
+\shade{gray}{Varianzkriterium} $\displaystyle p = \min\left\{ q : \sum_{j = 1}^{q} \sigma_j^2 \geq \varepsilon \sum_{j = 1}^{\min\{ m, n \}} \sigma_j^2 \right\}$.
+Oft wird $\varepsilon = 0.90$ verwendet (oder $\varepsilon = 0.95$, dies ist jedoch konservativ, also kann es sein, dass es mehr Komponenten benötigt). $\varepsilon \in (0, 1)$
+
+
+\innumpy können wir sowohl die vollständige Singulärwertzerlegung durchführen, wie auch nur die Singulärwerte berechnen.
+\begin{itemize}
+    \item Zur vollständigen Berechnung nutzen wir \texttt{numpy.linalg.svd} (Option \texttt{full\_matrices=False}
+          führt eine sparsamere Version der SVD durch) oder \texttt{scipy.linalg.svd},
+    \item Falls wir nur die Singulärwerte benötigen, dann liefert \texttt{scipy.linalg.svdvals} eine günstigere Alternative.
+\end{itemize}
+
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{PCA}($A$, $\varepsilon$)}
+        \begin{algorithmic}[1]
+            \State $n \gets \texttt{A.shape[0]}$
+            \State $m \gets \texttt{A.shape[1]}$
+            \State $U, \Sigma, V^H \gets$ Singulärwertzerlegung von $A$
+            \State $p \gets$ berechnet wie oben mit Varianzkriterium
+            \State $U_p \gets U_{:, 1:p}$ \Comment{Wähle erste $p$ Spalten von $U$}
+            \State \Return $U_p$, Singulärwerte $\sigma_1, \ldots, \sigma_p$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+\begin{code}{python}
+import numpy as np
+
+# SVD of the data matrix
+U, sigma, Vh = np.linalg.svd(A, full_matrices=False)
+threshold = 0.90 # Threshold for variance (e.g. 90%, the epsilon as discussed previously)
+total_var = np.sum(sigma**2)
+cumsum = np.cumsum(sigma**2)
+p = np.argmax(cumsum >= threshold * total_var) + 1
+U_p = U[:, :p] # Primary components
+scores = A.T @ U_p # Projection of the data
+\end{code}
+
+\bg{red}{A word of caution:}
+\begin{itemize}
+    \item Zu niedriges $\varepsilon$ kann zu Informationsverlust führen
+    \item Zu hohes $\varepsilon$ (e.g. $\varepsilon = 0.99$) kann zu overfitting führen
+\end{itemize}
