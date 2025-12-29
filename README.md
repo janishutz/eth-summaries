@@ -19,9 +19,9 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 
 ### Semester 3
 #### Theoretical Computer Science
-- [Summary (DE)](./semester3/ti/ti-summary.pdf) Author: Janis Hutz
-- [Compact Summary (EN)](./semester3/ti-compact/ti-compact.pdf) Author: Janis Hutz
-- [Cheatsheet (DE)](./semester3/ti-cheatsheet/ti-cheatsheet.pdf) Author: Robin Bacher
+- [Summary (DE)](./semester3/ti/main/ti-summary.pdf) Author: Janis Hutz
+- [Compact Summary (EN)](./semester3/ti/compact/ti-compact.pdf) Author: Janis Hutz
+- [Cheatsheet (DE)](./semester3/ti/cheatsheet/ti-cheatsheet.pdf) Author: Robin Bacher
 #### Analysis II
 - [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/cheat-sheet-jh/analysis-ii-cheat-sheet.pdf) Author: Janis Hutz
 - [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/cheat-sheet-rb/main.pdf) Author: Robin Bacher
