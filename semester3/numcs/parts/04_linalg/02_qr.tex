@@ -179,15 +179,16 @@ Der vollständige QR-Algorithmus lautet:
                 \State $H_k \gets$ Konstruiere Householder-Reflektor für $x$
                 \State $A(k : m, k : n) \gets H_k A(k : m, k : n)$ \Comment{Update}
             \EndFor
-            \State $Q = H_1 H_2 \cdots H_n$
-            \State $R = H_n H_{n - 1} \cdots H_1 A$
+            \State $Q \gets H_1 H_2 \cdots H_n$
+            \State $R \gets H_n H_{n - 1} \cdots H_1 A$
             \State \Return $Q$, $R$
         \end{algorithmic}
     \end{spacing}
 \end{algorithm}
 
+\drmvspace
 Die Laufzeiten der verschiedenen Methoden im Vergleich:
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item Householder-QR: $\approx 2mn^2$ Flops
     \item Gram-Schmidt: $\approx 2mn^2$ Flops
     \item Givens: $\approx 3mn^2$ Flops
