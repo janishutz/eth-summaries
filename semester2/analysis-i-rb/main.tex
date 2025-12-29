@@ -1,17 +1,12 @@
-% Basic stuff
 \documentclass[a4paper,10pt]{article}
-
-% 3 column landscape layout with fewer margins
 \usepackage[landscape, left=0.75cm, top=1cm, right=0.75cm, bottom=1.5cm, footskip=15pt]{geometry}
 \usepackage{flowfram}
 \ffvadjustfalse
 \setlength{\columnsep}{1cm}
 \Ncolumn{3}
 
-% define nice looking boxes
+% TCB boxes for important stuff
 \usepackage[many]{tcolorbox}
-
-% a base set, that is then customised
 \tcbset {
   base/.style={
     boxrule=0mm,
@@ -25,12 +20,6 @@
     title={#1}
   }
 }
-
-\newtcolorbox{mainbox}[1]{
-  colframe=black, 
-  base={#1}
-}
-
 \newtcolorbox{subbox}[1]{
   colframe=black!20!white,
   base={#1}
@@ -56,20 +45,18 @@
 
 % For hyperlinks
 \usepackage{hyperref}
-\hypersetup{
-  colorlinks=true
-}
+\hypersetup{ colorlinks=true }
 
-% Custom
+% Fomatting
 \usepackage{multicol}
 \usepackage{parskip}    % Disables new paragraph indent
 
 % Metadata
 \title{Analysis I}
-\author{Berthold}
+\author{Robin Bacher}
 \date{FS 2025}
 
-% Math helper stuff
+% Math helpers
 \def\limxo{\lim_{x\to 0}}
 \def\limxi{\lim_{x\to\infty}}
 \def\limxn{\lim_{x\to-\infty}}
@@ -93,7 +80,7 @@
 \def \lims{\limsup\limits_{n \to \infty}}
 
 % Custom resets
-\renewcommand{\arraystretch}{1.3} % Decrease row height
+\renewcommand{\arraystretch}{1.3}           % Decrease row height
 \renewcommand{\familydefault}{\sfdefault}
 
 \begin{document}
