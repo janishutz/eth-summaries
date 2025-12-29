@@ -11,7 +11,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 
 ### Semester 2
 #### Analysis I
-- [Cheat-Sheet (EN & DE)](./semester2/analysis-i/cheat-sheet-jh/cheat-sheet.pdf) Author: Janis Hutz
+- [Cheat-Sheet (EN & DE)](./semester2/analysis-i/cheat-sheet-jh/README.md) Author: Janis Hutz
 - [Cheat-Sheet (DE)](./semester2/analysis-i/cheat-sheet-rb/main.pdf) Author: Robin Bacher
 #### Other Courses
 - [Algorithms & Probability Summary (EN)](./semester2/algorithms-and-probability/aw-summary.pdf) Author: Janis Hutz
