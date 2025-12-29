@@ -11,6 +11,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 
 ### Semester 2
 - [Analysis Cheat-Sheet (EN & DE)](./semester2/analysis-i/cheat-sheet.pdf) Author: Janis Hutz
+- [Analysis Cheat-Sheet (DE)](./semester2/analysis-i-rb/main.pdf) Author: Robin Bacher
 - [Algorithms & Probability Summary (EN)](./semester2/algorithms-and-probability/aw-summary.pdf) Author: Janis Hutz
 - [Parallel Programming Compact Summary (EN)](./semester2/parallel-programming-compact/pprog-compact-summary.pdf) Author: Janis Hutz
 

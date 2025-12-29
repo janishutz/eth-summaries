@@ -1,0 +1,1604 @@
+% Basic stuff
+\documentclass[a4paper,10pt]{article}
+
+% 3 column landscape layout with fewer margins
+\usepackage[landscape, left=0.75cm, top=1cm, right=0.75cm, bottom=1.5cm, footskip=15pt]{geometry}
+\usepackage{flowfram}
+\ffvadjustfalse
+\setlength{\columnsep}{1cm}
+\Ncolumn{3}
+
+% define nice looking boxes
+\usepackage[many]{tcolorbox}
+
+% a base set, that is then customised
+\tcbset {
+  base/.style={
+    boxrule=0mm,
+    left=1.75mm,
+    arc=2mm,
+    colbacktitle=black!10!white, 
+    coltitle=black, 
+    fonttitle=\bfseries,
+    toptitle=0.75mm, 
+    bottomtitle=0.25mm,
+    title={#1}
+  }
+}
+
+\newtcolorbox{mainbox}[1]{
+  colframe=black, 
+  base={#1}
+}
+
+\newtcolorbox{subbox}[1]{
+  colframe=black!20!white,
+  base={#1}
+}
+
+% Mathematical typesetting & symbols
+\usepackage{amsthm, mathtools, amssymb} 
+\usepackage{marvosym, wasysym}
+\allowdisplaybreaks
+
+% Tables
+\usepackage{tabularx, multirow}
+\usepackage{booktabs}
+\renewcommand*{\arraystretch}{2}
+
+% Make enumerations more compact
+\usepackage{enumitem}
+\setitemize{itemsep=0.5pt}
+\setenumerate{itemsep=0.75pt}
+
+% To include sketches & PDFs
+\usepackage{graphicx}
+
+% For hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true
+}
+
+% Custom
+\usepackage{multicol}
+\usepackage{parskip}    % Disables new paragraph indent
+
+% Metadata
+\title{Analysis I}
+\author{Berthold}
+\date{FS 2025}
+
+% Math helper stuff
+\def\limxo{\lim_{x\to 0}}
+\def\limxi{\lim_{x\to\infty}}
+\def\limxn{\lim_{x\to-\infty}}
+\def\sumk{\sum_{k=1}^\infty}
+\def\sumn{\sum_{n=0}^\infty}
+\def\dx{\text{ d}x}
+
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\C{\mathbb{C}}
+\def\Z{\mathbb{Z}}
+
+\def\Def{\overset{\text{def.}}{\iff}}
+
+\def \cgeq{\succcurlyeq}
+\def \cleq{\preccurlyeq}
+
+\def \limn{\lim\limits_{n \to \infty}}
+\def \limi{\liminf\limits_{n \to \infty}}
+\def \lims{\limsup\limits_{n \to \infty}}
+
+% Custom resets
+\renewcommand{\arraystretch}{1.3} % Decrease row height
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+\section{Grundlagen}
+
+\textbf{Axiome der reelen Zahlen}
+
+$\R$ ist ein kommutativer, angeordneter \& ordnungsvollständiger Körper. Ordnungsvollständigkeit unterscheidet $\R$ von $\Q$.\\
+\small
+$ 
+\begin{array}{lll}
+    \arraycolsep=1.4pt 
+    A1 & \forall x,y,z \in \R                       & x + (y + z) = (x + y) + z\\
+    A2 & \forall x \in \R                           & x + 0 = x \\
+    A3 & \forall x \in \R \  \exists y \in \R       & x + y = 0 \\
+    A4 & \forall x, z \in \R                        & x + z = z + x  \\
+    \hline
+    M1 & \forall x,y,z \in \R                       & x \cdot ( y \cdot z ) = (x \cdot y ) \cdot z \\
+    M2 & \forall x \in \R                           & x \cdot 1 = x \\
+    M3 & \forall x \neq 0 \in \R \exists y \in \R   & x \cdot y = 1 \\
+    M4 & \forall x,z \in \R                         & x \cdot z = z \cdot x \\
+    D  & \forall x,y,z \in \R                       & x \cdot (y + z) = x \cdot y + x \cdot z \\
+    \hline
+    O1 & \forall x \in \R                           & x \leq x \\
+    O2 & \forall x,y,z \in \R                       & x \leq y \land y \leq z \implies x \leq z \\
+    O3 & \forall x,y \in \R                         & x \leq y \land y \leq x \implies x = y \\
+    O4 & \forall x,y \in \R                         & x \leq y \lor y \leq x \text{ (Total)} \\
+    \hline
+    K1 & \forall x,y,z \in \R                       & x \leq y \implies x + z \leq y + z \\
+    K2 & \forall x \geq 0, y \geq 0 \in \R          & x \cdot y \geq 0 \\
+\end{array}$
+\\
+\normalsize
+
+\textbf{Ordnungsvollständigkeit} \\
+$\forall A,B \neq \emptyset \subseteq \R \quad$ s.d. $\quad \forall a \in A, b \in B\ \quad (a \leq b) :\\
+\exists c \in \R : \quad \forall a \in A \ \forall b \in B \quad (a \leq c \land c \leq b)$
+
+\textbf{Archimedisches Prinzip} \\
+$\forall x > 0, y \in \R \quad \exists n \in \N : \quad (y \leq n \cdot x)$
+
+\textbf{Absolutbetrag} \\
+$\begin{array}{lcl}
+    \text{Def:} & \forall x \in \R          & |x| := \max\{x,-x\} \\
+    \hline
+    (i)         & \forall x \in \R          & |x| \geq 0 \\
+    (ii)        & \forall x,y \in \R        & |xy| = |x|\ |y| \\
+    (iii)       & \forall x,y \in \R        & |x + y| \leq |x| + |y| \\
+    (iv)        & \forall x,y \in \R        & |x + y| \geq |x| - |y| \\
+\end{array}
+$
+
+\textbf{Young'sche Ungleichung}\\
+$\forall \epsilon > 0\ \forall x,y \in \R : \quad 2|xy| \leq \epsilon x^2 + \frac{1}{\epsilon}y^2$
+
+\textbf{Bernoulli Ungleichung}\\
+$\forall n \in \N, x > -1 \quad \quad (1+x)^n \geq 1 + n \cdot x$
+
+\begin{subbox}{Infimum \& Supremum}
+\footnotesize
+Für $A \subseteq \R$:\\
+\normalsize
+    $\begin{array}{ccl}
+        \sup A := & \begin{cases}
+            \min\{c \in \R \ |\ \forall a \in A:\ a \leq c \}  \\
+            +\infty\quad \text{\footnotesize   falls oben unbeschr.}
+        \end{cases} \\
+        \inf A := & \begin{cases}
+            \max\{c \in \R \ |\ \forall a \in A: c \leq a\} \\
+            - \infty \quad \text{\footnotesize   falls unten unbeschr.}
+        \end{cases}  \\
+    \end{array}$
+\end{subbox}
+
+% \textbf{Infimum \& Supremum}\\
+% Für $A$ nach oben / unten beschränkt:
+
+% $\begin{array}{ccl}
+%     \sup A := & \min (c) & \quad \text{ s.d. } \quad \forall a \in A a \leq c\\
+%     \inf A := & \max (c) & \quad \text{ s.d. } \quad \forall a \in A c \leq a\\
+% \end{array}$
+
+% Sonst: $ \quad \sup A = + \infty \quad \inf A = - \infty$
+
+\textbf{Monotonie}\\
+Für $f: D \rightarrow \R,\quad D \subset \R, \quad x,y \in D$:
+
+$\begin{array}{lcl}
+     \text{mon. wachsend}       &\Def& x \leq y \implies f(x) \leq f(y)\\
+     \text{str. mon. wachs.}    &\Def& x < y \implies f(x) < f(y)\\
+     \text{mon. fallend}        &\Def& x \geq y \implies f(x) \geq f(y)\\
+     \text{str. mon. fallend}   &\Def& x < y \implies f(x) < f(y)
+\end{array}$
+
+\textbf{Intervalle}\\
+Untermengen von $\R$.
+
+$\begin{array}{lcl}
+     \text{offenes Intervall}   &\Def& (a,b) = \{x \in \R\ |\ a <x < b \}\\
+     \text{geschl. Intervall}   &\Def& [a,b] = \{x \in \R\ |\ a \leq x \leq b \}\\
+     \text{kompakt}             &\Def& I = [a,b],\quad a \leq b
+\end{array}$\\
+Länge $\mathcal{L}(I) := \begin{cases}
+    b-a & \exists a,b: a \leq b,\quad [a,b] = I\\
+    +\infty & \text{else}
+\end{cases}$
+
+\textbf{Satz von Cauchy-Cantor}\\
+\color{gray}\footnotesize
+$I_1 \supseteq I_2 \supseteq \ldots \supseteq I_n \supseteq I_{n+1} \supseteq \ldots$ s.d. $\forall i \geq 1: I_i$ kompakt.
+\color{black}\normalsize
+
+$\mathcal{L}(I_1) < +\infty \implies \underset{n \geq1}{\bigcap} I_n \neq \emptyset$
+
+\textbf{Injektivität \& Surjektivität}\\
+Für eine Funktion $f:X\rightarrow Y$:
+
+$\begin{array}{lcll}
+     \text{Injektiv}  &\Def& \forall a,b \in X: & f(a)=f(b) \implies a = b\\
+     \text{Surjektiv} &\Def& \forall y \in Y:   & \exists x \in X: f(x) = y\\
+\end{array}$
+
+\textbf{Quadratische Gleichungen}\\
+\footnotesize\color{gray}
+$a,b,c \in \R,\quad a \neq 0$
+\normalsize\color{black}
+
+$x_{1,2} = \frac{-b \pm \sqrt{b^2-4 \cdot a \cdot c}}{2\cdot a}\quad\quad\quad D = b^2-4\cdot a\cdot c$
+
+\textbf{Binomialkoeffizient}\\
+\color{gray}\footnotesize
+$n,k \in \N^*,\quad n \geq k$\\
+\color{black}\normalsize
+$\binom{n}{k}:= \frac{n!}{k!\cdot(n-k)!}\quad\quad\quad\quad$
+$(a+b)^n = \sum^n_{k=0}\binom{n}{k}a^{n-k}\cdot b^k$
+
+\newpage
+\section{Folgen}
+
+$\begin{array}{llll}
+     \textbf{Folge}         & (a_n)_{n\geq1}    & a: & \N^* \rightarrow \R\\
+     \textbf{Teilfolge }    & (a_{l(n)})_{l(n) \geq 1}   & l: & \N^* \rightarrow \N^* \ \forall n \  l(n) < l(n+1)
+\end{array}$
+
+\begin{subbox}{Limes}
+$\limn (a_n) := l \quad \text{ist eindeutig definiert, falls:}\\\\
+(i)\quad\  \forall \epsilon > 0: \quad \{ n \in \N\ |\ a_n \notin\ ]l-\epsilon, l+\epsilon [\ \} \text{ ist endlich}\\
+(ii)\quad \forall \epsilon > 0, \  \exists N \geq 1 : \quad |a_n - l| < \epsilon,\ \forall n \geq N$
+\end{subbox}
+
+\textbf{Konvergenz}\\
+$(a_n)_{n \geq 1}$ ist konvergent, falls $\limn a_n$ existiert. \\
+Konvergente Folgen sind immer beschränkt.\\
+\footnotesize\color{gray}
+Nicht umgekehrt: $(-1)^n$ ist beschränkt, aber nicht konvergent.
+\normalsize\color{black}
+
+\textbf{Rechenregeln Limes}\\
+Für konvergente $(a_n)_{n\geq1}, (b_n)_{n\geq1}$:
+
+$\begin{array}{cccc}
+    (i)     & \limn (a_n + b_n)             & =     & \limn (a_n) + \limn (b_n) \\
+    (ii)    & \limn (a_n \cdot b_n)         & =     & \limn (a_n) \cdot \limn (b_n) \\
+    (iii)   & \limn (\frac{a_n}{b_n})       & =     & \limn (a_n) \setminus \limn (b_n) \\
+    \text{wobei}   & \forall n \geq 1 (b_n \neq 0) & \land & \limn (b_n) \neq 0 \\
+    (iv)    & \exists K\ \forall n \geq K (a_n \leq b_n) & \implies & \limn(a_n) \leq \limn (b_n)
+\end{array}
+$
+
+\begin{subbox}{Limes Inferior \& Limes Superior}
+    Für $(a_n)_{n \geq 1}$ beschränkt:\\
+    $b_n := \inf \{ a_k \ | \ k \geq n \} \quad \quad c_n := \sup \{ a_k \ | \ k \geq n \}$
+    \begin{align*}
+        \limi(a_n) := \limn(b_n)\\
+        \lims(a_n) := \limn(c_n)
+    \end{align*}
+    $\forall n \in \N (b_n \leq c_n)  \implies  \limi(a_n) \leq \lims(a_n)$
+    
+\end{subbox}
+
+\textbf{Komplement-Trick}\\
+Nützlich für einige Grenzwerte:
+\small
+$$\sqrt{ax + b} -\sqrt{cx+d} = \frac{ax+b - (cx+d)}{\sqrt{ax+b}+\sqrt{cx+d}}$$
+\normalsize
+
+\newpage
+\textbf{Komplexe Folgen}\\
+\color{gray}\footnotesize
+$(b_n)_{n\geq1} \in \R,\quad (a_n)_{n\geq1} \in \C$
+\color{black}\normalsize
+
+In $\C$ gelten die selben Resultate, aber:
+
+$(i)\quad \ \forall n \in \N :\ |a_n| \leq b_n \land  \limn(b_n)=0 \Rightarrow \limn(a_n) = 0\\
+(ii)\quad \liminf(a_n) \text{ und } \limsup(a_n) \text{ existieren nicht.}
+$
+
+$(a_n)_{n\geq1} \in \C \text{ konv.} \iff (\Re(a_n))_{n\geq1},\ (\Im(a_n))_{n\geq1} \text{ konv.}$
+
+\subsection{Konvergenzkriterien}
+
+\begin{subbox}{Monotoner Konvergenz-Satz}
+    $(a_n)_{n \geq 1} \text{ mon. fallend},  (b_n)_{n \geq 1} \text{ mon. steigend}$:
+    
+    $\begin{array}{lcr}
+         a_n \text{ unten beschr: } & \implies \limn(a_n) = \inf \{a_n\ |\ n \geq 1 \}\\
+         b_n \text{ oben beschr: } & \implies \limn(b_n) = \sup \{b_n\ |\ n \geq 1 \}
+    \end{array}$
+\end{subbox}
+
+\begin{subbox}{Sandwich-Satz}
+    $(a_n), (b_n), (c_n)  \text{ s.d. } \forall n \in \N: a_n \leq b_n \leq c_n$\\
+    
+    $\limn(a_n) = \limn(c_n) = A \implies \limn(b_n) = A$    
+\end{subbox}
+
+\textbf{Cauchy Kriterium I}\\
+$(a_n)_{n \geq 1} \text{ beschr. } \land \  \limi(a_n) = \lims(a_n)$
+
+\textbf{Cauchy Kriterium II}\\
+$\forall \epsilon > 0\ \exists N \geq 1 : \quad |a_n - a_m| < \epsilon \quad \forall n,m \geq N$
+
+\textbf{Bolzano-Weierstrass}\\
+$(a_n)_{n \geq 1}$ beschr. $\implies$ Ex existiert konv. Teilfolge $(b_n)_{n \geq 1}$
+
+$\limi(a_n) \leq \limn(b_n) \leq \lims(a_n)$
+
+\section{Reihen}
+
+\textbf{Reihe} $\quad\quad\quad(S_n)_{n\geq1}$ s.d. $S_n := \sum_{k=1}^na_k$
+
+\textbf{Konvergenz} $\quad \sum_{k=0}^{\infty}a_k := \limn \sum_{k=0}^n a_k$
+
+\textbf{Absolute Konvergenz}\\
+$\sumk | a_k |$ konv. $ \implies \sumk a_k $ konv.
+
+$\forall (a_k)_{k\geq1}:\quad | \sumk a_k | \leq \sumk | a_k |$
+
+\textbf{Rechenregeln}\\
+Für konvergente Reihen $\sumk a_k$, $\sum_{j=1}^\infty b_j$, $\alpha \in \R$:
+
+$\begin{array}{llll}
+     (i)    & \sumk (a_k + b_k)         & = & (\sumn a_k) + (\sum_{j=1}^\infty b_j)  \\
+     (ii)   & \sumk (\alpha \cdot a_k)  & = & \alpha \cdot (\sumk a_k)
+\end{array}$
+
+\textbf{Konvergente Reihen sind Nullfolgen}\\
+$\sumn a_n$ konv $\implies \limn a_n = 0$\\
+\footnotesize\color{gray}
+Nicht umgekehrt: $\sumn\frac{1}{n}$ divergiert, obwohl $\limn \frac{1}{n}=0$.
+\normalsize\color{black}
+
+\textbf{Doppelfolge} $(a_{i,j})_{i,j\geq1}$
+
+\textbf{Doppelreihe} $\sum_{i=0}^\infty(\sum_{j=0}^\infty a_{i,j})$, $\quad \sum_{j=0}^\infty(\sum_{i=0}^\infty a_{i,j})$\\
+\color{gray}\footnotesize
+Die beiden Grenzwerte können verschieden sein.
+\color{black}\normalsize
+
+\textbf{Cauchy}
+
+$\exists B \geq 0:\quad \sum_{i=0}^m\sum_{j=0}^m|a_{i,j}| \leq B \quad \forall m \geq 0$\\
+$\implies S_i := \sum_{j=0}^\infty a_{ij}$ und $U_j := \sum_{i=0}^\infty a_{i,j}$ konv. abs.
+
+$\sum_{i=0}^\infty S_i = L_1$ und $\sum_{j=0}^\infty U_j = L_2$ konv. abs. s.d. $L_1 = L_2$.
+
+Jede Anordnung $\sigma: \N \rightarrow \N \times \N$ s.d. $b_k := a_{\sigma(k)}$ konv. abs.
+
+\textbf{Cauchy Produkt}\\
+$\sumn(\sum_{j=0}^n a_{n-j}\cdot b_j)\\
+= a_ob_0 + (a_ob_1 + a_1b_0) + (a_ 0b_2 + a_1 b_1 + a_2 b_0) + \ldots$
+
+
+\subsection{Konvergenzkriterien}
+
+\begin{subbox}{Vergleichssatz}
+    Für $\sumk a_k$, $\sumk b_k$ mit $\forall k \geq 1  \ (0 \leq a_k \leq b_k)$\\
+    oder $\exists K \geq 1 \ (0 \leq a_k \leq b_k) \ \forall k \geq K$
+    
+    $\begin{array}{lll}
+         \sumk b_k \text{ konv. } & \implies & \sumk a_k \text{ konv. }  \\
+         \sumk a_k \text{ div. }  & \implies & \sumk b_k \text{ div.} 
+    \end{array}$
+\end{subbox}
+
+\textbf{Cauchy Kriterium}\\
+$\forall \epsilon > 0 \ \exists N \geq 1 \quad \quad | \sum_{k=n}^m a_k | < \epsilon \quad\quad \forall m \geq n \geq N$
+
+\textbf{Monotoner Konvergenz-Satz}\\
+$\forall k \in \N^* ( a_k \geq 0) \text{ konv. } \iff \sum_{k=1}^n a_k \text{ oben beschränkt}$
+
+\textbf{Leibniz}\\
+Für $(a_n)_{n \geq 1}$ mon. fall. und $\forall n (a_n \geq 0)$, $\limn a_n = 0$:\\
+$\sumk (-1)^{k+1} a_k$ konv.
+
+%$a_1 - a_2 \quad \leq \quad \sumk (-1)^{k+1} a_k \quad \leq  \quad a_1$
+
+\textbf{Dirichlet}\\
+$\sumk a_k$ abs. konv.\\
+$\implies$ $\forall \phi:\N^*\rightarrow\N^* \ (\text{bijektiv}): \sumk a_{\phi(k)}$ abs. konv.
+
+$\sumk a_k = \sumk a_{\phi(k)}$, unabh. von $\phi$.
+
+\begin{subbox}{Quotientenkriterium}
+    $\lims \frac{|a_{n+1}|}{|a_n|} < 1  \implies \sumn a_n$ abs. konv.
+    
+    $\lims \frac{|a_{n+1}|}{|a_n|} > 1  \implies \sumn a_n$ div.\\\\
+    \footnotesize\color{gray}
+    Wobei $(a_n)_{n \geq 1}$ mit $\forall n (a_n \neq 0)$
+    \normalsize\color{black}
+\end{subbox}
+
+\begin{subbox}{Wurzelkriterium}
+    $\lims |a_n|^\frac{1}{n} < 1 \implies \sumn a_n$ abs. konv.
+    
+    $\lims |a_n|^\frac{1}{n} > 1 \implies \sumn a_n$ div.
+\end{subbox}
+
+Beide Kriterien geben keine Aussage bei genau $0$.
+
+\subsection{Fundamentalreihen}
+
+\begin{subbox}{Potenzreihen (Konvergenzradius)}
+    $\sumk c_k z^k$ abs. konv. $\impliedby |z| < \rho$\\
+    $\sumk c_k z^k$ div. $\quad\quad\ \ \impliedby |z| > \rho$\\
+    $\rho = \begin{cases}
+    \begin{array}{ll}
+        + \infty,                        & \lims |c_k|^\frac{1}{k} = 0\\
+        (\lims |c_k|^\frac{1}{k})^{-1},  & \lims |c_k|^\frac{1}{k} > 0 
+    \end{array}
+    \end{cases}$
+\end{subbox}
+
+\textbf{Geometrische Reihe}\\ 
+$\sumn q^n = \frac{1}{1-q} \iff |q| < 1$
+
+\textbf{Harmonische Reihe}\\
+$\sum_{n=1}^\infty \frac{1}{n} = \infty$
+
+\textbf{Zeta Funktion}\\
+$\zeta(s) = \sum^\infty_{n=1} \frac{1}{n^s}$ konv. $\iff s > 1$
+
+\textbf{Exponentialfunktion}\\
+$\exp(z) := \sumn \frac{z^n}{n!} = e^z$ konv. $\forall z \in \C$
+
+
+\newpage
+\section{Stetige Funktionen}
+\footnotesize\color{gray}
+$D \subset \R, \quad x_0 \in D, \quad f,g:D\rightarrow\R,  \quad \lambda \in \R$
+\normalsize\color{black}
+
+\textbf{Stetigkeit}\\
+$f \text{ stetg in } x_0 \Def \forall\epsilon>0,\exists\delta>0: \forall x \in D: $\\
+$|x-x_0| < \delta \implies |f(x) - f(x_0)| < \epsilon$
+
+$f$ stetig $\Def \forall x \in D:$ $f$ stetig in $x$
+
+
+\begin{subbox}{Stetigkeit durch Folgen}
+    $f$ stetig in $x_0$ $\iff \forall (a_n)_{n\geq1} \in D:\\
+    \limn a_n = x_0 \implies \limn f(a_n) = f(x_0)$
+\end{subbox}
+
+\textbf{Rechenregeln}\\
+Für $f,g$ stetig in $x_0$:
+
+$(i)\ \quad f + g, \quad\quad \lambda \cdot f,\quad\quad f \cdot g$\\
+$(ii)\quad g(x_0) \neq 0 \implies  \frac{f}{g}: \{ x \in D \ |\ g(x) \neq 0 \} \rightarrow \R $
+
+sind stetig in $x_0$.
+
+\subsection{Theoreme}
+
+\begin{subbox}{Zwischenwertsatz}
+    $\forall c \in \R: f(a) \leq c \leq f(b)\\
+    \implies \exists z \in I: a \leq z \leq b \land f(z) = c$\\
+    \footnotesize\color{gray}
+    $I \subset R$ (Intervall), $f: I \rightarrow \R$ (stetig), $a,b \in I$
+    \normalsize\color{black}
+\end{subbox}
+
+\textbf{Polynom-Nullstellen}\\
+\footnotesize\color{gray}
+Für alle $P: \R \rightarrow \R,\quad P(x) = a_nx^n+\ldots+a_0:$\\
+\normalsize\color{black}
+$a_n \neq 0 \land n \equiv_2 1 \implies \exists x \in \R: P(x) = 0$
+
+
+\begin{subbox}{Min-Max-Satz}
+    Stetige $f$ sind auf $I$ immer beschränkt.\\
+    $\exists u,v \in I:\quad f(u) \leq f(x) \leq f(v)\quad \forall x \in I$
+    
+    \footnotesize\color{gray}
+    $f:I = [a,b] \rightarrow \R,\quad f \text{ stetig auf }I,\quad I \text{ ist kompakt}$
+    \normalsize\color{black}
+\end{subbox}
+
+\textbf{Stetigkeit in Kompositionen}\\
+\footnotesize\color{gray}
+$D_1,D_2 \subset \R,\quad f:D_1\rightarrow D_2,\quad g:D_2\rightarrow \R$\\
+\normalsize\color{black}
+$f,g$ stetig in $x_0, f(x_0) \implies g \circ f: D_1 \rightarrow \R$ in $x_0$ stetig.\\
+$f,g$ stetig $\quad\quad\quad\quad\quad\ \implies g \circ f: D_1 \rightarrow \R$ stetig
+
+\textbf{Stetigkeit der Umkehrabbildung}\\
+\footnotesize\color{gray}
+$I = [a,b] \subset \R$ ist ein Intervall\\
+\normalsize\color{black}
+$f: I \rightarrow \R$ stetig, str. mon.\\ 
+$\implies f^{-1}: f(I) \subset \R \rightarrow I$ stetig, str. mon.\\
+\& $\ \ \ f(I) = [f(a), f(b)]$ ist ein Intervall.
+
+\subsection{Funktionenfolgen}
+\textbf{Funktionenfolge}
+$\quad (f_n)_{n\geq1}$
+
+Formal: eine Abbildung $\N \rightarrow \R^D$ s.d. $n \mapsto f(n) =: f_n$
+
+\textbf{Punktweise Konvergenz}\\
+$(f_n)_{n\geq1}$ konv. pw. gegen $f: D \rightarrow \R$, wenn:\\
+$\forall x \in D: f(x) = \limn f_n(x)$  
+
+$f$ muss nicht stetig sein, auch wenn $\forall n \in \N: f_n$ stetig.
+
+\begin{subbox}{Gleichmässige Konvergenz}
+    $(f_n)_{n\geq1}$ konv. glm. gegen $f: D \rightarrow \R$, wenn:\\
+    $\forall \epsilon > 0, \exists N \geq 1: \forall n \geq N, \forall x \in D: |f_n(x)-f(x)| < \epsilon$\\
+    
+    Wobei $N$ nur von $\epsilon$ abh. (nicht von $x$).
+    
+    $f_n$ glm. konv. $\implies f_n$ pw. konv.
+\end{subbox}
+
+\textbf{Altenative Definition für gleichmässige Konvergenz}\\
+$\limn \underset{x \in D}{\sup} |f_n(x)-f(x)| = 0 \iff f_n$ glm. konv. gegen $f$.
+
+\textbf{Gleichmässige Konvergenz ist stetig}\\
+\footnotesize\color{gray}
+$D \subset \R,\quad f_n:D\rightarrow \R,\quad f:D\rightarrow \R$\\
+\normalsize\color{black}
+$\forall n \in \N: f_n$ stetig in $D$, glm. konv. gegen $f$\\
+$\implies f$ auch stetig in $D$.
+
+Es folgt: $f$ nicht stetig $\implies$ $f_n$ nicht glm. konv.
+
+\textbf{Cauchy Kriterium}\\
+$f_n:D\rightarrow \R$ konv. glm. in $D$, wenn:\\
+$\forall \epsilon > 0, \exists N \geq 1: \forall n,m \geq N, \forall x \in D: |f_n(x)-f_m(x)| < \epsilon$
+
+\textbf{Limes-Funktion stetiger glm. konv. Folgen}\\
+$f_n:D\rightarrow\R$ glm. konv. Folge stetiger Funktionen.\\
+$\implies f(x) := \limn f_n(x)$ ist stetig.
+
+\textbf{Glm. Konvergenz von Funktionenreihen}\\
+$\sum^\infty_{k=0} f_k(x)$ konv. glm. in $D$, falls:\\
+$S_n(x) := \sum^n_{k=0}f_k(x)$ glm. konv. ist.
+
+\textbf{Vergleichssatz für stetige Funk.-Reihen}\\
+\footnotesize\color{gray}
+$D \subset \R,\quad f_n:D\rightarrow \R,\quad \text{alle } f_n \text{ stetig}$\\
+\normalsize\color{black}
+$\forall x \in D: |f_n(x)| \leq c_n$ für $(c_n)_{n\geq1}$ s.d. $\sumn c_n$ konv.\\
+$\implies \sumn f_n(x)$ konv., $f(x) := \sumn f_n(x)$ stetig in $D$.
+
+\textbf{Potenzreihen}\\
+$\sum_{k=0}^\infty c_kx^k$ s.d. $\rho > 0$, $\quad f(x) := \sum_{k=0}^\infty c_kx^k,\quad |x| < \rho$
+
+$\implies \forall 0 \leq r < \rho:\quad \sum_{k=0}^\infty c_kx^k$ konv. glm. in $[-r, r]$\\
+\& $\ \ \ \ f: (-\rho, \rho) \rightarrow \R$ ist stetig.
+
+\subsection{Grenzwerte von Funktionen}
+\footnotesize\color{gray}
+$D\subset \R,\quad f,g:D\rightarrow\R.\quad x_0 \in \R$ ist Häufungspunkt für $D$
+\normalsize\color{black}
+
+\textbf{Häufungspunkt}\\
+$x_0 \in \R$ ist ein Häufungspunkt in $D$, falls:\\
+$\forall\delta>0:(\ (x_0-\delta,x_0+\delta)\setminus\{\ x_0\} \ ) \cap D \neq \emptyset$\\
+Man kann (in $D$) beliebig nah zu $x_0$, wobei $x_0 \notin D$ möglich.
+
+\textbf{Grenzwert für Funktionen}\\
+$\underset{x \to x_0}{\lim}f(x) = L$, wenn für $L$ gilt:
+
+$\forall \epsilon > 0,\exists \delta > 0:\\
+\forall x \in D \cap (\ (x_0-\delta,x_0+\delta)\setminus\{\ x_0 \} \ ):\quad |f(x)-L|<\epsilon$
+
+\textbf{Grenzwert durch Folgen}\\
+$\underset{x \to x_0}{\lim}f(x) = L$ gdw.\\
+$\forall(a_n)_{n\geq1}$ in $D\setminus\{x_0\}$ s.d. $\limn a_n = x_0: \underset{x \to x_0}{\lim}f(a_n)=L$
+
+\textbf{Stetigkeit durch Grenzwert}\\
+$f$ stetig in $x_0 \in D \iff \underset{x \to x_0}{\lim}f(x)=f(x_0)$
+
+\textbf{Rechenregeln}\\
+Wenn $\underset{x \to x_0}{\lim}f(x),\quad \underset{x \to x_0}{\lim}g(x)$ exisieren:
+
+$\underset{x \to x_0}{\lim}(f+g)(x)=\underset{x \to x_0}{\lim}f(x) + \underset{x \to x_0}{\lim}g(x)$\\
+$\underset{x \to x_0}{\lim}(f\cdot g)(x) = \underset{x \to x_0}{\lim}f(x) \cdot \underset{x \to x_0}{\lim}g(x)$
+
+\textbf{Grenzwerte abschätzen}\\
+$f \leq g \implies \underset{x \to x_0}{\lim}f(x) \leq \underset{x \to x_0}{\lim}g(x)$ falls existent
+
+\textbf{Sandwich bei Funktionen}\\
+$g_1 \leq f \leq g_2\quad\land\quad \underset{x \to x_0}{\lim}g_1(x)=\underset{x \to x_0}{\lim}g_2(x)$\\
+$\implies \underset{x \to x_0}{\lim}f(x)$ existiert: $\underset{x \to x_0}{\lim}f(x) = \underset{x \to x_0}{\lim}g_1(x)$
+
+\textbf{Komposition und Grenzwert}\\
+\footnotesize\color{gray}
+Hier: $D, E \subset \R,\quad x_0$ Hf.-P. in $D,\quad f:D\rightarrow E,\quad g:E\rightarrow\R$\\
+\normalsize\color{black}
+$\underset{x \to x_0}{\lim}g(f(x))= g(\underset{x \to x_0}{\lim}f(x))$, falls $g$ stetig in $\underset{x \to x_0}{\lim}f(x)$
+
+\section{Differenzierbare Funktionen}
+
+\begin{subbox}{Differenzierbarkeit}
+    \begin{tabular}{lll}
+        $f$ diff.-bar in $x_0$  & $\Def$ & $\underset{x \to x_0}{\lim} \frac{f(x)-f(x_0)}{x-x_0}$ existiert.\\
+        $f$ diff.-bar in $D$ & $\Def$ & $\forall x_0 \in D:$ $f$ in $x_0$ diff.-bar.
+    \end{tabular}
+    
+    $$f'(x) := \underset{h \to 0}{\lim} \frac{f(x_0+h)-f(x_0)}{h} = \underset{x \to x_0}{\lim}\frac{f(x)-f(x_0)}{x-x_0}$$
+\end{subbox}
+\footnotesize\color{gray}
+$D \subset \R,\quad f,g:D\rightarrow\R,\quad x_0 $ Häufungspunkt von $D$
+\normalsize\color{black}
+
+\textbf{Weierstrass}\\
+$f$ diff.-bar in $x_0 \iff\exists c \in \R,\quad r:D\rightarrow\R:\\
+f(x)=f(x_0)+c(x-x_0)+r(x)(x-x_0)\\
+r(x_0)=0$ und $r$ stetig in $x_0$
+
+\textbf{Weitere Bedingung}\\
+$f$ in $x_0$ diff.-bar $\iff \exists \phi:D\rightarrow\R,\quad \phi$ stetig in $x_0$ s.d.\\
+$\forall x \in D:\quad f(x) = f(x_0) + \phi(x)(x-x_0),\quad \phi(x_0)=f'(x_0)$
+
+\textbf{Differenzierbarkeit impliziert Stetigkeit}\\
+$f$ diff.-bar (in $x_0) \implies f$ stetig (in $x_0$) $\implies f$ integr.\\
+\footnotesize\color{gray}
+Nicht umgekehrt: $f(x) = |x|$ ist stetig, aber nicht diff.-bar.
+\normalsize\color{black}
+
+\begin{subbox}{Rechenregeln}
+    $\begin{array}{lllll}
+    (i)     & (f+g)(x_0) &=& f'(x_0)+g'(x_0)\\
+    (ii)    & (f \cdot g)'(x_0) &=& f'(x_0)g(x_0)+f(x_0)g'(x_0)\\
+    (iii)   & (\frac{f}{g})'(x_0) &=& \frac{f'(x_0)g(x_0)-f(x_0)g'(x_0)}{g(x_0)^2}
+    \end{array}$
+\end{subbox}
+\footnotesize\color{gray}
+$f,g$ in $x_0$ diff.-bar, $(iii):\quad g(x_0) \neq 0$
+\normalsize\color{black}
+
+\textbf{Kompositionen}\\
+\footnotesize\color{gray}
+$D, E \subset \R,\quad x_0 \in D $ ist H.-P. in $D$, $\quad f(x_0)$ ist H.-P. in $E$\\$f:D\rightarrow E$ diff.-bar in $x_0,\quad g:E\rightarrow \R$ diff.-bar in $f(x_0)$\\
+\normalsize\color{black}
+$g \circ f:D\rightarrow\R$ diff.-bar in $x_0$:\\
+$(g\circ f)'(x_0) = g'(f(x_0))f'(x_0)$
+
+\begin{subbox}{Ableitung der Umkehrabbildung}
+    $y_0$ ist Häufungspunkt in $E$, $f^{-1}$ in $f(x_0)$ diff.-bar und: 
+    
+    $$(f^{-1})'(f(x_0)) = \frac{1}{f'(x_0)}$$
+\end{subbox}
+\footnotesize\color{gray}
+$f:D\rightarrow E$ ist bijektiv, $\quad x_0 \in D$ ist H.-P.,\\
+$f$ diff.-bar in $x_0,\quad f^{-1}$ in $f(x_0)$ stetig.
+\normalsize\color{black}
+
+\subsection{Erste Ableitung}
+
+\textbf{Spezielle Punkte: Lokale Extrema}\\
+\footnotesize\color{gray}
+$D\subset\R,\quad f:D\rightarrow\R,\quad x_0 \in D$\\
+\normalsize\color{black}
+$x_0$ lokales Minimum, wenn:\\
+$\exists \delta > 0,\quad \forall x \in (x_0-\delta,x_0+\delta)\cap D:\quad f(x) \leq f(x_0)$\\
+$x_0$ lokales Maximum, wenn:\\
+$\exists \delta > 0,\quad \forall x \in (x_0-\delta,x_0+\delta)\cap D:\quad f(x) \geq f(x_0)$
+
+Sattelpunkte \& Wendepunkte sind \textit{keine} Extrema.
+
+\textbf{Lokale Extrema durch Ableitung}\\
+\footnotesize\color{gray}
+$f:(a,b)\rightarrow\R,\quad x_0 \in (a,b),\quad f$ in $x_0$ diff.-bar\\
+\normalsize\color{black}
+Falls $x_0$ ein lok. Extremum ist: $f'(x_0) =0$.
+
+$f'(x_0) > 0 \implies \exists\delta>0:\\
+\null\quad\quad f(x) > f(x_0)\quad \forall x \in (x_0, x_0+\delta),\\
+\null\quad\quad f(x) < f(x_0)\quad \forall x \in (x_0-\delta,x_0)$
+
+$f'(x_0) < 0 \implies \exists\delta>0:\\
+\null\quad\quad f(x) < f(x_0)\quad \forall x \in (x_0, x_0+\delta),\\
+\null\quad\quad f(x) > f(x_0)\quad \forall x \in (x_0-\delta,x_0)$
+
+\textbf{Verhalten von $f$ mittels $f'$}\\
+\footnotesize\color{gray}
+$f,g:[a,b]\rightarrow\R$ stetig, in $(a,b)$ diff.-bar\\
+\normalsize\color{black}
+$\forall \xi \in (a,b):\ \ldots$\\
+$\null\quad f'(\xi) =0 \implies f$ ist konstant\\
+$\null\quad f'(\xi) = g'(\xi) \implies \exists c \in \R: f(x) = g(x) +c\ \forall x \in [a,b]$\\
+$\null\quad f'(\xi) \geq 0 \implies f$ auf $[a,b]$ mon. wachsend.\\
+$\null\quad f'(\xi) > 0 \implies f$ auf $[a,b]$ str. mon. wachsend.\\
+$\null\quad f'(\xi) \leq 0 \implies f$ auf $[a,b]$ mon. fallend.\\
+$\null\quad f'(\xi) < 0 \implies f$ auf $[a,b]$ str. mon. fallend.
+
+$\exists M \geq 0:\quad |f'(\xi)| \leq M\quad \forall \xi \in (a,b)$\\
+$\implies \forall x_1,x_2 \in [a,b]:\quad |f(x_1)-f(x_2)| \leq M|x_1-x_2|$
+
+\subsection{Höhere Ableitungen}
+
+\textbf{Definitionen: Höhere Ableitungen}\\
+\footnotesize\color{gray}
+$D \subset \R,\quad f:D\rightarrow\R \text{ diff.-bar in } D,\quad \text{jedes } x_0 \in D \text{ ist H.P. von } D,\\ f^{(1)} := f',\quad  n \geq 2$\\
+\normalsize\color{black}
+$f$ ist $n$-mal diff.-bar in $D \Def f^{(n-1)}$ in $D$ diff.-bar.\\
+$f^{(n)} := (f^{n-1})'$ die $n$-te Ableitung von $f$.
+
+$f$ ist $n$-mal stetig diff.-bar in $D$ $\Def$ $f^{n}$ stetig in $D$ 
+
+$f$ ist glatt $\Def \forall n \geq 1$ $f$ ist $n$-mal diff.-bar. 
+
+\textbf{Stetigkeit tieferer Ableitungen}\\
+$f$ $n$-mal diff.-bar $\iff$ $f$ $n-1$-mal stetig diff.-bar
+
+\textbf{Rechenregeln}\\
+\footnotesize\color{gray}
+$D \subset \R,\quad n \geq1,\quad f,g:D\rightarrow\R$ $n$-mal diff.-bar in $D$\\
+\normalsize\color{black}
+$(i)\ \ \ (f+g)^{(n)} = f^{(n)}+g^{(n)}$\\
+$(ii)\ \  (f \cdot g)^{(n)} = \sum_{k=1}^n\binom{n}{k}f^{(k)}g^{(n-k)}$\\
+$(iii)\ \ \forall x \in D: g(x) \neq 0 \implies \frac{f}{g} \text{ in } D$ $n$-mal diff.-bar
+
+\textbf{Komposition höherer Ableitungen}\\
+\footnotesize\color{gray}
+$E,D \subset \R$ s.d. alle $x_0 \in E, D$ H.-P. sind$,\\ f:D\rightarrow E,\quad g: E \rightarrow \R,\quad f,g$ $n$-mal diff.-bar\\
+\normalsize\color{black}
+$g \circ f$ ist $n$-mal diff.-bar.
+
+$(f\circ g)^{(n)}(x) = \sum^k_{k=1}A_{n,k}(x)(g^{(k)}\circ f)(x)$
+
+$A_{n,k}$ ist ein Polynom in $f', f^{(2)},\ldots,f^{(n+1-k)}$.
+
+\textbf{Extrema mehrfach differenzierbarer $f$}\\
+\footnotesize\color{gray}
+$n \geq 0,\quad a < x_0 < b,\quad f:[a,b]\rightarrow\R $ in $(a,b)$ $(n+1)$-mal diff.-bar\\
+\normalsize\color{black}
+Wenn: $f'(x_0) = f^{(2)}(x_0) = \ldots = f^ {(n)}(x_0) = 0$:
+
+$\null\quad n \equiv_2 0,\quad x_0$ lokales Extremum $\implies f^{(n+1)}(x_0) = 0$\\
+$\null\quad n \equiv_2 1,\quad f^{(n+1)}(x_0) > 0 \implies x_0$ str. lokales Minimum\\
+$\null\quad n \equiv_2 1,\quad f^{(n+1)}(x_0) < 0 \implies x_0$ str. lokales Maximum\\
+
+\textbf{Extrema zweimal differenzierbarer $f$}\\
+\footnotesize\color{gray}
+$f:[a,b]\rightarrow\R,$ stetig, $2$-mal diff.-bar in $(a,b)$\\
+\normalsize\color{black}
+$a < x_0 < b,\quad f'(x_0) = 0,$ dann:
+
+$\null\quad f^{(2)}(x_0) > 0 \implies x_0$ str. lokales Minimum\\
+$\null\quad f^{(2)}(x_0) < 0 \implies x_0$ str. lokales Maximum\\
+
+\subsection{Wichtige Theoreme}
+
+\textbf{Satz von Rolle}\\
+\footnotesize\color{gray}
+$f:(a,b)\rightarrow\R$ stetig$,\quad f$ diff.-bar in $(a,b)$\\
+\normalsize\color{black}
+$f(a)=f(b)\quad\implies\quad\exists\xi\in(a,b):\quad f'(\xi)=0$
+
+\begin{subbox}{Satz von Lagrange}
+    $f:(a.b) \subset \R \to \R$ in $(a,b)$ diff.-bar:
+    $$\exists\xi \in (a,b):f(b)-f(a)=f'(\xi)(b-a)$$
+\end{subbox}
+
+\textbf{Satz von Cauchy}\\
+\footnotesize\color{gray}
+$f,g:[a,b]\rightarrow\R$ stetig, in $(a,b)$ diff.-bar\\
+\normalsize\color{black}
+$\exists \xi \in (a,b): g'(\xi)(f(b)-f(a)) = f'(\xi)(g(b)-g(a))$
+
+Falls $\forall x \in (a,b),\quad g'(x) \neq 0:$\\
+$\implies  g(a) \neq g(b),\quad \frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f'(\xi)}{g'(\xi)}$
+
+\begin{subbox}{Satz von L'Hôpital}
+    Falls: $\underset{x \to b^-}{\lim}f(x) = 0, \underset{x \to b^-}{\lim} = 0$, $\underset{x \to b^-}{\lim} \frac{f'(x)}{g'(x)}$ existiert: 
+    
+    $$\underset{x \to b^-}{\lim} \frac{f(x)}{g(x)}=\underset{x \to b^-}{\lim}\frac{f'(x)}{g'(x)}$$
+
+    \footnotesize
+    Auch falls: $b=+\infty,\quad \underset{x \to b^-}{\lim}\frac{f'(x)}{g'(x)} = +\infty,\quad x \to a^+$
+\end{subbox}
+\footnotesize\color{gray}
+$f,g:(a,b)\rightarrow\R$ diff.-bar in $(a,b),\quad g'(x) \neq 0\quad \forall x \in (a,b)$
+\normalsize\color{black}
+
+\newpage
+\subsection{Konvexe/Konkave Funktionen}
+\includegraphics[width=1\linewidth]{konvex.png}
+
+\textbf{Definition: Konvex}\\
+\footnotesize\color{gray}
+$I \subset \R \text{ ist ein beliebiges Intervall,}\quad f:I\rightarrow \R$\\
+\normalsize\color{black}
+$f$ konvex auf $I$, falls: $\forall x \leq y \in I,\quad \forall \lambda \in [0,1]:$\\
+$\null\quad f(\lambda x + (1-\lambda)y)\quad\leq\quad\lambda f(x) + (1-\lambda)f(y)$
+
+$f$ str. konvex auf $I$, falls: $\forall x < y \in I,\quad \forall \lambda \in (0,1):$\\
+$\null\quad f(\lambda x + (1-\lambda)y)\quad<\quad\lambda f(x) + (1-\lambda)f(y)$
+
+\textbf{Summe konvexer Funktionen ist konvex}\\
+\footnotesize\color{gray}
+$f:I\rightarrow \R,\quad f$ konvex$,\quad n \geq 1,\quad \{\ x_1,\ldots,x_n\} \subset \R,\\ \lambda_1,\ldots,\lambda_n \in [0,1],\quad\sum_{i=1}^n\lambda_i = 1$
+\normalsize\color{black}
+
+$f(\sum_{i=1}^n\lambda_ix_i) \leq \sum_{i=1}^n\lambda_if(x_i)$
+
+\textbf{Bedingungen für Konvexität}\\
+\footnotesize\color{gray}
+$f:I\rightarrow \R,\quad f$ beliebig\\
+\normalsize\color{black}
+$f$ (str.) konvex $\iff \forall x_0 < x < x_1 \in I:\\ \frac{f(x)-f(x_0)}{x-x_0} \leq/< \frac{f(x_1)-f(x)}{x_1-x}$
+
+\footnotesize\color{gray}
+$f:(a,b)\rightarrow \R,\quad f$ diff.-bar in $(a,b)$\\
+\normalsize\color{black}
+$f$ (str.) konvex $\iff$ $f'$ (str.) mon. wachsend.
+
+\footnotesize\color{gray}
+$f:(a,b)\rightarrow \R,\quad f$ 2 mal diff.-bar in $(a,b)$\\
+\normalsize\color{black}
+$f$ (str.) konvex $\iff f'' \geq 0$ (bzw. $f'' > 0$) auf $(a,b)$.
+
+\newpage
+\subsection{Potenzreihen \& Taylorpolynome}
+
+\textbf{Gleichmässige konvergenz erhält Differenzierbarkeit}\\
+\footnotesize\color{gray}
+$f_n:(a,b)\rightarrow\R$ ist Funktionenfolge$,\\ f_n$ einmal in $(a,b)$ diff.-bar $\forall n \geq 1$\\
+\normalsize\color{black}
+$(f_n)_{n\geq1}$ und $(f_n')_{n\geq1}$ glm. konv. in $(a,b)$.\\
+$\implies f:= \limn f_n$ ist stetig diff.-bar s.d. $f' = \limn f_n'$
+
+\textbf{Potenzreihen sind differenzierbar}\\
+\footnotesize\color{gray}
+$\sum^\infty_{k=1} c_kx^k$ ist Potenzreihe, s.d. $\rho > 0$\\
+\normalsize\color{black}
+$f(x) = \sum^\infty_{k=1}c_k(x-x_0)^k$ ist auf $(x_0-\rho, x_0+\rho)$ diff.-bar.
+
+$f'(x) = \sum_{k=1}^\infty k\cdot c_k (x-x_0)^{k-1}\quad\quad\forall x \in (x_0-\rho, x_0+\rho)$
+
+\textbf{Potenzreihen sind glatt}\\
+$f(x) = \sum_{k=1}^\infty c_k (x-x_0)^k$ ist glatt auf $(x_0-\rho,x_0+\rho)$
+
+$f^{(j)}(x) = \sum^\infty_{k=j} c_k \frac{k!}{(k-j)!}(x-x_0)^{k-j}$, wobei $c_j = \frac{f^{(j)}(x_0)}{j!}$
+
+\textbf{Approximation glatter $f$ durch Polynome}\\
+\footnotesize\color{gray}
+$f:[a,b]\rightarrow\R \text{ stetig, } (n+1)\text{-mal diff.-bar in } (a,b)$\\
+\normalsize\color{black}
+$\forall a < x \leq b,\quad\exists \xi \in (a,x):$\\
+$f(x) = \sum_{k=0}^n\frac{f^{(k)}(a)}{k!}(x-a)^k+\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}$
+
+\begin{subbox}{Taylor Approximation}
+    $a \in \R$ s.d. $c < a < d$, $\forall x \in [c,d],\ \exists \xi \in (x,a):$
+    
+    $$f(x) = \underbrace{\sum^n_{k=0} \frac{f^{(k)}(a)}{k!}(x-a)^k}_{=:\ T_n} + \underbrace{\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}}_{=:\ R_n} $$
+
+    Wobei: $\forall m \geq 1\ \exists n \geq 1: f^{(m)}(x_0) = T_n^{(m)}(x_0)$\\
+    \footnotesize
+    $R_n$ wird als Fehlerabschätzung um $a$ genutzt.
+    \normalsize
+\end{subbox}
+\footnotesize\color{gray}
+$f:[c,d]\rightarrow\R$ stetig, $(n+1)$ mal diff.-bar in $(c,d)$
+\normalsize\color{black}
+
+
+\footnotesize
+\textbf{Taylor-Approximation bei nahen Punkten}\\
+Die Taylor-Approximation bezieht sich wirklich nur auf $x=a$. Beispiel:
+
+$f(x) = \begin{cases}
+    0 & x = 0 \\
+    \exp(-\frac{1}{x^2}) & x \neq 0
+\end{cases}$
+
+Wenn $a=0$ ist $T_n(x) = 0\ \forall x \in \R\ \forall n \geq 1$.\\
+Aber $\underset{x \to \infty}{\lim} f(x) = \underset{x \to -\infty}{\lim} f(x) = 1$ konvergiert sehr schnell.
+
+\newpage
+\section{Das Riemann Integral}
+\footnotesize\color{gray}
+$a,b \in \R,\quad a <b,\quad I = [a,b]$
+\normalsize\color{black}
+
+\textbf{Partition} von $I$: $\null\quad\quad\quad\ \ \ P \subsetneq [a,b],\ \{a,b\} \subset P,\  P \text{ endlich}$\\
+\textbf{Verfeinerung} von $P$: $\null\quad\ $ Partition $P'$ s.d. $P' \subset P$\\
+\textbf{Partitionenmenge} von $I$: $\mathcal{P}(I) := \{P\ |\ P\text{ ist Partition von } I\}$
+
+Für alle $P_1,P_2$ vom selben $I=[a,b]$ gilt:\\
+$P_1 \cup P_2$ ist auch eine Partition von $I$\\
+$\exists P'\subsetneq I:\quad P' \subset P_1\land P' \subset P_2$
+
+\textbf{Ober- und Untersummen}\\
+\footnotesize\color{gray}
+$f:[a,b]\rightarrow\R$ ist beschränkt, $P \subsetneq [a,b]$ ist Partition von $[a,b]$\\
+$M \in \R:\quad M \geq 0\quad\land\quad |f(x)| \leq M\quad \forall x \in [a,b]$\\
+\normalsize\color{black}
+$\delta_i := x_i - x_{i-1}\quad$ für $P = \{x_0,\ldots,x_n\}$
+
+$s(f,P) := \sum_{i=1}^nf_i\delta_i,\quad\quad f_i = \underset{x_{i-1}\leq x\leq x_i}{\inf} f(x)$
+
+$S(f,P) := \sum_{i=1}^nF_i\delta_i,\quad\quad F_i = \underset{x_{i-1}\leq x\leq x_i}{\sup} f(x)$
+
+Für beliebige Partitionen $P_1, P_2$: $\quad s(f,P_1) \leq S(f,P_2)$
+
+$s(f) := \underset{P \in \mathcal{P(I)}}{\sup} s(f,P),\quad\quad S(f) := \underset{P\in\mathcal{P}(I)}{\inf}S(f,P)$
+
+$s(f) \leq S(f)$
+
+\subsection{Riemann-Integrierbarkeit}
+
+\begin{subbox}{Riemann-Integrierbarkeit}
+    \small
+    $f:[a,b]\rightarrow\R$ (beschr.) ist integrierbar $\Def$ $s(f) = S(f)$
+    \normalsize
+    $$\int_a^bf(x)\ dx := s(f) = S(f)$$
+\end{subbox}
+
+\textbf{Integrierbarkeit durch Ober-/Untersummen}\\
+$f:[a,b]\rightarrow\R$ (beschr.) ist integrierbar\\
+$\iff \forall\epsilon>0,\ \exists P \in \mathcal{P}(I):\quad S(f,P) - s(f,P) < \epsilon$ 
+
+\textbf{Integrierbarkeit als Grenzwert}\\
+\footnotesize\color{gray}
+Sei $\mathcal{P}_\delta(I) := \{\text{Partitionen P} \subsetneq [a,b]\ |\ \underset{1 \leq i \leq n}{\max} \delta_i \leq \delta \}$\\
+\normalsize\color{black}
+$f:[a,b]\rightarrow\R$ (beschr.) ist integrierbar\\
+$\iff \forall \epsilon > 0,\ \exists \delta > 0:  \forall P \in \mathcal{P}_\delta(I):\ \ \ S(f,P)- s(f,P) < \epsilon$
+
+\textbf{Polynombrüche sind Integrierbar, ohne Nullstellen}\\
+\footnotesize\color{gray}
+$P, Q: \R \rightarrow\R$ sind Polynome\\
+\normalsize\color{black}
+$\lnot\exists x \in [a,b]: Q(x)=0\implies \frac{P}{Q}:[a,b]\rightarrow\R$ ist integr.
+
+\textbf{Stetige Funktionen sind integrierbar}\\
+$f:[a,b]\rightarrow\R$ stetig $\implies f$ ist integrierbar.\\
+\footnotesize\color{gray}
+Nicht umgekehrt: Treppenfunktionen sind integr., aber nicht stetig.
+\normalsize\color{black}
+
+\textbf{Monotone Funktionen sind integrierbar}\\
+$f:[a,b]\rightarrow \R$ monoton $\implies f$ ist integrierbar.
+
+\textbf{Operationen erhalten Integrierbarkeit}\\
+\footnotesize\color{gray}
+$f,g:[a,b]\rightarrow \R $ beschr. und intgrierbar$,\quad \lambda \in \R$\\
+\normalsize\color{black}
+$f+g,\quad \lambda \cdot f,\quad f \cdot g,\quad |f|,\quad \min(f,g),\quad \max(f,g),\quad \frac{f}{g}$\\
+sind integrierbar.$\quad\quad\quad\quad\quad\quad\quad\quad\quad$ (Für $\frac{f}{g}: |g(x)| > 0$)
+\begin{subbox}{Konstanten und Addition}
+    \footnotesize
+    $I \text{ kompakt},\quad f_1,f_2:I\rightarrow\R$ beschr. integr.$,\quad \lambda_1,\lambda_2 \in \R$
+    \small
+    $$\int_a^b\lambda_1f_1(x) + \lambda_2f_2(x)\ dx = \lambda_1 \int_a^bf_1(x)\ dx+\lambda_2\int_a^bf_2(x)\ dx$$
+\end{subbox}
+ \normalsize
+
+\textbf{Gleichmässige Stetigkeit}\\
+\footnotesize\color{gray}
+$D\subset\R,\quad f:D\rightarrow\R$\\
+\normalsize\color{black}
+$f$ in $D$ glm. stetig $\Def \forall \epsilon>0,\ \exists\delta >0\quad\forall x,y \in D:\quad |x-y|<\delta \implies |f(x)-f(y)|<\epsilon$
+
+\textbf{Gleichmässige Stetigkeit auf kompakten Intervallen}\\
+\footnotesize\color{gray}
+$f:[a,b]\rightarrow\R$\\
+\normalsize\color{black}
+$f$ Stetig auf kompaktem $[a,b] \implies$ $f$ glm. stetig auf $[a,b]$ 
+
+\textbf{Integrale erhalten Monotonie}\\
+\footnotesize\color{gray}
+$f,g:[a,b]\rightarrow\R$ beschr. integr.\\
+\normalsize\color{black}
+$\forall x \in [a,b]:\quad f(x) \leq g(x) \implies \int_a^bf(x)\ dx \leq \int^b_a g(x)\ dx$
+
+$|\int_a^bf(x)\ dx| \leq \int^b_a|f(x)|\ dx$
+
+\newpage
+\subsection{Wichtige Theoreme}
+
+\begin{subbox}{Cauchy-Schwarz}
+    \footnotesize
+    $f,g:[a,b]\rightarrow \R$ beschr. integr.\\
+    \normalsize
+    $$\int_a^b |f(x)g(x)\ dx| \leq \sqrt{\int^b_a f^2(x)\ dx}\cdot\sqrt{\int_a^bg^2(x)\ dx}$$
+\end{subbox}
+
+\textbf{Mittelwertsatz bei Integralen}\\
+\footnotesize\color{gray}
+$f:[a,b]\rightarrow \R$ stetig\\
+\normalsize\color{black}
+$\exists \xi \in [a,b]:\quad \int_a^bf(x)\ dx = f(\xi)(b-a)$
+
+\textbf{Konseqzenz des Mittelwertsatz für Integrale}\\
+\footnotesize\color{gray}
+$f,g:[a,b]\rightarrow\R,\quad$ $f$ stetig$,\quad g$ beschr. integr.\\
+\normalsize\color{black}
+$\forall x \in [a,b]:\quad g(x) \geq 0$\\
+$\implies \exists\xi \in [a,b]: \int_a^bf(x)g(x)\ dx = f(\xi)\int_a^bg(x)\ dx$
+
+\textbf{Integration ist die Umkehrfunktion der Ableitung}\\
+\footnotesize\color{gray}
+$a < b,\quad f:[a,b]\rightarrow\R$ stetig\\
+\normalsize\color{black}
+$F(x):[a,b]\rightarrow\R,\quad F(x) \mapsto \int_a^xf(x)\ dt,$
+
+ist in $[a,b]$ stetig, diff.-bar und $F'(x) = f(x)$.
+
+\textbf{Stammfunktionen}\\
+\footnotesize\color{gray}
+$a < b,\quad f:[a,b]\rightarrow\R$ stetig\\
+\normalsize\color{black}
+$F:[a,b]\rightarrow\R$ ist Stammfunktion von $f$\\
+$ \Def F$ stetig diff.-bar in $[a,b]$ und $F' = f$ in $[a,b]$.
+
+\textbf{Fundamentalsatz der Differentialrechnung}\\
+\footnotesize\color{gray}
+$f:[a,b]\rightarrow\R$ stetig\\
+\normalsize\color{black}
+Die Stammfunktion $F$ von $f$ existiert s.d.\\
+$\int_a^bf(x)\ dx = F(b) - F(a)$
+
+\textbf{Bogenlänge}
+
+$L = \int_a^b\sqrt{1 + (f'(x))^2}\ dx$
+
+\newpage
+\subsection{Integrationsmethoden}
+\small
+Bei rationalen $f$: Polynomdivision \& Partialbruchzerlegung.
+\normalsize
+\begin{subbox}{Partielle Integration}
+    \footnotesize
+    $a<b,\quad f,g:[a,b]\rightarrow\R$ stetig diff.-bar\\
+    \normalsize
+    $$\int f(x)\cdot g'(x)\ dx = f(x)\cdot g(x) - \int f'(x)\cdot g(x)\ dx$$
+    $$\int_a^bf(x)g'(x)\ dx = f(b)g(b) - f(a)g(a) -\int_a^b f'(x)g(x)$$
+\end{subbox}
+
+\begin{subbox}{Substitution}
+    \footnotesize
+    $a<b,\quad \phi:[a,b]\rightarrow\R$ stetig diff.-bar,\\
+    $I \subset \R,\quad \phi([a,b]) \subset I,\quad f: I\rightarrow\R$ stetig\\
+    \normalsize
+    $$\int_{\phi(a)}^{\phi(b)}f(x)\ dx = \int^b_af(\phi(t))\cdot\phi'(t)\ dt$$
+\end{subbox}
+
+\textbf{Umgekehrte Kettenregel}\\
+\footnotesize\color{gray}
+$f:[a,b]\to\R$ diff.$,\quad g:[c,d]\to\R$ diff$,\quad [c,d] \subseteq f([a,b])$\\
+\normalsize\color{black}
+$\int f'(g(x)\cdot g'(x)\ dx = f(g(x))$
+
+\textbf{Umformungen}\\
+\footnotesize\color{gray}
+$I \subset \R,\quad f:I\rightarrow\R$\\
+\normalsize\color{black}
+$a,b,c \in \R$ s.d. $[a+c, b+c] \subset I$\\
+$\implies \int_{a+c}^{b+c}f(x)\ dx = \int_a^bf(t+c)\ dt$
+
+$a,b,c \in \R$ s.d. $c \neq 0$ und $[ac,\ bc] \subset I$\\
+$\implies \int_a^bf(ct)\ dt = \frac{1}{c}\int_{ac}^{bc}f(x)\ dx$
+
+\newpage
+
+\subsection{Uneigentliche Integrale}
+
+\textbf{Definition: Uneigentliche Integrale}\\
+\footnotesize\color{gray}
+$f:[a,\infty)\rightarrow \R$ beschr. integr auf $[a,b]\quad \forall b > a$ \\
+\normalsize\color{black}
+Falls $\underset{b \to \infty}{\lim} \int_a^bf(x)\ dx$ existiert:\\
+$\int_a^\infty f(x)\ dx := \underset{b \to \infty}{\lim}\int_a^b f(x)\ dx$
+
+Man sagt: $f$ ist auf $[a, \infty)$ integrierbar.
+
+\textbf{Reihenkonvergenz über Integration}\\
+Sei $f:[1,\infty)\rightarrow[0,\infty)$ mon. fallend.
+
+$\sum^\infty_{n=1}f(n)$ konv. $\iff \int_1^\infty f(x)\ dx$ konv.
+
+\textbf{Integration von $f:(a,b]\rightarrow\R$}\\
+Integrierbar, falls $\underset{\epsilon\to0^+}{\lim}\int^b_{a+\epsilon}f(x)\ dx$ existiert.\\
+Man schreibt dann: $\int_a^bf(x)\ dx$.
+
+\subsection{Konvergente Reihen}
+
+\textbf{Integration konvergenter Folgen}\\
+\footnotesize\color{gray}
+$f_n:[a,b]\rightarrow\R$ Folge beschr. integr. $f$, glm. konv. zu $f:[a,b]\rightarrow\R$\\
+\normalsize\color{black}
+$f$ ist beschr. integr. und $\limn\int^b_af_n(x)\ dx = \int_a^b f(x)\ dx$
+
+\textbf{Integration konvergenter Reihen}\\
+\footnotesize\color{gray}
+$f_n:[a,b]\rightarrow\R$ Folge beschr. integr. $\sumn f_n$, glm. konv. in $[a,b]$\\
+\normalsize\color{black}
+$\sumn\int_a^bf_n(x)\ dx = \int_a^b(\sumn f_n(x))\ dx$
+
+\textbf{Integration von Potenzreihen}\\
+$f(x) = \sumn c_kx^k$ s.d. $\rho >0$.
+
+$\forall 0 \leq r < \rho:\quad\ \ $ $f$ auf $[-r,r]$ integr. und\\
+$\forall x \in (-\rho,\rho):\quad\int_0^xf(t)\ dt = \sumn \frac{c^n}{n+1}x^{n+1}$
+
+\newpage
+\subsection{Approximationsformeln}
+
+\textbf{Bernoulli Polynome}\\
+Wir nutzen Polynome $P_n$, die erfüllen:\\
+$P_k'=P_{k-1},\quad k \geq1\quad$ und $\null\quad \int_0^1P_k(x)\ dx=0\ \forall k \geq1$
+
+Für die Bernoulli-Polynome $B_k$ gilt: $B_k(x) = k!P_k(x)$. 
+
+$B_k$ ist rekursive definiert:\\
+$B_0 = 1,\quad B_{k-1} = \sum_{i=0}^{k-1}\binom{k}{i}B_i = 0$
+
+$B_k$ Explizit:\\
+$B_k(x) = \sum_{i=0}\binom{k}{i}B_i ^kx^{k-i}\quad \text{ s.d. }\quad \int_0^1B_k(x)\ dx = 0$
+
+Somit:\\
+$B_0(x) = 1,\quad B_1(x) = x-\frac{1}{2},\quad B_2(x) = x^2 - x + \frac{1}{6},\quad 
+\ldots$
+
+$\overset{\sim}{B}_k(x) = \begin{cases}
+    B_k(x)      & \forall x:0 \leq x < 1\\
+    B_k(x-n)    & \forall x: n \leq x < n+1
+\end{cases}$
+
+\textbf{Euler-McLaurin Summationsformel}\\
+\footnotesize\color{gray}
+$f:[0,n]\rightarrow\R$ $k$-mal stetig diff.-bar$,\quad k \geq 1$\\
+\normalsize\color{black}
+Für $k = 1:$\\
+$\sum_{i=1}^nf(i) = \int^n_0f(x)\ dx + \frac{1}{2}(f(n)-f(0))+\int_0^n\overset{\sim}{B}_1(x)f'(x)\ dx$\\
+Für $k \geq 2:$\\
+$\sum_{i=1}^nf(i)= \int^n_0f(x)\ dx + \frac{1}{2}(f(n)-f(0))\\+\sum_{j=2}^k\frac{(-1)^j B_j}{j!}(f^{(j-1)}(n)-f^{(j-1)}(0))+ \overset{\sim}{R}_k$
+
+s.d $\quad\overset{\sim}{R}_k = \frac{(-1)^{k-1}}{k!}\int_0^n\overset{\sim}{B}_k(x)f^{(k)}(x)\ dx$
+
+\textbf{Stirling'sche Formel}\\
+Zur Approximation von $n!$ 
+
+$n! \approx \frac{\sqrt{2\pi n}\cdot n^n}{e^n}\quad\quad$ bzw. $\quad \limn\frac{n!}{\frac{\sqrt{2\pi n}\cdot n^n}{e^n}}=1$
+
+Via Euler-McLaurin lässt sich präziser beweisen:
+
+$n! = \frac{\sqrt{2\pi n}\cdot n^n}{e^n}\cdot\exp(\frac{1}{12n}+R_3(n))$
+
+s.d. $|R_3(n)| \leq \frac{\sqrt{3}}{216}\cdot\frac{1}{n^2}\quad\forall n \geq 1$
+
+
+\newpage
+\section{Spezifische Funktionen}
+
+\subsection{Grundfunktionen}
+
+\textbf{Potenzen}\\
+$f: \R \rightarrow \R:\quad x \mapsto x^n$
+
+stetig und glatt $\forall n \in \N$.\\
+$n \equiv_2 1 \iff f $ str. monoton wachsend
+
+\textbf{Polynome}\\
+$f: \R \rightarrow \R:\quad x \mapsto a_nx^n + \ldots + a_0$
+
+stetig und glatt.\\
+$\deg(f) := \underset{0 \leq i \leq n}{\max}\{i \in \N \ |\ a_i \neq 0 \}$
+
+Für poly. $f,g \neq 0$, Nullstellen von $g$: $x_1, \ldots , x_m$:\\
+$\frac{f}{g}: \R \setminus \{x_1, \ldots, x_m \} \rightarrow \R:\quad x \mapsto \frac{f(x)}{g(x)}$ ist stetig.
+
+\textbf{Betragsfunktion}\\
+$f: \R \rightarrow \R:\quad x \mapsto |x|$
+
+stetig, in $x_0=0$ nicht diff.-bar.\\
+$g$ stetig $\implies |g|(x) := |g(x)|$ stetig.
+
+\textbf{Abrundrungsfunktion}\\
+$f:\R \rightarrow \R:\quad x \mapsto \lceil x \rceil := \max \{m \in \Z \ |\ m \leq x \}$
+
+$f$ nicht stetig in $x_0 \iff x_0 \in \Z$\\
+Für $D=\R \setminus \Z$ ist $\lceil x \rceil: D\rightarrow\R$ stetig.
+
+\textbf{Min.-/Max.-Funktionen}\\
+$\max(f,g)(x) := \max(f(x), g(x))$\\
+$\min(f,g)(x)\ := \min(f(x), g(x))$
+
+Sind $f,g$ stetig, sind auch $\max(f,g), \min(f,g)$ stetig.
+
+\newpage
+\subsection{Beweisfunktionen}
+
+\textbf{Indikatorfunktion von $\Q$}\\
+$f(x) = \begin{cases}
+    1 & x \in \Q\\
+    0 & x \notin \Q
+\end{cases} \quad\quad\quad\ \ f: \R \rightarrow \R$\\
+$\forall x \in \R:$ nicht stetig, nicht integr. in $x$.
+
+$g(x) = \begin{cases}
+    x       & x \in \Q\\
+    1-x     & x \notin \Q
+\end{cases}\quad\quad g: \R \rightarrow \R$\\
+Ist nur in $x=\frac{1}{2}$ stetig, sonst nirgends.
+
+\textbf{Van der Waerden Funktion}\\
+\footnotesize\color{gray}
+$x \in \R$\\
+\normalsize\color{black}
+Sei $g(x) = \min\{|x-m|\ |\ m \in \Z \}$.\\
+D.h. $g$ gibt die nächste ganze Zahl zu $x$ aus.
+
+$f(x) = \sumn\frac{g(10^nx)}{10^n}$
+
+Die Reihe ist glm. konv. auf ganz $\R$ und $f$ stetig.\\ 
+$f$ ist nirgendwo diff.-bar.
+
+\textbf{Glatte Funktion, ohne konv. Potenzreihe}\\
+
+$f(x) = \begin{cases}
+    \exp(-\frac{1}{x^2}) & x \neq 0\\
+    0 & x = 0
+\end{cases}$
+
+$f$ ist glatt auf $\R$ s.d. $\forall k \geq 0: f^{(k)}(0) = 0$.\\
+Da $f(x) > 0\quad \forall x \neq 0$ gibt es keine P.-Reihe mit pos. $\rho$.
+
+\textbf{Funktion mit nicht-stetiger Ableitung}\\
+$f(x) = \begin{cases}
+    x^2\cdot\sin(\frac{1}{x}) & x \neq 0\\
+    0 & x = 0
+\end{cases}$\\
+Wobei $f'$ nicht stetig in $x_0 = 0$.
+
+\newpage
+\subsection{Exponentialfunktion}
+
+\begin{subbox}{Definition: Exponentialfunktion}
+    \footnotesize
+    $\forall z \in \C: \exp(z)$ konvergiert.
+    \normalsize
+    $$\exp: \C \rightarrow \C \quad\quad \exp(z) := \sumn\frac{z^n}{n!}$$
+\end{subbox}
+
+\textbf{Exponentialfunktion in $\R$}\\
+$\exp: \R \rightarrow (0, +\infty)$ 
+
+str. mon. wachs., stetig, surj. und glatt.
+
+$\begin{array}{lll}
+    \exp(x) > 0                         & \color{gray} \forall x \in \R  \\
+    \exp(x) > 1                         & \color{gray}\forall x > 0     \\
+    \exp(x) \geq 1 + x                  & \color{gray}\forall x \in \R  \\
+    \exp(x)\cdot\exp(y) = \exp(x + y)   & \color{gray}\forall x,y \in \R
+\end{array}$
+
+\textbf{Natürlicher Logarithmus}\\
+$\exp^{-1} :=\quad \ln:(0, +\infty) \rightarrow \R$
+
+str. mon. wachs., stetig, bijektiv und glatt.
+
+$\ln(a \cdot b) = \ln(a) + \ln(b) \quad\quad \color{gray}\forall a,b \in (0, +\infty)$
+
+\textbf{Allgemeine Potenzen}\\
+$x^a: (0, +\infty) \rightarrow (0, +\infty) :=\quad \exp(a\cdot\ln(x))\quad$\\
+\footnotesize\color{gray}
+$x > 0,\quad a \in \R$
+\normalsize\color{black}
+
+$a > 0 \implies$ stetig, bijektiv, str. mon. wachs.\\
+$a < 0 \implies$ stetig, bijektiv, str. mon. fall.
+
+\textbf{Potenzgesetze}\\
+\color{gray}\footnotesize
+$\forall a,b \in \R,\quad \forall x >0:\quad$\\
+\color{black}\normalsize
+$\begin{array}{ll}
+\ln(x^a) = a\ln(x) &\quad x^ax^b = x^{a+b} \\
+(x^a)^b=x^{ab}     &\quad x^0=1
+\end{array}$
+
+\newpage
+\subsection{Trigonometrische Funktionen}
+
+\begin{subbox}{Definition: Trigonometrische Funktionen}
+    \footnotesize
+    $\forall z \in \C:\sin(z), \cos(z)$ konv. abs.
+    \normalsize
+    \begin{align*}
+    \sin(z) = & \sumn(-1)^n\frac{z^{2n+1}}{(2n+1)!} &= z - \frac{z^3}{3!}+\frac{z^5}{5!}-\ldots\\
+    \cos(z) = & \sumn(-1)^n\frac{z^{2n}}{(2n)!} &= 1-\frac{z^2}{2!}+\frac{z^4}{4!}-\ldots
+    \end{align*}
+    \small
+    \begin{center}
+        $\tan(z) = \frac{\sin(z)}{\cos(z)}\quad\quad\cot(z)=\frac{\cos(z)}{\sin(z)}$ 
+    \end{center}
+\end{subbox}
+
+\textbf{Trigonometrische Funktionen in $\R$}\\
+$\sin,\cos: \R \rightarrow \R$ sind stetig und glatt.
+
+$\pi := \inf\{t>0\ |\ \sin(t) = 0\} \in (2,4)$\\
+$\forall0\leq x\leq \sqrt{6}:\quad x \geq \sin(x) \geq x-\frac{x^3}{3!}$
+
+Nullstellen von $\sin$ in $\R$: $\{k\cdot\pi\ |\ k \in \Z\}$
+
+$\null\quad\sin(x) > 0\quad \forall x \in (2k\pi, (2k+1)\pi)$\\
+$\null\quad\sin(x) < 0\quad\forall x \in ((2k+1)\pi, (2k+2)\pi)$
+
+Nullstellen von $\cos$ in $\R$: $\{\frac{\pi}{2}+k\pi\ |\ k \in \Z \}:$
+
+$\null\quad\cos(x) > 0\quad\forall x \in (-\frac{\pi}{2}+2k\pi, -\frac{\pi}{2}+(2k+1)\pi)$\\
+$\null\quad\cos(x) < 0\quad\forall x \in (-\frac{\pi}{2}+(2k+1)\pi, -\frac{\pi}{2}+(2k+2)\pi)$
+
+\textbf{Hyperbelfunktionen}
+
+$\begin{array}{llll}
+\cosh(x) &: \R \to [1,\infty] &:=& \frac{e^x+e^{-x}}{2}\\
+\sinh(x) &: \R \to \R &:=& \frac{e^x - e^{-x}}{2}\\
+\tanh(x) &: \R \to [-1,1] &:=& \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+\end{array}$
+
+$\sinh,\cosh,\tanh$ sind glatt.
+
+\newpage
+
+\section{Tabellen}
+\color{gray}
+Credits: Einige Tabellen von D. Camenisch \& J. Steinmann
+\color{black}
+\subsection{Trigonometrische Identitäten}
+
+\textbf{Trigonometrische Identitäten in $\C$}
+
+$\begin{array}{lll}
+e^{iz}     &=& \cos(z)+i\sin(z)\\
+\hline
+\cos(z)^2+\sin(z)^2 &=&  1\\
+\hline
+\sin(z)    &=& \frac{e^{iz}-e^{-iz}}{2i}\\
+\cos(z)    &=& \frac{e^{iz}+e^{-iz}}{2}\\
+\hline
+\sin(z+w)  &=& \sin(z)\cos(w)+\cos(z)\sin(w)\\
+\cos(z+w)  &=& \cos(z)\cos(w)+\sin(z)\sin(w)\\
+\hline
+\sin(2z)   &=& 2\sin(z)\cos(z)\\
+\cos(2z)   &=& \cos(z)^2-\sin(z)^2\\
+\end{array}$
+
+$e^{i\pi}=-1,\quad e^{2i\pi}=1,\quad e^{\frac{i\pi}{2}}=i$
+
+\footnotesize
+$\sin(z) = \frac{e^{iz}-e^{-iz}}{2}$ kann hilfreich sein um $\sin(z)^n$ um zuschreiben.
+\normalsize
+
+\textbf{Trigonometrische Identitäten in $\R$}
+
+$\begin{array}{lll}
+\sin(-x)   &=&  -\sin(x)\\
+\cos(-x)   &=& \cos(x)\\
+\tan(-x)   &=& -\tan(x)\\
+\hline
+\sin(x+\frac{\pi}{2}) &=& \cos(x)\\
+\cos(x+\frac{\pi}{2}) &=& -\sin(x)\\
+\sin(x+\pi)           &=& \cos(x)\\
+\sin(x+2\pi)          &=& \sin(x)\\
+\hline
+\sin(x)^2             &=& \frac{1}{2}(1-\cos(2x))\\
+\cos(x)^2             &=& \frac{1}{2}(1+\cos(2x))\\
+\hline
+\sin(\arctan(x))      &=& \frac{x}{\sqrt{x^2+1}}  \\
+\cos(\arctan(x))      &=& \frac{1}{\sqrt{x^2+1}}   \\
+\hline
+\sin(x)               &=& \frac{\tan(x)}{\sqrt{1 + \tan(x)^2}} \\
+\cos(x)               &=& \frac{1}{\sqrt{1 + \tan(x)^2}}
+\end{array}$
+
+\newpage
+\subsection{Trigonometrische Funktionen: Werte}
+
+\textbf{Funktionswerte am Winkelkreis}\\
+
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{degrees_circle.pdf}
+\end{center}
+
+\textbf{Trigonometrische Analogien}
+
+\small
+\begin{tabular}{c|c|c|c|c|c|c|c}
+     & \rotatebox{90}{\(-\alpha\)}& \rotatebox{90}{$90$\(^{\circ}\) \(-\alpha\)}& \rotatebox{90}{$90$\(^{\circ}\) \(+\alpha\)}& \rotatebox{90}{$180$\(^{\circ}\) \(-\alpha\)}& \rotatebox{90}{$180$\(^{\circ}\) \(+\alpha\)}& \rotatebox{90}{$k*360$\(^{\circ}\) \(-\alpha\)}&\rotatebox{90}{$k*360$\(^{\circ}\) \(+\alpha\)}\\
+     \hline
+     \(\sin\)&
+     \(-\sin{ }\)& \(\cos{ }\)& \(\cos{ }\)& \(\sin{ }\)&
+     \(-\sin{ }\)& 
+     \(-\sin{ }\)&
+     \(\sin{ }\)\\
+     \hline
+     \(\cos\)&
+     \(\cos{ }\)&
+     \(\sin{ }\)&
+     \(-\sin{ }\)&
+     \(-\cos{ }\)&
+     \(-\cos{ }\)&
+     \(\cos{ }\)&
+     \(\cos{ }\)\\
+     \hline
+     \(\tan\)&
+     \(-\tan{ }\)&
+     \(\cot{ }\)&
+     \(-\cot{ }\)&
+     \(-\tan{ }\)&
+     \(\tan{ }\)&
+     \(-\tan{ }\)&
+     \(\tan{ }\)\\
+\end{tabular}
+\normalsize
+\\
+
+\textbf{Werte der trigonometrischen Funktionen}
+
+\footnotesize
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+    $\alpha$ & $0$° &  $30$° & $45$° & $60$° & $90$° & $120$° & $150$° & $180$° & $270$° \\
+           & $0$ & $\frac{\pi}{6}$ & $\frac{\pi}{4}$ & $\frac{\pi}{3}$ & $\frac{\pi}{2}$ & $\frac{2\pi}{3}$ & $\frac{5\pi}{6}$ & $\pi$ & $\frac{3\pi}{2}$\\
+    \hline
+    $\sin$ & $0$ & $\frac{1}{2}$ & $\frac{\sqrt{2}}{2}$ & $\frac{\sqrt{3}}{2}$ & $1$ & $\frac{\sqrt{3}}{2}$ & $\frac{1}{2}$ & $0$ & $-1$\\ 
+    \hline
+    $\cos$ & $1$ & $\frac{\sqrt{3}}{2}$ & $\frac{\sqrt{2}}{2}$ & $\frac{1}{2}$ & $0$ & $-\frac{1}{2}$ & $-\frac{\sqrt{3}}{2}$ & $-1$ & $0$\\
+    \hline
+    $\tan$ & $0$ & $\frac{\sqrt{3}}{3}$ & $1$ & $\sqrt{3}$ & & $-\sqrt{3}$ & $-\frac{\sqrt{3}}{3}$ & $0$ & \\
+\end{tabular}
+\normalsize
+
+
+\newpage
+\footnotesize
+\subsection{Integrale \& Ableitungen}
+\begin{center}
+    \begin{tabular}{c||c||c}
+        $F(x)$ & $f(x)$ & $f'(x)$  \\
+        \hline
+        \hline
+        $x$ & $c$ & $0$\\
+        $\frac{1}{a+1}\cdot x^{a+1}$ & $x^a$ & $a\cdot x^{a-1}$\\
+        $\frac{1}{a\cdot(n+1)}\cdot(ax+b)^{n+1}$ & $(ax+b)^n$ & $n \cdot(ax+b)^{n-1}\cdot a$\\
+        $\ln|x|$ & $\frac{1}{x}=x^{-1}$ & $-\frac{1}{x^2} = -x^{-2}$\\
+        $\frac{2}{3}\cdot x^{\frac{3}{2}}$    & $\sqrt{x} = x^{\frac{1}{2}}$ & $\frac{1}{2\sqrt{x}} = \frac{1}{2}\cdot x^{-\frac{1}{2}}$\\
+        $\frac{n}{n+1}\cdot x^{\frac{1}{n}+1}$ & $\sqrt[\leftroot{0} n]{x} = x^\frac{1}{n}$ & $\frac{1}{n}\cdot x^{\frac{1}{n}-1}$\\
+        \hline
+        $e^x$ & $e^x$ & $e^x$\\
+        $\frac{1}{\ln(a)}\cdot a^x$ & $a^x$ & $a^x\cdot \ln(a)$\\
+        $x\cdot (\ln|x|-1)$ & $\ln|x|$ & $\frac{1}{x} = x^{-1}$\\
+        $\frac{x}{\ln(a)}\cdot(\ln|x|-1)$ & $\log_a(x)$ & $\frac{1}{x\cdot\ln(a)}$\\
+        \hline
+        $-\cos(x)$ & $\sin(x)$ & $\cos(x)$\\
+        $\sin(x)$ & $\cos(x)$ & $-\sin(x)$\\
+        $-\ln|\cos(x)|$ & $\tan(x)$ & $\frac{1}{\cos(x)^2}= 1 + \tan(x)^2$\\
+        $\ln|\sin(x)|$ & $\cot(x)$ & $-\frac{1}{\sin(x)^2}$\\
+        $x \cdot\arcsin(x) + \sqrt{1 - x^2}$ & $\arcsin(x)$ & $\frac{1}{\sqrt{1-x^2}}$\\
+        $x \cdot \arccos(x)-\sqrt{1-x^2}$ & $\arccos(x)$ & $-\frac{1}{\sqrt{1-x^2}}$\\
+        $x \cdot \arctan(x)-\frac{\ln(x^2+1)}{2}$ & $\arctan(x)$ & $\frac{1}{x^2+1}$\\
+        \hline
+        $\sinh(x)$      & $\cosh(x)$ & $\sinh(x)$\\
+        $\cosh(x)$      & $\sinh(x)$ & $\cosh(x)$\\
+        $\ln|\cosh(x)|$ & $\tanh(x)$ & $\frac{1}{\cosh(x)^2} = 1-\tanh(x)^2$\\
+        & $\text{arcsinh}(x)$ & $\frac{1}{\sqrt{x^2+1}}$\\
+        & $\text{arccosh}(x)$ & $\frac{1}{\sqrt{x^2}-1}$\\
+        & $\text{arctanh}()$  & $\frac{1}{1-x^2}$\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Taylorreihen} 
+\begin{center}
+
+    \begin{tabular}{l||l}
+        $f(x)$ & $T_n$\\
+        \hline
+        \hline
+        $\mathrm{e}^x $&$ 1+x+\frac{x^2}{2}+\frac{x^3}{3!}+\frac{x^4}{4!}+\mathcal{O}(x^5)$ \\
+        $\sin{x} $&$ x-\frac{x^3}{3!}+\frac{x^5}{5!}+\mathcal{O}(x^7)$ \\
+        $\sinh(x) $&$ x+\frac{x^3}{3!}+\frac{x^5}{5!}+\mathcal{O}(x^7)$ \\
+        $\cos(x) $&$ 1-\frac{x^2}{2}+\frac{x^4}{4!}-\frac{x^6}{6!}+\mathcal{O}(x^8)$ \\
+        $\cosh(x) $&$ 1+\frac{x^2}{2}+\frac{x^4}{4!}+\frac{x^6}{6!}+\mathcal{O}(x^8)$ \\
+        $\tan(x) $&$ x+\frac{x^3}{3}+\frac{2x^5}{15}+\mathcal{O}(x^7)$ \\
+        $\tanh(x) $&$ x-\frac{x^3}{3}+\frac{2x^5}{15}+\mathcal{O}(x^7)$ \\
+        $\log(1+x) $&$ x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\mathcal{O}(x^5)$ \\
+        $(1+x)^\alpha $&$ 1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+ \frac{\alpha(\alpha - 1)(\alpha - 2)}{3!}x^3 + \mathcal{O}(x^4)$ \\
+        $\sqrt{1+x} $&$ 1 + \frac{x}{2} - \frac{x^2}{8} + \frac{x^3}{16} - \mathcal{O}(x^4)$\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\newpage
+\subsection{Weitere Integrale \& Ableitungen}
+\begin{center}
+    \begin{tabular}{c||c}
+
+        $F(x)$ & $f(x)$\\
+        \hline
+        \hline
+        $\frac{1}{a}\ln|ax+b|$ & $\frac{1}{ax+b}$ \\
+        $\frac{ax}{c}-\frac{ad-bc}{c^2}\ln|cx+d|$ & $\frac{a(cx+d) - c(ax+b)}{(cx+d)^2}$\\
+        $\frac{x}{2}f(x)+\frac{a^2}{2}\ln|x+f(x)|$ & $\sqrt{a^2+x^2}$ \\
+        $\frac{x}{2}f(x)-\frac{a^2}{2}\arcsin(\frac{x}{|a|})$ & $\sqrt{a^2-x^2}$ \\
+        $\frac{x}{2}f(x) - \frac{a^2}{2}\ln|x + f(x)|$ & $\sqrt{x^2-a^2}$\\
+        $\ln(x + \sqrt{x^2 \pm a^2})$ & $\frac{1}{\sqrt{x^2 \pm a^2}}$\\
+        $\arcsin(\frac{x}{|a|})$ & $\frac{1}{\sqrt{a^2-x^2}}$ \\
+        $\frac{1}{a} \cdot\arctan(\frac{x}{a})$ & $\frac{1}{x^2+a^2}$\\
+        \hline
+        $-\frac{1}{a}\cos(ax+b)$ & $\sin(ax+b)$ \\
+        $\frac{1}{a}\sin(ax+b)$ & $\cos(ax+b)$ \\
+        \hline
+        $x^x$ & $x^x \cdot (1 + \ln|x|)$\\
+        $(x^x)^x$ & $(x^x)^x(x+2x\ln|x|)$\\
+        $x^{(x^x)}$ & $x^{(x^x)}(x^{x-1}+\ln|x|\cdot x^x(1+\ln|x|)$\\
+        \hline
+        $\frac{1}{2}(x-\frac{1}{2}\sin(2x))$ & $\sin(x)^2$\\
+        $\frac{1}{2}(x+\frac{1}{2}\sin(2x))$ & $\cos(x)^2$\\
+    \end{tabular}
+\end{center}
+
+%\subsection{Tyler, The Creator}
+% \begin{center}
+%    \includegraphics[width=0.3\linewidth]{tyler2.png}
+% \end{center}
+
+\newpage
+\subsection{Grenzwerte: Folgen}
+\begin{center}
+	\begin{tabular}{  l || l  }
+                $\lim_{x\to\infty} \frac{1}{x} = 0$ & $\lim_{x\to\infty} 1 + \frac{1}{x} = 1$ \\
+		 \hline
+                $\lim_{x \to \infty} e^x = \infty$ & $\lim_{x \to - \infty} e^x = 0$ \\
+                 \hline
+                $\lim_{x \to \infty} e^{-x} = 0$ & $\lim_{x \to - \infty} e^{-x} = \infty$ \\
+                 \hline
+                $\lim_{x \to \infty} \frac{e^x}{x^m} = \infty$ & $\lim_{x \to - \infty} xe^x = 0$ \\
+                 \hline
+                $\lim_{x \to \infty} \ln(x) = \infty$ & $\lim_{x \to 0} \ln(x) = - \infty$ \\
+                 \hline
+                $\lim_{x \to \infty} (1 + x)^{\frac{1}{x}} = 1$ & $\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e$ \\
+                 \hline
+	 	$\lim_{x\to\infty} \left(1 + \frac{1}{x}\right)^b = 1$ & $\lim_{x\to\infty} \left(1 + \frac{1}{x}\right)^b = 1$ \\
+		 \hline  
+	 	$\lim_{x\to\infty} x^aq^x = 0, \; \forall 0 \leq q < 1$ & $\lim_{x\to\infty} n^\frac{1}{n} = 1$ \\
+		 \hline
+                $\lim_{x\to \pm \infty} \left(1+\frac{1}{x}\right)^x = \mathrm{e}$ & $\lim_{x\to \infty} \left(1-\frac{1}{x}\right)^x = \frac{1}{\mathrm{e}}$ \\
+		 \hline
+                $\lim_{x \to \pm \infty} \left(1+\frac{k}{x}\right)^{mx} = e^{km}$ & $\lim_{x \to 0} \frac{\sin{x}}{x} = 1$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{1}{\cos(x)} = 1$ & $\lim_{x\to 0} \frac{\cos{x}-1}{x} = 0$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{\log{1-x}}{x} = -1$ & $\lim_{x\to 0} x\log{x} = 0$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{1-\cos{x}}{x^2} = \frac{1}{2}$ & $\lim_{x\to 0} \frac{\mathrm{e}^x-1}{x} = 1$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{x}{\arctan{x}} = 1$ & $\lim_{x\to\infty} \arctan{x} = \frac{\pi}{2}$ \\
+                 \hline
+                $\lim_{x \to \infty} \left(\frac{x}{x + k}\right)^x = e^{-k}$ & $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$ \\
+                 \hline
+                $\lim_{x \to 0} \frac{a^x - 1}{x} = \ln(a) \; \forall a > 0$ & $\lim_{x \to 0} \frac{e^{ax} - 1}{x} = a$ \\
+                 \hline
+                $\lim_{x \to 0} \frac{\ln(x + 1)}{x} = 1$ & $\lim_{x \to 1} \frac{\ln(x)}{x - 1} = 1$ \\
+                 \hline
+                $\lim_{x \to \infty} \frac{\ln(x)}{x} = 0$ & $\lim_{x \to \infty} \frac{\log(x)}{x^a} = 0$ \\
+                 \hline
+                $\lim_{x \to \infty} \sqrt[x]{x} = 1$ & $\lim_{x \to \infty} \frac{2x}{2^x} = 0$ \\
+                 \hline 
+                $\lim_{x \to \frac{\pi^-}{2}} \tan{x} = +\infty$ & $\lim_{x \to \frac{\pi^+}{2}} \tan{x} = -\infty$ \\
+                \hline
+                $\lim_{x \to \infty} \frac{\sin{x}}{x} = 0$ &  $\lim_{x \to 0^+} x\ln{x} = 0$\\
+                \hline
+	\end{tabular}
+\end{center}
+\subsection{Grenzwerte: Reihen}
+\begin{center}
+	\begin{tabular}{  l || l  }
+	 	$\sum_{i = 1}^{n} i = \frac{n(n+1)}{2}$ & $\sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6}$ \\
+		 \hline 
+	 	$\sum_{i=1}^{n} i^3 = \frac{n^2(n+1)^2}{4}$ & $\sum_{i = 1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$ \\
+		 \hline  
+	 	$\sum_{i = 1}^{\infty} \frac{1}{n(n+1)} = 1$ & $\sum_{i = 1}^\infty z^i = \frac{1 - z^{i + 1}}{1 - z}$ \\
+		 \hline   
+	\end{tabular}
+\end{center}
+
+
+\end{document}
