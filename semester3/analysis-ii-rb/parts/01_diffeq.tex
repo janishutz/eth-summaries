@@ -1,0 +1,117 @@
+\definition \textbf{Differential Equation} (DE)\\
+Equation relating unknown $f$ to derivatives $f^{(i)}$ at \textit{same} $x$.
+
+\definition \textbf{Ordinary Differential Equation} (ODE)\\
+DE s.t. $f: I \to \R$ is in one variable.
+
+\definition \textbf{Partial Differential Equation} (PDE)\\
+DE s.t. $f: I^d \to \R$ is in multiple variables.
+
+\notation $f^{(i)}$ or $y^{(i)}$ instead of $f^{(i)}(x)$ for brevity.
+
+\definition \textbf{Order} $\ \ord(F) := \underset{i \geq 0}{\text{max}}\{ i \sep f^{(i)} \in F,\ f^{(i)} \neq 0 \}$
+
+\remark Any $F$ s.t. $\ord(F) \geq 2$ can be reduced to $\ord(F') = 1$, but using functions of higher dimensions.
+
+\begin{subbox}{Solutions to ODEs}
+    \smalltext{$\forall F: \R^2 \to \R$ s.t. $F$ is cont. diff. and $x_0,y_0 \in \R$:}
+    \begin{align*}
+            & \exists f: I \to \R \\
+            & \text{s.t. } \forall x \in I: f'(x) = F(x, f(x)) \text{ and } f(x_0) = y_0
+    \end{align*}
+    \smalltext{s.t. $I$ is open and maximal.}
+\end{subbox}
+\subtext{Intuition: Solutions always exist (locally!) for \textit{nice enough} equations.}
+
+\subsection{Linear Differential Equations}
+
+\definition \textbf{Linear Differential Equation} (LDE)\\
+$$
+y^{(k)} + a_{k-1}y^{(k-1)} + \ldots + a_1y' + a_0y = b
+$$
+\subtext{
+   $I \subset \R$ is open$,\quad k \geq 1,\quad \forall i < k: a_i: I \to \C$
+}
+
+\definition Homogeneity of LDEs\\
+\begin{tabular}{ll}
+    \textbf{Homogeneous}   & $\iffdef b = 0$\\
+    \textbf{Inhomogeneous} & $\iffdef b \neq 0$ 
+\end{tabular}
+
+\remark $D(y) := y^{(k)} + \ldots + a_0y$ is a linear operation:
+$$
+D(z_1f_1 + z_2f_2) = z_1D(f_1) + z_2D(f_2)
+$$
+\subtext{
+    $\forall z_1,z_2 \in \C,\quad f_1,f_2\ k$-times differentiable: 
+}
+
+\definition \textbf{Homogeneous Solution Space}\\
+$\S(F) := \{ f: I \to \C \sep f \text{ solves } F, f \text{ is } k \text{-times diff.} \}$
+
+\remark $\S(F)$ is the Nullspace of a lin. map: $f$ to $D(f)$:
+$$
+D(f) = z_1D(f_1) + z_2D(f_2) = 0 
+$$
+\subtext{ $\forall z_1,z_2 \in \C,\quad f_1,f_2 \in \S$ }
+
+\begin{subbox}{Solutions for complex homogeneous LDEs}
+    \smalltext{ $F$ s.t. $a_0,\ \ldots\ ,a_{k-1}$ continuous and complex-valued }
+
+    \begin{enumerate}
+        \item $\S$ is a complex vector space, $\dim(\S) = k$
+        \item $\S$ is a subspace of $\{ f \sep f: I \to \C \}$
+        \item $\forall x_0 \in I, (y_0,\ldots,y_{k-1}) \in \C^k$ a unique sol. exists
+    \end{enumerate} 
+\end{subbox}
+
+\begin{subbox}{Solutions for real homogeneous LDEs}
+    \smalltext{$F$ s.t. $a_0,\ \ldots\ ,a_{k-1}$ continuous and real-valued}
+
+    \begin{enumerate}
+        \item $\S$ is a real vector space, $\dim(\S) = k$
+        \item $\S$ is a subspace of $\{ f \sep f: I \to \R \}$
+        \item $\forall x_0 \in I, (y_0,\ldots,y_{k-1}) \in \R^k$ a unique sol. exists
+    \end{enumerate}
+\end{subbox}
+
+\definition \textbf{Inhomogeneous Solution Space}\\
+$\S_b(F) := \{ f + f_0 \sep f \in \S(F),\ f_0 \text{ is a particular sol.} \}$\\
+\subtext{Note: This is only a vector space if $b = 0$, where $\S_b = \S$.}
+
+\begin{subbox}{Solutions for real inhomogeneous LDEs}
+    \smalltext{$F$ s.t. $a_0,\ \ldots\ ,a_{k-1}$ continuous, $b: I \to \C$}
+
+    \begin{enumerate}
+        \item $\forall x_0 \in I, (y_0,\ldots,y_{k-1}) \in \C^k$ a unique sol. exists
+        \item If $b, a_i$ are real-valued, a real-valued sol. exists.
+    \end{enumerate}
+\end{subbox}
+
+\remark \textbf{Applications of Linearity}\\
+If $f_1$ solves $F$ for $b_1$, and $f_2$ for $b_2$: $f_1 + f_2$ solves $b_1 + b_2$. \\
+Follows from: $D(f_1) + D(f_2) = b_1 + b_2$.
+
+\newpage
+\subsection{Finding Solutions: First Order}
+\subtext{ $I \subset \R, \quad a,b: I \to \R$ }
+$$ y' + ay = b $$
+Approach:
+\begin{enumerate}
+    \item Hom. Solution: $y' + ay = 0$ using $f_1 = ke^{-A(x)}$\\
+    \subtext{Note that $\S$ has $\dim(\S) = 1$, so $f_1 \neq 0$ is a Basis for $\S$} 
+    \item Part. Solution: $f_0 \in \S_b$ using Variance of Parameters
+\end{enumerate}
+Solutions: $ f_0 + zf_1 \quad \text{ for } z \in \C $
+
+\begin{subbox}{Explicit Solution for 1st Order LDEs}
+    \smalltext{$A(x)$ is a primitive of $a$, $f(x_0) = y_0$}
+    \begin{align*}
+        f(x) &= z \cdot \exp(-A(x)) \\
+        f(x) &= y_0 \cdot \exp(A(x_0) - a(x))
+    \end{align*}
+\end{subbox}
+
+
+

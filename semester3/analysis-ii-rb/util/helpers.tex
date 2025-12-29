@@ -1,0 +1,68 @@
+% TC boxes
+\tcbset {
+  base/.style={
+    boxrule=0mm,
+    left=1.75mm,
+    arc=2mm,
+    colbacktitle=black!10!white, 
+    coltitle=black, 
+    fonttitle=\bfseries,
+    toptitle=0.75mm, 
+    bottomtitle=0.25mm,
+    title={#1}
+  }
+}
+\newtcolorbox{subbox}[1]{
+  colframe=black!20!white,
+  base={#1}
+}
+
+% Math helpers
+\def\limxo{\lim_{x\to 0}}
+\def\limxi{\lim_{x\to\infty}}
+\def\limxn{\lim_{x\to-\infty}}
+\def\sumk{\sum_{k=1}^\infty}
+\def\sumn{\sum_{n=0}^\infty}
+\def\dx{\text{ d}x}
+
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\C{\mathbb{C}}
+\def\Z{\mathbb{Z}}
+
+\def\S{\mathcal{S}}
+
+\def\Def{\overset{\text{def.}}{\iff}}
+
+\def \cgeq{\succcurlyeq}
+\def \cleq{\preccurlyeq}
+
+\def \limn{\lim\limits_{n \to \infty}}
+\def \limi{\liminf\limits_{n \to \infty}}
+\def \lims{\limsup\limits_{n \to \infty}}
+
+\def \ord{\text{ord}}
+\def \sep{\ |\ }
+
+\def \iffdef{\overset{\text{def}}{\iff}}
+
+% Titles
+\def \definition{\colorbox{lightgray}{Def} }
+\def \notation{\colorbox{lightgray}{Notation} }
+\def \remark{\colorbox{lightgray}{Remark} }
+\def \theorem{\colorbox{lightgray}{Th.} }
+
+% For intuiton and less important notes
+\def \subtext#1{
+    \color{gray}\footnotesize
+    #1
+    \color{black}\normalsize
+}
+
+% inside tc boxes
+\def \smalltext#1{
+    \footnotesize
+    #1
+    \normalsize
+}
