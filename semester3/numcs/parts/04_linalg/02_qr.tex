@@ -80,6 +80,24 @@ Wir haben jedoch das Problem, dass die Berechnung von $r$ überlaufen kann. Dies
 \end{multicols}
 Es ist wichtig, dass wir das $r = \text{sign}(a) \sqrt{a^2 + b^2}$ mit Vorzeichen berechnen, um Auslöschung zu vermeiden
 
+Man kann nun mit der Givens-Rotation die QR-Zerlegung durchführen:
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{GivensQRDecomposition}(A)}
+        \begin{algorithmic}[1]
+            \State $m \gets \texttt{A.shape[0]}$
+            \State $n \gets \texttt{A.shape[1]}$
+            \State $q \gets$ Initialisiere ein $n \times n$ array
+            \For{$j = 1, 2, \ldots, n$}
+                \For{$i = m, \ldots, 2$}
+                \State Nullsetze $a_{m, j}, a_{m - 1, j}, \ldots, a_{2, j}$ durch Givens-Rotationen $G_{m, j}, G_{m - 1, j}, \ldots, G_{2, j}$
+                \EndFor
+            \EndFor
+            \State \Return $l$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
 
 \newpage
 \bg{purple}{Gram-Schmidt}
@@ -131,4 +149,47 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode:
 Falls $R$ nicht benötigt wird, kann viel Speicher gespart werden, indem man das $r_{ik}$ als eine scoped variable verwendet.
 
 
+\newpage
 \bg{purple}{Householder-Reflektor}
+
+Wir konstruieren eine Matrix $H = I - 2 \displaystyle\frac{vv^\top}{v^\top v} = I - 2uu^\top \text{ mit } u = \frac{v}{||v||}$.
+
+Dabei ist die Matrix $H$ orthogonal ($H^\top H = I$) und symmetrisch ($H^\top = H$).
+
+Um nun die QR-Zerlegung durchzuführen mit der Householder-Reflektion fehlen uns die Householder-Reflektoren.
+Um diese zu erstellen wollen wir das $v$ so wählen, dass $Hx = ||x|| e_1$ gilt. So werden also $m - 1$ Elemente auf einmal auf Null gesetzt.
+
+Der Ansatz dazu ist entsprechend $v = x - \alpha e_1$ mit $\alpha = -\text{sign}(x_1)||x||$ (minus, um numerische Stabilität zu erhalten) und wir haben dann:
+\drmvspace
+\begin{align*}
+    Hx = \alpha e_1 \Longleftrightarrow Hx = x - 2 \frac{v^\top x}{v^\top v} v
+\end{align*}
+
+\drmvspace
+Dann müssen wir nur noch $v^\top x$ und $v^\top v$ berechnen und auflösen.
+Der vollständige QR-Algorithmus lautet:
+\begin{algorithm}
+    \begin{spacing}{1.2}
+        \caption{\textsc{HouseholderQR}(A)}
+        \begin{algorithmic}[1]
+            \State $n \gets \texttt{A.shape[0]}$
+            \State $H \gets$ Initialisiere ein $n \times n$ array
+            \For{$k = 1, 2, \ldots, n$}
+                \State $x \gets A(k : m, k$ \Comment{Wähle subvektor der $k$-ten Spalte}
+                \State $H_k \gets$ Konstruiere Householder-Reflektor für $x$
+                \State $A(k : m, k : n) \gets H_k A(k : m, k : n)$ \Comment{Update}
+            \EndFor
+            \State $Q = H_1 H_2 \cdots H_n$
+            \State $R = H_n H_{n - 1} \cdots H_1 A$
+            \State \Return $Q$, $R$
+        \end{algorithmic}
+    \end{spacing}
+\end{algorithm}
+
+Die Laufzeiten der verschiedenen Methoden im Vergleich:
+\begin{itemize}
+    \item Householder-QR: $\approx 2mn^2$ Flops
+    \item Gram-Schmidt: $\approx 2mn^2$ Flops
+    \item Givens: $\approx 3mn^2$ Flops
+\end{itemize}
+Jedoch ist die Householder-Methode bedeutend stabiler als die anderen beiden.

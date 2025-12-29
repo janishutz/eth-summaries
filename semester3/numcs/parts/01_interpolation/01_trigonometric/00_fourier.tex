@@ -29,9 +29,7 @@ Das Inverse davon nimmt eine Funktion der Frequenz und transformiert diese in ei
 %
 \inlineremark $p_m : \R \rightarrow \C$ ist periodisch mit Periode $1$.
 Falls $\gamma_{-j} = \overline{\gamma_j}$ für alle $j$, dann ist $p_m$ reellwertig und
-% NOTE: Uhh... do we want to use the fancy symbols for real and imaginary part or just use $\text{Re}$?
-% RESPONE: whatever he uses in the script, preferably \text{Re}() etc.
-$p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\Re(\gamma_j)$ und $b_j = -2\Im(\gamma_j)$):
+$p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\text{Re}(\gamma_j)$ und $b_j = -2\text{Im}(\gamma_j)$):
 \rmvspace
 \begin{align*}
     p_m(t) = \frac{a_0}{2} + \sum_{j = 1}^{m} (a_j \cos(2\pi jt) + b_j \sin(2\pi jt))
@@ -123,8 +121,6 @@ Die dargestellte Funktion ist die Fourier-Reihe der charakteristischen Funktion 
 \end{align*}
 Mit $c = \pi(a + b)$ und $d = \pi(b - a)$
 
-% TODO: Replace with rendered image from matplotlib (will be higher quality than screenshot from script and can tweak it to our liking)
-% we will have it anyway after solving the exercises, so might as well
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=0.95\textwidth]{assets/01_interpolation/01_trigonometric/overarcing.png}
@@ -140,27 +136,3 @@ wobei $l = 0, 1 \ldots, N - 1$ und $N$ die Anzahl der Intervalle ist:
 \begin{align*}
     \hat{f}_N(k) := \frac{1}{N} \sum_{l = 0}^{N - 1} f(t_l) e^{-2\pi ikt_l} \approx \hat{f}(k)
 \end{align*}
-
-% TODO: Consider if we should use the below
-
-% \begin{tikzpicture}
-%     \begin{axis}[
-%         legend pos=outer north east,
-%         title=Function plot of $f(x)$ (parts coloured),
-%         axis lines = box,
-%         xlabel = $x$,
-%         ylabel = $y$,
-%         variable = t,
-%         trig format plots = rad,
-%     ]
-%         \addplot [
-%             domain=1:4,
-%             samples=70,
-%             color=blue,
-%         ]
-%         {log2(x)};
-%         \addlegendentry{$ y=x^2 - x - 0.5$}
-%     \end{axis}
-%     \node (0) at (0, 0) {};
-% \end{tikzpicture}
-

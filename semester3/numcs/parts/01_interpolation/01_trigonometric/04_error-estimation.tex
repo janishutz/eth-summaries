@@ -18,13 +18,11 @@
 \numberingOff
 \inlineex Zur Fehlerbetrachtung verwenden wir drei Funktionen $f : [0, 1] \rightarrow \R$, welche wir mit trigonometrischer Interpolation an den Punkten $\frac{k}{N}$ approximieren:
 \begin{enumerate}[label=(\Roman*)]
-    % FIXME: Possibly wrong function definition in script
     \item Stufenfunktion (periodische Fortsetzung von $f$) $f : [0, 1] \rightarrow \R$ mit $f(t) = \begin{cases}
                   0 & \text{für } \left| t - \frac{1}{2} \right| > \frac{1}{4}    \\
                   1 & \text{für } \left| t - \frac{1}{2} \right| \leq \frac{1}{4}
               \end{cases}$
     \item Periodische, glatte Funktion $h: \R \rightarrow \R$ mit $h(t) = \displaystyle \frac{1}{\sqrt{1 + \frac{1}{2} \sin(2\pi t)}}$
-          % TODO: Is it $h$ or $g$ here? $g$ makes little sense imho
     \item Hutfunktion (periodische Fortsetzung von $h$) $g : [0, 1] \rightarrow \R$ mit $g(t) = \left| t - \frac{1}{2} \right|$
 \end{enumerate}
 Die untenstehende Abbildung \ref{fig:interpolation-error-examples} beinhaltet einen Plot, auf dem die Konvergenz in Abhängigkeit des Grades des Interpolationspolynoms aufgetragen ist.

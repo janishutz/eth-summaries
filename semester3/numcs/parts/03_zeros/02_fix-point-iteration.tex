@@ -6,7 +6,6 @@
 \subsection{Fixpunktiteration}
 Ein $1$-Punkt-Verfahren benötigt nur den vorigen Wert: $x^{(k + 1)} = \phi(x^{(k)})$
 
-% FIXME: Below konsistent is probably wrong, but is what is in the script
 \inlinedef Eine Fixpunktiteration heisst konsistent mit $F(x) = 0$ falls $F(x) = 0 \Leftrightarrow \phi(x) = x$
 
 \inlineex Für $F(x) = xe^x - 1$ mit $x \in [0, 1]$ liefert $\phi_1(x) = e^{-x}$ lineare Konvergenz,
@@ -28,8 +27,6 @@ $\phi_2(x) = \frac{1 + x}{1 + e^x}$ quadratische Konvergenz und $\phi_3(x) = x +
     Dieser ist der Grenzwert der Folge $x^{(k + 1)} = \phi(x^{(k)})$.
 \end{theorem}
 
-% NOTE: If need be, we can switch to theorem here, or I can add a new environment for "support theorem" or the like,
-% I however feel like a Lemma suits the idea of "Hilfstheorem" quite well
 \inlinelemma Für $U \subseteq \R^n$ konvex und $\phi : U \rightarrow \R^n$ stetig differenzierbar mit $L := \sup_{x \in U} ||D_\phi(x)|| < 1$
 ($D_\phi(x)$ ist die Jacobi-Matrix von $\phi(x)$).
 Wenn $\phi(x^*) = x^*$ für $x^* \in U$, dann konvergiert $x^{(k + 1)} = \phi(x^{(k)})$ gegen $x^*$ lokal mindestens linear.
