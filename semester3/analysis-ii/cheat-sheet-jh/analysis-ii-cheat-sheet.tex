@@ -1,8 +1,6 @@
 \documentclass{article}
 
-\newcommand{\dir}{~/projects/latex}
-\input{\dir/include.tex}
-\load{recommended}
+\input{~/projects/latex/dist/recommended.tex}
 
 \setupCheatSheet{Analysis II}
 
@@ -59,12 +57,15 @@ If you discover any errors, please open an issue or fix the issue yourself and t
 This Cheat-Sheet was designed with the HS2025 page limit of 10 A4 pages in mind. 
 Thus, the whole Cheat-Sheet can be printed full-sized, if you exclude the title page, contents and this page.
 You could also print it as two A5 pages per A4 page and also print the 
-\color{MidnightBlue}\fbox{\href{https://github.com/janishutz/eth-summaries/blob/master/semester2/analysis-i/cheat-sheet.pdf}{Analysis I summary}}\color{black} 
+\hlhref{https://github.com/janishutz/eth-summaries/blob/master/semester2/analysis-i/cheat-sheet-jh/cheat-sheet-en.pdf}{Analysis I summary} 
 \smallhspace in the same manner, allowing you to bring both to the exam.
 
 And yes, she did really miss an opportunity there with the quote\dots But she was also sick, so it's not as unexpected
 
+This summary also uses tips and tricks from this \hlhref{https://polybox.ethz.ch/index.php/s/WBGFTRdEjRwJjQC}{Exercise Session}
 
+
+% TODO: Everywhere: Check with TA notes to add tips and tricks
 
 %          ╭────────────────────────────────────────────────╮
 %          │                    Content                     │
@@ -76,10 +77,23 @@ And yes, she did really miss an opportunity there with the quote\dots But she wa
 \input{parts/diffeq/linear-ode/01_order-one.tex}
 \input{parts/diffeq/linear-ode/02_constant-coefficient.tex}
 
+\newsection
 \section{Differential Calculus in Vector Space}
 \input{parts/vectors/differentiation/00_continuity.tex}
 \input{parts/vectors/differentiation/01_partial_derivatives.tex}
+\input{parts/vectors/differentiation/02_differential.tex}
+\input{parts/vectors/differentiation/03_higher_diff.tex}
+\input{parts/vectors/differentiation/04_change_of_variable.tex}
+\input{parts/vectors/differentiation/05_taylor_polynomials.tex}
+\input{parts/vectors/differentiation/06_critical_points.tex}
 
+\newsection
+\section{Integral Calculus in Vector Space}
+\input{parts/vectors/integration/00_line_integrals.tex}
+\input{parts/vectors/integration/01_int_in_rn.tex}
+\input{parts/vectors/integration/02_improper_int.tex}
+\input{parts/vectors/integration/03_change_of_variable_formula.tex}
+\input{parts/vectors/integration/04_green_formula.tex}
 
 
 \end{document}
