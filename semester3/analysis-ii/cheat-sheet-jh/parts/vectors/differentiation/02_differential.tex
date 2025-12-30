@@ -1,14 +1,57 @@
-\newsectionNoPB
+\newsection
 \subsection{The differential}
 \setLabelNumber{all}{2}
 \compactdef{Differentiable function} We have function $f: X \rightarrow \R^m$, linear map $u : \R^n \rightarrow \R^m$ and $x_0 \in X$. $f$ is differentiable at $x_0$ with differential $u$ if
 $\displaystyle \lim_{\elementstack{x \rightarrow x_0}{x \neq x_0}} \frac{1}{||x - x_0||} (f(x) - f(x_0) - u(x - x_0) = 0$ where the limit is in $\R^m$.
 We denote $\dx f(x_0) = u$.
-If $f$ is differentiable at every $x_0 \in X$, then $f$ is differentiable on $X$
-
+If $f$ is differentiable at every $x_0 \in X$, then $f$ is differentiable on $X$.
+% ────────────────────────────────────────────────────────────────────
+\stepLabelNumber{all}
+\shortproposition
+\rmvspace Let $f: X \rightarrow \R^m$ be differentiable on $X$
+\begin{itemize}[noitemsep]
+    \item $f$ is continuous on $X$
+    \item $f$ admits partial derivatives on $X$ with respect to each variable
+    \item Assume $m = 1$, let $x_0 \in X$ and let $u(x_1, \ldots, x_n) = a_1 x_1 + \ldots + a_n x_n$ be diff. of $f$ at $x_0$.
+          Then $\partial_{x_i} f(x_0) = a_i$ for $1 \leq i \leq n$
+\end{itemize}
+\rmvspace
 % ────────────────────────────────────────────────────────────────────
 \stepLabelNumber{all}
 \shortproposition Let $f, g : X \rightarrow \R^m$ with $X \subseteq \R^n$ open
+\rmvspace
 \begin{itemize}[noitemsep]
-    \item The function $f + g$ is differentiable with differential $\dx (f + g) = \dx f + \dx g$
+    \item The function $f + g$ is differentiable with differential $\dx (f + g) = \dx f + \dx g$. If $m = 1$, then $fg$ is differentiable
+    \item If $m = 1$ and if $g(x) \neq 0 \forall x \in X$, then $f \div g$ is differentiable
 \end{itemize}
+\rmvspace
+% ────────────────────────────────────────────────────────────────────
+\shortproposition If $f$ as above has all partial derivatives on $X$ and if they are all continuous on $X$, then $f$ is differentiable on $X$.
+The differential is the Jacobi Matrix of $f$ at $x_0$.
+This implies that most elementary functions are differentiable.\\
+% ────────────────────────────────────────────────────────────────────
+\compactproposition{Chain Rule} For $X \subseteq \R^n$ and $Y \subseteq \R^m$ both open and $f: X \rightarrow Y$ and $g : Y \rightarrow \R^p$ are both differentiable.
+Then $g \circ f$ is differentiable on $X$ and for any $x \in X$, its differential is given by
+$\dx (g \circ f)(x_0) = \dx g(f(x_0)) \circ \dx f(x_0)$.
+The Jacobi matrix is $J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)$ (RHS is a matrix product)\\
+% ────────────────────────────────────────────────────────────────────
+\setLabelNumber{all}{11}
+\compactdef{Tangent space} The graph of the affine linear approximation $g(x) = f(x_0) + u(x - x_0)$, or the set
+\vspace{-0.75pc}
+\begin{align*}
+    \{ (x, y) \in \R^n \times \R^m : y = f(x_0) + u(x - x_0) \}
+\end{align*}
+
+\drmvspace\rmvspace
+% ────────────────────────────────────────────────────────────────────
+\stepLabelNumber{all}
+\compactdef{Directional derivative} $f$ has a directional derivative $w \in \R^m$ in the direction of $v \in \R^n$,
+if the function $g$ defined on the set $I = \{ t \in \R : x_0 + tv \in X \}$ by $g(t) = f(x_0 + tv)$ has a derivative at $t = 0$ and is equal to $w$
+% ────────────────────────────────────────────────────────────────────
+\shortremark Because $X$ is open, the set $I$ contains an open interval $]-\delta, \delta[$ for some $\delta > 0$.
+% ────────────────────────────────────────────────────────────────────
+\shortproposition Let $f$ as previously be differentiable. Then for any $x \in X$ and non-zero $v \in \R^n$,
+$f$ has a directional derivative at $x_0$ in the direction of $v$, given by$\dx f(x_0)(v)$
+% ────────────────────────────────────────────────────────────────────
+\shortremark The values of the above directional derivative are linear with respect to the vector $v$.
+Suppose we know the dir. der. $w_1$ and $w_2$ in directions $v_1$ and $v_2$, then the directional derivative in direction $v_1 + v_2$ is $w_1 + w_2$
