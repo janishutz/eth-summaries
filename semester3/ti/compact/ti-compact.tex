@@ -17,24 +17,59 @@
 \startDocument
 \usetcolorboxes
 
-\vspace{2cm}
-\begin{Huge}
-    \begin{center}
-        TITLE PAGE COMING SOON
-    \end{center}
-\end{Huge}
+\vspace{1cm}
+\begin{center}
+    \begin{tikzpicture}[node distance = 1cm and 2cm, >={Stealth[round]}]
+        \node[state, initial left, accepting] (q0p0) {$q_0, p_0$};
+        \node[state] (q0p1) [right=of q0p0] {$q_0, p_1$};
+        \node[state] (q0p2) [right=of q0p1] {$q_0, p_2$};
+        \node[state, accepting] (q1p0) [below=of q0p0] {$q_1, p_0$};
+        \node[state] (q1p1) [right=of q1p0] {$q_1, p_1$};
+        \node[state] (q1p2) [right=of q1p1] {$q_1, p_2$};
+        \node[state, accepting] (q2p0) [below=of q1p0] {$q_2, p_0$};
+        \node[state, accepting] (q2p1) [right=of q2p0] {$q_2, p_1$};
+        \node[state, accepting] (q2p2) [right=of q2p1] {$q_2, p_2$};
+
+        \path[->]
+        % Level 0
+        (q0p0) edge node [above] {a} (q0p1)
+        (q0p1) edge node [above] {a} (q0p2)
+        (q0p2) edge [bend right] node [above] {a} (q0p0)
+        % Level 0 to level 1
+        (q0p0) edge node [right] {b} (q1p0)
+        (q0p1) edge node [right] {b} (q1p1)
+        (q0p2) edge node [right] {b} (q1p2)
+        % Level 1 to level 2
+        (q1p0) edge node [above] {a} (q2p1)
+        (q1p1) edge node [above] {a} (q2p2)
+        (q1p2) edge node [right, xshift=0.3cm] {a} (q2p0)
+        % Level 2 to level 1
+        (q2p0) edge node [right] {b} (q1p0)
+        (q2p1) edge node [above left, yshift=0.1cm] {b} (q1p1)
+        (q2p2) edge node [right] {b} (q1p2)
+        % Level 2
+        (q2p0) edge node [above] {a} (q2p1)
+        (q2p1) edge node [above] {a} (q2p2)
+        (q2p2) edge [bend left] node [below] {a} (q2p0)
+        % ────────────────────────────────────────────────────────────────────
+        % Loops on level 1
+        (q1p0) edge [loop left] node {b} ()
+        (q1p1) edge [loop left] node {b} ()
+        (q1p2) edge [loop left] node {b} ();
+    \end{tikzpicture}
+\end{center}
 
 
-\vspace{4cm}
+\vspace{2.5cm}
 \begin{center}
     \begin{Large}
-        ``\textit{Sie können also alle C Programme in Kanonischer Ordnung aufzählen. Sollten Sie dies tun. Wahrscheinlich nicht. Was aber zählt ist, sie \textbf{können} es tun}''
+        ``\textit{Sie können also alle C Programme in Kanonischer Ordnung aufzählen. Sollten Sie dies tun? Wahrscheinlich nicht. Was aber zählt ist, sie \textbf{können} es tun}''
     \end{Large}
 
     \hspace{3cm} - Prof. Dr. Dennis Komm, 2025
 \end{center}
 
-\vspace{3cm}
+\vspace{2cm}
 \begin{center}
     HS2025, ETHZ\\[0.2cm]
     \begin{Large}
