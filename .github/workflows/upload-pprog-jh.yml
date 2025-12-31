@@ -14,4 +14,4 @@ jobs:
         with:
           file: ./semester2/parallel-programming-compact/pprog-compact-summary.pdf
           access_token: ${{ secrets.TOKEN_PPROG }}
-          url: https://exams.vis.ethz.ch/api/document/jahutz/summary-fs25_0/files/653/update/
+          url: https://exams.vis.ethz.ch/api/document/jahutz/compact-summary-fs25/files/656/update/
