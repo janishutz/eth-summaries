@@ -1,2 +1,24 @@
 \newsectionNoPB
 \subsection{Taylor polynomials}
+\compactdef{Taylor polynomials}
+Let $f : X \rightarrow \R$ with $f \in C^k(X, \R)$ and $y \in X$. The Taylor-Polynomial of order $k$ of $f$ at $y$ is:
+\vspace{-0.75pc}
+\begin{align*}
+    T_k f(y; x - y) = \sum_{|i| \leq k} \frac{\partial_i f(y)(x - y)^i}{i!}
+\end{align*}
+
+\drmvspace\rmvspace
+% TODO: Find out what the \partial_1 notation means (likely TA notes 09)
+where $i$ is a \textit{multi-index}, so:
+\drmvspace
+\begin{multicols}{2}
+    \begin{itemize}[noitemsep]
+        \item $i = (i_1, \ldots, i_n)$ (each $i_j \geq 0$)
+        \item $|i| = i_1 + \ldots + i_n$, $\partial_i = \partial_1^{i_1} \ldots \partial_n^{i_n}$
+        \item $(x - y)^i = (x_1 - y_1)^{i_1} \cdot \ldots \cdot (x_n - y_n)^{i_n}$
+        \item $i! = i_1! \cdot \ldots \cdot i_n!$
+    \end{itemize}
+\end{multicols}
+
+\drmvspace\rmvspace
+The concept this formula uses is that we iterate through all possible partial derivatives of $f$ and assigns each a multi-index $i$
