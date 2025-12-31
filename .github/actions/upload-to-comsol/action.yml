@@ -13,9 +13,9 @@ runs:
   steps:
     - name: Upload file to ComSol
       run: |
-        curl {{ inputs.url }} \
-            -H "Authorization: {{ inputs.access_token }}" \
-            -F "file=@{{ inputs.file }}"
+        curl ${{ inputs.url }} \
+            -H "Authorization: ${{ inputs.access_token }}" \
+            -F "file=@${{ inputs.file }}"
 branding:
   icon: book
   color: red

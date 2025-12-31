@@ -12,6 +12,6 @@ jobs:
       - name: Upload to ComSol
         uses: ./.github/actions/upload-to-comsol
         with:
-          access_token: {{ secrets.TOKEN_AD }}
+          access_token: ${{ secrets.TOKEN_AD }}
           file: ./semester1/algorithms-and-datastructures/ad-janishutz.pdf
           url: https://exams.vis.ethz.ch/api/document/jahutz/summary-hs24_1/files/591/update/
