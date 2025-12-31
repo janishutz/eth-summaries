@@ -1,0 +1,17 @@
+name: Upload Linear Algebra Cheat-Sheet
+on:
+  push:
+    paths:
+      - 'semester1/linear-algebra/**'
+jobs:
+  upload_document:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v6
+      - name: Upload to ComSol
+        uses: ./.github/actions/upload-to-comsol
+        with:
+          access_token: ${{ secrets.TOKEN_LA }}
+          file: ./semester1/linear-algebra/linAlg-janishutz.pdf
+          url: https://exams.vis.ethz.ch/api/document/jahutz/cheatsheet-hs24_5/files/592/update/
