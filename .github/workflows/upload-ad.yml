@@ -4,7 +4,7 @@ on:
     paths:
       - 'semester1/algorithms-and-datastructures/**'
 jobs:
-  build_docs:
+  upload_summary:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository

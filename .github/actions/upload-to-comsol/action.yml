@@ -12,6 +12,7 @@ runs:
   using: composite
   steps:
     - name: Upload file to ComSol
+      shell: bash
       run: |
         curl ${{ inputs.url }} \
             -H "Authorization: ${{ inputs.access_token }}" \
