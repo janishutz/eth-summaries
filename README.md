@@ -3,7 +3,7 @@ The source code for summaries and cheat-sheets for the lectures of BSc Computer 
 
 If you find mistakes, please open an issue or fix them yourself and open a PR.
 
-## Credits
+## Available Summaries & Credits
 ### Semester 1
 - [Algorithms & Datastructures Summary (EN)](./semester1/algorithms-and-datastructures/ad-janishutz.pdf) Author: Janis Hutz
 - [Linear Algebra Cheat-Sheet (EN)](./semester1/linear-algebra/linAlg-janishutz.pdf) Author: Janis Hutz
