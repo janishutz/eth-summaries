@@ -1,0 +1,121 @@
+\subtext{Treating functions $f: X \subset \R^n \to \R / \C / \R^m,\quad m,n \geq 1$}
+
+\notation $f(x)$ for $f: I \subset \R^n \to \R^m$ means:\\
+$x = (x_1, \ldots, x_n),\quad f(x) = f\bigl( f_1(x), \ldots, f_m(x) \bigr)$
+
+\subsection{Multivariate functions}
+
+\definition \textbf{Linear map} $f: \R^n \to \R^m$\\
+\subtext{In other words: $f(x) = \textbf{A}x,\quad \textbf{A} \in \C^{m \times n}$}
+
+Linear Maps are continuous
+
+\definition \textbf{Affine Linear map} $f(x) \mapsto \textbf{A}x + c$
+
+\definition \textbf{Quadratic form} $Q: \R^n \to \R$\\
+\subtext{In other words: $Q(x) = \sum_{i=0}^{n}\sum_{j=0}^{m}\left( a_{i,j}x_i x_j \right)$}
+
+\definition \textbf{Monomials} $M(x): \R^n \to \R \mapsto \alpha x_1^{d_1}\cdots x_n^{d_n}$\\
+\subtext{For example: $f(x, y, z) = 16x^2yz^5$}
+
+\definition $\deg(M) := e = \sum_{i=1}^{n} d_i$\\
+\subtext{For example: $\deg(16x^2yz^5) = 8$}
+
+\definition \textbf{Polynomials} $P(x) := \sum_{i=0}^{n} M_i(x)$\\
+\subtext{For example: $P(x,y,z) = x^3 + 25x^2y^6z + xy$}
+
+Polynomials are continuous.
+
+\definition $\deg(P) := d \geq \max \{ \deg(M_i) \sep M_i \text{ in } P \}$\\
+\subtext{For example: $\deg(x^3 + 25x^2y^6z + xy) = 9$}
+
+Visualisations for some function types:
+
+\definition \textbf{Graph} $G_f := \{(x,y,z) \in \R^3 \sep z = f(x,y) \}$\\
+\subtext{Only for $f: \R^2 \to \R$. Visually, this is a surface in $\R^3$}
+
+\definition \textbf{Vector Plots} for $f: \R^2 \to \R^2$\\
+\subtext{Points in $(x,y) \in \R^2$ are displayed as vectors $f(x,y)$}
+
+\newpage
+\subsection{Sequences in $\R^n$}
+
+\definition \textbf{Sequences in $\R^n$}\\
+$(x_k)_{k \geq 1}$ s.t. $x_k \in \R^n$ where $x_k = \bigl( x_{k,1},\ldots x_{k,n} \bigr)$
+
+\definition \textbf{Convergence in $\R^n$}\\
+$$
+    \lim_{k \to \infty} \Bigl( x_k \Bigr) = y \iff \forall \epsilon > 0, \exists N \geq 1: \forall k \geq N:\quad || x_k - y || < \epsilon
+$$
+
+Using this definition preserves many familiar results:
+
+\lemma \textbf{Equivalent conditions to Convergence}\\
+$
+\begin{array}{ll}
+    (i)     & \forall i \text{ s.t. } 1 \leq i \leq n:\quad \underset{k \to \infty}{\lim} \Bigl(x_{k,i}\Bigr) = y_i \\
+    (ii)    & \underset{k \to \infty}{\lim} \Big\| x_k - y \Big\| = 0 
+\end{array}
+$
+
+\definition \textbf{Continuity in $\R^n$}\\
+$f \text{ continuous at } x_0 \in X \iffdef \forall \epsilon > 0, \exists \delta > 0:\\$
+$$
+    \big\| x - x_0 \big\| < \delta \implies \big\| f(x) - f(x_0) \big\| < \epsilon\\
+$$
+$f$ continuous $\iffdef \forall x \in X: f$ continuous at $x$\\
+\subtext{$X \subset \R^n,\quad f:X \to \R^m$}
+
+\lemma \textbf{Continuitiy using Sequences}\\
+$f$ continuous at $x_0$ if and only if:
+$$
+    \forall (x_k)_{k \geq 1}:\quad \underset{k \to \infty}{\lim} \Bigl( x_k \Bigr) = x_0 \implies  \underset{k \to \infty}{\lim}\Bigl(f(x_k)\Bigr) = f(x_0)
+$$
+\subtext{$X \subset \R^n,\quad f:X \to \R^m$}
+
+\definition \textbf{Limits at points}
+\begin{align*}
+    & \underset{x \neq x_0 \to x_0}{\lim} \Bigl( f(x) \Bigr) = y \iffdef \forall \epsilon > 0, \exists \delta > 0: \\
+    & \forall x \neq x_0 \in X: \big\| x - x_0 \big\| < \delta \implies \big\| f(x) - y \big\| < \epsilon
+\end{align*}
+\subtext{$X \subset \R^n,\quad f:X \to \R^m,\quad x_0 \in X,\quad y \in \R^m$}
+
+The sequence test for Continuity works for point-limits too.
+
+\lemma \textbf{Continuity of Compositions}\\
+$f: X \to Y,\ g: Y \to \R^p \text{ continuous } \implies g \circ f  \text{ continuous}$\\
+\subtext{$X \subset \R^n,\quad Y \subset \R^m,\quad p \geq 1$}
+
+\lemma \textbf{Continuity using Coordinate Functions}\\
+$f: \R^n \to \R^m$ continuous $\iff \forall i \leq m: f_i$ continuous
+
+\subsection{Subsets of $\R^n$}
+
+\definition \textbf{Bounded}\\
+$X \subset \R^n$ bounded $\iffdef \Bigl\{ \big\| x \big\| \sep x \in X \Bigr\} \subset \R$ bounded.\\
+\subtext{Example: The open disc $D = \{ x \in \R^n \sep \big\| x - x_0 \big\| < r \}$ is bounded.}
+
+\definition \textbf{Closed}\\
+$X \subset \R^n$ closed $\iffdef \forall (x_k)_{k\geq 1} \in X:\quad \underset{x \to \infty}{\lim}\Bigl( x_k \Bigr) \in X$\\
+\subtext{Example: $\emptyset$, $\R^n$ are closed.}
+
+\definition \textbf{Compact} if closed and bounded.\\
+\subtext{Example: The closed Disc $\Lambda = \{ x \in \R^n \sep \big\| x - x_0 \big\| \leq r \}$ is compact.}
+
+\lemma The Cartesian Product preserves these properties.
+
+\lemma \textbf{Continous functions preserve closedness}
+$$
+    \forall \text{ closed } Y:\quad  f^{-1}(Y) = \bigl\{ x \in \R^n \sep f(x) \in Y \bigr\} \text{ is closed.}
+$$
+\subtext{$f: \R^n \to \R^m$ is continuous,$\quad Y \subset \R^m$}
+
+\begin{subbox}{Min-Max Theorem}
+    \smalltext{For compact, non-empty $X \subset \R^n$, continuous $f: X \to \R$:}
+    $$
+        \exists x_1,x_2 \in X :\quad f(x_1) = \underset{x \in X}{\sup} f(x),\quad f(x_2) = \underset{x \in X}{\inf} f(x)
+    $$
+\end{subbox}
+
+\subsection{Partial Derivatives}
+

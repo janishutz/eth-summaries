@@ -205,3 +205,17 @@ If $f(x)$ is replaced by $h(y) = f(g(y))$, then $h$ is a sol. too.\\
     $$
 \end{subbox}
 \subtext{Usually $\int 1/a(y)\ \text{d}y$ can be solved directly for $\ln|a(y)|+c$.}
+
+\subsection{Method Overview}
+
+\begin{center}
+    \begin{tabular}{l|l}
+        \textbf{Method} & \textbf{Use case} \\
+        \hline
+        Variation of constants      & LDE with $\ord(F)=1$              \\
+        Characteristic Polynomial   & Hom. LDE w/ const. coeff.         \\
+        Undetermined Coefficients   & Inhom. LDE w/ const. coeff.       \\
+        Separation of Variables     & ODE s.t. $y' = a(y)\cdot b(x)$    \\
+        Change of Variables       & e.g. $y' = f(ax + by + c)$          \\
+    \end{tabular}
+\end{center}
