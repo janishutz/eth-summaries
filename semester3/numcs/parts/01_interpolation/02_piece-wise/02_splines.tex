@@ -98,6 +98,7 @@ für alle Funktionen zweimal stetig differenzierbaren Funktionen $g$, für welch
         ||f^{(k)} - s^{(k)}||_{L^\infty} \leq \frac{5}{384} h^{4 - k} ||f^{(4)}||_{L^\infty}
     \end{align*}
 \end{theorem}
+Zur Erinnerung, $C^4$ ist die Klasse aller vier (oder mehr) mal ableitbaren Funktionen.
 
 \innumpy verwendet \texttt{scipy.interpolate.CubicSpline} aktuell die ``not-a-knot''-Bedingung. 
 Es ist möglich mithilfe von \texttt{bc\_type} beim Instanziieren der Klasse die Art des Splines zu ändern.

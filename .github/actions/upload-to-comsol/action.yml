@@ -1,0 +1,22 @@
+name: Upload to ComSol
+description: Upload documents to VIS ComSol
+author: Janis Hutz
+inputs:
+  file:
+    description: File to upload
+  access_token:
+    description: Access token for the file on ComSol
+  url:
+    description: The upload URL as shown in the access token details page on ComSol
+runs:
+  using: composite
+  steps:
+    - name: Upload file to ComSol
+      shell: bash
+      run: |
+        curl ${{ inputs.url }} \
+            -H "Authorization: ${{ inputs.access_token }}" \
+            -F "file=@${{ inputs.file }}"
+branding:
+  icon: book
+  color: red

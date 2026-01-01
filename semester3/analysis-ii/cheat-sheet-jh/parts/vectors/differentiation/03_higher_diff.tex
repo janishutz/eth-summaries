@@ -1,2 +1,27 @@
 \newsectionNoPB
 \subsection{Higher derivatives}
+\shortdef $f$ is in class $C^1$ if $f$ is differentiable and all its partial derivatives are continuous.
+$f$ is of class $C^k$ if it is differentiable and each of its partial derivatives are in $C^{k - 1}$.
+If $f \in C^k(X; \R^m)$ for all $k \geq 1$, then $f \in C^\infty(X; \R^m)$\\
+% ────────────────────────────────────────────────────────────────────
+\setLabelNumber{all}{4}
+\compactproposition{Mixed derivatives commute} $\partial_{x, y} f = \partial_{y, x}$, as well as $\partial_{x, y, z} = \partial_{x, z, y} = \ldots$, etc (all mixed derivatives commute)
+Since we have symmetry, we can use the notation $\partial_{x_1^{m_1}, \ldots, x_n^{m_n}} f = \frac{\partial^k}{\partial x^m} f = D^m f = \partial^m f$,
+where $m = (m_1, \ldots, m_n)$ and $m_1 + \ldots + m_n = k$.
+There are ${n + k - 1 \choose k}$ possible values for $m$ and e.g. $(1, 1, 2)$ corresponds to the derivative $\frac{\partial^4 f}{\partial x \partial y \partial^2 z}$\\
+% ────────────────────────────────────────────────────────────────────
+\stepLabelNumber{all}
+\shortremark Due to linearity of the partial derivative $\partial_x^m(a f_1 + b f_2) = a \partial_x^m f_1 + b \partial_x^m f_2$\\
+% ────────────────────────────────────────────────────────────────────
+\stepLabelNumber{all}
+\compactex{Laplace operator} $f \in C^2(X)$, $\nabla f \in C_1(X; \R^n)$, so
+$\displaystyle \text{div}(\nabla f) = \sum_{i = 1}^{n} \frac{\partial}{\partial_{x_i}} \left( \frac{\partial f}{\partial_{x_i}} \right)
+    = \sum_{i = 1}^{n} \frac{\partial^2 f}{\partial x^2_i}$ (called \bi{Laplacian}, $\Delta f$)\\
+% ────────────────────────────────────────────────────────────────────
+\compactdef{Hessian} $f : X \rightarrow \R$ in $C^2$. For $x \in X$, the \bi{Hessian matrix} of $f$ at $x$ is the symmetric square matrix
+\vspace{-0.75pc}
+\begin{align*}
+    \text{Hess}_f(x) = (\partial_{x_i, x_j} f)_{1 \leq i, j \leq n} = H_f(x) \mediumhspace (\text{$i$-th row, $j$-th column})
+\end{align*}
+
+\drmvspace

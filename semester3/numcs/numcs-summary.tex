@@ -3,7 +3,7 @@
 \input{~/projects/latex/dist/full.tex}
 
 \usepackage{lmodern}
-% \usepackage{pgfplots}
+\usepackage{pgfplots}
 \setFontType{sans}
 
 \renewcommand{\authorTitle}{Robin Bacher, Janis Hutz\\\url{https://github.com/janishutz/eth-summaries}}
@@ -23,23 +23,53 @@
 %          │                   Title page                   │
 %          ╰────────────────────────────────────────────────╯
 \vspace{2cm}
-\begin{Huge}
-    \begin{center}
-        TITLE PAGE COMING SOON
-    \end{center}
-\end{Huge}
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+                legend pos=outer north east,
+                axis lines = box,
+                xlabel = size $n$,
+                ylabel = Time ($s$),
+                variable = t,
+                trig format plots = rad,
+            ]
+            \addplot [
+                domain=1:10,
+                samples=100,
+                color=blue,
+            ]
+            {x^2};
+            \addlegendentry{$t = n^2$}
+            \addplot [
+                domain=1:10,
+                samples=100,
+                color=green,
+            ]
+            {5 * x};
+            \addlegendentry{$t = 5n$}
+            \addplot [
+                domain=1:10,
+                samples=100,
+                color=red,
+            ]
+            {2^x};
+            \addlegendentry{$t = 2^n$}
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
 
 
-\vspace{4cm}
+
+\vspace{3cm}
 \begin{center}
     \begin{Large}
         \quote{Wenn ich keine Lust habe, das zu berechnen, dann wende ich einfach Gewalt an}
     \end{Large}
 
-    \hspace{3cm} - Vasile Gradinaru, 2025
+    \hspace{3cm} - Prof. Dr. Vasile Gradinaru, 2025
 \end{center}
 
-\vspace{3cm}
+\vspace{2cm}
 \begin{center}
     HS2025, ETHZ\\[0.2cm]
     \begin{Large}
@@ -65,15 +95,18 @@
 \newpage
 \setcounter{section}{-1}
 \section{Introduction}
-This summary is intended to give you a broad overview of the topics relevant for the exam and is not intended to serve as a full on replacement for the script.
+This summary is intended to give you a broad overview of the topics relevant for the exam.
+While it aims to serve as a full on replacement for the script, please do not fully rely on it, as there may be mistakes, inaccuracies and missing details as compared to the script.
+Furthermore, you will only have access to the script during the exam, so getting familiar with the script is a good idea.
 We have decided to write it in German, as is the new script and for some of the topics that are poorly explained in the script, we have added further explanations.
 
-The numbering should match the script's numbering exactly (apart from the cases where two definitions were combined due to being closely related and short), making it easier for you to look up the relevant definitions, theorems, etc in context in the script.
+The numbering should match the script's numbering exactly (apart from the cases where two definitions were combined due to being closely related and short),
+making it easier for you to look up the relevant definitions, theorems, etc in context in the script.
 
 Many of the figures in this summary were taken directly from the Script or Lecture notes created by Professor Vasile Gradinaru.
 
 We have also taken some explanations and code examples from the slides of our TA, Nils Müller, whose slides can be found
-\color{MidnightBlue}\fbox{\href{https://n.ethz.ch/~muellerni/courses/numcs25.php}{here}}\color{black}
+\hlhref{https://n.ethz.ch/~muellerni/courses/numcs25.php}{here}. (Link will be updated if we are to get a new website link from him, as n.ethz.ch is down now)
 % TODO: Update this when n.ethz is taken offline completely
 
 % ────────────────────────────────────────────────────────────────────
