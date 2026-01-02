@@ -23,3 +23,27 @@ $A$ is positive (negative) semi-definite if and only if all eigenvalues are grea
 (Compute Eigenvalues using $\det(A - \lambda I) = 0$)
 
 For $2 \times 2$ matrices, we can use the following scheme:
+\begin{center}
+    \begin{tikzpicture}[node distance = 0.3cm and 2cm, >={Stealth[round]}]
+        \node (det) {$\det(A)$};
+        \node (indef) [below=of det] {indefinite};
+        \node (tr0) [right=of det] {$\text{Tr}(A)$};
+        \node (posdef) [above right=of tr0, yshift=-0.5cm] {pos. def.};
+        \node (negdef) [below right=of tr0, yshift=+0.5cm] {neg. def.};
+        \node (tr1) [left=of det] {$\text{Tr}(A)$};
+        \node (possemdef) [above left=of tr1, yshift=-0.5cm] {pos. semi-def.};
+        \node (negsemdef) [below left=of tr1, yshift=+0.5cm] {neg. semi-def.};
+        \node (zero) [below=of tr1] {$A$ is zero};
+
+        \path[->]
+        % Level 0
+        (det) edge node [above] {positive} (tr0)
+        (det) edge node [above] {$0$} (tr1)
+        (det) edge node [right] {negative} (indef)
+        (tr0) edge node [above] {positive} (posdef)
+        (tr0) edge node [below] {negative} (negdef)
+        (tr1) edge node [above] {positive} (possemdef)
+        (tr1) edge node [below] {negative} (negsemdef)
+        (tr1) edge node [right] {$0$} (zero);
+    \end{tikzpicture}
+\end{center}
