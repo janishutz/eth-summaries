@@ -1,0 +1,62 @@
+\subsection{Partial Derivatives}
+
+\begin{subbox}{Partial Derivative}
+    \smalltext{$X \subset \R^n \text{ open},\quad f: X \to \R,\quad 1 \leq i \leq n,\quad x_0 \in X$}
+    $$\dfd{i}(x_{0}) := g'(x_{0,i})$$
+    \smalltext{for $g: \{ t \in \R \sep (x_{0, 1}, \ldots,\ t\ ,\ldots, x_{0, n}) \in X  \} \to \R^n$}
+    $$ g(t) := \underbrace{f(x_{0,i}, \ldots, x_{0,t-1},\ t\ , x_{0, t+1},\ldots,x_{0, n})}_{ \text{ Freeze all }x_{0, k} \text{ except one } x_{0, i} \to t}$$
+\end{subbox}
+
+\notation $\dfd{i}(x_0) = \sdfd{i}(x_0) =\ssdfd{i}(x_0)$
+
+\lemma \textbf{Properties of Partial Derivatives}\\
+\smalltext{Assuming $\sdfd{i} \text{ and } \partial_{x_i} g \text{ exist }$:}
+
+$
+\begin{array}{ll}
+    (i)     & \partial x_i (f+g) = \partial x_i f + \partial x_i g  \\
+    (ii)    & \partial x_i (fg) = \partial x_i (f)g + \partial x_i (g)f\quad \text{ if } m=1\\
+    (iii)   & \partial x_i \Bigr(\displaystyle\frac{f}{g}\Bigl) = \displaystyle\frac{\partial x_i(f)g - \partial x_i(g)f}{g^2}\quad \text{ if } g(x) \neq 0\ \forall x \in X\\
+\end{array}
+$\\
+\subtext{$X \subset \R^n \text{ open},\quad f.g: X \to \R^n,\quad 1 \leq i \leq n$}
+
+\begin{subbox}{The Jacobian}
+    \smalltext{$X \subset \R^n \text{ open},\quad f: X \to \R^n \text{ with partial derivatives existing}$}
+    $$
+    \textbf{J}_f(x) := \begin{bmatrix}
+        \partial x_1 f_1(x) & \partial x_2 f_1(x) & \cdots & \partial x_n f_1(x) \\
+        \partial x_1 f_2(x) & \partial x_2 f_2(x) & \ddots & \vdots              \\
+        \vdots              & \vdots              & \ddots & \vdots              \\
+        \partial x_1 f_n(x) & \partial x_2 f_n(x) & \cdots & \partial x_n f_m(x)
+    \end{bmatrix}
+    $$
+\end{subbox}
+\subtext{Think of $f$ as a vector of $f_i$, then $\textbf{J}_f$ is that vector stretched for all $x_j$}
+
+\definition \textbf{Gradient} $\nabla f(x_0) := \begin{bmatrix}
+    \partial x_1 f(x_0) \\
+    \vdots \\
+    \partial x_n f(x_0)
+\end{bmatrix} = \textbf{J}_f(x)^\top$\\
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R$}
+
+\definition \textbf{Divergence} $\text{div}(f)(x_0) := \text{Tr}\bigr(\textbf{J}_f(x_0)\bigl)$\\
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^n,\quad \textbf{J}_f \text{ exists}$}
+
+\subsection{The Differential}
+
+\smalltext{
+    Partial derivatives don't provide a good approx. of $f$, unlike in the $1$-dimensional case. The \textit{differential} is a linear map which replicates this purpose in $\R^n$. 
+}
+
+\begin{subbox}{Differentiability in $\R^n$}
+    \smalltext{$X \subset \R^n \text{ open},\quad f: X \to \R^n,\quad u: \R^n \to \R^m \text{ linear map}$}
+    $$
+        df(x_0) := u
+    $$
+    If $f$ is differentiable at $x_0 \in X$ with $u$ s.t.
+    $$
+        \underset{x \neq x_0 \to x_0}{\lim} \frac{1}{\big\| x - x_0 \big\|}\Biggl( f(x) - f(x_0) - u(x - x_0) \Biggr) = 0
+    $$
+\end{subbox}

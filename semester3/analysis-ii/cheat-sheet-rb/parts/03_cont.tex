@@ -58,6 +58,17 @@ $
 \end{array}
 $
 
+\definition \textbf{Limits at points}
+\begin{align*}
+    & \underset{x \neq x_0 \to x_0}{\lim} \Bigl( f(x) \Bigr) = y \iffdef \forall \epsilon > 0, \exists \delta > 0: \\
+    & \forall x \neq x_0 \in X: \big\| x - x_0 \big\| < \delta \implies \big\| f(x) - y \big\| < \epsilon
+\end{align*}
+\subtext{$X \subset \R^n,\quad f:X \to \R^m,\quad x_0 \in X,\quad y \in \R^m$}
+
+The sequence test for Continuity works for point-limits too.
+
+\subsection{Continuity in $\R^n$}
+
 \definition \textbf{Continuity in $\R^n$}\\
 $f \text{ continuous at } x_0 \in X \iffdef \forall \epsilon > 0, \exists \delta > 0:\\$
 $$
@@ -72,15 +83,6 @@ $$
     \forall (x_k)_{k \geq 1}:\quad \underset{k \to \infty}{\lim} \Bigl( x_k \Bigr) = x_0 \implies  \underset{k \to \infty}{\lim}\Bigl(f(x_k)\Bigr) = f(x_0)
 $$
 \subtext{$X \subset \R^n,\quad f:X \to \R^m$}
-
-\definition \textbf{Limits at points}
-\begin{align*}
-    & \underset{x \neq x_0 \to x_0}{\lim} \Bigl( f(x) \Bigr) = y \iffdef \forall \epsilon > 0, \exists \delta > 0: \\
-    & \forall x \neq x_0 \in X: \big\| x - x_0 \big\| < \delta \implies \big\| f(x) - y \big\| < \epsilon
-\end{align*}
-\subtext{$X \subset \R^n,\quad f:X \to \R^m,\quad x_0 \in X,\quad y \in \R^m$}
-
-The sequence test for Continuity works for point-limits too.
 
 \lemma \textbf{Continuity of Compositions}\\
 $f: X \to Y,\ g: Y \to \R^p \text{ continuous } \implies g \circ f  \text{ continuous}$\\
@@ -102,13 +104,27 @@ $X \subset \R^n$ closed $\iffdef \forall (x_k)_{k\geq 1} \in X:\quad \underset{x
 \definition \textbf{Compact} if closed and bounded.\\
 \subtext{Example: The closed Disc $\Lambda = \{ x \in \R^n \sep \big\| x - x_0 \big\| \leq r \}$ is compact.}
 
-\lemma The Cartesian Product preserves these properties.
+\definition \textbf{Open}\\
+$X \subset \R^n$ open $\iffdef \forall x \in X,\ \exists \delta > 0:$
+$$\bigl\{ y \in \R^n \sep  |x_i - y_i| < \delta,\ \ \forall i \leq n \bigr\} \subset X$$
+\subtext{In other words: Changing any coord. $x_i$ by $\delta$ keeps $x'$ in $X$}\\
+\subtext{Example: $\emptyset, \R^n$ are open (and closed)}
 
-\lemma \textbf{Continous functions preserve closedness}
+
+\lemma The Cartesian Product preserves bounded/closed.
+
+\lemma \textbf{Continous functions preserve closed/open}
+
+\smalltext{$\forall \text{ closed/open } Y:$}
 $$
-    \forall \text{ closed } Y:\quad  f^{-1}(Y) = \bigl\{ x \in \R^n \sep f(x) \in Y \bigr\} \text{ is closed.}
+    f^{-1}(Y) = \bigl\{ x \in \R^n \sep f(x) \in Y \bigr\} \text{ is closed/open.}
 $$
 \subtext{$f: \R^n \to \R^m$ is continuous,$\quad Y \subset \R^m$}
+
+\lemma \textbf{The complement of open sets is closed}
+$$
+    X \subset \R^n \text{ is open } \iff \underbrace{\bigl\{ x \in \R^n \sep x \notin X \bigr\}}_{\text{Complement}} \text{ is closed}
+$$
 
 \begin{subbox}{Min-Max Theorem}
     \smalltext{For compact, non-empty $X \subset \R^n$, continuous $f: X \to \R$:}
@@ -116,6 +132,3 @@ $$
         \exists x_1,x_2 \in X :\quad f(x_1) = \underset{x \in X}{\sup} f(x),\quad f(x_2) = \underset{x \in X}{\inf} f(x)
     $$
 \end{subbox}
-
-\subsection{Partial Derivatives}
-
