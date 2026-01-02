@@ -1,2 +1,25 @@
-\newsectionNoPB
+\newsection
 \subsection{Critical points}
+\stepLabelNumber{all}
+\compactdef{Critical Point} For $f: X \rightarrow \R^n$ differentiable, $x_0 \in X$ is called a \bi{critical point} of $f$ if $\nabla f(x_0) = 0$
+\shortremark As in 1 dimensional case, check edges of the interval for the critical point.\\
+%
+To determine the kind of critical point, we need to determine if $H_f(x_0)$ is definite:
+\drmvspace
+\begin{multicols}{3}
+    \begin{itemize}[noitemsep]
+        \item positive definite $\Rightarrow x_0$ local max
+        \item negative definite $\Rightarrow x_0$ local min
+        \item indefinite $\Rightarrow x_0$ point of inflection
+    \end{itemize}
+\end{multicols}
+
+\dhrmvspace
+\setLabelNumber{all}{6}
+\compactdef{Non-degenerate critical point} If $\det(H_f(x_0)) \neq 0$ (if $H_f(x_0)$ is semi-definite, then $\det(H_f(x_0)) = 0$, thus degenerate)\\
+To figure out if a matrix is definite, we can compute the eigenvalues. $A$ is positive (negative) definite, if and only if all eigenvalues are greater (lower) than $0$.
+$A$ is indefinite if and only if it has both positive and negative eigenvalues.
+$A$ is positive (negative) semi-definite if and only if all eigenvalues are greater (lower) or equal to $0$.
+(Compute Eigenvalues using $\det(A - \lambda I) = 0$)
+
+For $2 \times 2$ matrices, we can use the following scheme:

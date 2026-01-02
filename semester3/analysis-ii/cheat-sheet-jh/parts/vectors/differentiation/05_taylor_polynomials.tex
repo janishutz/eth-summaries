@@ -22,4 +22,13 @@ where $i$ is a \textit{multi-index}, so:
 \end{multicols}
 
 \drmvspace\rmvspace
-The concept this formula uses is that we iterate through all possible partial derivatives of $f$ and assigns each a multi-index $i$
+The concept this formula uses is that we iterate through all possible partial derivatives of $f$ and assigns each a multi-index $i$.
+To denote that we want to take the partial derivative $\partial_{112}$, we use $i = (2, 1, 0)$, since we take the derivative of the first variable twice,
+of the second variable once and never of the third variable.
+So the expression is thus now:
+\mrmvspace
+\begin{align*}
+    \frac{\partial_{112} f(y) (x_1 - y_1)^2 (x_2 - y_2)^1 (x_3 y_3)^0}{2!1!0!} = \frac{\partial_{112} f(y) (x_1 - y_1)^2 (x_2 - y_2)}{2}
+\end{align*}
+
+\drmvspace
