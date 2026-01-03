@@ -39,7 +39,10 @@ $\\
     \vdots \\
     \partial x_n f(x_0)
 \end{bmatrix} = \textbf{J}_f(x)^\top$\\
-\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R$}
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R$, i.e. \textit{must} map to $1$ dimension}
+
+\remark $\nabla f$ points in the direction of greatest increase.
+\subtext{This generalizes that in $\R$, $\text{sgn}(f)$ shows if $f$ increases/decreases}
 
 \definition \textbf{Divergence} $\text{div}(f)(x_0) := \text{Tr}\bigr(\textbf{J}_f(x_0)\bigl)$\\
 \subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^n,\quad \textbf{J}_f \text{ exists}$}
@@ -60,3 +63,136 @@ $\\
         \underset{x \neq x_0 \to x_0}{\lim} \frac{1}{\big\| x - x_0 \big\|}\Biggl( f(x) - f(x_0) - u(x - x_0) \Biggr) = 0
     $$
 \end{subbox}
+\subtext{Similarly, $f$ is differentiable if this holds for all $x \in X$}
+
+\lemma \textbf{Properties of Differentiable Functions}
+
+$
+\begin{array}{ll}
+    (i)     & \text{Continuous on } X \\
+    (ii)    & \forall i \leq m, j \leq n:\quad \partial_{x_j}f_i \text{ exists} \\
+    (iii)   & m=1:\quad \partial_{x_i} f(x_0) = a_i  \\
+            & \text{for:}\quad u(x_1,\ldots,x_n) = a_1x_1 + \cdots + a_nx_n
+\end{array}
+$
+
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m \text{ differentiable on } X$}
+
+\lemma \textbf{Preservation of Differentiability}
+
+$
+\begin{array}{ll}
+    (i)     & f + g \text{ is differentiable: } d(f+g)=df+dg  \\
+    (ii)    & fg \text{ is differentiable, if } m=1 \\
+    (iii)   & \displaystyle\frac{f}{g}\ \text{ is differentiable, if } m=1,\ g(x) \neq 0\ \forall x \in X
+\end{array}
+$
+
+\subtext{$X \subset \R^n \text{ open},\quad f,g: X \to \R^m \text{ differentiable on }X$}
+
+\lemma \textbf{Cont. Partial Derivatives imply Differentiability}
+
+if all $\partial_{x_j} f_i$ exist and are continuous:
+$$
+    f \text{ differentiable on } X,\quad df(x_0) = \textbf{J}_f(x_0)
+$$
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m$}
+
+\lemma \textbf{Chain Rule} $\quad g \circ f \text{ is differentiable on } X$
+\begin{align*}
+    & d(g \circ f)(x_0) &= dg\bigl( f(x_0) \bigr) \circ df(x_0) \\
+    & \textbf{J}_{g \circ f}(x_0) &= \textbf{J}_g\bigl( f(x_0) \bigr) \cdot \textbf{J}_f(x_0)
+\end{align*}
+\subtext{$X \subset \R^n \text{ open},\quad Y \subset \R^m \text{ open},\quad f: X \to Y, g: Y \to \R^p, f,g \text{ diff.-able}$}
+
+\definition \textbf{Tangent Space}
+$$
+    T_f(x_0) := \Bigl\{ (x,y) \in \R^n \times \R^m \sep y = f(x_0) + u(x-x_0) \Bigr\}
+$$
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m \text{ diff.-able},\quad x_0 \in X,\quad u = df(x_0)$}
+
+\definition \textbf{Directional Derivative}
+$$
+    D_v f(x_0) = \underset{t \neq 0 \to 0}{\lim} \frac{f(x_0 + tv) - f(x_0)}{t}
+$$
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m,\quad v \neq 0 \in \R^n,\quad x_0 \in X$}
+
+\lemma \textbf{Directional Derivatives for Diff.-able Functions}
+$$
+    D_vf(x_0) = df(x_0)(v) = \textbf{J}_f(x_0) \cdot v
+$$
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m \text{ diff.-able},\quad v \neq 0 \in \R^n,\quad x_0 \in X$}
+
+\remark $D_vf$ is linear w.r.t $v$, so: $D_{v_1 + v_2}f = D_{v_1}f + D_{v_2}f$
+
+\remark $D_vf(x_0) = \nabla f(x_0) \cdot v = \big\| \nabla f(x_0) \big\| \cos(\theta)$\\
+\subtext{In the case $f: X \to \R$, where $\theta$ is the angle between $v$ and $\nabla f(x_0)$}
+
+\newpage
+\subsection{Higher Derivatives}
+
+\definition \textbf{Differentiability Classes}
+\begin{align*}
+    & f \in C^1(X;\R^m)         &\iffdef& f \text{ diff.-able on } X, \text{ all } \partial_{x_j} f_i \text{ exist} \\
+    & f \in C^k(X;\R^m)         &\iffdef& f \text{ diff.-able on } X, \text{ all } \partial_{x_j} f_i \in C^{k-1} \\
+    & f \in C^\infty(X;\R^m)    &\iffdef& f \in C^k(X;\R^m)\ \forall k \geq 1
+\end{align*}
+\subtext{$X \subset \R^n \text{ open},\quad f:X\to\R^m$}
+
+\lemma Polynomials, Trig. functions and $\exp$ are in $C^\infty$
+
+\lemma \textbf{Operations preserve Differentiability Classes}
+
+$
+\begin{array}{lcll}
+    (i)     & f + g                     & \in C^k \\
+    (ii)    & fg                        & \in C^k       & \text{ if } m=1 \\
+    (iii)   & \displaystyle\frac{f}{g}  & \in C^k       & \text{ if } m=1, g(x) \neq 0\ \forall x \in X
+\end{array}
+$\\
+\subtext{$f,g \in C^k$}
+
+\lemma \textbf{Composition preserves Differentiability Classes}
+$$
+    g \circ f \in C^k
+$$
+\subtext{$f \in C^k,\quad f(X) \subset Y,\quad Y \subset \R^m \text{ open},\quad g: Y \to \R^p,\quad g \in C^k$}
+
+\begin{subbox}{Partial Derivatives commute in $C^k$}
+    \smalltext{$k \geq 2,\quad X \subset \R^n \text{ open},\quad f: X \to \R^m,\quad f \in C^k$}
+    $$
+        \forall x,y:\quad \partial_{x,y}f = \partial_{y,x}f
+    $$
+    \smalltext{This generalizes for $\partial_{x_1,\ldots,x_n}f$.}
+\end{subbox}
+
+\remark Linearity of Partial Derivatives
+$$
+    \partial_x^m(af_1 + bf_2) = a\partial_x^mf_1 + b\partial_x^mf_2
+$$
+\subtext{Assuming both $\partial_x f_{1,2}$ exist.}
+
+\definition \textbf{Laplace Operator}
+$$
+    \Delta f :=  \text{div}\bigl( \nabla f(x) \bigr) = \sum_{i=0}^{n} \frac{\partial}{\partial x_i}\Bigl( \frac{\partial f}{\partial x_i} \Bigr) = \sum_{i=0}^{n} \frac{\partial^2f}{\partial x_i^2}
+$$
+
+\begin{subbox}{The Hessian}
+    \smalltext{$X \subset \R^n \text{ open},\quad f: X \to \R,\quad f \in C^2,\quad x_0 \in X$}
+    $$
+    \textbf{H}_f(x) := \begin{bmatrix}
+        \partial_{1,1}f(x_0)    & \partial_{2,1}f(x_0) & \cdots & \partial_{n,1}f(x_0)  \\
+        \partial_{1,2}f(x_0)    & \partial_{2,2}f(x_0) & \cdots & \partial_{n,2}f(x_0)  \\
+        \vdots                      & \vdots                 & \ddots & \vdots                      \\
+        \partial_{1,n}f(x_0)    & \partial_{2,n}f(x_0) & \cdots & \partial_{n,n}f(x_0)
+    \end{bmatrix}
+    $$
+    Where $\bigl( \textbf{H}_f(x) \bigr)_{i,j} = \partial_{x_i,x_j}f(x)$
+\end{subbox}
+\subtext{Note that $f: X \to \R$, i.e. $\textbf{H}_f$ only exists for $1$-dimensionally valued $f$}
+
+\notation $\textbf{H}_f(x) = \text{Hess}_f(x) = \nabla^2f(x)$
+
+\remark $\textbf{H}_f(x_0)$ is symmetric: $\bigl( \textbf{H}_f(x_0) \bigr)_{i,j} = \bigl( \textbf{H}_f(x_0) \bigr)_{j, i}$
+
+\subsection{Change of Variable}
