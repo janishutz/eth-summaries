@@ -27,7 +27,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 - [Analysis II Cheat-Sheet (EN)](./semester3/analysis-ii/cheat-sheet-rb/main.pdf) Author: Robin Bacher
 #### Other Courses
 - [Numerical Methods for Computer Science Summary (DE)](./semester3/numcs/numcs-summary.pdf) Authors: Robin Bacher, Janis Hutz
-- [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Author: Janis Hutz (*NOTE: has not been started yet, may or may not happen*)
+- [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Author: Janis Hutz
 
 
 ## Contributing
