@@ -1,6 +1,13 @@
 \subsection{The Syntax}
 \texttt{C} uses a very similar syntax as many other programming languages, like \texttt{Java}, \texttt{JavaScript} and many more\dots
 to be precise, it is \textit{them} that use the \texttt{C} syntax, not the other way around. So:
-\inputcodewithfilename{c}{code-examples/00_c/01_syntax/}{00_intro.c}
-\inputcodewithfilename{c}{code-examples/00_c/01_syntax/}{01_func.h}
-\inputcodewithfilename{c}{code-examples/00_c/01_syntax/}{01_func.c}
+\inputcodewithfilename{c}{code-examples/00_c/}{00_intro.c}
+
+In \texttt{C} we are referring to the implementation of a function as a \bi{(function) definition} (correspondingly, \textit{variable definition}, if the variable is initialized)
+and to the definition of the function signature (or variables, without initializing them) as the \bi{(function) declaration} (or, correspondingly, \textit{variable declaration}).
+
+\texttt{C} code is usuallt split into the source files, ending in \texttt{.c} (where the local functions and variables are declared, as well as all function definitions)
+and the header files, ending in \texttt{.h}, where the external declarations are defined. Usually, no definition of functions are in the \texttt{.h} files
+\inputcodewithfilename{c}{code-examples/00_c/}{01_func.h}
+
+\inputcodewithfilename{c}{code-examples/00_c/}{01_func.c}

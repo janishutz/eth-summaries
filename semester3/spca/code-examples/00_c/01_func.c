@@ -25,12 +25,12 @@ int get_user_input_int( char prompt[] ) {
 
     while ( input_data > 1 ) {
         input_data -= 1;
-        printf( "Hello World" );
+        printf( "Hello World\n" );
     }
 
     do {
         input_data -= 1;
-        printf( "Bye World" );
+        printf( "Bye World\n" );
     } while ( input_data_copy > 1 );
 
     return 0;

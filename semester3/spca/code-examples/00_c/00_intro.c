@@ -12,5 +12,5 @@ int main( int argc, char *argv[] ) {
     for ( int i = 0; i < argc; i++ ) // For loop just like any other sane programming language
         printf( "Arg %d: %s\n", i, argv[ i ] ); // Outputs the i-th argument from CLI
 
-    get_user_input_int( "Select a number" );
+    get_user_input_int( "Select a number" ); // Function calls as in any other language
 }
