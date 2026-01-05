@@ -34,4 +34,26 @@ we have $\displaystyle\int_{\gamma} f(s) \cdot \dx \vec{s} = \int_{\sigma} f(s) 
 \shorttheorem Let $X$ be open set, $f$ conservative vector field. Then $\exists C^1$ function $g$ s.t. $f = \nabla g$.
 If any two points of $X$ can be joined by a parametrized curve, then $g$ is unique up to a constant: if $\nabla g_1 = f$, then $g - g_1$ is constant on $X$
 
-\shortremark If $f$ vec. field on $X$, then $g$ is called a \bi{potential} for $f$
+\shortremark Two points $x, y \in X$ can be joined by parametrized curve $\gamma$ if $\gamma(a) = x$ and $\gamma(b) = y$. In that case, $X$ is called \bi{path-connected}.
+It is true when $X$ is \textit{convex} (e.g. when $X$ is a disc or a product of intervals).
+If $f$ is a vector field on $X$, then $g$ is called a \bi{potential} for $f$ and it is not unique, since we can add a constant to $g$ without changing the gradient.\\
+%
+\stepLabelNumber{all}
+\shortproposition For a vectorfield to be conservative, a \textit{necessary condition} is that $\displaystyle\frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{x_i}$
+for any $1 \leq i \neq j \leq n \in \N$\\
+%
+\stepLabelNumber{all}
+\compactdef{Start Shaped Set} $X \subseteq \R^n$ is star shaped if $\exists x_0 \in X$ s.t. $\forall x \in X$, the line segment from $x$ to $x_0$ is contained in $X$,
+and we also say that $X$ is \textit{star shaped around} $x_0$\\
+%
+\stepLabelNumber{all}
+\shorttheorem Let $X$ start shaped and open, $f$ a $C^1$ vector field fulfilling Proposition \ref{all:4-1-13}. Then $f$ is conservative.
+
+\drmvspace
+\setLabelNumber{all}{20}
+\shortdef Let $X \subseteq \R^3$ open and $f$ a $C^1$ vector field. Then the \bi{curl} of $f$ is the conservative vector field
+$\text{curl}(f) = \begin{bmatrix}
+        \partial_y f_3 - \partial_z f_2 \\
+        \partial_z f_1 - \partial_x f_3 \\
+        \partial_x f_2 - \partial_y f_1
+    \end{bmatrix}$
