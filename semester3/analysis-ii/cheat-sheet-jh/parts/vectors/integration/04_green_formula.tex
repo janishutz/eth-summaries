@@ -1,2 +1,22 @@
 \newsectionNoPB
 \subsection{The Green Formula}
+\compactdef{Simple parametrized curve} $\gamma : [a, b] \rightarrow \R^2$ is a closed parametrized curve s.t.
+$\gamma(t) \neq \gamma(s)$ (if $s \neq t$ and $\{ s, t \} = \{ a, b \}$), s.t. $\gamma'(t) \neq 0$ for $a < t < b$.
+If $\gamma$ only piecewise in $C^1$ in $]a, b[$, then only apply when $\gamma'(t)$ exists.
+
+\stepLabelNumber{all}
+\compacttheorem{Green's Formula} $X \subseteq \R^2$ compact set with boundary $\partial X = \gamma_1 \cup \ldots \cup y_k$
+with $\gamma_i = (\gamma_{i, 1}, \gamma_{i, 2}) : [a_i, b_i] \rightarrow \R^2$ a simple closed parametrized curve, with property that $X$ lies ``to the left'' of tangent vector $\gamma_i'(t)$ based at $\gamma_i(t)$.
+$f = (f_1, f_2)$ is a vector field of class $C^1$ on open set containing $X$. Then:
+\drmvspace
+\begin{align*}
+    \int_{X} \left( \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial_y} \right) \dx x \dx y = \sum_{i = 1}^{k} \int_{\gamma_i} f \cdot \dx \vec{s}
+\end{align*}
+
+\stepLabelNumber{all}\dhrmvspace
+\inlinecorollary $X \subseteq \R^2$ compact with boundary $\partial X$ as before.
+$\gamma_i$ as above, then
+\drmvspace
+\begin{align*}
+    \text{Vol}(X) = \sum_{i = 1}^{k} \int_{\gamma_i} x \dx \vec{s} = \sum_{i = 1}^{k} \int_{a_i}^{b_i} \gamma_{i, 1}(t) \gamma_{i, 2}'(t) \dx t
+\end{align*}

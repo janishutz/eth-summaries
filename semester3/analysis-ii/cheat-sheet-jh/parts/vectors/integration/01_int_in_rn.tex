@@ -1,2 +1,48 @@
 \newsectionNoPB
 \subsection{Riemann integral in Vector Space}
+The integral of a continuous function $f: X \rightarrow \R$ with $X \subseteq \R^n$ bounded and closed, is denoted $\int_X f(x) \dx x$ with properties:
+\rmvspace
+\begin{enumerate}[label=(\arabic*), noitemsep]
+    \item \bi{(Compatibility)} If $n = 1$ and $X = [a, b]$, integral is the indefinite integral as per Analysis I
+    \item \bi{(Linearity)} If $f$, $g$ are continuous on $X$ and $a, b \in \R$, then $\displaystyle \int_X (a f(x) + b g(x)) \dx x = a \int_X f(x) \dx x + b \int_X g(x) \dx x$
+    \item \bi{(Positivity)} If $f \leq g$, then so is the integral and if $f \geq 0$, so is the integral and if $Y \subseteq X$, then int. over $Y$ is $\leq$ over $X$
+    \item \bi{(Upper bound \& Triangle Inequality)} $\displaystyle \left| \int_{X} f(x) \dx x \right| \leq \int_{X} |f(x)|\dx x$ and
+          $\displaystyle \left| \int_{X} (f(x) + g(x)) \dx x \right| \leq \int_{X} |f(x)| \dx x \int_X |g(x)|$
+    \item \bi{(Volume)} The integral of $f$ is the volume of $\{ (x, y) \in X \times \R : 0 \leq y \leq f(x) \} \subseteq \R^{n + 1}$.
+          If $X$ is a bounded rectangle, e.g. $X = [a_1, b_1] \times \ldots \times [a_n, b_n] \subseteq \R^n$ and $f = 1$, then $\int_{X} \dx x = (b_n - a_n) \dots (b_1 - a_1)$.
+          We write $\text{Vol}(X)$ or $\text{Vol}_n(X)$
+    \item \bi{(Multiple integral)} \textit{(Fubini)} If $n_1, n_2 \in \Z$ s.t. $n = n_1 + n_2$,
+          then for $x_1 \in \R^{n_1}$, let $Y_{x_1} = \{ x_2 \in \R^{n_2} : (x_1, x_2) \in X \} \subseteq \R^{n_2}$.
+          Let $X_1$ be the set of $x_1 \in \R^n$ such that $Y_{x_1}$ is not empty. Then $X_1$ and $Y_{x_1}$ are compact.\\
+          If $\displaystyle g(x_1) = \int_{Y_{x_1}} f(x_1, x_2) \dx x_2$ is continuous on $X_1$, then
+          \dnrmvspace
+          \begin{align*}
+              \int_{X} f(x_1, x_2) \dx x = \int_{X_1} g(x_1) \dx x = \int_{X_1} g(x_1) \dx x_1 = \int_{X_1} \left( \int_{Y_{x_1}} f(x_1, x_2) \dx x_2 \right) \dx x_1
+          \end{align*}
+
+          \rmvspace
+          Exchanging the role of $x_1$ and $x_2$ we have (with $Z_{x_2} = \{ x_1 : (x_1, x_2) \in X \}$) if integral over $x_1$ is continuous.
+          \rmvspace
+          \begin{align*}
+              \int_{X} f(x_1, x_2) \dx x = \int_{X_2} \left( \int_{Z_{x_2}} f(x_1, x_2) \dx x_1 \right) \dx x_2
+          \end{align*}
+          \drmvspace
+    \item \bi{(Domain additivity)} If $X_1$ and $X_2$ are compact and $f$ continuous on $X = X_1 \cup X_2$, then (for $Y = X_1 \cap X_2$)
+          \rmvspace
+          \begin{align*}
+              \int_X f(x) \dx x + \int_Y f(x) \dx x = \int_{X_1} f(x) \dx x + \int_{X_2} f(x) \dx x
+          \end{align*}
+
+          \rmvspace
+          In particular, if $Y$ empty (or size is ``negligible''), then $\int_{X} f(x) \dx x = \int_{X_1} f(x) \dx x + \int_{X_2} f(x) \dx x$
+\end{enumerate}
+\setLabelNumber{all}{3}
+\shortdef For $m \leq n \in \N$, a \bi{parametrized $m$-set} in $\R^n$ is a continuous map $f: [a_1, b_1] \times \ldots \times [a_m, b_m] \rightarrow \R^n$,
+which is $C^1$ on $]a_1, b_1[ \times \ldots \times ]a_m, b_m[$.
+$B \subseteq \R^n$ is \bi{negligible} if $\exists k \geq 0 \in \Z$ and parametrized $m_i$-sets $f_i: X_i \rightarrow \R^n$ with $1 \leq i \leq k$ and $m_i < n$ s.t.
+$X \subseteq f_1(x_1) \cup \ldots \cup f_k(X_k)$. A parametrized $1$-set in $\R^n$ is a parametrized curve.
+\shortex Any $\R \times \{ 0 \} \subseteq \R^2$ is negligible in $\R^2$, or more generally,
+if $H \subseteq \R^n$ is an affine subspsace of dimension $m < n$, then any subset of $\R^n$ that is contained in $H$ is negligible.
+Image of par. curve $\gamma: [a, b] \rightarrow \R^n$ is negligible, since $\gamma$ is a $1$-set in $\R^n$
+
+\shortproposition $X$ compact set, negligible. Then for any cont. function on $X$, $\displaystyle\int_{X} f(x) \dx x = 0$

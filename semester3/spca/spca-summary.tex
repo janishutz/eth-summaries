@@ -1,10 +1,11 @@
 \documentclass{article}
 
-\newcommand{\dir}{~/projects/latex}
-\input{\dir/include.tex}
-\load{recommended}
+\input{~/projects/latex/dist/full.tex}
 
 \setup{Systems Programming and Computer Architecture}
+
+\usepackage{lmodern}
+\setFontType{sans}
 
 \begin{document}
 \startDocument
@@ -54,7 +55,21 @@
 %          │                    Content                     │
 %          ╰────────────────────────────────────────────────╯
 % ── Intro to C ──────────────────────────────────────────────────────
-\input{parts/intro-to-c/start.tex}
+\newsection
+\section{The C Programming Language}
+\input{parts/00_c/00_intro.tex}
+\input{parts/00_c/01_syntax.tex}
 
+
+% ── Intro to x86 asm ────────────────────────────────────────────────
+\newsection
+\section{x86 Assembly}
+\input{parts/01_asm/00_intro.tex}
+
+
+% ── Hardware recap ──────────────────────────────────────────────────
+\newsection
+\section{Hardware}
+\input{parts/02_hw/00_intro.tex}
 
 \end{document}
