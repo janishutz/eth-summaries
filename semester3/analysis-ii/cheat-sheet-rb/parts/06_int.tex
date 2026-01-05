@@ -1,0 +1,32 @@
+\subsection{Line Integrals}
+
+\begin{subbox}{Integrals for $f:I \to \R^n$}
+    \smalltext{$I = [a,b] \text{ closed \& bounded},\quad f: I \to \R^n \text{ cont.}$}
+    $$\int_a^b f(t)\ dt = \Biggl( \int_a^b f_1(t)\ dt,\ldots, \int_a^b f_n(t)\ dt \Biggr)$$
+\end{subbox}
+
+\definition \textbf{Piecewise Continuity}\\
+$\exists k \geq 1$, and a Partition $a = t_0 < \cdots < t_k = b$\\
+s.t. $f_j: [t_{j-1},t_j]\to\R^n$ has $f_j \in C^1$ for all $j \leq k$\\
+\subtext{For $f: I \to \R^n$}
+
+\definition \textbf{Parametrized Curve} $\gamma: [a,b] \to \R^n$ pw.-cont.\\
+\subtext{Also called \textit{Path} from $\gamma(a)$ to $\gamma(b)$}
+
+\begin{subbox}{Line Integral}
+    \smalltext{$\gamma: [a,b] \to \R^n$ is path$,\quad X \subset \R^n$ s.t. $\gamma\bigl([a,b]\bigr) \subset X\\
+    f:X\to\R^n \text{ continuous}$}
+    $$
+        \int_\gamma f(s)\cdot\ ds := \int_a^b f\Bigl( \gamma(t) \Bigr) \cdot \gamma'(t)\ dt
+    $$
+\end{subbox}
+
+\definition \textbf{Continuous integrals are linear}
+$$
+    \int_a^b\Bigl( f(t) + g(t) \Bigr)\ dt = \int_a^b f(t)\ dt + \int_a^b g(t)\ dt
+$$
+\subtext{$f,g: I \to \R^n \text{ continuous}$}
+
+\remark $f: X \to \R^n$ is called a \textit{Vector Field}.
+
+\definition \textbf{Oriented Reparametrization}
