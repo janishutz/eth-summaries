@@ -195,4 +195,151 @@ $$
 
 \remark $\textbf{H}_f(x_0)$ is symmetric: $\bigl( \textbf{H}_f(x_0) \bigr)_{i,j} = \bigl( \textbf{H}_f(x_0) \bigr)_{j, i}$
 
-\subsection{Change of Variable}
+\definition \textbf{Polar Coordinates}
+\begin{align*}
+    g(r,\theta) &= \bigl(r \cos(\theta), r \sin(\theta)\bigr) \\
+    \textbf{J}_g(r,\theta) &= \begin{bmatrix}
+        \cos(\theta) & -r \sin(\theta) \\
+        \sin(\theta) & r \cos(\theta)  \\
+    \end{bmatrix} \\
+    \partial_xf &= \cos(\theta)\partial_rf-\frac{1}{r}\sin(\theta)\partial_\theta f \\
+    \partial_yf &= \sin(\theta)\partial_rf+\frac{1}{r}\cos(\theta)\partial_\theta f
+\end{align*}
+\subtext{$(r,\theta) \in (0,+\infty) \times \R,\quad \det(\textbf{J}_g) = r$}
+
+\subsection{Taylor Polynomials}
+
+% Full definition of taylor poly
+
+% \begin{subbox}{Taylor Polynomials}
+%     \smalltext{$k \geq 1,\quad f: X \to \R,\quad f \in C^k,\quad x_0 \in X$}
+%     \begin{align*}
+%         & T_kf(y;x_0) := f(x_0) + \sum_{i=0}^{n}\frac{\partial f}{\partial x_i}(x_0)y_i + \cdots \\
+%         & + \sum_{m_1 + \cdots + m_n}^{}\frac{1}{m_1!\cdots m_n!}\frac{\partial^kf}{\partial x_1^{m1} \cdots \partial x_n^{m_n}}(x_0)y_1^{m_1}\cdots y_n^{m_n}
+%     \end{align*}
+%     \smalltext{Where the last sum ranges over $n$-tuples in $\Z_{\geq 0}$ that sum to $k$}
+% \end{subbox}
+
+\begin{multicols}{2}
+    \definition $|m| := \sum_{i=1}^{n} m_1$
+
+    \definition $m!  := m_1!\cdots m_n!$
+
+    \definition $y^m := y_1^m\cdots y_n^m$
+\end{multicols}
+\subtext{for $m = (m_1,\ldots,m_n),\quad y = (y_1,\ldots,y_n)$}
+
+\begin{subbox}{Taylor Polynomials}
+    \smalltext{$k \geq 1,\quad f: X \to \R,\quad f \in C^k,\quad x_0 \in X$}
+    $$
+        T_kf(y;x_0) := \sum_{|m| \leq k}^{}\frac{1}{m!}\partial_x^m f(x_0)y^m
+    $$
+\end{subbox}
+
+\lemma \textbf{Taylor Approximation}
+$$
+    \underset{x \neq x_0 \to x_0}{\lim}\frac{E_kf(x;x_0)}{\big\|x-x_0\big\|^k} = 0
+$$
+\smalltext{Where $f(x) = T_kf(x-x_0;x_0) + E_kf(x;x_0)$}\\
+\subtext{$k \geq 1,\quad X \subset \R^n \text{ open},\quad f: X \to \R,\quad f \in C^k,\quad x_0 \in X$}
+
+\remark Taylor polynomials of degree $1,2$:
+\begin{align*}
+        & T_1f(y;x_0) = f(x_0) + \nabla f(x_0)\cdot y \\
+        & T_2f(y;x_0) = f(x_0) + \nabla f(x_0) \cdot y + \frac{1}{2} \Bigl( x_0^\top \cdot \textbf{H}_f(y) \cdot x_0\Bigr)
+\end{align*}
+
+\method Calculating $T_kf(y;x_0)$ also yields $\textbf{H}_f$ for $k \geq 2$.
+\begin{align*}
+    & T_2f((x_0,y_0);(x,y)) = \ldots + ax^2 + by^2 + cxy \\
+    & \implies \textbf{H}_f(x_0,y_0) = \begin{bmatrix}
+        2a & c \\
+        c & 2b
+    \end{bmatrix}
+\end{align*}
+
+\method Taylor Polynomials can be found by combination.
+
+\begin{footnotesize}
+    \textbf{Example:} $f(x,y) = \underbrace{e^{y^4}}_\text{1} + \underbrace{\sin(xy)}_\text{2} + \underbrace{2xy^2}_\text{3} - \underbrace{\ln(x^2+1)}_\text{4},\quad k = 3$
+    \begin{enumerate}
+        \item $e^x \approx 1 + x + \frac{x^2}{2} + \frac{x^3}{6} \implies e^{y^4} \approx 1 + y^4 + \frac{y^8}{2} + \frac{y^12}{6}$\\
+        \color{gray} Since $k=3$, discarding all terms with $\deg > 3$ yields: $e^{y^3} \approx 1$ \color{black}
+        \item $\sin(x) \approx x - \frac{x^3}{6} \implies \sin(xy) \approx xy$
+        \item $2xy^2 \approx 2xy^2\quad$ \color{gray}(Since it's already a polynomial, $\deg = 3$)\color{black}
+        \item $\ln(x+1) \approx x - \frac{x^2}{2} + \frac{x^3}{3} \implies \ln(x^2 + 1) \approx x^2$
+    \end{enumerate}
+    Thus: $f(x) \approx 1 + xy + 2xy^2 - x^2 = T_3f\Bigl((0,0);(x,y)\Bigr)$
+\end{footnotesize}
+
+\newpage
+\subsection{Critical Points}
+
+\lemma \textbf{Local Maxima \& Minima}
+$$
+    \begin{rcases*}
+        f(y) \leq f(x_0)\ \forall y \text{ close} \\
+        f(y) \geq f(x_0)\ \forall y \text{ close}
+    \end{rcases*}\quad \frac{\partial f}{\partial x_i}(x_0) = 0\ \ \forall i \leq n
+$$
+\subtext{In other words: $df(x_0) = \nabla f(x_0) = 0$}\\
+\subtext{$f: X \to \R,\quad X \subset \R^n \text{ open}, f \text{ diff.-able}$}
+
+\definition \textbf{Critical Point}\\
+$$
+    x_0 \in X \text{ is critical } \iffdef \nabla f(x_0) = 0
+$$
+\subtext{$X \subset \R^n \text{ open}, f: X \to \R \text{ diff.-able}$}
+
+\remark \textbf{Existance of Maxima/Minima}\\
+Don't \textit{have to} exist if $X$ is open, only if $X$ is compact.\\
+\subtext{However, for compact sets, the lemma above no longer applies.}
+
+\method \textbf{Critical points on Compact Sets}\\
+Decompose $X = X' \cup B$, s.t. $X'$ is open, $B$ is a \textit{boundary}. 
+\begin{enumerate}
+    \item Find critical points in $X'$
+    \item Check if any $x \in B$ is a maximum/minimum 
+\end{enumerate}
+
+\definition \textbf{Non-degenerate Critical Point}
+$$
+    x_0 \in X \text{ non-deg.} \iffdef \det\Bigl(\textbf{H}_f(x_0)\Bigr) \neq 0
+$$
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R,\quad f \in C^2,\quad x_0 \in X \text{ is critical}$}
+
+\lemma \textbf{Definiteness of the Hessian}
+\begin{align*}
+    &\textbf{H}_f(x_0) \text{ positive definite}    &\implies x_0 \text{ is a local min.} \\
+    &\textbf{H}_f(x_0) \text{ negative definite}    &\implies x_0 \text{ is a local max.} \\
+    &\textbf{H}_f(x_0) \text{ indefinite}           &\implies x_0 \text{ is a saddle point.}
+\end{align*}
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R,\quad f \in C^2,\quad x_0 \in X \text{ non-deg. critical}$}
+
+% The nice tikz code below is a tightened version of code from Janis Hutz' Summary.
+
+\method \textbf{Determining Definiteness for $2 \times 2$ Matrices}
+\begin{center}
+    \begin{tikzpicture}[node distance = 1cm and 0.4cm, >={Stealth[round]}]
+        \node (det) {$\det(A)$};
+        \node (indef) [below=of det] {indefinite};
+        \node (tr0) [right=of det] {$\text{Tr}(A)$};
+        \node (posdef) [above right=of tr0, yshift=-0.5cm] {pos. def.};
+        \node (negdef) [below right=of tr0, yshift=+0.5cm] {neg. def.};
+        \node (tr1) [left=of det] {$\text{Tr}(A)$};
+        \node (possemdef) [above left=of tr1, yshift=-0.5cm] {p. semi-def.};
+        \node (negsemdef) [below left=of tr1, yshift=+0.5cm] {n. semi-def.};
+        \node (zero) [below=of tr1] {$A$ is zero};
+
+        \path[->]
+        % Level 0
+        (det) edge node [above] {pos.} (tr0)
+        (det) edge node [above] {$0$} (tr1)
+        (det) edge node [right] {neg.} (indef)
+        (tr0) edge node [left] {pos.} (posdef)
+        (tr0) edge node [left] {neg.} (negdef)
+        (tr1) edge node [right] {pos.} (possemdef)
+        (tr1) edge node [right] {neg.} (negsemdef)
+        (tr1) edge node [right] {$0$} (zero);
+    \end{tikzpicture}
+\end{center}
