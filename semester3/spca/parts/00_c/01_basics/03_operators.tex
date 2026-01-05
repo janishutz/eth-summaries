@@ -1,0 +1,43 @@
+\subsubsection{Operators}
+The list of operators in \lC\ is similar to the one of \texttt{Java}, etc.
+In Table \ref{tab:c-operators}, you can see an overview of the operators, sorted by precedence in descending order.
+You may notice that the \verb|&| and \verb|*| operators appear twice. The higher precedence occurrence is the address operator and dereference, respectively,
+and the lower precedence is \texttt{bitwise and} and \texttt{multiplication}, respectively.
+
+Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as well as the ternary operator and assignment operators
+\begin{table}[h!]
+    \begin{tables}{ll}{Operator                                  & Associativity}
+              \texttt{() [] -> .}                            & Left-to-right                \\
+              \verb|! ~ ++ -- + - * & (type) sizeof|         & Right-to-left  \\
+              \verb|* / %|                                   & Left-to-right  \\
+              \verb|+ -|                                     & Left-to-right  \\
+              \verb|<< >>|                                   & Left-to-right  \\
+              \verb|< <= >= >|                               & Left-to-right  \\
+              \verb|== !=|                                   & Left-to-right  \\
+              \verb|&| (logical and)                         & Left-to-right  \\
+              \verb|^| (logical xor)                         & Left-to-right  \\
+              \texttt{|} (logical or)                        & Left-to-right                \\
+              \verb|&&| (boolean and)                        & Left-to-right  \\
+              \texttt{||} (boolean or)                       & Left-to-right                \\
+              \texttt{? :} (ternary)                         & Right-to-left                \\
+              \verb|= += -= *= /= %= &= ^=||\verb|= <<= >>=| & Right-to-left  \\
+              \verb|,|                                       & Left-to-right  \\
+    \end{tables}
+    \caption{\lC\ operators ordered in descending order by precedence}
+    \label{tab:c-operators}
+\end{table}
+
+\shade{blue}{Associativity} 
+\begin{itemize}
+    \item Left-to-right: $A + B + C \mapsto (A + B) + C$
+    \item Right-to-left: \texttt{A += B += C} $\mapsto$ \texttt{(A += B) += C}
+\end{itemize}
+
+As it should be, boolean and, as well as boolean or support early termination.
+
+The ternary operator works as in other programming languages \verb|result = expr ? res_true : res_false;|
+
+As previously touched on, every statement is also an expression, i.e. the following works
+\mint{c}|printf("%s", x = foo(y)); // prints output of foo(y) and x has that value|
+
+Pre-increment (\texttt{++i}, new value returned) and post-increment (\texttt{i++}, old value returned) are also supported by \lC.
