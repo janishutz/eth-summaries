@@ -1,4 +1,7 @@
 # Contributing
+Coding style is not fixed (yet). There are plans to add automatic formatting later down the line.
+If you are interested in getting that going, feel free to open a Pull Request with an actions setup that works with latexindent and my latexindent config from [here](https://git.janishutz.com/janishutz/dotfiles/src/branch/main/config/lint/latexfmt.yaml)
+
 ## Updating existing summaries
 - Do replace the helper files
 - Compile before uploading such that the PDFs are up-to-date
