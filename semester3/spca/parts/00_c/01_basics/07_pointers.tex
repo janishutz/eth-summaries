@@ -13,6 +13,39 @@ Of note is that if you simply declare a pointer using \texttt{type * p;} you wil
 The (Linux)-Kernel randomizes the address space to prevent some common exploits.
 \inputcodewithfilename{c}{code-examples/00_c/00_basics/}{05_pointers.c}
 
+\newpage
 \begin{scriptsize}
     Some pointer arithmetic has already appeared in section \ref{sec:c-arrays}, but same kind of content with better explanation can be found here
 \end{scriptsize}
+
+Note that when doing pointer arithmetic, adding $1$ will move the pointer by \texttt{sizeof(type)} bits.
+
+You may use pointer arithmetic on whatever pointer you'd like (as long as it's not a null pointer).
+This means, you \textit{can} make an array wherever in memory you'd like.
+The issue is just that you are likely to overwrite something, and that something might be something critical (like a stack pointer),
+thus you will get \bi{undefined} behaviour! (This is by the way a common concept in \lC, if something isn't easy to make more flexible
+(example for \texttt{malloc}, if you pass a pointer to memory that is not the start of the \texttt{malloc}'d section, you get undefined behaviour),
+in the docs mention that one gets undefined behaviour if you do not do as it says so\dots RTFM!)
+
+As already seen in the section arrays (section \ref{sec:c-arrays}), we can use pointer arithmetic for accessing array elements.
+The array name is treated as a pointer to the first element of the array, except when:
+\begin{itemize}[noitemsep]
+    \item it is operand of \texttt{sizeof} (return value is $n \cdot \texttt{ sizeof(type)}$ with $n$ the number of elements)
+    \item its address is taken (then \texttt{\&a == a})
+    \item it is a string literal initializer. If we modify a pointer \texttt{char *b = "String";} to string literal in code,
+          the \texttt{"String"} is stored in the code segment and if we modify the pointer, we get undefined behaviour
+\end{itemize}
+\shade{orange}{Fun fact}: \texttt{A[i]} is always rewritten \texttt{*(A + i)} by compiler.
+
+Another important aspect is passing by value or by reference.
+You can pass every data type by reference, you can not however pass an array by value.
+
+Another interesting concept that \lC\ has to offer is body-less loops:
+\begin{code}{c}
+    int x = 0;
+    while ( x++ < 10 ); // This is (of course) not a useful snippet, but shows the concept
+\end{code}
+
+\lC\ also has an option to pass functions as arguments to functions, called function pointers.
+A function is passed using the typical address syntax with the \verb|&| symbol is annotated as argument using \verb|type (* name)(type arg1, ...)|
+and is called using \verb|(*func)(arg1, ...)|.
