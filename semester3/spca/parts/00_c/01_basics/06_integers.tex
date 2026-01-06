@@ -4,6 +4,36 @@ As a reminder, integers are encoded as follows in big endian notation, with $x_i
     \item \bi{Unsigned}: $\displaystyle \sum_{i = 0}^{w - 1} x_i \cdot 2^i$
     \item \bi{Signed}: $\displaystyle -x_{w - 1} \cdot 2^{w - 1} + \sum_{i = 0}^{w - 1} x_i \cdot 2^i$ (two's complement notation, with $x_{w - 1}$ being the sign-bit)
 \end{itemize}
-The minimum number representable is $0$ and $-2^{w - 1}$, respectively, whereas the maximum number representable is $2^w - 1$ and $2^{w - 1} - 1$
+The minimum number representable is $0$ and $-2^{w - 1}$, respectively, whereas the maximum number representable is $2^w - 1$ and $2^{w - 1} - 1$.
+\verb|limits.h| defines constants for the minimum and maximum values of different types, e.g. \verb|ULONG_MAX| or \verb|LONG_MAX| and \verb|LONG_MIN|
 
 We can use the shift operators to multiply and divide by two. Shift operations are usually \textit{much} cheaper than multiplication and division.
+Left shift (\texttt{u << k} in \lC) always fills with zeros and throws away the extra bits on the left (equivalent to multiplication by $2^k$),
+whereas right shift (\texttt{u >> k} in \lC) is implementation-defined,
+either arithmetic (fill with most significant bit, division by $2^k$. This however rounds incorrectly, see below)
+or logical shift (fill with zeros, unsigned division by $2^k$).
+
+Signed division using arithmetic right shifts has the issue of incorrect rounding when number is $< 0$.
+Instead, we represent $s / 2^k = s + (2^k - 1) \texttt{ >> } k$ for $s < 0$ and $s / 2^k = s >> k$ for $s > 0$
+
+\bi{In expressions, signed values are implicitly cast to unsigned}
+
+This can lead to all sorts of nasty exploits (e.g. provide $-1$ as the argument to \texttt{memcpy} and watch it burn, this was an actual exploit in FreeBSD)
+
+\fhlc{Cyan}{Addition \& Subtraction}
+
+A nice property of the two's complement notation is that addition and subtraction works exactly the same as in normal notation, due to over- and underflow.
+This also obviously means that it implements modular arithmetic, i.e.
+\mrmvspace
+\begin{align*}
+    \texttt{Add}_w (u, v) = u + v \text{ mod } 2^w \ \text{ and } \ \texttt{Sub}_w (u, v) = u - v \text{ mod } 2^w
+\end{align*}
+
+\mrmvspace
+\fhlc{Cyan}{Multiplication \& Division}
+
+Unsigned multiplication with addition forms a commutative ring.
+Again, it is doing modular arithmetic and
+\begin{align*}
+    \texttt{UMult}_w (u, v) = u \cdot v \text{ mod } 2^w
+\end{align*}
