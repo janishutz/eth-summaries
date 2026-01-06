@@ -1,6 +1,7 @@
 int my_int;              // Allocates memory on the stack.
                          // Variable is global (read / writable by entire program)
 static int my_local_int; // only available locally (in this file)
+extern const char *var;  // Defined in some other file
 const int MY_CONST = 10; // constant (immutable), convention: SCREAM_CASE
 
 enum { ONE, TWO } num; // Enum. ONE will get value 0, TWO has value 1

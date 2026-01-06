@@ -2,7 +2,7 @@
 \subsubsection{Declarations}
 We have already seen a few examples for how \texttt{C} handles declarations.
 In concept they are similar (and scoping works the same) to most other \texttt{C}-like programming languages, including \texttt{Java}.
-\inputcodewithfilename{c}{code-examples/00_c/}{02_declarations.c}
+\inputcodewithfilename{c}{code-examples/00_c/00_basics/}{02_declarations.c}
 
 A peculiarity of \texttt{C} is that the bit-count is not defined by the language, but rather the hardware it is compiled for.
 \begin{fullTable}{llll}{\texttt{C} data type & typical 32-bit & ia32  & x86-64}{Comparison of byte-sizes for each datatype on different architectures}
@@ -35,3 +35,5 @@ Some will force a change of bit representation, but most won't (notably, when ca
 Another important feature is that every \lC\ statement is also an expression, see above code block for example.
 
 The \texttt{void} type has \bi{no} value and is used for untyped pointers and declaring functions with no return value
+
+It is also possible to define a custom type using \texttt{typedef <type it represents> <name of the new type>}

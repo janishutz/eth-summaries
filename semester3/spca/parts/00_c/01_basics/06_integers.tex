@@ -1,0 +1,9 @@
+\subsubsection{Integers in C}
+As a reminder, integers are encoded as follows in big endian notation, with $x_i$ being the $i$-th bit and $w$ being the number of bits used to represent the number:
+\begin{itemize}[noitemsep]
+    \item \bi{Unsigned}: $\displaystyle \sum_{i = 0}^{w - 1} x_i \cdot 2^i$
+    \item \bi{Signed}: $\displaystyle -x_{w - 1} \cdot 2^{w - 1} + \sum_{i = 0}^{w - 1} x_i \cdot 2^i$ (two's complement notation, with $x_{w - 1}$ being the sign-bit)
+\end{itemize}
+The minimum number representable is $0$ and $-2^{w - 1}$, respectively, whereas the maximum number representable is $2^w - 1$ and $2^{w - 1} - 1$
+
+We can use the shift operators to multiply and divide by two. Shift operations are usually \textit{much} cheaper than multiplication and division.
