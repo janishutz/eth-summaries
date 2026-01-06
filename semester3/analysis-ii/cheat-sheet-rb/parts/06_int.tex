@@ -29,4 +29,121 @@ $$
 
 \remark $f: X \to \R^n$ is called a \textit{Vector Field}.
 
-\definition \textbf{Oriented Reparametrization}
+\definition \textbf{Oriented Reparametrization}\\
+\smalltext{For $\gamma: [a,b] \to \R^n$ (param. curve), $\phi:[c,d] \to [a,b]$ continuous}
+$$
+    \sigma: [c,d] \to \R^n \text{ s.t. } \sigma = \gamma \circ \phi
+$$
+\subtext{diff.-able on $(c,d)$, strictly increasing and $\phi(c) = a, \phi(d) = b$}
+
+\newpage % to keep the elements below together
+\lemma \textbf{Oriented Reparametrizations preserve Integrals}
+$$
+    \int_\gamma f(s)\cdot ds = \int_\sigma f(s)\cdot ds
+$$
+\subtext{$\gamma: [a,b] \to \R^n$ param. curve$,\quad \sigma$ oriented reparam.$,\\ 
+\gamma([a,b]) \subset X,\quad f: X \to \R^n \text{ cont.}$}
+
+\remark Line Integrals of the form $\int_\gamma \nabla f(s) \cdot ds$ have:
+$$
+    \int_\gamma \nabla f(s) \cdot ds = \int_a^b \sum_{i=1}^{n}\frac{\partial g}{\partial x_i}\Bigl( \gamma(t) \Bigr) \gamma_i'(t) = f\Bigl( \gamma(b) \Bigr) - f\Bigl( \gamma(a) \Bigr)
+$$
+\subtext{Follows from the Chain rule for $h(t) = g(\gamma(t))$}\\
+\subtext{$X \subset \R^n \text{ open},\quad f: X \to \R,\quad f \in C^1,\quad \gamma: [a,b] \to X \text{ param. curve}$}
+
+\definition \textbf{Conservative Vector Field}\\
+\smalltext{$f: X\to\R$ conservative $\iffdef \forall \gamma_1,\gamma_2$ s.t. start \& end points match:}
+$$
+    \int_{\gamma_1} f(s)\cdot ds = \int_{\gamma_2} f(s)\cdot ds
+$$
+\subtext{No matter which path, if start \& end match, the integral matches}
+
+\remark \textbf{Closed Curves in Conservative Vector Fields}
+$$
+    \forall\ \gamma: [a,a] \to \R:\quad \int_\gamma f(s) \cdot ds = 0
+$$
+\subtext{This is actually equivalent to $f$ being conservative.}
+
+\begin{subbox}{The Potential exists in Conservative Vector Fields}
+    \smalltext{$X \subset \R^n \text{ open},\quad f \text{ conservative}$}
+    \begin{align*}
+        \exists g \in C^1:\quad f = \nabla g
+    \end{align*}
+    \smalltext{If $x_1,x_2 \in X$ are joined by a $\gamma$, $g$ is unique up to $C \in \R$}
+    \begin{align*}
+        \nabla g_1 = f \implies g - g_1 \text{ is constant on } X
+    \end{align*}
+\end{subbox}
+
+\definition \textbf{Path-Connected Set}\\
+$\forall x_1,x_2 \in X: \exists \gamma: [a,b] \to X$ s.t. $\gamma(a) = x_1, \gamma(b) = x_2$
+
+\newpage
+
+\lemma \textbf{Property of Conservative Vector Fields}\\
+\smalltext{Easy way to e.g. disprove $f$ being conservative:}
+$$
+    \forall 1 \leq i \neq j \leq n:\quad \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i}
+$$
+\subtext{$X \subset \R^n \text{ open},\quad f: X\to\R^n,\quad f \in C^1,\quad f \text{ conserv.}$}\\
+\subtext{Only this was: This being true does not imply $f$ is conservative!}
+
+\definition \textbf{Star Shaped Set}\\
+$\exists x_0 \in X: \forall x \in X$ Line seg. $x_0 \to x$ is in $X$
+
+\definition \textbf{Convex Set}\\
+$\forall x_1,x_2 \in X:$ Line seg. $x_1 \to x_2$ is in $X$\\
+\subtext{Convex implies star shaped.}
+
+\theorem \textbf{Some Star Shaped Sets are conservative}\\
+\smalltext{In open star-shaped sets $X \subset \R^n$:} \subtext{$f \in C^1$}
+$$
+    \forall 1 \leq i \neq j \leq n: \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i} \implies f \text{ conservative}
+$$
+
+\definition $\text{curl}(f) := \begin{bmatrix}
+    \partial_y f_3 - \partial_z f_2 \\
+    \partial_z f_1 - \partial_x f_3 \\
+    \partial_x f_2 - \partial_y f_1
+\end{bmatrix}$ \subtext{$f: X \to \R^3,\quad f \in C^1$}
+
+\remark $\text{curl}(f) = 0 \iff \forall 1 \leq i \neq j \leq 3: \displaystyle\frac{\partial f_i}{\partial x_j} = \displaystyle\frac{\partial f_j}{\partial x_i}$
+
+\newpage
+\subsection{The Riemann Integral in $\R^n$}
+
+\smalltext{For $f: X \to \R$ ($X \subset \R^n$ bounded \& closed), $\displaystyle\int_X f(x)\ dx$ fulfills:}
+
+\begin{enumerate}
+    \item \textbf{Composability}\\
+    \smalltext{$\displaystyle\int_X f(x)\ dx = \int_a^b f(x)\ dx$} \subtext{$n=1, X=[a,b]$}
+    \item \textbf{Linearity}\\
+    \smalltext{$\displaystyle\int_X \Bigl( af_1(x) + bf_2(x) \Bigr)\ dx = a \int_X f_1(x)\ dx + b \int_X f_2(x)\ dx$}\\
+    \subtext{$f,g$ cont. on $X$, $a,b \in \R$}
+    \item \textbf{Positivity}\\
+    \smalltext{$f \leq g \implies \displaystyle\int_X f(x)\ dx \leq \int_X g(x)\ dx$}
+    \item \textbf{Upper Bound}\\
+    \smalltext{$\left\lvert \displaystyle\int_X f(x)\ dx \right\rvert \leq \int_X |f(x)|\ dx$}
+    \item \textbf{Triangle Inequality}\\
+    \smalltext{$\left\lvert \displaystyle\int_X \Bigl( f(x) + g(x) \Bigr)\ dx \right\rvert \leq \displaystyle\int_X |f(x)|\ dx + \displaystyle\int_X |g(x)|\ dx$}
+    \item \textbf{Volume}\\
+    \smalltext{$\displaystyle\int_X f(x)\ dx}$ is the volume of $\Bigl\{ (x,y) \in X \times \R \ \Big\vert\ 0 \leq y \leq f(x) \Bigr\}$\\
+    \subtext{So the intuitive idea of $\int_a^b f(x)\ dx$ being the area carries over.}
+    \item \textbf{Domain Additivity}\\
+    \smalltext{$\displaystyle\int_{X_1 \cup X_2} f(x)\ dx + \int_{X_1 \cap X_2} f(x)\ dx = \int_{X_1} f(x)\ dx + \int_{X_2} f(x)\ dx$}\\
+    \subtext{If $X_1,X_2$ are compact, $f$ is cont. on $X_1 \cup X_2$}
+\end{enumerate}
+
+\begin{subbox}{Fubini's Theorem: Multiple Integrals}
+    \smalltext{$f: X \to \R,\quad n = n_1 + n_2,\quad n_1,n_2 \geq 1$}
+    \begin{align*}
+        & X_{x_1} &:=\quad& \Bigl\{ x_2 \in \R^{n_2} \ \Big\vert\ (x_1,x_2) \in X \Bigr\} \subset \R^{n_2} \\
+        & X_{1}  &:=\quad& \Bigl\{ x_1 \in \R^{n_1} \ \Big\vert\ X_{x_1} \neq \emptyset \Bigr\} \subset \R^{n_1} 
+    \end{align*}
+    If $g(x_1) := \displaystyle\int_{X_{x_1}}f\Bigl( (x_1,x_2) \Bigr)\ dx_2$ is continuous on $X_1$:
+    $$
+        \int_X f(x)\ dx = \int_{X_1}\Biggl( \int_{X_{x_1}} f\Bigl( (x_1,x_2) \Bigr)\ dx_2 \Biggr)\ dx_1
+    $$
+    \smalltext{The role of $x_1,x_2$ can be swapped, if $f$ is continuous.}
+\end{subbox}
+\newpage
