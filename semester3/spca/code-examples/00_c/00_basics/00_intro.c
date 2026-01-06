@@ -13,4 +13,5 @@ int main( int argc, char *argv[] ) {
         printf( "Arg %d: %s\n", i, argv[ i ] ); // Outputs the i-th argument from CLI
 
     get_user_input_int( "Select a number" ); // Function calls as in any other language
+    return 0;                                // Return a POSIX exit code
 }

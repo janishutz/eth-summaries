@@ -1,0 +1,14 @@
+\newpage
+\subsubsection{Control Flow}
+Many of the control-flow structures of \texttt{C} can be found in the below code snippet.
+A note of caution when using goto: It is almost never a good idea (can lead to unexpected behaviour, is hard to maintain, etc).
+Where it however is very handy is for error recovery (and cleanup functions) and early termination of multiple loops (jumping out of a loop).
+So, for example, if you have to run multiple functions to set something up and one of them fails,
+you can jump to a label and have all cleanup code execute that you have specified there.
+And because the labels are (as in Assembly) simply skipped over during execution, you can make very nice cleanup code.
+We can also use \texttt{continue} and \texttt{break} statements similarly to \texttt{Java}, they do not however accept labels.
+(Reminder: \texttt{continue} skips the loop body and goes to the next iteration)
+
+\inputcodewithfilename{c}{code-examples/00_c/00_basics/}{01_func.c}
+
+

@@ -1,0 +1,39 @@
+\newpage
+\subsubsection{Declarations}
+We have already seen a few examples for how \texttt{C} handles declarations.
+In concept they are similar (and scoping works the same) to most other \texttt{C}-like programming languages, including \texttt{Java}.
+\inputcodewithfilename{c}{code-examples/00_c/00_basics/}{02_declarations.c}
+
+A peculiarity of \texttt{C} is that the bit-count is not defined by the language, but rather the hardware it is compiled for.
+\begin{fullTable}{llll}{\texttt{C} data type & typical 32-bit & ia32  & x86-64}{Comparison of byte-sizes for each datatype on different architectures}
+    \texttt{char}               & 1              & 1     & 1       \\
+    \texttt{short}              & 2              & 2     & 2       \\
+    \texttt{int}                & 4              & 4     & 4       \\
+    \texttt{long}               & 4              & 4     & 8       \\
+    \texttt{long long}          & 8              & 8     & 8       \\
+    \texttt{float}              & 4              & 4     & 4       \\
+    \texttt{double}             & 4              & 8     & 8       \\
+    \texttt{long double}        & 8              & 10/12 & 16      \\
+\end{fullTable}
+
+\drmvspace
+By default, integers in \lC\ are \texttt{signed}, to declare an unsigned integer, use \texttt{unsigned int}.
+Since it is hard and annoying to remember the number of bytes that are in each data type, \texttt{C99} has introduced the extended integer types,
+which can be imported from \texttt{stdint.h} and are of form \texttt{int<bit count>\_t} and \texttt{uint<bit count>\_t},
+where we substitute the \texttt{<bit count>} with the number of bits (have to correspond to a valid type of course).
+
+Another notable difference of \texttt{C} compared to other languages is that \texttt{C} doesn't natively have a \texttt{boolean} type,
+by convention a \texttt{short} is used to represent it, where any non-zero value means \texttt{true} and \texttt{0} means \texttt{false}.
+Since boolean types are quite handy, the \texttt{!} syntax for negation turns any non-zero value of any integer type into zero and vice-versa.
+\texttt{C99} has added support for a bool type via \texttt{stdbool.h}, which however is still an integer.
+
+Notably, \texttt{C} doesn't have a very rigid type system and lower bit-count types are implicitly cast to higher bit-count data types, i.e.
+if you add a \texttt{short} and an \texttt{int}, the \texttt{short} is cast to \texttt{short} (bits 16-31 are set to $0$) and the two are added.
+Explicit casting between almost all types is also supported.
+Some will force a change of bit representation, but most won't (notably, when casting to and from \texttt{float}-like types, minus to \texttt{void})
+
+Another important feature is that every \lC\ statement is also an expression, see above code block for example.
+
+The \texttt{void} type has \bi{no} value and is used for untyped pointers and declaring functions with no return value
+
+It is also possible to define a custom type using \texttt{typedef <type it represents> <name of the new type>}
