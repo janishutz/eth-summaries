@@ -11,5 +11,10 @@ int main( int argc, char *argv[] ) {
     printf( "%d\n", *( data + 5 ) ); // equivalent as above
     int multidim[ 5 ][ 5 ];          // 2-dimensional array
                                      // We can iterate over it using two for-loops
+    int init_array[ 2 ][ 2 ] = {
+        {1, 2},
+        {3, 4}
+    };                       // We can initialize an array like this
+    int empty_arr[ 4 ] = {}; // Initialized to 0
     return 0;
 }

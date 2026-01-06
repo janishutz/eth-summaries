@@ -1,0 +1,6 @@
+\subsubsection{Strings}
+\lC\ doesn't have a \texttt{string} data type, but rather, strings are represented (when using \texttt{ASCII}) as \texttt{char} arrays,
+with length of the array $n + 1$ (where $n$ is the number of characters of the string).
+The extra element is the termination character, called the \texttt{null character}, denoted \verb|\0|.
+To determine the actual length of the string (as it may be padded), we can use \verb|strnlen(str, maxlen)| from \texttt{string.h}
+\inputcodewithfilename{c}{code-examples/00_c/}{04_strings.c}
