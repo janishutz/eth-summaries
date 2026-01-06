@@ -1,1 +1,18 @@
+\newpage
 \subsubsection{Pointers}
+On loading of a program, the OS creates the virtual address space for the process, inspects the executable and loads the data to the right places in the address space,
+before other preparations like final linking and relocation are done.
+
+Stack-based languages (supporting recursion) allocate stack in frames that contain local variables, return information and temporary space.
+When a procedure is entered, a stack frame is allocated and executes any necessary setup code (like moving the stack pointer, see later). % TODO: Link to correct section
+When a procedure returns, the stack frame is deallocated and any necessary cleanup code is executed, before execution of the previous frame continues.
+
+\bi{In \lC\ a pointer is a variable whose value is the memory address of another variable}
+
+Of note is that if you simply declare a pointer using \texttt{type * p;} you will get different memory addresses every time.
+The (Linux)-Kernel randomizes the address space to prevent some common exploits.
+\inputcodewithfilename{c}{code-examples/00_c/00_basics/}{05_pointers.c}
+
+\begin{scriptsize}
+    Some pointer arithmetic has already appeared in section \ref{sec:c-arrays}, but same kind of content with better explanation can be found here
+\end{scriptsize}
