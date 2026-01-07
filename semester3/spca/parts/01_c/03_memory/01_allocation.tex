@@ -7,7 +7,7 @@ whereas in implicit memory management, the application allocates the memory, but
 For some languages, like Rust, one would assume that it does implicit allocation, but Rust is a language using explicit management,
 it's just that the \textit{compiler} and not the programmer decides when to allocate and when to deallocate.
 
-\warn{Assumptions in this course} We assume that memory is \bi{word} addressed (= 8 Bytes).
+\warn{Assumption in this course:} Memory is \bi{word} addressed (= 8 Bytes on 64-bit platform).
 
 \content{Goals} The allocation should have the highest possible throughput and at the same time the best (i.e. lowest) possible memory utilization.
 This however is usually conflicting, so we have to balance the two.
@@ -22,16 +22,82 @@ This however is usually conflicting, so we have to balance the two.
 
 A bit problem for the \texttt{free} function is to know how much memory to free without knowing the size of the to be freed block.
 This is just one of many other implementation issues:
-\begin{itemize}
-    \item How do we keep track of the free blocks? I.e. where and how large are they?
-    \item What do we do with the extra space of a block when allocating a smaller block?
-    \item How do we pick a block?
-    \item How do we reinsert a freed block into the heap?
-\end{itemize}
+\begin{enumerate}[noitemsep, label=(\arabic*)]
+    \item How much memory to free? $\rightarrow$ Headers
+    \item How do we keep track of the free blocks? I.e. where and how large are they? $\rightarrow$ Free lists
+    \item What do we do with the extra space of a block when allocating a smaller block? $\rightarrow$ Coalescing
+    \item How do we pick a block? $\rightarrow$ Placement policies
+    \item How do we reinsert a freed block into the heap? $\rightarrow$ When to coalesce
+\end{enumerate}
 This all leads to an issue known as \bi{fragmentation}
 
 \inlinedef \bi{Internal Fragmentation}: If for a given block the payload (i.e. the requested size) is smaller than the block size.
 This depends on the pattern of previous requests and is thus easy to measure
 
 \inlinedef \bi{External Fragmentation}: There is enough aggregate heap memory, but there isn't a single large enough free block available
-This depends on the pattern of future requests and is thus hard to measure
+This depends on the pattern of future requests and is thus hard to measure.
+
+
+\content{Header}: Stores size of block and is usually placed in the word that preceeds the allocated block (standard method).
+
+
+\content{Free lists}
+\rmvspace
+\begin{enumerate}[noitemsep, label=M\arabic*]
+    \item \bi{Implicit list} using length: Links all blocks and uses a low-order bit to indicate free / allocated,
+          as for aligned blocks, a / some low-order bit(s) are always 0).
+    \item \bi{Explicit list} among free blocks using a pointer in the first (and possibly second) word of the block
+    \item \bi{Segregated free list}: different free lists for different size classes
+    \item \bi{Blocks sorted by size}: Using a balanced tree with pointers within each free block and the length is the key
+\end{enumerate}
+
+
+\inlinedef \bi{Coalescing} Connecting two (or more) (free) blocks to form a larger (free) block.
+
+We can do this efficiently in one direction with just a header, however in both directions requires what are referred to as \texttt{boundary tags}.
+They are simply headers on both sides of the block and this allows us to traverse backwards.
+
+We can do coalescing in constant time, by looking at the previous block's footer and next block's header to check if they are free or not.\\
+\begin{itemize}
+    \item If the previous block is free, we can coalesce it by updating its header to include the length of the to be freed block and the middle two words.
+          Same update has to happen to the to be freed block's footer.
+    \item If the next block is free, update its footer to the size of the to be freed block plus the free block's size plus the two words in the middle.
+          Do the same update to the to be freed block's header.
+\end{itemize}
+If both blocks are free, then of course we can do this step in one go for both.
+
+Using the headers or boundary tags is just one option to do it and it can be optimized.
+
+
+\content{Implicit Free List} If we use the size that is stored in the header, we know where the next block is going to be already.
+To know if the block has already been allocated, we are using a low-order bit. If the blocks are aligned, then some of the low-order bits are always 0.\\
+To find a free block, we can use the \texttt{first fit}, \texttt{next fit} or \texttt{best fit} policies.
+When a block is picked, we might want to split it by adding a header to the remaining part.\\
+To free a block, we can simply clear the allocated flag, however that can lead to fragmentation.
+Thus: Coalesce the freed blocks.
+
+\content{Explicit Free List} Here, we maintain pointers to the next and possibly (and preferrably) previous free block(s).
+This means that all free blocks form a linked list. Thus, to allocate a free block, we remove the element from the list by updating the pointers and
+we can again use the \texttt{first fit}, \texttt{next fit} or \texttt{best fit} policies.\\
+To free, we can use LIFO (last-in-first-out) or address-ordered policies and we also have to clear the allocated bit in the footer and header.
+The latter policy is slower, but likely suffers from lower fragmentation.\\
+%
+To prevent fragmentation, we again want to use coalescing. Only that this time, we also need to update the pointers.
+Thus, we again go to the adjacent blocks, and check if they are allocated.
+Say we coalesce the adjacent next block. We go to the location of the previous free block pointer and update that block's next pointer to point to the start of the to be freed block.
+We then copy the previous pointer from the free block to the correct location in the to be freed block.
+
+\content{Segregated Free List} Here, we keep separate lists for different sizes. We first check the list for the requested size class,
+and if no fitting block is found, roll up to the next list until we have reached the last list and if it doesn't contain a suitable block, request new memory using \texttt{sbrk()}.\\
+This leads to an increased throughput and better memory utilization as compared to the previous two.
+Another benefit is that we do not necessarily have to coalesce or that we can coalesce if the length of a certain list has reached a certain threshold.
+
+
+\content{Placement policies}
+\begin{itemize}
+    \item \bi{First fit} Search the list from the beginning, pick first free block that fits. This will usually cause ``splinters'' at the beginning of the list
+          and can take linear time in the total number of blocks (allocated and free)
+    \item \bi{Next fit} Like first fit, but start at point the previous search finished at. This should be faster, however leads to worse fragmentation.
+    \item \bi{Best fit} Searches the list and chooses the \textit{best} free block that fits and has fewest bytes left over.
+          Leads to lower fragmentation, but is slower than first fit.
+\end{itemize}

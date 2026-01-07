@@ -1,0 +1,13 @@
+\subsubsection{Garbage Collection}
+
+The memory manager must somehow be able to tell what memory can be freed. In general, we cannot know if memory is going to be used or not,
+except if there exists no pointer to it anymore.
+Garbage collectors use graphs to track pointer availability.
+In other words, a block is reachable if there exists a path from a root node to it.
+
+An easy GC algorithm is called \bi{Mark and Sweep}. It has an extra bit in the header called the \textit{mark bit} and can be built on top of malloc/free.
+The concept is to use malloc until we ``run out of space'' and to then run these steps:
+\begin{itemize}
+    \item \bi{Mark}: Starts at each root node and sets a mark bit on each reachable block.
+    \item \bi{Sweep}: Scan all blocks and free all blocks that are unmarked.
+\end{itemize}

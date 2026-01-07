@@ -1,0 +1,15 @@
+\subsubsection{Common pitfalls}
+\begin{itemize}[noitemsep]
+    \item Dereferencing bad pointers (e.g. passing an \texttt{int} to a function expecting a pointer)
+    \item Reading uninitialized memory (memory allocated with \texttt{malloc} should be considered garbage)
+    \item Overwriting memory (if you mess up pointer arithmetic or don't do boundary checks)
+    \item Referencing nonexistent variables (variables go out of scope on function returns, except \texttt{static})
+    \item Freeing blocks multiple times (can corrupt the heap)
+    \item Referencing freed blocks (always \texttt{NULL} pointers after using \texttt{free()})
+    \item Failing to free blocks (memory leak incoming and make sure to free the ENTIRE data structure!)
+\end{itemize}
+Some of these bugs (especially bad references) can usually be found using a debugger.
+
+Substitute \texttt{malloc} with a \texttt{malloc} that has extra checking code (like \texttt{UToronto CSRI malloc} to detect memory leaks)
+
+Using \texttt{valgrind} (a memory debugger). Or, simply don't bother with \lC\ and use \texttt{Rust}.
