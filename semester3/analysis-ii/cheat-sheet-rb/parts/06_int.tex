@@ -147,3 +147,135 @@ $$
     \smalltext{The role of $x_1,x_2$ can be swapped, if $f$ is continuous.}
 \end{subbox}
 \newpage
+
+\definition \textbf{Parametrized $m$-Set in $\R^n$}\\
+$f: [a_1,b_1]\times\cdots\times[a_m,b_m] \to \R$\\ 
+s.t. $f \in C^1$ on $(a_1,b_1)\times\cdots\times(a_m,b_m)$\\
+\subtext{A param. $1$-set in $\R^n$ is just a param. curve}
+
+\definition \textbf{Negligible Subset}\\
+$B \subset \R^n$ s.t. $\exists k \geq 0$ param. $m_i$-sets: $f_i:X_i\to\R^n$ s.t.
+$$
+    B \subset f_1(X_1) \cup \cdots \cup f_k(X_k)
+$$
+\subtext{$1 \leq i \leq k,\quad m_i < n$}\\
+
+\begin{footnotesize}
+    \remark For an affine subspace $H \subset \R^n$ with $\dim(H) < n$, any $X \subset \R^n$ contained in $H$ is Negligible
+
+    \remark The image of a param. curve $\gamma: [a,b] \to \R^n$ is negligible.\\
+    \color{gray} $\gamma$ is a $1$-set in $\R^n$ \color{black}
+\end{footnotesize}
+
+\lemma \textbf{Integral of Negligible Sets}\\
+\smalltext{For continuous $f: X \subset \R^n \to \R$}:
+$$
+    X \text{ negligible } \implies \int_X f(x)\ dx = 0
+$$
+
+\subsection{Improper Integrals}
+\smalltext{$I \subset \R$ bounded,$\quad J = [a,+\infty]$ for $a \in \R,\quad f$ cont. on $X = J \times I$}
+$$
+    \underset{x \to \infty}{\lim}\int_{[a,x]\times I}f(x,y)\ dxdy = \underbrace{\int_a^\infty \Biggl( \int_I f(x,y)\ dy \Biggr) dx}_\text{Order of Integration may change}
+$$
+If this Limit is equal for both orders of Integration:
+
+\definition \textbf{Improper Integral in $\R^2$}
+$$
+    \int_{J \times I} f(x,y)\ dxdy := \underset{x \to \infty}{\lim}\int_{[a,x]\times I}f(x,y)\ dxdy
+$$
+
+\definition \textbf{Integral over $\R^2$}
+$$
+    \int_{\R^2} f(x,y)\ dxdy := \underset{R \to \infty}{\lim}\int_{[-R,R]^2} f(x,y)\ dxdy
+$$
+
+\begin{footnotesize}
+    \remark if $|f| \leq g$, and an impr. Integr. exists on g, it exists on $f$.
+\end{footnotesize}
+
+\newpage
+\subsection{Change of Variable}
+\smalltext{This is to provide an Analogue of the Change of Variable in $\R$}
+$$
+    \int f\Bigl( g(x) \Bigr) g'(x)\ dx = \int f(y)\ dy
+$$
+
+\textbf{Prerequisites}
+
+\begin{footnotesize}
+    $\bar{X},\bar{Y} \subset \R^n$ compact, $\varphi: \bar{X} \to \bar{Y}$ cont.\\
+    We have: $\bar{X} = X \cup B,\quad \bar{Y} = Y \cup C$ s.t.
+    \begin{enumerate}
+        \item $X,Y$ are open
+        \item $B,C$ are negligible
+        \item $\varphi$ on $X$ is a $C^1$ map $\varphi: X \to Y$
+    \end{enumerate}
+\end{footnotesize}
+
+\begin{subbox}{Change of Variable in $\R^n$}
+    \smalltext{$\bar{X},\bar{Y}$ as above, $\quad f$ cont. on $\bar{Y}$ arbitrary}
+    $$
+        \int_{\bar{X}} f\Bigr( \varphi(x) \Bigl) \cdot \left\vert \det(\textbf{J}_\varphi(x)) \right\vert\ dx = \int_{\bar{Y}} f(y)\ dy
+    $$
+\end{subbox}
+
+\begin{footnotesize}
+    \remark Translations: $\varphi(x) = x + x_0$ have $\textbf{J}_\varphi(x) = \textbf{I}_n$\\
+    so the volume is preserved: $\displaystyle\int_{\bar{X}}f(x+x_0)\ dx = \int_{x_0 + \bar{X}} f(x)\ dx$    
+
+    \remark Linear maps: $\varphi(x) = \textbf{A}x$ have $\textbf{J}_\varphi(x) = \textbf{A}$\\
+    The change of variable is: $\displaystyle\int_{\bar{X}} f\Bigl( \varphi(x) \Bigr)\ dx = \frac{1}{\left\vert \det(\textbf{A}) \right\vert} \int_{\bar{Y}}f(y)\ dy$
+\end{footnotesize}
+
+\remark \textbf{Commonly used Changes}
+\begin{enumerate}
+    \item Polar Coordinates\\
+    \smalltext{    
+        $\varphi(r, \theta) = \bigl(r\cos(\theta),\ r\sin(\theta)\bigr)$\\
+        Where $dxdy = r\ dr\ d\theta$
+    }
+
+    \item Cylindrical Coordinates\\
+    \smalltext{
+        $\varphi(r, \theta, z) = \bigl( r\cos(\theta),\ rsin(\theta),\ z \bigr)$\\
+        Where $dxdydz = r\ dr\ d\theta\ dz$
+    }
+
+    \item Spherical Coordinates\\
+    \smalltext{
+        $\varphi(r, \theta, \phi) = (r\sin(\phi)\cos(\theta),\ r\sin(\phi)\sin(\theta),\ r\cos(\phi))$\\
+        Where $dxdydz = r^2\ \sin(\phi)\ dr\ d\theta\ d\phi$
+    }
+\end{enumerate}
+
+\newpage
+\subsection{Green's Theorem}
+\smalltext{An analogue of the Fundamental Theorem of Calculus in $\R^2$.}
+
+\definition \textbf{Simple Closed Parametrized Curve}\\
+$\gamma: [a,b] \to \R^2$ closed param. curve s.t.
+\begin{enumerate}
+    \item $\gamma(t) \neq \gamma(s)\quad$ unless $s = t$, or $\{s,t\} = \{a,b\}$
+    \item $\gamma'(t) \neq 0\quad \forall a < t < b$
+\end{enumerate}
+\subtext{Example: $\varphi(t) = \Bigl( x_0 + r\cos(t),\ y_0 + r\sin(t) \Bigr)$\\ 
+(A circle, traversed \textit{once}, i.e. for $0 \leq t \leq 2\pi$)}
+
+\begin{subbox}{Green's Theorem}
+    \smalltext{$X \subset \R^2 \text{ compact with Boundary } \partial X = \displaystyle\underset{1 \leq i \leq n}{\bigcup} \gamma_i$ as above}\\
+    \smalltext{Assume: $\gamma_i: [a_i,b_i] \to \R^2$ s.t. $X$ is always \textit{left} of $\gamma_i'(t)$ at $\gamma_i(t)$}
+    $$
+    \int_X \Biggl( \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y} \Biggr)\ dxdy = \sum_{i=1}^{k} \int_{\gamma_i} f \cdot ds
+    $$
+    \smalltext{For a $C^1$ Vector field $f=(f_1,f_2)$ containing $X$}
+\end{subbox}
+\subtext{So, some Riemann Integrals can be converted to a sum of line integrals.}
+
+\lemma \textbf{Volume using Green}
+$$
+    \text{Vol}(X) = \sum_{i=1}^{k} \int_{\gamma_i} x \cdot ds = \sum_{i=1}^{k} \int_{a_i}^{b_i} \gamma_{i,1}(t)\cdot \gamma_{i,2}'(t)\ dt
+$$
+\subtext{Same assumptions as above.}
+
+\remark The \textit{Gauss-Ostrogradski} Formula exists for $\R^3$.
