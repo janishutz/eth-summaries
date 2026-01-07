@@ -8,6 +8,9 @@
 \setFontType{sans}
 
 \newcommand{\lC}{\texttt{C}}
+\newcommand{\content}[1]{\shade{blue}{#1}}
+\newcommand{\warn}[1]{\bg{orange}{#1}}
+\newcommand{\danger}[1]{\shade{red}{#1}}
 
 \begin{document}
 \startDocument
@@ -56,31 +59,50 @@
 %          ╭────────────────────────────────────────────────╮
 %          │                    Content                     │
 %          ╰────────────────────────────────────────────────╯
+% ── Intro to x86 asm ────────────────────────────────────────────────
+\newsection
+\section{Introduction}
+This summary tries to summarize everything that is important to know for this course.
+It aims to be a full replacement for the slides, but as with all my summaries, there may be missing or incorrect information in here,
+so use at your own risk. You have been warned!
+
+The summary does \textit{not} follow the order the lecture does.
+This is to make related information appear more closely to each other than they have in the lecture and the summary assumes you have already seen
+the concepts in the lectures or elsewhere (or are willing to be thrown in the deep end).
+
+The target semester for this summary is HS2025, so there might have been changes in your year.
+If there are changes and you'd like to update this summary, please open a pull request in the summary's repo at
+
+\begin{center}
+    \hlurl{https://github.com/janishutz/eth-summaries}
+\end{center}
+
+
+\newsection
+\section{x86 Assembly}
+\input{parts/00_asm/00_intro.tex}
+
 % ── Intro to C ──────────────────────────────────────────────────────
 \newsection
 \section{The C Programming Language}
-\input{parts/00_c/00_intro.tex}
-\input{parts/00_c/01_basics/00_intro.tex}
-\input{parts/00_c/01_basics/01_control-flow.tex}
-\input{parts/00_c/01_basics/02_declarations.tex}
-\input{parts/00_c/01_basics/03_operators.tex}
-\input{parts/00_c/01_basics/04_arrays.tex}
-\input{parts/00_c/01_basics/05_strings.tex}
-\input{parts/00_c/01_basics/06_integers.tex}
-\input{parts/00_c/01_basics/07_pointers.tex}
-\input{parts/00_c/02_preprocessor.tex}
-
-
-% ── Intro to x86 asm ────────────────────────────────────────────────
-\newsection
-\section{x86 Assembly}
-\input{parts/01_asm/00_intro.tex}
+\input{parts/01_c/00_intro.tex}
+\input{parts/01_c/01_basics/00_intro.tex}
+\input{parts/01_c/01_basics/01_control-flow.tex}
+\input{parts/01_c/01_basics/02_declarations.tex}
+\input{parts/01_c/01_basics/03_operators.tex}
+\input{parts/01_c/01_basics/04_arrays.tex}
+\input{parts/01_c/01_basics/05_strings.tex}
+\input{parts/01_c/01_basics/06_integers.tex}
+\input{parts/01_c/01_basics/07_pointers.tex}
+\input{parts/01_c/02_preprocessor.tex}
+\input{parts/01_c/03_memory/00_intro.tex}
+\input{parts/01_c/03_memory/01_allocation.tex}
 
 
 % ── Hardware recap ──────────────────────────────────────────────────
 \newsection
 \section{Hardware}
-\input{parts/02_hw/00_intro.tex}
+\input{parts/03_hw/00_intro.tex}
 
 Remember: Rust and the like have an \texttt{unsafe} block... \lC's equivalent to this is
 \begin{code}{c}

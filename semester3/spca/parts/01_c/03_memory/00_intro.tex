@@ -1,0 +1,26 @@
+\subsection{Memory}
+In comparison to most other languages, \lC\ does not feature automatic memory management, but instead gives us full, manual control over memory.
+This of course has both advantages and disadvantages.
+
+\rmvspace
+\inputcodewithfilename{c}{code-examples/00_c/02_memory/}{00_memory.c}
+\drmvspace
+
+Notably, the argument \texttt{size\_t sz} for \texttt{malloc}, \texttt{calloc} and \texttt{realloc} is an \texttt{unsigned} integer of some size
+and differs depending on hardware and software platforms.
+
+\texttt{malloc} keeps track of which blocks are allocated. If you give \texttt{free} a pointer that isn't the start of the memory region previously \texttt{malloc}'d,
+you get undefined behaviour.
+
+\warn{Memory corruption} There are many ways to corrupt memory in \lC. The below code shows off a few of them:
+
+\rmvspace
+\inputcodewithfilename{c}{code-examples/00_c/02_memory/}{01_mem-corruption.c}
+\drmvspace
+
+\warn{Memory leaks} If we allocate memory, but never free it, we use more and more memory (old memory is inaccessible)
+
+\content{Dynamic data structures} We build it using structs that have a pointer to another struct inside them.
+We have to allocate memory for each element and then add the pointer to another struct.
+For a generic dynamic data structure, make the element a \texttt{void} pointer.
+This in general is the concept used for functions operating on any data type.

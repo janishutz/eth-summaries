@@ -1,0 +1,37 @@
+\subsubsection{Dynamic Memory Allocation}
+Memory allocated with \texttt{malloc} is typically $8$- or $16$-byte aligned.
+
+\content{Explicit vs. Implicit} In explicit memory management, the application does both the allocation \textit{and} deallocation memory,
+whereas in implicit memory management, the application allocates the memory, but usually a \textit{Garbage Collector} (GC) frees it.
+
+For some languages, like Rust, one would assume that it does implicit allocation, but Rust is a language using explicit management,
+it's just that the \textit{compiler} and not the programmer decides when to allocate and when to deallocate.
+
+\warn{Assumptions in this course} We assume that memory is \bi{word} addressed (= 8 Bytes).
+
+\content{Goals} The allocation should have the highest possible throughput and at the same time the best (i.e. lowest) possible memory utilization.
+This however is usually conflicting, so we have to balance the two.
+
+\numberingOff
+\inlinedef \bi{Aggregate payload} $P_k$: All \texttt{malloc}'d stuff minus all \texttt{free}'d stuff
+
+\inlinedef \bi{Current heap size} $H_k$: Monotonically non-decreasing. Grows when \texttt{sbrk} system call is issued.
+
+\inlinedef \bi{Peak memory utilization} $U_k = (\max_{i < k} P_i) / H_k$
+
+
+A bit problem for the \texttt{free} function is to know how much memory to free without knowing the size of the to be freed block.
+This is just one of many other implementation issues:
+\begin{itemize}
+    \item How do we keep track of the free blocks? I.e. where and how large are they?
+    \item What do we do with the extra space of a block when allocating a smaller block?
+    \item How do we pick a block?
+    \item How do we reinsert a freed block into the heap?
+\end{itemize}
+This all leads to an issue known as \bi{fragmentation}
+
+\inlinedef \bi{Internal Fragmentation}: If for a given block the payload (i.e. the requested size) is smaller than the block size.
+This depends on the pattern of previous requests and is thus easy to measure
+
+\inlinedef \bi{External Fragmentation}: There is enough aggregate heap memory, but there isn't a single large enough free block available
+This depends on the pattern of future requests and is thus hard to measure

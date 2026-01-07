@@ -14,6 +14,13 @@ struct MyStruct {
         int el2;
 };
 
+// Like structs, but can only hold one of the values!
+union MyUnion {
+        int ival;
+        float fval;
+        char *sval;
+};
+
 int fun( int j ) {
     static int i = 0;              // Persists across calls of fun
     short my_var = 1;              // Block scoped (deallocated when going out of scope)
@@ -27,7 +34,10 @@ int main( int argc, char *argv[] ) {
     }
     struct MyStruct test;            // Allocate memory on stack for struct
     struct MyStruct *test_p = &test; // Pointer to memory where test resides
-    test.el1 = 1;                    // Direct element access
-    test_p->el2 = 2;                 // Via pointer
+    struct MyStruct test2;
+    union MyUnion my_uval; // Work exactly like structs for access
+    test.el1 = 1;          // Direct element access
+    test_p->el2 = 2;       // Via pointer
+    test2 = test;          // Copies the struct
     return 0;
 }
