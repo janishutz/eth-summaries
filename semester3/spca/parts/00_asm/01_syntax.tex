@@ -1,0 +1,11 @@
+\subsection{The syntax}
+There are two common styles: AT\&T syntax (common on UNIX) and Intel syntax (common on Windows)
+
+The state that is visible to us is:
+\begin{itemize}
+    \item PC (Program Counter) that contains the address of the next instruction
+    \item Register file that contains the most used program data
+    \item Condition codes that store status information about most recent arithmetic operation and are used for conditional branching
+\end{itemize}
+
+To view what \lC\ code looks like in assembly, we can use \texttt{gcc -O0 -S code.c}, which produces \texttt{code.s} which contains assembly code.

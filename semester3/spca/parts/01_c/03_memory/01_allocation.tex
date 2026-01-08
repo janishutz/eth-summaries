@@ -12,7 +12,6 @@ it's just that the \textit{compiler} and not the programmer decides when to allo
 \content{Goals} The allocation should have the highest possible throughput and at the same time the best (i.e. lowest) possible memory utilization.
 This however is usually conflicting, so we have to balance the two.
 
-\numberingOff
 \inlinedef \bi{Aggregate payload} $P_k$: All \texttt{malloc}'d stuff minus all \texttt{free}'d stuff
 
 \inlinedef \bi{Current heap size} $H_k$: Monotonically non-decreasing. Grows when \texttt{sbrk} system call is issued.

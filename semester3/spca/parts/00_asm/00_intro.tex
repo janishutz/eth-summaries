@@ -1,0 +1,35 @@
+\fancydef{Architecture} Also known as ISA (Instruction Set Architecture) is ``The parts of a processor design that one needs to understand to write assembly code''.
+It includes for example the definition of instructions (and their options) and what registers are available.
+Notable examples are \texttt{x86}, \texttt{RISC-V} (this one is open-source!), MIPS, ARM, etc
+
+\fancydef{Microarchitecture} The implementation of the ISA. It defines the actual hardware layout and how the individual instructions are actually implemented
+and thus also defines things such as core frequency, cache layout and more.
+
+Thus, the ISA is more or less precisely on the boundary of the software/hardware interface.
+
+\inlinedef Complex Instruction Set (CISC):
+\begin{itemize}[noitemsep]
+    \item Stack oriented instruction set: Uses it to pass arguments, save program counter and features explicit push and pop instructions for the stack.
+    \item Arithmetic instructions can access memory
+    \item Condition codes set side effect of arithmetic and logical instructions.
+    \item Design Philosophy: Add new instructions for typical tasks.
+\end{itemize}
+
+
+\inlinedef Reduced Instruction Set (RISC):
+\begin{itemize}[noitemsep]
+    \item Fewer, simpler instructions, commonly with fixed-size encoding. As a result, we might need more to get a given task done. On the other hand,
+          we can execute them with small and fast hardware
+    \item Register-oriented instruction set with many more registers that are used for arguments, return pointers, temporaries, etc.
+    \item Load-Store architecture, i.e. only load and store instructions can access memory
+    \item Thus: No Condition codes
+\end{itemize}
+
+What to choose? Both have advantages that the other has as disadvantage:
+Compiling for CISC is usually easier and usually results in smaller code size.
+For RISC however, compiler optimization can give a huge performance uplift and it can run fast with even a simple chip design.
+
+Today, the choices are made based on outside constraints usually. For desktops and servers, there is enough compute to make anything run fast.
+For embedded systems though, the reduced complexity of RISC makes more sense, but for how long still?
+
+What matters most today are non-technical factors such as existance of code for one ISA or licensing costs (and of course, Geopolitics)

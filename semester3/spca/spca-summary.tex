@@ -12,6 +12,8 @@
 \newcommand{\warn}[1]{\bg{orange}{#1}}
 \newcommand{\danger}[1]{\shade{red}{#1}}
 
+\setNumberingStyle{0}
+
 \begin{document}
 \startDocument
 \usetcolorboxes
@@ -81,6 +83,10 @@ If there are changes and you'd like to update this summary, please open a pull r
 \newsection
 \section{x86 Assembly}
 \input{parts/00_asm/00_intro.tex}
+\input{parts/00_asm/01_syntax.tex}
+\input{parts/00_asm/02_data-types.tex}
+\input{parts/00_asm/03_operations.tex}
+
 
 % ── Intro to C ──────────────────────────────────────────────────────
 \newsection
@@ -105,6 +111,7 @@ If there are changes and you'd like to update this summary, please open a pull r
 \newsection
 \section{Hardware}
 \input{parts/03_hw/00_intro.tex}
+
 
 Remember: Rust and the like have an \texttt{unsafe} block... \lC's equivalent to this is
 \begin{code}{c}
