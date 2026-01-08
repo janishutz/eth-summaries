@@ -52,35 +52,35 @@ Man berechnet die baryzentrischen Gewichte $\lambda_k$ folgendermassen:
 oder das ganze mithilfe von Numpy:
 \begin{code}{python}
     def barycentric_weights(x: np.ndarray) -> np.ndarray:
-    n = len(x)
-    # Initialize to zeros
-    barweight = np.ones(n)
-    for k in range(n):
-    # Vectorized differences between $x_k$ and all $x$s
-    differences = x[k] - x
-    # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
-    if k < n - 1 and k > 0:
-    diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
-    barweight[k] = 1 / np.prod(diff_processed)
-    elif k == 0:
-    barweight[k] = 1 / np.prod(differences[1:])
-    else:
-    barweight[k] = 1 / np.prod(differences[:k])
-    return barweight
+        n = len(x)
+        # Initialize to zeros
+        barweight = np.ones(n)
+        for k in range(n):
+            # Vectorized differences between $x_k$ and all $x$s
+            differences = x[k] - x
+            # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
+            if k < n - 1 and k > 0:
+                diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
+                barweight[k] = 1 / np.prod(diff_processed)
+            elif k == 0:
+                barweight[k] = 1 / np.prod(differences[1:])
+            else:
+                barweight[k] = 1 / np.prod(differences[:k])
+        return barweight
 \end{code}
 
 Gleiche funktion, etwas kürzer:
 
 \begin{code}{python}
     def barycentric_weights(x: np.ndarray) -> np.ndarray:
-    n = len(x)
-    w = np.ones(n) # = barweight
-    # Compute the (non-inverted) product, avoiding case (x[i] - x[i]) = 0
-    for i in range(0, n, 1):
-    if (i-1 > 0): w[0:(i-1)] *= (x[0:(i-1)] - x[i])
-    if (i+1 < n): w[i+1:n]   *= (x[i+1:n]   - x[i])
-    # Invert all at once
-    return 1/w
+        n = len(x)
+        w = np.ones(n) # = barweight
+        # Compute the (non-inverted) product, avoiding case (x[i] - x[i]) = 0
+        for i in range(0, n, 1):
+            if (i-1 > 0): w[0:(i-1)] *= (x[0:(i-1)] - x[i])
+            if (i+1 < n): w[i+1:n]   *= (x[i+1:n]   - x[i])
+        # Invert all at once
+        return 1/w
 \end{code}
 
 Mit dem können wir dann ein Polynom mit der baryzentrischen Interpolationsformel interpolieren:
@@ -102,32 +102,33 @@ Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode 
 
 \begin{code}{python}
     def interp_barycentric(
-    data_point_x: np.ndarray,
-    data_point_y: np.ndarray,
-    barweight: np.ndarray,
-    x: np.ndarray
+        data_point_x: np.ndarray,
+        data_point_y: np.ndarray,
+        barweight: np.ndarray,
+        x: np.ndarray
     ):
-    p_x = np.zeros_like(x)
-    n = data_point_x.shape[0]
+        p_x = np.zeros_like(x)
+        n = data_point_x.shape[0]
 
-    for i in range(x.shape[0]):
-    # Separate sums to divide in the end
-    upper_sum = 0
-    lower_sum = 0
-    for k in range(n):
-    frac = barweight[k] / (x[i] - data_point_x[k])
-    upper_sum += frac * data_point_y[k]
-    lower_sum += frac
-    p_x[i] = upper_sum / lower_sum
+        for i in range(x.shape[0]):
+            # Separate sums to divide in the end
+            upper_sum = 0
+            lower_sum = 0
+            for k in range(n):
+                frac = barweight[k] / (x[i] - data_point_x[k])
+                upper_sum += frac * data_point_y[k]
+                lower_sum += frac
+            p_x[i] = upper_sum / lower_sum
 
-    return p_x
+        return p_x
 \end{code}
 
 
 % ────────────────────────────────────────────────────────────────────
 \newpage
 \subsubsection{Fehler}
-Falls an den Stützstellen $x_i$ durch beispielsweise ungenaue Messungen unpräzise Werte $\tilde{y_i}$ haben, so entsteht logischerweise auch ein unpräzises Polynom $\tilde{p}(x)$.
+Falls wir an den Stützstellen $x_i$ durch beispielsweise ungenaue Messungen unpräzise Werte $\tilde{y_i}$ haben,
+so entsteht logischerweise auch ein unpräzises Polynom $\tilde{p}(x)$.
 Verglichen in der Lagrange-Basis zum korrekten Interpolationspolynom $p(x)$ ergibt sich folgender Fehler:
 \begin{align*}
     |p(x) - \tilde{p}(x)| = \left| \sum_{i = 0}^{n} (y_i - \tilde{y_i}) l_i(x) \right| \leq \max_{i = 0, \ldots, n} |y_i - \tilde{y_i}| \cdot \sum_{i = 0}^{n} |l_i(x)|

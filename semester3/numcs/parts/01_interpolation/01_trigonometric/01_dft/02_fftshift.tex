@@ -1,8 +1,8 @@
 \subsubsection{DFT in Numpy}
 
-Sei $y$ in der Standardbasis, und $c = \mathcal{F}_N(y)$, also $y$ in der trig. Basis.
+Sei $y$ in der Standardbasis, und $c = \mathcal{F}_N(y)$, also $y$ in der trigonometrischen Basis.
 \begin{align*}
-    c = F_N \times y = \texttt{fft}(y)\quad \text{\textit{(DFT in numpy)}} & y = \frac{1}{N}F_N^Hc = \texttt{ifft}(c)\quad \textit{(Inverse DFT in numpy)}
+    c = F_N \times y = \texttt{fft}(y)\quad \text{\textit{(DFT in numpy)}} & & y = \frac{1}{N}F_N^Hc = \texttt{ifft}(c)\quad \textit{(Inverse DFT in numpy)}
 \end{align*}
 
 Um zur ursprünglichen Darstellung des trig. Polynoms zurück zu kommen, müssen wir die Koeffizienten umsortieren: \\

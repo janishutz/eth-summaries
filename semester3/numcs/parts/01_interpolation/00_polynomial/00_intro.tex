@@ -12,12 +12,13 @@ Die $x_i$ heissen Stützstellen/Knoten, für welche $\tilde{f}(x_i) = y_i$ gelte
 	\quad x_i, y_i \in \mathbb{R}
 \end{align*}
 
-Normalerweise stellt $f$ eine echte Messung dar, d.h. macht es Sinn anzunehmen dass $f$ glatt ist.
+Normalerweise stellt $f$ eine echte Messung dar, d.h. es macht Sinn anzunehmen dass $f$ glatt ist.
 
 Die informelle Problemstellung oben lässt sich durch Vektorräume formalisieren:
 
-$f \in \mathcal{V}$, wobei $\mathcal{V}$ ein Vektorraum mit $\dim(\mathcal{V}) = \infty$ ist. \\
-Wir suchen d.h. $\tilde{f}$ in einem Unterraum $\mathcal{V}_n$ mit endlicher $\dim(\mathcal{V}_n) = n$.
+$f \in \mathcal{V}$, wobei $\mathcal{V}$ ein Vektorraum mit $\dim(\mathcal{V}) = \infty$ ist.
+
+Wir suchen also $\tilde{f}$ in einem Unterraum $\mathcal{V}_n$ mit endlicher $\dim(\mathcal{V}_n) = n$.
 Sei $B_n = \{b_1,\ldots,b_n\}$ eine Basis für $\mathcal{V}_n$.
 Dann lässt sich der Bezug zwischen $f$ und $\tilde{f} = f_n(x)$ so ausdrücken:
 \begin{align*}
@@ -26,7 +27,7 @@ Dann lässt sich der Bezug zwischen $f$ und $\tilde{f} = f_n(x)$ so ausdrücken:
 
 \setLabelNumber{all}{1}
 \inlineremark Unterräume $\mathcal{V}_n$ existieren nicht nur für Polynome, wir beschränken uns aber auf $b_j(x) = x^{i-1}$.
-Andere Möglichkeiten: $b_j = \cos((j-1)\cos^-1(x))$ \textit{(Chebyshev)} oder $b_j = e^{i2\pi j x}$ \textit{(Trigonometrisch)}
+Andere Möglichkeiten: $b_j = \cos((j-1)\cos^{-1}(x))$ \textit{(Chebyshev)} oder $b_j = e^{i2\pi j x}$ \textit{(Trigonometrisch)}
 
 \fancytheorem{Peano} $f$ stetig $\implies \exists p(x)$ welches $f$ in $||\cdot||_\infty$ beliebig gut approximiert.
 
