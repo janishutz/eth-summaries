@@ -2,11 +2,11 @@
 Nicht nur die Normalengleichungen, aber auch das LU-Verfahren kann für gewisse Matrizen (im Falle von LU sind es Matrizen mit $m > n$) ungeeignet sein.
 
 Wir versuchen wieder $||r||_2^2$ zu minimieren, mit $r = Ax - b$.
-Mithilfe der $QR$-Zerlegung lässt sich ein Lösungsansatz herleiten, der höhere numerische Stabilität aufweist, als die Normalengleichungen.
+Mithilfe der $QR$-Zerlegung lässt sich ein Lösungsansatz herleiten, der höhere numerische Stabilität aufweist als die Normalengleichungen.
 Sei $A = QR = Q \begin{bmatrix}
         \tilde{R} \\ 0
     \end{bmatrix}$.
-Dann, nach Umformungen erhalten wir $||Rx - \tilde{b}||_2^2$ mit $\tilde{b} = Q^Hb$.
+Dann, nach Umformungen, erhalten wir $||Rx - \tilde{b}||_2^2$ mit $\tilde{b} = Q^Hb$.
 
 Nutzt man beispielsweise Housholder-Spiegelungen zur Berechnung der $QR$-Zerlegung, so kann man die Transformationen direkt auf $b$ anwenden
 und so kann man sich das Abspeichern der Matrix $Q$ komplett sparen.
