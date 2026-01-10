@@ -67,30 +67,46 @@ If both blocks are free, then of course we can do this step in one go for both.
 
 Using the headers or boundary tags is just one option to do it and it can be optimized.
 
-
 \content{Implicit Free List} If we use the size that is stored in the header, we know where the next block is going to be already.
-To know if the block has already been allocated, we are using a low-order bit. If the blocks are aligned, then some of the low-order bits are always 0.\\
-To find a free block, we can use the \texttt{first fit}, \texttt{next fit} or \texttt{best fit} policies.
+To know if a block is allocated, we use a low-order bit. This is possible, sincee if the blocks are aligned, then some of the low-order bits are always 0.
+
+\textbf{Allocating Blocks}: We traverse the list, and choose depending on the placement policy: \texttt{first fit}, \texttt{next fit} or \texttt{best fit} policies.
 When a block is picked, we might want to split it by adding a header to the remaining part.\\
-To free a block, we can simply clear the allocated flag, however that can lead to fragmentation.
-Thus: Coalesce the freed blocks.
+\textbf{Freeing Blocks}: We can simply clear the allocated flag, which might lead to fragmentation. Thus: Coalesce the freed blocks.
 
-\content{Explicit Free List} Here, we maintain pointers to the next and possibly (and preferrably) previous free block(s).
-This means that all free blocks form a linked list. Thus, to allocate a free block, we remove the element from the list by updating the pointers and
+This is the simplest approach, the price we pay is that allocating is linear w.r.t \textit{all blocks} managed by the allocator.
+
+\content{Explicit Free List} To improve on this, here we maintain pointers to the next and preferably previous free block(s).
+This means that all free blocks form a (doubly) linked list, and we don't traverse already allocated blocks.\\
+Since the free blocks aren't used by the program, the list pointers can be stored inside the free blocks.
+
+\textbf{Allocating Blocks}: We remove the element from the list by updating the pointers and
 we can again use the \texttt{first fit}, \texttt{next fit} or \texttt{best fit} policies.\\
-To free, we can use LIFO (last-in-first-out) or address-ordered policies and we also have to clear the allocated bit in the footer and header.
-The latter policy is slower, but likely suffers from lower fragmentation.\\
-%
-To prevent fragmentation, we again want to use coalescing. Only that this time, we also need to update the pointers.
-Thus, we again go to the adjacent blocks, and check if they are allocated.
-Say we coalesce the adjacent next block. We go to the location of the previous free block pointer and update that block's next pointer to point to the start of the to be freed block.
-We then copy the previous pointer from the free block to the correct location in the to be freed block.
+\textbf{Freeing Blocks}: Requires updating the list pointers, which depends on the list ordering. If boundary tags are used for coalescing, we also have to clear the allocated bit in the footer and header.
 
-\content{Segregated Free List} Here, we keep separate lists for different sizes. We first check the list for the requested size class,
-and if no fitting block is found, roll up to the next list until we have reached the last list and if it doesn't contain a suitable block, request new memory using \texttt{sbrk()}.\\
-This leads to an increased throughput and better memory utilization as compared to the previous two.
-Another benefit is that we do not necessarily have to coalesce or that we can coalesce if the length of a certain list has reached a certain threshold.
+The list ordering may be LIFO (last-in-first-out) or address-ordered. LIFO (with \verb|first fit|) allows constant time freeing, while address-ordered provides better memory utilization (linear time freeing).
 
+To prevent fragmentation, we want to use coalescing again, which can be implemented using boundary tags (again leads to linear time coelescing, if the list is FIFO). This time, the pointers need to be updated too. How this works (and how fast) depends on the list ordering.
+
+\content{Segregated Free List} An issue with the previous approaches is finding a \textit{large enough} block, which is why finding a fit remains in linear time. Here, we keep separate lists for different \textit{size classes} to make this faster.\\ 
+For each \textit{size class} a separate free list is maintained. For example, the classes might be:
+$$
+      \{1\}, \{2\}, \{3,4\}, \{5-8\},\ \ldots\ ,\{1025-2048\}, \{2049-4096\}, \{4097-\infty\} \quad\quad\quad (\text{Partitions by Powers of } 2)
+$$
+
+\textbf{Allocating Blocks}: We first check the list for the requested size class,
+and if no fitting block is found, move up to the next list. If we have reached the last list and there is no suitable block, request new memory using \texttt{sbrk()}.\\
+\textbf{Freeing Blocks}: Requires adding the newly freed block into the respective free list, potentially after coalescing.
+
+This leads to an increased throughput and better memory utilization as compared to the previous two. Additionally, this structure opens up many optimization options.
+
+The way splitting, coalescing, etc. is implemented varies a lot by implementation.\\
+For example, we might choose to only coalesce if the length of a certain list has reached a certain threshold.\\
+Similarly, if a list of some size class is empty, we might either request new memory and create a new list, or split a block from a higher size class.
+
+Some options used are: \textit{Simple Segregated Storage}, \textit{Segregated Fits}, \textit{Buddy System}
+
+\shade{purple}{Fun fact}: the GNU \verb|malloc| package uses a Segregated Free List, with \textit{Segregated fits}.
 
 \content{Placement policies}
 \begin{itemize}
