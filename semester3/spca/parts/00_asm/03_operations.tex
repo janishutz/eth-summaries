@@ -1,10 +1,12 @@
 \subsection{Operations}
 Assembly operations include performing arithmetic or logic functions on registers or memory data,
-transferring data between memory and registers and transferring control (conditional or unconditional jumps)
+transferring data between memory and registers and transferring control (conditional or unconditional jumps).\\
+Note that \verb|move| instructions \textit{cannot} move data directly from memory to memory.
 
 Most of the memory-related instructions in \texttt{x86} assembly have the format
 \mint{asm}|movq dest, src|
-whereas arithmetic / logic operations have the format inversed (below \texttt{X} is to be replced with size postfix).
+
+Arithmetic / logic operations have the format inversed (below \texttt{X} is to be replced with size postfix).
 \begin{tables}{lll}{Mnemonic & Format             & Computation}
               \texttt{addl}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest + Src}               \\
               \texttt{subX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest - Src}               \\

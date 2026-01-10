@@ -1,0 +1,15 @@
+\newpage
+\subsection{Control Flow}
+
+Control flow structures from \verb|C| like \verb|if/else| or \verb|for| are compiled into assembly mainly using jumps and conditional \verb|move|.
+
+By the nature of Assembly and thanks to compilers optimizing aggressively, there is no \textit{single} definitive translation of the \verb|C| control structures: The compiler may translate it very differently depending on the context of the program.
+
+\subsubsection{Conditional statements}
+A function using an \verb|if/else| construct to choose the maximum of $2$ numbers might compile like this:
+
+\inputcodewithfilename{gas}{code-examples/01_asm/}{02_max.s}
+
+A function computing the absolute difference $|x-y|$ using an \verb|if/else| construct, might use a conditional \verb|move| instead:
+
+\inputcodewithfilename{gas}{code-examples/01_asm/}{03_absdiff.s}
