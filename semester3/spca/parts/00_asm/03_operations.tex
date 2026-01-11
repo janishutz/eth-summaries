@@ -3,10 +3,11 @@ Assembly operations include performing arithmetic or logic functions on register
 transferring data between memory and registers and transferring control (conditional or unconditional jumps).\\
 Note that \verb|move| instructions \textit{cannot} move data directly from memory to memory.
 
-Most of the memory-related instructions in \texttt{x86} assembly have the format
-\mint{asm}|movq dest, src|
+The following instruction formats are commonly used:
 
-Arithmetic / logic operations have the format inversed (below \texttt{X} is to be replced with size postfix).
+\inputcodewithfilename{gas}{code-examples/01_asm/}{00_operations.s}
+
+Arithmetic / logic operations need a size postfix (replace \texttt{X} below with \texttt{b} (1B), \texttt{w} (2B), \texttt{l} (4B) or \texttt{q} (8B)).
 \begin{tables}{lll}{Mnemonic & Format             & Computation}
               \texttt{addl}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest + Src}               \\
               \texttt{subX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest - Src}               \\
@@ -37,11 +38,12 @@ The following condition codes were covered in the lecture (operation: \texttt{t 
 \content{Explicit computation}
 In the below explanations, we always assume \texttt{src2 = b} and \texttt{src1 = a}
 
-To explicitly compute them, we can use the \texttt{cmpX src2, src1} instruction, that essentially computes $(a - b)$ without setting a destination register.
+To explicitly compute them, we can use the \texttt{cmpX src2, src1} instruction (with X again any of the size postfixes),
+that essentially computes $(a - b)$ without setting a destination register.
 When we execute that instruction, \texttt{CF} is set if \texttt{a < b} (unsigned), \texttt{ZF} is set if \texttt{a == b}, \texttt{SF} is set if \texttt{a < b} (signed)
 and \texttt{OF} is set as above, where \texttt{t = a - b}.
 
-Another instruction that is used is \texttt{testX src2, src1}, and acts like computing \texttt{a \& b} and where \texttt{ZF} is set if \texttt{a \& b == 0}
+Another instruction that is used is \texttt{testX src2, src1} (X again a size postfix), and acts like computing \texttt{a \& b} and where \texttt{ZF} is set if \texttt{a \& b == 0}
 and \texttt{SF} is set if \texttt{a \& b < 0}.
 
 \content{Zeroing register} We can use a move instruction, but that is less efficient than using \texttt{xorl reg, reg}, where \texttt{reg} is the 32-bit version of the reg we want to zero.
