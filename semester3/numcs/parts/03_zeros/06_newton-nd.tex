@@ -22,7 +22,7 @@ def newton(x, F, DF, tol=1e-12, maxit=50):
     for _ in range(maxit):
         s = np.linal.solve(DF(x), F(x))
         x -= s
-        if np.linalgnorm(s) < tol * np.linalg.norm(x):
+        if np.linalg.norm(s) < tol * np.linalg.norm(x):
             return x
 \end{code}
 
