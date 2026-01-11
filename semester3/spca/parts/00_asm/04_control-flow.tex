@@ -13,3 +13,21 @@ A function using an \verb|if/else| construct to choose the maximum of $2$ number
 A function computing the absolute difference $|x-y|$ using an \verb|if/else| construct, might use a conditional \verb|move| instead:
 
 \inputcodewithfilename{gas}{code-examples/01_asm/}{03_absdiff.s}
+
+\subsubsection{While Loops}
+
+A recursive factorial function using a \verb|do while| loop may be compiled like this:
+
+\inputcodewithfilename{gas}{code-examples/01_asm/}{04_factorial.s}
+
+\newpage
+
+The same function, using a \verb|while| loop instead may lead to this:
+
+\inputcodewithfilename{gas}{code-examples/01_asm/}{05_factorial.s}
+
+\subsubsection{For Loops \& Switch}
+
+\verb|for| loops follow the same idea as \verb|while| loops, albeit with a few more jumps.
+
+\verb|switch| statements are implemented differently depending on size and case values: Sparse switch statements are compiled as decision trees, whereas large switch statements may become \textit{jump tables}.

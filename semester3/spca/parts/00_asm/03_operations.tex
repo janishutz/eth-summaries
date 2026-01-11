@@ -25,7 +25,7 @@ Arithmetic / logic operations need a size postfix (replace \texttt{X} below with
 \end{tables}
 
 \newpage
-\subsubsection{Condition Codes and jumping}
+\subsubsection{Condition Codes}
 Any arithmetic operation (that is truly part of the arithmetic operations group, so not including \texttt{lea} for example) implicitly sets the \bi{condition codes}.
 The following condition codes were covered in the lecture (operation: \texttt{t = a + b}):
 \begin{itemize}
@@ -68,3 +68,16 @@ and \texttt{SF} is set if \texttt{a \& b < 0}.
     \caption{Condition code postfixes for jump and set instructions}
     \label{tab:condition-codes}
 \end{table}
+
+\content{Conditional Moves}
+
+Similar to \texttt{jX}, the same postfixes can be applied to \texttt{cmovX}, for example:
+
+\begin{minted}{gas}
+    cmpl     %eax, %edx
+    cmovle   %edx, %eax
+\end{minted}
+
+Will move \verb|%edx| into \verb|%eax|, only if \verb|%edx| is less or equal (\verb|le|) \verb|%eax|.
+
+This can be used to, for example, compile ternary expressions from \verb|C| to Assembly. However, this requires evaluating both possible expressions, which may lead to a (significant) performance overhead.
