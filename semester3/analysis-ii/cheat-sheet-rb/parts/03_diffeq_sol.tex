@@ -31,33 +31,33 @@
 \method \textbf{Educated Guess}\\
 Usually, $y$ has a similar form to $b$:
 
-\begin{tabular}{ll}
-    \hline
-    $b(x)$ & \text{Guess} \\
-    \hline
-    $a \cdot e^{\alpha x}$                      & $b \cdot e^{\alpha x}$ \\
-    $a \cdot \sin(\beta x)$                     & $c\sin(\beta x) + d\cos(\beta x)$\\
-    $b \cdot \cos(\beta x)$                     & $c\sin(\beta x) + d\cos(\beta x)$\\
-    $ae^{\alpha x} \cdot \sin(\beta x)$         & $e^{\alpha x}\left(c\sin(\beta x) + d\cos(\beta x)\right)$\\
-    $be^{\alpha x} \cdot \cos(\beta x)$         & $e^{\alpha x}\left(c\sin(\beta x) + d\cos(\beta x)\right)$\\
-    $P_n(x) \cdot e^{\alpha x}$                 & $R_n(x) \cdot e^{\alpha x}$\\
-    $P_n(x) \cdot e^{\alpha x}\sin(\beta x)$    & $e^{\alpha x}\left( R_n(x) \sin(\beta x) + S_n(x) \cos(\beta x) \right)$\\
-    $P_n(x) \cdot e^{\alpha x}\cos(\beta x)$    & $e^{\alpha x}\left( R_n(x) \sin(\beta x) + S_n(x) \cos(\beta x) \right)$\\
-    \hline
-\end{tabular}
+\begin{footnotesize}
+    \begin{center}
+        \begin{tabular}{ll}
+            \hline
+            $b(x)$ & \text{Guess} \\
+            \hline
+            $a \cdot e^{\alpha x}$                      & $b \cdot e^{\alpha x}$ \\
+            $a \cdot \sin(\beta x)$                     & $c\sin(\beta x) + d\cos(\beta x)$\\
+            $b \cdot \cos(\beta x)$                     & $c\sin(\beta x) + d\cos(\beta x)$\\
+            $ae^{\alpha x} \cdot \sin(\beta x)$         & $e^{\alpha x}\left(c\sin(\beta x) + d\cos(\beta x)\right)$\\
+            $be^{\alpha x} \cdot \cos(\beta x)$         & $e^{\alpha x}\left(c\sin(\beta x) + d\cos(\beta x)\right)$\\
+            $P_n(x) \cdot e^{\alpha x}$                 & $R_n(x) \cdot e^{\alpha x}$\\
+            $P_n(x) \cdot e^{\alpha x}\sin(\beta x)$    & $e^{\alpha x}\left( R_n(x) \sin(\beta x) + S_n(x) \cos(\beta x) \right)$\\
+            $P_n(x) \cdot e^{\alpha x}\cos(\beta x)$    & $e^{\alpha x}\left( R_n(x) \sin(\beta x) + S_n(x) \cos(\beta x) \right)$\\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{footnotesize}
 
 \remark If $\alpha, \beta$ are roots of $P(X)$ with multiplicity $j$, multiply guess with a $P_j(x)$.
 
 \subsection{Linear Solutions: Constant Coefficients}
-\textbf{Form:}
-$$
-    y^{(k)} + a_{k-1}y^{(k-1)} + \ldots + a_1y' + a_0y = b
-$$
+\textbf{Form:} $ y^{(k)} + a_{k-1}y^{(k-1)} + \ldots + a_1y' + a_0y = b$\\
 \subtext{Where $a_0, \ldots, a_{k-1} \in \C$ are constants, $b(x)$ is continuous.}
 
 \subsubsection{Homogeneous Equations}
-
-The idea is to find a Basis of $\S$:
+\smalltext{The idea is to find a Basis of $\S$:}
 
 \definition \textbf{Characteristic Polynomial} $P(X) = \prod_{i=1}^{k} (X-\alpha_i)$
 
@@ -82,7 +82,6 @@ $$
 \end{subbox}
 \subtext{Solutions exist $\forall Z = (z_1,\ldots,z_k)$ since that system's $\det(M_Z) \neq 0$.}
 
-\newpage
 \subsubsection{Inhomogeneous Equations}
 
 \method \textbf{Undetermined Coefficients}: An educated guess.
@@ -98,13 +97,24 @@ $$
 
 \remark \textbf{Applying Linearity}\\ 
 If $b(x) = \sum_{i=1}^{n} b_i(x)$, A solution for $b(x)$ is $f(x) = \sum_{i=1}^{n} f_i(x)$\\
-\subtext{Sometimes called \textit{Superposition Principle} in this context}
+\subtext{Sometimes called \textit{Superposition Principle} in this context.}
 
 \subsection{Other Methods}
 
 \method \textbf{Change of Variable}\\
 If $f(x)$ is replaced by $h(y) = f(g(y))$, then $h$ is a sol. too.\\
-\subtext{Changes like $h(t) = f(e^t)$ may lead to useful properties.}
+\subtext{Changes like $h(t) = f(e^t)$ may lead to, i.e. ODEs in constant coeffs}
+
+\begin{footnotesize}
+    \textbf{Example:} $2xy' - y = 0$ \\
+    Using substitution: $x = e^t,\quad h(t) = y(e^t),\quad h'(t) = e^t \cdot y'(e^t)$
+    \begin{enumerate}
+        \item $2x \cdot y'(x) = 2 \cdot h'(t)$
+        \item $-y(x)$ = $-h(t)$
+    \end{enumerate}
+    So: $2xy' - y \overset{\text{sub}}{=} 2h'(t) - h(t) = 0$ \\
+    Yields: $h(t) = \alpha \cdot e^\frac{t}{2} \overset{\text{resub}}{\implies} y(x) = \alpha \cdot e^\frac{\ln(x)}{2} = \alpha \cdot \sqrt{x}$
+\end{footnotesize}
 
 \begin{subbox}{Separation of Variables}
     Form:
@@ -119,15 +129,16 @@ If $f(x)$ is replaced by $h(y) = f(g(y))$, then $h$ is a sol. too.\\
 \subtext{Usually $\int 1/a(y)\ \text{d}y$ can be solved directly for $\ln|a(y)|+c$.}
 
 \subsection{Method Overview}
-
-\begin{center}
-    \begin{tabular}{l|l}
-        \textbf{Method} & \textbf{Use case} \\
-        \hline
-        Variation of constants      & LDE with $\ord(F)=1$              \\
-        Characteristic Polynomial   & Hom. LDE w/ const. coeff.         \\
-        Undetermined Coefficients   & Inhom. LDE w/ const. coeff.       \\
-        Separation of Variables     & ODE s.t. $y' = a(y)\cdot b(x)$    \\
-        Change of Variables       & e.g. $y' = f(ax + by + c)$          \\
-    \end{tabular}
-\end{center}
+\begin{footnotesize}
+    \begin{center}
+        \begin{tabular}{l|l}
+            \textbf{Method} & \textbf{Use case} \\
+            \hline
+            Variation of constants      & LDE with $\ord(F)=1$              \\
+            Characteristic Polynomial   & Hom. LDE w/ const. coeff.         \\
+            Undetermined Coefficients   & Inhom. LDE w/ const. coeff.       \\
+            Separation of Variables     & ODE s.t. $y' = a(y)\cdot b(x)$    \\
+            Change of Variables       & e.g. $y' = f(ax + by + c)$          \\
+        \end{tabular}
+    \end{center}
+\end{footnotesize}
