@@ -64,12 +64,15 @@ Die Normierung der Legendre-Polynome ist nicht standardisiert
     \item Gauss-Knoten sind nicht verschachtelt (was er damit meint ist, dass wir sie nicht mit DnQ verwenden können \textemdash
           Wir können also nicht für eine Quadratur höherer Ordnung die Knotenpunkte der Gauss-Quadratur tieferer Ordnung verwenden)
     \item Die Gauss-Quadratur ist offen (da die Endpunkte des Intervalls keine Knoten sind)
-    \item Bei der \bi{Radau-Quadratur} fixiert man ein Ende als Randknoten, und man hat nun Ordnung $2s - 1$. 
-        Die Berechnung ist ansonsten gleich, bis auf den Fakt, dass wir nur noch $(s - 1)$ Knoten haben ($1$ bis und mit $s - 1$).\\
-        Sie können mit \texttt{scipy.special.roots\_jacobi(s - 1, alpha=1, beta=0)} berechnet werden.
-    \item Bei der \bi{Lobatto-Quadratur} fixiert man gleich beide Enden als Randknoten, und man hat Ordnung $2s - 2$ und wir haben die Knoten $c_2, \ldots, c_{s - 1}$
+    \item Bei der \bi{Radau-Quadratur} fixiert man ein Ende als Randknoten (also entweder $c_1 = a$ oder $c_s = b$), und man hat nun Ordnung $2s - 1$.
+          Die Berechnung ist ansonsten gleich, bis auf den Fakt, dass wir nur noch $(s - 1)$ Knoten haben ($1$ bis und mit $s - 1$).\\
+          Sie können mit \texttt{scipy.special.roots\_jacobi(s - 1, alpha=1, beta=0)} berechnet werden.
+    \item Bei der \bi{Lobatto-Quadratur} fixiert man gleich beide Enden als Randknoten (i.e. man setzt $c_1 = a$ und $c_s = b$),
+          und man hat Ordnung $2s - 2$ und wir benötigen nur noch die Knoten $c_2, \ldots, c_{s - 1}$
     \item Die Lombatto- und Radau-Quadratur werden häufig bei der Lösung gewöhnlicher DGL verwendet.
 \end{itemize}
+Die gefundenen Gewichte und Punkte können dann in die normale Quadraturformel eingesetzt werden (Definition \ref{all:5-3-1})
+
 Der Fehler der Gauss-Quadratur ist:
 \rmvspace
 \begin{align*}
@@ -87,8 +90,8 @@ Und eine obere Schranke für den Fehler ist dann
 wobei $c \in \R$ eine Konstante ist und $h = b - a$ die Grösse des Intervalls ist.
 
 \setLabelNumber{all}{14}
-\fancyremark{Gewichte der Gauss-Legendre-Quadratur} Für die Knoten $c_1, \ldots, c_s$ und den entsprechenden Lagrange-Polynomen $l_1, \ldots, l_s$ 
-mit $\deg(l_i) = s - 1 \ \forall i \in \{ 1, \ldots, s \}$. 
+\fancyremark{Gewichte der Gauss-Legendre-Quadratur} Für die Knoten $c_1, \ldots, c_s$ und den entsprechenden Lagrange-Polynomen $l_1, \ldots, l_s$
+mit $\deg(l_i) = s - 1 \ \forall i \in \{ 1, \ldots, s \}$.
 Die zugehörige Quadraturformel ist exakt für Polynome $2s - 1$-ten Grades. Die Gewichte sind:
 \begin{align*}
     b_i = \int_{0}^{1} l_i(t)^2 \dx t
@@ -97,10 +100,10 @@ Die zugehörige Quadraturformel ist exakt für Polynome $2s - 1$-ten Grades. Die
 % Yeah, there is *no way* we would have figured that out... and he even provides a proof for it... yikes...
 \inlinetheorem Die Gewichte der Gauss-Legendre-Quadraturformel sind positiv.
 
-\begin{tables}{cccc}{Algorithmus & Laufzeit & Genauigkeit Knoten & Genauigkeit Gewichte}
-    GW (1969) & $\tco{s^3}$ / $\tco{s^2}$ & $\tco{1}$ & $\tco{s^2}$ \\
-    Bogaert-Townsend & $\tco{s}$ & $\tco{1}$ & $\tco{1}$ \\
-    CC ($2s$ Knoten) & $\tco{s \log(s)}$ & $\tco{1}$ & $\tco{1}$ \\
+\begin{tables}{cccc}{Algorithmus & Laufzeit                  & Genauigkeit Knoten & Genauigkeit Gewichte}
+              GW (1969)          & $\tco{s^3}$ / $\tco{s^2}$ & $\tco{1}$          & $\tco{s^2}$           \\
+              Bogaert-Townsend   & $\tco{s}$                 & $\tco{1}$          & $\tco{1}$             \\
+              CC ($2s$ Knoten)   & $\tco{s \log(s)}$         & $\tco{1}$          & $\tco{1}$             \\
 \end{tables}
 Die Gauss-Quadratur ist in der Messtechnik nicht besonders geeignet, da wir die zugrundeliegende Funktion nicht im Vorhinein kennen und die Kosten für die Anpassung der Ordnung
 aufgrund fehlender Verschachtelbarkeit sehr hoch sind (wir müssen alle vorigen Berechnungen komplett neu machen)
