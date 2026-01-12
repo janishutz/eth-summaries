@@ -3,7 +3,8 @@
 
 Control flow structures from \verb|C| like \verb|if/else| or \verb|for| are compiled into assembly mainly using jumps and conditional \verb|move|.
 
-By the nature of Assembly and thanks to compilers optimizing aggressively, there is no \textit{single} definitive translation of the \verb|C| control structures: The compiler may translate it very differently depending on the context of the program.
+By the nature of Assembly and thanks to compilers optimizing aggressively, there is no \textit{single} definitive translation of the \verb|C| control structures:
+The compiler may translate it very differently depending on the context of the program.
 
 \subsubsection{Conditional statements}
 A function using an \verb|if/else| construct to choose the maximum of $2$ numbers might compile like this:
@@ -30,4 +31,9 @@ The same function, using a \verb|while| loop instead may lead to this:
 
 \verb|for| loops follow the same idea as \verb|while| loops, albeit with a few more jumps.
 
-\verb|switch| statements are implemented differently depending on size and case values: Sparse switch statements are compiled as decision trees, whereas large switch statements may become \textit{jump tables}.
+\verb|switch| statements are implemented differently depending on size and case values: 
+Sparse switch statements are compiled as decision trees, whereas large switch statements may become \textit{jump tables}.
+
+These jump tables are usually stored in the \texttt{.rodata} section with 8-byte alignment. The jump uses offsets:
+\mint{asm}|jmp *.LABEL(, %rsi, 8)|
+and we jump to the effective address of \texttt{.LABEL + rsi * 8}

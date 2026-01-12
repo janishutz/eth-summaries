@@ -1,1 +1,52 @@
+\newpage
 \subsection{The Stack}
+In the below two, we can do this with $x = 1, 2, 4, 8$, each corresponding to a size prefix that is set with \texttt{X}
+
+\bi{Stack push} \texttt{pushX src}: Fetch operand at \texttt{src}, decrement \texttt{\%rsp} by $x$, then writes the operand at address of \texttt{\%rsp}
+
+\bi{Stack pop} \texttt{popX dest}: Does the opposite, reads operand at \texttt{\%rsp}, increments it by $x$, then writes the operand into \texttt{dest}
+
+\content{Procedure call / return} Use \texttt{call LABEL}. This pushes return label to the stack and jumps to the LABEL.
+After this instruction, we also may use the \texttt{pushX} instruction to store further registers.
+Just remember to pop in the correct order with the correct size again!
+
+The \texttt{ret} instruction is the return instruction and it will jump back to the caller and execution will continue there.
+
+\subsubsection{Calling Conventions}
+The callee is the function that is called and the caller is the code / function that calls the function.
+\begin{itemize}
+    \item \texttt{\%rax} and \texttt{\%eax} can be used without first saving (usually used as return)
+    \item Argument registers are caller saved (or not if not needed again)
+    \item \texttt{\%rsp} should not be modified anyway
+    \item \texttt{\%rbp} is callee saved and is used as frame pointer (usually set to equal \texttt{\%rsp} at start of procedure and can be used to access elements of the frame
+          (as it should not change during execution of the function and should always point to the start of the frame))
+\end{itemize}
+
+\begin{multicols}{2}
+    \begin{tables}{ll}{Name      & Description}
+              \texttt{\%rax} & Return value, \#variable args \\
+              \texttt{\%rbx} & Base pointer, Callee saved    \\
+              \texttt{\%rcx} & Argument 4                    \\
+              \texttt{\%rdx} & Argument 3 (and return 2)     \\
+              \texttt{\%rsi} & Argument 2                    \\
+              \texttt{\%rdi} & Argument 1                    \\
+              \texttt{\%rsp} & Stack pointer                 \\
+              \texttt{\%rbp} & Frame pointer, Callee saved   \\
+    \end{tables}
+    \begin{tables}{ll}{Name      & Description}
+              \texttt{\%r8}  & Argument 5                \\
+              \texttt{\%r9}  & Argument 6                \\
+              \texttt{\%r10} & Static chain pointer      \\
+              \texttt{\%r11} & Temporary                 \\
+              \texttt{\%r12} & Callee saved              \\
+              \texttt{\%r13} & Callee saved              \\
+              \texttt{\%r14} & Callee saved              \\
+              \texttt{\%r15} & GOT pointer, callee saved \\
+    \end{tables}
+\end{multicols}
+If we have more than 6 arguments to be passed, we can use the stack for this.
+If we can do all accesses to the stack relative to the stack pointer, we do not need to
+update \texttt{\%rbp} and not even \texttt{\%rbx}, or we can use it for other purposes.
+
+We can also allocate the entire stack frame immediately by incrementing the stack pointer to the final position and then store data relative to it.
+To deallocate a stack frame, simply increment the stack pointer

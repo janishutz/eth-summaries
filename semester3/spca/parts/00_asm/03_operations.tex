@@ -9,7 +9,7 @@ The following instruction formats are commonly used:
 
 Arithmetic / logic operations need a size postfix (replace \texttt{X} below with \texttt{b} (1B), \texttt{w} (2B), \texttt{l} (4B) or \texttt{q} (8B)).
 \begin{tables}{lll}{Mnemonic & Format             & Computation}
-              \texttt{addl}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest + Src}               \\
+              \texttt{addX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest + Src}               \\
               \texttt{subX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest - Src}               \\
               \texttt{imulX} & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest * Src}               \\
               \texttt{salX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest << Src}              \\
@@ -48,9 +48,9 @@ and \texttt{SF} is set if \texttt{a \& b < 0}.
 
 \content{Zeroing register} We can use a move instruction, but that is less efficient than using \texttt{xorl reg, reg}, where \texttt{reg} is the 32-bit version of the reg we want to zero.
 
-\content{Reading condition codes} To read condition codes, we can use the \texttt{setX} instructions, where the \texttt{X} is to be substituted by an element of table \ref{tab:condition-codes}
+\content{Reading condition codes} To read condition codes, we can use the \texttt{setC} instructions, where the \texttt{C} is to be substituted by an element of table \ref{tab:condition-codes}
 
-\content{Jumping} To jump, we have the \texttt{jmp <label>} instruction (unconditional jump) or the \texttt{jX} instructions, with \texttt{X} from table \ref{tab:condition-codes}
+\content{Jumping} To jump, we have the \texttt{jmp <label>} instruction (unconditional jump) or the \texttt{jC} instructions, with \texttt{C} from table \ref{tab:condition-codes}
 
 \begin{table}[h!]
     \begin{tables}{lll}{\texttt{setX} & Condition           & Description}
@@ -71,7 +71,7 @@ and \texttt{SF} is set if \texttt{a \& b < 0}.
 
 \content{Conditional Moves}
 
-Similar to \texttt{jX}, the same postfixes can be applied to \texttt{cmovX}, for example:
+Similar to \texttt{jC}, the same postfixes can be applied to \texttt{cmovC}, for example:
 
 \begin{minted}{gas}
     cmpl     %eax, %edx
