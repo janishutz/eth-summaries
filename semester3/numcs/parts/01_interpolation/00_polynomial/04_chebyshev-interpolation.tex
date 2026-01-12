@@ -139,20 +139,15 @@ Auf der nächsten Seite findet sich eine saubere, effiziente Implementation des 
 
 \newpage
 \begin{code}{python}
-    def clenshaw(coeffs: np.ndarray, x: np.ndarray):
-        n = len(coeffs) - 1
-        # initialise temporary variables
-        d_prev_prev, d_prev, d_curr = (
-            np.zeros_like(x),
-            np.zeros_like(x),
-            np.zeros_like(x),
-        )
-
-        for k in range(n, -1, -1):  # backward recursion
-            d_curr = coeffs[k] + 2 * x * d_prev - d_prev_prev
-            d_prev_prev, d_prev = d_prev, d_curr
-
-        return d_prev - x * d_prev_prev
+def clenshaw(c: np.ndarray, x: np.ndarray):
+    """ Clenshaw algorithm to evaluate polynomial using chebyshev coeffs """
+    n = c.size; m = x.size
+    d = np.zeros((m, 3))    # Save vectors [curr, prev1, prev2] as matrix
+    
+    for i in range(n-1, -1, -1):
+        d[:, 2] = d[:, 1]; d[:, 1] = d[:, 0]
+        d[:, 0] = c[i] + (2*x)*d[:, 1] - d[:, 2]
+    return d[:, 0] - x*d[:, 1]
 \end{code}
 
 

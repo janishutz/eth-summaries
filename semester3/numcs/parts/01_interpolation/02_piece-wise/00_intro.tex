@@ -39,3 +39,28 @@ also gilt:
 \end{align*}
 Dies ist eine lokale Interpolation und $s_j$ ist $0$ ausser im definierten Intervall. 
 Die Idee des Variablenwechsel ist es, das Intervall, auf welchem die Funktion definiert ist von $[0, 1]$ nach $[x_{j - 1}, x_j]$ zu verschieben.
+
+\innumpy Stückweise lineare interpolation lässt sich leicht umsetzen via numpy \verb|piecewise| Funktionen:
+
+\begin{code}{python}
+def slope(x: np.ndarray, j: int, x_data: np.ndarray, y: np.ndarray):
+    """ Slope on j-th sub-interval, for x falling inside that sub-interval """
+    h = np.abs(x_data[j] - x_data[j-1])   # size of sub-interval
+    return y[j-1]*(x_data[j] - x)/h + y[j]*(x - x_data[j-1])/h
+
+
+def eval_linear_interp(x: np.ndarray, x_data: np.ndarray, y: np.ndarray):
+    """ Evaluate linear interpolation on x, using data points (x_data, y) """
+    n = x_data.size; m = x.size
+        
+    condlist = [
+        (x_data[j-1] <= x) & (x <= x_data[j])
+        for j in range(1, n)
+    ]
+    funclist = [
+        lambda x, ind=j: slope(x, ind, x_data, y)  
+        for j in range(1, n)
+    ]
+    
+    return np.piecewise(x, condlist, funclist)
+\end{code}

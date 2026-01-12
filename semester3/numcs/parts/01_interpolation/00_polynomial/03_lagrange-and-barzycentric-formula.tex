@@ -51,37 +51,15 @@ Man berechnet die baryzentrischen Gewichte $\lambda_k$ folgendermassen:
 \end{align*}
 oder das ganze mithilfe von Numpy:
 \begin{code}{python}
-    def barycentric_weights(x: np.ndarray) -> np.ndarray:
-        n = len(x)
-        # Initialize to zeros
-        barweight = np.ones(n)
-        for k in range(n):
-            # Vectorized differences between $x_k$ and all $x$s
-            differences = x[k] - x
-            # Remove the $k$-th element (and handle edge cases for $k = 0$ and $k = n - 1$)
-            if k < n - 1 and k > 0:
-                diff_processed = np.concatenate((differences[:k], differences[(k + 1) :]))
-                barweight[k] = 1 / np.prod(diff_processed)
-            elif k == 0:
-                barweight[k] = 1 / np.prod(differences[1:])
-            else:
-                barweight[k] = 1 / np.prod(differences[:k])
-        return barweight
+def weights_barycentric(x: np.ndarray):
+    """ All x should be pairwise distinct, else zero-divison error. """
+    n = x.size
+    w = np.zeros(n)
+    for i in range(n):
+        w[i] = 1/( np.prod(x[i] - x[0:i]) * np.prod(x[i] - x[i+1:n]) )
+    return w
 \end{code}
 
-Gleiche funktion, etwas kürzer:
-
-\begin{code}{python}
-    def barycentric_weights(x: np.ndarray) -> np.ndarray:
-        n = len(x)
-        w = np.ones(n) # = barweight
-        # Compute the (non-inverted) product, avoiding case (x[i] - x[i]) = 0
-        for i in range(0, n, 1):
-            if (i-1 > 0): w[0:(i-1)] *= (x[0:(i-1)] - x[i])
-            if (i+1 < n): w[i+1:n]   *= (x[i+1:n]   - x[i])
-        # Invert all at once
-        return 1/w
-\end{code}
 
 Mit dem können wir dann ein Polynom mit der baryzentrischen Interpolationsformel interpolieren:
 \numberingOff
@@ -101,26 +79,20 @@ Mit anderen $\lambda_k$ eröffnet die baryzentrische Formel einen Weg zur Verall
 Eine weitere Anwendung der Formel ist als Ausganspunkt für die Spektralmethode für Differenzialgleichungen.
 
 \begin{code}{python}
-    def interp_barycentric(
-        data_point_x: np.ndarray,
-        data_point_y: np.ndarray,
-        barweight: np.ndarray,
-        x: np.ndarray
-    ):
-        p_x = np.zeros_like(x)
-        n = data_point_x.shape[0]
-
-        for i in range(x.shape[0]):
-            # Separate sums to divide in the end
-            upper_sum = 0
-            lower_sum = 0
-            for k in range(n):
-                frac = barweight[k] / (x[i] - data_point_x[k])
-                upper_sum += frac * data_point_y[k]
-                lower_sum += frac
-            p_x[i] = upper_sum / lower_sum
-
-        return p_x
+def eval_barycentric(w: np.ndarray, data: np.ndarray, y: np.ndarray, x: np.ndarray):
+    """  Sequentially calculate the barycentric formula """
+    n = x.size
+    tmp = np.ones(n)
+    for i in range(n): tmp[i] = eval_barycentric_scalar(w, data, y, x[i])
+    return tmp
+    
+    
+def eval_barycentric_scalar(w: np.ndarray, data: np.ndarray, y: np.ndarray, x):
+    """ Barycentric interpolation formula for a single value x """
+    n = data.size;
+    bottom = np.sum( w / (x - data) )
+    top = np.sum( w / (x - data) * y)
+    return top / bottom
 \end{code}
 
 

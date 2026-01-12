@@ -30,10 +30,28 @@ $$
 	\end{bmatrix}
 $$
 
+\begin{code}{python}
+def coeffs_monomial(x: np.ndarray, y: np.ndarray):
+    """ Solve Vandermonde matrix for monomial coeffs (very unstable) """
+    A = np.vander(x)
+    coeffs = np.linalg.solve(A, y)
+    return coeffs
+\end{code}
+
 Um $\alpha_i$ zu finden ist die Vandermonde Matrix unbrauchbar, da die Matrix schlecht konditioniert ist.
+
+\newpage
 
 Zur Auswertung von $p(x)$ kann man direkt die Matrix-darstellung nutzen, oder effizienter:
 
 \fancydef{Horner Schema} $p(x) = (x \ldots x ( x (\alpha_n x + \alpha_{n-1}) + \ldots + \alpha_1) + \alpha_0)$
+
+\begin{code}{python}
+def eval_horner(coeffs: np.ndarray, vals: np.ndarray):
+    """ Evaluate polynomial using Horner scheme """
+    h = coeffs[0]
+    for i in range(1, len(coeffs)): h = vals * h + coeffs[i]
+    return h
+\end{code}
 
 \innumpy liefert \verb|polyfit| die direkte Auswertung, \verb|polyval| wertet Polynome via Horner-Schema aus. (Gemäss Script, in der Praxis sind diese Funktionen \verb|deprecated|)
