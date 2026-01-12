@@ -1,0 +1,8 @@
+\subsubsection{Multi-Level arrays}
+In comparison to multidimensional arrays, we have arrays of pointers that contain either more arrays of pointers, (normal) arrays or pointers to other data types.
+The size of such a Multi-Level array is determined by:
+\texttt{n * sizeof(ptr)}, where \texttt{sizeof(ptr)} is the platform-specific size of a pointer and \texttt{n} is the number of elements in the array
+
+To do an access, we need to do two (or more) memory reads, which we can again do using address computations.
+
+The benefit of these kinds of arrays is that we can store arbitrary data types together in an array, giving us more flexibility.

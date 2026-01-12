@@ -1,0 +1,17 @@
+\subsubsection{Arithmetic Operations}
+Arithmetic / logic operations need a size postfix (replace \texttt{X} below with \texttt{b} (1B), \texttt{w} (2B), \texttt{l} (4B) or \texttt{q} (8B)).
+\begin{tables}{lll}{Mnemonic & Format             & Computation}
+              \texttt{addX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest + Src}               \\
+              \texttt{subX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest - Src}               \\
+              \texttt{imulX} & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest * Src}               \\
+              \texttt{salX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest << Src}              \\
+              \texttt{sarX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest >> Src} (arithmetic) \\
+              \texttt{shrX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest >> Src} (logical)    \\
+              \texttt{xorX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest \string^ Src}        \\
+              \texttt{andX}  & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest \& Src}              \\
+              \texttt{orX}   & \texttt{Src, Dest} & \texttt{Dest} $\gets$ \texttt{Dest | Src}               \\
+              \texttt{incX}  & \texttt{Dest}      & \texttt{Dest} $\gets$ \texttt{Dest + 1}                 \\
+              \texttt{decX}  & \texttt{Dest}      & \texttt{Dest} $\gets$ \texttt{Dest - 1}                 \\
+              \texttt{negX}  & \texttt{Dest}      & \texttt{Dest} $\gets$ \texttt{-Dest}                    \\
+              \texttt{notX}  & \texttt{Dest}      & \texttt{Dest} $\gets$ \texttt{\string~Dest}             \\
+\end{tables}

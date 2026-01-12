@@ -1,0 +1,19 @@
+\subsection{Data types}
+Assembly supports the following integer types (where GAS stands for GNU Assembly).
+If they are signed or unsigned does not matter (as we have seen), so it's up to you to interpret them as one or the other
+\begin{tables}{llll}{Intel & GAS        & Bytes & \lC}
+              byte         & \texttt{b} & 1     & \texttt{[unsigned] char}  \\
+              word         & \texttt{w} & 2     & \texttt{[unsigned] short} \\
+              double word  & \texttt{l} & 4     & \texttt{[unsigned] int}   \\
+              quad word    & \texttt{q} & 8     & \texttt{[unsigned] long}  \\
+\end{tables}
+These integer types are also used for pointer addresses.
+Assembly also supports floating point numbers.
+They are stored and operated on in floating point registers.
+\begin{tables}{llll}{Intel & GAS        & Bytes & \lC}
+              single       & \texttt{s} & 4     & \texttt{float}  \\
+              double       & \texttt{l} & 8     & \texttt{double} \\
+              extended     & \texttt{t} & 16     & \texttt{long double} \\
+\end{tables}
+Assembly does not support any aggregate types (such as arrays, structs, etc) natively.
+You can however (obviously) make your own. In the following section we will cover how \lC\ datatypes are compiled into assembly.

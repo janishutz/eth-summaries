@@ -1,0 +1,24 @@
+\subsubsection{Structures}
+We again allocate a contiguous region of memory.
+Only now, the number of bytes required isn't as straight forward to compute anymore, it is still not hard:
+We simply sum up the sizes of all members and that will be our required sizes, so for the $n$ members $x_i$ of struct \texttt{my\_struct}, we have
+$\texttt{sizeof(my\_struct)} = \sum_{i = 0}^{n - 1} \texttt{sizeof}(x_i)$.
+
+However, the size of a struct may be different to fulfill alignment requirements set forth by the ISA or operating system.
+This could mean that the struct takes \texttt{n * K} bytes, where \texttt{K} is the alignment of the largest element
+
+For alignment on \texttt{x86-64} we have:
+\mrmvspace
+\begin{multicols}{2}
+    \begin{itemize}[noitemsep]
+        \item 1 byte (no restrictions)
+        \item 2 bytes (LSB must be 0)
+        \item 4 bytes (2 LSB must be 00)
+        \item 8 bytes (3 LSB must be 000)
+        \item 16 bytes (4 LSB must be 0000)
+    \end{itemize}
+\end{multicols}
+
+\dhrmvspace
+Another issue is accessing members. The solution to this is however easy and efficient, as at compile time, the offsets are pre-determined
+and compiled into the setter and/or getter code for the struct.

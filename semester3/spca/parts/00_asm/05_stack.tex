@@ -4,7 +4,7 @@ In the below two, we can do this with $x = 1, 2, 4, 8$, each corresponding to a 
 
 \bi{Stack push} \texttt{pushX src}: Fetch operand at \texttt{src}, decrement \texttt{\%rsp} by $x$, then writes the operand at address of \texttt{\%rsp}
 
-\bi{Stack pop} \texttt{popX dest}: Does the opposite, reads operand at \texttt{\%rsp}, increments it by $x$, then writes the operand into \texttt{dest}
+\bi{Stack pop} \texttt{popX dest}: Fetch operand at address of \texttt{\%rsp}, increment \texttt{\%rsp} by $x$, then writes the operand into \texttt{dest}
 
 \content{Procedure call / return} Use \texttt{call LABEL}. This pushes return label to the stack and jumps to the LABEL.
 After this instruction, we also may use the \texttt{pushX} instruction to store further registers.
@@ -49,4 +49,4 @@ If we can do all accesses to the stack relative to the stack pointer, we do not 
 update \texttt{\%rbp} and not even \texttt{\%rbx}, or we can use it for other purposes.
 
 We can also allocate the entire stack frame immediately by incrementing the stack pointer to the final position and then store data relative to it.
-To deallocate a stack frame, simply increment the stack pointer
+To deallocate a stack frame, simply increment the stack pointer.

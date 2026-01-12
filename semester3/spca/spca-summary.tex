@@ -85,9 +85,19 @@ If there are changes and you'd like to update this summary, please open a pull r
 \newsection
 \section{x86 Assembly}
 \input{parts/00_asm/00_intro.tex}
-\input{parts/00_asm/01_syntax.tex}
-\input{parts/00_asm/02_data-types.tex}
-\input{parts/00_asm/03_operations.tex}
+\input{parts/00_asm/01_syntax/00_intro.tex}
+\input{parts/00_asm/01_syntax/01_registers.tex}
+\input{parts/00_asm/01_syntax/02_instructions.tex}
+\input{parts/00_asm/02_dtype-dstruct/00_data-types.tex}
+\input{parts/00_asm/02_dtype-dstruct/01_arrays.tex}
+\input{parts/00_asm/02_dtype-dstruct/02_structs.tex}
+\input{parts/00_asm/02_dtype-dstruct/03_nested-arrays.tex}
+\input{parts/00_asm/02_dtype-dstruct/04_multi-level-arrays.tex}
+\input{parts/00_asm/02_dtype-dstruct/05_unions.tex}
+\input{parts/00_asm/03_operations/00_intro.tex}
+\input{parts/00_asm/03_operations/01_arithmetic.tex}
+\input{parts/00_asm/03_operations/02_condition-codes.tex}
+\input{parts/00_asm/03_operations/03_jumping.tex}
 \input{parts/00_asm/04_control-flow.tex}
 \input{parts/00_asm/05_stack.tex}
 
@@ -109,6 +119,12 @@ If there are changes and you'd like to update this summary, please open a pull r
 \input{parts/01_c/03_memory/01_allocation.tex}
 \input{parts/01_c/03_memory/02_gc.tex}
 \input{parts/01_c/03_memory/03_pitfalls.tex}
+\input{parts/01_c/04_variadic.tex}
+
+
+\newsection
+\section{The gcc toolchain}
+\input{parts/02_toolchain/00_intro.tex}
 
 
 % ── Hardware recap ──────────────────────────────────────────────────
@@ -117,6 +133,7 @@ If there are changes and you'd like to update this summary, please open a pull r
 \input{parts/03_hw/00_intro.tex}
 
 
+\newpage
 Remember: Rust and the like have an \texttt{unsafe} block... \lC's equivalent to this is
 \begin{code}{c}
 int main( int argc, char *argv[] ) {

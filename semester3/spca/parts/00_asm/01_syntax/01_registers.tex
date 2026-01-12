@@ -1,0 +1,25 @@
+\subsubsection{Registers}
+\texttt{x86} assembly is a bit particular with register naming (register names all start in \%).
+The initial 16-bit version of \texttt{x86} had the following registers (sub registers are registers that can be used to access the high
+(\texttt{h} suffix) or low (\texttt{l} suffix) half of the register. Only registers ending in \texttt{x} feature these sub registers.
+They, as well as \texttt{\%si} and \texttt{\%di} are general purpose):
+\begin{tables}{lll}{Name    & Sub-registers                & Description}
+              \texttt{\%ax} & \texttt{\%ah}, \texttt{\%al} & accumulate          \\
+              \texttt{\%cx} & \texttt{\%ch}, \texttt{\%cl} & counter             \\
+              \texttt{\%dx} & \texttt{\%dh}, \texttt{\%dl} & data                \\
+              \texttt{\%bx} & \texttt{\%bh}, \texttt{\%bl} & base                \\
+              \texttt{\%si} & -                            & Source index        \\
+              \texttt{\%di} & -                            & Destination index   \\
+              \hline
+              \texttt{\%sp} & -                            & Stack pointer       \\
+              \texttt{\%bp} & -                            & Base pointer        \\
+              \texttt{\%ip} & -                            & Instruction pointer \\
+              \texttt{\%sr} & -                            & Status (flags)      \\
+\end{tables}
+When the architecture was extended to 32-bit, all registers previously available were retained and a 32 bit version of each was introduced with the prefix \texttt{e}.
+In other words, any 16 bit code would still work as previously, as e.g. the \texttt{\%ax} register was simply now the lower 16 bits of the \texttt{\%eax} register.
+
+The same happened again when extending to 64-bit, only this time the \texttt{r} prefix was used.
+So, the register \texttt{\$eax} was now the lower 32 bits of \texttt{\%rax}.
+
+Additionally, the following registers are also available, with \texttt{X} to be substituted with 8 through 15: \texttt{\%rX} and the lower 32 bits \texttt{\%rXd}

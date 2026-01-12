@@ -1,0 +1,22 @@
+\subsubsection{Instructions}
+Instructions usually have a 3 letter \texttt{mnemonic} with a one letter postfix that indicates the number of bytes.
+The following postfixes are available: \texttt{b} (byte, 1 byte), \texttt{w} (word, 2 bytes), \texttt{l} (long word, 4 bytes) and \texttt{q} (quad, 8 bytes).
+
+The following options can be passed for source and destination: Registers,
+
+\content{Immediates} To use a constant value (aka Immediate) in an instruction, we prefix the number with \texttt{\$} (following number is decimal).
+To use hex, we can use \texttt{\$0x}, etc.
+
+\content{Memory addresses} To treat a register as a memory address, use parenthesis, e.g. \texttt{(\%rax)} interprets the value of \texttt{\%rax} as a memory address.
+The instruction will then read the number of bytes, as specified by the postfix of the instruction.
+
+The full syntax for memory address modes is \texttt{D(Rb, Ri, S)}, where
+\begin{itemize}[noitemsep]
+    \item \texttt{D}: Displacement (constant offset), can be 0, 1, 2 or 4 bytes (not bits, if you are confused as I was)
+    \item \texttt{Rb}: Base register (to which offsets, etc are added). Can be any of the 16 integer registers
+    \item \texttt{Ri}: Index register: Any, except for \texttt{\%rsp} (and \texttt{\%rbp} is also rarely used)
+    \item \texttt{S}: Scale factor (1, 2, 4 or 8, to correct offsets)
+\end{itemize}
+The computation that happens is the following: \texttt{Mem[ Reg[Rb] + S * Reg[Ri] + D ]}.
+Using the \texttt{lea src, dest} instruction, we can get the address computed into the dest register.
+Can be abused for similar arithmetic expressions.

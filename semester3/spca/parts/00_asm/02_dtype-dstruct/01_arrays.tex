@@ -1,0 +1,7 @@
+\subsubsection{Arrays}
+Arrays of type \texttt{T} and length \texttt{L} are allocated as a contiguous region of memory with size \texttt{L * sizeof(T)} bytes.
+We then also store a reference / identifier \texttt{A} to the array (i.e. similar to variable name in \lC), that holds the address of the first
+element of the array and can then be used in conjunction with ``assembly pointer arithmetic''.
+
+Array loops that are written as for-loops in code are usually transformed into do-while loops by the compiler to save one condition check in the beginning,
+except of course, it might be possible that the loops is never executed.

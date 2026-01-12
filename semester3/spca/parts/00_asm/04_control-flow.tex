@@ -35,5 +35,5 @@ The same function, using a \verb|while| loop instead may lead to this:
 Sparse switch statements are compiled as decision trees, whereas large switch statements may become \textit{jump tables}.
 
 These jump tables are usually stored in the \texttt{.rodata} section with 8-byte alignment. The jump uses offsets:
-\mint{asm}|jmp *.LABEL(, %rsi, 8)|
+\mint{gas}|jmp *.LABEL(, %rsi, 8)|
 and we jump to the effective address of \texttt{.LABEL + rsi * 8}

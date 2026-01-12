@@ -1,0 +1,14 @@
+\subsubsection{Nested / Multidimensional arrays, Struct arrays}
+All of these arrays have similar underlying concepts in the way they are allocated, yet all are a bit different
+
+\content{Common ideas} Each of the array's elements are allocated in contiguous regions of memory, with the elemnts also in contiguous regions of memory.
+(Imagine it as lining up all elements on a band, i.e. as going through the array in a nested loop and printing all the elements into a single line.)
+The size of the array is determined by \texttt{n * sizeof(T)}, where \texttt{T} is the type of the elements of the array (or outer array).
+This is what is different for the lot (as well as accessing elements):
+
+\content{Nested array} \texttt{T} is another array. We thus have a recursive definition, where \texttt{sizeof(T)} resolves to \texttt{n * sizeof(T1)}, etc.
+Accessing element $i$, $j$, $k$ is handled as follows: $o = i * \texttt{sizeof(T)} + j * \texttt{sizeof(T1)} + k * \texttt{sizeof(T2)}$,
+with \texttt{T1} and \texttt{T2} the types of the nested arrays
+
+\content{Struct arrays} \texttt{T} is a struct.
+
