@@ -1,0 +1,103 @@
+\newpage
+\subsection{Numpy}
+Numpy is a library that, according to its website, is ``The fundamental package for scientific computing with Python''.
+
+If you prefer to read an online guide, the \hlhref{https://numpy.org/doc/stable/user/quickstart.html}{official quick start guide}\ is excellent.
+
+\subsubsection{Arrays}
+The heart of numpy is the \texttt{numpy.ndarray} class (it has the alias \texttt{numpy.array}). As the name would imply, it can be any dimension you would like.
+The most important attributes for this course are: \texttt{shape} (returns a tuple that indicates the number of elements for each dimension),
+\texttt{dtype} (indicates the data type of elements in the array),
+\texttt{ndim} (the number of dimensions, equal to \texttt{len(shape)})
+
+To create an array, we can use a few functions:
+\drmvspace
+\begin{multicols}{2}
+    \begin{itemize}[noitemsep]
+        \item \texttt{np.array([...])}
+        \item \texttt{np.zeros(shape)}
+        \item \texttt{np.zeros\_like(arr)}
+        \item \texttt{np.ones(shape)}
+        \item \texttt{np.ones\_like(arr)}
+        \item \texttt{np.empty\_like(arr)}
+        \item \texttt{np.arange(start, stop, step)}
+        \item \texttt{np.linspace(start, stop, num\_el)}
+        \item \texttt{np.logspace(start, stop, num\_el)}
+        \item \texttt{np.eye(N, M)} (\texttt{N} is rows, \texttt{M} is cols)
+        \item \texttt{np.identity(N, M)}
+        \item \texttt{np.fromfunction(f, (dim1, \dots))}
+    \end{itemize}
+\end{multicols}
+
+\dnrmvspace
+To use complex numbers, we can write \texttt{a + b * 1.j}
+
+Another useful method is \texttt{np.meshgrid(x, y, \dots)}, which returns a coordinate grid
+and treats the input vectors as \texttt{x}, \texttt{y}, etc coordinates of point \texttt{i}.
+
+Arrays aren't usually copied, but you get a view. The \texttt{reshape} method below is an example of a case where you get a shallow copy (that still technically is a view).
+The values are still in the same object, but you get access to it in a different shape.
+To deep copy an array (i.e. create a new array), use \texttt{arr.copy()}
+
+
+\subsubsection{Operations}
+The same basic operations that Python supports are also supported by numpy, though they are executed on each element.
+
+\begin{itemize}[noitemsep]
+    \item You can subtract a number from an ndarray
+    \item You can subtract an ndarray from another ndarray (vector, matrix, ... difference)
+    \item To compute a matrix product (or matrix-vector product), you can do \texttt{A @ B} or \texttt{np.dot(A, B)}
+    \item \texttt{arr.sum()} sums up all elements and \texttt{arr.sum(axis=n)} sums up all elements on that axis (0 is column, 1 is row)
+    \item \texttt{arr.cumsum()} computes the cumulative sum (i.e. each element in the output is the sum of all preceding elements). You can also use the axis argument again.
+    \item \texttt{np.exp}, \texttt{np.sqrt}, etc operate element-wise on the array
+    \item \texttt{np.where(condition, arr\_true, arr\_false)} returns a numpy array where if \texttt{condition} is true,
+          element \texttt{i} is chosen from \texttt{arr\_true}, else from \texttt{arr\_false}
+\end{itemize}
+A useful trick to create a mask is to use \texttt{a < b} (or any other comparison), as that will return an array of booleans.
+
+For piecewise interpolation, a useful method is \texttt{np.searchsorted(arr.flat, vals\_insert, side='right')}, where \texttt{vals\_insert} are the values to be inserted
+and the \texttt{side} argument indicates on which side of the match they are to be inserted.
+
+For that though, the array needs to be sorted, for which we can use \texttt{np.argsort(arr, axis=-1)}.
+This will return the indices in the order that would sort the array along the given axis. If axis is unspecified, \texttt{-1} is used.
+To use these indices to sort an array, we can simply use \texttt{arr[np.argsort(arr)]}.
+
+
+Slicing and indexing works just as in Python (assume \texttt{a} is a numpy array):
+\begin{code}{python}
+    a = np.arange(10)
+    print(a[2]) # Outputs 2 (third element)
+    print(a[-1]) # Outputs 9 (last element)
+    print(a[-2]) # Outputs 8 (2nd to last element)
+    print(a[2:5]) # Outputs [2, 3, 4] (elements 2, 3, and 4)
+    print(a[2:5:-1]) # Outputs [4, 3, 2] (reversed)
+    print(a[::-1]) # Reverses the array
+\end{code}
+So, the basic syntax for slicing is \texttt{a[start : stop : step]} and any of them can be omitted, though the corresponding colons cannot be omitted if you omit start.
+
+We can also iterate over a numpy array normally (the iterator variable will be the \texttt{i}-th element of the outermost array of the numpy array).
+To iterate over all elements of the array (i.e. the actual data values), we can use \texttt{arr.flat} to get a view (similar to a reference, not copied) that has
+length that corresponds to the sum of all elements of \texttt{arr.shape}.
+
+For \texttt{n}-d arrays, we can use \texttt{a[0, 1]} to access element \texttt{a[0][1]}, which is more efficient.
+
+
+\subsubsection{Shape manipulation}
+We can reshape an array by using \texttt{arr.reshape(dim1, dim2, \dots)}. This however returns the array with modified shape,
+whereas \texttt{arr.resize((dim1, dim2, \dots))} modifies the array directly (notice that here we have to pass a tuple!)
+
+To get a one-dimensional array, we can use \texttt{arr.ravel()}, after which the array looks the same
+as \texttt{arr.flat}, but the change is permanent
+
+
+\fhlc{Cyan}{Stacking arrays}
+
+\texttt{np.vstack((a, b))} adds array \texttt{b}'s elements to array \texttt{a} (i.e. stacks along \texttt{axis=0}).
+\texttt{np.hstack((a, b))} adds array \texttt{b}'s elements to the inner arrays of \texttt{a} (i.e. stacks along \texttt{axis=1}).
+\texttt{np.concatenate((a, b, \dots), axis=n)} does as the above, but applies it to axis \texttt{n}
+
+\fhlc{Cyan}{Splitting arrays}
+
+\texttt{np.hsplit(a, count)} splits \texttt{a} into \texttt{count} arrays (along \texttt{axis=0})
+\texttt{np.vsplit(a, count)} splits \texttt{a} into \texttt{count} arrays (along \texttt{axis=1})
+\texttt{np.array\_split(a, count, axis=n)} splits \texttt{a} into \texttt{count} arrays (along \texttt{axis=n})

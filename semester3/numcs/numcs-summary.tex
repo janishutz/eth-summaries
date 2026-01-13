@@ -109,6 +109,17 @@ We have also taken some explanations and code examples from the slides of our TA
 \hlhref{https://n.ethz.ch/~muellerni/courses/numcs25.php}{here}. (Link will be updated if we are to get a new website link from him, as n.ethz.ch is down now)
 % TODO: Update this when n.ethz is taken offline completely
 
+A few things to be familiar with for the exam to be quicker at solving exercises:
+\begin{itemize}
+    \item The script. You do not have to know basically anything by heart, so knowing where to find things in the script quickly (and knowing quirks of naming in the script)
+          will make you much quicker. When searching, always use as short of a keyword as possible while not having hundreds of results.
+    \item Be aware that some things might not be called the same way they are in the script in the exercises.
+          If you don't find it immediately, go to the appropriate section in the script (using the index in the PDF reader (that is likely PDF.js, Firefox's PDF reader))
+          and manually search for it there.
+    \item Get familiar with the concepts that \texttt{NumPy} uses (i.e. how to do slicing, etc). See section \ref{sec:python} for an overview over some of the concepts.
+    \item Learn the basics of \texttt{Sympy}, as that will spare you having to do integrals. See section \ref{sec:sympy} for an introduction to \texttt{Sympy}.
+\end{itemize}
+
 % ────────────────────────────────────────────────────────────────────
 
 %          ╭────────────────────────────────────────────────╮
@@ -200,5 +211,12 @@ We have also taken some explanations and code examples from the slides of our TA
 \input{parts/05_curve-fitting/02_non-linear/02_gauss-newton.tex}
 \input{parts/05_curve-fitting/02_non-linear/03_further-methods.tex}
 
+\newsection
+\section{Introduction to Python}
+\label{sec:python}
+\input{parts/06_python/00_intro.tex}
+\input{parts/06_python/01_numpy.tex}
+\input{parts/06_python/02_scipy.tex}
+\input{parts/06_python/03_sympy.tex}
 
 \end{document}

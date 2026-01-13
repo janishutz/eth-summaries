@@ -1,0 +1,75 @@
+Python is a high-level dynamically and strongly typed, multi-paradigm, interpreted programming language.
+Its syntax might remind you of pseudocode, which allows very quick writing, but lacks some control that other lower level programming languages might offer.
+Be aware that Python likes to call things differently (\texttt{try ... except} for example instead of \texttt{try ... catch} or \texttt{True, False} instead of \texttt{true, false}).
+
+\subsection{Basics}
+\subsubsection{Variables}
+While Python supports many different paradigms (thus making it multi-paradigm), Python still is first and foremost an object oriented programming language and all variables
+are just references to objects.
+
+What this means is that the variables aren't \textit{technically} conventional variables, but rather pointers and whenever you reassign a value,
+the object is actually deleted and a new object is created in its place and the variable's reference is updated. This is one of the reasons as to why
+Python is so slow.
+
+Assigning and initializing variables uses the same syntax and you cannot have unassigned variables:
+\begin{code}{python}
+    x # This will not work
+    x = 1 # Notice that there is no type annotated (Python is dynamically typed)
+    x = 10 # Assign another value to x
+    x = "Hello World" # TypeError (Python is strongly typed)
+    arr = [] # Creates an empty list. They are dynamically sized
+    d = {} # Creates an empty dict (Dictionary)
+    arr_list = [ "Hello", "World", 1 ] # Can contain multiple different elements
+\end{code}
+Python supports the same data types as most other programming languages,
+but gives some of them funny names (\texttt{bool}, \texttt{int}, \texttt{float}, \texttt{str}, \texttt{List}, \texttt{Dict} (\texttt{Map} in Java),
+\texttt{None} (\texttt{void} in basically all other languages))
+
+To cast a type in python, the basic types are callable, i.e. to cast an \texttt{int} to a \texttt{str}, do \texttt{str(my\_int)}
+
+
+\subsubsection{Operations}
+Python uses the normal operators for basic arithmetic operations, however be aware that Python implicitly casts \texttt{int} to \texttt{float} when dividing.
+To do integer division use the \texttt{a // b} syntax. For exponentiation, Python supports the \texttt{a ** b} syntax (which computes $a^b$).
+Increment and decrement operators are not supported, however \texttt{+=}, etc are supported.
+
+
+
+\subsubsection{Control flow}
+Python uses indents (that are consistent, i.e. always use \texttt{n} spaces or a tab character) to indicate blocks.
+You cannot use curly braces. In other ways though, Python is fairly lenient, i.e. you are allowed to write parenthesis around the if statement's condition
+
+\begin{code}{python}
+    # Can also use range(start, stop, step) for a traditional for-loop. 
+    # Parameters start and step can be both (or just one of them) omitted.
+    for i in iterable: 
+        print(i)
+
+    for i, val in enumerate(iterable): # Get index and value (or key and value)
+        print(i, val)
+
+    while True:
+        break # Break statement to exit loop
+
+    if x > 1: # All blocks start with :
+        print(1)
+    elif x > 0:
+        print(2)
+    else:
+        print(3)
+\end{code}
+
+\subsubsection{Imports}
+Python has multiple ways of importing other libraries and from your own files.
+Your own imports are always relative to the run file (i.e. not to the current file, but the root file of either the library or your program).
+\begin{code}{python}
+    import lib.mylib # Local import from file lib/mylib.py
+    import numpy # Import numpy. Access numpy functions using numpy.<method>(...)
+    import numpy as np # Alias numpy to np. Access using np.<method>(...)
+    from numpy import array # Only import array method from numpy. Call using array(...)
+    # The below is the biggest Python sin. DO NOT DO THIS!
+    from numpy import * # Wildcard import (import all functions from the library as <method>(...))
+\end{code}
+What you should always refrain from doing is a wildcard import. Every function from that library is then imported directly and can be called using \texttt{<method>(...)}.
+Thus, if two libraries have a function that has the same name, your program will stop working, thus always either import a specific function, or better still,
+use the options on line 2 or 3 for library imports, as it is also much easier for other people to understand where the function is defined.
