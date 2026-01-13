@@ -16,7 +16,8 @@ Assigning and initializing variables uses the same syntax and you cannot have un
     x # This will not work
     x = 1 # Notice that there is no type annotated (Python is dynamically typed)
     x = 10 # Assign another value to x
-    x = "Hello World" # TypeError (Python is strongly typed)
+    x = "Hello World" # Is actually possible, due to dynamic typing
+    x += 10 # This will cause a TypeError
     arr = [] # Creates an empty list. They are dynamically sized
     d = {} # Creates an empty dict (Dictionary)
     arr_list = [ "Hello", "World", 1 ] # Can contain multiple different elements
