@@ -1,0 +1,47 @@
+\newpage
+
+\subsection{Code Vulnerabilities}
+
+A brief interjection on some code vulnerabilities.
+
+\content{System-level protections}
+
+\begin{itemize}
+    \item \textbf{Compiler-inserted checks} on functions
+    \item \textbf{Randomized stack offsets}: Allocate \textit{random} amount on stack before running the program
+    \item \textbf{Nonexecutable segments}: Memory needs a special \textit{execute} permission
+\end{itemize}
+
+\subsubsection{Buffer overflow}
+
+Buffer overflows are a method for code injection on vulnerable code with specific buffer size-checking deficiencies.\\
+There are 2 ways to do this:
+\begin{enumerate}
+    \item Change a function call or return address
+    \item Push malicious assembly onto the stack
+\end{enumerate}
+
+For example, consider this code:
+
+\inputcodewithfilename{c}{code-examples/00_c/05_vulnerabilities/}{01_buffer_overflow_echo.c}
+
+This is a problem, since \texttt{echo} may be compiled to something similar to this:
+
+\inputcodewithfilename{gas}{code-examples/00_c/05_vulnerabilities/}{02_buffer_overflow_echo_asm.s}
+
+Since \texttt{buf} is on the stack, and there is no size-enforcement when writing to \texttt{buf}, malicious input can write \textit{before} \texttt{\%rsp}, since the Stack grows downwards. 
+This means stack memory that the program is intending to use again can be modified.
+
+However, inserting exectuable assembly like this usually does not work, since the stack may not be executable due to missing system permission.
+
+The vulnerability above could be fixed by using \texttt{fgets(buf, 4, stdin)} instead, which checks the size.
+
+\content{Heap overflow} On the heap, buffer overflows work differently, as the heap contains no return addresses. However, the heap stores function pointers, which can be modified. Further, sophisticated attacks can use buffer overflow to potentialy modify pointers in dynamically allocated memory.
+
+\subsubsection{Return-oriented Programming}
+
+Return-oriented Programming is a more sophisticated exploit, which does not rely on injecting any new code.
+
+The key idea is: Overwrite return addresses and jump to \textit{specific} machine instruction sequences \textit{already present} in process memory.
+
+% This is only covered in the attack-lab exercise, not the slides.
