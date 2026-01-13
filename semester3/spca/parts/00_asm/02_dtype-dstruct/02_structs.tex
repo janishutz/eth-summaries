@@ -1,6 +1,6 @@
 \subsubsection{Structures}
 We again allocate a contiguous region of memory.
-Only now, the number of bytes required isn't as straight forward to compute anymore, it is still not hard:
+Only now, the number of bytes required isn't as straightforward to compute anymore, but still relatively simple:
 We simply sum up the sizes of all members and that will be our required sizes, so for the $n$ members $x_i$ of struct \texttt{my\_struct}, we have
 $\texttt{sizeof(my\_struct)} = \sum_{i = 0}^{n - 1} \texttt{sizeof}(x_i)$.
 

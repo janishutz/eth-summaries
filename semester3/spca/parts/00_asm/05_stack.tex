@@ -1,26 +1,36 @@
 \newpage
 \subsection{The Stack}
-In the below two, we can do this with $x = 1, 2, 4, 8$, each corresponding to a size prefix that is set with \texttt{X}
+The Stack is the main way to dynamically allocate memory in Assembly, i.e. for temporary values. This process is completely manual: Allocating/Deallocating memory on the stack is entirely explicit. The stack grows \textit{downwards}: Addresses decrease as the stack grows.
+The Stack pointer \verb|%rsp| points to the current top of the stack.
+
+\content{Using the Stack} \verb|pushX|, \verb|popX| exist for $x = 1, 2, 4, 8$, each corresponding to a size prefix that is set with \texttt{X}
 
 \bi{Stack push} \texttt{pushX src}: Fetch operand at \texttt{src}, decrement \texttt{\%rsp} by $x$, then writes the operand at address of \texttt{\%rsp}
 
 \bi{Stack pop} \texttt{popX dest}: Fetch operand at address of \texttt{\%rsp}, increment \texttt{\%rsp} by $x$, then writes the operand into \texttt{dest}
 
-\content{Procedure call / return} Use \texttt{call LABEL}. This pushes return label to the stack and jumps to the LABEL.
+So intuitively, \verb|pushX| and \verb|popX| do exactly what is expected.
+
+\content{Procedure call / return} Use \texttt{call LABEL}. This pushes the return label to the stack and jumps to \verb|LABEL|.
 After this instruction, we also may use the \texttt{pushX} instruction to store further registers.
 Just remember to pop in the correct order with the correct size again!
 
 The \texttt{ret} instruction is the return instruction and it will jump back to the caller and execution will continue there.
 
 \subsubsection{Calling Conventions}
-The callee is the function that is called and the caller is the code / function that calls the function.
+Even though Assembly will never stop you from using registers in any way, \hlhref{cs61.seas.harvard.edu/site/pdf/x86-64-abi-20210928.pdf}{System V ABI}\ specifies a few conventions, standardizing especially how functions are allowed to use registers.
+
+\content{Caller/Callee} The callee is the function that is called and the caller is the code / function that calls the function.
+
 \begin{itemize}
-    \item \texttt{\%rax} and \texttt{\%eax} can be used without first saving (usually used as return)
-    \item Argument registers are caller saved (or not if not needed again)
-    \item \texttt{\%rsp} should not be modified anyway
-    \item \texttt{\%rbp} is callee saved and is used as frame pointer (usually set to equal \texttt{\%rsp} at start of procedure and can be used to access elements of the frame
-          (as it should not change during execution of the function and should always point to the start of the frame))
+    \item \texttt{\%rax} and \texttt{\%eax} are caller saved (usually used as return)
+    \item \texttt{\%rdi, \%rsi, \%rdx, \%rcx} are caller saved (usually used for arguments)
+    \item \texttt{\%rsp} should not be modified manually
+    \item \texttt{\%rbp} is callee saved and used as frame pointer: usually set to \texttt{\%rsp} at start of procedure and used to access frame elements
+          (should always point to the start of the frame during function)
 \end{itemize}
+
+\content{Register Conventions}
 
 \begin{multicols}{2}
     \begin{tables}{ll}{Name      & Description}
@@ -48,5 +58,21 @@ If we have more than 6 arguments to be passed, we can use the stack for this.
 If we can do all accesses to the stack relative to the stack pointer, we do not need to
 update \texttt{\%rbp} and not even \texttt{\%rbx}, or we can use it for other purposes.
 
-We can also allocate the entire stack frame immediately by incrementing the stack pointer to the final position and then store data relative to it.
+\content{Manual stack management} We can also allocate the entire stack frame directly by incrementing \texttt{\%rsp} to the final position and then store data relative to it.
 To deallocate a stack frame, simply increment the stack pointer.
+
+\newpage
+\subsubsection{Examples}
+
+The stack is commonly used for recursive functions. A recursive factorial function might compile like this: 
+
+Note how \texttt{\%rbx} is saved on the stack, since \texttt{rbx} is callee-saved by convention. \\
+\texttt{\%eax} is used directly, since it is caller-saved by convention.
+
+\inputcodewithfilename{gas}{code-examples/01_asm/}{06_factorial.s}
+
+A more complex example, passing addresses as arguments: \\
+This function swaps 2 array elements (using a \texttt{swap} function) and adds the first value to an accumulator.
+
+\inputcodewithfilename{gas}{code-examples/01_asm/}{07_swap_and_sum.s}
+
