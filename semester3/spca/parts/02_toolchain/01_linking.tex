@@ -53,3 +53,31 @@ in \texttt{C}, function symbols can explicitly be declared weak using:
 The second step during Linking is Relocation.
 
 Code and data sections of separate sources are combined, and symbols are relocated from relative locations (in \texttt{.o} files) to absolute locations (in \texttt{.exe} files)
+
+\textbf{Command line order matters} for this, since the Linker will scan \texttt{.o} and \texttt{.a} files in this order. In general, libraries should therefore be linked \textit{last}.
+
+\newpage
+\subsubsection{Packaging Libraries}
+
+Using just the Linker, there are only 2 inconvenient ways to package libraries:
+
+\begin{enumerate}
+    \item All functions into 1 file $\mapsto$ linking unnecessarily big objects.
+    \item One function per file $\mapsto$ Requires linking a lot of files, annoying for programmer.
+\end{enumerate}
+
+\textbf{Static Libraries} solve this: The linker looks for functions inside the static library, and only links matching archive \textit{members} into the executable. However, these come with issues too:
+
+\begin{enumerate}
+    \item Duplication in stored executables (e.g. \texttt{libc.a} functions)
+    \item Duplication in running executables
+    \item Any fix in a library requires importing applications to explicitly relink
+\end{enumerate}
+
+\textbf{Shared Libraries} solve this: These are linked at load-time or during run-time. Another advantage is that \textit{multiple} processes can use the same shared library simultaneously. This is how, for example, \texttt{libc} is packaged.
+
+During runtime, shared libraries can be loaded using \texttt{dlopen}:
+
+\inputcodewithfilename{gas}{code-examples/00_c/04_toolchain/}{01_dynamic_linking.c}
+
+\newpage
