@@ -1,0 +1,64 @@
+\subsection{File types}
+
+The most common file types used during compilation:
+
+\begin{itemize}
+    \item \textbf{Source Code File} (\texttt{.c}) Uncompiled source code in \texttt{C}.
+    \item \textbf{Relocatable Object File} (\texttt{.o}) Code \& Data in a format ready for linking.
+    \item \textbf{Shared Object File} (\texttt{.so}) Special object file, can be loaded \& linked dynamically: at load or run time.
+    \item \textbf{Exectuable File} Code \& Data in a format that can be directly copied into memory \& run.
+    \item \textbf{Archive files} (\texttt{.a}) concatenate related \texttt{.o} files into one \texttt{.a}, with an index.
+\end{itemize}
+
+\content{Alternate names} On Windows, \texttt{.dll} files are used instead of \texttt{.so} and are called \textit{Dynamic Link Libraries}.
+
+\subsubsection{Executable and Linkable Format (ELF)}
+
+The standard unified format for all object files (\texttt{.exe}, \texttt{.o}, \texttt{.so}) in use since UNIX.
+
+\begin{center}
+    \begin{tabular}{l|l}
+        \textbf{Section}        & \textbf{Content} \\
+        \hline
+        ELF header              & contains basic information: Word size, byte ordering, file type, machine type \\
+        Segment header table    & page size, virtual address memory segments, segment sizes \\
+        \texttt{.text}          & actual code \\
+        \texttt{.rodata}        & (Read-only data) for example, jump tables \\
+        \texttt{.data}          & initialized global variables \\
+        \texttt{.bss}           & uninitialized global variables \\
+        \texttt{.symtab}        & symbol table, procedure and static variable names, section names \& locations. \\
+        \texttt{.rel.text}      & relocation info for \texttt{.text}, e.g. addresses of instructions that need modifying \\
+        \texttt{.rel.data}      & relocation info for \texttt{.data}, e.g. addresses of pointers that need modifying \\
+        \texttt{.debug}         & info for symbolic debugging (\texttt{gcc -g})
+    \end{tabular}
+\end{center}
+
+% Compact table with only the segment names
+
+% \begin{center}
+%     \begin{tabular}{|c|}
+%         \hline
+%         ELF header \\
+%         \hline 
+%         Segment header table \\
+%         \hline
+%         \texttt{.text} \\
+%         \hline 
+%         \texttt{.rodata} \\
+%         \hline
+%         \texttt{.data} \\
+%         \hline
+%         \texttt{.bss} \\
+%         \hline
+%         \texttt{.symtab} \\
+%         \hline
+%         \texttt{.rel.txt} \\
+%         \hline
+%         \texttt{.rel.data} \\
+%         \hline
+%         \texttt{.debug} \\
+%         \hline
+%         Section header table \\
+%         \hline
+%     \end{tabular}
+% \end{center}

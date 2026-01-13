@@ -1,0 +1,55 @@
+\subsection{Linking}
+
+Linking is the final step in the compilation pipeline: separately compiled object files are combined into an executable.
+
+The advantages of using Linkers are clear:
+\begin{enumerate}
+    \item \textbf{Separate Compilation}: Changing one source file requires only recompiling that file.
+    \item \textbf{Space Optimization}: Executable code only contains functions (e.g. from libraries) that are actually used.
+\end{enumerate}
+
+\subsubsection{Symbol Resolution}
+
+The first step during Linking is Symbol Resolution.
+
+In the context of Linking, all variables and functions are considered \textit{Symbols}. Compilers store all symbol definitions in a \textit{Symbol Table}.
+The linker associates symbol references with \textit{exactly one} definition.
+
+\inlinedef \textbf{Symbol types}
+
+\begin{itemize}
+    \item \textbf{Global Symbols} can be referenced by other modules (e.g. \texttt{non-static} in \texttt{C})
+    \item \textbf{External Symbols} are referenced globals defined elsewhere
+    \item \textbf{Local Symbols} are defined and referenced exclusively in one module (e.g. \texttt{static} in \texttt{C})
+\end{itemize}
+
+Note: Local linker symbols and local program variables are \textit{not} the same.
+
+\inlinedef \textbf{Symbol strength}
+
+Duplicate symbols either lead to linking errors (\texttt{-fno-common}, the default) or compile (\texttt{-fcommon})
+
+\begin{itemize}
+    \item \textbf{Strong Symbols} are procedure names and initialized globals
+    \item \textbf{Weak Symbols} are uninitialized globals (on \texttt{-fcommon})
+\end{itemize}
+
+in \texttt{C}, function symbols can explicitly be declared weak using:
+\begin{minted}{C}
+    #pragma weak func
+    __attribute__((weak))__ func()
+\end{minted}
+
+\content{Duplicate Handling} The linker uses these definitions to handle duplicates:
+
+\begin{enumerate}
+    \item Given multiple strong symbols are illegal
+    \item Given a strong symbol and multiple weak symbols, pick the strong symbol
+    \item Given multiple weak symbols, choose an \textit{arbitrary} one
+\end{enumerate}
+
+\subsubsection{Relocation}
+
+The second step during Linking is Relocation.
+
+Code and data sections of separate sources are combined, and symbols are relocated from relative locations (in \texttt{.o} files) to absolute locations (in \texttt{.exe} files)
