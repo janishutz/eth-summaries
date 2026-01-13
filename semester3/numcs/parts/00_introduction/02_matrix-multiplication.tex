@@ -59,21 +59,24 @@ Sei $A = ab^\top$. Dann gilt $y = Ax \Leftrightarrow y = a(b^\top x)$, was dasse
 \inlineex Für zwei Matrizen $A, B \in \R^{n \times p}$ mit geringem Rang $p \ll n$, dann kann mithilfe eines Tricks die Rechenzeit von \verb|np.triu(A @ B.T) @ x| von $\tco{pn^2}$ auf $\tco{pn}$ reduziert werden.
 Die hier beschriebene Operation berechnet $\text{Upper}(AB^\top) x$ wobei $\text{Upper}(X)$ das obere Dreieck der Matrix $X$ zurück gibt.
 Wir nennen diese Matrix hier $R$.
+
 \innumpy können wir den folgenden Ansatz verwenden, um die Laufzeit zu verringern:
-Da die Matrix $R$ eine obere Dreiecksmatrix ist, ist das Ergebnis die Teilsummen von unserem Umgekehrten Vektor $x$, also können wir mit \verb|np.cumsum(x[::-1], axis=0)[::-1]| die Kummulative Summe berechnen.
-Das \verb|[::-1]| dient hier lediglich dazu, den Vektor $x$ umzudrehen, sodass das richtige Resultat entsteht.
+Da die Matrix $R$ eine obere Dreiecksmatrix ist, ist das Ergebnis die Teilsummen von unserem Umgekehrten Vektor $x$,
+also können wir mit \verb|x[::-1].cumsum(axis=0)[::-1]| die Kummulative Summe berechnen.
+Das \verb|[::-1]| dient hier lediglich dazu, den Vektor $x$ umzudrehen, sodass das richtige Resultat entsteht und die \texttt{axis=0} muss nur spezifiziert werden,
+falls wir nicht den Default von \texttt{None} wollen, welcher die \texttt{cumsum} auf \texttt{x.flat} ausführt.
 Die vollständige Implementation sieht so aus:
 \begin{code}{python}
     def low_rank_matrix_vector_product(A: np.ndarray, B: np.ndarray, x: np.ndarray):
-        n, _ = A.shape
-        y = np.zeros(n)
+        n = A.shape[0]
+        y = np.zeros(n) # Results vector
 
         # Compute B * x with broadcasting (x needs to be reshaped to 2D)
         v = B * x[:, None]
 
         # s is defined as the reverse cummulative sum of our vector
         # (and we need it reversed again for the final calculation to be correct)
-        s = np.cumsum(v[::-1], axis=0)[::-1]
+        s = v[::-1].cumsum(axis=0)[::-1]
 
         y = np.sum(A * s)
 \end{code}
@@ -93,7 +96,7 @@ Die vollständige Implementation sieht so aus:
     \end{bmatrix}
 \end{align*}
 
-\fancyex{Multiplikation des Kronecker-Produkts mit Vektor} Wenn man $A \otimes B \cdot x$ berechnet, so ist die Laufzeit $\tco{m \times n \times l \times k}$, aber wenn wir den Vektor $x$ in $n$ gleich grosse Blöcke aufteilen (was man je nach gewünschter nachfolgender Operation in NumPy in $\tco{1}$ machen kann mit \verb|x.reshape(n, x.shape[0] / n)|), dann ist es möglich das Ganze in $\tco{m \cdot l \cdot k}$ zu berechnen. 
+\fancyex{Multiplikation des Kronecker-Produkts mit Vektor} Wenn man $A \otimes B \cdot x$ berechnet, so ist die Laufzeit $\tco{m \times n \times l \times k}$, aber wenn wir den Vektor $x$ in $n$ gleich grosse Blöcke aufteilen (was man je nach gewünschter nachfolgender Operation in NumPy in $\tco{1}$ machen kann mit \verb|x.reshape(n, x.shape[0] / n)|), dann ist es möglich das Ganze in $\tco{m \cdot l \cdot k}$ zu berechnen.
 
 Die vollständige Implementation ist auch hier nicht schwer und sieht folgendermassen aus:
 \begin{code}{python}
