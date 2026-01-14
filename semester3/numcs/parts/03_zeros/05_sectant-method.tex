@@ -6,3 +6,20 @@ Dann ist ein Schritt:
 \begin{align*}
     \tilde{F}(x) = F(x^{(k)}) + q^{(k)} (x - x^{(k)}) \Longrightarrow x^{(k + 1)} := x^{(k)} - \frac{F(x^{(k)})}{q^{(k)}}, \smallhspace \text{ falls } q^{(k)} \neq 0
 \end{align*}
+
+\innumpy Das Sekanten-Verfahren lässt sich im Prinzip ähnlich implementieren wie Newton:
+
+\begin{code}{python}
+def secant_method(f, x0: float, x1: float, tol=1e-12, maxIter=100):
+    """ Use secant method, which approximates the derivative """
+    f0 = f(x0)
+    for i in range(maxIter):
+        fn = f(x1)
+        secant = fn * (x1-x0) / (fn - f0)   # Approximate derivative via secant
+        x0 = x1; x1 -= secant
+        
+        if np.abs(secant) < tol: return x1, i
+        else: f0 = fn
+        
+    return None, maxIter
+\end{code}

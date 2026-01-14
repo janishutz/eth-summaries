@@ -4,10 +4,32 @@ Die Idee hier ist, das Intervall immer weiter zu halbieren und ein bekannterer N
 
 \innumpy haben wir \texttt{scipy.optimize.bisect} und \texttt{scipy.optimize.fsolve}, wobei \texttt{fsolve} ein alter Algorithmus ist.
 
-Im Skript auf Seiten 206 - 207 findet sich eine manuelle implementation des Bisektionsverfahren.
-Der Code ist jedoch (at the time of writing) nicht ausführbar aufgrund von \texttt{IndentationErrors}
-
 Das Bisektionsverfahren konvergiert linear und kann nur für Funktionen verwenden, bei welchen die Nullstellen auf beiden Seiten jeweils ungleiche Vorzeichen haben.
 
 Für jeden Iterationsschritt ermitteln wir die Mitte des Intervalls und berechnen die Funktionswerte an den Rändern, wie auch dem Mittelpunkt.
 Dann ersetzen wir den Rand des Intervalls, dessen Funktionswert dasselbe Vorzeichen hat, wie der Funktionswert des Mittelpunkts.
+
+\innumpy Lässt sich das Intervallhalbierungsverfahren (Bisektion) leicht direkt implementieren:
+
+\begin{code}{python}
+def bisection_method(f, a: float, b: float, tol=1e-12, maxIter=100):
+    """ Bisection method on f using initial bounds a,b """
+    if a > b: a, b = b, a
+    fa = f(a); fb = f(b)
+    if fa*fb > 0: raise ValueError("f(a) & f(b) must have different signs for bisection")
+    
+    sgn_fb = 1
+    if fa > 0: sgn_fb = -1
+    x = 0.5 * (a + b)
+    
+    iter = 1
+    while (b-a > tol and a<x and x<b and iter<maxIter):
+        # Check on which side f(x) is, update bounds
+        if sgn_fb*f(x) > 0: b = x
+        else:               a = x
+
+        x = 0.5 * (a + b)
+        iter += 1
+        
+    return x, iter
+\end{code}
