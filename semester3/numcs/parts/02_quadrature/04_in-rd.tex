@@ -23,8 +23,6 @@ Was dasselbe ist, wie oben, aber mit $d$ Summen und $d$-mal ein $w_{j_k}$ und ei
 
 % https://www.slingacademy.com/article/scipy-integrate-simpson-function-4-examples/ explains scipy's n-d integration well
 
-\newpage
-
 \innumpy Lassen sich so die bekannten Verfahren wie die Trapez-Regel oder Simpson-Regel leicht auf höhere Dimensionen anwenden
 
 \begin{code}{python}
@@ -63,6 +61,8 @@ def simpson_2d_mesh(f, a: float, b: float, Nx: int, c: float, d: float, Ny: int)
     Q = scale * np.sum( W * F )
     return Q
 \end{code}
+
+\newpage
 
 \begin{recall}[]{Tensor-Produkt}
     \TODO Write this section

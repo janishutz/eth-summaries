@@ -3,6 +3,7 @@
 % └                                                ┘
 
 \newsection
+
 \subsection{Adaptive Quadratur}
 Der lokale Fehler einer zusammengesetzten Quadraturformel auf dem Gitter $\mathcal{M} := \{ a = x_0 < x_1 < \dots < x_m = b \}$ ist (für $f \in C^2([a, b])$):
 \begin{align*}
@@ -17,3 +18,31 @@ Auf Seiten 150 - 151 im Skript findet sich Code, um eine adaptive Quadratur durc
 Mit \texttt{scipy.integrate.quadrature} können wir die Gauss-Quadratur verwenden.
 
 Für $x \in \R^d$, also eine mehrdimensionale Funktion der Dimension $d$ können wir \texttt{scipy.integrate.nquad} verwenden. Mehr dazu im nächsten Kapitel
+
+\innumpy Lässt sich eine simple adaptive Quadratur folgendermassen implementieren. Die Idee ist hierbei einfach das Gitter an Problemstellen zu verdichten, was iterativ die Konvergenz der Quadratur verbessern sollte.
+
+\begin{code}{python}
+def adaptive_quad(f, M: np.ndarray, rtol: float = 1e-6, atol: float = 1e-10):
+    """ Calculate adaptive quad. of f on given grid M"""
+    h = np.diff(M)
+    midp = 0.5 * ( M[:-1] + M[1:] )
+    fx   = f(M); fmid = f(midp)
+    
+    # Local quadratures to estimate local errors further down
+    trap_local = h/4 * ( fx[:-1] + 2*fmid + fx[1:] )
+    simp_local = h/6 * ( fx[:-1] + 4*fmid + fx[1:] )
+    Q = np.sum(simp_local)
+    
+    # Estimate local & total error
+    err_loc = np.abs( simp_local - trap_local )
+    err = np.sum(err_loc)
+    err_avg = err / len(err_loc)
+    
+    # Refine grid in high-error regions, if needed
+    if (err > rtol*np.abs(Q) and err > atol):
+        refcells = np.nonzero( err_loc > 0.9 * err_avg )[0]     # Find problematic cells
+        M_new = np.sort( np.append(M, midp[refcells]) )         # Update grid
+        Q = adaptive_quad(f, M_new, rtol, atol, results)        # Try again
+    
+    return Q
+\end{code}
