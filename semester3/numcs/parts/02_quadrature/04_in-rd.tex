@@ -22,7 +22,47 @@ und für beliebige $d$ haben wir
 Was dasselbe ist, wie oben, aber mit $d$ Summen und $d$-mal ein $w_{j_k}$ und eine $d$-dimensionale Funktion $f$
 
 % https://www.slingacademy.com/article/scipy-integrate-simpson-function-4-examples/ explains scipy's n-d integration well
-% TODO: Insert code for multi dimensional quadrature from exercise
+
+\newpage
+
+\innumpy Lassen sich so die bekannten Verfahren wie die Trapez-Regel oder Simpson-Regel leicht auf höhere Dimensionen anwenden
+
+\begin{code}{python}
+def trapezoid_2d_mesh(f, a: float, b: float, Nx: int, c: float, d: float, Ny: int):
+    """ Trapezoidal rule on a 2d function via np.meshgrid """
+    x, hx = np.linspace(a, b, Nx+1, retstep=True)
+    y, hy = np.linspace(c, d, Ny+1, retstep=True)
+    
+    X, Y = np.meshgrid(x, y)
+    F = f(X, Y)
+    
+    # Apply once along x-axis, once along y-axis
+    Q_x = hx/2 * ( 2.0 * np.sum(F[:, 1:-1], axis=1) + F[:, 0] + F[:, -1] )
+    Q_y = hy/2 * ( 2.0 * np.sum( Q_x[1:-1] ) + Q_x[0] + Q_x[-1] )
+    
+    return Q_y
+
+def simpson_2d_weights(N: int):
+    """ Generate weights for simpson rule """
+    w = np.zeros(N+1)
+    w[0] = 1.0; w[-1] = 1.0
+    for i in range(1, N): w[i] = 2.0 if i % 2 == 0 else 4.0
+    return w
+
+def simpson_2d_mesh(f, a: float, b: float, Nx: int, c: float, d: float, Ny: int):
+    """ Simpson rule on a 2d function via np.meshrgdi """
+    x, hx = np.linspace(a, b, Nx+1, retstep=True)
+    y, hy = np.linspace(c, d, Ny+1, retstep=True)
+    
+    X, Y = np.meshgrid(x, y)
+    F = f(X, Y)
+    wx, wy = simpson_2d_weights(Nx), simpson_2d_weights(Ny)
+    W = np.outer(wx, wy)
+    
+    scale = hx*hy / 3**2
+    Q = scale * np.sum( W * F )
+    return Q
+\end{code}
 
 \begin{recall}[]{Tensor-Produkt}
     \TODO Write this section
