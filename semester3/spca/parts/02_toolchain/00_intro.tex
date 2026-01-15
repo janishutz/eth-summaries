@@ -13,10 +13,21 @@ However, the individual parts are usually not called individually, but using the
 
 \texttt{gcc} has (as of \texttt{GCC 15.2.1 20260103} on Arch Linux) about 1000 CLI arguments that can be passed.
 Below is a list of the most important flags that can be passed, as discussed in the lectures:
-\begin{tables}{ll}{Flag         & Description}
-              \texttt{-E}       & Stop after the preprocessor (output is a \texttt{.i} file)       \\
-              \texttt{-S}       & Stop after the compiler (output is assembly in \texttt{.s} file) \\
-              \texttt{-c}       & Stop after the assembler (output is \texttt{.o} file)            \\
-              \texttt{-o}       & Specify the executable name                                      \\
-              \texttt{-DNDEBUG} & Removes all assert statements                                    \\
-\end{tables}
+\begin{table}[h!]
+    \begin{tables}{ll}{Flag                    & Description}
+              \texttt{-E}                  & Stop after the preprocessor (output is a \texttt{.i} file)                             \\
+              \texttt{-S}                  & Stop after the compiler (output is assembly in \texttt{.s} file)                       \\
+              \texttt{-c}                  & Stop after the assembler (output is \texttt{.o} file)                                  \\
+              \texttt{-o}                  & Specify the executable name                                                            \\
+              \texttt{-DNDEBUG}            & Removes all assert statements                                                          \\
+              \texttt{-OX}                 & Optimization level where \texttt{X} can be one of \texttt{0, 1, 2, 3}                  \\
+              \texttt{-g}                  & Compile with debugging information                                                     \\
+              \texttt{-Wall}               & Enable common warnings                                                                 \\
+              \texttt{-Wextra}             & Enable more warnings                                                                   \\
+              \texttt{-Werror}             & Makes all warnings errors                                                              \\
+              \texttt{-march=XXX}          & Optimize for the architecture (can be e.g. \texttt{native}, \texttt{x86-64-v4}, \dots) \\
+              \texttt{-fno-tree-vectorize} & Do not vectorize code (\texttt{-O3} commonly enables vectorization)                    \\
+    \end{tables}
+    \caption{Command line flags for GCC}
+    \label{tab:gcc-flags}
+\end{table}

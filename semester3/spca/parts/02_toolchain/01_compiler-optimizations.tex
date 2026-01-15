@@ -1,0 +1,69 @@
+\newpage
+\subsection{Compiler optimizations}
+While the compiler can do quite a bit to speed up code, it can't rework the core logic, as it has to guarantee that the executable does do what was specified in the code.
+
+So, it is really important to not only consider asymptotic runtime (as \texttt{100n} and \texttt{5n} are both $\tco{n}$, but oviously the latter is 20 times faster).
+We thus need to optimize the algorithms, data representations, loops, etc and for that, we need to properly understand how programs are compiled, executed and how the hadware works.
+
+When using \texttt{gcc}, it is usually a good idea to compile a final build with the \texttt{-O2} or \texttt{-O3} flags.
+
+The \texttt{-march} flag was already mentioned in table \ref{tab:gcc-flags} and can be used if you want to go above and beyond, as it will optimize for the specific hardware.
+The values that can be passed to \texttt{-march} are listed \hlhref{https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html}{here} and even include a specific CPU microarchitecture.
+For example, to compile for Intel Alderlake (12000 series), you can specify \texttt{-march=alderlake}
+
+To understand what you need to optimize, you need to understand what the compiler is good at:
+\begin{itemize}
+    \item Register allocation
+    \item Scheduling (i.e. code selection and ordering)
+    \item Dead code elimination
+    \item Eliminating minor (!) inefficiencies
+\end{itemize}
+and what it is not good at:
+\begin{itemize}
+    \item Improving Asymptotic efficiency (compiler can't turn BubbleSort into e.g. QuickSort)
+    \item Improving the constant factor (if your implementation is slow, it likely won't magically become faster, though some bad practices can be eliminated)
+    \item Overcoming other optimization blockers such as memory aliasing and procedure side-effects
+\end{itemize}
+
+\content{Code motion} is a compiler technique, where it moves certain computations out of loops that always produce the same result.
+However: Always remember that the compiler will be \bi{conservative}, i.e. it will always err on the side of caution.
+
+\content{Strength reduction} is a compiler technique, where e.g. sequences of products are turned into cheaper additions in each iteration.
+An example is that if you have an operation such as \texttt{n * i} in a loop,
+the compiler might replace that with a variable \texttt{ni} that is incremented by \texttt{n} in each iteration.
+Similarly, it might replace \texttt{16 * x}, or even worse still, \texttt{x / 16} with \texttt{x << 4} or \texttt{x >> 4}, respectively
+
+\content{Common sub-expressions} can be extracted into pre-computations and then only use cheaper operations on the individual steps.
+A good example is if you are using similar multiplications that then only require one addition or subtraction to get to a result close by.
+
+\subsubsection{Optimization blockers}
+A sure-fire way to make your code slow is by using a large number of procedure calls.
+They are among the slowest operations in \lC.
+And, the compiler cannot safely extract the function in a for loop like this:
+\begin{code}{c}
+    int i;
+    for (i = 0; i < strlen(s); i++) {
+        if (s[i] >= 'A' && s[i] <= 'Z') {
+            s[i] -= ('A' - 'a');
+        }
+    }
+\end{code}
+The compiler can't safely remove \texttt{strlen(s)} from the loop, as it may have side-effects,
+i.e. may modify other program content other than simply returning a value.
+Thus, only ever call functions in the loop condition when you need the side-effects and otherwise, pre-compute it and simply use a variable to check against.
+\begin{scriptsize}
+    You can declare a function \textit{side-effect free} using \verb|__attribute__((pure))| in the function declaration.
+    The compiler may then extract \texttt{strlen(s)} from the loop.
+\end{scriptsize}
+
+Another common blocker is memory aliasing. This happens when two pointers point to the same address and of course,
+since we can do pointer arithmetic, it is very easy to do that in \lC.
+The easiest way to prevent this from happening is to use local variables where possible,
+such that they do not need to be passed in using a pointer.
+
+Normally the compiler assumes there can be another pointer that accesses the memory pointed to by this pointer.
+If you use the \texttt{restrict} keyword on the variable (i.e. in a function declaration, we have \texttt{void test(double restrict *a)}),
+the compiler will assume that for the lifetime of this pointer, there are no other pointers that will be used to access the memory to which it points.
+
+Another technique to improve throughput for something like matrix multiplications is to do it in blocks due to the way caching works.
+Since the compiler doesn't \textit{understand} your code, it can't do this for you (as it assumes associativity of the operation)
