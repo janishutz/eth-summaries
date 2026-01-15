@@ -1,0 +1,22 @@
+The \texttt{GNU Compiler Collection}, or short (which is also it's executable name) \texttt{gcc},
+is a \lC\ compiler toolchain that is commonly used to compile \lC\ code on UNIX platforms.
+
+It includes all the necessary tools to compile a \lC\ program:
+\begin{itemize}
+    \item A preprocessor, called \texttt{cpp}
+    \item The actual \lC\ compiler, called \texttt{cc} (though on the slides it states it is called \texttt{cc1}, but at least in the Arch Linux package, \texttt{cc1} is not a thing)
+    \item An \texttt{x86} assembler, called \texttt{as}
+    \item A static linker, called \texttt{ld}
+\end{itemize}
+However, the individual parts are usually not called individually, but using the toolchain command \texttt{gcc}
+(and that is usually again abstracted away using CMake or Make, which is in turn commonly called via a build system like Meson to automatically build packages for distribution).
+
+\texttt{gcc} has (as of \texttt{GCC 15.2.1 20260103} on Arch Linux) about 1000 CLI arguments that can be passed.
+Below is a list of the most important flags that can be passed, as discussed in the lectures:
+\begin{tables}{ll}{Flag         & Description}
+              \texttt{-E}       & Stop after the preprocessor (output is a \texttt{.i} file)       \\
+              \texttt{-S}       & Stop after the compiler (output is assembly in \texttt{.s} file) \\
+              \texttt{-c}       & Stop after the assembler (output is \texttt{.o} file)            \\
+              \texttt{-o}       & Specify the executable name                                      \\
+              \texttt{-DNDEBUG} & Removes all assert statements                                    \\
+\end{tables}
