@@ -20,33 +20,36 @@ Die Implementierung erzielt man folgendermassen mit der \bi{Sherman-Morrison-Woo
 Das Broyden-Quasi-Newton-Verfahren konvergiert langsamer als das Newton-Verfahren, aber schneller als das vereinfachte Newton-Verfahren. (\texttt{sp} ist \texttt{Scipy} und \texttt{np} logischerweise \texttt{Numpy} im untenstehenden code)
 
 \begin{code}{python}
-def fastbroyd(x0, F, J, tol=1e-12, maxit=20):
-    x = x0.copy()  # make sure we do not change the iput
-    lup = sp.linalg.lu_factor(J)  # LU decomposition of J
-    s = sp.linalg.lu_solve(lup, F(x))  # start with a Newton corection
-    sn = np.dot(s, s)  # squared norm of the correction
+def fast_broyden(x0: np.ndarray, F, J, tol=1e-12, maxIter=20):
+    x   = x0.copy()
+    lup = lu_factor(J)
+    
+    s  = lu_solve(lup, F(x))
+    sn = np.dot(s, s)
     x -= s
-    f = F(x)  # start with a full Newton step
-    dx = np.zeros((maxit, len(x)))  # containers for storing corrections s and their sn:
-    dxn = np.zeros(maxit)
-    k = 0
-    dx[k] = s
-    dxn[k] = sn
-    k += 1  # the number of the Broyden iteration
-
-    # Broyden iteration
-    while sn > tol and k < maxit:
-        w = sp.linalg.lu_solve(lup, f)  # f = F (actual Broyden iteration x)
-        # Using the Sherman-Morrison-Woodbury formel
+    
+    # Book keeping, for Broyden Update
+    dx     = np.zeros((maxIter, len(x)))
+    dxn    = np.zeros(maxIter)
+    dx[0]  = s
+    dxn[0] = sn
+    k = 1
+    
+    while sn > tol and k < maxIter:
+        w = lu_solve(lup, F(x))     # Simplified Newton Update
+        
+        # Apply Broyden correction (Shermann-Morrison-Woodbury formula)
         for r in range(1, k):
-            w += dx[r] * (np.dot(dx[r - 1], w)) / dxn[r - 1]
-            z = np.dot(s, w)
-            s = (1 + z / (sn - z)) * w
-            sn = np.dot(s, s)
-            dx[k] = s
-            dxn[k] = sn
-            x -= s
-            f = F(x)
-            k += 1  # update x and iteration number k
-    return x, k  # return the final value and the numbers of iterations needed
+            w += dx[r] * np.dot(dx[r-1], w) / dxn[r-1]
+        z = np.dot(s, w)
+        s = (1 + z/(sn-z)) * w
+        x -= s      # Apply the iteration
+        
+        # Book keeping again
+        sn = np.dot(s, s)
+        dx[k] = s
+        dxn[k] = sn
+        k += 1
+    
+    return x, k
 \end{code}
