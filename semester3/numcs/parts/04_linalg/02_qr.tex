@@ -104,7 +104,7 @@ Man kann nun mit der Givens-Rotation die QR-Zerlegung durchführen:
 
 Die Idee des Gram-Schmidt-Algorithmus ist es, orthonormale Vektoren zu konstruieren und diese dann zur Matrix $Q$ zusammenzubasteln.
 
-Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode:
+Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode \& Python:
 \begin{algorithm}
     \begin{spacing}{1.2}
         \caption{\textsc{classicalGramSchmidt}(A)}
@@ -126,6 +126,27 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode:
     \end{spacing}
 \end{algorithm}
 
+\begin{code}{python}
+def gram_schmidt(A: np.ndarray):
+    """ Regular Gram-Schmidt, assumes lin. indep. columns in A """
+    m, n = A.shape
+    Q, R = np.zeros((m, n)), np.zeros((m, n))
+    
+    for j in range(0, n):
+        Q[:, j] = A[:, j]
+        for i in range(0, j):
+            proj = np.dot(A[:, j], Q[:, i])
+            R[i, j] = proj
+            Q[:, j] = Q[:, j] - proj * Q[:, i]
+        Q[:, j] = Q[:, j] / np.linalg.norm(Q[:, j], 2)
+    
+    return Q, R
+\end{code}
+
+\newpage
+
+Die modifizierte Variante ist deutlich stabiler.\\
+
 \drmvspace
 \begin{algorithm}
     \begin{spacing}{1.2}
@@ -146,6 +167,26 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode:
         \end{algorithmic}
     \end{spacing}
 \end{algorithm}
+\begin{code}{python}
+def gram_schmidt_mod(A: np.ndarray):
+    """ Gram-Schmidt in place, assumes lin. indep. columnes in A  """
+    m, n = A.shape
+    Q, R = np.zeros((m, n)), np.zeros((m, n))
+    
+    for i in range(1, n):
+        norm = np.linalg.norm(A[:, i])
+        Q[:, i] = A[:, i] / norm
+        
+        for j in range(i+1, n):
+            proj = np.dot(A[:, j], Q[:, i])
+            A[:, j] = A[:, j] - proj * Q[:, i]
+            R[i, j] = proj
+        
+        R[i, i] = np.dot( Q[:, i], A[:, i] )
+    
+    return Q, R  
+\end{code}
+
 Falls $R$ nicht benötigt wird, kann viel Speicher gespart werden, indem man das $r_{ik}$ als eine scoped variable verwendet.
 
 
