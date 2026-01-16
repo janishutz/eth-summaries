@@ -1,0 +1,42 @@
+\subsubsection{Properties}
+
+The advantage of having denormalized values is that 0 can be represented as the bit-field with all $0$s. Further, this enforces equidistant points for values close to $0$, whereas normalized values increase in distance as they move further from $0$.
+
+\content{Example} $8$b Floating Point table to visualize the different cases.
+$$
+    8\text{b precision Floating Point:}\quad \underbrace{0}_s \underbrace{0000}_c \underbrace{000}_m
+$$
+
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+    \begin{tabular}{llllll}
+        \hline
+        Case & $s$ & $e$ & $m$ & $E$ & Value \\ 
+        \hline
+        \multirow{6}{*}{Denormalized} 
+        & 0 & 0000 & 000 & $-6$ & $0$ \\
+        & 0 & 0000 & 001 & $-6$ & $\frac{1}{8}\cdot\frac{1}{64}=\frac{1}{512}$ \\
+        & 0 & 0000 & 010 & $-6$ & $\frac{2}{8}\cdot\frac{1}{64}=\frac{2}{512}$ \\
+        &   &      & $\vdots$ &      & $\vdots$ \\
+        & 0 & 0000 & 110 & $-6$ & $\frac{6}{8}\cdot\frac{1}{64}=\frac{6}{512}$ \\
+        & 0 & 0000 & 111 & $-6$ & $\frac{7}{8}\cdot\frac{1}{64}=\frac{7}{512}$ \\
+        \hline
+        \multirow{9}{*}{Normalized}
+        & 0 & 0001 & 000 & $-6$ & $\frac{8}{8}\cdot\frac{1}{64}=\frac{8}{512}$ \\
+        & 0 & 0001 & 001 & $-6$ & $\frac{9}{8}\cdot\frac{1}{64}=\frac{9}{512}$ \\
+        &   &      & $\vdots$ &      & $\vdots$ \\
+        & 0 & 0110 & 110 & $-1$ & $\frac{14}{8}\cdot\frac{1}{2}=\frac{14}{16}$ \\
+        & 0 & 0110 & 111 & $-1$ & $\frac{15}{8}\cdot\frac{1}{2}=\frac{15}{16}$ \\
+        & 0 & 0111 & 000 & $0$ & $\frac{8}{8}\cdot 1 = 1$ \\
+        & 0 & 0111 & 001 & $0$ & $\frac{9}{8}\cdot 1 = \frac{9}{8}$   \\
+        & 0 & 0111 & 010 & $0$ & $\frac{10}{8}\cdot 1 = \frac{10}{8}$ \\
+        &   &      & $\vdots$ &      & $\vdots$ \\
+        & 0 & 1110 & 110 & $7$ & $\frac{14}{8}\cdot 128 = 224$ \\
+        & 0 & 1110 & 111 & $7$ & $\frac{15}{8}\cdot 128 = 240$ \\
+        \hline
+        Special
+        & 0 & 1111 & 000 & n/a & $\infty$ \\
+        \hline
+    \end{tabular}
+\end{center}
+\renewcommand{\arraystretch}{1.0}

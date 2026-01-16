@@ -1,0 +1,44 @@
+\subsubsection{Fractional Binary Numbers}
+
+We can represent any real number (with a finite decimal representation) as:
+$$
+    d=\sum_{i=-n}^{m}10^i\cdot d_i \qquad\qquad \underbrace{d_m d_{m-1} \cdots d_1 d_0\ .\ d_{-1} d_{-2} \cdots d_{-(n-1)} d_{-n}}_{d_i \text{ is the } i \text{-th digit of } d \text{ (neg. indices indicate decimals)}}
+$$
+We can use the same idea for Base $2$ as well:
+$$
+    b=\sum_{i=-n}^{m} 2^i \cdot b_i \qquad\qquad b_m b_{m-1} \cdots b_1 b_0\ .\ b_{-1} b_{-2} \cdots b_{-(n-1)} b_{-n}
+$$
+To get an intuition for this representation, looking at some examples is helpful:
+\begin{multicols}{2}
+
+A few observations:
+\begin{enumerate}
+    \item Shifting the dot right: Division by $2$
+    \item Shifting the dot left: Multiply by $2$
+    \item Numbers of the form $0.111\ldots$ are just below $1.0$
+    \item Some numbers representable in finite Base $10$ are infinite in Base $2$, e.g. $\frac{1}{5} = 0.20_{10}$
+\end{enumerate}
+
+\newcolumn
+
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+    \begin{tabular}{lcl}
+        \textbf{Binary} & \textbf{Fraction} & \textbf{Decimal} \\
+        \hline
+        $0.0$           & $\frac{0}{2}$     & $0.0$         \\
+        $0.01$          & $\frac{1}{4}$     & $0.25$        \\
+        $0.010$         & $\frac{2}{8}$     & $0.25$        \\
+        $0.0011$        & $\frac{3}{16}$    & $0.1875$      \\
+        $0.00110$       & $\frac{6}{32}$    & $0.1875$      \\
+        $0.001101$      & $\frac{13}{64}$   & $0.203125$    \\
+        $0.0011010$     & $\frac{26}{128}$  & $0.203125$    \\
+        $0.00110101$    & $\frac{51}{256}$  & $0.19921875$  \\
+    \end{tabular}
+\end{center}
+\renewcommand{\arraystretch}{1.0}
+
+\end{multicols}
+
+A major issue with this representation is that very large (respectively very small) numbers require a large representation.\\
+E.g $a_{10} = 5 \cdot 2^{100}$ has the representation $a_2 = 101\underbrace{000000000000000\ldots}_{100 \text{ Zeros}}\ $. Floating Point is designed to address this.

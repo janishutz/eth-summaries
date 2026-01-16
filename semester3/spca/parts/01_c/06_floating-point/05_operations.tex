@@ -1,0 +1,28 @@
+\newpage 
+\subsubsection{Operations}
+
+\content{Multiplication} is straightforward, all $3$ parameters can be operated on separately:
+$$
+    (-1)^{s_1}M_1 \cdot 2^{E_1} \cdot (-1)^{s_2} M_2 \cdot 2^{E_2} \quad = \quad (-1)^{s_1 \oplus s_2} (M_1 \cdot M_2) 2^{E_1 + E_2} 
+$$
+\textbf{Post-Normalization}: 
+\begin{enumerate}
+    \item If $M \geq 2$, shift $M$ right and increment $E$
+    \item If $E$ out of range, overflow (set to $\infty$)
+    \item Round $M$ to fit desired precision.
+\end{enumerate}
+
+\content{Addition} is more complicated: (Assumption: $E_1 \geq E_2$)
+$$
+    (-1)^{s_1}M_1 \cdot 2^{E_1} + (-1)^{s_2} M_2 \cdot 2^{E_2} \quad = \quad (-1)^{s'} M' \cdot 2^{E_1}
+$$
+$s', M'$ are the result of a signed align \& add.\\
+This means $(-1)^{s_1}M_1$ is shifted left by $E_1-E_2$, and then $(-1)^{s_2}M_2$ is added.
+
+\textbf{Post-Normalization}:
+\begin{enumerate}
+    \item if $M \geq 2$, shift $M$ right, increment $E$
+    \item if $M \leq 1$, shift $M$ left $k$, decrement $E$ by $k$
+    \item Overflow $E$ if out of range (set to $\infty$)
+    \item Round $M$ to desired precision
+\end{enumerate}

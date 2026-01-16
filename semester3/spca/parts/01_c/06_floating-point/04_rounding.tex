@@ -1,0 +1,52 @@
+\newpage
+\subsubsection{Rounding}
+
+The basic idea of Floating Point operations is:
+\begin{enumerate}
+    \item Compute exact result
+    \item Round, so it fits the desired precision
+\end{enumerate}
+
+\textit{IEEE Standard 754} specifies $4$ rounding modes: \textit{Towards Zero, Round Down, Round Up, Nearest Even}.
+
+The default used is \textit{Nearest Even}\footnote{Changing the rounding mode is usually hard to do without using Assembly.}, which rounds up/down depending on which number is closer, like regular rounding, but picks the nearest even number if it's exactly in the middle.
+
+Rounding can be defined using 3 different bits from the \textit{exact} number: $G, R, S$
+$$
+    a = 1.BB\ldots BB\underbrace{G}_\text{Guard}\underbrace{R}_\text{Round}\underbrace{XX\ldots XX}_\text{Sticky}
+$$
+
+\begin{enumerate}
+    \item \textbf{Guard Bit} $G$ is the least significant bit of the (rounded) result
+    \item \textbf{Round Bit} $R$ is the $1$st bit cut off after rounding
+    \item \textbf{Sticky Bit} $S$ is the logical OR of all remaining cut off bits.
+\end{enumerate}
+
+Based on these bits the rounding can be decided:
+
+$$
+    R \land S \implies \text{ Round up} \qquad\qquad
+    G \land R \land \lnot S \implies \text{ Round to even}
+$$
+
+\content{Example} Rounding $8$b precise results to $8$b precision floating point ($4$b mantissa):
+
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Value} & \textbf{Fraction} & \textbf{GRS} & \textbf{Incr?} & \textbf{Rounded} \\
+        \hline
+        $128$          & $1.000|0000$      & $000$        & N              & $1.000$          \\
+        $13$           & $1.101|0000$      & $100$        & N              & $1.101$          \\
+        $17$           & $1.000|1000$      & $010$        & N              & $1.000$          \\
+        $19$           & $1.001|1000$      & $110$        & Y              & $1.010$          \\
+        $138$          & $1.000|1010$      & $011$        & Y              & $1.001$          \\
+        $63$           & $1.111|1100$      & $111$        & Y              & $10.000$         \\
+        \hline
+    \end{tabular}
+\end{center}
+\renewcommand{\arraystretch}{1.0}
+
+
+\textbf{Post-Normalization}: Rounding may cause overflow. In this case: Shift right once and increment exponent.

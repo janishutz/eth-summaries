@@ -1,0 +1,46 @@
+\subsubsection{Floating Point Representation}
+Floating point numbers instead use the representation:
+$$
+    a = \underbrace{(-1)^s}_\text{Sign} \cdot \underbrace{M}_\text{Mantissa} \cdot \underbrace{2^E}_\text{Exponent}
+$$
+
+Single precision and Double precision floating point numbers store the $3$ parameters in separate bit fields $s, e, m$:
+
+\begin{center}
+    Single Precision:
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $31$: Sign & $30-23$: Exponent & $22-0$: Mantissa \\
+        \hline
+    \end{tabular} \\
+    Bias: $127$, Exponent range: $[-126, 127]$
+\end{center}
+\begin{center}
+    Double Precision:
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $63$: Sign & $62-52$: Exponent & $51-0$: Mantissa \\
+        \hline
+    \end{tabular}\\
+    Bias: $1023$, Exponent range: $[-1022, 1023]$
+\end{center}
+
+Most of the extra precision in $64$b floating point numbers is associated to the mantissa. Note how double precision is necessary to represent all $32$b signed Integers, and not all $64$b signed Integers can be represented in either format.
+
+\newpage
+
+The way these bitfields are interpretd \textit{differs} based on the exponent field $e$:
+
+\begin{enumerate}
+    \item \textbf{Normalized Values}: Exponent bit field $e$ is neither all $1$s nor all $0$s.\\
+          In this case, $E$ is read in \textit{biased} form: $E = e - b$. The bias is $b=2^{k-1}-1$, where $k$ is the amount of bits reserved for $e$. This produces the exponent ranges $E \in [-(b-1), b]$.\\
+          The mantissa field $m$ is interpreted as $M = 0.m_{n-1}\ldots m_1 m_0 + 1$, where $n$ is the amount of bits reserved for $m$
+    \item \textbf{Denormalized Values}: Exponent bit field $e$ is all $0$s.\\
+          In this case, $E$ is read in \textit{biased} form $E = 1 - b$. (Instead of $E = e - b$)\\
+          The mantissa field $m$ is interpreted as $M = 0.m_{n-1}\ldots m_1 m_0$ (without adding $1$)
+    \item \textbf{Special Values}: Exponent bit field $e$ is all $1$s.\\
+          $m = 0$ represents infinitiy, which is signed using $s$.\\
+          $m \neq 0$ is \verb|NaN|, regardless of what is in $m$ or $s$.
+\end{enumerate}
+
+\content{Why is the Bias chosen this way?} It allows smooth transitions between normalized and denormalized values.

@@ -1,0 +1,18 @@
+\subsubsection{Mathematical Properties}
+
+Floating point is \textit{almost} an Abelian Group.
+\begin{itemize}
+    \item \textbf{Closed} under Addition, Multiplication (But may generate \verb|NaN|, $\pm \infty$)
+    \item \textbf{Commutative}
+    \item \textbf{Not Associative} (Overflow \& Rounding)
+    \item $0, 1$ \textbf{are Identity}
+    \item \textbf{Additive Inverse} (Except $\pm \infty$ and \verb|NaN|)
+    \item \textbf{Monotonicity} (Except for $\pm \infty$ and \verb|NaN|)
+    \item \textbf{Not Distributive} (Overflow \& Rounding)
+\end{itemize}
+
+\subsubsection{Floating Point in C}
+
+C99 guarantees \verb|float| and \verb|double|, and \verb|long double| is usually interpreted as quadruple precision.
+
+Casting/Conversion between Integer types and \verb|float|, \verb|double| \textit{changes} the bit representation in most cases (e.g. $0$ stays the same)
