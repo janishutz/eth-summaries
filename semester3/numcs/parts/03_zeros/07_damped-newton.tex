@@ -13,4 +13,34 @@ Wir wählen $\lambda^{(k)}$ so, dass für $\Delta x^{(k)} = DF(x^{(k)})^{-1} F(x
     ||\Delta x(\lambda^{(k)})||_2 \leq \left( 1 - \frac{\lambda^{(k)}}{2} \right) ||\Delta x^{(k)}||_2
 \end{align*}
 
-\drmvspace
+\innumpy Das gedämpfte Newton-Verfahren lässt sich mit Funktionen aus \verb|scipy.linalg| implementieren:
+
+\begin{code}{python}
+def dampened_newton(x: np.ndarray, F, DF, q=0.5, rtol=1e-10, atol=1e-12):
+    """ Dampened Newton with dampening factor q """
+
+    lup    = lu_factor(DF(x))         # LU factorization for efficiency, direct works too
+    s      = lu_solve(lup, F(x))      # 1st proper Newton correction
+    damp   = 1                        # Start with no dampening
+    x_damp = x - damp*s    
+    s_damp = lu_solve(lup, F(x_damp)) # 1st simplified Newton correction (Reuse Jacobian)
+    
+    while norm(s_damp) > rtol * norm(x_damp) and norm(s_damp) > atol:
+        while norm(s_damp) > (1-damp*q) * norm(s):  # Reduce dampening if step aggresive
+            damp *= q
+            if damp < 1e-4: return x            # Conclude dampening doesn't work anymore
+            x_damp = x - damp*s                 # Try weaker dampening instead
+            s_damp = lu_solve(lup, F(x_damp)) 
+        
+        x = x_damp     # Accept this dampened iteration, continue with next proper step
+        
+        lup    = lu_factor(DF(x))
+        s      = lu_solve(lup, F(x))         # Next proper Newton correction
+        damp   = np.min( damp/q, 1 )
+        x_damp = x - damp*s
+        s_damp = lu_solve(lup, F(x_damp))    # Next simplified Newton correction
+    
+    return x_damp
+\end{code}
+
+\newpage
