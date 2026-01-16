@@ -1,0 +1,19 @@
+\newpage
+\subsection{Unorthodox Control Flow}
+In \lC, the \texttt{setjmp.h} header file can be included, which gives us access to \texttt{setjmp} and \texttt{longjmp}.
+
+To use them, we first need to declare a \texttt{jmp\_buf} somewhere, usually as a static variable.
+
+The \texttt{setjmp( jmp\_buf env } function stores the current stack / environment in the \texttt{jmp\_buf} and returns 0.
+
+The \texttt{longjmp( jmp\_buf env, int val )} function causes a second return, which returns \texttt{val},
+to the \texttt{setjmp} invocation and jumps back to that place.
+
+\inputcodewithfilename{c}{code-examples/01_asm/}{08_unorthodox-controlflow.c}
+
+What the above code outputs is: \texttt{second} followed by \texttt{main}.
+
+\newpage
+They are implemented in Assembly as follows. Nothing really surprising for the implementation there.
+The assembly code is from the Musl \lC\ library
+\inputcodewithfilename{gas}{code-examples/01_asm/}{09_setjmp-longjmp.s}

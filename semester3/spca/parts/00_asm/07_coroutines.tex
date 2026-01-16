@@ -1,0 +1,12 @@
+\newpage
+\subsection{Coroutines}
+Coroutines are functions that call each other when they are done or they need new data to work on.
+An example is a decompresser that calls a parser when it has finished compressing parts of the file and that parser then again calls the decompresser when it has finished parsing.
+
+We can implement that either by rewriting the functions into a single function, which often is a bit clumsy.
+A way around this is to use \bi{Continuations}, where the first function saves its state and the context is switched to the other function.
+That function can then load its state and continue where it left off, runs until it finishes its task, then saves its state and the context switches back to the original function.
+\inputcodewithfilename{c}{code-examples/01_asm/}{10_coroutine.h}
+\inputcodewithfilename{c}{code-examples/01_asm/}{10_coroutine.c}
+
+As you can see, the \texttt{setjmp.h} functions are the foundation of all concurrent programming.
