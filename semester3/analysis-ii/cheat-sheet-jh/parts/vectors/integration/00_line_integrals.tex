@@ -5,15 +5,18 @@
 \begin{enumerate}[noitemsep, label=(\arabic*)]
     \item Then $\displaystyle \int_{a}^{b} f(t) \dx t = \left( \int_{a}^{b} f_1(t), \ldots, \int_{a}^{b} f_n(t) \right)$
     \item \bi{Parametrized Curve} in $\R^n$ is a continuous map $\gamma: I \rightarrow \R^n$, piecewise in $C^1$, i.e. for $k \geq 1$, we have partition $a = t_0 < t_1 < \ldots < t_k = b$,
-          such that if $f$ is restricted to interval $]t_{j - 1}, t_j$, restriction is $C^1$. $\gamma$ is a \textit{path} between $\gamma(a)$ and $\gamma(b)$
-    \item \bi{Line integral} $X \subseteq \R^n$ is the image of $\gamma$ as above and $f : X \rightarrow \R^n$ cont.\\
+          such that if $f$ is restricted to interval $]t_{j - 1}, t_j[$, restriction is $C^1$. $\gamma$ is a \textit{path} between $\gamma(a)$ and $\gamma(b)$
+    \item \bi{Line integral} $X \subseteq \R^n$ is the image of $\gamma$, which is a parametrized curve and $f : X \rightarrow \R^n$ continuous\\
           Integral $\displaystyle\int_{a}^{b} f(\gamma(t)) \cdot \gamma'(t) \dx t \in \R$
           is line integral of $f$ along $\gamma$, denoted $\displaystyle\int_{\gamma} f(s) \dx s$ or $\displaystyle\int_{\gamma} f(s) \dx \vec{s}$ or $\displaystyle\int_{\gamma} \omega$,\\
           with $\omega = f_1(x) \dx x_1 + \ldots f_n(x) \dx x_n$
 \end{enumerate}
 
 \rmvspace
-We usually call $f : X \rightarrow \R^n$ a \bi{vector field}, which maps each point $x \in X$ to a vector in $\R^n$, displayed as originating from $x$
+We usually call $f : X \rightarrow \R^n$ a \bi{vector field}, which maps each point $x \in X$ to a vector in $\R^n$, displayed as originating from $x$\\
+Often, we use $V$ instead of $f$ to denote the vector field.
+Ideally, to compute a line integral, we compute the derivative of $\gamma$ and $V(\gamma(t))$ separately, then simply do the integral after.
+Be careful with hat functions like $|x|$, we need two separate integrals for each side of the center!
 
 \setLabelNumber{all}{4}
 \compactdef{Oriented reparametrization} of $\gamma$ is parametrized curve $\sigma : [c, d] \rightarrow \R^n$ s.t $\sigma = \gamma \circ \varphi$, with $\varphi : [c, d] \rightarrow I$ cont. map,
@@ -26,12 +29,12 @@ we have $\displaystyle\int_{\gamma} f(s) \cdot \dx \vec{s} = \int_{\sigma} f(s) 
 
 \mrmvspace
 \setLabelNumber{all}{8}
-\compactdef{Conservative Vector Field} If for any $x_1, x_2 \in X$ the line integral $\displaystyle\int_{\gamma} f(s) \dx \vec{s}$ is independent choice of $\gamma$ in $X$
+\compactdef{Conservative Vector Field} If for any $x_1, x_2 \in X$ the line integral $\displaystyle\int_{\gamma} f(s) \dx \vec{s}$ is of the independent choice of $\gamma$ in $X$
 
 \mrmvspace
 \shortremark $f$ conservative iff $\int_{\gamma} f(s) \dx \vec{s} = 0$ for a \textit{closed} ($\gamma(a) = \gamma(b)$) parametrized curve\\
 %
-\shorttheorem Let $X$ be open set, $f$ conservative vector field. Then $\exists C^1$ function $g$ s.t. $f = \nabla g$.
+\shorttheorem Let $X$ be open set, $f$ conservative vector field. Then $\exists\ C^1$ function $g$ s.t. $f = \nabla g$.
 If any two points of $X$ can be joined by a parametrized curve, then $g$ is unique up to a constant: if $\nabla g_1 = f$, then $g - g_1$ is constant on $X$
 
 \shortremark Two points $x, y \in X$ can be joined by parametrized curve $\gamma$ if $\gamma(a) = x$ and $\gamma(b) = y$. In that case, $X$ is called \bi{path-connected}.
@@ -57,4 +60,22 @@ $\text{curl}(f) = \begin{bmatrix}
         \partial_z f_1 - \partial_x f_3 \\
         \partial_x f_2 - \partial_y f_1
     \end{bmatrix}$
-\ddrmvspace
+\dnrmvspace
+
+Below a chart to figure out some properties:
+\begin{center}
+    \begin{tikzpicture}[node distance = 0.5cm and 0.5cm, >={Classical TikZ Rightarrow[width=7pt]}]
+        \node (cons) {$f$ conservative};
+        \node (pot) [left=of cons] {$f = \nabla g$};
+        \node (sym) [below=of cons] {$J_f$ symmetric};
+        \node (curl) [right=of sym] {$\text{curl}(f) = 0$};
+        \node (int) [right=of cons] {$\int_{\gamma} f(s) \dx \vec{s} = 0 \forall$ closed $\gamma$};
+
+        \draw[arrows = <->, double distance = 1.5pt] (cons) -- (pot);
+        \draw[arrows = ->, double distance = 1.5pt, transform canvas={xshift=0.25cm}] (sym) -- (cons);
+        \draw[arrows = ->, double distance = 1.5pt, transform canvas={xshift=-0.25cm}] (cons) -- node [left, xshift=-0.1cm] {\scriptsize if $x$ start-shaped} (sym);
+        \draw[arrows = <->, double distance = 1.5pt] (cons) -- (int);
+        \draw[arrows = <->, double distance = 1.5pt] (sym) -- node [below, yshift=-0.1cm] {\scriptsize $n = 3$} (curl);
+    \end{tikzpicture}
+\end{center}
+\dnrmvspace
