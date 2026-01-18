@@ -24,14 +24,15 @@ $\frac{\partial f}{\partial x_i}(x_0), \partial_{x_i} f(x_0) \text{ or } \partia
 and if $g(x) \neq 0 \smallhspace \forall x \in X$, then if $f \div g$ has $\partial_i$ on $X$, then so does $f \div g$ and
 $\partial_{x_i}(f \div g) = (\partial_{x_i}(f) g - f \partial_{x_i}(g)) \div g^2$\\
 % ────────────────────────────────────────────────────────────────────
-\compactdef{Jacobi Matrix $J$} Element $J_ij = \partial_{x_j} f_i(x)$ for function $f: X \rightarrow \R^m$ with $X \subseteq \R^n$ open. $x_j$ is the $j$-th variable,
+\compactdef{Jacobi Matrix $J$} Element $J_{ij} = \partial_{x_j} f_i(x)$ for function $f: X \rightarrow \R^m$ with $X \subseteq \R^n$ open. $x_j$ is the $j$-th variable,
 $f_i$ is the $i$-th component of the equation (i.e. in the vector of the function). $J$ has $m$ rows and $n$ columns.\\
 % ────────────────────────────────────────────────────────────────────
 
 \drmvspace\drmvspace
 \stepLabelNumber{all}
 \compactdef{Gradient, Divergence} for $f : X \rightarrow \R$ with $X \in \R^n$ open, the \bi{gradient} is given by
-$\nabla f(x_0) = \begin{pmatrix}
+$\nabla f(x_0) =
+    \begin{pmatrix}
         \partial_{x_1} f(x_0) \\
         \vdots                \\
         \partial_{x_n} f(x_0)
