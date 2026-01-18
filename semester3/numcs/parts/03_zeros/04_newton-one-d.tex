@@ -24,10 +24,8 @@ falls $F(x^*) = 0$ und $F^(x^*) \neq 0$
 def newton_method(f, df, x: float, tol=1e-12, maxIter=100):
     """ Use Newton's method to find zeros, requires derivative of f """
     k = 0
-    fx = f(x)
-    dfx = df(x)
-    while (np.abs(fx) > tol and k < maxIter):
-        x -= fx / dfx
+    while (np.abs(f(x)) > tol and k < maxIter):
+        x -= f(x) / df(x)
         k += 1
     
     return x, k
