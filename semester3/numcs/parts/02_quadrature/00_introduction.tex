@@ -14,7 +14,7 @@ In gewissen Anwendungen sind Gauss-Quadratur-Formeln nützlich, welche man durch
 \begin{definition}[]{Quadratur}
     Ein Integral kann durch eine gewichtete Summe von Funktionswerten der Funktion $f$ an verschiedenen Stellen $c_i^n$ approximiert werden:
     \begin{align*}
-        \int_{a}^{b} f(x) \dx \approx Q_n(f; a, b) := \sum_{i = 1}^{n} \omega_i^n f(c_i^n)
+        \int_{a}^{b} f(x) \dx x \approx Q_n(f; a, b) := \sum_{i = 1}^{n} \omega_i^n f(c_i^n)
     \end{align*}
     wobei $\omega_i^n$ die \textit{Gewichte} und $c_i^n \in [a, b]$ die \textit{Knoten} der Quadraturformel sind.
 \end{definition}
@@ -23,7 +23,7 @@ Wir wollen natürlich wieder $c_i^n \in [a, b]$ und $w_i^n$ so wählen, dass der
 \begin{definition}[]{Fehler}
     Der Fehler der Quadratur $Q_n(f)$ ist
     \begin{align*}
-        E(n) = \left| \int_{a}^{b} f(x) \dx - Q_n(f; a, b) \right|
+        E(n) = \left| \int_{a}^{b} f(x) \dx x - Q_n(f; a, b) \right|
     \end{align*}
     Wir haben \bi{algebraische Konvergenz} wenn $E(n) = \tco{\frac{1}{n^p}}$ mit $p > 0$ und
     \bi{exponentielle Konvergenz} wenn $E(n) = \tco{q^n}$ mit $0 \leq q < 1$
@@ -85,11 +85,11 @@ Das Interpolationspolynom ist gegeben durch:
 \end{align*}
 
 \drmvspace
-Durch die Eigenschaften der Lagrange-Polynome haben wir $p(x_j) = f(x_j)$ und die Konstruktion von $p(x)$ ist eindeutig in $\mathcal{P}_{n + 1}$.
+Durch die Eigenschaften der Lagrange-Polynome haben wir $p(x_j) = f(x_j)$ und die Konstruktion von $p(x)$ ist eindeutig in $\mathcal{P}_{n + 1}$. 
 Wir erhalten nun eine Quadraturformel, wenn wir $p$ als Approximation von $f$ verwenden:
 \rmvspace
 \begin{align*}
-    w_j = \int_{a}^{b} l_j(x), \smallhspace j = 0, 1, \ldots, n
+    w_j = \int_{a}^{b} l_j(x) \dx x, \smallhspace j = 0, 1, \ldots, n
 \end{align*}
 \drmvspace
 
@@ -112,7 +112,7 @@ Wir nehmen ein äquidistantes Gitter, mit $x_k = x_0 + k \cdot h$ für $h = \fra
     \int_{a}^{b} f(x) \dx x = \sum_{k = 0}^{N - 1} \int_{x_k}^{x_{k + 1}} f(x) \dx x
 \end{align*}
 
-\drmvspace
+\rmvspace
 Die obige Formel wird auch die \textit{summierte} Quadraturformel genannt. Der Fehler ist dann also:
 \rmvspace
 \begin{align*}
@@ -122,13 +122,13 @@ Die obige Formel wird auch die \textit{summierte} Quadraturformel genannt. Der F
 
 \rmvspace
 Der obige Ansatz ist gewissermassen ``divide and conquer'' (zu Deutsch: ``Teile und Herrsche'', wir werden aber DnC verwenden)
-und wir der lokale Fehler liegt in $\tco{h^{n + 1}}$ und mit $N = (b - a) \div h$ Intervallen der Grösse $h$ haben wir einen globalen Fehler in $\tco{h^n}$.
+und wir der lokale Fehler liegt in $\tco{h^{n + 1}}$ und mit $N = (b - a) \div h$ Intervallen der Grösse $h$ haben wir einen globalen Fehler in $\tco{h^n}$. 
 Folglich ist also der Fehler kleiner, je kleiner $h$ ist.
 
 Wir benutzen erneut einen Variablenwechsel, um von einem Referenzintervall $[-1, 1]$ auf eines unserer Teilintervalle $[x_k, x_{k + 1}]$ zu wechseln.
 Dies heisst also allgemein für Intervall $[a, b]$ nach $[-1, 1]$:
 \begin{align*}
-    \int_{a}^{b} f(t) \dx t = \frac{1}{2} (b - a) \int_{-1}^{1} \hat{f}(\tau) \dx \tau & \text{ mit } \hat{f}(\tau) := f\left( \frac{1}{2}(1 - \tau) a + \frac{1}{2}(\tau + 1) b \right)
+    \int_{a}^{b} f(t) \dx t = \frac{1}{2} (b - a) \int_{-1}^{1} \hat{f}(	au) \dx \tau & \text{ mit } \hat{f}(	au) := f\left( \frac{1}{2}(1 - \tau) a + \frac{1}{2}(	au + 1) b \right)
 \end{align*}
 Für dieses Referenzintervall können wir die Gewichte $\hat{w}_j$ und die Knoten $\hat{c}_j$ bestimmen.
 % OMG, wtf, why can't he decide on using w, \omega or \hat{w} for the weights in the reference interval? That is so dumb.
