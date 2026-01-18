@@ -13,3 +13,5 @@ roots = sp.roots(f)  # Computes the roots of function f analytically
 sp.hermite_poly(5)  # Creates hermite poly of degree 5
 sp.chebyshevt_poly(5)  # Creates chebychev T (first kind) poly of degree 5
 sp.chebyshevu_poly(5)  # Creates chebychev U (second kind) poly of degree 5
+# To print nicely rendered math expressions, you can use
+sp.init_printing()
