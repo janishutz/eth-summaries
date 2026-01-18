@@ -128,7 +128,7 @@ Folglich ist also der Fehler kleiner, je kleiner $h$ ist.
 Wir benutzen erneut einen Variablenwechsel, um von einem Referenzintervall $[-1, 1]$ auf eines unserer Teilintervalle $[x_k, x_{k + 1}]$ zu wechseln.
 Dies heisst also allgemein für Intervall $[a, b]$ nach $[-1, 1]$:
 \begin{align*}
-    \int_{a}^{b} f(t) \dx t = \frac{1}{2} (b - a) \int_{-1}^{1} \hat{f}(	au) \dx \tau & \text{ mit } \hat{f}(	au) := f\left( \frac{1}{2}(1 - \tau) a + \frac{1}{2}(	au + 1) b \right)
+    \int_{a}^{b} f(t) \dx t = \frac{1}{2} (b - a) \int_{-1}^{1} \hat{f}(\tau) \dx \tau & \text{ mit } \hat{f}(\tau) := f\left( \frac{1}{2}(1 - \tau) a + \frac{1}{2}(\tau + 1) b \right)
 \end{align*}
 Für dieses Referenzintervall können wir die Gewichte $\hat{w}_j$ und die Knoten $\hat{c}_j$ bestimmen.
 % OMG, wtf, why can't he decide on using w, \omega or \hat{w} for the weights in the reference interval? That is so dumb.
