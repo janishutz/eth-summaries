@@ -23,9 +23,10 @@ falls $F(x^*) = 0$ und $F^(x^*) \neq 0$
 \begin{code}{python}
 def newton_method(f, df, x: float, tol=1e-12, maxIter=100):
     """ Use Newton's method to find zeros, requires derivative of f """
-    iter = 0
-    while (np.abs(df(x)) > tol and iter < maxIter):
-        x -= f(x)/df(x); iter += 1
+    k = 0
+    while (np.abs(f(x)) > tol and k < maxIter):
+        x -= f(x) / df(x)
+        k += 1
     
-    return x, iter
+    return x, k
 \end{code}
