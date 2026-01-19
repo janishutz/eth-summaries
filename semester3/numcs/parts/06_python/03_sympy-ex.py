@@ -1,6 +1,6 @@
 import sympy as sp
 
-a, b = (0, 1);
+a, b = (0, 1)
 x, y = sp.symbols("x, y")  # Create sympy symbols
 f = x**2 + 3 * x - 2  # Create your function
 # In the below, for 1D differentiation, we can omit the symbol and just use sp.diff(f)
@@ -13,5 +13,10 @@ roots = sp.roots(f)  # Computes the roots of function f analytically
 sp.hermite_poly(5)  # Creates hermite poly of degree 5
 sp.chebyshevt_poly(5)  # Creates chebychev T (first kind) poly of degree 5
 sp.chebyshevu_poly(5)  # Creates chebychev U (second kind) poly of degree 5
+system = [f + y, x**3 + 2 * y, 3 * y - 2 * x]  # A system of equations
+sp.solve(system)  # Solves a system of equations algebraically
+sp.nsolve(
+    system, [x, y], (0, 1)
+)  # Input the system, the variables to solve in and interval
 # To print nicely rendered math expressions, you can use
 sp.init_printing()
