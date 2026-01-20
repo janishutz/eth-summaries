@@ -1,0 +1,308 @@
+\subsection{Code Optimizations}
+
+By understanding the underlying hardware, simple code optimizations can be made to improve performance significantly.
+
+To analyze program performance, a solid benchmark and performance metrics need to be chosen.
+
+Common metrics are:
+\begin{enumerate}
+    \item \textbf{Latency} i.e. how long does a request take?
+    \item \textbf{Throughput} i.e. how many requests (per second) can be processed?
+\end{enumerate}
+
+For pipelined processors, throughput is more tricky to specify. Usually, the steady-state throughput is considered.
+
+\inlinedef \textbf{Cycles per Element} (CPE) is used as a performance metric for operations on vectors/lists. \\
+The execution time $t$ can then be formulated as: $t = \text{CPE} \cdot n + \text{Overhead}$. ($n$ is the vector/list size)
+
+\inlinedef \textbf{Cycles per Instruction} (CPI) is the inverse of \textit{Instructions per Cycle}
+
+CPI can be further divided into $\text{CPI} = \text{CPI}_\text{Base} + \text{CPI}_\text{Stall}$ assuming a pipelined processor, which may stall for many reasons: Data hazards, control hazards, memory latency ...
+
+\inlinedef \textbf{Clock Cycle Time} (CCT) is the inverse of \textit{Clock Frequency}
+
+Using these we can define Program Execution Time: $t = n \cdot \text{CPI} \cdot \text{CCT}$ ($n$ is the instruction count)
+
+\inlinedef \textbf{Instruction Level Parallelism} (ILP) is the natural parallelism occuring through independent instructions.
+
+\textit{Superscalar} Processors capitalize on ILP by executing multiple instructions per cycle. The instructions are (usually) scheduled dynamically. This is particularly great since it requires no effort from the programmer.
+
+Different instructions generally may take vastly different amounts of time, though this can be reduced via pipelining and multiple execution units. 
+
+\content{Example} This table is specific to an Intel Haswell CPU.
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        \textbf{Instruction} & \textbf{Latency} & \textbf{Cycles/issue} \\
+        \hline
+        Load/store            & 4     & 1     \\
+        Int Add               & 1     & 1     \\
+        Int Multiply          & 3     & 1     \\
+        Int/Long Divide       & 3--30 & 3--30 \\
+        FP Multiply           & 5     & 1     \\
+        FP Add                & 3     & 1     \\
+        FP Divide             & 3--15 & 3--15 \\
+    \end{tabular}    
+\end{center}
+
+Performance of these operations is \textbf{Latency bound} if they are sequential, \textbf{Throughput bound} if they can run parallel.
+
+\content{Example} \textbf{Loop unrolling} can increase performance for latency bound operations. (Optimization flags \textit{should} do this)
+
+Unrolling can be done to an arbitrary degree, but there are diminishing returns at some point. An ideal unrolling factor must be found experimentally.
+
+\content{Example} \textbf{Reassociation} can also improve performance for parallelizable operations, if it breaks some sequential dependency.
+
+\content{Example} \textbf{Separate Accumulators} can improve performance for latency bound operations too, as separate load/store units may be used.
+
+\newpage
+
+\subsection{Vector Operations}
+
+Extreme performance gains beyond the results of the previous section can be gained using hardware vector registers on supported CPUs.
+
+\content{Example} In Intel AVX2, $256$b vector registers like \verb|%ymm0|, \verb|%ymm1| can be used to perform component-wise single/double precision FP operations.
+\begin{minted}{gas}
+    vaddsd  %ymm0, %ymm1, %ymm1     # Comp.-wise 32b FP add
+    vaddsd  %ymm0, %ymm1, %ymm1     # Comp.-wise 64b FP add
+\end{minted}
+
+\subsection{Caches}
+
+Processors generally improve quicker than memory speed does. Therefore, optimizing memory is necessary, and this is what Caches do.
+
+\content{Structure} Caches can be defined using $S, E, B$ s.t. $S \cdot E \cdot B = \text{Cache Size}$.\\
+$S = 2^s$ is the set count, $E = 2^e$ is the lines per set, and $B=2^b$ is the bytecount per cache block.
+
+\content{Address} Using the above, the address can be separated into fields which dictate the cache location:
+
+\begin{center}
+    Address: 
+    \begin{tabular}{|c|c|c|}
+       \hline
+        tag & set index & block offset \\
+       \hline
+    \end{tabular}
+\end{center}
+
+Since we have $S=2^s$ sets and $B=2^b$ bytes per block, we need $s$ bits for the set index, $b$ bits for block offset. The remaining part (tag) is stored with the cache block and needs to match for a cache hit.
+
+\inlinedef \textbf{Direct-mapped} i.e. $E=1$ (1 cache line per set only).
+
+\inlinedef \textbf{2-way Set-Associative} i.e. $E=2$ (2 cache lines per set).
+
+\content{Example} The importance of caches can quickly be seen when looking at the memory hierarchy:
+
+\begin{tabular}{llllll}
+    \toprule
+    \textbf{Cache type} &
+    \textbf{What is cached?} &
+    \textbf{Where is it cached?} &
+    \textbf{Latency (cycles)} &
+    \textbf{Managed by} \\
+    \midrule
+    Registers &
+    4/8-byte words &
+    CPU core &
+    0 &
+    Compiler \\
+
+    TLB &
+    Address translations &
+    On-chip TLB &
+    0 &
+    Hardware \\
+
+    L1 cache &
+    64-byte blocks &
+    On-chip L1 &
+    1 &
+    Hardware \\
+
+    L2 cache &
+    64-byte blocks &
+    On-chip L2 &
+    10 &
+    Hardware \\
+
+    Virtual memory &
+    4\,kB page &
+    Main memory (RAM) &
+    100 &
+    Hardware + OS \\
+
+    Buffer cache &
+    4\,kB sectors &
+    Main memory &
+    100 &
+    OS \\
+
+    Network buffer cache &
+    Parts of files &
+    Local disk, SSD &
+    1{,}000{,}000 &
+    SMB/NFS client \\
+
+    Browser cache &
+    Web pages &
+    Local disk &
+    10{,}000{,}000 &
+    Web browser \\
+
+    Web cache &
+    Web pages &
+    Remote server disks &
+    1{,}000{,}000{,}000 &
+    Web proxy server \\
+    \bottomrule
+\end{tabular}
+
+\subsubsection{Cache Addressing Schemes}
+
+The cache can see either the virtual or physical address, and the tag and index do \textit{not} need to both use the physical/virtual address.
+
+\begin{center}
+    \begin{tabular}{c|c|c}
+        \hline
+        \textbf{Indexing}   & \textbf{Tagging}  & \textbf{Code}  \\
+        \hline
+        Virtually Indexed   & Virtually Tagged  & VV \\
+        Virtually Indexed   & Physically Tagged & VP \\
+        Physically Indexed  & Virtually Tagged  & PV \\
+        Physically Indexed  & Physically Tagged & PP
+    \end{tabular} 
+\end{center}
+
+\newpage
+
+\subsection{Virtual Memory}
+
+Conceptually, Assembly operations treat memory as a very large contiguous array of memory: Each byte has an individual address.
+\begin{minted}{gas}
+    movl    (%rcx), %eax    # Refers to a Virtual Address
+\end{minted}
+In truth of course, this is an abstraction for the memory hierarchy. Actual allocation is done by the compiler \& OS.
+
+The main advantages are:
+\begin{itemize}
+    \item Efficient use of (limited) RAM: Keep only active areas of virtual address space in memory
+    \item Simplifies memory management for programmers
+    \item Isolates address spaces: Processes can't interfere with other processes
+\end{itemize}
+
+\subsubsection{Address Translation}
+
+Address translation happens in a dedicated hardware component: The Memory Management Unit (MMU).
+
+Virtual and Physical Addresses share the same structure, buth the VPN is usually far longer than the PPN, since the virtual space is far bigger. Offsets match.
+
+\begin{multicols}{2}
+    \begin{center}
+        Virtual: 
+        \begin{tabular}{|c|c|}
+        \hline
+            V. Page Number & V. Page Offset \\
+        \hline
+        \end{tabular}
+    \end{center}
+    \newcolumn
+    \begin{center}
+        Physical: 
+        \begin{tabular}{|c|c|}
+        \hline
+            P. Page Number & P. Page Offset \\
+        \hline
+        \end{tabular}
+    \end{center}
+\end{multicols}
+
+The Page Table (Located at a special Page Table Base Register (PTBR)) contains the mapping $\text{VPN} \mapsto \text{PPN}$. Page Table Entries (PTE) are cached in the L1 cache like any other memory word. 
+
+The Translation Lookaside Buffer (TLB) is a small hardware cache inside the MMU, which is faster than an L1 hit.\footnote{In practice, most address translations actually hit the TLB.}
+
+\content{Example} We consider $N=14$ bit virtual addresses and $M=12$ bit physical addresses. The offset takes $6$ bits.\footnote{The images in this example are from the SPCA lecture notes for HS25.}
+
+If we assume a TLB with $16$ entries, and $4$ way associativity, the VPN translates like this:
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{images/VPN-to-TLB.png}
+\end{center}
+
+Similarly, if we assume a direct-mapped $16$ line cache with $4$ byte blocks:
+
+\begin{center}
+    \includegraphics[width=0.65\linewidth]{images/PPN-to-Cache.png}
+\end{center}
+
+Multi-Level page tables add further steps to this process: Instead of a PT we have a Page Directory Table which contains the addresses of separate Page Tables. The top of the VPN is used to index into each of these, which technically allows any depth of page tables. 
+
+\subsubsection{x86 Virtual Memory}
+
+In \verb|x86-64| Virtual Addresses are $48$ bits long, yielding an address space of $256$TB.\\
+Physical Addresses are $52$ bits, with $40$ bit PPNs, yielding a page size of $4KB$.
+
+\newpage
+
+\subsection{Exceptions}
+
+Control flow is mainly dictated by program state, and manipulated using jumps, branches, calls and returns. 
+To react to changes in system state, exceptional control flow is used instead.
+
+\textbf{Low level mechanisms}
+\begin{itemize}
+    \item Hardware Exceptions
+    \item Exceptions via combination of Hardware and OS software
+\end{itemize}
+
+\textbf{High level mechanisms}
+\begin{itemize}
+    \item Process context switch
+    \item Signals
+    \item Nonlocal jumps
+    \item Language-level exceptions (e.g. Java)
+\end{itemize}
+
+Generally, on an exception, control is transferred to a handler specific to the type of exception, which investigates the situation and returns control upon success.
+Mostly, this is handled via a \textit{Exception Table} which is allocated on boot. On exception, this table is indexed depending on the type of exception to locate the corresponding handler. This causes a switch to Kernel Mode.
+
+\inlinedef \textbf{Exception}: A control transfer to the OS in reponse to an event
+\begin{itemize}
+    \item \textbf{Synchronous}: result of executing some instruction
+    \item \textbf{Asynchronous}: result of an event external to the processor
+\end{itemize}
+
+\begin{center}
+    \begin{tabular}{l|l|l}
+        \textbf{Type of exception} & \textbf{Cause} & \textbf{Async/Sync} \\
+        \hline
+        Interrupt & Signal from I/O device          & Async     \\
+        Trap      & Intentional exception           & Sync      \\
+        Fault     & Potentially recoverable error   & Sync      \\
+        Abort     & Nonrecoverable error            & Sync      \\
+    \end{tabular}
+\end{center}
+
+\subsubsection{Synchronous Exceptions}
+
+\inlinedef \textbf{Trap} is an intentional exception that transfers control back to the next instruction
+
+For example, opening a file in \verb|C| executes a trap via a system call.
+
+\inlinedef \textbf{Fault} is an unintentional, possibly recoverable exception. Either re-executes faulty instruction or aborts
+
+For example, page faults, protection faults, floating point exceptions
+
+\inlinedef \textbf{Abort} is unintentional and unrecoverable. Always aborts the program.
+
+For example, a machine error.
+
+\subsubsection{Asynchronous Exceptions}
+
+Asynchronous Exceptions are indicated by setting the processor's (physical) interrupt pin.
+
+For example, 
+\begin{itemize}
+    \item \textbf{Interrupts} are actions like network data arrival or hitting a key on the keyboard
+    \item \textbf{Hard Reset Interrupts} are executed by hitting the system reset button
+    \item \textbf{Soft Reset Interrupts} ate caused by, for example, hitting \verb|CTRL|+\verb|ALR|+\verb|DEL|
+\end{itemize}
