@@ -1,0 +1,28 @@
+\subsubsection{Synchronization}
+As we have outlined, sequential consistency may not be desirable when trying to build a high-performance system.
+We thus may want to relax sequential consistency.
+A primary reason to this is out-of-order execution giving a massive speed boost, as we do not have to wait for slow memory accesses to finish
+and can already compute what we have ready.
+Luckily, there are plenty of ways to work around this. For example, we can make later writes bypass earlier writes, later reads bypass earlier writes,
+break write atomicity (i.e. the order is not fixed anymore) or we cannot make any ordering guarantees at all.
+
+\texttt{x86} introduces specific instructions for synchronizing, for example \texttt{lfence} (load fence), \texttt{sfence} (store fence), \texttt{mfence} (memory fence) and others.
+It is typical for an \texttt{x86-64} processor to implement relaxed sequential consistency and this is sometimes referred to as Total Store Ordering (TSO).
+
+As a general rule, the weaker the consistency model is, the quicker it runs and the cheaper it is in hardware.
+However too week a consistency model and some algorithms will simply stop working correctly.
+
+\inlinedef \textbf{Barriers / Fences} are synonyms and are used to stop either the compiler or the CPU from reordering instructions or statements for order-critical operations.
+
+\content{Compiler barriers} If we use \texttt{gcc}, we can use the following compiler intrinsic to stop it from reordering visible loads and stores:
+\mint{c}|__asm__ __volatile __ ("" ::: "memory");|
+
+The above intrinsic will also apply a memory barrier, which in terms of assembly code will use the \texttt{mfence} instruction.
+This instruction stops the CPU reordering past it, i.e. any instruction before the fence cannot happen after one behind the fence.
+However, any instructions past the fence are fair game and can be reordered (i.e. two instructions behind the fence can be reordered).
+
+If we only need this for stores or loads, we can use \texttt{lfence} or \texttt{sfence}, respectively.
+
+\content{TAS} (Test-and-Set)
+
+\content{CAS} (Compare-and-Swap)

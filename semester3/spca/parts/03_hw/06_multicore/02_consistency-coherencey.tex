@@ -1,9 +1,85 @@
 \subsubsection{Coherency and Consistency}
-\fancydef{Coherency} The values in cache all match each other and the processors all see a coherent view of the memory
+\inlinedef \textbf{Coherency} The values in cache all match each other and the processors all see a coherent view of the memory
 
-\fancydef{Consistency} The order in which changes are seen by different processors is consistent
+\inlinedef \textbf{Consistency} The order in which changes are seen by different processors is consistent
 
 Most modern system's CPU cores are caches coherent, i.e. it behaves as if all cores access a single memory array.
 This leads to one big advantage: It is easy to program, however is hard to implement in hardware and memory is also slower as a result.
 
-Memory consistency on the other hand is not standardized across companies
+Memory consistency on the other hand is not standardized across manufacturers.
+We are asking questions like what happens if several processors read and write data, which value is read by each one of them?
+That question is not easy to answer and there is also more than one ``correct'' answer.
+The key though is to \textit{have} an answer.
+
+\inlinedef \textbf{Program order} is the order in which a program on a processor \textit{appears} to issue reads and writes.
+This only refers to local reads and writes and even on a uniprocessor (in other words, a single core processor),
+it does not correspond to the order in which the CPU issues them
+
+\inlinedef \textbf{Visibility order} is the order in which all reads and writes are seen by one or more processors.
+This refers to all operations on the machine and might not be the same for all processors.
+Each processor then reads the value written by the last write in visibility order.
+
+\inlinedef \textbf{Sequential consistency} Operations from a processor appears to all others in \bi{program order}
+and every processor's visibility order is the same \textit{interleaving} of all the program orders.
+For that to work, every processor has to issue memory operations in program order, the RAM then has to totally order all operations
+and the operations have to be globally atomic.
+
+You can imagine that to work as though the each processor issues a memory operation and the memory picking a (random) processor to process the request from,
+which it completes fully and then chooses another processor.
+
+Advantages include being easily understandable for programmers, it being easier to write correct code for and it makes code more easily automatically analyzable.
+On the other hand, it is hard to make it fast, as we cannot reorder reads or writes (which can often speed up processing) and we cannot combine writes to the same cache line.
+
+In Hardware it can be challenging to maintain proper sequential consistency, as multiple caches could hold invalid lines.
+This can however be worked around in hardware.
+
+\content{Snoopy caches} are caches that ``snoop'' on reads and writes from other processors and thus, if a line that is valid in the local cache is written by another processor,
+the local line is invalidated.
+A write-through cache makes life a bit easier, but it can also work with a write-back cache, if cache lines can be marked as dirty (i.e. modified).
+It also requires a cache coherency protocol. A simple example is the \texttt{MSI} protocol, where a line can have three states (modified, shared, invalid).
+It basically forms a finite state machine that looks a bit like this:
+\begin{center}
+    \begin{tikzpicture}[
+        main/.style={ellipse, draw, fill=blue!20, minimum size=10mm, inner sep=0pt},
+        local/.style={rectangle, draw, fill=gray!20},
+        remote/.style={rectangle, draw, fill=red!20},
+        >={Stealth[round]}
+        ]
+
+        \node[main] at (-5, 0) (invalid) {Invalid};
+        \node[main] at (0, -2) (shared) {Shared};
+        \node[main] at (5, 0) (modified) {Modified};
+        \path[->]
+        (invalid) edge [bend left] node [above right, local] {read miss} (shared)
+        (invalid) edge [bend left] node [above, yshift=0.1cm, local] {write miss} (modified)
+        (modified) edge [out=90, in=90] node [below, local] {eviction} node [above, remote] {write} (invalid)
+        (shared) edge [loop below] node [below, local] {read} node [below, yshift=-0.5cm, remote] {read miss}
+        (invalid) edge [bend left] node [above, yshift=0.1cm, local] {write} (modified)
+        (modified) edge [bend left] node [below, local] {cache write back} node [above, remote] {read miss} (shared)
+        (shared) edge [bend left] node [below, local] {eviction} node [above, remote] {write} (invalid);
+    \end{tikzpicture}
+\end{center}
+As nice as MSI is, as basically everything that is simple, it comes with issues, primarily here that it introduces unnecessary broadcasts.
+
+\newpage
+\content{MESI} is an extension to the MSI protocol in which the processor gets to know that it is the only reader of a block. It has four states:
+\begin{itemize}
+    \item \bi{Modified}: This is the only copy, but it's modified.
+    \item \bi{Exclusive}: This is the only copy and it is not modified
+    \item \bi{Shared}: This might be one of several copies, all clean
+    \item \bi{Invalid}
+\end{itemize}
+When accessing cache, it signals a remote processor that it has hit the local cache.
+The cache can then load a block in either \textit{shared} or \textit{exclusive} states depending on whether or not the block is a HIT in the remote processor cache.
+
+This finite state machine is much more complex and can be found on slide 55 in the lecture slides of lecture 20.
+
+\content{MOESI} AMD then added an owner state, in which the line can be modified, but there exist dirty copies in other caches.
+It has the benefit of being more quickly readable, by using the owner's cache.
+This of course is only beneficial if the latency to the remote cache is lower than to main memory, which in case of AMD CPUs, it is starting with the Zen 3 architecture
+and thus the Vermeer series of desktop CPUs (i.e. Ryzen 5000 series), as they are the first AMD CPUs with a unified L3 cache for each CCX,
+compared to unified cache for only four cores.
+
+\content{MESIF} Intel added a forward state, in which cache requests are forwarded to the most recent cache line.
+Again, we only benefit from this if cache latency is lower than main memory latency and thus, Alder Lake (12000 series) and later benefit from the more than previous generations.
+(technically, also Intel 4004 in 1971 until the first Pentium, but they are hardly relevant today)
