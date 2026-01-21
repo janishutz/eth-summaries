@@ -1,0 +1,56 @@
+\subsection{Code Optimizations}
+
+By understanding the underlying hardware, simple code optimizations can be made to improve performance significantly.
+
+To analyze program performance, a solid benchmark and performance metrics need to be chosen.
+
+Common metrics are:
+\begin{enumerate}
+    \item \textbf{Latency} i.e. how long does a request take?
+    \item \textbf{Throughput} i.e. how many requests (per second) can be processed?
+\end{enumerate}
+
+For pipelined processors, throughput is more tricky to specify. Usually, the steady-state throughput is considered.
+
+\inlinedef \textbf{Cycles per Element} (CPE) is used as a performance metric for operations on vectors/lists. \\
+The execution time $t$ can then be formulated as: $t = \text{CPE} \cdot n + \text{Overhead}$. ($n$ is the vector/list size)
+
+\inlinedef \textbf{Cycles per Instruction} (CPI) is the inverse of \textit{Instructions per Cycle}
+
+CPI can be further divided into $\text{CPI} = \text{CPI}_\text{Base} + \text{CPI}_\text{Stall}$ assuming a pipelined processor, which may stall for many reasons: Data hazards, control hazards, memory latency ...
+
+\inlinedef \textbf{Clock Cycle Time} (CCT) is the inverse of \textit{Clock Frequency}
+
+Using these we can define Program Execution Time: $t = n \cdot \text{CPI} \cdot \text{CCT}$ ($n$ is the instruction count)
+
+\inlinedef \textbf{Instruction Level Parallelism} (ILP) is the natural parallelism occuring through independent instructions.
+
+\textit{Superscalar} Processors capitalize on ILP by executing multiple instructions per cycle. The instructions are (usually) scheduled dynamically. This is particularly great since it requires no effort from the programmer.
+
+Different instructions generally may take vastly different amounts of time, though this can be reduced via pipelining and multiple execution units. 
+
+\content{Example} This table is specific to an Intel Haswell CPU.
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        \textbf{Instruction} & \textbf{Latency} & \textbf{Cycles/issue} \\
+        \hline
+        Load/store            & 4     & 1     \\
+        Int Add               & 1     & 1     \\
+        Int Multiply          & 3     & 1     \\
+        Int/Long Divide       & 3--30 & 3--30 \\
+        FP Multiply           & 5     & 1     \\
+        FP Add                & 3     & 1     \\
+        FP Divide             & 3--15 & 3--15 \\
+    \end{tabular}    
+\end{center}
+
+Performance of these operations is \textbf{Latency bound} if they are sequential, \textbf{Throughput bound} if they can run parallel.
+
+\content{Example} \textbf{Loop unrolling} can increase performance for latency bound operations. (Optimization flags \textit{should} do this)
+
+Unrolling can be done to an arbitrary degree, but there are diminishing returns at some point. An ideal unrolling factor must be found experimentally.
+
+\content{Example} \textbf{Reassociation} can also improve performance for parallelizable operations, if it breaks some sequential dependency.
+
+\content{Example} \textbf{Separate Accumulators} can improve performance for latency bound operations too, as separate load/store units may be used.

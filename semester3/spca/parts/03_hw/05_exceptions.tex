@@ -1,0 +1,64 @@
+\newpage
+\subsection{Exceptions}
+
+Control flow is mainly dictated by program state, and manipulated using jumps, branches, calls and returns. 
+To react to changes in system state, exceptional control flow is used instead.
+
+\textbf{Low level mechanisms}
+\begin{itemize}
+    \item Hardware Exceptions
+    \item Exceptions via combination of Hardware and OS software
+\end{itemize}
+
+\textbf{High level mechanisms}
+\begin{itemize}
+    \item Process context switch
+    \item Signals
+    \item Nonlocal jumps
+    \item Language-level exceptions (e.g. Java)
+\end{itemize}
+
+Generally, on an exception, control is transferred to a handler specific to the type of exception, which investigates the situation and returns control upon success.
+Mostly, this is handled via a \textit{Exception Table} which is allocated on boot. On exception, this table is indexed depending on the type of exception to locate the corresponding handler. This causes a switch to Kernel Mode.
+
+\inlinedef \textbf{Exception}: A control transfer to the OS in reponse to an event
+\begin{itemize}
+    \item \textbf{Synchronous}: result of executing some instruction
+    \item \textbf{Asynchronous}: result of an event external to the processor
+\end{itemize}
+
+\begin{center}
+    \begin{tabular}{l|l|l}
+        \textbf{Type of exception} & \textbf{Cause} & \textbf{Async/Sync} \\
+        \hline
+        Interrupt & Signal from I/O device          & Async     \\
+        Trap      & Intentional exception           & Sync      \\
+        Fault     & Potentially recoverable error   & Sync      \\
+        Abort     & Nonrecoverable error            & Sync      \\
+    \end{tabular}
+\end{center}
+
+\subsubsection{Synchronous Exceptions}
+
+\inlinedef \textbf{Trap} is an intentional exception that transfers control back to the next instruction
+
+For example, opening a file in \verb|C| executes a trap via a system call.
+
+\inlinedef \textbf{Fault} is an unintentional, possibly recoverable exception. Either re-executes faulty instruction or aborts
+
+For example, page faults, protection faults, floating point exceptions
+
+\inlinedef \textbf{Abort} is unintentional and unrecoverable. Always aborts the program.
+
+For example, a machine error.
+
+\subsubsection{Asynchronous Exceptions}
+
+Asynchronous Exceptions are indicated by setting the processor's (physical) interrupt pin.
+
+For example, 
+\begin{itemize}
+    \item \textbf{Interrupts} are actions like network data arrival or hitting a key on the keyboard
+    \item \textbf{Hard Reset Interrupts} are executed by hitting the system reset button
+    \item \textbf{Soft Reset Interrupts} ate caused by, for example, hitting \verb|CTRL|+\verb|ALR|+\verb|DEL|
+\end{itemize}

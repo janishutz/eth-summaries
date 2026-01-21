@@ -1,0 +1,10 @@
+\newpage
+\subsection{Vector Operations}
+
+Extreme performance gains beyond the results of the previous section can be gained using hardware vector registers on supported CPUs.
+
+\content{Example} In Intel AVX2, $256$b vector registers like \verb|%ymm0|, \verb|%ymm1| can be used to perform component-wise single/double precision FP operations.
+\begin{minted}{gas}
+    vaddsd  %ymm0, %ymm1, %ymm1     # Comp.-wise 32b FP add
+    vaddsd  %ymm0, %ymm1, %ymm1     # Comp.-wise 64b FP add
+\end{minted}
