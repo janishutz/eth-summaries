@@ -1,0 +1,21 @@
+\subsubsection{Limitations}
+\content{The Power Wall} More and more transistors need more and more power, thus leading to power delivery and dissipation becoming and issue.
+To compute the power dissipation, use the formula $P_{diss} = P_{dyn} + P_{leak} + P_{short}$,
+where $P_{dyn} = C V^2 f$ (with $C$ the capacitance, $V$ the supply voltage and $f$ the processor frequency) is the dynamic power,
+$P_{leak}$ the leakage power (see DDCA) and $P_{short}$ the short circuit power while switching.
+
+At some point the chip becomes almost impossible to cool. A great example of a CPU series that suffers from this is the Intel Rocket Lake CPUs.
+The Intel Core i9-14900K is notoriously hot-running, using almost 300 watts for a very small chip and thus runs very hot.
+
+Thus, to further increase performance, chip designers are trying to make the hardware more efficient, which allows them to further boost performance with extra power headroom.
+
+\content{The Memory Wall} Between 1985 and 2005, CPU performance has increased on average by 55\% a year, whereas memory throughput has only increased by roughly 10\% a year.
+Thus, performance has more and more become limited by memory performance rather than pure CPU performance and to this day is the largest overhead in most applications.
+
+\content{The ILP Wall} While it is possible to improve single core performance using instruction-level parallelism,
+this has been thoroughly exhausted and is not a feasible way to significantly improve CPU performance.
+
+Around 2003, all of these walls were hit simultaneously, as they hit a power wall and thus could not clock the processors any higher,
+the memory access times were the limiting factors and ILP was almost completely exhausted, as not enough parallel instructions existed in code.
+
+Current trends are a reduction in clock frequency in favour of more parallelism in the hardware, e.g. by providing more cores, or better caching, branch prediction, etc.

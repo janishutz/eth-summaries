@@ -1,0 +1,25 @@
+\newpage
+\subsection{Multi-Core}
+\subsubsection{Background}
+In the early days of computer hardware it was fairly easy to get higher performance due to the rapid advances in transistor technology.
+However, today, what is known as Moore's Law (i.e. that the transistor count of integrated circuits doubles every two years).
+However, due to power constraints and the slowing down of advances in transistor technology,
+the transistor count growth has slowed down quite a bit since the beginning of the century and is predicted to further stagnate as time goes on.
+
+This leads to various issues, among others, the performance of CPUs isn't going up as quickly anymore as it used to.
+Additionally, due to power constraints, building faster and faster single-core CPUs is not possible and the advances in that field have slowed to a crawl.
+
+To mitigate and offset these issues, manufacturers started to add multiple cores to parallelize operations.
+This however brings a whole host of new issues with it, for example, how do you make sure that no data races occur,
+how do you schedule, etc? These questions have mostly been answered in the course Parallel Programming, so we will not cover that here.
+
+The only reason transistor count is still growing at a seemingly constant rate today is that manufacturers manage to cram more and more cores into a CPU.
+But even that has slowed down in recent years.
+
+While in 2019 a highest core count AMD EPYC CPU (i.e. the EPYC 7742 from the ROME family) had 64 Zen 2 cores,
+in 2025 the highest core count EPYC CPU (i.e. the EPYC 9965 from the EPYC Turin Dense Family) had 192 Zen 5c cores,
+where the highest full core CPU was the EPYC 9755 (from the EPYC Turin family), which had 128 Zen 5 cores.
+
+The way they manage this while not hitting the power wall is by making the CPUs physically larger.
+While a consumer Ryzen 9 9950X3D (the fastest consumer CPU at the time of writing) easily fits into the palm of even a small hand,
+an EPYC Turin CPU is so large that it covers most of even a big hand.

@@ -1,0 +1,9 @@
+\subsubsection{Coherency and Consistency}
+\fancydef{Coherency} The values in cache all match each other and the processors all see a coherent view of the memory
+
+\fancydef{Consistency} The order in which changes are seen by different processors is consistent
+
+Most modern system's CPU cores are caches coherent, i.e. it behaves as if all cores access a single memory array.
+This leads to one big advantage: It is easy to program, however is hard to implement in hardware and memory is also slower as a result.
+
+Memory consistency on the other hand is not standardized across companies
