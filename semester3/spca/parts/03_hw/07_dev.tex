@@ -1,0 +1,72 @@
+\subsection{Devices}
+
+From a programmer's perspective a Device can be seen as:
+\begin{itemize}
+    \item Hardware assessible via software
+    \item Hardware occupying some bus location
+    \item Hardware mapping to some set of registers
+    \item Source of interrupts
+    \item Source of direct memory transfers
+\end{itemize}
+
+\subsubsection{Device Registers}
+
+Sometimes devices expose register: The CPU can load from these to obtain e.g. status info or inpur data. 
+The CPU can store to device registers to e.g. set device state or write output.
+
+Device registers can be addressed in 2 different ways:
+\begin{enumerate}
+    \item \textbf{Memory Mapped}: Registers \textit{appear} as memory locations, access via \texttt{movX}
+    \item \textbf{IO Instructions}: Special ISA instructions to work with devices
+\end{enumerate}
+
+It's important to note: despite \textit{appearing} as memory, device registers behave differently: State may change without CPU manipulation and writes may trigger actions.
+The specific way this interaction works is device-specific.
+
+\content{Example} A very simple device driver in \texttt{C} may look like this:
+
+\inputcodewithfilename{c}{code-examples/03_hw/}{00_driver.c}
+
+Of course, a proper driver would also include error handling, initialization and wouldn't spin to wait. To avoid waiting, interrupts are usually used.
+
+\content{Caches} For Device Registers, the cache must be bypassed. Memory mapped IO causes a lot of issues for caching: 
+\begin{enumerate}
+    \item Reads can't be cached (Value may change independent of CPU)
+    \item Write-back doesn't work exactly (Device controls when the write happens)
+    \item Reads and writes can't be combined into 1 cache-line
+\end{enumerate}
+
+\newpage
+\subsubsection{Direct Memory Access}
+
+Direct Memory Access (DMA) requires a dedicated DMA controller, which is generally built-in nowadays. 
+DMA allows bypassing the CPU entirely: Data is transferred directly between IO device and memory.
+This is especially useful for large transfers, but not small transfers due to the induced overhead.
+
+The key advantage is that data transfer and processing are decoupled.\\ 
+The CPU never needs to deal with copying between device and memory, and the CPU cache is never polluted. 
+
+The key disadvantage is that Memory is inconsistent with the CPU cache. This is addressed in various ways:
+\begin{enumerate}
+    \item CPU may mark DMA buffers as \textit{non-cacheable}
+    \item Cache can \textit{snoop} DMA bus transactions (Doesn't scale well, only for small systems)
+    \item OS can explicitly flush/invalidate cache regions. (Usually done by a device driver)
+\end{enumerate}
+
+Another issue is that DMA addresses are \textit{Physical}. The OS (via device drivers) must \textit{manually} translate these to virtual addresses. 
+Some systems also contain a dedicated component called IOMMU that deals with this.
+
+\subsubsection{Device Drivers}
+
+Device drivers are programs used by the OS to communicate with devices. In a nutshell, the driver is the only program that \textit{directly} interacts with the device, any other program talks to the device \textit{through} the driver (which ideally abstracts away a lot of the process).
+
+Intuitively, both the driver and device can be thought of as state machines, which affect eachother.
+
+\inlinedef \textbf{Descriptor Ring} is a type of buffer commonly used to interact with devices. The datastructure is a looped queue (ring): Device reads from the head, OS writes at the tail. The space beyond is then "owned" by the device/OS.
+
+This can either be implemented as contiguous memory or using pointers (which is mainly what is done in practice, for flexibility).
+Overruns (Device has no buffers for received packets) and Underruns (CPU has read all received packets) are usually handled sensibly: i.e. the CPU waits for an interrupt or the device will simply wait.
+
+\content{Parallel Programming}: These are producer/consumer queues! But these use messages instead of mutexes and monitors.
+
+% The slides contained a lot of examples and gave an intro to how PCI(e) works, but I don't think it's very relevant
