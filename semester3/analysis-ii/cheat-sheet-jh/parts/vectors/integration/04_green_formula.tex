@@ -20,4 +20,37 @@ $\gamma_i$ as above, then
 \begin{align*}
     \text{Vol}(X) = \sum_{i = 1}^{k} \int_{\gamma_i} x \dx \vec{s} = \sum_{i = 1}^{k} \int_{a_i}^{b_i} \gamma_{i, 1}(t) \gamma_{i, 2}'(t) \dx t
 \end{align*}
-% TODO: Notes from TA starting W13 P5
+
+\drmvspace
+\shade{gray}{Understanding and applying Green's Formula} The $\frac{\partial f_2}{\partial x} - \frac{\partial f_1}{y} = \text{curl}(f)$, i.e. it is the 2D-curl of $f$.
+Thus, the sum of all line integrals is the same thing as the Riemann-Integral of the curl.
+
+We can use Green's Formula to compute integrals. For that we need the set of curves that define the set.
+For the unit circle, that is just one curve,
+being $\gamma(t) = \begin{pmatrix}
+        R \cdot \cos(t) \\
+        R \cdot \sin(t)
+    \end{pmatrix}$, with $t \in [0, 2\pi]$.
+We then use the curve as the vector $\vec{s}$ in Green's Formula.
+As a reminder, the vectors are multiplied with the dot product.
+If we just have one curve, there is no sum (i.e. the sum sums up all the integral of all curves)
+
+\numberingOff
+\inlineex To compute the line integral of the vector field $f(x, y) = \begin{pmatrix}
+    x + y\\
+    3x + y^2
+\end{pmatrix}$ over a complicated curve.
+Instead of computing the line integral, we can use Green's Formula to compute the curl over the set enclosed by the curve.
+This has the benefit that depending on the vector field, we won't even have to evaluate the integral:
+\begin{align*}
+    \int_{S} \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial  y} \dx x \dx y = \int_{S} (3 - 1) \dx x \dx y = \int_{S} 2\dx x \dx y
+    = 2 \left( (2 \cdot 1) + \frac{1}{2} \pi \right) = 4 + \pi
+\end{align*}
+for the set $S = \{ (x, y) \divides x \in [0, 2], y \in [-1, 0] \} \cup \{ (x, y) \divides (x - 1)^2 + y^2 \leq 1, y \geq 0 \}$.
+
+That set is derived from the image that is given for the line.
+Be cognizant of what direction the integral goes, if the set is on the right hand side of the curve, the final result has to be negated to change the direction of the integral.
+If the curve doesn't fully enclose the set, then we can simply compute the line integrals of the missing sections and subtract them from the final result.
+
+\shade{gray}{Center of mass}
+% TODO: Finish the notes here
