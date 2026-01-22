@@ -36,6 +36,7 @@ The integral of a continuous function $f: X \rightarrow \R$ with $X \subseteq \R
           \rmvspace
           In particular, if $Y$ empty (or size is ``negligible''), then $\int_{X} f(x) \dx x = \int_{X_1} f(x) \dx x + \int_{X_2} f(x) \dx x$
 \end{enumerate}
+%
 \setLabelNumber{all}{3}
 \shortdef For $m \leq n \in \N$, a \bi{parametrized $m$-set} in $\R^n$ is a continuous map $f: [a_1, b_1] \times \ldots \times [a_m, b_m] \rightarrow \R^n$,
 which is $C^1$ on $]a_1, b_1[ \times \ldots \times ]a_m, b_m[$.
@@ -43,6 +44,29 @@ $B \subseteq \R^n$ is \bi{negligible} if $\exists k \geq 0 \in \Z$ and parametri
 $X \subseteq f_1(x_1) \cup \ldots \cup f_k(X_k)$. A parametrized $1$-set in $\R^n$ is a parametrized curve.
 \shortex Any $\R \times \{ 0 \} \subseteq \R^2$ is negligible in $\R^2$, or more generally,
 if $H \subseteq \R^n$ is an affine subspsace of dimension $m < n$, then any subset of $\R^n$ that is contained in $H$ is negligible.
-Image of par. curve $\gamma: [a, b] \rightarrow \R^n$ is negligible, since $\gamma$ is a $1$-set in $\R^n$
-
+Image of par. curve $\gamma: [a, b] \rightarrow \R^n$ is negligible, since $\gamma$ is a $1$-set in $\R^n$\\
+%
 \shortproposition $X$ compact set, negligible. Then for any cont. function on $X$, $\displaystyle\int_{X} f(x) \dx x = 0$
+
+\mrmvspace
+\shade{gray}{Computing it}
+\bi{How to find the actual integrals from the intervals:} \hl{(Be careful with order of $x$ and $y$!)}
+\rmvspace
+\begin{itemize}[noitemsep]
+    \item Given an integral $\int_{D} f(x, y) \dx x \dx y$ for a set (or region) $X$ that is bounded by the coordinate axes and the line $x + y = 2$,\
+          the integral we can actually compute is $\int_{0}^{2} \int_{0}^{2} f(x, y) \dx y \dx x$.
+    \item Given an integral $\int_{X} g(x, y) \dx x \dx y$ with $X = [0, 1] \times [0, 2]$ and $g(x) = x^2 + y^2$. Then the integral should be obvious:
+          $\int_{0}^{1} \int_{0}^{2} g(x, y) \dx y \dx x$
+    \item \textit{Harder example} Given integral $\int_Y h(x, y) \dx x \dx y$ with $Y = \{ (x, y) \divides x \in [0, 1], y \leq 2x \land y \geq -2x \}$.
+          A good idea is to visualize the set: This one is a triangle and the integral is
+          $\int_{0}^{1} \int_{-2x}^{2x} h(x, y) \dx y \dx x$
+    \item \textit{Non-obvious example} For a set $U = \{ (x, y) : \sqrt{ x^2 + y^2 } \leq R \}$, we have the integral
+          $\displaystyle \int_{-R}^{R} \int_{-\sqrt{R^2 - x^2}}^{\sqrt{R^2 - x^2}} 1 \dx y \dx x$.
+          The new limits were attained by a simple inequality transformation, because in such equations, $y$ could be $0$ (and thus $|x|$ is limited by $R$)
+\end{itemize}
+
+\rmvspace
+\bi{How to compute the integral:} We compute each integral "inside out". For a definite integral, don't just find the anti-derivative, compute the actual integral!
+For an integral as seen in the harder example, we compute it as we normally would, simply using the $\pm 2x$ as the $a$ and $b$
+
+\rmvspace

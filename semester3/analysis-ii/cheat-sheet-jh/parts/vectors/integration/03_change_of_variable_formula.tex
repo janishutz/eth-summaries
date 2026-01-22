@@ -1,9 +1,35 @@
 \newsectionNoPB
 \subsection{Change of Variable Formula}
-\compacttheorem{Change of variable formula} $\overline{X}, \overline{Y} \subseteq \R^n$ compact, $\varphi : \overline{X} \rightarrow \overline{Y}$ continuous.
-For the open sets $X, Y$, negligible sets $B, C$ and restriction of $\varphi : X \rightarrow Y$ to open set $X$ is a $C^1$ bijection,
+\compacttheorem{Change of variable formula} $\overline{X}, \overline{Y} \subseteq \R^n$ compact, $\phi : \overline{X} \rightarrow \overline{Y}$ continuous.
+For the open sets $X, Y$, negligible sets $B, C$ and restriction of $\phi : X \rightarrow Y$ to open set $X$ is a $C^1$ bijection,
 we can write $\overline{X} = X \cup B$ and $\overline{Y} = Y \cup C$.
-The Jacobian $J_\varphi(x)$ is invertible at all $x \in X$.
-For any cont. func. $f$ on $\overline{Y}$ we have $\displaystyle \int_{\overline{X}} f(\varphi(x)) |\det(J_\varphi(x))| \dx x = \int_{\overline{Y}} f(y) \dx y$
-% TODO: Add notes from TA's notes for how to apply it
-\rmvspace
+The Jacobian $J_\phi(x)$ is invertible at all $x \in X$.
+For any continuous function $f$ on $\overline{Y}$ we have $\displaystyle \int_{\overline{Y}} f(y) \dx y = \int_{\overline{X}} f(\phi(x)) |\det(J_\phi(x))| \dx x$
+
+\hrmvspace
+\shade{orange}{Computing the determinant} Let $A = \begin{bmatrix}a & b\\c & d\end{bmatrix}$, then $\det(A) = ad - bc$.
+For 3D: $B = \begin{bmatrix}
+        a_1 & b_1 & c_1 \\
+        a_2 & b_2 & c_2 \\
+        a_3 & b_3 & c_3 \\
+    \end{bmatrix}$\\
+and $\det(B) = a_1 \cdot b_2 \cdot c_3 + b_1 \cdot c_2 \cdot a_3 + c_1 \cdot a_2 \cdot b_3 - c_1 \cdot b_2 \cdot a_3 - b_1 \cdot a_2 \cdot c_3 - a_1 \cdot c_2 \cdot b_3$
+
+\shade{gray}{How to use it} We could use it for example to switch from Cartesian to polar coordinates (then $x = r \cdot \cos(\varphi)$ and $y = r \cdot \sin(\varphi)$).
+
+\bi{Finding $\phi$:} Given integral $\displaystyle \int_{B} (1 - x^2 - y^2)^{\frac{n - 2}{2}} \dx x \dx y$ with $B = \{ (x, y) : x^2 + y^2 \leq 1 \}$.
+Here, it should immediately ring a bell that this can be rewritten using polar coordinates with $x^2 + y^2$ simplifying to $r^2$.
+Thus, $\phi(r, \phi) = (r \cos(\varphi), r \sin(\varphi))$. The boundaries then have to be determined from the reference boundaries using the inverse function of $\phi$
+
+\bi{Computing the integral:} When applying the formula, we replace all variables with their counterparts in $\phi$ (see above how to),
+we change the integration boundaries to fit our new variables and finally multiply everything by the Jacobian of $\phi$
+
+\bi{Example:} Using the integral from above, we get:
+\begin{align*}
+    \int_{0}^{1} \int_{0}^{2\pi} (1 - (r \cos(\varphi))^2 - (r \sin(\varphi))^2)^{\frac{n - 2}{2}} \cdot r \dx \varphi \dx r
+    = \int_{0}^{1} \int_{0}^{2\pi} (1 - r^2)^{\frac{n - 2}{2}} \cdot r \dx \varphi \dx r
+\end{align*}
+
+\bi{Likeliest case:} Changing into polar coordinates, then we replace $x = r \cos(\varphi)$ and $y = r \sin(\varphi)$ and replace$\dx x \dx y = r \dx r \dx \varphi$
+
+\bi{Connection to Analysis I:} This is just the generalization of the substitution rule for integrals
