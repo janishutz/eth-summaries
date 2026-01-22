@@ -1,0 +1,21 @@
+\newpage
+\subsubsection{Multicore synchronization}
+There are two main ways to synchronize, which are:
+\begin{enumerate}
+    \item \bi{Atomic operations} such as \texttt{TAS}, \texttt{CAS}, etc.
+          It does still have ordering constraints specified in the memory model
+    \item \bi{Interprocessor interrupts} (IPIs) This invokes the interrupt handler on remote CPU,
+          but is VERY slow (500+ cycles) and thus often avoided, except in the OS
+\end{enumerate}
+
+\content{TAS} (Test-and-Set) We can only set to the memory location using TAS if said location is $0$.
+It can thus be used for a mutex, with a simple spinlock, which is simple to implement and often the fastest if the lock isn't held for long.
+Since we most commonly do not read a value of \texttt{0} in the lock memory location, we can use a TATAS (Test And Test-and-Set) lock to reduce the performance overhead.
+
+\inputcodewithfilename{c}{}{code-examples/03_hw/01_tas.c}
+
+A word of caution: Do not use TAS to check if a value has changed outside a lock.
+It will most likely not not work in \lC\ and almost certainly not in \texttt{Java} or any higher level languages
+
+
+\content{CAS} (Compare-and-Swap)

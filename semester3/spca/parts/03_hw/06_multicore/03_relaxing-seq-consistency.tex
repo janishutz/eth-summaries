@@ -1,4 +1,4 @@
-\subsubsection{Synchronization}
+\subsubsection{Relaxing Sequential Consistency}
 As we have outlined, sequential consistency may not be desirable when trying to build a high-performance system.
 We thus may want to relax sequential consistency.
 A primary reason to this is out-of-order execution giving a massive speed boost, as we do not have to wait for slow memory accesses to finish
@@ -22,7 +22,3 @@ This instruction stops the CPU reordering past it, i.e. any instruction before t
 However, any instructions past the fence are fair game and can be reordered (i.e. two instructions behind the fence can be reordered).
 
 If we only need this for stores or loads, we can use \texttt{lfence} or \texttt{sfence}, respectively.
-
-\content{TAS} (Test-and-Set)
-
-\content{CAS} (Compare-and-Swap)
