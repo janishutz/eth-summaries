@@ -1,0 +1,11 @@
+\subsubsection{Performance and Optimization}
+Depending on the interconnect layout, accessing data from certain nodes is \textit{much} slower than from others.
+This especially happens if there is no direct path to the other node from the current node and the access needs to pass through other nodes.
+
+It is also of utmost importance to keep threads on the same CPU to improve locality, which improves cache coverage and try to pack data into a single cache line.
+Otherwise, the cache ``ping-pongs''.
+
+\content{MCS locks} There are many ways to improve performance on multiprocessor systems. The MCS lock is one of the best locking system for multiprocessors.
+It tries to solve the issue that if a cache line contains a lock, it is continuously invalidated and that dominates the intercom traffic.
+The solution to the problem is that a processor enqueues itself on a list of waiting processors and then spins on its \bi{own entry} in the list.
+\inputcodewithfilename{c}{}{code-examples/03_hw/02_mcs.c}

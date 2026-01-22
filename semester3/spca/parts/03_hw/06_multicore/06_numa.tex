@@ -1,0 +1,28 @@
+\subsubsection{Non-Uniform Memory Access}
+In a typical early SMP architecture, more cores were provided, but not necessarily more cache, or even completely shared cache between the cores.
+
+This is where the NUMA concept comes in, restricting each core, or group of cores to a subset of the memory.
+This specifically advantageous in large data centers, where there might be hundreds of CPUs with Terabytes of memory.
+
+Initially, NUMA was constricted to data center uses, but with the Zen microarchitecture, AMD has brought the concept to the consumer market,
+where larger and more performant CPUs with larger core counts are split into multiple CCXs (Core CompleXes), each with cache per core and cache per CCX.
+Then, there is the Infinity Fabric, which is a CCX interconnect, allowing the cores from the other CCX(s) to access the data in the cache of the current CCX.
+
+However, that is not a full NUMA implementation, as they still share one memory bus.
+In a multi CPU deployment (i.e. with multiple CPU sockets containing a CPU), they often have their own memory and memory controller, as well as an interconnect,
+allowing them to communicate with the other sockets to access their data in the memory.
+In such a deployment, a CPU socket with its own memory is referred to as a NUMA Node.
+
+Let's look at an example with two AMD EPYC 7742 CPUs, each having 64 cores. Each of these CPUs features 128 PCIe Gen 4 lanes,
+64 of which could be used for the Infinity Fabric CPU to CPU interconnect (which uses the PCIe Interface).
+It is comparatively slow, maxing out approximately at a theoretical 128 GB/s in one direction.
+Compare that to the roughly 205 GB/s bandwidth of DDR4 3200 MT/s
+
+\content{Cache coherence} We can no longer snoop on the bus, as it is no bus anymore.
+A solution is to emulate a bus, which enables something akin to snooping, but without the shared bus.
+Each node sends a message to all other nodes and waits for a reply from all the other nodes before proceeding.
+This is the way AMD's Infinity Fabric works (or used to work)
+
+Another option to circumvent the issue is to use a Cache Directory, where we store the data, the node ID of which one is the one it originated from,
+plus one bit per node indicating if the line is present in that node.
+It is primarily efficient if the lines are not widely shared or if there are lots of NUMA nodes.

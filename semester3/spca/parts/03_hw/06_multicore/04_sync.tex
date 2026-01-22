@@ -15,7 +15,43 @@ Since we most commonly do not read a value of \texttt{0} in the lock memory loca
 \inputcodewithfilename{c}{}{code-examples/03_hw/01_tas.c}
 
 A word of caution: Do not use TAS to check if a value has changed outside a lock.
-It will most likely not not work in \lC\ and almost certainly not in \texttt{Java} or any higher level languages
+It will most likely not not work in \lC\ and almost certainly not in \texttt{Java} or any higher level languages.
+In systems code however, it works well, as TAS is a hardware instruction.
+The processor won't reorder instructions past a TAS and the compiler also should not.
+They are told with memory fences and the use of the volatile keyword.
+
+However, be aware that the code depends on the processor architecture and its memory consistency model.
 
 
-\content{CAS} (Compare-and-Swap)
+\content{CAS} (Compare-and-Swap) first loads the current value, then checks if it is the same as the ``old'' value
+and only if it is sets it to the ``new'' value.
+The typical function signature of a CAS function is \texttt{CAS(location, old, new)} and it typically returns the old value.
+
+In comparison to TAS, CAS is commonly used for lock-free programming, whereas TAS is almost an integral part to programming with locks.
+As already covered in parallel programming, we can use CAS to read a value, do a computation with it, then commit it back, only if the value was unchanged,
+or else restart our computation.
+
+Another option is to use a ref counter, which by default is set to 1 on an ``untouched'' data structure.
+The global pointer points to the current memory location and should only be modified using CAS.
+
+When a reader reads the data, it is incremented (\texttt{ref1 = 2}).
+Then, if a writer comes along, it reads and increments the ref counter (\texttt{ref1 = 3}),
+then copies the data and decrements the ref counter of the original data (\texttt{ref1 = 2}, \texttt{ref2 = 1} by convention).
+It then uses CAS to swap the global pointer to the new data and decrements the ref count (\texttt{ref1 = 1}).
+When the reader now finishes, it decrements the ref counter of the original data again (\texttt{ref1 = 0}) and the data is deleted.
+
+\content{ABA problem} occurs if one process (or processor) does not see an intermediate change $B$ because a second change wrote back the same value, $A$,
+as it was before the intermittent change.
+This problem is caused by the fact that CAS doesn't tell you if the variable had been overridden or not, but only if the value is different.
+
+An easy way to solve this is to simply use more bits and make e.g. the upper few bits an always incrementing counter.
+
+\content{DCAS} (Double CAS) is an alternative option for CAS, where you compare two memory locations and you only update if both match.
+However, this proved to not useful over the normal CAS and was subsequently dropped by most ISAs,
+as everything you could achieve with DCAS could also be achieved really fast with just CAS.
+
+\content{In \texttt{x86}} There are many options, the easiest one being to prefix an instruction with \texttt{lock}, which locks the data buses.
+If you only want to use TAS, you can use the \texttt{xchg} instruction.
+The \texttt{lock xadd} instruction executes an atomic fetch and add.
+The \texttt{CMPXCHG}, \texttt{CMPXCHG8B} and \texttt{CMPXCHG16B} implement \texttt{32 bit}, \texttt{64 bit} and \texttt{128 bit} CAS, respectively,
+where the \texttt{128 bit} version is exclusive to \texttt{x86-64}

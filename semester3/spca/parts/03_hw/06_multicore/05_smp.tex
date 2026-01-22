@@ -1,0 +1,30 @@
+\subsubsection{Symmetric Multiprocessing}
+SMP allows multiple cores to access the same memory. 
+It does still allow each core to have a separate cache, which is a de-facto requirement for it to work, as otherwise the memory becomes an even more serious bottleneck.
+
+However, even with all the cache optimizations, the memory is still the bottleneck in SMP.
+The MOESI protocol can alleviate some of the slowness by enabling reads to be serviced by other caches,
+but that can again slow that cache down.
+Additionally, memory accesses can stall the current processor, as well as other processors while accessing data.
+
+So, to reduce idle times, we would like to issue instructions to the Functional Units (FUs), but Instruction Level Parallelism (ILP) is limited due to data dependencies.
+
+This is where SMT (Simultaneous Multithreading) comes into play. As of 2025, only AMD's consumer hardware features SMT, Intel has abandoned it with Arrow Lake (Core Ultra series).
+On most platforms, especially Intel platforms up to there, SMT was often referred to as Hyperthreading.
+It uses the fact that there are likely operations that can be served by cache in other threads and we can keep the FUs busy.
+
+There are three main ways of achieving SMT:
+\begin{itemize}
+    \item \bi{Thread IDs} There are multiple independent instruction streams with each having their own thread IDs for later reassignment.
+    \item \bi{Fine-grained MT} On every instruction dispatch, a thread to dispatch from is picked
+    \item \bi{Coarse-grained MT} When a memory stall is encountered, switch to another thread
+\end{itemize}
+Of note is that CPU cores with multithreading appear to the OS as multiple cores, and in the common case of what AMD and Intel (up to Arrow Lake) do (did),
+they would appear as two cores, which is also where the ``Thread'' count comes from on CPU spec sheets.
+
+As nice and good of an idea as this sounds, it isn't necessarily faster, as threads might be competing for cache, which is why Intel has abandoned SMT altogether
+and they are seeing quite competitive performance.
+But then again, it is very cheap to implement in terms of extra transistors used, but the performance gain is in the 10-20\% range typically, if even.
+
+Finally, the performance gain strongly depends on the workload. Scientific computing rarely benefits from it, as the compute is often the limiting factor,
+however, web servers for example strongly benefit from it, as they are commonly severely memory constrained.
