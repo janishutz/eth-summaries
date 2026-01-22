@@ -3,7 +3,7 @@ In comparison to most other languages, \lC\ does not feature automatic memory ma
 This of course has both advantages and disadvantages.
 
 \rmvspace
-\inputcodewithfilename{c}{code-examples/00_c/02_memory/}{00_memory.c}
+\inputcodewithfilename{c}{}{code-examples/00_c/02_memory/00_memory.c}
 \drmvspace
 
 Notably, the argument \texttt{size\_t sz} for \texttt{malloc}, \texttt{calloc} and \texttt{realloc} is an \texttt{unsigned} integer of some size
@@ -15,7 +15,7 @@ you get undefined behaviour.
 \warn{Memory corruption} There are many ways to corrupt memory in \lC. The below code shows off a few of them:
 
 \rmvspace
-\inputcodewithfilename{c}{code-examples/00_c/02_memory/}{01_mem-corruption.c}
+\inputcodewithfilename{c}{}{code-examples/00_c/02_memory/01_mem-corruption.c}
 \drmvspace
 
 \warn{Memory leaks} If we allocate memory, but never free it, we use more and more memory (old memory is inaccessible)

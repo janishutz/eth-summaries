@@ -69,9 +69,9 @@ The stack is commonly used for recursive functions. A recursive factorial functi
 Note how \texttt{\%rbx} is saved on the stack, since \texttt{rbx} is callee-saved by convention. \\
 \texttt{\%eax} is used directly, since it is caller-saved by convention.
 
-\inputcodewithfilename{gas}{code-examples/01_asm/}{06_factorial.s}
+\inputcodewithfilename{gas}{}{code-examples/01_asm/06_factorial.s}
 
 A more complex example, passing addresses as arguments: \\
 This function swaps 2 array elements (using a \texttt{swap} function) and adds the first value to an accumulator.
 
-\inputcodewithfilename{gas}{code-examples/01_asm/}{07_swap_and_sum.s}
+\inputcodewithfilename{gas}{}{code-examples/01_asm/07_swap_and_sum.s}

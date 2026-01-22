@@ -10,7 +10,7 @@ Be wary of including files twice, as the preprocessor will recursively include a
 The \lC\ preprocessor gives us what are called \texttt{preprocessor macros}, which have the format \verb|#define NAME SUBSTITUTION|.
 \rmvspace
 
-\inputcodewithfilename{c}{code-examples/00_c/01_preprocessor/}{00_macros.c}
+\inputcodewithfilename{c}{}{code-examples/00_c/01_preprocessor/00_macros.c}
 
 To avoid issues with semicolons at the end of preprocessor macros that wrap statements that cannot end in semicolons, we can use a concept called semicolon swallowing.
 For that, we wrap the statements in a \texttt{do \dots\ while(0)} loop, which is removed by the compiler on compile, also taking with it the semicolon.

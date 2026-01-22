@@ -9,11 +9,11 @@ The \texttt{setjmp( jmp\_buf env } function stores the current stack / environme
 The \texttt{longjmp( jmp\_buf env, int val )} function causes a second return, which returns \texttt{val},
 to the \texttt{setjmp} invocation and jumps back to that place.
 
-\inputcodewithfilename{c}{code-examples/01_asm/}{08_unorthodox-controlflow.c}
+\inputcodewithfilename{c}{}{code-examples/01_asm/08_unorthodox-controlflow.c}
 
 What the above code outputs is: \texttt{second} followed by \texttt{main}.
 
 \newpage
 They are implemented in Assembly as follows. Nothing really surprising for the implementation there.
 The assembly code is from the Musl \lC\ library
-\inputcodewithfilename{gas}{code-examples/01_asm/}{09_setjmp-longjmp.s}
+\inputcodewithfilename{gas}{}{code-examples/01_asm/09_setjmp-longjmp.s}
