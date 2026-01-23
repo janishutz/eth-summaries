@@ -2,7 +2,7 @@
 
 int main( int argc, char **argv ) {
     int a[ 2 ];
-    int *b = malloc( 2 * sizeof( int ) ), *c;
+    int *b = (int *) malloc( 2 * sizeof( int ) ), *c;
     a[ 2 ] = 5;          // assign past the end of an array
     b[ 0 ] += 2;         // assume malloc zeroes out memory
     c = b + 3;           // mess up your pointer arithmetic

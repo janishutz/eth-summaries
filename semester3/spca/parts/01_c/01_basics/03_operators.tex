@@ -5,6 +5,12 @@ In Table \ref{tab:c-operators}, you can see an overview of the operators, sorted
 You may notice that the \verb|&| and \verb|*| operators appear twice. The higher precedence occurrence is the address operator and dereference, respectively,
 and the lower precedence is \texttt{bitwise and} and \texttt{multiplication}, respectively.
 
+Additionally, \verb|+| and \verb|-| also appear twice, the higher precedence one being a unary plus or minus, respectively, which is used to denote positive or negative numbers,
+and it can also be used to do a sort-of assertion that we have an arithmetic type using the preprocessor macro
+\mint{c}|#define CHECK_ARITHMETIC(x) (+(x))|
+which will cause a compiler error if \texttt{x} is for example a pointer.
+Of course, the lower precedence \verb|+| and \verb|-| is addition and subtraction, respectively.
+
 Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as well as the ternary operator and assignment operators
 \begin{table}[h!]
     \begin{tables}{ll}{Operator                                  & Associativity}
@@ -34,7 +40,7 @@ Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as w
     \item Right-to-left: \texttt{A += B += C} $\mapsto$ \texttt{(A += B) += C}
 \end{itemize}
 
-As it should be, boolean and, as well as boolean or support early termination.
+As it should be, boolean and, as well as boolean or, support early termination.
 
 The ternary operator works as in other programming languages \verb|result = expr ? res_true : res_false;|
 

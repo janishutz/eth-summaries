@@ -4,7 +4,7 @@ On loading of a program, the OS creates the virtual address space for the proces
 before other preparations like final linking and relocation are done.
 
 Stack-based languages (supporting recursion) allocate stack in frames that contain local variables, return information and temporary space.
-When a procedure is entered, a stack frame is allocated and executes any necessary setup code (like moving the stack pointer, see later). % TODO: Link to correct section
+When a procedure is entered, a stack frame is allocated and executes any necessary setup code (like moving the stack pointer, see \ref{sec:asm-stack}).
 When a procedure returns, the stack frame is deallocated and any necessary cleanup code is executed, before execution of the previous frame continues.
 
 \bi{In \lC\ a pointer is a variable whose value is the memory address of another variable}
@@ -19,13 +19,15 @@ The (Linux)-Kernel randomizes the address space to prevent some common exploits.
 \end{scriptsize}
 
 \content{Pointer Arithmetic} Note that when doing pointer arithmetic, adding $1$ will move the pointer by \texttt{sizeof(type)} bits.
+Pointer arithmetic with a \texttt{void} pointer is thus not allowed by standard \lC, as the compiler does not know the size of the data type.
+However, \texttt{gcc} does allow it and assumes the size of \texttt{void} is \texttt{1 byte}.
 
 You may use pointer arithmetic on whatever pointer you'd like (as long as it's not a null pointer).
 This means, you \textit{can} make an array wherever in memory you'd like.
 The issue is just that you are likely to overwrite something, and that something might be something critical (like a stack pointer),
 thus you will get \bi{undefined} behaviour! (This is by the way a common concept in \lC, if something isn't easy to make more flexible
 (example for \texttt{malloc}, if you pass a pointer to memory that is not the start of the \texttt{malloc}'d section, you get undefined behaviour),
-in the docs mention that one gets undefined behaviour if you do not do as it says so\dots RTFM!)
+in the docs mention that one gets undefined behaviour if you do not do as it says, so\dots RTFM!)
 
 As already seen in the section arrays (section \ref{sec:c-arrays}), we can use pointer arithmetic for accessing array elements.
 The array name is treated as a pointer to the first element of the array, except when:

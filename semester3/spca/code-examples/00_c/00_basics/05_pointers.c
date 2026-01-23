@@ -30,6 +30,7 @@ int main( int argc, char *argv[] ) {
     assert( arr == &( arr[ 0 ] ) ); // Evaluates to true
     int new_arr[ 3 ] = arr;         // Compile time error (cannot use other array as initializer)
     int *new_arr_p = &arr[ 0 ];     // This works
+    void *t;
 
     a_function( &get_user_input_int, c_arr );
 

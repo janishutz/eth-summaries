@@ -52,9 +52,10 @@ in \texttt{C}, function symbols can explicitly be declared weak using:
 
 The second step during Linking is Relocation.
 
-Code and data sections of separate sources are combined, and symbols are relocated from relative locations (in \texttt{.o} files) to absolute locations (in \texttt{.exe} files)
+Code and data sections of separate sources are combined, and symbols are relocated from relative locations (in \texttt{.o} files) to absolute locations (in executable files)
 
-\textbf{Command line order matters} for this, since the Linker will scan \texttt{.o} and \texttt{.a} files in this order. In general, libraries should therefore be linked \textit{last}.
+\textbf{Command line order matters} for this, since the Linker will scan \texttt{.o} and \texttt{.a} files in the order they are appear in the CLI arguments.
+In general, libraries should therefore be linked \textit{last}.
 
 \newpage
 \subsubsection{Packaging Libraries}

@@ -32,7 +32,7 @@ The same function, using a \verb|while| loop instead may lead to this:
 \verb|for| loops follow the same idea as \verb|while| loops, albeit with a few more jumps.
 
 \verb|switch| statements are implemented differently depending on size and case values: 
-Sparse switch statements are compiled as decision trees, whereas large switch statements may become \textit{jump tables}.
+Sparse switch statements are compiled as decision trees, whereas compact switch statements may become \textit{jump tables}.
 
 These jump tables are usually stored in the \texttt{.rodata} section with 8-byte alignment. The jump uses offsets:
 \mint{gas}|jmp *.LABEL(, %rsi, 8)|

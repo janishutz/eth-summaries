@@ -11,12 +11,13 @@ The following condition codes were covered in the lecture (operation: \texttt{t 
 \content{Explicit computation}
 In the below explanations, we always assume \texttt{src2 = b} and \texttt{src1 = a}
 
-To explicitly compute them, we can use the \texttt{cmpX src2, src1} instruction (with X again any of the size postfixes),
+To explicitly compute them, we can use the \texttt{cmpX src2, src1} (i.e. for easier understanding, \texttt{cmpX b, a}) instruction (with X again any of the size postfixes),
 that essentially computes $(a - b)$ without setting a destination register.
+
 When we execute that instruction, \texttt{CF} is set if \texttt{a < b} (unsigned), \texttt{ZF} is set if \texttt{a == b}, \texttt{SF} is set if \texttt{a < b} (signed)
 and \texttt{OF} is set as above, where \texttt{t = a - b}.
 
-Another instruction that is used is \texttt{testX src2, src1} (X again a size postfix), and acts like computing \texttt{a \& b} and where \texttt{ZF} is set if \texttt{a \& b == 0}
+Another instruction that is used is \texttt{testX src2, src1} (X again a size postfix, easier: \texttt{testX b, a}), and acts like computing \texttt{a \& b} and where \texttt{ZF} is set if \texttt{a \& b == 0}
 and \texttt{SF} is set if \texttt{a \& b < 0}.
 
 \content{Zeroing register} We can use a move instruction, but that is less efficient than using \texttt{xorl reg, reg}, where \texttt{reg} is the 32-bit version of the reg we want to zero.

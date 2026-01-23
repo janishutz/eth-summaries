@@ -1,8 +1,8 @@
 \subsubsection{Jumping}
-To jump, use \texttt{jmp <label>} (unconditional jump) or the \texttt{jC} instructions, with \texttt{C} from table \ref{tab:condition-codes}
+To jump, use \texttt{jmp <label>} (unconditional jump) or the \texttt{jC <label>} instructions, with \texttt{C} from table \ref{tab:condition-codes}
 
 \begin{table}[h!]
-    \begin{tables}{lll}{\texttt{setX} & Condition           & Description}
+    \begin{tables}{lll}{\texttt{setC} & Condition           & Description}
               \texttt{e}          & \verb|ZF|           & Equal / Zero              \\
               \texttt{ne}         & \verb+~ZF+          & Not Equal / Not Zero      \\
               \texttt{s}          & \verb|SF|           & Negative                  \\
@@ -23,11 +23,11 @@ To jump, use \texttt{jmp <label>} (unconditional jump) or the \texttt{jC} instru
 Similar to \texttt{jC}, the same postfixes can be applied to \texttt{cmovC}, for example:
 
 \begin{minted}{gas}
-    cmpl     %eax, %edx
-    cmovle   %edx, %eax
+    cmpl     %eax, %edx # computes (edx - eax) without overwriting edx
+    cmovle   %edx, %eax # only copies edx into eax if edx <= eax
 \end{minted}
 
-Will move \verb|%edx| into \verb|%eax|, only if \verb|%edx| is less or equal (\verb|le|) \verb|%eax|.
+Due to the computed condition flags, this will move \verb|%edx| into \verb|%eax|, only if \verb|%edx| is less than or equal (\verb|le|) to \verb|%eax|.
 
 This can be used to, for example, compile ternary expressions from \verb|C| to Assembly.
 However, this requires evaluating both possible expressions, which may lead to a (significant) performance overhead.

@@ -29,11 +29,11 @@ int get_user_input_int( char prompt[] ) {
         printf( "Hello World\n" );
     }
 
-    // Inversed while loop (executes at least once)
+    // Inverted while loop (executes at least once)
     do {
-        input_data -= 1;
+        input_data_copy -= 1;
         printf( "Bye World\n" );
-        if ( input_data_copy == 0 )
+        if ( input_data_copy == 10 )
             goto this_is_a_label;
     } while ( input_data_copy > 1 );
 

@@ -35,6 +35,6 @@ struct coroutine *co_new( co_start_fn *start, void *ctxt ) {
     co->start = start;
     co->arg = ctxt;
     setjmp( co->env );
-    co->env[ 0 ].__jmpbuf[ 6 ] = ( (uint64_t) ( co->stack ) + CORO_STACK_SIZE ); // Machine specific
-    co->env[ 0 ].__jmpbuf[ 7 ] = ( (uint64_t) ( start_cl ) );                    // Machine specific
+    co->env[ 0 ].__jmpbuf[ 6 ] = ( (uint64_t) ( co->stack ) + CORO_STACK_SIZE );
+    co->env[ 0 ].__jmpbuf[ 7 ] = ( (uint64_t) ( start_cl ) ); // Both lines machine specific
 }
