@@ -58,8 +58,8 @@ If we have more than 6 arguments to be passed, we can use the stack for this.
 If we can do all accesses to the stack relative to the stack pointer, we do not need to
 update \texttt{\%rbp} and not even \texttt{\%rbx}, or we can use it for other purposes.
 
-\content{Manual stack management} We can also allocate the entire stack frame directly by incrementing \texttt{\%rsp} to the final position and then store data relative to it.
-To deallocate a stack frame, simply increment the stack pointer.
+\content{Manual stack management} We can also allocate the entire stack frame directly by decrementing \texttt{\%rsp} to the final position and then storing data relative to it.
+To deallocate a stack frame, simply increment the stack pointer to the value usually stored by \texttt{\%rbp}
 
 \newpage
 \subsubsection{Examples}
