@@ -13,22 +13,26 @@ The default used is \textit{Nearest Even}\footnote{Changing the rounding mode is
 
 Rounding can be defined using 3 different bits from the \textit{exact} number: $G, R, S$
 $$
-    a = 1.BB\ldots BB\underbrace{G}_\text{Guard}\underbrace{R}_\text{Round}\underbrace{XX\ldots XX}_\text{Sticky}
+    a = 1.B_1B_2\ldots B_{n - 2}B_{n - 1}\underbrace{G}_\text{Guard}\underbrace{R}_\text{Round}
+    \underbrace{X_1X_2\ldots X_{k - 1}X_k}_\text{Sticky}
 $$
+where $n$ is the number of bits in the mantissa of the format (e.g. $3$ as in the above example of an $8$bit floating point number).
 
 \begin{enumerate}
-    \item \textbf{Guard Bit} $G$ is the least significant bit of the (rounded) result
+    \item \textbf{Guard Bit} $G$ is the least significant bit of the (rounded) result (i.e. it is $B_n$)
     \item \textbf{Round Bit} $R$ is the $1$st bit cut off after rounding
-    \item \textbf{Sticky Bit} $S$ is the logical OR of all remaining cut off bits.
+    \item \textbf{Sticky Bit} $S$ is the logical OR of all remaining cut off bits $X_i$.
 \end{enumerate}
 
-Based on these bits the rounding can be decided:
+Based on these bits the rounding can be decided (we increment the rounded part if the expression evaluates to true):
+\hrmvspace
+\begin{align*}
+    \text{Round up: } R \land S
+     &  &
+    \text{Round to even: } G \land R \land \lnot S
+\end{align*}
 
-$$
-    R \land S \implies \text{ Round up} \qquad\qquad
-    G \land R \land \lnot S \implies \text{ Round to even}
-$$
-
+\drmvspace
 \content{Example} Rounding $8$b precise results to $8$b precision floating point ($4$b mantissa):
 
 \renewcommand{\arraystretch}{1.2}
