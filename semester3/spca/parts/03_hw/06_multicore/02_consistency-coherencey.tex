@@ -72,7 +72,25 @@ As nice as MSI is, as basically everything that is simple, it comes with issues,
 When accessing cache, it signals a remote processor that it has hit the local cache.
 The cache can then load a block in either \textit{shared} or \textit{exclusive} states depending on whether or not the block is a HIT in the remote processor cache.
 
-This finite state machine is much more complex and can be found on slide 55 in the lecture slides of lecture 20.
+This finite state machine is much more complex:\footnote{This state transition diagram is from the SPCA lecture notes for HS25.}
+
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{images/MESI.png}
+\end{center}
+
+Here, gray boxes are processor-initiated while orange boxes represent snoops. In the MESI protocol communication happens via $4$ message types:
+
+\begin{center}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Code} & \textbf{Meaning} \\
+        \hline
+        PrRd    & Processor Read        \\
+        PrWr    & Processor Write       \\
+        BudRd   & Bus Read              \\
+        BusRdX  & Bus Read (Exclusive)  
+    \end{tabular}
+\end{center}
 
 \content{MOESI} AMD then added an owner state, in which the line can be modified, but there exist dirty copies in other caches.
 It has the benefit of being more quickly readable, by using the owner's cache.
