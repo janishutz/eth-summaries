@@ -20,9 +20,10 @@ To determine the kind of critical point, we need to determine if $H_f(x_0)$ is d
 To figure out if a matrix is definite, we can compute the eigenvalues. $A$ is positive (negative) definite, if and only if all eigenvalues are greater (lower) than $0$.
 $A$ is indefinite if and only if it has both positive and negative eigenvalues.
 $A$ is positive (negative) semi-definite if and only if all eigenvalues are greater (lower) or equal to $0$.
+It is positive (negative) definite if and only if all eigenvalues are greater (lower) than $0$
 (Compute Eigenvalues using $\det(A - \lambda I) = 0$)
 
-For $2 \times 2$ matrices, we can use the following scheme:
+For $2 \times 2$ matrices (i.e. 2D functions), we can use the following scheme (remember that the trace is the sum of the diagonal entries):
 \begin{center}
     \begin{tikzpicture}[node distance = 0.3cm and 2cm, >={Stealth[round]}]
         \node (det) {$\det(A)$};

@@ -8,7 +8,6 @@ Let $f : X \rightarrow \R$ with $f \in C^k(X, \R)$ and $y \in X$. The Taylor-Pol
 \end{align*}
 
 \drmvspace\rmvspace
-% TODO: Find out what the \partial_1 notation means (likely TA notes 09)
 where $i$ is a \textit{multi-index}, so:
 \drmvspace
 \begin{multicols}{3}
@@ -22,14 +21,19 @@ where $i$ is a \textit{multi-index}, so:
 \end{multicols}
 
 \drmvspace\rmvspace
+In the input, we have the vector $y$, which is the evaluation point, as well as the vector $x - y$ (where $y$ is the evaluation point again and $x = (x_1, \ldots, x_n)$)
+
 The concept this formula uses is that we iterate through all possible partial derivatives of $f$ and assigns each a multi-index $i$.
+Do note that the formula expands to $f(y) + \ldots$, so also include the original function in the sum!
+
 To denote that we want to take the partial derivative $\partial_{112}$, we use $i = (2, 1, 0)$, since we take the derivative of the first variable twice,
 of the second variable once and never of the third variable.
-So the expression is thus now:
+This is also the explanation for what the $\partial_1^{i_1}$ means (we take the derivative regarding the first variable $i_1$ times, etc).
+
+One of the elements of the sum (element with $i = (2, 1, 0)$) is for example:
 \mrmvspace
 \begin{align*}
-    \frac{\partial_{112} f(y) (x_1 - y_1)^2 (x_2 - y_2)^1 (x_3 y_3)^0}{2!1!0!} = \frac{\partial_{112} f(y) (x_1 - y_1)^2 (x_2 - y_2)}{2}
+    \frac{\partial_{112} f(y) (x_1 - y_1)^2 (x_2 - y_2)^1 (x_3 - y_3)^0}{2!1!0!} = \frac{\partial_{112} f(y) (x_1 - y_1)^2 (x_2 - y_2)}{2}
 \end{align*}
 
 \drmvspace
-% TODO: Add example
