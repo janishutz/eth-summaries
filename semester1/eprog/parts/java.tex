@@ -16,7 +16,7 @@
     \item \texttt{StackOverflow} error can be caught by try-catch
     \item Method overloading instead of optional parameters
     \item Incrementation of variable binds stronger than addition. If we have $x = 2$ and calculate \texttt{++x + x++}, we get $6$, $x = 4$, thus, we have $3 + 3$, as $x$ is first incremented, then added (pre-increment). $++x$ first increments, then the incremented value returned. $x++$ is first returned, then incremented.
-    \item Do-While Loops\dots I mean wtf
+    \item Do-While Loops\dots I mean wtf (though they can come in handy if you want the loop body to always execute at least once)
     \item We can change the visibility of a method of a class from not set to \textit{public}
     \item We can cast a class to a super class if we then only call the methods also defined in said super class. If the method is overridden, the overridden method (the one from the sub-class) is called.
     \item We can't cast to a subclass (which makes sense), but it's Runtime, not Compile time error (because Java's compiler does type erasing and hence can't check that. Pure idiocy)
@@ -101,10 +101,10 @@ Work similarly to \textsc{Arrays}, but are dynamic size (like Vectors in Rust). 
 \subsection{Different implementations}
 \textsc{Maps} \& \textsc{Sets} share similar implementations for the interfaces. 
 
-A \textsc{TreeSet} / \textsc{TreeMap} is based on a binary tree and a class \texttt{E} has to implement \texttt{Comparable<E>} (i.e. the \texttt{compare} method). \timecomplexity \tco{\log(n)}
+A \textsc{TreeSet} / \textsc{TreeMap} is based on a binary tree and a class \texttt{E} has to implement \texttt{Comparable<E>} (i.e. the \texttt{compare} method). \timecomplexity $\tco{\log(n)}$
 
-A \textsc{HashSet} / \textsc{HashMap} uses a hash table (a table that stores a reference to an object of which a hash was computed). The order of elements is not guaranteed and not predictable from system to system \timecomplexity \tco{1}.
+A \textsc{HashSet} / \textsc{HashMap} uses a hash table (a table that stores a reference to an object of which a hash was computed). The order of elements is not guaranteed and not predictable from system to system \timecomplexity $\tco{1}$.
 
-A \textsc{LinkedHashSet} / \textsc{LinkedHashMap} work similarly to \textsc{HashSet} / \textsc{HashMap}, but the order is maintained (i.e. output in the order the elements were added). \timecomplexity \tco{1}
+A \textsc{LinkedHashSet} / \textsc{LinkedHashMap} work similarly to \textsc{HashSet} / \textsc{HashMap}, but the order is maintained (i.e. output in the order the elements were added). \timecomplexity $\tco{1}$
 
 
