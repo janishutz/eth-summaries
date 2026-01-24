@@ -1,0 +1,19 @@
+\newpage
+\subsubsection{Memory reads}
+\content{In Direct-Mapped caches}
+\begin{enumerate}[noitemsep]
+    \item We find the cache set and check if the valid bit is set. If not, skip to step 3, false
+    \item Check if the tag is equal to the requested tag.
+    \item If true, return the block at the correct offset, else evict the line and fetch the correct line (will be $B$ bytes) and return the block at the correct offset.
+\end{enumerate}
+
+
+\content{In $2$-way Set-Associative caches}
+\begin{enumerate}[noitemsep]
+    \item Find the corresponding cache set and compare the tag to both blocks.
+    \item If one matches, check its valid bit. If none match, go to step 5
+    \item If valid, return the block at the correct offset.
+    \item If invalid, evict the line, fetch the correct one. Return to step 3
+    \item If no match, evict one of the two (choose using a replacement policy like LRU (Least Recently Used) or randomly if the other block is not invalid),
+          fetch requested line, go to step 3.
+\end{enumerate}

@@ -1,0 +1,22 @@
+\subsubsection{Memory writes}
+Memory writes are just as slow, if not sometimes slower than memory reads.
+Thus, they also have to be cached to improve performance.
+Again, there are a few options to handle write caching and we will cover the two most prevalent ones:
+\begin{itemize}
+    \item \bi{Write-through} Here, the data is immediately written to main memory.
+          The obvious benefit is that the data is always up-to-date in the memory as well, but we do not gain any speed from doing that, it is thus very slow.
+    \item \bi{Write-back} We defer the write until the line is replaced (or sometimes other conditions or an explicit cache flush).
+          The obvious benefit is the increased speed, as we can benefit from the low cache access latency.
+          We do however need a \textit{dirty bit} to indicate that the cache line differs from main memory.
+          This introduces additional complexity, especially in multi-core situations, which is why in that case,
+          often a write-through mode is enabled for the variables that need atomicity.
+\end{itemize}
+
+Another question that arises is what to do on a \textit{write-miss}?
+\begin{itemize}
+    \item \bi{Write-allocate} The data is loaded into the cache and is beneficial if more writes to the location follow suite.
+          It is however harder to implement and it may evict an existing value from the cache.
+          This is commonly seen with write-back caches.
+    \item \bi{No-write-allocate} This writes to the memory immediately, is easier to implement, but again slower, especially if the value is later re-read.
+          This is commonly seen with write-through caches.
+\end{itemize}

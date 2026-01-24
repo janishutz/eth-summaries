@@ -1,0 +1,11 @@
+\newpage
+\subsubsection{Cache misses}
+\begin{itemize}[noitemsep]
+    \item \bi{Compulsory / Cold miss} Occurs on the first access of a block (there can't be any data there yet)
+    \item \bi{Conflict miss} The cache may be large enough, but multiple lines may map to the current block,
+          e.g. referencing blocks 0, 8, 0, 8, \dots would miss every time if they are both mapped to the same cache line.
+          This is the typical behaviour for most caches.
+    \item \bi{Capacity miss} The number of active cache blocks is larger than the cache
+    \item \bi{Coherency miss} See in section \ref{sec:hw-multicore}.
+          They happen if cache lines have to be invalidated due in multiprocessor scenarios to preserve sequential consistency, etc
+\end{itemize}

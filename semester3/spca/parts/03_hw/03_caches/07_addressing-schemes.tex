@@ -1,0 +1,17 @@
+\subsubsection{Cache Addressing Schemes}
+\label{sec:hw-addressing-schemes}
+
+The cache can see either the virtual or physical address, and the tag and index do \textit{not} need to both use the physical/virtual address.
+If this seems confusing, first read and understand section \ref{sec:hw-virt-mem}
+
+\begin{center}
+    \begin{tabular}{c|c|c}
+        \hline
+        \textbf{Indexing}  & \textbf{Tagging}  & \textbf{Code} \\
+        \hline
+        Virtually Indexed  & Virtually Tagged  & VV            \\
+        Virtually Indexed  & Physically Tagged & VP            \\
+        Physically Indexed & Virtually Tagged  & PV            \\
+        Physically Indexed & Physically Tagged & PP
+    \end{tabular}
+\end{center}

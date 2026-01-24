@@ -1,0 +1,51 @@
+\subsubsection{Cache organization}
+\content{Structure} Caches can be defined using $S, E, B$ such that $S \cdot E \cdot B = \text{Cache Size}$.\\
+$S = 2^s$ is the set count, $E = 2^e$ is the lines per set, and $B=2^b$ is the number of bytes per cache block / cache line\footnote{
+    The terms \textit{cache block} and \textit{cache line} will be used interchangeably and sometimes shortened to just \textit{block} or \textit{line}}.
+
+Each block has the following structure where \texttt{v} is the valid bit:
+\begin{center}
+    Cache line:
+    \begin{tabular}{|c|c|c|}
+        \hline
+        v & tag & data ($B = 2^b$ bytes per block) \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\content{Address} The cache address can be separated into fields which dictate the cache location:
+\begin{center}
+    Address:
+    \begin{tabular}{|c|c|c|}
+        \hline
+        tag & set index & block offset \\
+        \hline
+    \end{tabular}
+\end{center}
+Since we have $S=2^s$ sets and $B=2^b$ bytes per block, we need $s$ bits for the set index, $b$ bits for block offset.
+The remaining part (tag) is stored with the cache block and needs to match for a cache hit.
+
+Do note that the cache address is the same as the physical memory address, we just refer to it as cache address when talking about the interpretation the cache uses for it.
+See section \ref{sec:hw-cache-set} for more information
+
+
+Higher cache associativity helps reduce the number of conflict misses (often) by increasing the number of lines available for each block.
+It however, at the same cache size, reduces the number of available cache sets, which in turn may increase the number of conflict misses.
+
+\inlinedef \textbf{Direct-mapped} i.e. $E = 1$ (1 cache line per set only).
+
+\inlinedef \textbf{$N$-way Set-Associative} i.e. $E = N$ ($N$ cache lines per set, in this course we primarily covered $N = 2$).
+
+
+% ────────────────────────────────────────────────────────────────────
+
+\subsubsection{Determining cache set from memory address}
+\label{sec:hw-cache-set}
+The cache set a memory address is mapped to does not depend (directly) on the associativity of the cache\footnote{
+    The only dependence it has on the associativity is that with the same cache size, the number of sets is reduced if the associativity is increased}
+To be able to compute the cache block that a memory request maps to, we need to know the number of sets and the line size.
+
+We can then compute the set it maps to using \texttt{x \% S}, where \texttt{x = addr >> b} is the block number in the memory.
+
+Thus, in the cache address, the tag corresponds to \texttt{y = x / S}, so it indicates which actual memory location is stored in the cache
+(as multiple different memory block numbers will map to the same cache set).

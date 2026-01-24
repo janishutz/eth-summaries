@@ -1,0 +1,22 @@
+\subsubsection{Performance Metrics}
+\begin{itemize}[noitemsep]
+    \item \bi{Miss Rate} is the fraction of memory references that are not found in the cache. Defined as $\displaystyle \frac{\text{misses}}{\text{accesses}} = 1 - \text{hit rate}$
+          and is typically 3-10\% in L1 caches and less than 1\% in L2 caches.
+    \item \bi{Hit Time} is the time required to deliver a line in the cache to the processor and typically is 1-2 cycles for L1 cache and 5-20 cycles for L2 caches.
+    \item \bi{Miss penalty} is the additional time required when a cache miss occurs. Typically around 50-200 cycles
+\end{itemize}
+Judging by these numbers, it makes a huge difference if we hit the cache and the speed difference can easily exceed a factor of 100x.
+Of note is as well that a $99\%$ hit rate is twice as good as a $97\%$ hit rate with a miss penalty of 100 cycles and a cache hit time of 1 cycle:
+\begin{itemize}[noitemsep]
+    \item \bi{97\% hits:} $1 \text{ cycle} + 0.03 \cdot 100 \text{ cycles} = 4\text{ cycles}$
+    \item \bi{99\% hits:} $1 \text{ cycle} + 0.01 \cdot 100 \text{ cycles} = 2\text{ cycles}$
+\end{itemize}
+Thus, we always use \textit{miss rate} instead of hit rate.
+
+For a multi-level cache, we start with the last level cache and compute its miss penalty and combine that with the next higher level and so on (example with 2 level cache)
+\rmvspace
+\begin{align*}
+    \text{MissPenaltyL2} & = \text{DRAMaccessTime} + \frac{\text{BlockSize}}{\text{Bandwidth}} \\
+    \text{MissPenaltyL1} & = \text{HitTimeL2} + \text{MissRateL2} \cdot \text{MissPenaltyL2}\\
+    \text{AverageMemoryAccessTime} &= \text{HitTimeL1} + \text{MissRateL1} \cdot \text{MissPenaltyL1}
+\end{align*}

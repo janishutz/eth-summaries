@@ -1,0 +1,41 @@
+\subsubsection{x86 Virtual Memory}
+
+In \verb|x86-64| Virtual Addresses are $48$ bits long, yielding an address space of $256$TB.\\
+Physical Addresses are $52$ bits, with $40$ bit PPNs, yielding a page size of $4KB$ (we thus have $64$ bit PTEs).
+
+On the slides, they are again using (as far as we can tell) a Skylake CPU (Core 6000 series, could also be Kaby Lake, Core 7000 series).
+
+On that architecture, the TLB contained the 40 bit PPN, a 32 bit TLB Tag, as well as
+\begin{itemize}
+    \item a valid bit (\texttt{V})
+    \item a global bit (\texttt{G}, coped from PDE / PTE and prevents eviction)
+    \item a supervisor-only bit (\texttt{S}, i.e. only accessible to OS, copied from PDE / PTE)
+    \item a writable bit (\texttt{W}, page is writable, copied from PDE / PTE)
+    \item a dirty bit (\texttt{D}, PTE has been marked dirty (i.e. modified vs memory))
+\end{itemize}
+There are a number of flags set and there are also a significant number of bits available for systems programmers to use on \texttt{x86}.
+Since they are highly unlikely to be exam-relevant, we will only point out that there are a lot of them (including setting supervisor mode, read/write mode, dirty, etc).
+To view them all, find them in the lecture slides of lecture 20, pages 87 through 90.
+
+For many years, cache sizes have been stagnant, this was due to the limited number of bits that could be used to efficiently determine if a line is available in the cache.
+Today, there are techniques to overcome that limitation and we have seen fairly substantial increases in cache sizes since
+(primarily from Team Red, starting with the AMD Ryzen 7 5800X3D).
+
+This was caused by the fact that only 6 bits from the PPO were used to determine the set and not more to improve performance,
+as the cache indexing could occur during address translation.
+
+\content{Addressing Schemes Revisited}
+Returning to the Addressing Schemes from section \ref{sec:hw-addressing-schemes}, it becomes evident that this is the key to solving the issue just touched on.
+If we virtually tag and virtually index the address, we have the issue that there may exist multiple multiple PA for each VA (i.e. it is context dependent).
+To circumvent that issue, an ASID (Address Space Identifier) is added to the tag.
+
+The Virtually Indexed, physically tagged scheme is what we have just seen and is commonly used for L1 caches.
+
+The Physically Tagged, Physically Indexed is the solution to the cache size restriction.
+It however suffers from slower access times, as the address translation has to complete before the cache line can be identified.
+
+\content{Write buffers} It is also common to have write buffers (which act like FIFO queue).
+It enables slower cache operations to complete that are typically associated with writing.
+
+\content{Large pages} Simply a lower number of bits remain in the PPN and some bits are ignored (we increased the ``offset-portion'' to 21 bits = 2MB).
+We can increase that to a page size of 1GB, if we increase the ``offset-portion'' further, to 30 bits to be precise.

@@ -1,0 +1,69 @@
+\subsubsection{Address Translation}
+
+Address translation happens in a dedicated hardware component: The Memory Management Unit (MMU).
+Thus, the CPU can use the virtual memory addresses and does not have to worry about translating to the physical addresses.
+
+Virtual and Physical Addresses share the same structure, but the VPN (Virtual Page Number) is usually far longer than the PPN (Physical Page Number),
+since the virtual space is far bigger. The offsets match however.
+
+\begin{multicols}{2}
+    \begin{center}
+        Virtual:
+        \begin{tabular}{|c|c|}
+            \hline
+            V. Page Number & V. Page Offset \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \newcolumn
+    \begin{center}
+        Physical:
+        \begin{tabular}{|c|c|}
+            \hline
+            P. Page Number & P. Page Offset \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{multicols}
+
+The Page Table (PT) (Located at a special Page Table Base Register (PTBR)) contains the mapping $\text{VPN} \mapsto \text{PPN}$.
+Page Table Entries (PTE) are cached in the L1 cache like any other memory word.
+
+The Translation Lookaside Buffer (TLB) is a small hardware cache inside the MMU that is used to accelerate the PT lookups, which is typically faster than an L1 cache hit.
+The PT is usually stored in memory\footnote{In practice, most address translations actually hit the TLB.} and contains for each address the corresponding physical address,
+as well as a valid bit, which indicates if the page is in memory.
+
+If a page is not in memory a page fault is triggered, which transfers control to the OS, which then loads the page into memory,
+updates the page table and returns control back to the process. This and the inverse (i.e. unloading pages from memory onto the disk) is often referred to as \textit{swapping}.
+
+Due to the slowness of disks, page sizes are usually fairly large (4-8KB) typically, in some cases up to 4MB.
+The replacement policy algorithms are highly sophisticated and too complicated to be implemented in hardware and are thus usually handled by the operating system.
+
+\content{Address Translation with page hit} The CPU requests a virtual memory address from the MMU.
+It fetches the PTE from memory and sends the physical address to the memory system, which sends the data to the CPU.
+
+\content{Address Translation with page fault} During the check of the valid bit of the page table, the MMU find that it is not set.
+It thus triggers a page fault exception, which is then handled and a victim page (if necessary) is then picked and evicted (and if the dirty flag is set, it is paged out to disk).
+The handler then loads the new page into memory and updates the PT and the original instruction is then restarted on the CPU and the address translation will then succeed.
+
+As already touched on, the TLB can be used to speed up translation.
+\content{Address Translation with TLB Hit} When checking the TLB for the entry, it find the entry and we save one memory access.
+With the PPN retrieved, the memory system sends the data to the CPU.
+
+\content{Address Translation with TLB Miss} This works similar to the case when there is no TLB, as the TLB returns a miss signal for the request.
+Only that the PTE that is returned is inserted into the TLB via replacement policy (if applicable). The data is then fetched from the physical address and sent to the CPU.
+
+
+\content{Example} We consider $N=14$ bit virtual addresses and $M=12$ bit physical addresses. The offset takes $6$ bits.\footnote{The images in this example are from the SPCA lecture notes for FS25.}
+
+If we assume a TLB with $16$ entries, and $4$ way associativity, the VPN translates like this: \scriptsize(where \texttt{TLBT = Tag} and \texttt{TLBI = Set})\normalsize
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{images/VPN-to-TLB.png}
+\end{center}
+
+Similarly, if we assume a direct-mapped $16$ line cache with $4$ byte blocks: \scriptsize(where \texttt{CT = Tag}, \texttt{CI = Set} and \texttt{CO = Offset})\normalsize
+
+\begin{center}
+    \includegraphics[width=0.65\linewidth]{images/PPN-to-Cache.png}
+\end{center}

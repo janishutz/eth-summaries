@@ -1,0 +1,35 @@
+\newpage
+\subsection{Virtual Memory}
+\label{sec:hw-virt-mem}
+
+Conceptually, Assembly operations treat memory as a very large contiguous array of memory: Each byte has an individual address.
+\begin{minted}{gas}
+    movl    (%rcx), %eax    # Refers to a Virtual Address
+\end{minted}
+% FIXME: I don't fully agree with this, the compiler is not a thing that has a connection to pure assembly
+In truth of course, this is an abstraction for the memory hierarchy. Actual allocation is done by the compiler \& OS.
+% PROPOSED CHANGE (along these lines):
+% While that is convenient for the programmer, this is of course not reality and the physical address space is smaller.
+% The physical memory is used as a ``cache'' for the virtual memory, as the virtual memory pages are loaded into memory by the OS dynamically.
+
+
+The main advantages are:
+\begin{itemize}[noitemsep]
+    \item Efficient use of (limited) RAM: Keep only active areas of virtual address space in memory
+    \item Simplifies memory management for programmers
+    \item Isolates address spaces: Processes can't interfere with other processes
+\end{itemize}
+
+
+The reason virtual memory is even feasible is that most programs have great locality.
+The performance is good as long as the total virtual memory that is actively being used does not exceed the available physical memory.
+If that happens, we speak of \bi{Thrashing}, where the performance degrades significantly due to the large number of swaps occurring.
+
+Another benefit of virtual memory is that we can use the automated virtual to physical mapping to simplify memory allocation and management,
+since we don't have to manually seek out free physical pages anymore.
+Additionally, that serves as protection, as the OS can choose to allow certain processes to share memory,
+whilst it can disallow others to access the data by updating the page tables correctly.
+For that, the page table entries (PTEs) are extended to also include some permissions.
+
+As touched on already, this also allows for memory sharing, which can become useful for dynamic linking.
+These are just some of the benefits of virtual memory

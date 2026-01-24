@@ -1,28 +1,8 @@
 \subsection{Caches}
 
-Processors generally improve quicker than memory speed does. Therefore, optimizing memory is necessary, and this is what Caches do.
+Processors generally improve quicker than memory speed does. Therefore, optimizing memory is necessary, and caches are one such method.
 
-\content{Structure} Caches can be defined using $S, E, B$ s.t. $S \cdot E \cdot B = \text{Cache Size}$.\\
-$S = 2^s$ is the set count, $E = 2^e$ is the lines per set, and $B=2^b$ is the bytecount per cache block.
-
-\content{Address} Using the above, the address can be separated into fields which dictate the cache location:
-
-\begin{center}
-    Address:
-    \begin{tabular}{|c|c|c|}
-        \hline
-        tag & set index & block offset \\
-        \hline
-    \end{tabular}
-\end{center}
-
-Since we have $S=2^s$ sets and $B=2^b$ bytes per block, we need $s$ bits for the set index, $b$ bits for block offset. The remaining part (tag) is stored with the cache block and needs to match for a cache hit.
-
-\inlinedef \textbf{Direct-mapped} i.e. $E=1$ (1 cache line per set only).
-
-\inlinedef \textbf{2-way Set-Associative} i.e. $E=2$ (2 cache lines per set).
-
-\content{Example} The importance of caches can quickly be seen when looking at the memory hierarchy:
+\inlineex The importance of caches can quickly be seen when looking at the memory hierarchy:
 
 \begin{tabular}{llllll}
     \toprule
@@ -87,19 +67,3 @@ Since we have $S=2^s$ sets and $B=2^b$ bytes per block, we need $s$ bits for the
     Web proxy server               \\
     \bottomrule
 \end{tabular}
-
-\subsubsection{Cache Addressing Schemes}
-
-The cache can see either the virtual or physical address, and the tag and index do \textit{not} need to both use the physical/virtual address.
-
-\begin{center}
-    \begin{tabular}{c|c|c}
-        \hline
-        \textbf{Indexing}  & \textbf{Tagging}  & \textbf{Code} \\
-        \hline
-        Virtually Indexed  & Virtually Tagged  & VV            \\
-        Virtually Indexed  & Physically Tagged & VP            \\
-        Physically Indexed & Virtually Tagged  & PV            \\
-        Physically Indexed & Physically Tagged & PP
-    \end{tabular}
-\end{center}

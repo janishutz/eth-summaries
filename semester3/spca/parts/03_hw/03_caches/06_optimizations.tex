@@ -1,0 +1,8 @@
+\subsubsection{Writing fast code}
+Improving the speed of the code can be done by optimizing the code's locality (both temporal and spatial locality).
+
+Computing a matrix product or iterating over a list can be much faster depending on the way you access the array and how it is stored.
+
+A common tactic to improve the throughput for these kinds of operations is to make sure that the order of operations is correct
+(i.e. for a row-major matrix to iterate over the elements of a row in the inner loop),
+or to do block multiplication where you multiply small blocks at once.

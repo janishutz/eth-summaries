@@ -1,0 +1,6 @@
+\subsubsection{Multilevel Page Tables}
+\content{Motivation} For a 48-bit Virtual Address Space with $4$KB ($= 2^{12}$ bytes) page size, the number of bits required is $2^{48} / 2^{12} \cdot 2^3 = 2^{39}$ bytes
+(that is 512 GB). The $2^{3}$ bytes is the size of the page table entry (8 bytes).
+
+Multi-Level page tables add further steps to this process: Instead of a PT we have a Page Directory Table (PDE) which contains the addresses of separate Page Tables.
+The top of the VPN is used to index into each of these, which technically allows any depth of page tables.
