@@ -14,7 +14,7 @@ In gewissen Anwendungen sind Gauss-Quadratur-Formeln nützlich, welche man durch
 \begin{definition}[]{Quadratur}
     Ein Integral kann durch eine gewichtete Summe von Funktionswerten der Funktion $f$ an verschiedenen Stellen $c_i^n$ approximiert werden:
     \begin{align*}
-        \int_{a}^{b} f(x) \dx \approx Q_n(f; a, b) := \sum_{i = 1}^{n} \omega_i^n f(c_i^n)
+        \int_{a}^{b} f(x) \dx x \approx Q_n(f; a, b) := \sum_{i = 1}^{n} \omega_i^n f(c_i^n)
     \end{align*}
     wobei $\omega_i^n$ die \textit{Gewichte} und $c_i^n \in [a, b]$ die \textit{Knoten} der Quadraturformel sind.
 \end{definition}
@@ -23,7 +23,7 @@ Wir wollen natürlich wieder $c_i^n \in [a, b]$ und $w_i^n$ so wählen, dass der
 \begin{definition}[]{Fehler}
     Der Fehler der Quadratur $Q_n(f)$ ist
     \begin{align*}
-        E(n) = \left| \int_{a}^{b} f(x) \dx - Q_n(f; a, b) \right|
+        E(n) = \left| \int_{a}^{b} f(x) \dx x - Q_n(f; a, b) \right|
     \end{align*}
     Wir haben \bi{algebraische Konvergenz} wenn $E(n) = \tco{\frac{1}{n^p}}$ mit $p > 0$ und
     \bi{exponentielle Konvergenz} wenn $E(n) = \tco{q^n}$ mit $0 \leq q < 1$
@@ -89,7 +89,7 @@ Durch die Eigenschaften der Lagrange-Polynome haben wir $p(x_j) = f(x_j)$ und di
 Wir erhalten nun eine Quadraturformel, wenn wir $p$ als Approximation von $f$ verwenden:
 \rmvspace
 \begin{align*}
-    w_j = \int_{a}^{b} l_j(x), \smallhspace j = 0, 1, \ldots, n
+    w_j = \int_{a}^{b} l_j(x) \dx x, \smallhspace j = 0, 1, \ldots, n
 \end{align*}
 \drmvspace
 
@@ -112,7 +112,7 @@ Wir nehmen ein äquidistantes Gitter, mit $x_k = x_0 + k \cdot h$ für $h = \fra
     \int_{a}^{b} f(x) \dx x = \sum_{k = 0}^{N - 1} \int_{x_k}^{x_{k + 1}} f(x) \dx x
 \end{align*}
 
-\drmvspace
+\rmvspace
 Die obige Formel wird auch die \textit{summierte} Quadraturformel genannt. Der Fehler ist dann also:
 \rmvspace
 \begin{align*}
