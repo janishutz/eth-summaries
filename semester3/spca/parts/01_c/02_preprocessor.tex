@@ -2,7 +2,7 @@
 \subsection{The C preprocessor}
 To have \texttt{gcc} stop compiliation after running through \texttt{cpp}, the \texttt{C preprocessor}, use \texttt{gcc -E <file name>}.
 
-Imports in \lC\ are handled by the preprocessor, that for each \verb|#include <file1.h>|, the preprocessor simply copies the contents of the file recursively into one file.
+\content{Imports} Imports in \lC\ are handled by the preprocessor, that for each \verb|#include <file1.h>|, the preprocessor simply copies the contents of the file recursively into one file. Note that this can easily lead to errors caused by multiple definitions. Using the \texttt{cpp} directive \verb|#ifndef| can be used to avoid this.
 
 Depending on if we use \verb|#include <file1.h>| or \verb|#include "file1.h"| the preprocessor will search for the file either in the system headers or in the project directory.
 Be wary of including files twice, as the preprocessor will recursively include all files (i.e. it will include files from the files we included)

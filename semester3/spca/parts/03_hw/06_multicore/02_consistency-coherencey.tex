@@ -1,3 +1,5 @@
+\newpage
+
 \subsubsection{Coherency and Consistency}
 \inlinedef \textbf{Coherency} The values in cache all match each other and the processors all see a coherent view of the memory
 
@@ -38,6 +40,18 @@ the local line is invalidated.
 A write-through cache makes life a bit easier, but it can also work with a write-back cache, if cache lines can be marked as dirty (i.e. modified).
 It also requires a cache coherency protocol. A simple example is the \texttt{MSI} protocol, where a line can have three states (modified, shared, invalid).
 It basically forms a finite state machine that looks a bit like this:
+
+\newpage
+
+\subsubsection{MSI protocol}
+
+In MSI, a cache line may be in one of 3 states:
+\begin{enumerate}
+    \item \textbf{Modified}: This is the only valid copy in any cache, newer than RAM. (Dirty)
+    \item \textbf{Shared}: This copy is coherent with RAM, other caches may have it too. (Clean)
+    \item \textbf{Invalid}: Block is unused or contains invalid data.
+\end{enumerate}
+
 \begin{center}
     \begin{tikzpicture}[
         main/.style={ellipse, draw, fill=blue!20, minimum size=10mm, inner sep=0pt},
@@ -59,26 +73,8 @@ It basically forms a finite state machine that looks a bit like this:
         (shared) edge [bend left] node [below, local] {eviction} node [above, remote] {write} (invalid);
     \end{tikzpicture}
 \end{center}
-As nice as MSI is, as basically everything that is simple, it comes with issues, primarily here that it introduces unnecessary broadcasts.
 
-\newpage
-\content{MESI} is an extension to the MSI protocol in which the processor gets to know that it is the only reader of a block. It has four states:
-\begin{itemize}
-    \item \bi{Modified}: This is the only copy, but it's modified.
-    \item \bi{Exclusive}: This is the only copy and it is not modified
-    \item \bi{Shared}: This might be one of several copies, all clean
-    \item \bi{Invalid}
-\end{itemize}
-When accessing cache, it signals a remote processor that it has hit the local cache.
-The cache can then load a block in either \textit{shared} or \textit{exclusive} states depending on whether or not the block is a HIT in the remote processor cache.
-
-This finite state machine is much more complex:\footnote{This state transition diagram is from the SPCA lecture notes for HS25.}
-
-\begin{center}
-    \includegraphics[width=0.8\linewidth]{images/MESI.png}
-\end{center}
-
-Here, gray boxes are processor-initiated while orange boxes represent snoops. In the MESI protocol communication happens via $4$ message types:
+In these protocols communication happens through messages passed via the bus:
 
 \begin{center}
     \begin{tabular}{ll}
@@ -92,6 +88,40 @@ Here, gray boxes are processor-initiated while orange boxes represent snoops. In
     \end{tabular}
 \end{center}
 
+There are 3 main types of transitions happening:
+\begin{enumerate}
+    \item \textbf{Local Read Miss}: Request read from State I, broadcasts \texttt{BusRd}.\\
+    If any cache has this line set to M, this line is flushed to RAM. Transitions to S.
+    \item \textbf{Local Write Miss}: Request write from State I, broadasts \texttt{BusRdX}.\\
+    Other caches having this line in S or M must set to I (invalidate). Transitions to M    
+    \item \textbf{Writing to Shared}: Request write from State S, broadcasts \texttt{BusRdX}.\\
+    Other caches having this line in S must set to I. Transitions to M.
+\end{enumerate}
+
+As nice as MSI is, as basically everything that is simple, it comes with issues, primarily here that it introduces unnecessary broadcasts. For instance, imagine a single-threaded program: Each time this program operates on a variable, broadcasts are sent over the bus even though no other core has this variable. MESI fixes this issue by introducing the Exclusive state.
+
+\newpage
+
+\subsubsection{MSI extensions}
+
+\content{MESI} is an extension to the MSI protocol in which the processor gets to know that it is the only reader of a block. It has four states:
+\begin{itemize}
+    \item \bi{Modified}: This is the only copy, but it's modified.
+    \item \bi{Exclusive}: This is the only copy and it is not modified
+    \item \bi{Shared}: This might be one of several copies, all clean
+    \item \bi{Invalid}
+\end{itemize}
+When accessing cache, it signals a remote processor that it has hit the local cache.
+The cache can then load a block in either \textit{shared} or \textit{exclusive} states depending on whether or not the block is a HIT in the remote processor cache. The advantage is that writes to blocks in Exclusive state need \textit{no} broadcasts.
+
+This finite state machine is much more complex:\footnote{This state transition diagram is from the SPCA lecture notes for HS25.}
+
+\begin{center}
+    \includegraphics[width=0.65\linewidth]{images/MESI.png}
+\end{center}
+
+Here, gray boxes are processor-initiated while orange boxes represent snoops.
+
 \content{MOESI} AMD then added an owner state, in which the line can be modified, but there exist dirty copies in other caches.
 It has the benefit of being more quickly readable, by using the owner's cache.
 This of course is only beneficial if the latency to the remote cache is lower than to main memory, which in case of AMD CPUs, it is starting with the Zen 3 architecture
@@ -101,3 +131,5 @@ compared to unified cache for only four cores.
 \content{MESIF} Intel added a forward state, in which cache requests are forwarded to the most recent cache line.
 Again, we only benefit from this if cache latency is lower than main memory latency and thus, Alder Lake (12000 series) and later benefit from the more than previous generations.
 (technically, also Intel 4004 in 1971 until the first Pentium, but they are hardly relevant today)
+
+\newpage

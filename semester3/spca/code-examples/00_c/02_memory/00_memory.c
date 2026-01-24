@@ -14,9 +14,12 @@ int main( int argc, char *argv[] ) {
     if ( ( arr2 = (long *) realloc( arr2, 15 * sizeof( long ) ) ) == NULL )
         return EXIT_FAILURE;
 
-    free( arr );  // Deallocate the memory
-    arr = NULL;   // Best practice: NULL pointer
-    free( arr2 ); // *Can* omit NULLing pointer because end
+    free( arr );    // Deallocate the memory
+    arr = NULL;     // Best practice: NULL pointer
+    free( arr2 );   // *Can* omit NULLing pointer because end
+
+    long arr3[5];   // Allocate on Stack
+                    // Deallocated automatically when returning
 
     return EXIT_SUCCESS;
 }
