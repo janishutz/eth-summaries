@@ -4,13 +4,20 @@ To have \texttt{gcc} stop compiliation after running through \texttt{cpp}, the \
 
 \content{Imports} Imports in \lC\ are handled by the preprocessor, that for each \verb|#include <file1.h>|, the preprocessor simply copies the contents of the file recursively into one file. Note that this can easily lead to errors caused by multiple definitions. Using the \texttt{cpp} directive \verb|#ifndef| can be used to avoid this.
 
-Depending on if we use \verb|#include <file1.h>| or \verb|#include "file1.h"| the preprocessor will search for the file either in the system headers or in the project directory.
+Depending on if we use \verb|#include <file1.h>| or \verb|#include "file1.h"| the preprocessor will search for the file either in the system headers
+(on Linux typically in \texttt{/usr/include/}) or in the project directory.
 Be wary of including files twice, as the preprocessor will recursively include all files (i.e. it will include files from the files we included)
+It is however possible to prevent that from becoming an issue using this (called an \texttt{include guard}):
+
+\inputcodewithfilename{c}{}{code-examples/00_c/01_preprocessor/00_include-guards.h}
+
+The name you pick for the preprocessor macro used in the check, by convention usually has the form \texttt{NAME\_H}.
+It should not start in an underscore (or multiple) and it should not contain more than one consecutive underscore.
 
 The \lC\ preprocessor gives us what are called \texttt{preprocessor macros}, which have the format \verb|#define NAME SUBSTITUTION|.
 \rmvspace
 
-\inputcodewithfilename{c}{}{code-examples/00_c/01_preprocessor/00_macros.c}
+\inputcodewithfilename{c}{}{code-examples/00_c/01_preprocessor/01_macros.c}
 
 To avoid issues with semicolons at the end of preprocessor macros that wrap statements that cannot end in semicolons, we can use a concept called semicolon swallowing.
 For that, we wrap the statements in a \texttt{do \dots\ while(0)} loop, which is removed by the compiler on compile, also taking with it the semicolon.

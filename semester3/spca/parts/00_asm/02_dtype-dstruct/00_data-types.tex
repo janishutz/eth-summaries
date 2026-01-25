@@ -1,6 +1,6 @@
 \subsection{Data types}
 Assembly supports the following integer types (where GAS stands for GNU Assembly).
-If they are signed or unsigned does not matter (as we have seen), so it's up to you to interpret them as one or the other
+If they are signed or unsigned does not matter (as we will see in section \ref{sec:c-integers}), so it's up to you to interpret them as one or the other
 \begin{tables}{llll}{Intel & GAS        & Bytes & \lC}
               byte         & \texttt{b} & 1     & \texttt{[unsigned] char}  \\
               word         & \texttt{w} & 2     & \texttt{[unsigned] short} \\
@@ -15,5 +15,5 @@ They are stored and operated on in floating point registers.
               double       & \texttt{l} & 8     & \texttt{double} \\
               extended     & \texttt{t} & 16     & \texttt{long double} \\
 \end{tables}
-Assembly does not support any aggregate types (such as arrays, structs, etc) natively.
-You can however (obviously) make your own. In the following section we will cover how \lC\ datatypes are compiled into assembly.
+Assembly does not support any aggregate types (such as arrays, structs, etc) natively. You can however (obviously) make your own.
+In the following section we will cover how \lC\ datatypes are compiled into assembly.

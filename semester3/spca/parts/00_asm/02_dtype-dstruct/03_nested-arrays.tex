@@ -1,7 +1,8 @@
+\newpage
 \subsubsection{Nested / Multidimensional arrays, Struct arrays}
 All of these arrays have similar underlying concepts in the way they are allocated, yet all are a bit different
 
-\content{Common ideas} Each of the array's elements are allocated in contiguous regions of memory, with the elemnts also in contiguous regions of memory.
+\content{Common ideas} Each of the array's elements are allocated in contiguous regions of memory, with the elements also in contiguous regions of memory.
 (Imagine it as lining up all elements on a band, i.e. as going through the array in a nested loop and printing all the elements into a single line.)
 The size of the array is determined by \texttt{n * sizeof(T)}, where \texttt{T} is the type of the elements of the array (or outer array).
 This is what is different for the lot (as well as accessing elements):

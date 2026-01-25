@@ -37,7 +37,7 @@ Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as w
 \shade{blue}{Associativity} 
 \begin{itemize}
     \item Left-to-right: $A + B + C \mapsto (A + B) + C$
-    \item Right-to-left: \texttt{A += B += C} $\mapsto$ \texttt{(A += B) += C}
+    \item Right-to-left: \texttt{A += B += C} $\mapsto$ \texttt{A += (B += C)}
 \end{itemize}
 
 As it should be, boolean and, as well as boolean or, support early termination.
