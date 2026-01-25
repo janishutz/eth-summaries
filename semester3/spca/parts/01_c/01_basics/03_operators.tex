@@ -33,6 +33,11 @@ Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as w
     \caption{\lC\ operators ordered in descending order by precedence}
     \label{tab:c-operators}
 \end{table}
+In an expression like this
+\mint{c}|(expr1, expr2)|
+the first expression is evaluated, its result is discarded, the second expression is executed and its result is returned.
+It is also possible to chain them, i.e. to use multiple without parenthesis, the last expression's value is ultimately returned.
+Of note is that the expressions have to be encased in parenthesis.
 
 \shade{blue}{Associativity} 
 \begin{itemize}
