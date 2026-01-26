@@ -30,4 +30,35 @@ Relevant definitions used throughout Analysis II.
 \end{center}
 \smalltext{If $0$ is allowed, $\textbf{A}$ is called positive/negative semi-definite.}
 
-\definition \textbf{Trace} $\text{Tr}(\textbf{A}) := \displaystyle\sum_{i=0}^{\text{min}(m,n)} \textbf{A}_{i, i}$
+\definition \textbf{Trace} $\text{Tr}(\textbf{A}) := \displaystyle\sum_{i=0}^{\text{min}(m,n)} (\textbf{A})_{i, i}$
+
+\begin{footnotesize}
+
+    \lemma \textbf{Determinant} of $\textbf{A} \in \R^{2\times2}$
+    $$
+        \det(\textbf{A})
+        =
+        \det\left(
+            \begin{bmatrix}
+                a & b \\
+                c & d
+            \end{bmatrix}
+        \right) = ad - bc
+    $$
+
+    \lemma \textbf{Inverse} of $\textbf{A} \in \R^{2\times2}$
+    $$
+    \textbf{A}^{-1}
+    =
+    \begin{bmatrix}
+        a & b \\
+        c & d
+    \end{bmatrix}^{-1}
+    =
+    \frac{1}{\det(\textbf{A})}
+    \begin{bmatrix}
+        d & -b \\
+        -c & a
+    \end{bmatrix}
+    $$
+\end{footnotesize}

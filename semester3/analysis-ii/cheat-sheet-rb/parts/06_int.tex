@@ -85,8 +85,13 @@ $\forall x_1,x_2 \in X: \exists \gamma: [a,b] \to X$ s.t. $\gamma(a) = x_1, \gam
 $$
     \forall 1 \leq i \neq j \leq n:\quad \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i}
 $$
+\smalltext{Equivalently:}
+$$
+    \textbf{J}_f(x) = \textbf{J}_f(x)^\top
+$$
+
 \subtext{$X \subset \R^n \text{ open},\quad f: X\to\R^n,\quad f \in C^1,\quad f \text{ conserv.}$}\\
-\subtext{Only this was: This being true does not imply $f$ is conservative!}
+\subtext{Only this way: This being true (alone) does not imply $f$ is conservative!}
 
 \definition \textbf{Star Shaped Set}\\
 $\exists x_0 \in X: \forall x \in X$ Line seg. $x_0 \to x$ is in $X$
@@ -108,6 +113,21 @@ $$
 \end{bmatrix}$ \subtext{$f: X \to \R^3,\quad f \in C^1$}
 
 \remark $\text{curl}(f) = 0 \iff \forall 1 \leq i \neq j \leq 3: \displaystyle\frac{\partial f_i}{\partial x_j} = \displaystyle\frac{\partial f_j}{\partial x_i}$
+
+\remark $\text{curl}(\nabla f) = 0$ if $f: \R^3 \to \R$ is in $C^2$.
+
+\method \textbf{Finding the Potential}
+
+\smalltext{
+    We want $g$ s.t. $\nabla g = f$ for some conservative $f$
+    \begin{enumerate}
+        \item Find $\displaystyle\int f_i\ dx_i$ for all $i \leq n$
+        \item Define $g$ as the union of terms in $\displaystyle\int f_i\ dx_i$
+        \item $g$ now has $\partial x_i g_i = f_i$ thus $\nabla g = f$ 
+    \end{enumerate} 
+    Note that the union step \textit{only works} if $f$ is conservative.
+}
+
 
 \newpage
 \subsection{The Riemann Integral in $\R^n$}
@@ -266,11 +286,11 @@ $\gamma: [a,b] \to \R^2$ closed param. curve s.t.
     \smalltext{$X \subset \R^2 \text{ compact with Boundary } \partial X = \displaystyle\underset{1 \leq i \leq n}{\bigcup} \gamma_i$ as above}\\
     \smalltext{Assume: $\gamma_i: [a_i,b_i] \to \R^2$ s.t. $X$ is always \textit{left} of $\gamma_i'(t)$ at $\gamma_i(t)$}
     $$
-    \int_X \Biggl( \frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y} \Biggr)\ dxdy = \sum_{i=1}^{k} \int_{\gamma_i} f \cdot ds
+    \int_X \Biggl( \underbrace{\frac{\partial f_2}{\partial x} - \frac{\partial f_1}{\partial y}}_{\text{curl}(f)} \Biggr)\ dxdy = \sum_{i=1}^{k} \int_{\gamma_i} f \cdot ds
     $$
     \smalltext{For a $C^1$ Vector field $f=(f_1,f_2)$ containing $X$}
 \end{subbox}
-\subtext{So, some Riemann Integrals can be converted to a sum of line integrals.}
+\subtext{So, a sum of line integrals can be written as the Integral of the curl.\\ This is very useful for computing complex line integrals.}
 
 \lemma \textbf{Volume using Green}
 $$
