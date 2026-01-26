@@ -246,7 +246,7 @@ $$
 \remark Taylor polynomials of degree $1,2$:
 \begin{align*}
         & T_1f(y;x_0) = f(x_0) + \nabla f(x_0)\cdot y \\
-        & T_2f(y;x_0) = f(x_0) + \nabla f(x_0) \cdot y + \frac{1}{2} \Bigl( x_0^\top \cdot \textbf{H}_f(y) \cdot x_0\Bigr)
+        & T_2f(y;x_0) = f(x_0) + \nabla f(x_0) \cdot y + \frac{1}{2} \Bigl( y^\top \cdot \textbf{H}_f(x_0) \cdot y\Bigr)
 \end{align*}
 
 \method Calculating $T_kf(y;x_0)$ also yields $\textbf{H}_f$ for $k \geq 2$.
