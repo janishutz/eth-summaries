@@ -52,7 +52,8 @@ The compiler can't safely remove \texttt{strlen(s)} from the loop, as it may hav
 i.e. may modify other program content other than simply returning a value.
 Thus, only ever call functions in the loop condition when you need the side-effects and otherwise, pre-compute it and simply use a variable to check against.
 \begin{scriptsize}
-    You can declare a function \textit{side-effect free} using \verb|__attribute__((pure))| in the function declaration.
+    You can declare a function \textit{side-effect free} using \verb|__attribute__((pure))| or \verb|__attribute__((const))|
+    (this is more strict, as the function is also not allowed to read global memory) in the function declaration.
     The compiler may then extract \texttt{strlen(s)} from the loop.
 \end{scriptsize}
 
