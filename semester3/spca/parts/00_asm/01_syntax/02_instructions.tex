@@ -5,7 +5,7 @@ The following postfixes are available: \texttt{b} (byte, 1 byte), \texttt{w} (wo
 The following options can be passed for source and destination: Registers,
 
 \content{Immediates} To use a constant value (aka Immediate) in an instruction, we prefix the number with \texttt{\$} (following number is decimal).
-To use hex, we can use \texttt{\$0x}, etc.
+To use hex, we can use \texttt{\$0x}, for binary, we can use \texttt{\$0b}, etc.
 
 \content{Memory addresses} To treat a register as a memory address, use parenthesis, e.g. \texttt{(\%rax)} interprets the value of \texttt{\%rax} as a memory address.
 The instruction will then read the number of bytes, as specified by the postfix of the instruction.
