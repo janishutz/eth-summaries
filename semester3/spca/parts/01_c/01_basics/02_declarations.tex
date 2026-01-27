@@ -6,6 +6,7 @@ In concept they are similar (and scoping works the same) to most other \texttt{C
 \inputcodewithfilename{c}{}{code-examples/00_c/00_basics/02_declarations.c}
 
 \newpage
+
 A peculiarity of \texttt{C} is that the bit-count is not defined by the language, but rather the hardware it is compiled for.
 \rmvspace
 
@@ -31,6 +32,32 @@ Since it is hard and annoying to remember the number of bytes that are in each d
 which can be imported from \texttt{stdint.h} and are of form \texttt{int<bit count>\_t} and \texttt{uint<bit count>\_t},
 where we substitute the \texttt{<bit count>} with the number of bits (have to correspond to a valid type of course).
 
+\content{Literaly} Literaly may easily lead to obscure errors, since they are typed.
+
+\begin{code}{c}
+    int x = 16;                // 16 is interpreted as signed by default
+    unsigned int ux1 = 16;     // casts 16 (signed int) to unsigned
+    unsigned int ux2 = 16U     // Declare 16 as unsigned explicitly (safer)
+    float fx1 = 16;            // casts 16 (signed int) to float
+    float fx2 = 16f;           // Declare 16 as float explicitly (safer)
+    float fx3 = 16F;           
+    float fx4 = 16.0;          // casts 16.0 (double) to float
+    double dx1 = 16.0          // No casting, 16.0 is treated as double by default
+    double dx2 = 16.0L         // Explicitly declare as "Long Float" (Double)
+\end{code}
+
+Note that integer expressions (without suffix) are given the smallest fitting integer type, but always at least \texttt{int}.
+
+\content{Number Systems} By default, decimal, hexdecimal and octal are supported.
+
+\begin{code}{c}
+    int x  = 16;
+    int xh = 0xf;              // Hexadecimal, declared by leading 0x
+    int xo = 010;              // Octal, declared by leading 0
+    int xb = 0b1000;           // Binary, only supported as of C23, so this is not recommended    
+\end{code}
+
+The same suffixes from above can be used for any representation.
 
 \content{Booleans} Another notable difference of \texttt{C} compared to other languages is that \texttt{C} doesn't natively have a \texttt{boolean} type,
 by convention a \texttt{short} is used to represent it, where any non-zero value means \texttt{true} and \texttt{0} means \texttt{false}.
@@ -56,6 +83,7 @@ in that they are passed by value and not by reference.
 You can of course pass it also by reference (like any other data type) by setting the argument to type \texttt{struct mystruct * name} and then calling the function using
 \texttt{func(\&test)} assuming \texttt{test} is the name of your struct
 
+\newpage
 
 \content{Typedef} To define a custom type using \texttt{typedef <type it represents> <name of the new type>}.
 
