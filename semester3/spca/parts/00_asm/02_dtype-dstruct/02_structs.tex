@@ -20,5 +20,7 @@ For alignment on \texttt{x86-64} we have:
 \end{multicols}
 
 \dhrmvspace
+On 64 bit Linux, using \texttt{gcc}, structs are compiled according to this concept and the size is \texttt{n * k} bytes.
+
 Another issue is accessing members. The solution to this is however easy and efficient, as at compile time, the offsets are pre-determined
 and compiled into the setter and/or getter code for the struct.
