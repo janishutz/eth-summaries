@@ -11,7 +11,7 @@ and it can also be used to do a sort-of assertion that we have an arithmetic typ
 which will cause a compiler error if \texttt{x} is for example a pointer.
 Of course, the lower precedence \verb|+| and \verb|-| is addition and subtraction, respectively.
 
-Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as well as the ternary operator and assignment operators
+Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as well as the ternary operator and assignment operators.
 \begin{table}[h!]
     \begin{tables}{ll}{Operator                                  & Associativity}
               \texttt{() [] -> .}                            & Left-to-right                \\
@@ -33,8 +33,8 @@ Very low precedence belongs to boolean operators \verb|&&| and \texttt{||}, as w
     \caption{\lC\ operators ordered in descending order by precedence}
     \label{tab:c-operators}
 \end{table}
-In an expression like this
-\mint{c}|(expr1, expr2)|
+
+In an expression like \texttt{x = (expr1, expr2)}
 the first expression is evaluated, its result is discarded, the second expression is executed and its result is returned.
 It is also possible to chain them, i.e. to use multiple without parenthesis, the last expression's value is ultimately returned.
 Of note is that the expressions have to be encased in parenthesis.
