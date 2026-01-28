@@ -1,51 +1,36 @@
-Relevant definitions used throughout Analysis II.
-
+Relevant definitions used throughout Analysis II.\\
 \subtext{$\textbf{A} \in \R^{m \times n},\quad x,y \in \R^n,\quad \alpha \in \R$}
-
-\definition \textbf{Scalar Product} $x \cdot y :=\sum_{i=0}^{n} (x_i \cdot y_i)$
-
-\definition \textbf{Euclidian Norm} $||x|| := \displaystyle\sqrt{\sum_{i=1}^{n} x_i^2}$\\
-\subtext{Used to generalize $|x|$ in many Analysis I definitions}
-
-\lemma \textbf{Properties of} $||x||$
-\begin{center}
-    $
-    \begin{array}{ll}
-        (i)     & ||x|| \geq 0 \\
-        (ii)    & ||x|| \iff x = 0 \\
-        (iii)   & ||\alpha x|| = \alpha \cdot ||x|| \\
-        (iv)    & ||x + y|| \leq ||x|| + ||y||\quad \text{(Triangle Inequality)}
-    \end{array}
-    $
-\end{center}
-
-\definition \textbf{Definiteness}
-\begin{center}
-    $
-    \begin{array}{lcl}
-        \text{Positive Definite} &\iffdef& x^\top \textbf{A} x > 0\ \forall x \in \R^n_{\neq 0} \\
-        \text{Negative Definite} &\iffdef& x^\top \textbf{A} x < 0\ \forall x \in \R^n_{\neq 0}
-    \end{array}
-    $
-\end{center}
-\smalltext{If $0$ is allowed, $\textbf{A}$ is called positive/negative semi-definite.}
-
-\definition \textbf{Trace} $\text{Tr}(\textbf{A}) := \displaystyle\sum_{i=0}^{\text{min}(m,n)} (\textbf{A})_{i, i}$
 
 \begin{footnotesize}
 
-    \lemma \textbf{Determinant} of $\textbf{A} \in \R^{2\times2}$
-    $$
-        \det(\textbf{A})
-        =
-        \det\left(
-            \begin{bmatrix}
-                a & b \\
-                c & d
-            \end{bmatrix}
-        \right) = ad - bc
-    $$
+    \definition \textbf{Scalar Product} $x \cdot y :=\sum_{i=0}^{n} (x_i \cdot y_i)$\\
+    \definition \textbf{Euclidian Norm} $||x|| := \displaystyle\sqrt{\sum_{i=1}^{n} x_i^2}$\\
+    \lemma \textbf{Properties of} $||x||$
+    \begin{center}
+        $
+        \begin{array}{ll}
+            (i)     & ||x|| \geq 0 \\
+            (ii)    & ||x|| \iff x = 0 \\
+            (iii)   & ||\alpha x|| = \alpha \cdot ||x|| \\
+            (iv)    & ||x + y|| \leq ||x|| + ||y||\quad \text{(Triangle Inequality)}
+        \end{array}
+        $
+    \end{center}
 
+    \definition \textbf{Definiteness}
+    \begin{center}
+        $
+        \begin{array}{lcl}
+            \text{Positive Definite} &\iffdef& x^\top \textbf{A} x > 0\ \forall x \in \R^n_{\neq 0} \\
+            \text{Negative Definite} &\iffdef& x^\top \textbf{A} x < 0\ \forall x \in \R^n_{\neq 0}
+        \end{array}
+        $
+    \end{center}
+    \color{gray}\scriptsize
+        If $0$ is allowed, $\textbf{A}$ is called positive/negative semi-definite.
+    \color{black}\footnotesize
+
+    \definition \textbf{Trace} $\text{Tr}(\textbf{A}) := \displaystyle\sum_{i=0}^{\text{min}(m,n)} (\textbf{A})_{i, i}$\\
     \lemma \textbf{Inverse} of $\textbf{A} \in \R^{2\times2}$
     $$
     \textbf{A}^{-1}
@@ -61,4 +46,61 @@ Relevant definitions used throughout Analysis II.
         -c & a
     \end{bmatrix}
     $$
+    \color{gray}\scriptsize
+        For $A \in \R^{n \times n}$: Gauss Algorithm.
+    \color{black}\footnotesize
+    
+    \lemma \textbf{Determinant} of $\textbf{A} \in \R^{2\times2}$
+    $$
+        \det(\textbf{A})
+        =
+        \det\left(
+            \begin{bmatrix}
+                a & b \\
+                c & d
+            \end{bmatrix}
+        \right) = ad - bc
+    $$
+    \color{gray}\scriptsize
+        For $A \in \R^{n \times n}$: Cofactor method.
+    \color{black}\footnotesize
+
+    \lemma \textbf{Determinant} of $A \in \R^{3\times3}$ (Sarrus)
+    % https://tex.stackexchange.com/a/32981/184539
+    $$\begin{tikzpicture}[>=stealth]
+        \matrix [%
+            matrix of math nodes,
+            column sep=1em,
+            row sep=1em
+        ] (sarrus) {%
+            a_{11} & a_{12} & a_{13} & a_{11} & a_{12} \\
+            a_{21} & a_{22} & a_{23} & a_{21} & a_{22} \\
+            a_{31} & a_{32} & a_{33} & a_{31} & a_{32} \\
+        };
+        
+        \path ($(sarrus-1-1.north west)-(0.5em,0)$) edge ($(sarrus-3-1.south west)-(0.5em,0)$)
+            ($(sarrus-1-3.north east)+(0.5em,0)$) edge ($(sarrus-3-3.south east)+(0.5em,0)$)
+            (sarrus-1-1)                          edge            (sarrus-2-2)
+            (sarrus-2-2)                          edge[->]        (sarrus-3-3)
+            (sarrus-1-2)                          edge            (sarrus-2-3)
+            (sarrus-2-3)                          edge[->]        (sarrus-3-4)
+            (sarrus-1-3)                          edge            (sarrus-2-4)
+            (sarrus-2-4)                          edge[->]        (sarrus-3-5)
+            (sarrus-3-1)                          edge[dashed]    (sarrus-2-2)
+            (sarrus-2-2)                          edge[->,dashed] (sarrus-1-3)
+            (sarrus-3-2)                          edge[dashed]    (sarrus-2-3)
+            (sarrus-2-3)                          edge[->,dashed] (sarrus-1-4)
+            (sarrus-3-3)                          edge[dashed]    (sarrus-2-4)
+            (sarrus-2-4)                          edge[->,dashed] (sarrus-1-5);
+        
+        \foreach \c in {1,2,3} {\node[anchor=south] at (sarrus-1-\c.north) {$+$};};
+        \foreach \c in {1,2,3} {\node[anchor=north] at (sarrus-3-\c.south) {$-$};};
+    \end{tikzpicture}$$
+    \lemma \textbf{Properties of Eigenvalues}
+    $$
+    \text{Tr}(\textbf{A}) = \sum_{i=0}^{n} \lambda_i \qquad\qquad \text{det}(\textbf{A}) = \prod_{i=0}^{n} \lambda_i
+    $$
+    \color{gray}\scriptsize
+        To find $\lambda_i$ solve $\det(\textbf{A} - \lambda \textbf{I}) = 0$.
+    \color{black}\footnotesize
 \end{footnotesize}
