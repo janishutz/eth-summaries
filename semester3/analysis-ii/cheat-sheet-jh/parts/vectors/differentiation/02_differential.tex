@@ -1,10 +1,12 @@
-\newsection
+\newsectionNoPB
 \subsection{The differential}
 \setLabelNumber{all}{2}
 \compactdef{Differentiable function} We have function $f: X \rightarrow \R^m$, linear map $u : \R^n \rightarrow \R^m$ and $x_0 \in X$. $f$ is differentiable at $x_0$ with differential $u$ if
-$\displaystyle \lim_{\elementstack{x \rightarrow x_0}{x \neq x_0}} \frac{1}{||x - x_0||} (f(x) - f(x_0) - u(x - x_0) = 0$ where the limit is in $\R^m$.
+$\displaystyle \lim_{\elementstack{x \rightarrow x_0}{x \neq x_0}} \frac{f(x) - f(x_0) - u(x - x_0)}{||x - x_0||} = 0$ where the limit is in $\R^m$.
 We denote $\dx f(x_0) = u$.
 If $f$ is differentiable at every $x_0 \in X$, then $f$ is differentiable on $X$.
+
+\newpage
 % ────────────────────────────────────────────────────────────────────
 \stepLabelNumber{all}
 \shortproposition
@@ -27,13 +29,13 @@ If $f$ is differentiable at every $x_0 \in X$, then $f$ is differentiable on $X$
 \rmvspace
 % ────────────────────────────────────────────────────────────────────
 \shortproposition If $f$ as above has all partial derivatives on $X$ and if they are all continuous on $X$, then $f$ is differentiable on $X$.
-The differential is the Jacobi Matrix of $f$ at $x_0$.
+The \bi{differential is the Jacobi Matrix of $f$ at $x_0$}.
 This implies that most elementary functions are differentiable.\\
 % ────────────────────────────────────────────────────────────────────
 \compactproposition{Chain Rule} For $X \subseteq \R^n$ and $Y \subseteq \R^m$ both open and $f: X \rightarrow Y$ and $g : Y \rightarrow \R^p$ are both differentiable.
 Then $g \circ f$ is differentiable on $X$ and for any $x \in X$, its differential is given by
 $\dx (g \circ f)(x_0) = \dx g(f(x_0)) \circ \dx f(x_0)$.
-The Jacobi matrix is $J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)$ (RHS is a matrix product)\\
+The Jacobi matrix is $J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)$ (RHS is a matrix product, i.e. multiply rows of first with cols of second matrix)\\
 % ────────────────────────────────────────────────────────────────────
 \setLabelNumber{all}{11}
 \compactdef{Tangent space} The graph of the affine linear approximation $g(x) = f(x_0) + u(x - x_0)$, or the set
@@ -42,7 +44,7 @@ The Jacobi matrix is $J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)$ (RHS is a matri
     \{ (x, y) \in \R^n \times \R^m : y = f(x_0) + u(x - x_0) \}
 \end{align*}
 
-\drmvspace\rmvspace
+\dnrmvspace
 % ────────────────────────────────────────────────────────────────────
 \stepLabelNumber{all}
 \compactdef{Directional derivative} $f$ has a directional derivative $w \in \R^m$ in the direction of $v \in \R^n$,
@@ -55,3 +57,29 @@ $f$ has a directional derivative at $x_0$ in the direction of $v$, given by$\dx 
 % ────────────────────────────────────────────────────────────────────
 \shortremark The values of the above directional derivative are linear with respect to the vector $v$.
 Suppose we know the dir. der. $w_1$ and $w_2$ in directions $v_1$ and $v_2$, then the directional derivative in direction $v_1 + v_2$ is $w_1 + w_2$
+
+\shade{gray}{Computing a directional derivative} Always normalize the vector! We can compute a directional derivative using the differential $\limit{h}{0} \frac{f(x_0 + hv) - f(x_0)}{h}$
+or using a $1$-dimensional helper function $g: h \mapsto f(x_0 + hv)$, calculating the derivative of it and evaluating $g'(0)$. That corresponds to the directional derivative.
+E.g. for function $f: x, y \mapsto x^2 + y^2$, we have $g: h \mapsto (x_0 + h)^2 + (y_0 + h)^2$.
+A final option is to compute it using a matrix-vector product: $D_v f(x_0) = J_f(x_0) v$
+
+\rmvspace
+\begin{center}
+    \begin{tikzpicture}[node distance = 0.5cm and 0.5cm, >={Classical TikZ Rightarrow[width=7pt]}]
+        \node (contdiff) {$f$ cont. diff.};
+        \node (diff) [below=of contdiff] {$f$ differentiable};
+        \node (cont) [below=of diff] {$f$ continuous};
+        \node (diffcont) [right=of contdiff] {All $\partial_j f_i$ continuous};
+        \node (diffex) [below=of diffcont] {All $\partial_j f_i$ exist};
+        \node (notes) at (-5, -1) {Red arrows indicate no implication};
+
+        \draw[arrows = ->, double distance = 1.5pt] (contdiff) -- (diff);
+        \draw[arrows = ->, double distance = 1.5pt] (diff) -- (cont);
+        \draw[arrows = <->, double distance = 1.5pt] (contdiff) -- (diffcont);
+        \draw[arrows = ->, double distance = 1.5pt] (diffcont) -- (diffex);
+        \draw[arrows = ->, double distance = 1.5pt, transform canvas={yshift=0.2cm}] (diff) -- (diffex);
+        \draw[arrows = ->, double distance = 1.5pt, transform canvas={yshift=-0.2cm}, color=red] (diffex) -- (diff);
+        \draw[arrows = ->, double distance = 1.5pt, color=red] (diffex) -- (cont);
+    \end{tikzpicture}
+\end{center}
+\drmvspace
