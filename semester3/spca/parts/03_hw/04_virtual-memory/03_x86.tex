@@ -8,7 +8,7 @@ On the slides, they are again using (as far as we can tell) a Skylake CPU (Core 
 On that architecture, the TLB contained the 40 bit PPN, a 32 bit TLB Tag, as well as
 \begin{itemize}
     \item a valid bit (\texttt{V})
-    \item a global bit (\texttt{G}, coped from PDE / PTE and prevents eviction)
+    \item a global bit (\texttt{G}, copied from PDE / PTE and prevents eviction)
     \item a supervisor-only bit (\texttt{S}, i.e. only accessible to OS, copied from PDE / PTE)
     \item a writable bit (\texttt{W}, page is writable, copied from PDE / PTE)
     \item a dirty bit (\texttt{D}, PTE has been marked dirty (i.e. modified vs memory))
