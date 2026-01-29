@@ -33,6 +33,11 @@ Based on these bits the rounding can be decided (we increment the rounded part i
 \end{align*}
 
 \drmvspace
+It is notable that for round to even, the special condition only applies if the sticky bit is not set. If it is set, the round up condition is to be used.
+An easy way to implement the condition is as follows
+\mint{c}+(sticky && round) || (!sticky && round && guard)+
+This will be ever so slightly more efficient than a different order, as the computation will be stopped shorter if a condition is not fulfilled
+
 \content{Example} Rounding $8$b precise results to $8$b precision floating point ($4$b mantissa):
 
 \renewcommand{\arraystretch}{1.2}
