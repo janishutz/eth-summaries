@@ -16,7 +16,8 @@
 We usually call $f : X \rightarrow \R^n$ a \bi{vector field}, which maps each point $x \in X$ to a vector in $\R^n$, displayed as originating from $x$\\
 Often, we use $V$ instead of $f$ to denote the vector field.
 Ideally, to compute a line integral, we compute the derivative of $\gamma$ and $V(\gamma(t))$ separately, then simply do the integral after.
-Be careful with hat functions like $|x|$, we need two separate integrals for each side of the center!
+\hl{Be careful with hat functions} like $|x|$, we need two separate integrals for each side of the center!
+Alternatively to using a line integral, see section \ref{sec:green-formula} for a faster way
 
 \setLabelNumber{all}{4}
 \compactdef{Oriented reparametrization} of $\gamma$ is parametrized curve $\sigma : [c, d] \rightarrow \R^n$ s.t $\sigma = \gamma \circ \varphi$, with $\varphi : [c, d] \rightarrow I$ cont. map,
@@ -79,5 +80,3 @@ Below a chart to figure out some properties:
     \end{tikzpicture}
 \end{center}
 \dnrmvspace
-% TODO: Some tips and tricks
-% With the line integral, we can compute the length of the curve, as defined by the function.
