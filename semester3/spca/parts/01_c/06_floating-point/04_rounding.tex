@@ -17,11 +17,12 @@ $$
     \underbrace{X_1X_2\ldots X_{k - 1}X_k}_\text{Sticky}
 $$
 where $n$ is the number of bits in the mantissa of the format (e.g. $3$ as in the above example of an $8$bit floating point number).
+Do keep in mind that when computing them in \lC\ in the standard way, they are inverted, i.e. we need a \texttt{!= 0} at the end to correct.
 
 \begin{enumerate}
     \item \textbf{Guard Bit} $G$ is the least significant bit of the (rounded) result (i.e. it is $B_n$)
     \item \textbf{Round Bit} $R$ is the $1$st bit cut off after rounding
-    \item \textbf{Sticky Bit} $S$ is the logical OR of all remaining cut off bits $X_i$.
+    \item \textbf{Sticky Bit} $S$ is the logical OR of all remaining cut off bits $X_i$. The mask can be computed using \texttt{(1 << n) - 1}
 \end{enumerate}
 
 Based on these bits the rounding can be decided (we increment the rounded part if the expression evaluates to true):
