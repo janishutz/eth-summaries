@@ -34,7 +34,17 @@ This implies that most elementary functions are differentiable.\\
 \compactproposition{Chain Rule} For $X \subseteq \R^n$ and $Y \subseteq \R^m$ both open and $f: X \rightarrow Y$ and $g : Y \rightarrow \R^p$ are both differentiable.
 Then $g \circ f$ is differentiable on $X$ and for any $x \in X$, its differential is given by
 $\dx (g \circ f)(x_0) = \dx g(f(x_0)) \circ \dx f(x_0)$.
-The Jacobi matrix is $J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)$ (RHS is a matrix product, i.e. multiply rows of first with cols of second matrix)\\
+The Jacobi matrix is $J_{g \circ f}(x_0) = J_g(f(x_0)) J_f(x_0)$ (RHS is a matrix product, i.e. multiply rows of first with cols of second matrix)
+
+\bi{For tasks} where we are given the value of a gradient at a certain point, as well as the function
+(could not be explicitly given, but could instead be individually for each component),
+we can compute the partial derivative using the chain rule as follows:
+$\frac{\partial g}{\partial \phi} = \frac{\partial g}{\partial x} \cdot \frac{\partial x}{\partial \phi}
++ \frac{\partial g}{\partial y} \cdot \frac{\partial y}{\partial \phi} + \frac{\partial g}{\partial z} \cdot \frac{\partial z}{\partial \phi}$
+where all $\frac{\partial g}{\partial x}$, etc are known from the gradient and the other elements can be computed quickly from the known equations.
+
+Finally, evaluate $\frac{\partial g}{\partial \phi}$ at the required points and compute the result.
+
 % ────────────────────────────────────────────────────────────────────
 \setLabelNumber{all}{11}
 \compactdef{Tangent space} The graph of the affine linear approximation $g(x) = f(x_0) + u(x - x_0)$, or the set
