@@ -102,30 +102,3 @@ Es gibt gewisse NEA, bei welchen man bei der Simulation des Nichtdeterminismus d
 Man kann beweisen (siehe Seiten 83 und 84 mit Abbildung 3.19 im Buch (= Seiten 98 \& 99 im PDF)), dass man die Potenzmengenkonstruktion nicht allgemein verbessern kann.
 
 \inlinelemma Für alle $k \in \N - \{ 0 \}$ muss jeder EA, der $L_k = \{ x1y \divides x \in \wordbool, y \in (\alphabetbool)^{k - 1} \}$ akzeptiert, mindestens $2^k$ Zustände haben.
-
-% FIXME: Verify with TA that this is correct too
-% Else: Note an example from the worked example, TA's approach from the slides or from the book on P100 (PDF)
-\fhlc{ForestGreen}{Worked Example} Zeige, das jeder endliche Automat, der die Sprache
-\rmvspace
-\begin{align*}
-    L = \{ w \in \{ a , b \}^* \divides w \text{ enthält Teilwort $ab$ gleich oft wie das Teilwort $ba$ enthält} \}
-\end{align*}
-
-\drmvspace
-mindestens $n := 5$ Zustände haben muss.
-
-\begin{table}[h!]
-    \begin{center}
-        \begin{tabular}[c]{c|ccccc}
-                     & $ab$ & $(ab)^2$ & $(ab)^3$ & $(ab)^4$ & $(ab)^5$ \\
-            \hline
-            $ab$     & -    & $(ba)^2$ & $(ba)^3$ & $(ba)^4$ & $(ba)^5$ \\
-            $(ab)^2$ &      & -        & $(ba)^3$ & $(ba)^4$ & $(ba)^5$ \\
-            $(ab)^3$ &      &          & -        & $(ba)^4$ & $(ba)^5$ \\
-            $(ab)^4$ &      &          &          & -        & $(ba)^5$ \\
-            $(ab)^5$ &      &          &          &          & -        \\
-        \end{tabular}
-    \end{center}
-\end{table}
-Sei $S = \{ ab, (ab)^2, (ab)^3, (ab)^4, (ab)^5 \}$.
-Laut Lemma 3.3
