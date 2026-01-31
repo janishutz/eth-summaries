@@ -49,12 +49,16 @@ Finally, evaluate $\frac{\partial g}{\partial \phi}$ at the required points and 
 % ────────────────────────────────────────────────────────────────────
 \setLabelNumber{all}{11}
 \compactdef{Tangent space} The graph of the affine linear approximation $g(x) = f(x_0) + u(x - x_0)$, or the set
-\vspace{-0.75pc}
+\rmvspace
 \begin{align*}
     \{ (x, y) \in \R^n \times \R^m : y = f(x_0) + u(x - x_0) \}
 \end{align*}
 
-\dnrmvspace
+\drmvspace
+\shade{gray}{Computing the tangent space} Also called the \bi{Tangent plane} in 3D.
+We only need to compute $g(x) = f(x_0) + J_f(x_0) \cdot (x - x_0)$, where both $x$ and $x_0$ are vectors (and $x_0$ is the point at which we compute the tangent space).
+All there is left to do is state the space: $\{ (x, y, \ldots) \in \R^n | z = g() \}$
+
 % ────────────────────────────────────────────────────────────────────
 \stepLabelNumber{all}
 \compactdef{Directional derivative} $f$ has a directional derivative $w \in \R^m$ in the direction of $v \in \R^n$,
@@ -71,7 +75,7 @@ Suppose we know the dir. der. $w_1$ and $w_2$ in directions $v_1$ and $v_2$, the
 \shade{gray}{Computing a directional derivative} Always normalize the vector! We can compute a directional derivative using the differential $\limit{h}{0} \frac{f(x_0 + hv) - f(x_0)}{h}$
 or using a $1$-dimensional helper function $g: h \mapsto f(x_0 + hv)$, calculating the derivative of it and evaluating $g'(0)$. That corresponds to the directional derivative.
 E.g. for function $f: x, y \mapsto x^2 + y^2$, we have $g: h \mapsto (x_0 + h)^2 + (y_0 + h)^2$.
-A final option is to compute it using a matrix-vector product: $D_v f(x_0) = J_f(x_0) v$
+An \bi{easy option} is to use this property: $D_v f(x_0) = J_f(x_0) \cdot v = \nabla f \cdot v$
 
 \rmvspace
 \begin{center}
