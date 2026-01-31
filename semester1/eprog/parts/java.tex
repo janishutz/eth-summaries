@@ -1,13 +1,13 @@
 \newsection
 \section{Peculiarities of Java}
-
 \begin{itemize}
     \item Automatic casting in additions works for all data types (including primitives)
     \item Automatic casting in comparisons only works for \texttt{int} (as well as \texttt{short} and \texttt{long}, but with \texttt{long} we lose precision on conversion) to \texttt{double}
     \item \texttt{Array.toString()} outputs the memory address.
     \item \texttt{Class.toString()} is automatically called when outputing to stdout or casting to \texttt{string}.
     \item \texttt{Arrays.toString()} outputs the array's elements with \texttt{.toString()} (if non-primitive), use \texttt{Arrays.deepToString()} to fix
-    \item \texttt{File} API is as ugly as a Zombie. Works as follows: \texttt{Scanner sc = new Scanner(new File('/path/to/file'));} then using normal Scanner api is possible (e.g. \texttt{sc.nextLine()})
+    \item \texttt{File} API is a bit weird.
+          Works as follows: \texttt{Scanner sc = new Scanner(new File('/path/to/file'));} then using normal Scanner api is possible (e.g. \texttt{sc.nextLine()})
     \item Accessing \texttt{super}'s private fields is compiler error
     \item Using an implicit constructor of \texttt{super} which has a different implementation causes a runtime, not compile time error.
     \item Abstract class without methods is valid.
@@ -15,27 +15,31 @@
     \item \texttt{super.x} fine, \texttt{super.super.x} not (compiler error)
     \item \texttt{StackOverflow} error can be caught by try-catch
     \item Method overloading instead of optional parameters
-    \item Incrementation of variable binds stronger than addition. If we have $x = 2$ and calculate \texttt{++x + x++}, we get $6$, $x = 4$, thus, we have $3 + 3$, as $x$ is first incremented, then added (pre-increment). $++x$ first increments, then the incremented value returned. $x++$ is first returned, then incremented.
-    \item Do-While Loops\dots I mean wtf (though they can come in handy if you want the loop body to always execute at least once)
-    \item We can change the visibility of a method of a class from not set to \textit{public}
-    \item We can cast a class to a super class if we then only call the methods also defined in said super class. If the method is overridden, the overridden method (the one from the sub-class) is called.
-    \item We can't cast to a subclass (which makes sense), but it's Runtime, not Compile time error (because Java's compiler does type erasing and hence can't check that. Pure idiocy)
+    \item Incrementation of variable binds stronger than addition.
+          If we have $x = 2$ and calculate \texttt{++x + x++}, we get $6$, $x = 4$, thus, we have $3 + 3$, as $x$ is first incremented, then added (pre-increment).
+          $++x$ first increments, then the incremented value returned. $x++$ is first returned, then incremented.
+    \item We can change the visibility of a method of a class from unset to \textit{public}
+    \item We can cast a class to a super class if we then only call the methods also defined in said super class.
+          If the method is overridden, the overridden method (the one from the sub-class) is called.
+    \item We can't cast to a subclass (which makes sense), but it's Runtime, not Compile time error
+          (because Java's compiler does type erasing and hence can't check that. Pure idiocy)
     \item The compiler considers the reference type for an object reference when determining if \texttt{instanceof} is possible or not
     \item Casting a class to a different class of a different branch causes an Exception, not a compile time error
     \item Casting to an interface or class if there is a connection through a subclass (or subsubclass, \dots), runtime rather than compile time error.
 \end{itemize}
 
-The Reference type is the type that the reference has (also called \textit{static type}). Casting a pointer to a different type only changes the reference type, thus all the behvaiour making much more sense:
+The Reference type is the type that the reference has (also called \textit{static type}).
+Casting a pointer to a different type only changes the reference type, thus all the behvaiour making much more sense:
 \begin{itemize}
     \item Calling methods that are not defined on the reference type $\rightarrow$ Compile time error
 \end{itemize}
 
-\section{Actually resonable stuff in Java}
 
+\section{Actually resonable stuff in Java}
 \begin{itemize}
-    \item for, while, try-catch, typing
+    \item \texttt{for}, \texttt{while}, \texttt{do \dots while} (if you are unaware, it executes the body of the loop \textit{at least} once), \texttt{try-catch}, typing
     \item Generics (apart from type erasure)
-    \item Automatic type casting exists (even though sorta weird)
+    \item Automatic type casting exists (even though they can be a bit weird initially)
     \item Comparisons between incompatible types is compiler error
     \item Chaining comparison operators not allowed (but boolean, i.e. \texttt{\&\&} and \texttt{||} is allowed)
     \item Objects are passed by reference, primitives are copied
@@ -48,12 +52,14 @@ The Reference type is the type that the reference has (also called \textit{stati
 \begin{itemize}
     \item \textbf{Last four digits of int}: \texttt{number \% 10000}
     \item \textbf{Decide if number is even}: \texttt{number \%} $2 = \begin{cases}
-            0 & \text{if number is even}\\
-            1 & \text{else}
-        \end{cases}$
+                  0 & \text{if number is even} \\
+                  1 & \text{else}
+              \end{cases}$
     \item \textbf{Parenthesis}: Always use explicitly
     \item \textbf{Casting}: \texttt{(double) 19 / 5} $= 3.8$ instead of $3$ ($19$ is cast to double, then auto-casting to double of 5 $\rightarrow$ division of doubles)
-    \item \textbf{Scanner}: \texttt{Scanner scanner = new Scanner(System.in);}, then e.g. \texttt{int age = scanner.nextInt();}. It is safest to read input as string and then manually cast / convert to required types, as we can handle additional PEBCAK (Problem Exist Between Chair And Keyboard). This is done using \texttt{scanner.nextLine()}.
+    \item \textbf{Scanner}: \texttt{Scanner scanner = new Scanner(System.in);}, then e.g. \texttt{int age = scanner.nextInt();}.
+          It is safest to read input as string and then manually cast / convert to required types, as we can handle additional PEBCAK (Problem Exist Between Chair And Keyboard).
+          This is done using \texttt{scanner.nextLine()}.
     \item \textbf{Random}: \texttt{Random.nextInt(n)} returns a random number in $[1, n]$
     \item \textbf{De Morgan's Rules}: Use them for inverting the expression (but also kinda unnecessary)
     \item \textbf{Off-by-one errors}: Try to run through with small iteration counts and check edge cases
@@ -66,31 +72,31 @@ The Reference type is the type that the reference has (also called \textit{stati
     \centering
     \begin{tabular}{lcc}
         \toprule
-        \textbf{Points} & \textbf{Abstract class} & \textbf{Interface}\\
+        \textbf{Points}        & \textbf{Abstract class} & \textbf{Interface}               \\
         \midrule
-        Abstract methods & \checkmark & \checkmark\\
-        Concrete methods & \checkmark & X\\
-        Static methods & \checkmark & \checkmark\\
-        Inheritance count & 1 only & multiple\\
-        Access modifiers & Any & None\\
-        Variables & Member allowed & All \texttt{public static final}\\
-        Instantiation possible & X & X\\
+        Abstract methods       & \checkmark              & \checkmark                       \\
+        Concrete methods       & \checkmark              & X                                \\
+        Static methods         & \checkmark              & \checkmark                       \\
+        Inheritance count      & 1 only                  & multiple                         \\
+        Access modifiers       & Any                     & None                             \\
+        Variables              & Member allowed          & All \texttt{public static final} \\
+        Instantiation possible & X                       & X                                \\
         \bottomrule
     \end{tabular}
     \caption{Comparison of abstract classes and interfaces}
 \end{table}
 
-Abstract classes are used when there is a default implementation of a method that is expected not to be overridden and a different class should only inherit this class and not combine, in any other case Interface, since it's more flexible.
+Abstract classes are used when there is a default implementation of a method that is expected not to be overridden and a different class should only inherit this class
+and not combine, in any other case Interface, since it's more flexible.
 
 \newsection
 \section{Maps, Lists \& Sets}
-
-
 \subsection{Maps}
-Similar to plain objects in TS, \texttt{Map<KeyType, ValueType> map = new HashMap<KeyType, ValueType>();}.
+Similar to plain objects in \texttt{TypeScript}, or dictionaries in \texttt{Python}, \texttt{Map<KeyType, ValueType> map = new HashMap<KeyType, ValueType>();}.
 
 \subsection{Lists}
-Work similarly to \textsc{Arrays}, but are dynamic size (like Vectors in Rust). Usually, we use \textsc{ArrayList}, but \textsc{Stack} and \textsc{Queue} also implement this interface.
+Work similarly to \textsc{Arrays}, but are dynamic size (like Vectors in Rust, Lists in Python and Arrays in JavaScript / TypeScript).
+Usually, we use \textsc{ArrayList}, but \textsc{Stack} and \textsc{Queue} also implement this interface.
 \texttt{List<Type> list = new ArrayList<Type>();}
 
 \subsection{Sets}
@@ -99,12 +105,13 @@ Work similarly to \textsc{Arrays}, but are dynamic size (like Vectors in Rust). 
 
 
 \subsection{Different implementations}
-\textsc{Maps} \& \textsc{Sets} share similar implementations for the interfaces. 
+\textsc{Maps} \& \textsc{Sets} share similar implementations for the interfaces.
 
-A \textsc{TreeSet} / \textsc{TreeMap} is based on a binary tree and a class \texttt{E} has to implement \texttt{Comparable<E>} (i.e. the \texttt{compare} method). \timecomplexity $\tco{\log(n)}$
+A \textsc{TreeSet} / \textsc{TreeMap} is based on a binary tree and a class \texttt{E} has to implement \texttt{Comparable<E>}
+(i.e. the \texttt{compare} method). \timecomplexity $\tco{\log(n)}$
 
-A \textsc{HashSet} / \textsc{HashMap} uses a hash table (a table that stores a reference to an object of which a hash was computed). The order of elements is not guaranteed and not predictable from system to system \timecomplexity $\tco{1}$.
+A \textsc{HashSet} / \textsc{HashMap} uses a hash table (a table that stores a reference to an object of which a hash was computed).
+The order of elements is not guaranteed and not predictable from system to system \timecomplexity $\tco{1}$.
 
-A \textsc{LinkedHashSet} / \textsc{LinkedHashMap} work similarly to \textsc{HashSet} / \textsc{HashMap}, but the order is maintained (i.e. output in the order the elements were added). \timecomplexity $\tco{1}$
-
-
+A \textsc{LinkedHashSet} / \textsc{LinkedHashMap} work similarly to \textsc{HashSet} / \textsc{HashMap}, but the order is maintained
+(i.e. output in the order the elements were added). \timecomplexity $\tco{1}$
