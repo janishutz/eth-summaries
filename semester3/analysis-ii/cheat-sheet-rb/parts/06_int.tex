@@ -114,7 +114,8 @@ $$
 
 \remark $\text{curl}(f) = 0 \iff \forall 1 \leq i \neq j \leq 3: \displaystyle\frac{\partial f_i}{\partial x_j} = \displaystyle\frac{\partial f_j}{\partial x_i}$
 
-\remark $\text{curl}(\nabla f) = 0$ if $f: \R^3 \to \R$ is in $C^2$.
+\remark $\text{curl}(\nabla f) = 0$ if $f: \R^n \to \R$ is in $C^2$.\\
+\subtext{i.e. if $f$ has a potential.}
 
 \method \textbf{Finding the Potential}
 
@@ -248,26 +249,31 @@ $$
     The change of variable is: $\displaystyle\int_{\bar{X}} f\Bigl( \varphi(x) \Bigr)\ dx = \frac{1}{\left\vert \det(\textbf{A}) \right\vert} \int_{\bar{Y}}f(y)\ dy$
 \end{footnotesize}
 
-\remark \textbf{Commonly used Changes}
+\remark \textbf{Common Changes}
 \begin{enumerate}
     \item Polar Coordinates\\
     \smalltext{    
-        $\varphi(r, \theta) = \bigl(r\cos(\theta),\ r\sin(\theta)\bigr)$\\
-        Where $dxdy = r\ dr\ d\theta$
+        $\varphi(r, \theta) = \bigl(r\cos(\theta),\ r\sin(\theta)\bigr) \quad \color{gray} \theta \in [0, 2\pi) $\\
+        $dxdy = r\ dr\ d\theta$
     }
 
     \item Cylindrical Coordinates\\
     \smalltext{
-        $\varphi(r, \theta, z) = \bigl( r\cos(\theta),\ rsin(\theta),\ z \bigr)$\\
-        Where $dxdydz = r\ dr\ d\theta\ dz$
+        $\varphi(r, \theta, z) = \bigl( r\cos(\theta),\ rsin(\theta),\ z \bigr) \quad \color{gray} \theta \in [0, \pi), \phi \in [0, 2\pi)$\\
+        $dxdydz = r\ dr\ d\theta\ dz$
     }
 
     \item Spherical Coordinates\\
     \smalltext{
         $\varphi(r, \theta, \phi) = (r\sin(\phi)\cos(\theta),\ r\sin(\phi)\sin(\theta),\ r\cos(\phi))$\\
-        Where $dxdydz = r^2\ \sin(\phi)\ dr\ d\theta\ d\phi$
+        $dxdydz = r^2\ \sin(\phi)\ dr\ d\theta\ d\phi$
     }
 \end{enumerate}
+
+% https://en.wikipedia.org/wiki/Spherical_coordinate_system#/media/File:3D_Spherical.svg
+\begin{center}
+    \includegraphics[width=0.3\linewidth]{res/spherical-coords.png}
+\end{center}
 
 \newpage
 \subsection{Green's Theorem}

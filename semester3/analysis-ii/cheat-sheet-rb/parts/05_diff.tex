@@ -63,7 +63,7 @@ $\\
         \underset{x \neq x_0 \to x_0}{\lim} \frac{1}{\big\| x - x_0 \big\|}\Biggl( f(x) - f(x_0) - u(x - x_0) \Biggr) = 0
     $$
 \end{subbox}
-\subtext{Similarly, $f$ is differentiable if this holds for all $x \in X$}
+\subtext{Applying this directly can be useful for \textit{strange} functions like $|xy|$.}
 
 \lemma \textbf{Properties of Differentiable Functions}
 
@@ -163,7 +163,7 @@ $$
     $$
         \forall x,y:\quad \partial_{x,y}f = \partial_{y,x}f
     $$
-    \smalltext{This generalizes for $\partial_{x_1,\ldots,x_n}f$.}
+    \smalltext{This generalizes for $\partial_{x_1,\ldots,x_n}f$ if $k \geq n$.}
 \end{subbox}
 
 \remark Linearity of Partial Derivatives
@@ -174,7 +174,7 @@ $$
 
 \definition \textbf{Laplace Operator}
 $$
-    \Delta f :=  \text{div}\bigl( \nabla f(x) \bigr) = \sum_{i=0}^{n} \frac{\partial}{\partial x_i}\Bigl( \frac{\partial f}{\partial x_i} \Bigr) = \sum_{i=0}^{n} \frac{\partial^2f}{\partial x_i^2}
+    \Delta f :=  \text{div}\Bigl( \nabla f(x) \Bigr) = \sum_{i=0}^{n} \frac{\partial}{\partial x_i}\biggl( \frac{\partial f}{\partial x_i} \biggr) = \sum_{i=0}^{n} \frac{\partial^2f}{\partial x_i^2}
 $$
 
 \begin{subbox}{The Hessian}
