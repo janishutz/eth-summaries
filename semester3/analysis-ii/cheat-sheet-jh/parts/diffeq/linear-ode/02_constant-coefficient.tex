@@ -17,18 +17,20 @@ The homogeneous equation will then be all the elements of the set summed up.\\
 \begin{enumerate}[noitemsep]
     \item \bi{(Case 1)} $b(x) = c x^d e^{\alpha x}$, with special cases $x^d$ and $e^{\alpha x}$:
           $f_p = Q(x) e^{\alpha x}$ with $Q$ a polynomial with $\deg(Q) \leq j + d$,
-          where $j$ is multiplicity of root $\alpha$ (if $P(\alpha) \neq 0$, then $j = 0$) of characteristic polynomial
+          where $j$ is multiplicity of root $\alpha$ (if $P(\alpha) \neq 0$, then $j = 0$) of characteristic polynomial $P$
     \item \bi{(Case 2)} $b(x) = c x^d \cos(\alpha x)$, or $b(x) = c x^d \sin(\alpha x)$:
-          $f_p = Q_1(x) \cdot \cos(\alpha x) + Q_2(x) \cdot \sin(\alpha x))$,
+          $f_p = Q_1(x) \cdot \cos(\alpha_1 x) + Q_2(x) \cdot \sin(\alpha_2 x))$,
           where $Q_i(x)$ a polynomial with $\deg(Q_i) \leq d + j$,
-          where $j$ is the multiplicity of root $\alpha i$ (if $P(\alpha i) \neq 0$, then $j = 0$) of characteristic polynomial
+          where $j$ is the multiplicity of root $\alpha_i$ (if $P(\alpha_i) \neq 0$, then $j = 0$) of characteristic polynomial $P$
     \item \bi{(Case 3)} $b(x) = c e^{\alpha x} \cos(\beta x)$, or $b(x) = c e^{\alpha x} \sin(\beta x)$, use the Ansatz
           $Q_1(x) e^{\alpha x} \sin(\beta x) + Q_2(x) e^{\alpha x} \cos(\beta x)$, again with the same polynomial.
           Often, it is sufficent to have a polynomial of degree 0 (i.e. constant)
 \end{enumerate}
 \rmvspace
 
+\hl{Often}, as polynomial $Q$ choosing a simple constant suffices.
 For inhomogeneous parts with addition or subtraction, the above cases can be combined.
+For two of case 2 added, only use one.
 For any cases not covered, start with the same form as the inhomogeneous part has (for trigonometric functions, duplicate it with both $\sin$ and $\cos$).
 
 \rmvspace\shade{gray}{Other methods}\rmvspace
