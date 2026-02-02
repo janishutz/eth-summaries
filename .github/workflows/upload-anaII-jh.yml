@@ -2,7 +2,7 @@ name: Upload Analysis II (by janishutz) Cheat-Sheet
 on:
   push:
     paths:
-      - 'semester2/analysis-i/cheat-sheet-jh/**'
+      - 'semester2/analysis-ii/cheat-sheet-jh/**'
 jobs:
   upload_document:
     runs-on: ubuntu-latest
