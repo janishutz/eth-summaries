@@ -19,7 +19,7 @@ The solution space $\mathcal{S}$ is spanned by $k$ functions, which thus form a 
 \shade{gray}{Finding solutions (in general)}
 \rmvspace
 \begin{enumerate}[label=\bi{(\arabic*)}, noitemsep]
-    \item Find basis $\{ f_1, \ldots, f_k \}$ for $\mathcal{S}_0$ for homogeneous equation (set $b(x) = 0$) (i.e. find homogeneous part, solve it)
-    \item If inhomogeneous, find $f_p$ that solves the equation. The set of solutions is then $\mathcal{S}_b = \{ f_h + f_p \divides f_h \in \mathcal{S}_0 \}$.
-    \item If there are initial conditions, find equations $\in \mathcal{S}_b$ which fulfill conditions using SLE (as always)
+    \item Find the solution to the homogeneous equation ($b(x) = 0$) using one of the methods below
+    \item If inhomogeneous, use a method below for an Ansatz for $f_p$, derive it and input that into the diffeq and solve.
+    \item If there are initial conditions, find equations $\in \cS$ which fulfill conditions using SLE (as always)
 \end{enumerate}
