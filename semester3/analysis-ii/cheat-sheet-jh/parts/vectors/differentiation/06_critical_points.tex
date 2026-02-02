@@ -54,7 +54,16 @@ For that, formulate formulas for the borders and check them for critical points.
 
 This is mostly intuition, but think of what segments the set consists of and note them down.
 Then, for each of the sets of the segments, determine the critical points
-(e.g. for set $A = \{ (x, y) \in \R^2 \divides x = 0, 0 \leq y \leq 3 \}$, we compute the critical points of $f(0, y)$)
+(e.g. for set $A = \{ (x, y) \in \R^2 \divides x = 0, 0 \leq y \leq 3 \}$, we compute the critical points of $f(0, y)$).
+
+This can be done as follows if only one variable remains: $\frac{\dx}{\dx y} f(0, y)$ using Analysis I conditions ($\frac{\dx}{\dx x}$ for $x$ variable of course),
+i.e. if derivative cannot be $0$, there is no critical point there, else find solution for $x$ or $y$.
 
 For cases where $x$ and $y$ are both not $0$, we have to parametrize the set
 (e.g. for set $C = \{ (x, y) \in \R^2 \divides 3x + y = 3, 0 \leq x \leq 1 \}$, we have $\gamma(t) = (t, 3 - 3t)$ and compute the critical points of $f(\gamma(t))$)
+
+Finally, evaluate if the points are minima or maxima. It is often easiest to compute $f(x, y)$ at these points to see,
+where the lowest value is the global minimum and the highest value the global maximum (obviously).
+Always consider the corners as possible maxima or minima (if some corners are critical points, all are highly likely to be).
+
+The tangent plane at a critical point of a function $f : \R^n \rightarrow \R$, is of the form $\{ (x, y, z) \dividees z = \text{const} \}$, with $z = f(x_0)$.
