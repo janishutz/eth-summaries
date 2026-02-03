@@ -304,4 +304,22 @@ $$
 $$
 \subtext{Same assumptions as above.}
 
+\footnotesize
 \remark The \textit{Gauss-Ostrogradski} Formula exists for $\R^3$.
+\normalsize
+
+\begin{footnotesize}
+    \textbf{Example:} Finding an Area using Green:
+    $$
+        \text{Area}(X) = \int_X 1\ dxdy
+    $$
+    To use Green, we want $f$ s.t. $(\partial_x f_y - \partial_y f_x) = 1$. Common Choices:
+    \begin{enumerate}
+        \item $f(x,y) = (0, x)$
+        \item $f(x,y) = (-y, 0)$
+    \end{enumerate}
+    We can then use Green, assuming we have a $\gamma$ for the Boundary of $X$:
+    $$
+        \text{Area}(X) = \int_X 1\ dxdy = \int_X \bigg(\partial_x f_y - \partial_y f_x \bigg) \ dxdy = \int_\gamma f(s)\ ds
+    $$
+\end{footnotesize}

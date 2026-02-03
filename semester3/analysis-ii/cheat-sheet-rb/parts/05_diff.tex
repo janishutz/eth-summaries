@@ -100,16 +100,56 @@ $$
 
 \lemma \textbf{Chain Rule} $\quad g \circ f \text{ is differentiable on } X$
 \begin{align*}
-    & d(g \circ f)(x_0) &= dg\bigl( f(x_0) \bigr) \circ df(x_0) \\
-    & \textbf{J}_{g \circ f}(x_0) &= \textbf{J}_g\bigl( f(x_0) \bigr) \cdot \textbf{J}_f(x_0)
+    & d(f \circ g)(x_0) &= df\bigl( g(x_0) \bigr) \circ dg(x_0) \\
+    & \textbf{J}_{f \circ g}(x_0) &= \textbf{J}_f\bigl( g(x_0) \bigr) \cdot \textbf{J}_f(x_0)
 \end{align*}
-\subtext{$X \subset \R^n \text{ open},\quad Y \subset \R^m \text{ open},\quad f: X \to Y, g: Y \to \R^p, f,g \text{ diff.-able}$}
+\subtext{
+    $X \subset \R^n \text{ open},\quad Y \subset \R^m \text{ open},\quad f: X \to Y, g: Y \to \R^p, f,g \text{ diff.-able}$\\
+    $f \circ g$ meaning $f(g(x))$.
+}
+
+\begin{footnotesize}
+    \textbf{Example:} Let $\nabla f(- \frac{\sqrt{3}}{2}, \frac{3}{2}, 7) = (6, 2, 0)$.\\
+    We want $\partial_r f(\sqrt{3}, \frac{2}{3}\pi, 7)$ in cyl. coords, i.e. the 1st entry of $\textbf{J}_{f \circ g}$ with:
+    $$
+        g(r, \theta, z) = (r\cos(\theta), r\sin(\theta), z)
+    $$
+    Applying the Chain Rule:
+    $$
+        \textbf{J}_{f \circ g} = \textbf{J}_f\bigr( g(x_0) \bigl) \cdot \textbf{J}_g(x_0) = \underbrace{\textbf{J}_{f}\bigl(g(\sqrt{3}, \frac{3}{2}\pi, 7)\bigr)}_{(6, 2, 0)} \cdot \textbf{J}_g
+    $$
+    Where $\textbf{J}_g$ is the Jacobian for cylindrical coordinates.
+\end{footnotesize}
+
 
 \definition \textbf{Tangent Space}
 $$
     T_f(x_0) := \Bigl\{ (x,y) \in \R^n \times \R^m \sep y = f(x_0) + u(x-x_0) \Bigr\}
 $$
 \subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m \text{ diff.-able},\quad x_0 \in X,\quad u = df(x_0)$}
+
+\begin{footnotesize}
+    \textbf{Example:} Find $T_f\underbrace{(1, 1, 1)}_{x_0}$ for $S = \{\ \underbrace{(x, y, e^{x-y})}_{f(x,y)} \sep (x,y) \in \R^2 \} \subset \R^3$.
+    $$
+        u = df(x_0) = \textbf{J}_f(x_0) = 
+        \begin{bmatrix}
+            1       & 0 \\
+            0       & 1 \\
+            e^{x-y} & -e^{x-y}
+        \end{bmatrix}(x_0)
+        =
+        \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 \\
+            1 & -1
+        \end{bmatrix}
+    $$
+    So we can define $T_f(x_0)$ as $g(x, y) = \underbrace{f(x_0)}_{(1, 1, 1)} + \textbf{J}_f(x_0) \cdot \begin{bmatrix}
+        x - x_{0, 1} \\
+        y - y_{0, 2}
+    \end{bmatrix}$.
+\end{footnotesize}
+
 
 \definition \textbf{Directional Derivative}
 $$
@@ -123,9 +163,11 @@ $$
 $$
 \subtext{$X \subset \R^n \text{ open},\quad f: X \to \R^m \text{ diff.-able},\quad v \neq 0 \in \R^n,\quad x_0 \in X$}
 
-\remark $D_vf$ is linear w.r.t $v$, so: $D_{v_1 + v_2}f = D_{v_1}f + D_{v_2}f$
+\begin{footnotesize}
+    \remark $D_vf$ is linear w.r.t $v$, so: $D_{v_1 + v_2}f = D_{v_1}f + D_{v_2}f$
 
-\remark $D_vf(x_0) = \nabla f(x_0) \cdot v = \big\| \nabla f(x_0) \big\| \cos(\theta)$\\
+    \remark $D_vf(x_0) = \nabla f(x_0) \cdot v = \big\| \nabla f(x_0) \big\| \cos(\theta)$\\
+\end{footnotesize}
 \subtext{In the case $f: X \to \R$, where $\theta$ is the angle between $v$ and $\nabla f(x_0)$}
 
 \newpage
