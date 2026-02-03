@@ -5,6 +5,8 @@
 \setupCheatSheet{Analysis II}
 
 \usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{width=13cm}
 \usetikzlibrary{positioning, arrows.meta}
 
 \begin{document}
@@ -18,11 +20,23 @@
 %          │                   Title page                   │
 %          ╰────────────────────────────────────────────────╯
 \vspace{2cm}
-\begin{Huge}
-    \begin{center}
-        TITLE PAGE COMING SOON
-    \end{center}
-\end{Huge}
+\begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+                hide axis,
+                colormap/cool,
+            ]
+            \addplot3[
+                mesh,
+                samples=50,
+                domain=-8:8,
+            ]
+            {sin(deg(sqrt(x^2+y^2)))/sqrt(x^2+y^2)};
+            \addlegendentry{\(\frac{sin(r)}{r}\)}
+            \legend{}
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
 
 
 \vspace{4cm}
@@ -34,14 +48,14 @@
     \hspace{3cm} - Özlem Imamoglu, 2025
 \end{center}
 
-\vspace{3cm}
+\vspace{2cm}
 \begin{center}
     HS2025, ETHZ\\[0.2cm]
     \begin{Large}
         Cheat-Sheet based on Lecture notes and Script
     \end{Large}\\[0.2cm]
 
-    \url{https://metaphor.ethz.ch/x/2025/hs/401-0213-16L/sc/script-analysis-II.pdf} 
+    \url{https://metaphor.ethz.ch/x/2025/hs/401-0213-16L/sc/script-analysis-II.pdf}
 \end{center}
 
 
@@ -53,15 +67,15 @@
 \setcounter{section}{-1}
 \section{Introduction}
 This Cheat-Sheet does not serve as a replacement for solving exercises and getting familiar with the content.
-There is no guarantee that the content is 100\% accurate, so use at your own risk. 
+There is no guarantee that the content is 100\% accurate, so use at your own risk.
 If you discover any errors, please open an issue or fix the issue yourself and then open a Pull Request here:
 
 \url{https://github.com/janishutz/eth-summaries}
 
-This Cheat-Sheet was designed with the HS2025 page limit of 10 A4 pages in mind. 
+This Cheat-Sheet was designed with the HS2025 page limit of 10 A4 pages in mind.
 Thus, the whole Cheat-Sheet can be printed full-sized, if you exclude the title page, contents and this page.
-You could also print it as two A5 pages per A4 page and also print the 
-\hlhref{https://github.com/janishutz/eth-summaries/blob/master/semester2/analysis-i/cheat-sheet-jh/cheat-sheet-en.pdf}{Analysis I summary} 
+You could also print it as two A5 pages per A4 page and also print the
+\hlhref{https://github.com/janishutz/eth-summaries/blob/master/semester2/analysis-i/cheat-sheet-jh/cheat-sheet-en.pdf}{Analysis I summary}
 \smallhspace in the same manner, allowing you to bring both to the exam.
 
 And yes, she did really miss an opportunity there with the quote\dots But she was also sick, so it's not as unexpected
