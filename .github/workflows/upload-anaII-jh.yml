@@ -13,5 +13,5 @@ jobs:
         uses: ./.github/actions/upload-to-comsol
         with:
           access_token: ${{ secrets.TOKEN_ANA_II_JH }}
-          file: ./semester2/analysis-i/cheat-sheet-jh/cheat-sheet-en.pdf
+          file: ./semester3/analysis-ii/cheat-sheet-jh/analysis-ii-cheat-sheet.pdf
           url: https://exams.vis.ethz.ch/api/document/jahutz/analysis-ii-cheatsheet-hs25/files/693/update/
