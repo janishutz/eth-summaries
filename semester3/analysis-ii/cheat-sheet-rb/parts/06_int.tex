@@ -217,12 +217,6 @@ $$
 
 \newpage
 \subsection{Change of Variable}
-\smalltext{This is to provide an Analogue of the Change of Variable in $\R$}
-$$
-    \int f\Bigl( g(x) \Bigr) g'(x)\ dx = \int f(y)\ dy
-$$
-
-\textbf{Prerequisites}
 
 \begin{footnotesize}
     $\bar{X},\bar{Y} \subset \R^n$ compact, $\varphi: \bar{X} \to \bar{Y}$ cont.\\
@@ -259,7 +253,7 @@ $$
 
     \item Cylindrical Coordinates\\
     \smalltext{
-        $\varphi(r, \theta, z) = \bigl( r\cos(\theta),\ rsin(\theta),\ z \bigr) \quad \color{gray} \theta \in [0, \pi), \phi \in [0, 2\pi)$\\
+        $\varphi(r, \theta, z) = \bigl( r\cos(\theta),\ r\sin(\theta),\ z \bigr) \quad \color{gray} \theta \in [0, \pi), \phi \in [0, 2\pi)$\\
         $dxdydz = r\ dr\ d\theta\ dz$
     }
 
@@ -269,11 +263,33 @@ $$
         $dxdydz = r^2\ \sin(\phi)\ dr\ d\theta\ d\phi$
     }
 \end{enumerate}
+\begin{footnotesize}
+    Corresponding Jacobians:
+    $$
+    \textbf{J}_1 = \begin{bmatrix}
+        \cos(\theta) & -r\sin(\theta) \\
+        \sin(\theta) & r\cos(\theta)  \\
+    \end{bmatrix}
+    \qquad
+    \textbf{J}_2 = \begin{bmatrix}
+        \cos(\theta) & -r\sin(\theta) & 0 \\
+        \sin(\theta) & r\cos(\theta)  & 0 \\
+        0            & 0              & z
+    \end{bmatrix}
+    $$
+    $$
+    \textbf{J}_3 = \begin{bmatrix}
+        \cos(\phi)\sin(\theta) & -r\sin(\phi)\sin(\theta) & r\cos(\phi)\cos(\theta) \\
+        \sin(\phi)\sin(\theta) & r\cos(\phi)\sin(\theta)  & r\sin(\phi)\cos(\theta) \\
+        \cos(\theta)           & 0                        & -r\sin(\theta)
+    \end{bmatrix}
+    $$
+\end{footnotesize}
 
 % https://en.wikipedia.org/wiki/Spherical_coordinate_system#/media/File:3D_Spherical.svg
-\begin{center}
-    \includegraphics[width=0.3\linewidth]{res/spherical-coords.png}
-\end{center}
+% \begin{center}
+%     \includegraphics[width=0.3\linewidth]{res/spherical-coords.png}
+% \end{center}
 
 \newpage
 \subsection{Green's Theorem}
