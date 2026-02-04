@@ -1,4 +1,7 @@
-# eth-summaries
+<div id="title" align="center">
+    <img src="./assets/logo.jpg" width="300">
+    <h1>eth-summaries</h1>
+</div>
 The source code for summaries and cheat-sheets for the lectures of BSc Computer Science at ETH Zurich.
 
 If you find mistakes, please open an issue or fix them yourself and open a PR.
