@@ -105,6 +105,7 @@ $\forall x_1,x_2 \in X:$ Line seg. $x_1 \to x_2$ is in $X$\\
 $$
     \forall 1 \leq i \neq j \leq n: \frac{\partial f_i}{\partial x_j} = \frac{\partial f_j}{\partial x_i} \implies f \text{ conservative}
 $$
+\subtext{This is the most common way to prove/disprove $f$ being conservative.}
 
 \definition $\text{curl}(f) := \begin{bmatrix}
     \partial_y f_3 - \partial_z f_2 \\
@@ -199,7 +200,9 @@ $$
 $$
     \underset{x \to \infty}{\lim}\int_{[a,x]\times I}f(x,y)\ dxdy = \underbrace{\int_a^\infty \Biggl( \int_I f(x,y)\ dy \Biggr) dx}_\text{Order of Integration may change}
 $$
-If this Limit is equal for both orders of Integration:
+\subtext{The improper integral on the right is simply a regular improper integral.}
+
+\smalltext{If this Limit is equal for both orders of Integration:}
 
 \definition \textbf{Improper Integral in $\R^2$}
 $$
@@ -243,57 +246,7 @@ $$
     The change of variable is: $\displaystyle\int_{\bar{X}} f\Bigl( \varphi(x) \Bigr)\ dx = \frac{1}{\left\vert \det(\textbf{A}) \right\vert} \int_{\bar{Y}}f(y)\ dy$
 \end{footnotesize}
 
-\remark \textbf{Common Changes}
-\begin{enumerate}
-    \item Polar Coordinates\\
-    \smalltext{    
-        $\varphi(r, \theta) = \bigl(r\cos(\theta),\ r\sin(\theta)\bigr) \quad \color{gray} \theta \in [0, 2\pi) $\\
-        $dxdy = r\ dr\ d\theta$
-    }
-
-    \item Cylindrical Coordinates\\
-    \smalltext{
-        $\varphi(r, \theta, z) = \bigl( r\cos(\theta),\ r\sin(\theta),\ z \bigr) \quad \color{gray} \theta \in [0, \pi), \phi \in [0, 2\pi)$\\
-        $dxdydz = r\ dr\ d\theta\ dz$
-    }
-
-    \item Spherical Coordinates\\
-    \smalltext{
-        $\varphi(r, \theta, \phi) = (r\sin(\phi)\cos(\theta),\ r\sin(\phi)\sin(\theta),\ r\cos(\phi))$\\
-        $dxdydz = r^2\ \sin(\phi)\ dr\ d\theta\ d\phi$
-    }
-\end{enumerate}
-\begin{footnotesize}
-    Corresponding Jacobians:
-    $$
-    \textbf{J}_1 = \begin{bmatrix}
-        \cos(\theta) & -r\sin(\theta) \\
-        \sin(\theta) & r\cos(\theta)  \\
-    \end{bmatrix}
-    \qquad
-    \textbf{J}_2 = \begin{bmatrix}
-        \cos(\theta) & -r\sin(\theta) & 0 \\
-        \sin(\theta) & r\cos(\theta)  & 0 \\
-        0            & 0              & z
-    \end{bmatrix}
-    $$
-    $$
-    \textbf{J}_3 = \begin{bmatrix}
-        \cos(\phi)\sin(\theta) & -r\sin(\phi)\sin(\theta) & r\cos(\phi)\cos(\theta) \\
-        \sin(\phi)\sin(\theta) & r\cos(\phi)\sin(\theta)  & r\sin(\phi)\cos(\theta) \\
-        \cos(\theta)           & 0                        & -r\sin(\theta)
-    \end{bmatrix}
-    $$
-\end{footnotesize}
-
-% https://en.wikipedia.org/wiki/Spherical_coordinate_system#/media/File:3D_Spherical.svg
-% \begin{center}
-%     \includegraphics[width=0.3\linewidth]{res/spherical-coords.png}
-% \end{center}
-
-\newpage
 \subsection{Green's Theorem}
-\smalltext{An analogue of the Fundamental Theorem of Calculus in $\R^2$.}
 
 \definition \textbf{Simple Closed Parametrized Curve}\\
 $\gamma: [a,b] \to \R^2$ closed param. curve s.t.
@@ -301,8 +254,7 @@ $\gamma: [a,b] \to \R^2$ closed param. curve s.t.
     \item $\gamma(t) \neq \gamma(s)\quad$ unless $s = t$, or $\{s,t\} = \{a,b\}$
     \item $\gamma'(t) \neq 0\quad \forall a < t < b$
 \end{enumerate}
-\subtext{Example: $\varphi(t) = \Bigl( x_0 + r\cos(t),\ y_0 + r\sin(t) \Bigr)$\\ 
-(A circle, traversed \textit{once}, i.e. for $0 \leq t \leq 2\pi$)}
+\subtext{Example: $\varphi(t) = \Bigl( x_0 + r\cos(t),\ y_0 + r\sin(t) \Bigr)$}
 
 \begin{subbox}{Green's Theorem}
     \smalltext{$X \subset \R^2 \text{ compact with Boundary } \partial X = \displaystyle\underset{1 \leq i \leq n}{\bigcup} \gamma_i$ as above}\\
@@ -338,4 +290,127 @@ $$
     $$
         \text{Area}(X) = \int_X 1\ dxdy = \int_X \bigg(\partial_x f_y - \partial_y f_x \bigg) \ dxdy = \int_\gamma f(s)\ ds
     $$
+\end{footnotesize}
+
+\subsection{Useful Parametrizations}
+
+\begin{footnotesize}
+   \textbf{Circle:} $x^2 + y^2 = r^2$
+    $$
+        \gamma: [0, 2\pi] \mapsto \begin{pmatrix}
+            r\cos(t) \\
+            r\sin(t)
+        \end{pmatrix} 
+        \qquad
+        \gamma: [0, 2\pi] \mapsto \begin{pmatrix}
+            r\cos(t) \\
+            -r\sin(t)
+        \end{pmatrix}
+    $$
+    \color{gray} Clockwise \& Counterclockwise \color{black}
+
+    \textbf{Ellipsoid:} $\displaystyle\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$
+    $$
+        \gamma: [0, 2\pi] \mapsto \begin{pmatrix}
+            a\cos(t) \\
+            b\sin(t)
+        \end{pmatrix}
+        \qquad
+        \gamma: [0, 2\pi] \mapsto \begin{pmatrix}
+            a\cos(t) \\
+            -b\sin(t)
+        \end{pmatrix}
+    $$
+    \color{gray} Clockwise \& Counterclockwise \color{black}
+
+    \textbf{Piecewise Continuous function:} $f(x)$
+    $$
+        \gamma: [a, b] \mapsto \bigl(t, f(t) \bigr)
+    $$
+
+    \textbf{Line Segment:} $(x_0,y_0,z_0) \to (x_1,y_1,z_1)$
+    $$
+        \gamma: [0, 1] \mapsto (1-t)
+        \begin{pmatrix}
+            x_0 \\
+            y_0 \\
+            z_0
+        \end{pmatrix}
+        + t
+        \begin{pmatrix}
+            x_1 \\
+            y_1 \\
+            z_1
+        \end{pmatrix}
+    $$
+    \color{gray} This is simply linear interpolation in $\R^3$ \color{black} 
+\end{footnotesize}
+\subsection{Common Changes}
+\begin{footnotesize}
+
+    \textbf{Polar Coordinates} ($\R^2$)\\ 
+    $$
+        \varphi(r, \theta) = \begin{pmatrix}
+        r\cos(\theta)\\
+        r\sin(\theta)
+        \end{pmatrix} \qquad \color{gray} \theta \in [0, 2\pi) 
+    $$
+    $dxdy = r\ dr\ d\theta$
+
+    \textbf{Elliptic Coordinates} ($\R^2$)\\
+    $$
+        \varphi(r, \theta) = \begin{pmatrix}
+            ra\cos(\theta) \\
+            rb\sin(\theta)
+        \end{pmatrix} \qquad \color{gray} \theta \in [0, 2\pi) 
+    $$
+    $dxdy = a\cdot b\cdot r\ dr\ d\varphi$
+
+    \textbf{Cylindrical Coordinates} ($\R^3$)\\
+    $$
+        \varphi(r, \theta, z) = \begin{pmatrix}
+        r\cos(\theta) \\
+        r\sin(\theta) \\
+        z
+        \end{pmatrix} 
+        \qquad \color{gray} \theta \in [0, \pi), \phi \in [0, 2\pi)
+    $$
+    $dxdydz = r\ dr\ d\theta\ dz$
+
+    \textbf{Spherical Coordinates} ($\R^3$)\\
+    $$
+        \varphi(r, \theta, \phi) = \begin{pmatrix}
+        r\sin(\phi)\cos(\theta) \\
+        r\sin(\phi)\sin(\theta) \\
+        r\cos(\phi)
+        \end{pmatrix}
+        \qquad \color{gray} \theta \in [0, \pi), \phi \in [0, 2\pi)
+    $$
+    $dxdydz = r^2\cdot\sin(\phi)\ dr\ d\theta\ d\phi$
+
+    \textbf{Corresponding Jacobians}:
+    $$
+    \textbf{J}_1 = \begin{bmatrix}
+        \cos(\theta) & -r\sin(\theta) \\
+        \sin(\theta) & r\cos(\theta)  \\
+    \end{bmatrix}
+    \qquad
+    \textbf{J}_2 = \begin{bmatrix}
+        \cos(\theta) & -r\sin(\theta) & 0 \\
+        \sin(\theta) & r\cos(\theta)  & 0 \\
+        0            & 0              & z
+    \end{bmatrix}
+    $$
+    $$
+    \textbf{J}_3 = \begin{bmatrix}
+        \cos(\phi)\sin(\theta) & -r\sin(\phi)\sin(\theta) & r\cos(\phi)\cos(\theta) \\
+        \sin(\phi)\sin(\theta) & r\cos(\phi)\sin(\theta)  & r\sin(\phi)\cos(\theta) \\
+        \cos(\theta)           & 0                        & -r\sin(\theta)
+    \end{bmatrix}
+    $$
+
+    % https://en.wikipedia.org/wiki/Spherical_coordinate_system#/media/File:3D_Spherical.svg
+    % \begin{center}
+    %     \includegraphics[width=0.3\linewidth]{res/spherical-coords.png}
+    % \end{center}
 \end{footnotesize}
