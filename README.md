@@ -33,9 +33,12 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 - [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Authors: Robin Bacher, Janis Hutz
 
 ### Semester 4
+#### Probability & Statistics
+- [Probability & Statistics Cheat-Sheet (TBD)](./semester4/ps/ps-jh/probability-and-statistics-cheatsheet.pdf) Author: Janis Hutz
+- [Probability & Statistics Cheat-Sheet (TBD)](./semester4/ps/ps-rb/main.pdf) Author: Robin Bacher
+#### Other Courses
 - [Formal Methods & Functional Programming Summary (EN)](./semester4/fmfp/formal-methods-functional-programming-summary.pdf)
 - [Data Modelling & Databases Summary (EN)](./semester4/dmdb/data-modelling-databases-summary.pdf)
-- [Probability & Statistics Cheat-Sheet (TBD)](./semester4/ps/probability-and-statistics-cheatsheet.pdf)
 - [Computer Networks (EN)](./semester4/cn/computer-networks-summary.pdf)
 
 
