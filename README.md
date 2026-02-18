@@ -32,6 +32,12 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 - [Numerical Methods for Computer Science Summary (DE)](./semester3/numcs/numcs-summary.pdf) Authors: Robin Bacher, Janis Hutz
 - [Systems Programming and Computer Architecture Summary (EN)](./semester3/spca/spca-summary.pdf) Authors: Robin Bacher, Janis Hutz
 
+### Semester 4
+- [Formal Methods & Functional Programming Summary (EN)](./semester4/fmfp/formal-methods-functional-programming-summary.pdf)
+- [Data Modelling & Databases Summary (EN)](./semester4/dmdb/data-modelling-databases-summary.pdf)
+- [Probability & Statistics Cheat-Sheet (TBD)](./semester4/ps/probability-and-statistics-cheatsheet.pdf)
+- [Computer Networks (EN)](./semester4/cn/computer-networks-summary.pdf)
+
 
 ## Contributing
 Clone this repo locally using
