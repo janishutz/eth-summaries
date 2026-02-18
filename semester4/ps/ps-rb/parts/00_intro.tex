@@ -1,0 +1,60 @@
+\definition \textbf{Grundraum} $\Omega\qquad$ \textbf{Elementarereignis} $\omega \in \Omega$
+
+\definition \textbf{$\sigma$-Algebra} $\quad \mathcal{F} \subseteq \mathcal{P}(\Omega)\qquad$ \textbf{Ereignis} $A \in \mathcal{F}$
+
+\begin{tabular}{lll}
+    (i)     & $\Omega \in \mathcal{F}$ \\
+    (ii)    & $A \in \mathcal{F}$               & $\implies A^\comp \in \mathcal{F}$ \\
+    (iii)   & $A_1,\cdots,A_n \in \mathcal{F}$  & $\implies \displaystyle\underset{i \leq n}{\bigcup} A_i \in \mathcal{F}$
+\end{tabular}
+
+\lemma \textbf{Abgeschlossenheit} der $\sigma$-Algebra $\F$
+
+\begin{tabular}{ll}
+    (i)     & $\emptyset \in \F$ \\
+    (ii)    & $A_1,\cdots,A_n \in \F \implies \displaystyle\overunderset{\infty}{i=1}{\bigcap} A_i \in \F$ \\
+    (iii)   & $A, B \in \F \implies A \cup B \in \F$ \\
+    (iv)    & $A, B \in \F \implies A \cap B \in \F$
+\end{tabular}
+
+\definition \textbf{Wahrscheinlichkeitsmass} auf $(\Omega, \F): \P$
+$$
+    \P: \F \to [0,1] \qquad \text{s.d.} \qquad A \mapsto \P[A]
+$$
+\begin{tabular}{ll}
+    (i)     & $\P[\Omega] = 1$ \\
+    (ii)    & $\P[A] = \displaystyle\sum_{i=1}^{\infty} A_i \iff A = \overunderset{\infty}{i=1}{\bigcup}A_i \quad \text{s.d.} \quad \overunderset{\infty}{i=1}{\bigcap}A_i = \emptyset$
+\end{tabular}
+
+\lemma \textbf{Eigenschaften} von $\P$
+
+\begin{tabular}{ll}
+    (i)     & $\P[\emptyset] = 0$ \\
+    (ii)    & $\displaystyle\overunderset{k}{i=1}{\bigcap} A_i = \emptyset \implies \P\biggl[ \overunderset{k}{i=1}{\bigcup} A_i \biggr] = \sum_{i=1}^{k} \P[A_i]$ \\
+    (iii)   & $\P[A^\comp] = 1 - \P[A]$ \\
+    (iv)    & $\P[A \cup B] = \P[A] + \P[B] - \P[A \cap B]$
+\end{tabular}
+
+\definition \textbf{Wahrscheinlichkeitsraum} $(\Omega, \F, \P)$
+\subtext{$A \in \mathcal{F}, \quad \omega \in \Omega$}
+
+\begin{tabular}{lll}
+    $A$ tritt ein           &$\iffdef$& $\omega \in A$ \\
+    $A$ tritt nicht ein    &$\iffdef$& $\omega \notin A$ 
+\end{tabular}
+\footnotesize
+\begin{tabular}{ll}
+    (i)     & $\emptyset$ tritt nie ein \\
+    (ii)    & $\Omega$ tritt immer ein
+\end{tabular}
+\normalsize
+
+\newpage
+
+\definition \textbf{Laplace Modell} $(\Omega, \F, \P)$
+\subtext{$\Omega$ endlich.}
+
+\begin{tabular}{ll}
+    (i)     & $\F = \mathcal{P}(\Omega)$ \\
+    (ii)    & $\forall A \in \F:\quad \P[A] = \displaystyle\frac{|A|}{|\Omega|}$
+\end{tabular}

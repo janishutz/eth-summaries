@@ -17,7 +17,7 @@
   base={#1}
 }
 
-% Math helpers
+% Math helpers, General
 \def\limxo{\lim_{x\to 0}}
 \def\limxi{\lim_{x\to\infty}}
 \def\limxn{\lim_{x\to-\infty}}
@@ -38,6 +38,7 @@
 \def \cgeq{\succcurlyeq}
 \def \cleq{\preccurlyeq}
 
+% Math helpers, Analysis
 \def \limn{\lim\limits_{n \to \infty}}
 \def \limi{\liminf\limits_{n \to \infty}}
 \def \lims{\limsup\limits_{n \to \infty}}
@@ -52,6 +53,12 @@
 \def \sdfd#1{\partial_{x_#1}f}
 \def \ssdfd#1{\partial_#1f}
 \def \dd#1#2{\frac{\partial_#1}{\partial x_#2}}   % to replace f
+
+% Math helpers, Probability
+\def \comp{\text{C}}
+
+\def \P{\mathbb{P}}
+\def \F{\mathcal{F}}
 
 % Titles
 \def \definition{\colorbox{lightgray}{Def} }
