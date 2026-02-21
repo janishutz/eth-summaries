@@ -1,0 +1,23 @@
+\subsection{Wahrscheinlichkeitsräume}
+\shortterm $\Omega$ \bi{Grundraum}, $\omega \in \Omega$ \bi{Elementarereignis}
+
+\shortdefinition[Sigma-Algebra] $\cF \subseteq \cP(\Omega)$ ist $\sigma$-Algebra, falls:
+\begin{enumerate}[label=E\arabic*.]
+    \item $\Omega \subseteq \cF$
+    \item $A \in \cF \Rightarrow A^C \in \cF$ ($A$ Ereignis $\Rightarrow$ nicht $A$ auch)
+    \item $A_1, A_2, \ldots \in \cF \Rightarrow \bigcup_{i = 1}^\infty A_i \in \cF$\\
+        ($A_1, \ldots$ Ereignisse $\Rightarrow$ $A_1$ oder $A_2$ oder \dots ein Ereignis)
+\end{enumerate}
+\shortexample $\omega$-Algebren beim einmaligen Würfeln ($\Omega = \{ 1, 2, 3, 4, 5, 6 \}$)
+\begin{itemize}
+    \item $\cF = \{ \emptyset, \{ 1, 2, 3, 4, 5, 6 \} \}$
+    \item $\cF = \cP(\Omega)$, dabei $|\cF| = 64$
+    \item $\cF = \{ \emptyset, \{ 1, 2 \}, \{ 3, 4, 5, 6 \}, \Omega \}$
+\end{itemize}
+Keine $\omega$-Algebren sind bspw:
+\begin{itemize}
+    \item $\cF = \{ \Omega \}$ (Komplementärereignis $\emptyset$ fehlt, E2 verletzt)
+    \item $\cF = \{ \emptyset, \{ 1, 2, 3 \}, \{ 4, 5, 6 \}, \{ 1 \}, \{ 2, 3, 4, 5, 6 \}, \Omega \}$\\
+        (E3 verletzt, da bspw $\{ 4, 5, 6 \} \cup \{ 1 \} \notin \cF$)
+\end{itemize}
+
