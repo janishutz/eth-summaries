@@ -15,5 +15,18 @@
 \shorttheorem[Union Bound] Für $A_1, A_2, \ldots$ (mögl. disj.) gilt:
 $\P\left[ \bigcup_{i = 1}^\infty A_i \right] \leq \sum_{i = 1}^{\infty} \P[A_i]$.
 Auch für endl. n.-leere Ereignisse
+\stepLabelNumber{combined}
+
 
 \subsubsection{Anwendungen der Ungleichungen}
+Sie sind nützlich für schwer zu berechnende W.
+
+\shorttheorem $(A_n)$ mit $A_n \subseteq A_{n + 1}$ (mon. wachsend). Dann:
+
+{\centering $\limni P[A_n] = \P\left[ \bigcup_{n = 1}^\8 A_n \right]$\\}
+
+und für $(B_n)$ mit $B_n \supseteq B_{n + 1}$ (mon. fallend) gilt:\\
+$\limni P[B_n] = \P\left[ \bigcap_{n = 1}^\8 \right]$
+
+\shortremark Mit Monotonie: $\P[A_n] \leq \P[A_{n + 1}]$ und\\
+$\P[B_n] \geq \P[B_{n + 1}]$. Grenzwerte oben wohldefiniert.

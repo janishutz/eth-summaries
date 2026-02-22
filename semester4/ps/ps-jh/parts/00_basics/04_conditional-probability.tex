@@ -1,0 +1,18 @@
+\subsection{Bedingte Wahrscheinlichkeit}
+\shortdefinition Für $(\Omega, \cF, \P)$ mit $A, B \in \cP(\Omega)$ mit $\P[B] > 0$:
+\[
+    \P[A | B] = \frac{\P[A \cap B]}{\P[B]}
+\]
+\shortremark $\P[B | B] = 1$
+
+\shorttheorem $B \in \cP(\Omega)$, dann ist $\P[ \cdot | B]$ ein W-Mass auf $\Omega$
+
+\shorttheorem[Totale W.] $\Omega = B_1 \cup \dots \cup B_n$ mit $B_i$s eine Partition von $\Omega$, mit $B_i$ paarw. disj. und $\P[B_i] > 0\; \forall 1 \leq i \leq n$. Dann:
+\[
+    \forall A \in \cF \quad \P[A] = \sum_{i = 1}^{n} \P[A | B_i] \cdot \P[B_i]
+\]
+
+\shorttheorem[Bayes] $B_i$ wie oben, damm $\forall A$ mit $\P[A] > 0$:
+\[
+    \forall i = 1, \ldots, n \quad \P[B_i | A] = \frac{\P[A | B_i] \P[B_i]}{\sum_{j = 1}^{n} \P[A | B_j] \P[B_j]}
+\]
