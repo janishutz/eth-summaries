@@ -1,0 +1,19 @@
+\subsection{Eigenschaften Wahrscheinlichkeitsmasse}
+\shorttheorem $\P$ Wahrscheinlichkeitsmass auf $(\Omega, \cF)$, $A$ Ereignis:
+\begin{enumerate}[label=\textbf{E\arabic*.}]
+    \item Es gilt $\P[\varnothing] = 0$
+    \item \bi{Additivität} $k \geq 1$, $A_1, \ldots, A_k$ paarw. disj. Ereignisse:\\
+          $\P[A_1 \cup \dots \cup A_k] = \P[A_1] + \dots + \P[A_k]$
+    \item $\P[A^C] = 1 - \P[A]$
+    \item $B$ Ereignis, dann $\P[A \cup B] = \P[A] + \P[B] - \P[A \cap B]$
+\end{enumerate}
+
+\newpage
+\subsubsection{Nützliche Ungleichungen}
+\shorttheorem[Monot.] $A, B \in \cF$, dann $A \subseteq B \Rightarrow \P[A] \leq \P[B]$
+
+\shorttheorem[Union Bound] Für $A_1, A_2, \ldots$ (mögl. disj.) gilt:
+$\P\left[ \bigcup_{i = 1}^\infty A_i \right] \leq \sum_{i = 1}^{\infty} \P[A_i]$.
+Auch für endl. n.-leere Ereignisse
+
+\subsubsection{Anwendungen der Ungleichungen}

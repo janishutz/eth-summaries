@@ -2,18 +2,20 @@
 \shortterm $\Omega$ \bi{Grundraum}, $\omega \in \Omega$ \bi{Elementarereignis}
 
 \shortdefinition[Sigma-Algebra] $\cF \subseteq \cP(\Omega)$ ist $\sigma$-Algebra, falls:
-\begin{enumerate}[label=E\arabic*.]
+\begin{enumerate}[label=\textbf{E\arabic*.}]
     \item $\Omega \subseteq \cF$
     \item $A \in \cF \Rightarrow A^C \in \cF$ ($A$ Ereignis $\Rightarrow$ nicht $A$ auch)
     \item $A_1, A_2, \ldots \in \cF \Rightarrow \bigcup_{i = 1}^\infty A_i \in \cF$\\
         ($A_1, \ldots$ Ereignisse $\Rightarrow$ $A_1$ oder $A_2$ oder \dots ein Ereignis)
 \end{enumerate}
-\shortexample $\sigma$-Algebren beim einmal. Würfeln ($\Omega = \{ 1, 2, 3, 4, 5, 6 \}$)
+
+\shortexample $\sigma$-Algebren bei 1x Würfeln ($\Omega = \{ 1, 2, 3, 4, 5, 6 \}$)
 \begin{itemize}
     \item $\cF = \{ \emptyset, \{ 1, 2, 3, 4, 5, 6 \} \}$
     \item $\cF = \cP(\Omega)$, dabei $|\cF| = 64$
     \item $\cF = \{ \emptyset, \{ 1, 2 \}, \{ 3, 4, 5, 6 \}, \Omega \}$
 \end{itemize}
+
 Keine $\sigma$-Algebren sind bspw:
 \begin{itemize}
     \item $\cF = \{ \Omega \}$ (Komplementärereignis $\emptyset$ fehlt, E2 verletzt)
@@ -23,8 +25,8 @@ Keine $\sigma$-Algebren sind bspw:
 
 
 \subsubsection{Wahrscheinlichkeitsmass}
-\shortdefinition[W.M] $\P : \cF \rightarrow [0, 1]$ mit $A \mapsto \P[A]$, notiert $(\Omega, \cF)$ und falls folgende Eigenschaften gelten
-\begin{enumerate}[label=E\arabic*]
+\shortdefinition[W.M] $\P : \cF \rightarrow [0, 1]$ mit $A \mapsto \P[A]$, notiert $(\Omega, \cF)$, falls folgende Eigenschaften gelten
+\begin{enumerate}[label=\textbf{E\arabic*.}]
     \item $\P[\Omega] = 1$
     \item ($\sigma$-\bi{Additivität}) $\P[A] = \sum_{i = 1}^{\infty} \P[A_i]$,\\
           falls $A = \bigcup_{i = 1}^\infty A_i$ \textit{(disjunkte Vereinigung)}
@@ -41,3 +43,5 @@ Keine $\sigma$-Algebren sind bspw:
 \shortdefinition[W.R] ein Tripel $(\Omega, \cF, \P)$
 
 \shortterm $A$ Ereignis, \bi{tritt (nicht) ein} (für $\omega$), if $\omega \in (\notin) A$
+
+\shortremark $A = \varnothing$ tritt niemals ein, $A = \Omega$ immer.

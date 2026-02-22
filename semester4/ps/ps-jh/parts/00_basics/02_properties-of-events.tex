@@ -1,0 +1,20 @@
+\subsection{Eigenschaften/Interp. von Ereignissen}
+\shorttheorem $\cF$ $\sigma$-Algebra. Es gilt: \textbf{E4.} $\varnothing \in \cF$
+\begin{enumerate}[label=\textbf{E\arabic*.},start=5]
+    \item $A_1, A_2, \ldots \in \cF \Rightarrow \bigcap_{i = A}^\infty A_i \in \cF$
+    \item $A, B \in \cF \Rightarrow A \cup B \in \cF$
+    \item $A, B \in \cF \Rightarrow A \cap B \in \cF$
+\end{enumerate}
+
+\begin{tabular}{ll}
+    $A^C$                    & $A$ tritt \bi{nicht} ein              \\
+    $A \cap B$               & $A$ \bi{und} $B$ treten ein           \\
+    $A \cup B$               & $A$ \bi{oder} $B$ treten ein          \\
+    $A \Delta B$             & entweder $A$ \bi{oder} $B$ tritt ein  \\
+    $A \subseteq B$          & $B$ tritt ein, falls $A$ eintritt     \\
+    $A \cap B = \varnothing$ & $A$ und $B$ nicht gleichzeitig        \\
+    \makecell{$\Omega = A_1 \cup A_2 \cup A_3$ mit                   \\ $A_1, A_2, A_3$ paarw. disj.}
+                            & \makecell{$\forall \omega \in \Omega$ \\ nur eines von $A_1, A_2, A_3$\\kann eintreten}
+\end{tabular}
+
+Wir wählen nicht immer $\cF = \cP(\Omega)$, bspw. für mehrstufige Experimente ist dies nicht ideal (k. Filtern, Überabzählbarkeit)\\[-1.1\baselineskip]
