@@ -30,7 +30,7 @@ $$
 
 \begin{tabular}{ll}
     (i)     & $\P[\emptyset] = 0$ \\
-    (ii)    & $\displaystyle\overunderset{k}{i=1}{\bigcap} A_i = \emptyset \implies \P\biggl[ \overunderset{k}{i=1}{\bigcup} A_i \biggr] = \sum_{i=1}^{k} \P[A_i]$ \\
+    (ii)    & $\displaystyle\overunderset{k}{i=1}{\bigcap} A_i = \emptyset \implies \P\Biggl[ \overunderset{k}{i=1}{\bigcup} A_i \Biggr] = \sum_{i=1}^{k} \P[A_i]$ \\
     (iii)   & $\P[A^\comp] = 1 - \P[A]$ \\
     (iv)    & $\P[A \cup B] = \P[A] + \P[B] - \P[A \cap B]$
 \end{tabular}
@@ -58,3 +58,68 @@ $$
     (i)     & $\F = \mathcal{P}(\Omega)$ \\
     (ii)    & $\forall A \in \F:\quad \P[A] = \displaystyle\frac{|A|}{|\Omega|}$
 \end{tabular}
+
+\lemma \textbf{Nützliche Ungleichungen}
+
+\begin{tabular}{lll}
+    (i)     & $A \subseteq B \implies \P[A] \leq \P[B]$     & \subtext{(Monotonie)} \\
+    (ii)    & $\P \Biggl[ \displaystyle\overunderset{\infty}{i=1}{\bigcup} A_i \Biggr] \leq \sum_{\infty}^{i=1}\P[A_i]$ & \subtext{(Union Bound)}
+\end{tabular}
+
+\subtext{$A_1,A_2,\ldots$ müssen \textit{nicht} disjunkt sein.}
+
+\lemma \textbf{Stetigkeit} von $\P$ gegen $\infty$\\
+\begin{tabular}{ll}
+    (i)     & $\forall n: A_n \subseteq A_{n+1} \implies \limn \P[A_n] = \P \Biggl[ \displaystyle\overunderset{\infty}{n=1}{\bigcup} A_n \Biggr]$ \\
+    (ii)    & $\forall n: B_n \supseteq B_{n+1} \implies \limn \P[B_n] = \P \Biggl[ \displaystyle\overunderset{\infty}{n=1}{\bigcap} B_n \Biggr]$
+\end{tabular}
+
+\subtext{$(A_n), (B_n)$ sind monotone Folgen von Ereignissen}
+
+\definition \textbf{Bedingte Wahrscheinlichkeit}
+$$
+    \P\bigl[A\ \big|\ B\bigr] := \frac{\P[A \cap B]}{\P[B]}
+$$
+\subtext{$A,B \in \F,\quad \P[B] > 0$}
+
+\begin{footnotesize}
+    \lemma $\P\bigl[ A \big| A \bigr] = 1$
+    \color{gray}
+    $\qquad\P[A] > 0$
+    \color{black}
+\end{footnotesize}
+
+\lemma \textbf{Totale Wahrscheinlichkeit}
+$$
+    \forall A \in \F:\quad \P[A] = \sum_{i=1}^{n}\P\bigl[ A \big| B_i \bigr] \cdot \P[B_i]
+$$
+\subtext{$B_1,\cdots,B_n$ sind eine Partition von $\Omega$, $\P[B_i] > 0$.}
+
+\lemma \textbf{Bayes}
+$$
+    \forall i = 1,\cdots,n:\quad \P\bigl[ B_i \big| A \bigr] = \frac{\P\bigl[ A \big| B_i \bigr] \cdot \P[B_i]}{\sum_{j=1}^{n}\P\bigl[ A \big| B_j \bigr] \cdot \P[B_j]}
+$$
+\subtext{$B_1,\cdots,B_n$ sind eine Partition von $\Omega$, $\P[B_i] > 0$, $\P[A] > 0$.}
+
+\newpage
+
+\definition \textbf{Unabhängigkeit}
+$$
+    A, B \text{ unabhängig } \iffdef \P[A \cap B] = \P[A] \cdot \P[B]
+$$
+
+\lemma \textbf{Äquivalente Aussagen zur Unabhängigkeit}
+
+\begin{tabular}{lll}
+    (i)     & $\P[A \cap B] = \P[A] \cdot \P[B]$ & \subtext{(Defintion)}                 \\
+    (ii)    & $\P[A | B] = \P[A]$                & \subtext{($B$ kein Einfluss auf $A$)} \\
+    (iii)   & $\P[B | A] = \P[B]$                & \subtext{($A$ kein Einfluss auf $B$)} \\
+\end{tabular}
+
+\subtext{$A, B \in \F,\quad \P[A], \P[B] > 0$}
+
+\definition \textbf{Unabhängigkeit} für Ereignissmengen
+$$
+    (A_i)_{i \in I} \text{ unabhängig } \iffdef \forall J \subseteq I: \P \Biggl[ \underset{j \in J}{\bigcap} A_j \Biggr] = \prod_{j \in J} \P[A_j]
+$$
+\subtext{$I$ ist eine Indexmenge. Dies muss für \textit{alle} $J \subseteq I$ (endlich) gelten.}
