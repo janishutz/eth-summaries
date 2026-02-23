@@ -1,0 +1,18 @@
+\subsection{Unabhängigkeit}
+\shortdefinition $A, B \in \cF$ \bi{unabh.} falls $\P[A \cap B] = \P[A] \cdot \P[B]$
+
+\shortremark Falls $\P[A] \in \{0, 1\}$: $\forall B \in \cF \; \P[A \cap B] = \P[A] \P[B]$.
+Falls $A$ unabh. von sich selbst ($\P[A \cap A] = \P[A]^2$), dann $\P[A] \in \{0, 1\}$.
+\bi{Implik.}: $A$ unabh. v. $B$ $\Leftrightarrow$ $A$ unabh. v. $B^C$
+
+\shorttheorem Sei $\P[A], \P[B] > 0$. Dann ist equivalent:
+\begin{enumerate}[label=\textit{(\roman*)}]
+    \item $\P[A \cap B] = \P[A] \cdot \P[B]$\quad \textit{($A$ und $B$ unabhängig)}
+    \item $\P[A | B] = \P[A]$\quad \textit{(Eintreten von $B$ beinflusst $A$ nicht)}
+    \item $\P[B | A] = \P[B]$\quad \textit{(Eintreten von $A$ beinflusst $B$ nicht)}
+\end{enumerate}
+
+\shortdefinition $I$ eine beliebige Menge. $(A_i)_{i \in I}$ \bi{unabhängig} falls:
+\[
+    \forall j \subseteq I \text{ endlich} \quad \P\left[ \bigcap_{j \in J} A_j \right] = \prod_{j \in J} \P[A_j]
+\]
