@@ -46,6 +46,12 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 - [Introduction to Machine Learning Cheat-Sheet (EN)](./semester6/iml/main.pdf) Author: Robin Bacher
 
 
+### Electives
+#### Autonomous Mobile Robots
+- [Autonomous Mobile Robots Cheat-Sheet (EN)](./electives/amr/autonomous-mobile-robots-cheatsheet.pdf) Author: Janis Hutz
+- [Virtual Reality I Summary (EN)](./electives/vr1/virtual-reality1-summary.pdf) Author: Janis Hutz
+
+
 ## Contributing
 Clone this repo locally using
 ```bash
