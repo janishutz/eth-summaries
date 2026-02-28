@@ -1,0 +1,16 @@
+\begin{tables}{ll}{Keyword                    & Description}
+              \texttt{SELECT val, val2}       & returns the columns \texttt{val} and \texttt{val2}                      \\
+              \texttt{FROM table d, table2 c} & selects the target tables. Can use range variables (\texttt{d, c} here) \\
+              \texttt{WHERE}                  & Filter results. Can also target non-acquired columns                    \\
+              \texttt{DISTINCT}               & Returns elements without duplicates                                     \\
+              \texttt{UNION}                  & Set union (also removes duplicates)                                     \\
+              \texttt{INTERSECT}              & Set intersection                                                        \\
+              \texttt{EXCEPT}                 & Set difference                                                          \\
+              \texttt{JOIN}                   & Join tables, always requires a ON clause                                \\
+              \texttt{DATE}                   & Used to do comparisons against fixed Dates (followed by Datesting)      \\
+              \texttt{AVG(column)}            & Computes the average of the specified column                            \\
+              \texttt{SUM(column)}            & Computes the sum of the specified column                            \\
+\end{tables}
+
+We can directly add new columns to our result using statements like (also note that we do not actually return salary and employment columns)
+\mint{sql}{SELECT name, salary * employment / 100 AS RealSalary FROM employees;}
