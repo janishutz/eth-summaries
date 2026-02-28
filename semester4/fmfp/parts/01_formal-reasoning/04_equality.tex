@@ -1,0 +1,43 @@
+\subsection{Equality}
+Since equality is such an important concept, it isn't just a predicate, but a separate First-Order Logic (FOL),
+called \bi{FOL with equality}.
+
+The language is extended by $t_1 = t_2 \in \textit{Form}$ if $t_1, t_2 \in \textit{Term}$,
+the semantic entailment $\models$ is also extended by ``$\cI \models t_1 = t_2$ if $\cI(t_1) = \cI(t_2)$''.
+This definition is the exact intuition of equality of two terms, in that they are equal if their value under the interpretation is equal.
+
+Equality is an equivalence relation, so the following rules apply (ref = reflexivity, sym = symmetry, trans = transitivity):
+\begin{align*}
+    \begin{prooftree}
+        \infer0[ref]{\Gamma \vdash t = t}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t = s}
+        \infer1[sym]{\Gamma \vdash s = t}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t = s}
+        \hypo{\Gamma \vdash s = r}
+        \infer2[sym]{\Gamma \vdash s = r}
+    \end{prooftree}
+\end{align*}
+
+Equality is also a congruence on terms and (definable) relations
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t_1 = s_1}
+        \hypo{\dots}
+        \hypo{\Gamma \vdash t_n = s_n}
+        \infer3[$cong_1$]{\Gamma f(t_1, \ldots, t_n) = f(s_1, \ldots, s_n)}
+    \end{prooftree}
+    \\
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t_1 = s_1}
+        \hypo{\dots}
+        \hypo{\Gamma \vdash t_n = s_n}
+        \hypo{\Gamma \vdash p(t_1, \ldots, t_n)}
+        \infer4[$cong_2$]{\Gamma p(s_1, \ldots, s_n)}
+    \end{prooftree}
+\end{align*}
