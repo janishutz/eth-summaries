@@ -1,0 +1,40 @@
+\subsubsection{Semantics}
+\inlinedefinition[Structure] is a pair $\cS = \langle U_\cS, I_\cS \rangle$, where $U_\cS$ is the universe and it is a non-empty set and $I_\cS$ is a mapping with
+\begin{enumerate}
+    \item $I_\cS(p^n)$ is an $n$-ary relation on $U_\cS$ for $p^n \in \cP$ (short $p^\cS$)
+    \item $I_\cS(f^n)$ is an $n$-ary (total) function on $U_\cS$ for $f^n \in \cF$ short ($f^\cS$)
+\end{enumerate}
+\inlineintuition The $I_\cS$ is essentially assigning to each predicate and formula its definition in the universe of the structure, noted as a relation.
+
+\inlinedefinition[Interpretation] is a pair $\cI = \langle \cS, v \rangle$, with $v : \cV \rightarrow U_\cS$ a valuation\\
+\inlineintuition it assigns definitions to the formulas and predicates (through the structure), as well as values to the variables (through the valuation).
+
+\inlinedefinition[Value] of a term $t$ under $\cI$ is written as $\cI(t)$ and defined by $\cI(x) = v(x)$ for $x \in \cV$ and\\
+$\cI(f(t_1, \ldots, t_n)) = f^\cS(\cI(t_1), \ldots, \cI(t_n))$
+
+\inlinedefinition[Satisfiability] $\models \subseteq$ Interpretations $\times$ \textit{Form} is the smallest relation satisfying
+\begin{align*}
+     & \langle \cS, v \rangle \models p(t_1, \ldots, t_n) &  & \text{ if } (\cI(t_1), \ldots, \cI(t_n)) \in p^\cS \text{ where } \cI = \langle \cS, v \rangle \\
+     & \langle \cS, v \rangle \models \forall x. A        &  & \text{ if } \langle \cS, v[x \mapsto a] \rangle \models A, \text{ for all } a \in \U_\cS       \\
+     & \langle \cS, v \rangle \models \exists x. A        &  & \text{ if } \langle \cS, v[x \mapsto a] \rangle \models A, \text{ for some } a \in \U_\cS      \\
+\end{align*}
+
+\inlinedefinition[Model] When $\langle \cS, v \rangle \models A$, then $\langle \cS, v \rangle$ is a \bi{model} for $A$.
+If $A$ does not have free variables, the satisfaction does not depend on the valuation $v$ and we write $\cS \models A$
+
+\inlinedefinition[Validity] When every interpretation is a model, we write $\models A$, and we say that $A$ is \bi{valid}
+
+\inlinedefinition[Satisfiability] $A$ is \bi{satisfiable}, if there exists at least one model for $A$.
+
+\inlineexample Given $\forall x.p(x, s(x))$, we a model would be
+\begin{align*}
+    U_\cS & = \N                                                                   \\
+    p^\cS & = \{ (m, n) \divider m, n \in U_\cS \text{ and } m < n \}              \\
+    s^\cS & = \text{ successor function on } U_\cS, \text{ i.e. } s^\cS(x) = x + 1
+\end{align*}
+
+
+\paragraph{Substitution}
+\inlinedefinition[Substitution] Replace all occurrences of a free variable $x$ with some term $t$ in $A$.
+To denote a substitution, we write $A[x \mapsto t]$. \hl{Important} All free variables in $t$ must still be free in $A[x \mapsto t]$.
+If that would not be true anymore, do a $\alpha$-conversion first.

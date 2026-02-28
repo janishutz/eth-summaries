@@ -3,7 +3,10 @@
 \input{~/projects/latex/janishutz-helpers.tex}
 
 \usepackage{lmodern}
+\usepackage{ebproof}
+\ebproofset{separation=2.5em}
 \setFontType{sans}
+\multicolsep 5pt plus 2pt minus 2pt
 
 \setup{Formal Methods \& Functional Programming}
 
@@ -30,7 +33,7 @@
     FS2026, ETHZ
 
     \begin{Large}
-        Summary of the Script and Lectures
+        Summary of the Lectures
     \end{Large}
 \end{center}
 
@@ -44,6 +47,20 @@
 \input{parts/00_haskell/00_intro.tex}
 \input{parts/00_haskell/01_syntax.tex}
 
+
+\newsection
+\section{Formal Reasoning}
+\input{parts/01_formal-reasoning/00_formal-proofs.tex}
+\input{parts/01_formal-reasoning/01_natural-deduction.tex}
+\input{parts/01_formal-reasoning/02_propositional-logic/00_syntax.tex}
+\input{parts/01_formal-reasoning/02_propositional-logic/01_semantics.tex}
+\input{parts/01_formal-reasoning/02_propositional-logic/02_deductive-system.tex}
+\input{parts/01_formal-reasoning/02_propositional-logic/03_natural-deduction-prop-logic.tex}
+\input{parts/01_formal-reasoning/02_propositional-logic/04_derivation-rules-overview.tex}
+\input{parts/01_formal-reasoning/03_first-order-logic/00_syntax.tex}
+\input{parts/01_formal-reasoning/03_first-order-logic/01_semantics.tex}
+\input{parts/01_formal-reasoning/03_first-order-logic/02_quantifiers.tex}
+% \input{parts/01_formal-reasoning/}
 
 
 \end{document}

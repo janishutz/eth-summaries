@@ -1,0 +1,77 @@
+\subsubsection{Derivation rules for propositional logic}
+Remember that $E$ means \textit{elimination} and $I$ means \textit{introduction}, with $L$ and $R$ being the side (so $ER$ means elimination on the right)
+\paragraph{Conjunction}
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A}
+        \hypo{\Gamma \vdash B}
+        \infer2[$\land$-I]{\Gamma \vdash A \land B}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \land B}
+        \infer1[$\land$-EL]{\Gamma \vdash A}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \land B}
+        \infer1[$\land$-ER]{\Gamma \vdash B}
+    \end{prooftree}
+\end{align*}
+
+\paragraph{Disjunction}
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A}
+        \infer1[$\lor$-IL]{\Gamma \vdash A \lor B}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash B}
+        \infer1[$\lor$-IR]{\Gamma \vdash A \lor B}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \lor B}
+        \hypo{\Gamma, A \vdash C}
+        \hypo{\Gamma, B \vdash C}
+        \infer3[$\lor$-E]{\Gamma \vdash C}
+    \end{prooftree}
+\end{align*}
+
+\paragraph{Implication}
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma, A \vdash B}
+        \infer1[$\rightarrow$-I]{\Gamma \vdash A \rightarrow B}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \rightarrow B}
+        \hypo{\Gamma \vdash A}
+        \infer2[$\rightarrow$-E]{\Gamma \vdash B}
+    \end{prooftree}
+\end{align*}
+
+\paragraph{Others}
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \bot}
+        \infer1[$\bot$-E]{\Gamma \vdash A}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \neg A}
+        \hypo{\Gamma \vdash A}
+        \infer2[$\neg$-E]{\Gamma \vdash B}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma, \neg A \vdash \bot}
+        \infer1[RAA]{\Gamma \vdash A}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[axiom]{\ldots, A, \ldots \vdash A}
+    \end{prooftree}
+\end{align*}

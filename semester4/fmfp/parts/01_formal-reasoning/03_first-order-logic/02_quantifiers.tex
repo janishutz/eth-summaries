@@ -1,0 +1,31 @@
+\subsubsection{Quantifiers}
+\paragraph{Universal quantification}
+Additional rules are needed for the universal quantifier. * side condition is that $x$ is not free in any assumption of $\Gamma$
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A}
+        \infer1[$\forall$-I*]{\Gamma \vdash \forall x.A}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \forall x.A}
+        \infer1[$\forall$-E]{\Gamma \vdash A[x \rightarrow t]}
+    \end{prooftree}
+\end{align*}
+Again here be mindful not to capture free variables.
+
+\paragraph{Existential quantification}
+Additional rules are needed for the existential quantifier. ** side condition is that $x$ is neither free in B nor free in $\Gamma$
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A[x \mapsto t]}
+        \infer1[$\exists$-I]{\Gamma \vdash \exists x.A}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \exists x.A}
+        \hypo{\Gamma, A \vdash B}
+        \infer2[$\exists$-E**]{\Gamma \vdash A[x \rightarrow t]}
+    \end{prooftree}
+\end{align*}
+Again here be mindful not to capture free variables.

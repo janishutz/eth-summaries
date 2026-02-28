@@ -1,0 +1,41 @@
+\subsection{Formal proofs}
+Given a language like $\cL = \{ \oplus, \otimes, +, \times \}$, and derivation rules
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $\alpha$: If $+$, then $\otimes$
+        \item $\beta$: If $+$, then $\times$
+        \item $\gamma$: If $\otimes$ and $\times$, then $\oplus$
+        \item $\delta$: $+$ holds
+    \end{itemize}
+    or displayed using graphical notation:
+    \begin{align*}
+        \frac{+}{\otimes} \; \alpha
+        \qquad \frac{+}{\times} \; \beta \\
+        \frac{\otimes \quad \times}{\oplus} \; \gamma
+        \qquad \frac{}{+} \; \delta
+    \end{align*}
+\end{multicols}
+
+Rules like $\delta$ above are also commonly referred to as an \textit{axiom}.
+
+To prove $\oplus$ in this language, we can either write the following or draw a derivation tree:
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $+$ holds by $\delta$
+        \item $\otimes$ holds by $\alpha$ with 1.
+        \item $\times$ holds by $\beta$ with 1.
+        \item $\oplus$ holds by $\gamma$ with 2 and 3
+    \end{itemize}
+    Or as derivation tree
+    \[
+        \begin{prooftree}
+            % Left branch
+            \infer0[$\delta$]{+}
+            \infer1[$\alpha$]{\otimes}
+            % Right branch
+            \infer0[$\delta$]{+}
+            \infer1[$\beta$]{\times}
+            \infer2[$\gamma$]{ \oplus }
+        \end{prooftree}
+    \]
+\end{multicols}

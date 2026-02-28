@@ -1,0 +1,19 @@
+\subsubsection{Natural deduction for propositional formulas}
+\inlinedefinition[Sequent] Is an assertion of form $A_1, \ldots, A_n \vdash A$, with $A, A_1, \ldots, A_n$ being propositional formulas.
+
+\inlineintuition $A$ follows from the $A_i$ and if the system is sound, the $A_i$ semantically entail $A$.
+
+\inlinedefinition[Axiom] is the starting point (usually the leaves) of the derivation trees and are usually of the form
+\[
+    \begin{prooftree}
+        \infer0[axiom]{\ldots, A, \ldots \vdash A}
+    \end{prooftree}
+\]
+i.e. when coming up with a derivation tree for a \bi{proof}, we want to reach a leaf where $A$ is contained in $\Gamma$.
+
+\inlinedefinition[Proof] of $A$ is a derivation tree with \texttt{root} $\vdash A$. If a deductive system is \textit{sound}, then $A$ is a tautology.
+
+There are two kinds of rules, \bi{introduce} and \bi{eliminate} connectives. If you are confused about the order when applying them when coming up with a deduction tree,
+they are oriented top-down, so e.g. the introduction rule is inverted when coming up with the deduction tree.
+
+If all rules are sound (i.e. they preserve semantic entailment), then the logic is sound.

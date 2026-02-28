@@ -1,0 +1,10 @@
+\newpage
+\subsubsection{Requirements for a deductive system}
+The derivation rules (syntactic entailment) and truth tables (semantic entailment) should agree.
+For that we have two requirements, for $\Gamma = A_1, \ldots, A_n$ a collection of formulas:
+\begin{itemize}
+    \item \bi{Soundness:} If $\Gamma \vdash A$ can be derived, then $\Gamma \models A$
+    \item \bi{Completeness:} If $\Gamma \models A$, then $\Gamma \vdash A$ can be derived
+\end{itemize}
+
+\bi{Decidability} is also desirable, i.e. having checks of the attributes be of low complexity.

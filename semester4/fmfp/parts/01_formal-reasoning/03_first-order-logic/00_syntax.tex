@@ -1,0 +1,38 @@
+\newsection
+\subsection{First-Order Logic}
+\subsubsection{Syntax}
+\inlinedefinition[Signature] consists of a set of function symbols $\cF$ and a set of predicate symbols $\cP$, as well as their arities.
+
+We write $f^k$ (or $p^k$, for predicates) to indicate that it has \textit{arity} $k \in \N$.
+Constant functions have arity $0$, linear functions have arity $1$, thus, the arity of a given function (or predicate) is given by
+the number of parameters to uniquely describe it, minus one.
+
+\inlinedefinition[Term] is the terms of first-order logic is smallest set, where (with $\cV$ again a set of variables)
+\begin{enumerate}
+    \item $x \in \textit{Term}$ if $x \in \cV$
+    \item $f^n(t_1, \ldots, t_n) \in \textit{Term}$ if $f^n \in \cF$ and $t_i \in \textit{Term}$, $\forall 1 \leq i \leq n$ (description of form of formulas)
+\end{enumerate}
+
+\inlinedefinition[Form] is the formulas of first-order logic, is the smallest set where
+\begin{enumerate}
+    \item $\bot \in \textit{Form}$
+    \item $p^n(t_1, \ldots, t_n) \in \textit{Form}$ if $p^n \in \cP$  and $t_j \in \textit{Term}$, $\forall 1\leq j \leq n$ (description of form of predicates)
+    \item $A \circ B \in \textit{Form}$ if $A \in \textit{Form}$, $B \in \textit{Form}$ and $\circ \in \{ \land, \lor, \rightarrow \}$ (i.e. formulas with logic symbols)
+    \item $Qx.A \in \textit{Form}$ if $A \in \textit{Form}$, $x \in \cV$ and $Q \in \{ \forall, \exists \}$ (i.e. formulas with quantifiers)
+\end{enumerate}
+
+
+\paragraph{Binding}
+\inlinedefinition[Bound variable] A variable that occurs in a quantifier in scope ({\color{blue} blue in example below})
+
+\inlinedefinition[Free variable] A variable that is not bound by a quantifier in scope ({\color{red} red in example below})
+
+\inlineexample $(q({\color{red} x}) \lor \exists {\color{blue} x}.\forall {\color{blue} y}. p(f({\color{blue} x}), {\color{red} z}) \land q({\color{red} a}))
+\lor \forall {\color{blue} x}.r({\color{blue} x}, {\color{red} z}, g({\color{blue} x}))$
+
+\inlinedefinition[$\alpha$-conversion] A \bi{bound} variable can be renamed at any time, but must preserve binding structure.
+
+
+\paragraph{Precedences} 
+$\neg > \land > \lor > \rightarrow$, with $>$ a total order of precedences.
+Quantifiers extend as far right as possible, bounded by the end of line or a going out of scope by closing parenthesis.

@@ -1,0 +1,19 @@
+\subsubsection{Semantics}
+\inlinedefinition[Valuation] $\sigma : \cV \rightarrow \{ \texttt{True}, \texttt{False} \}$ maps variables to truth values.
+They are the simple models (i.e. \textit{interpretations}). \bi{Valuations} is the set of valuations.
+
+\inlinedefinition[Satisfiability] smallest relation $\models \; \subseteq$ \textit{Valuations} $\times \cL_P$ such that
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $\sigma \models X$ if $\sigma(X) = \texttt{True}$
+        \item $\sigma \models A \land B$ if $\sigma \models A$ and $\sigma \models B$
+        \item $\sigma \models A \lor B$ if $\sigma \models A$ or $\sigma \models B$
+        \item $\sigma \models A \rightarrow B$ if whenever $\sigma \models A$ then $\sigma \models B$
+    \end{itemize}
+\end{multicols}
+
+\inlinedefinition[satisfiable formula] A formula $A \in \cL_P$ is \bi{satisfiable} if $\sigma \models A$ for \textbf{some} valuation $\sigma$
+
+\inlinedefinition[tautology, valid formula] A formula $A \in \cL_P$ is \bi{valid} (a \bi{tautology}) if $\sigma \models A$ for \textbf{all} valuations $\sigma$
+
+\inlinedefinition[Semantic entailment] $A_1, \ldots , A_n \models A$ if $\forall \sigma$ we have $\sigma \models A_1, \ldots, \sigma \models A_n$, then $\sigma \models A$
