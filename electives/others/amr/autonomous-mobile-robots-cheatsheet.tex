@@ -1,9 +1,15 @@
 \documentclass{article}
 
+\PassOptionsToPackage{skip=0pt}{parskip}
 \input{~/projects/latex/janishutz-helpers.tex}
 
 \usepackage{lmodern}
 \setFontType{sans}
+
+\fboxsep 1pt
+\fboxrule 0.1pt
+\renewcommand{\vec}[1]{\textbf{#1}}
+\noverticalspacing
 
 \setupCheatSheet{Autonomous Mobile Robots}
 
@@ -11,7 +17,8 @@
 \startDocument
 
 
-
+\section{Locomotion \& Kinematics}
+\input{parts/01_kinematics/00_intro.tex}
 
 
 \end{document}
