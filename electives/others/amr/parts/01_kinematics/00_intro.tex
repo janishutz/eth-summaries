@@ -1,6 +1,33 @@
 \subsection{Positioning}
 \shortdefinition[Position Vector]
 $_{\color{blue}\fbox{W}}\,\vec{t}\,_{\color{red}\fbox{B}} = \, _{\color{blue}\fbox{W}}\,\vec{t}\,_{\color{ForestGreen}\fbox{W}}\,_{\color{red}\fbox{B}}$,
-{\color{blue} Original Frame}, {\color{red} End point}, {\color{ForestGreen} Target Frame}
+{\color{blue} Original Frame}, {\color{red} End point}, {\color{ForestGreen} Target Frame},
+\hl{$\sin = s$, $\cos = c$}
 
 \shortdefinition[State vector] $x_R$: $x$, $v$ of rob in $W$, pos of sensors
+
+\shortdefinition[Rot. Mat.] $\mat{R}_{z} = \begin{bmatrix}
+        c(\psi) & -s(\psi) & 0 \\
+        s(\psi) & c(\psi)  & 0 \\
+        0       & 0        & 1
+    \end{bmatrix}$\\
+$\mat{R}_y(\theta) = \begin{bmatrix}
+        c(\psi)  & 0 & s(\psi) \\
+        0        & 1 & 0       \\
+        -s(\psi) & 0 & c(\psi) \\
+    \end{bmatrix}
+    \mat{R}_x(\varphi)
+    \begin{bmatrix}
+        1 & 0       & 0        \\
+        0 & c(\psi) & -s(\psi) \\
+        0 & s(\psi) & c(\psi)
+    \end{bmatrix}$
+
+\shortremark Application: ${_W} \vec{a} = \mat{R}_{WB} {_B} \vec{a}$
+
+\shortlemma $\mat{R}_{BW} = \mat{R}_{WB}^{-1} = \mat{R}_{WB}^\top$, $\det(\mat{R}_{WB}) = 1$ (orth.)
+
+\shortremark Cols of $\mat{R}_{WB}$ are basis vec. of Frame $\underset{\rightarrow}{\cF}{_B}$ in $\underset{\rightarrow}{\cF}{_W}$
+
+\shortdefinition[Euler Angles] Yaw ($z$), Pitch ($y$), Roll ($x$), mult. rotation matrices, e.g.
+$\mat{R}_{EB} = \mat{R}_z(\psi) \cdot \mat{R}_y(\theta) \cdot \mat{R}_x(\varphi)$, \hl{bound.}
