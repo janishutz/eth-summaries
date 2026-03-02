@@ -3,20 +3,41 @@
 \PassOptionsToPackage{skip=0pt}{parskip}
 \input{~/projects/latex/janishutz-helpers.tex}
 
+% Configuration
+\usepackage{bm}
 \usepackage{lmodern}
 \setFontType{sans}
 
+\renewcommand{\subsectionnumbering}{section}
+\noverticalspacing
 \fboxsep 1pt
 \fboxrule 0.1pt
-\renewcommand{\vec}[1]{\textbf{#1}}
-\newcommand{\mat}[1]{\textbf{#1}}
-\noverticalspacing
+
+% Extra commands
+\renewcommand{\vec}[1]{\bm{#1}}
+\newcommand{\mat}[1]{\bm{#1}}
 
 \setupCheatSheet{Autonomous Mobile Robots}
 
-\begin{document}
-\startDocument
 
+\begin{document}
+
+\vspace*{0mm}
+
+\begin{center}
+    \begin{Large}
+        \textbf{Autonomous Mobile Robots}
+    \end{Large}
+
+    \textsc{Cheat Sheet by {\color{MidnightBlue}\href{https://janishutz.com}{Janis Hutz}}}
+
+    \textsc{ETHZ, FS2026}
+\end{center}
+
+
+\section{Introduction}
+\input{parts/00_basics/00_probability.tex}
+\input{parts/00_basics/01_measurement-models.tex}
 
 \section{Locomotion \& Kinematics}
 \input{parts/01_kinematics/00_intro.tex}

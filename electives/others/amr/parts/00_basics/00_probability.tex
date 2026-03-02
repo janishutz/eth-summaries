@@ -1,1 +1,20 @@
 \subsection{Probability}
+\shortdefinition[Sum rule] $P(X) = \sum P(X, Y) = \sum P(X \cap Y)$
+
+\shortdefinition[Prod] $P(X, Y) = P(X | Y) P(Y) = P(Y | X) P(X)$
+
+\shorttheorem[Bayes] $\displaystyle P(Y_i | X) = \frac{P(X | Y_i) P(Y_i)}{\sum_{j = 1}^n P(X | Y_j) P(Y_j)}$
+
+\shortdefinition[Cont. Var] Sums become integrals\\
+e.g. $\sum_{X} P(X) = 1$ becomes $\int p(x) \dx = 1$
+
+\shortdefinition[Indep.] $x, y$ indep. iff $p(x, y) = p(x) p(y)$
+
+\shortdefinition[Cond. Indep.] iff $p(x, y | z) = p(x|z) p(y|z)$
+
+\shortdefinition $E[\vec{x}] = \int_{-\8}^{\8} \vec{x} p(\vec{x}) \dx \vec{x}$, also for $\vec{x} = \vec{f(x)}$
+
+\shortdefinition $\text{Cov}[x] = E[\vec{x} \vec{x}^\top] - E[\vec{x}]E[\vec{x}]^\top = \mat{\Sigma}$
+
+\shortdefinition[Gauss. Dist.] $\vec{x} \sim \cN(\vec{\mu}, \mat{\Sigma})$ ($\vec{\mu}$ mean, $\mat{\Sigma}$ cov.),\\
+PDF: $p(\vec{x}) = \frac{1}{\sqrt{(2\pi)^k |\mat{\Sigma}|}} \text{exp}\left( -\frac{1}{2}(\vec{x} - \vec{\mu})^\top \mat{\Sigma}^{-1} (\vec{x} - \vec{\mu}) \right)$

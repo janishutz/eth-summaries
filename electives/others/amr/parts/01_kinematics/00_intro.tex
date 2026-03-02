@@ -30,4 +30,24 @@ $\mat{R}_y(\theta) = \begin{bmatrix}
 \shortremark Cols of $\mat{R}_{WB}$ are basis vec. of Frame $\underset{\rightarrow}{\cF}{_B}$ in $\underset{\rightarrow}{\cF}{_W}$
 
 \shortdefinition[Euler Angles] Yaw ($z$), Pitch ($y$), Roll ($x$), mult. rotation matrices, e.g.
-$\mat{R}_{EB} = \mat{R}_z(\psi) \cdot \mat{R}_y(\theta) \cdot \mat{R}_x(\varphi)$, \hl{bound.}
+$\mat{R}_{EB} = \mat{R}_z(\psi) \cdot \mat{R}_y(\theta) \cdot \mat{R}_x(\varphi)$, \hl{bound.}.
+$\qquad [\vec{n}]^\times = \vec{n} \vec{x}^\top$ (matrix from vec + arg $\vec{x}$)
+
+\shortdefinition[Rot. Vec]
+$\vec{\alpha} = \alpha \vec{n}$ ($\vec{n}$ normal)\\
+$\mat{R}(\alpha, \vec{n}) = \mat{I}_3 + \sin(\alpha)[\vec{n}]^\times + (1 - \cos(\alpha))([\vec{n}]^\times)^2$
+
+\shortdefinition[Quaternions] $q = q_w + q_x i + q_y j + q_z k$ with\\
+$i^2 = j^2 = k^2 = -1$, ($ij = -ji = k$, same for $jk$ and $ki$)
+% TODO: Finish this
+
+\shortdefinition[Transf. M] $\mat{T}_{AB} = \begin{bmatrix}
+        \mat{R}_{AB}        & {_A}\vec{t}_B \\
+        \mat{0}_{1\times 3} & 1
+    \end{bmatrix}$\\
+$\mat{T}_{BA} = \mat{T}_{AB}^{-1} =
+    \begin{bmatrix}
+        \mat{R}_{AB}^\top    & -\mat{R}_{AB}^\top {_A}\vec{t}_B \\
+        \mat{0}_{1 \times 3} & 1
+    \end{bmatrix}$
+$\mat{T}_{AC} = \mat{T}_{AB} \mat{T}_{BC}$
