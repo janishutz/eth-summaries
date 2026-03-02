@@ -1,0 +1,44 @@
+\subsubsection{Correctness - Behaviour}
+We denote that two functions \texttt{fac} and \texttt{fac2} compute the same function usually as
+\[
+    \forall n \in \N. \texttt{fac } n = \texttt{fac2 } (n, 1)
+\]
+The two functions are given as follows:
+\begin{multicols}{2}
+    \begin{code}{haskell}
+        fac :: Int -> Int
+        fac 0 = 1
+        fac n = n * fac (n - 1)
+    \end{code}
+    \begin{code}{haskell}
+        fac2 :: (Int, Int) -> Int
+        fac2 (0, a) = a
+        fac2 (n, a) = fac2 (n - 1, n * a)
+    \end{code}
+\end{multicols}
+An important fact to consider is that testing, while useful to find errors can't replace a formal proof to show that a function is correct!
+
+These proofs are based on a simple idea: \bi{functions are equations} and thus, we can reason about them through equational reasoning, or more generally,
+proofs in first-order logic with equality.
+
+Often, especially in Haskell programs, we have cases depending on values. Logically, to prove such a function, we also use case distinction, also referred to as reasoning by cases.
+
+\inlineexample Consider the Haskell function below \rmvspace
+\begin{code}{haskell}
+    maxi :: Int -> Int -> Int
+    maxi n m
+        | n >= m    = n
+        | otherwise = m
+\end{code}
+To prove that it is correct, we can use reasoning by cases:
+
+We have $n \geq m \lor \neg(n \geq m)$.
+
+We then show that the function is correct for both cases (i.e. LHS and RHS of OR):
+\begin{enumerate}[label=C\arabic*]
+    \item $n \geq m$: Then $\texttt{maxi } n \ m = n$ and $n \geq n$
+    \item $\neg(n \geq m)$: Then $\texttt{maxi } n \ m = m$. But $m > n$, so we have $\texttt{maxi } n\ m \geq n$
+\end{enumerate}
+In this proof we used the \textbf{TND} and \textbf{$\lor$-E} (here also called \bi{Case Split}) rules.
+
+So what we have to show, given $Q \lor R$ for any proposition $P$ with case split is that \bi{(1)} $P$ follows from $Q$ and \bi{(2)} $P$ follows from $R$

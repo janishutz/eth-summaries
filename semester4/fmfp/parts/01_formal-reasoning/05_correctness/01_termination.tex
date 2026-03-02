@@ -1,0 +1,15 @@
+\subsubsection{Termination}
+\inlinetheorem For a function $f$ is defined in terms of other functions $g_1, \ldots, g_k$, for all of which we have $g_i \neq f$ and each $g_i$ terminates, then so does $f$.
+
+\inlinelemma Sufficient condition for termination: The arguments are smaller along a \bi{well-founded} order on the function's domain
+
+\inlinedefinition[Well-Founded Order] An order $>$ on a set $S$ is \bi{well-founded} if and only if there is no infinite decreasing chain $x_1 > x_2 > \ldots$ for $x_i \in S$ 
+An example of such an order is $>$ on $\N$, denoted $>_\N$. Counter example: $>_\Z$ (not bounded from below)
+
+
+\inlinelemma Let $R \subseteq S \times S$ be a relation on $S$. Let $s_0, s_i \in S$ and $i \geq 1$.
+Then $s_0 \; R^i \; s_i$ if and only if $s_1, \ldots s_{i - 1} \in S$ such that $s_0 \; R \; s_1 \R \ldots R \; s_{i - 1} \; R \; s_i$
+
+\inlinedefinition $R^+ \equiv \bigcup_{n \geq 1} R^n$, where $R^n \equiv R \circ R^{n - 1}$ for $n \geq 2$ and $R^1 \equiv R$
+
+\inlinetheorem If $>$ is a well-founded order on $S$, then $>^+$ is also well-founded on $S$
