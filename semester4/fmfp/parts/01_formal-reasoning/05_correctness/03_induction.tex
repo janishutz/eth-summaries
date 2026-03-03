@@ -1,8 +1,8 @@
 \subsubsection{Induction}
-To prove recursive formulas, or more precisely formulated, a formula $P$ (with free variable $n$) for all $n \in \N$.
-
-A proof by cases is not possible, as there are infinitely many cases (one for each input).
+To prove recursive formulas, or more precisely formulated, a formula $P$ (with free variable $n$) for all $n \in \N$,
+we can't really do a proof by cases, as there are infinitely many cases (one for each input).
 Thus: We can use induction to prove recursive formulas or functions.
+
 
 \paragraph{The schema}
 To prove $\forall n \in \N. P$ (with $n$ free in $P$), we do the following:
@@ -13,3 +13,13 @@ To prove $\forall n \in \N. P$ (with $n$ free in $P$), we do the following:
 
 For \bi{well-founded} domains, we have to adjust the induction hypothesis slightly: We assume $\forall l \in \N. l < m \rightarrow P[n \mapsto l]$
 and then prove $P[n \mapsto m]$ under our assumption.
+
+
+\paragraph{Induction over Lists}
+To prove $P$ for all $xs$ in \texttt{[T]}, we do the following:
+
+\bi{Base case}: We prove that $P[xs \mapsto []]$ is correct
+
+\bi{Step case}: We prove that $\forall y :: T, ys :: [T]. P[xs \mapsto ys] \rightarrow P[xs \mapsto y : ys]$, or in other words:
+We fix arbitrary $y :: T$ and $ys :: [T]$, which both are not free in $P$.
+We then apply our induction hypothesis $P[xs \mapsto ys]$ to prove $P[xs \mapsto y : ys]$
