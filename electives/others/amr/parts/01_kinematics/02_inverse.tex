@@ -1,0 +1,15 @@
+\subsection{Inverse Kinematics (IK)}
+\begin{wrapfigure}[10]{r}{0.4\columnwidth}
+    \includegraphics[width=0.4\columnwidth]{assets/inverse-kinematics.png}
+\end{wrapfigure}
+Option: Solve Forward Kinematics for angles.\\
+Better: Law of cosine with polar coordinates. Compute angle using cosine rule,\\
+$\theta_1 = \phi \pm \alpha$, $\theta_2 = \pm(\pi - \beta)$
+
+(Positive for {\color{ForestGreen} Elbow Down}, Negative for {\color{red} Elbow Up})
+
+Extension to 6R:
+1. Waist: spherical coords (2 sol.)\\
+2. 2 sols from 2R for shoulder + elbow\\
+3. Solve for wrist joints (no influence on pos)
+
