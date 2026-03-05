@@ -1,0 +1,21 @@
+\subsubsection{Lambda calculus}
+To prove that types are correct, the lambda calculus comes in handy.
+It is based on the same concept as natural deduction trees
+
+\paragraph{Core rules for Lambda-Calculus}
+\[
+    \begin{prooftree}
+        \infer0[Var]{\Gamma, x : \tau \vdash x :: \tau}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma, x : \sigma \vdash t :: \tau}
+        \infer1[Abs]{\Gamma \vdash (\forall x. t) :: \sigma \rightarrow \tau}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t_1 :: \sigma \rightarrow \tau}
+        \hypo{\Gamma \vdash t_2 :: \sigma}
+        \infer2[App]{\Gamma \vdash (t_1 t_2) :: \tau}
+    \end{prooftree}
+\]

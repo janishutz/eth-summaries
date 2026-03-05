@@ -1,0 +1,58 @@
+\subsubsection{Further rules for mini-Haskell}
+\paragraph{Base types}
+\[
+    \begin{prooftree}
+        \infer0[Int]{\Gamma \vdash n :: \texttt{Int}}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[True]{\Gamma \vdash \texttt{True} :: \texttt{Bool}}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[False]{\Gamma \vdash \texttt{False} :: \texttt{Bool}}
+    \end{prooftree}
+\]
+
+\paragraph{Operations}
+Let $\textbf{op} \in \{ +, * \}$
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t :: \texttt{Int}}
+        \infer1[iszero]{\Gamma \vdash (\textbf{iszero } t) :: \texttt{Bool}}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t_1 :: \texttt{Int}}
+        \hypo{\Gamma \vdash t_2 :: \texttt{Int}}
+        \infer2[BinOp]{\Gamma \vdash (t_1 \textbf{ op } t_2) :: \texttt{Int}}
+    \end{prooftree}
+\]
+\[
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t_0 :: \texttt{Bool}}
+        \hypo{\Gamma \vdash t_1 :: \tau}
+        \hypo{\Gamma \vdash t_2 :: \tau}
+        \infer3[if]{\Gamma \vdash (\textbf{if } t_0 \textbf{ then } t_1 \textbf{ else } t_2) :: \tau}
+    \end{prooftree}
+\]
+
+\paragraph{Tuples}
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t_1 :: \tau_1}
+        \hypo{\Gamma \vdash t_2 :: \tau_2}
+        \infer2[Tuple]{\Gamma \vdash (t_1, t_2) :: (\tau_1, \tau_2)}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t :: (\tau_1, \tau_2)}
+        \infer1[fst]{\Gamma \vdash (\textbf{fst } t) :: \tau_1}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash t :: (\tau_1, \tau_2)}
+        \infer1[snd]{\Gamma \vdash (\textbf{snd } t) :: \tau_2}
+    \end{prooftree}
+\]

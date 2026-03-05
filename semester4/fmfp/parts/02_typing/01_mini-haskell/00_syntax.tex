@@ -4,8 +4,12 @@ This is a stripped down version of Haskell, used here to explore the type system
 \subsubsection{Syntax}
 Programs are terms, the core is the lambda-calculus, where $\cV$ is the set of variables and $\Z$ the set of integers:
 \[
-    t :: = \cV \divider (\lambda x. t) \divider (t_1 t_2) \divider True \divider False \divider (\textbf{iszero } t) \divider \Z \divider (t_1 + t_2) \divider t_1 * t_2 
+    t :: = \cV \divider (\lambda x. t) \divider (t_1 t_2) \divider True \divider False \divider (\textbf{iszero } t) \divider \Z \divider (t_1 + t_2) \divider t_1 * t_2
     \divider \textbf{if } t_0 \textbf{ then } t_1 \textbf{ else } t_2 \divider (t_1, t_2) \divider (\textbf{fst } t) \divider (\textbf{snd } t)
 \]
 
 It is easily possible to add additonal syntax and types and we employ syntactic sugar, such as omitting parenthesis.
+
+The types are given by $\tau ::= \cV_T \divider \texttt{Bool} \divider \texttt{Int} \divider (\tau, \tau) \divider (\tau \rightarrow \tau)$, where $\cV_T$ is a set of type variables.
+The type system is based on typing judgement of form $\Gamma \vdash t :: r$, where $\Gamma$ is a set of bindings $x_i : \tau_i$
+that maps variables to types and can be understood as a typing symbol table.

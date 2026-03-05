@@ -1,0 +1,26 @@
+\subsubsection{Type inference}
+Type inference in general fails, if two (or more) branches fail to resolve to unifiable types.
+
+We start a \bi{type judgement} with judgement $\vdash t :: \tau_0$, then build a derivation tree bottom-up.
+Finally, apply constraints / unification to get possible types.
+
+
+\paragraph{Self application}
+This means that you apply a function to itself.
+In Haskell, this is not typeable because there would need to be an infinite function type, but all \bi{Haskell types are finite} 
+
+
+\paragraph{Curry-Howard isomorphism}
+We can also apply the implication introduction and implication elimination rules:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma, \sigma \vdash \tau}
+        \infer1[$\rightarrow$-I]{\Gamma \vdash \sigma \rightarrow \tau}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash \sigma \rightarrow \tau}
+        \hypo{\Gamma \vdash \sigma}
+        \infer2[$\rightarrow$-E]{\Gamma \vdash \tau}
+    \end{prooftree}
+\]
