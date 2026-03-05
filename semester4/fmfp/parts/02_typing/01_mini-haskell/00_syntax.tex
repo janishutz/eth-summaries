@@ -2,3 +2,10 @@
 This is a stripped down version of Haskell, used here to explore the type system Haskell uses
 
 \subsubsection{Syntax}
+Programs are terms, the core is the lambda-calculus, where $\cV$ is the set of variables and $\Z$ the set of integers:
+\[
+    t :: = \cV \divider (\lambda x. t) \divider (t_1 t_2) \divider True \divider False \divider (\textbf{iszero } t) \divider \Z \divider (t_1 + t_2) \divider t_1 * t_2 
+    \divider \textbf{if } t_0 \textbf{ then } t_1 \textbf{ else } t_2 \divider (t_1, t_2) \divider (\textbf{fst } t) \divider (\textbf{snd } t)
+\]
+
+It is easily possible to add additonal syntax and types and we employ syntactic sugar, such as omitting parenthesis.
