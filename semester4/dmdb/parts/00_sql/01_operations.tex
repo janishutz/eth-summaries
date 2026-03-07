@@ -17,3 +17,13 @@
 
 We can directly add new columns to our result using statements like (also note that we do not actually return salary and employment columns)
 \mint{sql}{SELECT name, salary * employment / 100 AS RealSalary FROM employees;}
+
+When applying \texttt{GROUP BY}, COUNT and the like operate on each group, not entire dataset.
+
+\texttt{NATURAL JOIN} doesn't require a ON clause (it looks for columns with same name)
+
+After \texttt{GROUP BY} we can't use \texttt{WHERE}, instead we can use \texttt{HAVING}, which operates on groups instead of on rows.
+
+We can compare against a query with a single result column and row using a \texttt{WHERE} clause.
+
+The \texttt{CROSS JOIN} is the both-sided extension to \texttt{LEFT JOIN} and \texttt{RIGHT JOIN}
