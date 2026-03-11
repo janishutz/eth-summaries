@@ -1,1 +1,12 @@
 \subsection{Diskrete Zufallsvariablen}
+\shortdefinition Z.V. $\cX$ ist \bi{diskret}, falls endl. oder abzählb. Menge $W \subsetneq \R$ existiert, s.d. $\P[\cX \in W] = 1$ (Werte v. $\cX$ f.s. in $W$)
+
+\shortremark Falls der Grundraum $\Omega$ endlich oder abzählbar ist, dann ist jede Z.V. $\cX$ diskret.
+
+\shortdefinition[Verteilung] Für Z.V. $\cX$ mit $W$ endl. oder abzählb. $(p(x))_{x \in W} \defEquiv \forall x \in W \; p(x) := \P[\cX = x]$
+
+\shorttheorem $(p(x))_{x \in W} = \sum_{x \in W} p(x) = 1$
+
+
+\subsubsection{Verteilung vs Verteilungsfunktion}
+\shorttheorem $\cX$ disk. Z.V. wie oben, dann ist Verteilungsf.: $\forall x \in \R \; F_\cX(x) = \sum_{\elementstack{y \in W}{y \leq x}}
