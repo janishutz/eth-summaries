@@ -1,3 +1,6 @@
 \subsection{Temporal Models}
-Often use cont. time n.-lin. system of ODE $\dot{\vec{x}} = \vec{f}_C(\vec{x}(t), \vec{u}(t))$, with measurements $\vec{z}(t) = \vec{h}(\vec{x}(t))$.
-Need linearised (around $\vec{f}_C(\vec{\overline{x}}, \vec{\overline{y}}) = 0$, at \bi{equilibrium})
+Often use cont. time n.-lin. system of ODE $\dot{\vec{x}} = \vec{f}_C(\vec{x}(t), \vec{u}(t))$, with measurements $\vec{z}(t) = \vec{h}(\vec{x}(t)) + \vec{v}(t)$.
+Need linearised (around $\vec{f}_C(\vec{\overline{x}}, \vec{\overline{y}}) = 0$, at \bi{equilibrium}):\\
+$\delta \vec{\dot{x}}(t) = \vec{f}_C(\vec{\overline{x}}, \vec{\overline{u}}) + \mat{F}_C \delta \vec{x}(t) + \mat{G}_C \delta \vec{u}(t) + \mat{L}_C \vec{w}(t)$\\
+$\delta \vec{z}(t) = \mat{H} \delta \vec{x}(t) + \vec{v}(t)$.
+Herein, $\mat{H}$ is measurements, $\mat{F}_C$ system, $\mat{G}$ input gain, $\vec{w}$ process noise, $\vec{v}$ measurement noise
