@@ -1,0 +1,88 @@
+\subsection{Natural Number Proofs}
+To prove $\forall n \in \N. P$, we of course again use induction:
+
+\shade{blue}{Base Case} Show $P[n \mapsto 0]$
+
+\shade{green}{Step Case} Let $m \in \N$ be arbitrary and not free in $P$. We then assume that $P[n \mapsto m]$ and show that $P[n \mapsto m + 1]$
+
+Or the same as a natural deduction rule:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[n \mapsto 0]}
+        \hypo{\Gamma, P[n \mapsto m] \vdash P[n \mapsto m + 1]}
+        \infer2[$m$ not free in $\Gamma, P$]{\Gamma \vdash \forall n \in \N. P}
+    \end{prooftree}
+\]
+
+
+\subsubsection{Induction over the natural numbers}
+In Haskell, we can also define all the natural numbers using
+\mint{haskell}+data Nat = Zero | Succ Nat deriving (Eq, Ord, Show)+
+
+Thus the natural numbers are (isomorphic to) the set
+\[
+    \texttt{Nat} = \{ \texttt{Zero}, \texttt{Succ Zero}, \texttt{Succ (Succ Zero)}, \ldots \}
+\]
+
+The data type provides two crucial rules for constructing members of \texttt{Nat}:
+\begin{itemize}
+    \item $\texttt{Zero} \in \texttt{Nat}$
+    \item If $x \in \texttt{Nat}$, then $\texttt{Succ} x \in \texttt{Nat}$
+\end{itemize}
+
+The induction stated as a natural deduction rule:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[n \mapsto \texttt{Zero}]}
+        \hypo{\Gamma, P[n \mapsto m] \vdash P[n \mapsto \texttt{Succ}\ m]}
+        \infer2[$m$ not free in $\Gamma, P$]{\Gamma \vdash \forall n \in \texttt{Nat}. P}
+    \end{prooftree}
+\]
+
+
+\subsubsection{Lists}
+A possible data type for lists in Haskell is:
+\mint{haskell}+data L t = Nil | Cons t (L t)+
+
+A natural deduction rule for induction over lists is:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[xs \mapsto \texttt{Nil}]}
+        \hypo{\Gamma, P[xs \mapsto ys] \vdash P[xs \mapsto \texttt{Cons}\ y\ ys]}
+        \infer2[$y$, $ys$ not free in $\Gamma, P$]{\Gamma \vdash \forall xs \in \texttt{L}\ t. P}
+    \end{prooftree}
+\]
+
+
+\subsubsection{Trees}
+A possible data type for trees in Haskell is:
+\mint{haskell}+data Tree t = Leaf | Node t (Tree t) (Tree t)+
+
+A natural deduction rule for induction over trees is:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[x \mapsto \texttt{Leaf}]}
+        \hypo{\Gamma, P[x \mapsto l] \vdash P[xs \mapsto \texttt{Node}\ a\ l\ r]}
+        \infer2[$a$, $l$, $r$ not free in $\Gamma, P$]{\Gamma \vdash \forall x \in \texttt{Tree}\ t. P}
+    \end{prooftree}
+\]
+
+
+\subsubsection{Structural Induction}
+Induction is based on the structure of terms
+\mint{haskell}+data T t = Leaf t | Node1 (T t) | Node2 t (T t) (T t)+
+
+\shade{blue}{Base Case} $T_0 = \{ \texttt{Leaf}\ a \divider a \in t \}$
+
+\shade{green}{Step Case} $T_i = T_{i - 1} \cup \{ \texttt{Node1}\ s \divider s \in T_{i - 1} \} \cup \{ \texttt{Node2}\ a\ l\ r \divider a \in t \text{ and } l, r \in T_{i - 1} \}$
+
+A natural deduction rule structural induction is:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[x \mapsto \texttt{Leaf}\ a]}
+        \hypo{\Gamma, P[x \mapsto s] \vdash P[xs \mapsto \texttt{Node1}\ s]}
+        \hypo{\Gamma, P[x \mapsto l], P[x \mapsto r] \vdash P[ \mapsto \texttt{Node2}\ a\ l\ r]}
+        \infer3[$(*)$]{\Gamma \vdash \forall x \in \texttt{T}\ t. P}
+    \end{prooftree}
+\]
+(*) $a$, $l$, $r$, $s$ not free in $\Gamma, P$

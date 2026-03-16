@@ -7,9 +7,9 @@ Thus: We can use induction to prove recursive formulas or functions.
 \paragraph{The schema}
 To prove $\forall n \in \N. P$ (with $n$ free in $P$), we do the following:
 
-\bi{Base case}: We show that $P[n \mapsto 0]$ is correct
+\shade{blue}{Base case} We show that $P[n \mapsto 0]$ is correct
 
-\bi{Step case}: For an arbitrary $m$ not free in $P$, we show that $P[n \mapsto m + 1]$ is correct under the assumption that $P[n \mapsto m]$
+\shade{green}{Step case} For an arbitrary $m$ not free in $P$, we show that $P[n \mapsto m + 1]$ is correct under the assumption that $P[n \mapsto m]$
 
 For \bi{well-founded} domains, we have to adjust the induction hypothesis slightly: We assume $\forall l \in \N. l < m \rightarrow P[n \mapsto l]$
 and then prove $P[n \mapsto m]$ under our assumption.
@@ -18,8 +18,8 @@ and then prove $P[n \mapsto m]$ under our assumption.
 \paragraph{Induction over Lists}
 To prove $P$ for all $xs$ in \texttt{[T]}, we do the following:
 
-\bi{Base case}: We prove that $P[xs \mapsto []]$ is correct
+\shade{blue}{Base case} We prove that $P[xs \mapsto []]$ is correct
 
-\bi{Step case}: We prove that $\forall y :: T, ys :: [T]. P[xs \mapsto ys] \rightarrow P[xs \mapsto y : ys]$, or in other words:
+\shade{green}{Step case} We prove that $\forall y :: T, ys :: [T]. P[xs \mapsto ys] \rightarrow P[xs \mapsto y : ys]$, or in other words:
 We fix arbitrary $y :: T$ and $ys :: [T]$, which both are not free in $P$.
 We then apply our induction hypothesis $P[xs \mapsto ys]$ to prove $P[xs \mapsto y : ys]$
