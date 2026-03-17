@@ -27,3 +27,6 @@ After \texttt{GROUP BY} we can't use \texttt{WHERE}, instead we can use \texttt{
 We can compare against a query with a single result column and row using a \texttt{WHERE} clause.
 
 The \texttt{CROSS JOIN} is the both-sided extension to \texttt{LEFT JOIN} and \texttt{RIGHT JOIN}
+
+We can compute the number of all passed grades for a person using something like
+\mint{sql}+SUM(CASE Grade >= 1 THEN 1 ELSE 0 END) AS PassedSubjectsCount+
