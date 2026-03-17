@@ -46,5 +46,5 @@ $\displaystyle \vec{\dot{q}}_{WS} = \frac{1}{2} \vec{q}_{WS} \otimes
     where {\color{gray} gray parts} only IRL (in theor. models, leave out), with $\vec{\dot{b}}_g = \vec{w}_{b_g}$ and $\vec{\dot{b}}_a = \vec{w}_{b_a}$
 
 \bi{IMU Sensor Model}: $\vec{\tilde{z}} = \vec{b}_C + s\mat{M}\vec{z} + \vec{b} + \vec{n} + \vec{o}$
-where bias $\vec{b}$ and scale $s$ often modled as time-varying state $\dot{b}(t) = \sigma_C n(t)$.
-$\vec{b}_C$ const. calib. and $\vec{n}$ the model.
+where bias $\vec{b}$ and scale $s$ often modelled time-varying $\dot{b}(t) = \sigma_C n(t)$.
+$\vec{b}_C$ const. calib; $\mat{M}$ Misalignment; $\vec{n}$ noise; $\vec{o}$ other infl.
