@@ -1,2 +1,18 @@
 \newpage
-\subsection{Stetige Verteilung}
+\subsection{Stetige Zufallsvariablen}
+\shortdefinition[Stetig verteilte Z.V] $\cX$ stetig, falls $\exists f_\cX : \R \rightarrow \R_+$, s.d. V.F. $F_\cX(x) = \int_{-\8}^{x} f_\cX(t) \dx t$.
+$f_\cX$ ist Dichte (pdf) von $\cX$
+
+% \shortdefinition[Stückw. st. diff. F.] TODO: Consider adding this, Slides Chapter 3, P56
+
+\shorttheorem Sei $F_\cX$ st. stückw. diff. auf Partition $-\8 = x_0 < x_1 \ldots < x_n = \8$.
+Dann $\cX$ stetig, mit $a_k$ beliebig und
+\[
+    f_\cX = \begin{cases}
+        F_\cX'(x) & \exists k \in \{0, 1, \ldots, n - 1\} \\
+        a_k       & x \in \{ x_1, \ldots, x_{n - 1} \}
+    \end{cases}
+\]
+
+\shortremark $f_\cX$ fast analog zu Gew.F $p_\cX$. Also:\\
+$(\Sigma, p_\cX) \mapsto (\int, f_\cX)$ vom diskreten zu stetigen Fall
