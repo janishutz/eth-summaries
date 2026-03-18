@@ -1,0 +1,10 @@
+\subsubsection{Negativbinomiale Verteilung}
+{\scriptsize Warten auf den $r$-ten Erfolg (in $\8$ Folge von Bernoulli-Experimenten)}
+
+\shortdefinition $\cX \sim \text{NBin}(r, p)$, falls\\
+$\displaystyle \forall k \in \{r, r + 1, \ldots \} \quad \P[\cX = k] = {k - 1 \choose r - 1} p^r (1 - p)^{k - r}$
+
+\shorttheorem $\cX_i \sim \text{Ber}(p)$, dann\\
+$T_r := \inf \left\{ n \geq 1\; \big|\; \sum_{l = 1}^{n} \cX_l = r \right\} \sim \text{NBin}(r, p)$
+
+\shortremark $\cX := \sum_{i = 1}^{r} \cX_i \sim \text{NBin}(r, p)$ für $\cX_i \sim \text{Geom}(p)$

@@ -1,0 +1,16 @@
+\newpage
+\subsection{Verteilungen}
+\subsubsection{Bernoulli-Verteilung}
+\shortdefinition $\cX \sim \text{Ber}(p)$: $\P[\cX = 0] = 1 - p$ und $\P[\cX = 1] = p$
+
+
+\subsubsection{Binomialverteilung}
+\shortdefinition $\cX \sim \text{Bin}(n, p)$, falls\\
+$\forall k \in \{ 0, \ldots, n \}\; \P[\cX = k] = {n \choose k} p^k (1 - p)^{n - k}$
+
+\shortremark $\sum_{k = 0}^{n} p(k) = \sum_{k = 0}^{n} \P[\cX = k] = (p + 1 - p)^n = 1$
+
+\shorttheorem $X_i \sim \text{Ber}(p_i)$ unab: $(S_n := \sum_{i = 0}^{n} X_i) \sim \text{Ber}(n, p)$
+
+\shortremark $\text{Bin}(1, p)$ ist $\text{Ber}(p)$ verteilt. Für $X, Y \sim \text{Bin}(n_i, p)$ mit $X, Y$ unabhängig dann ist $X + Y \sim \text{Bin}(n_1 + n_2, p)$
+

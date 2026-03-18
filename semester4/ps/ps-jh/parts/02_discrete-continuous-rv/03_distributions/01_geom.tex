@@ -1,0 +1,17 @@
+\subsubsection{Geometrische Verteilung}
+{\scriptsize Warten auf den ersten Erfolg (in $\8$ Folge von Bernoulli-Experimenten)}
+
+\shortdefinition $\cX \sim \text{Geom}(p)$ mit $W = \N \backslash \{0\}$ falls\\
+$\forall k \in W \; \P[\cX = k] = (1 - p)^{k - 1} \cdot p$
+
+\shortremark $\P[\cX = 1] = p$, da wir Konvetion $a^0 = 1$ verwenden.
+
+\shortremark $\sum_{k = 0}^{\8} p(k) = p \cdot \sum_{k = 0}^{\8} (1 - p)^{k - 1} = p \cdot \frac{1}{p} = 1$
+
+\shorttheorem $X_i \sim \text{Ber}(p)$ für $i \in \N$.\\
+Dann $( T := \min\{ n \geq 1 \divider X_n = 1 \} )\sim \text{Geom}(p)$
+
+\shortremark $T = \8$ ist möglich, $\P[T = \8] = 0$
+
+\shorttheorem $T \sim \text{Geom}(p)$, dann\\
+$\forall n \geq 0 \; \forall k \geq 1 \; \P[T \geq n + k | T > n] = \P[T \geq k]$
