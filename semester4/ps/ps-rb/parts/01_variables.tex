@@ -122,10 +122,6 @@ $$
 
 \lemma $X_1 \sim \text{Bin}(n, p), X_2 \sim \text{Bin}(m, p) \implies X_1 + X_2 \sim \text{Bin}(n+m,p)$
 
-\lemma \textbf{Binomialverteilung erfüllt die Summenvoraussetzung}
-$$
-    \sum_{k=0}^{n} p(k) = \sum_{k=0}^{n} \binom{n}{k} p^k(n-p)^{n-k} = (p + 1 - p)^n = 1
-$$
 \normalsize
 
 \definition \textbf{Geometrische Verteilung} $X \sim \text{Geom}(p)$\\
@@ -134,3 +130,100 @@ $$
     \P[X=k] = p\cdot(1-p)^{k-1}
 $$
 \subtext{$0 < p \leq 1,\quad k \in \N_{\neq0}$}
+
+\definition \textbf{Negativbinomiale Verteilung} $X \sim \text{NBin}(r,p)$\\
+\smalltext{Intuitiv: Wartezeit zum $r$-ten Erfolg}
+$$
+    \P[X = k] = \binom{k-1}{r-1}p^r(1-p)^{k-r}
+$$
+\subtext{$r \in \N,\quad p \in [0,1],\quad k \in \{r, r+1,\ldots \},\quad \text{Nur auf Folien}$}
+
+\theorem \textbf{Interpretation}\\
+\smalltext{Für $X_1, X_2, \ldots$ unabhängig s.d. $X_i \sim \text{Ber}(p)$:}
+$$
+    T_r := \text{inf}\Bigl\{ n \geq 1 \Big| \sum_{i=1}^{n}X_i=r \Bigr\} \sim \text{NBin}(r,p)
+$$
+
+\scriptsize
+
+\lemma $X_1,X_2,\ldots,X_r \sim \text{Geom}(p) \implies X := \sum_{i=1}^{r}X_i \sim \text{NBin}(r,p)$
+
+\normalsize
+
+
+\newpage
+
+\definition \textbf{Hypergeometrische Verteilung} $X \sim \text{H}(n, r, m)$
+$$
+    \P[X = K] = \frac{\binom{r}{k}\binom{n-r}{m-k}}{\binom{n}{m}}
+$$
+\subtext{$n \in \N,\quad m,r \in \{0,1,\ldots,n\},\quad k \in \{0,1,\ldots \min(m,r) \}$}
+
+\theorem \textbf{Interpretation}\\
+\smalltext{$n$ Objekte in einer Urne, $r$ von Typ 1, $n-r$ von Typ 2 \\ Ziehe $m$, Sei $X$ die Anzahl Objekte Typ 1, dann $X \sim \text{H}(n,r,m)$}\\
+\subtext{Das modelliert z.B. Lotto}
+
+\definition \textbf{Poisson-Verteilung}\\
+\smalltext{Intuitiv: Sehr seltene Ereignisse}
+$$
+    \P[X=k] = \frac{\lambda^k}{k!}e^{-\lambda}
+$$
+\subtext{$\lambda \in \R_{>0},\quad k \in \N_0$}
+
+\theorem \textbf{Poisson-Approximation der Binomialverteilung}\\
+\smalltext{$X_n \sim \text{Bin}(\frac{\lambda}{n}),\quad N \sim \text{Poisson}(\lambda),\quad n \geq 1$}
+$$
+    \limn \P[X_n=k] = \P[N=k]
+$$
+\subtext{Intuitiv: Für grosse $n$ haben $X_n$ und $N$ sehr ähnliche Eigenschaften}
+
+\scriptsize
+
+\remark Auch genannt: \textit{Konvergenz in Verteilung, Schwache Konvergenz}\\
+\color{gray}
+Convergence in distribution/law, weak convergence
+\color{black}
+
+\normalsize
+
+\newpage
+
+\subsection{Stetige Verteilungen}
+
+\definition \textbf{Stetig verteilte Zufallsvariable} $X: \Omega \to \R$\\
+\smalltext{Intuitiv: $f_X(t)dt$ ist Die W.-keit, dass $X$ in $[t, t+dt]$ ist}
+$$
+    \exists f_X \R \to \R_+ \quad\text{ s.d. }\quad F_X(x) = \int_{-\infty}^{x}f_X(t)\ dt
+$$
+\subtext{Stetig, da $F_X$ somit eine stetige Funktion ist}
+
+{\scriptsize
+    \remark $f_X$ heisst \textit{Dichtefunktion} von $X$
+}
+
+\theorem \textbf{Dichtefunktion ist die Ableitung der Verteilung}
+\smalltext{$F_X$ stetig, stückweise diff.-bar $-\infty = x_0 < x_1 < \ldots x_{n-1} < x_n = \infty$}
+$$
+    f_X = \begin{cases}
+        F_X'(x) & \exists k \in \{0,\ldots,n-1\} \text{ s.d. } x \in (x_k,x_{k+1}) \\
+        a_k     & x \in \{x_1,\ldots,x_{n-1}\}
+    \end{cases}
+$$
+
+{\scriptsize
+    \remark $f_X$ (Stetig) ist Intuitiv das Analogon zu $p_x$ (Diskret)
+}
+
+\definition \textbf{Gleichverteilung} $X \sim \mathcal{U}([a,b])$\\
+\smalltext{Intuitiv: Zufälliger Punkt in $[a,b]$}
+$$
+    f_X(x) = \begin{cases}
+        \frac{1}{b-a}   & x \in [a,b] \\
+        0               & \text{sonst}
+    \end{cases}
+$$
+
+\definition \textbf{Exponentialverteilung}
+$$
+
+$$
