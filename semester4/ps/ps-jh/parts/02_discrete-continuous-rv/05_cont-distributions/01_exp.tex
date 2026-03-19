@@ -1,0 +1,15 @@
+\subsubsection{Exponentialverteilung}
+{\scriptsize Wie Geomemtrische Verteilung warten auf Erfolg}
+
+\shortdefinition $\cX \sim \text{Exp}(\lambda)$, falls
+$\forall x \in \R f_\cX(x) = \begin{cases}
+        \lambda e^{-\lambda x} & x \geq 0 \\
+        0                      & x < 0
+    \end{cases}$
+
+\shortremark[Gedächtnisl.] $\P[\cX > t + s | \cX > s] = \P[\cX > t]$
+
+\shortremark[Verteilungsfunktion] $F_\cX(x) = \begin{cases}
+    1 - e^{-\lambda x} & x \geq 0 \\
+    0                  & x < 0
+\end{cases}$

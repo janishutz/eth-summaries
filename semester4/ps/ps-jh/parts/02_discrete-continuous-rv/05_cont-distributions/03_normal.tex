@@ -1,0 +1,28 @@
+\subsubsection{Normalverteilung}
+\shortdefinition $\cX \sim \cN(\mu, \sigma^2)$ falls $f_\cX(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{1}{2} \left( \frac{x - \mu}{\sigma} \right)^2}$,\\
+mit $\sigma$ Standardabweichung. Auch: Gauss'sche Verteilung
+
+\shortdefinition[Standardnormalverteilung] $\cX \sim \cN(0, 1)$:\\
+$f_\cX = \varphi$ und $\F_\cX = \Phi = \int_{-\8}^{x} \varphi(t) \dx t = \frac{1}{\sqrt{2\phi}} \int_{-\8}^{x} e^\frac{-t^2}{2} \dx t$
+
+\shorttheorem $cX \sim \cN(\mu, \sigma^2)$, dann $\frac{\cX - \mu}{\sigma} \sim \cN(0, 1)$, also:
+\[
+    F_\cX(x) = \P[\cX \leq x] = \P\left[ \frac{\cX - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right] = \Phi \left( \frac{x - \mu}{\sigma} \right)
+\]
+
+\shortexample für Phänomene modellierbar mit Normalverteilung:
+\begin{itemize}
+    \item Streuung von Messwerten um Mittelwert
+    \item Grösse und Gewicht der Bevölkerung
+    \item Renditen von Aktien
+\end{itemize}
+
+\shortremark Für $\cX_i \sim \cN(\mu_i, \sigma_i^2)$ unabhängig gilt:
+\[
+    \cY := \mu_0 + \sum_{k = 1}^{n} a_k \cX_k \sim \cN\left( \mu_0 + \sum_{k = 1}^{n} a_k \mu_k, \sum_{k = 1}^{n} a_k^2 \sigma_k^2 \right)
+\]
+
+\shortremark Für $\mu \in \R, \sigma^2 > 0$ und $\cZ \sim \cN(0, 1)$ gilt\\
+$\mu + \sigma \cZ \sim \cN(\mu, \sigma^2)$ (nützlich für Simulation)
+
+\shortremark $\P[|\cX - \mu| \geq 3\sigma] \leq 0.0027$
