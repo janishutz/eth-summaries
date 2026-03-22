@@ -1,0 +1,88 @@
+In regression, we search an $\hat{f}: \R^d \to \R$, i.e. $y,\hat{y} \in \R$.\\
+In classification, we want $\hat{y} \in \mathcal{Y} \subset \R$, s.t. $\mathcal{Y}$ is discrete.
+
+\subsection{Binary Classification}
+
+We generally use $\mathcal{Y} = \{+1,-1\}$ and set $\hat{y} = \text{sgn}\bigl(\hat{f}(x)\bigr)$.\\
+So, a linear classifier where $\hat{f}(x) = w^\top x$ takes the form:
+$$
+    x \mapsto \begin{cases}
+        1   & w^\top x > 0 \\
+        -1  & w^\top x < 0
+    \end{cases}
+$$
+\definition \textbf{Decision Boundary} $\quad \Bigl\{ x \in \R^d \ \Big|\ \hat{f}(x) = 0 \Bigr\}$
+
+Like in regression, using features is again possible.
+
+\subsection{Surrogate Loss}
+
+We'd like to reuse the loss minimization from regression.\\
+A natural metric for accuracy is simply checking if $\hat{y} = y$.
+
+\definition \textbf{Zero-One Loss}
+$$
+    l_{0-1}(\hat{y},y) := \mathbb{I}_{\hat{y}\neq y} = \begin{cases}
+        1 & \hat{y} \neq y \\
+        0 & \hat{y} = y
+    \end{cases}
+$$
+We could try minimizing this:
+$$
+    \underset{(x,y) \in \mathcal{D}}{\sum} l_{0-1}\bigl( \hat{y},y \bigr) = \underset{(x,y) \in \mathcal{D}}{\sum} \mathbb{I}_{f_w(x) \cdot y < 0}
+$$
+Unfortunately, $l_{0-1}$ is non-continuous and non-convex.\\
+We introduce \textit{surrogate loss} to still apply GD.
+
+Note how $\mathbb{I}_{\hat{y}\neq y} = \mathbb{I}_{\hat{y}\cdot y < 0}$, so $l_{0-1}$ only depends on $z := \hat{y}\cdot y$.\\
+We thus define losses over $z$, that are cont. and convex.
+
+\definition \textbf{Surrogate Loss}
+$$
+    l_\text{exp} = e^{-z} \qquad l_\text{log} = \log(1+e^{-z})
+$$
+A notable difference is that $l_\text{exp}'$ is unbounded,\\
+while $l_\text{log}' = \frac{1}{1+e^z} \in (-\frac{1}{2}, -1)$ for $z < 0$.\\
+This is better for outliers, thus $l_\text{log}$ is usually preferred.
+
+\newpage
+\subsection{Logistic Regression}
+\subtext{We assume $w_0 = 0$}
+
+We try to minimize $l_\text{log} = \log(1+e^{-z})$, so:
+$$
+    L(w) = \frac{1}{n}\sum_{i=1}^{n} l_\text{log}(z_i) = \frac{1}{n}\sum_{i=1}^{n}\log\Bigl( 1 + e^{-\overbrace{y_i \cdot w^\top x_i}^{z_i}} \Bigr)
+$$
+Assume $\{x_i,y_i\}_{i=1}^n$ is linearly seperable, i.e. 
+$$
+    \exists w \in \R^d:\quad \underbrace{y_i \cdot w^\top x_i}_{z_i} > 0 \quad \forall i \leq n
+$$
+Then there are multiple valid decision boundaries.
+
+the distance $x_0$ to the decision boundary is: $\Vert x_0 \Vert_2 \cdot |\cos(\theta)|$.\\
+\subtext{$\theta$ between $w,x_0 \in \R^d$}
+$$
+    \Vert x_0 \Vert_2 \cdot |\cos(\theta)| = \Vert x_0 \Vert_2 \cdot \frac{|w^\top x_0 |}{\Vert w \Vert_2 \cdot \Vert x_0 \Vert_2} = \frac{|w^\top x_0|}{\Vert w \Vert_2}
+$$
+\subtext{Note if $w$ is a unit-vector, this is just $|w^\top x_0|$}
+
+\definition \textbf{Margin} $\quad \text{margin}(w) := \underset{1\leq i\leq n}{\min} y_i \cdot w^\top x_i$
+
+\subsection{Solutions}
+
+\definition \textbf{Maximum Margin Solution}
+$$
+    w_\text{MM} := \underset{\Vert w \Vert_2=1}{\max} \underset{1\leq i\leq n}{\min} \Bigl( y_i \cdot w^\top x_i \Bigr)
+$$
+If $\mathcal{D}$ is linearly seperable, this is convex.
+
+\definition \textbf{Support Vector Machine}
+$$
+    w_\text{SVM} := \underset{w \in \R^d}{\min} \Vert w \Vert_2 \quad\text{s.t.}\quad y_i \cdot w^\top x_i \geq 1 \quad \forall i \leq n
+$$
+
+Solving these problems is actually equivalent, up to scaling:
+
+\lemma $\quad\displaystyle\frac{w_\text{SVM}}{\Vert w_\text{SVM} \Vert_2} = w_\text{MM}$
+\subtext{(This also holds for the case $w_0 \neq 0$)}
+
