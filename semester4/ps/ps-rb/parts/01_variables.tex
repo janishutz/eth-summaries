@@ -29,6 +29,12 @@ $$
     \forall a \in \R:\qquad F_X(a) = \P[X \leq a]
 $$
 
+{\scriptsize
+    \notation $\underset{x \to a^-}{\lim}F_X(a) = F(a^-) = \P[X < a]$
+
+    \lemma $\P[a < X \leq b] = F_X(b) - F_X(a)$
+}
+
 \theorem \textbf{Eigenschaftern der Verteilungsfunktion}
 
 \begin{tabular}{ll}
@@ -43,14 +49,14 @@ $$
     \P[X_1 \leq x_q,\cdots, X_n \leq x_n] = \P[X_1 \leq x_1] \cdots \P[X_n \leq x_n]
 $$
 
+\newpage
+
 \theorem \textbf{Unabhängigkeit von Gruppierungen}\\
 \smalltext{$X_1,\cdots X_n$ sind unabhängig, dann sind auch $Y_1,\cdots,Y_k$ unabhängig:}
 $$
     Y_1 = \phi_1(X_1,\cdots,X_{i_1}), \cdots , Y_k = \phi_k(X_{i_{k-1}+1},\cdots,X_{i_k})
 $$
 \subtext{$1 \leq i_1 < i_2 < \cdots < i_k \leq n \text{ sind Indizes},\quad \phi_1,\cdots,\phi_k \text{ sind Abbildungen}$}
-
-\newpage
 
 \definition \textbf{Folgen von Zufallsvariablen}
 
@@ -224,6 +230,3 @@ $$
 $$
 
 \definition \textbf{Exponentialverteilung}
-$$
-
-$$

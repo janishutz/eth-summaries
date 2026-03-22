@@ -1,0 +1,103 @@
+\subsection{Supervised Learning}
+
+\textbf{Supervised Learning} is the task of 'learning' a function relationship, based on a given set of inputs/outputs.
+
+Some terminology:
+
+\begin{tabular}{ll}
+    $x \in \R^d$                    & Inputs (Attributes/Covariates)    \\
+    $\phi(x) \in \R^p$              & Features                          \\
+    $y \in \R$                      & Outputs (Targets/Labels)          \\
+    $D = \{ (x_i,y_i) \}_{i=1}^n$   & Training Set                      \\
+    $D'$                            & Test Set                          \\
+    $f: \R^p \to \R$                & Predictor (Model)                 \\
+    $l(f(x), y)$                    & Loss                  
+\end{tabular}
+
+\textbf{Machine Learning Pipelines} can often be classified using:
+
+\begin{tabular}{ll}
+    $F$                             & Function Class                    \\
+    $L(f)$                          & Training Loss                     \\
+                                    & Optimization Method
+\end{tabular}
+
+{\small
+    The function class $F$ is a set of parametrized functions. 
+    We are looking for the $f \in F$ that minimizes $L(f)$.
+}
+
+\definition \textbf{Training Loss}
+$$
+    L(f) := \frac{1}{n}\sum_{i=1}^{n} l\bigl( f(x_i), y \bigr) 
+$$
+
+\subsection{Multiple Linear Regression}
+
+\textbf{Multiple Linear Regression} directly uses the $x \in \R^d$. \\
+Here, $F_\text{affine} = \bigl\{ f(x) = w^\top x + w_0 \big| w \in \R^d, w_0 \in \R \bigr\}$. 
+
+Why are we using linear functions instead?\\
+{\scriptsize
+    Any estimator $f \in F_\text{affine}$ can be rewritten as $f\bigl((x,1)\bigr) = (w,w_0)^\top\cdot(x,1)$,
+    thus we can augment the inpurs $x \mapsto (x,1)$ and \\
+    instead search in $F_\text{linear} = \{ f(x) = \hat{w}^\top x | \hat{w} \in \R^{d+1} \}$
+}
+
+\newpage
+
+\textbf{Loss Functions}
+
+\definition \textbf{Squared Loss} $\quad l\bigl( f(x),y \bigr) := \bigl( f(x) - y \bigr)^2$\\
+\subtext{Most common Loss Function, but sensitive to outliers.}
+
+\definition \textbf{Absolute Loss} $\quad l_\text{abs}\bigl( f(x),y \bigr) := |f(x)-y|$\\
+\subtext{Less sensitive to outliers, but not differentiable.}
+
+\definition \textbf{Huber Loss}
+$$
+    l_\text{huber}\bigl( f(x),y \bigr) := \begin{cases}
+        \frac{1}{2}\bigl( f(x)-y \bigr)^2                   & |f(x)-y| \leq \delta \\
+        \delta \bigl( |f(x)-y| - \frac{1}{2}\delta \bigr)   & |f(x)-y| > \delta
+    \end{cases}
+$$
+\subtext{Using parameter $\delta$, the penalization of outliers can be controlled}
+
+\textbf{Assymetric Loss}: In some cases it is desirable to penalize overestimation harder than underestimation, or vice versa.
+
+\definition \textbf{Quantile Loss}
+$$
+    l_\tau\bigl( f(x),y \bigr) := \tau \max\Bigl\{ y-f(x),0 \Bigr\} + (1-\tau)\max\Bigl\{ f(x)-y, 0 \Bigr\}
+$$
+\subtext{Using parameter $\tau$, over/underestimation can be penalized}
+
+\newpage
+
+\textbf{Linear Regression}
+
+To find $\hat{f} := \underset{f \in F_\text{linear}}{\text{arg min}} L(f)$ we just look for $w \in \R^d$.
+$$
+    \hat{w} := \underset{w \in \R^d}{\text{arg min}} L(f_w) = \frac{1}{n}\sum_{i=1}^{n}\underbrace{\Bigl( y_i - w^\top x_i \Bigr)^2}_{l\bigl(f(x_i), y_i\bigr)}
+$$
+\subtext{A natural abuse of notation here is $L(w) := L(f_w)$.}
+
+This can be rewritten in matrix notation:
+$$
+    \sum_{i=1}^{n}\Bigl( y_i - w^\top x_i \Bigr)^2 = \bigl\Vert y-Xw \bigr\Vert^2
+$$
+\subtext{The factor $\frac{1}{n}$ is irrelevant for Optimization, it doesn't depend on $w$}
+
+So we find the usual problem:
+$$
+    \hat{w} = \underset{w \in \R^d}{\text{arg min}} \bigl\Vert y-Xw \bigr\Vert^2
+$$
+The solution is a stationary point, so:
+$$
+    \nabla_w \bigl\Vert y-Xw \bigr\Vert^2 = 2X^\top(X\hat{w}-y) = 0
+$$
+Which yields the known \textbf{Normal Equation}
+$$
+    X^\top X\hat{w} = X^\top y
+$$
+
+
