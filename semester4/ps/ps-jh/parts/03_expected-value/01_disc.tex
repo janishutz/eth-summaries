@@ -1,0 +1,14 @@
+\subsection{Diskrete Zufallsvariablen}
+\shorttheorem Für $\cX$ mit Werten fast sicher in $W$:
+\[
+    \E[\cX] = \sum_{x \in W} x \cdot \P[\cX = x] = \sum_{x \in W} x \cdot p_\cX(x)
+\]
+
+\shortremark $\E[\cX]$ wohldefiniert falls $(x \cdot p_\cX(x))_{x \in W}$ abs. konv.
+
+\subsubsection{Beispiele}
+\begin{itemize}
+    \item $\cX \sim \text{Ber}(p)$: $\E[\cX] = p$
+    \item $\cX \sim \text{Bin}(n, p)$: $\E[\cX] = np$
+    \item $\cX \sim \text{Poisson}(\lambda)$: $\E[\cX] = \lambda$
+\end{itemize}
