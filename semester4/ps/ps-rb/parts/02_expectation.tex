@@ -1,0 +1,45 @@
+\definition \textbf{Erwartungswert} (nicht-negativ)
+$$
+    \E[X] = \int_{0}^{\infty} \biggl( 1-F_X(x) \biggr)\ dx
+$$
+\subtext{$X: \Sigma \to \R,\quad X(\omega) \geq 0\ \forall \omega \in \Omega$}
+
+{\scriptsize
+    \remark $\E[X]$ kann unendlich sein
+}
+
+\theorem $\forall \omega \in \Omega: X(\omega) \geq 0 \implies \E[X] \geq 0$\\
+\subtext{Gleichheit: $\E[X] = 0 \iff X=0$, fast sicher}
+
+\definition \textbf{Erwartungswert} 
+$$
+    \E[X] = \E[X_+] - \E[X_-] \quad\text{falls}\quad \E[|X|]<\infty
+$$
+{\scriptsize
+    \remark $X$ kein konst. Vorzeichen, nicht $\E[|X|] < \infty $: $\E[X]$ undefiniert
+}
+
+\subsection{Diskreter Erwartungswert}
+
+\theorem \textbf{Diskreter Erwartungswert}
+$$
+    \E\bigl[ \phi(X) \bigr] = \sum_{w \in W} \phi(x) \cdot \P[X = x]
+$$
+\subtext{$X: \Omega \to \R,\quad W \cleq \N,\quad \phi: \R \to \R$}
+
+\begin{center}
+    \begin{tabular}{l|l}
+        $\text{Ber}(p)$             & $\E[X] = p$                   \\
+        $\text{Poisson}(\lambda)$   & $\E[X] = \lambda$             \\
+        $\text{Bin}(n,p)$           & $\E[X] = n\cdot p$            \\
+        $\mathbb{I}_A$              & $\E[\mathbb{I}_A] = \P[A]$    \\
+    \end{tabular}    
+\end{center}
+
+\subsection{Stetiger Erwartungswert}
+
+\definition \textbf{Erwartungswert} (stetig)
+$$ 
+    \E[X] = \int_{-\infty}^{\infty} x \cdot f(x)\ dx
+$$
+\subtext{$X: \Omega \to \R,\quad f(x) \text{ Dichtefunktion}$}
