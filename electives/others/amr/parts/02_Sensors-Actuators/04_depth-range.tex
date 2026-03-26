@@ -1,0 +1,34 @@
+\subsection{Depth and Range sensing}
+\subsubsection{Triangulation-based}
+\bi{Struct. Light} Single cam, single projector: {\color{ForestGreen}Spatial acc}, {\color{red} no worky in bright light, interference with other IR depth cams}
+
+\bi{Active Stereo} 2 cams, 1 proj: {\color{ForestGreen} worky in bright light}, {\color{red} need stereo matching, less accurate, error grows with distance}
+
+
+\subsubsection{Classic Stereo}
+Both images: same plane, focal length, centre, $x$-axis. Given corresponding pixels $[u_l, v]$ and $[u_r, v]$,
+$z = \frac{b \cdot f}{u_r - u_l}$ with $u_l = f\cdot \frac{x}{z} + c_u$ and $u_r = f \cdot \frac{x - b}{z} + c_u$
+
+
+\subsubsection{Time of Flight, Projection}
+{\color{ForestGreen}No occlusions/shadows}, {\color{red}Interference with other dev, multipath leading to larger distances sensed}
+
+\bi{Proj.} $\vec{z} = \begin{bmatrix}
+        \vec{u} \\ d
+    \end{bmatrix} =
+    \begin{bmatrix}
+        \vec{k}(\vec{d}(\vec{p}({_C}\vec{t}_P))) \\
+        [0, 0, 1] {_c}\vec{t}_P
+    \end{bmatrix}$
+\bi{Back}: ${_C}\vec{t}_P
+    = \begin{bmatrix}
+        d \vec{x'} \\d
+    \end{bmatrix}$
+
+
+\subsubsection{Range Sensors}
+\bi{Ultrasonic} Typ. freq: 40kHz - 180kHz, Range: 12cm - 5m, Acc: $\approx$ 2cm, rel error $\approx$ 2\%
+{\color{ForestGreen} meas. for transp. surf., cheap(ish)}, {\color{red} Cone wider, reflect. angle dep, wind / currents}
+
+\bi{LiDAR} Time-of-Flight-based, {\color{ForestGreen}Accuracy, range, works in bright light}, {\color{red} Complex, expensive, one timestamp per measurement}.
+Typical Ranges: up to 100m
