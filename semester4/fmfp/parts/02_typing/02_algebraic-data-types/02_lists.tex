@@ -1,0 +1,12 @@
+\subsubsection{Lists}
+A possible data type for lists in Haskell is:
+\mint{haskell}+data L t = Nil | Cons t (L t)+
+
+A natural deduction rule for induction over lists is:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[xs \mapsto \texttt{Nil}]}
+        \hypo{\Gamma, P[xs \mapsto ys] \vdash P[xs \mapsto \texttt{Cons}\ y\ ys]}
+        \infer2[$y$, $ys$ not free in $\Gamma, P$]{\Gamma \vdash \forall xs \in \texttt{L}\ t. P}
+    \end{prooftree}
+\]

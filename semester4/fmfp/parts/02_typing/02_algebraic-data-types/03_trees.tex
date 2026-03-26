@@ -1,0 +1,12 @@
+\subsubsection{Trees}
+A possible data type for trees in Haskell is:
+\mint{haskell}+data Tree t = Leaf | Node t (Tree t) (Tree t)+
+
+A natural deduction rule for induction over trees is:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[x \mapsto \texttt{Leaf}]}
+        \hypo{\Gamma, P[x \mapsto l] \vdash P[xs \mapsto \texttt{Node}\ a\ l\ r]}
+        \infer2[$a$, $l$, $r$ not free in $\Gamma, P$]{\Gamma \vdash \forall x \in \texttt{Tree}\ t. P}
+    \end{prooftree}
+\]

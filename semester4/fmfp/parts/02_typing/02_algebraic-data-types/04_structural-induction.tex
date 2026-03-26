@@ -1,0 +1,18 @@
+\subsubsection{Structural Induction}
+Induction is based on the structure of terms
+\mint{haskell}+data T t = Leaf t | Node1 (T t) | Node2 t (T t) (T t)+
+
+\shade{blue}{Base Case} $T_0 = \{ \texttt{Leaf}\ a \divider a \in t \}$
+
+\shade{green}{Step Case} $T_i = T_{i - 1} \cup \{ \texttt{Node1}\ s \divider s \in T_{i - 1} \} \cup \{ \texttt{Node2}\ a\ l\ r \divider a \in t \text{ and } l, r \in T_{i - 1} \}$
+
+A natural deduction rule structural induction is:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[x \mapsto \texttt{Leaf}\ a]}
+        \hypo{\Gamma, P[x \mapsto s] \vdash P[xs \mapsto \texttt{Node1}\ s]}
+        \hypo{\Gamma, P[x \mapsto l], P[x \mapsto r] \vdash P[ \mapsto \texttt{Node2}\ a\ l\ r]}
+        \infer3[$(*)$]{\Gamma \vdash \forall x \in \texttt{T}\ t. P}
+    \end{prooftree}
+\]
+(*) $a$, $l$, $r$, $s$ not free in $\Gamma, P$

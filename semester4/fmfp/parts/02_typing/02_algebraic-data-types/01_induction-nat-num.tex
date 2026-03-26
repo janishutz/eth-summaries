@@ -1,0 +1,23 @@
+\subsubsection{Induction over the natural numbers}
+In Haskell, we can also define all the natural numbers using
+\mint{haskell}+data Nat = Zero | Succ Nat deriving (Eq, Ord, Show)+
+
+Thus the natural numbers are (isomorphic to) the set
+\[
+    \texttt{Nat} = \{ \texttt{Zero}, \texttt{Succ Zero}, \texttt{Succ (Succ Zero)}, \ldots \}
+\]
+
+The data type provides two crucial rules for constructing members of \texttt{Nat}:
+\begin{itemize}
+    \item $\texttt{Zero} \in \texttt{Nat}$
+    \item If $x \in \texttt{Nat}$, then $\texttt{Succ} x \in \texttt{Nat}$
+\end{itemize}
+
+The induction stated as a natural deduction rule:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P[n \mapsto \texttt{Zero}]}
+        \hypo{\Gamma, P[n \mapsto m] \vdash P[n \mapsto \texttt{Succ}\ m]}
+        \infer2[$m$ not free in $\Gamma, P$]{\Gamma \vdash \forall n \in \texttt{Nat}. P}
+    \end{prooftree}
+\]

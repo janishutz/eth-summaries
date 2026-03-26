@@ -1,0 +1,52 @@
+\subsubsection{Read step}
+During this step, text is turned from text into a more easily handlable format
+
+
+\paragraph{Lexical Analysis}
+During lexical analysis, the input is turned into tokens.
+For example: The source code is \texttt{position := initial + rate + 60}
+
+The translation is:
+\begin{multicols}{2}
+    \begin{enumerate}
+        \item Identifier \texttt{position}
+        \item Assignment symbol \texttt{:=}
+        \item Identifier \texttt{initial}
+        \item Addition symbol \texttt{+}
+        \item Identifier \texttt{rate}
+        \item Addition symbol \texttt{+}
+        \item Number \texttt{60}
+    \end{enumerate}
+\end{multicols}
+
+It also removes whitespaces and comments
+
+
+\paragraph{Parsing}
+The tokens are then turned into an abstract syntax tree.
+
+The syntax is specified by a grammar such as:
+\begin{align*}
+    Expr   & ::= Identifier \divider Number \divider Expr\; \texttt{`+`}\; Expr \\
+    Assign & ::= Identifier\; \texttt{`:=`}\; Expr
+\end{align*}
+
+This can also be represented as a haskell type:
+\begin{code}{haskell}
+    data Expr = Identifier Ident | Number Num | Plus Expr Expr
+    data Assign = Assignment Ident Expr
+    type Ident = String
+    type Num = Int
+\end{code}
+
+Since some to be parsed statements are more complex to parse, we may do combinatory parsing.
+
+This is much more powerful as it can handle ambiguous grammars typically found in real programming languages.
+
+We can use for example these parser combinators:
+
+\newpage
+\inputcode{haskell}{code/10_parser.hs}
+
+These are just some of the functions defined.
+You can find a full mini-haskell and lambda-calculus parser on CodeExpert (at the time of writing this that was the case at least)
