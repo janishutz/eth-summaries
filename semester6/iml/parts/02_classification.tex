@@ -57,7 +57,7 @@ Assume $\{x_i,y_i\}_{i=1}^n$ is linearly seperable, i.e.
 $$
     \exists w \in \R^d:\quad \underbrace{y_i \cdot w^\top x_i}_{z_i} > 0 \quad \forall i \leq n
 $$
-Then there are multiple valid decision boundaries.
+Then there are multiple valid decision boundaries. Additionally, $L(w)$ is then convex.
 
 the distance $x_0$ to the decision boundary is: $\Vert x_0 \Vert_2 \cdot |\cos(\theta)|$.\\
 \subtext{$\theta$ between $w,x_0 \in \R^d$}
@@ -86,3 +86,16 @@ Solving these problems is actually equivalent, up to scaling:
 \lemma $\quad\displaystyle\frac{w_\text{SVM}}{\Vert w_\text{SVM} \Vert_2} = w_\text{MM}$
 \subtext{(This also holds for the case $w_0 \neq 0$)}
 
+In practice, instead of explicitly solving $w_\text{SVM}$ or $w_\text{MM}$, GD is usually applied on a diff.-able convex surrogate loss.
+
+\newpage
+
+\remark \textbf{Implicit Bias of Gradient Descent}
+
+Assuming $\{x_i,y_i\}_{i=1}^n$ is lin. seperable, $L(w) = \frac{1}{n}\sum_{i=1}^{n}l_\text{log}(z_i)$ is convex, but no global optimum exists. 
+Using GD, $L(w)$ will approach $0$, but the iterates $\{ w^t \ |\ t \in \N \}$ diverge. However, $w^t$ may converge \textit{in direction}, and interestingly:
+
+\theorem \textbf{GD converges to $w_\text{MM}$ for lin.-sep. data}
+$$
+    \underset{t\to\infty}{\lim}\frac{w^t}{\Vert w^t \Vert} = w_\text{MM}
+$$
