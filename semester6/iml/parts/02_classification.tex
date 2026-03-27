@@ -76,6 +76,10 @@ $$
 $$
 If $\mathcal{D}$ is linearly seperable, this is convex.
 
+{\scriptsize
+    \remark Also called \textit{hard-margin SVM}, assuming lin.-sep. data
+}
+
 \definition \textbf{Support Vector Machine}
 $$
     w_\text{SVM} := \underset{w \in \R^d}{\min} \Vert w \Vert_2 \quad\text{s.t.}\quad y_i \cdot w^\top x_i \geq 1 \quad \forall i \leq n
@@ -86,16 +90,218 @@ Solving these problems is actually equivalent, up to scaling:
 \lemma $\quad\displaystyle\frac{w_\text{SVM}}{\Vert w_\text{SVM} \Vert_2} = w_\text{MM}$
 \subtext{(This also holds for the case $w_0 \neq 0$)}
 
-In practice, instead of explicitly solving $w_\text{SVM}$ or $w_\text{MM}$, GD is usually applied on a diff.-able convex surrogate loss.
+\newpage
+
+By relaxing the SVM constraints, we can use the SVM problem on lin.-insep. data too:
+$$
+    y_i \cdot w^\top x_i \leq 1 \qquad \to \qquad y_i \cdot w^\top x_i \leq 1 - \zeta
+$$
+\subtext{$\zeta = (\zeta_1,\ldots,\zeta_n)$ s.t. $\zeta_i \geq 0$}
+
+\definition \textbf{Soft-margin SVM}
+$$
+    w_\text{SM} = \underset{w\in\R^d,\zeta\in\R^n}{\min}\biggl( \Vert w \Vert^2 + \lambda \sum_{i=1}^{n} \zeta_i \biggr) 
+    \text{ s.t. } \begin{cases}
+        y_i \cdot w^\top x_i \geq 1-\zeta_i \\
+        \zeta_i \geq 0 \quad \forall i \leq n
+    \end{cases}
+$$
+\subtext{$\lambda$ (hyperparam.) intuitively controls how much a violation is penalized}
+
+Another perspective: The optimal $\zeta_i$ are:
+$$
+    \zeta_i = \begin{cases}
+        1 - y_i \cdot w^\top x_i    & \text{if } y_i\cdot w^\top x_i \leq 1 \\
+        0                           & \text{else}
+    \end{cases}
+$$
+So the problem can be formulated without $\zeta$ too:
+
+\definition \textbf{$l_2$-penalized Hinge Loss Optimization}
+$$
+    \underset{w\in\R^d}{\min}\biggl( \Vert w \Vert^2 + \lambda \underbrace{\sum_{i=1}^{n}\max(0, 1-y_i\cdot w^\top x_i)}_\text{Hinge Loss} \biggr)
+$$
 
 \newpage
 
-\remark \textbf{Implicit Bias of Gradient Descent}
+\subsection{Gradient Descent for Classification}
+
+In practice, instead of explicitly solving $w_\text{SVM}$ or $w_\text{MM}$, GD is usually applied on a diff.-able convex surrogate loss.
+
+\subsubsection{On linearly seperable data}
 
 Assuming $\{x_i,y_i\}_{i=1}^n$ is lin. seperable, $L(w) = \frac{1}{n}\sum_{i=1}^{n}l_\text{log}(z_i)$ is convex, but no global optimum exists. 
 Using GD, $L(w)$ will approach $0$, but the iterates $\{ w^t \ |\ t \in \N \}$ diverge. However, $w^t$ may converge \textit{in direction}, and interestingly:
 
-\theorem \textbf{GD converges to $w_\text{MM}$ for lin.-sep. data}
+\theorem \textbf{GD converges to $w_\text{MM}$ for lin.-sep. data} (log. loss)
 $$
     \underset{t\to\infty}{\lim}\frac{w^t}{\Vert w^t \Vert} = w_\text{MM}
 $$
+\subtext{On $L(w)$ (logistic regression),$\quad \mu=1$}
+
+\subsubsection{On linearly inseperable data}
+
+Assuming $\{x_i,y_i\}_{i=1}^n$ is strictly lin. inseperable, i.e.
+$$
+    \forall w \neq 0:\quad \exists i \leq n: \quad y_i \cdot w^\top x_i < 0
+$$
+\theorem \textbf{GD converges on lin.-insep. data} (log. loss)
+$$
+    \exists \hat{w} \in \R^d: \quad \underset{t\to\infty}{\lim}w^t = \hat{w}
+$$
+\subtext{On $L(w)$ (logistic regression),$\quad \mu = \frac{4}{\sigma^2_\text{max}(X)}$}
+
+\remark Only holds for $l_\text{log}$. In general, this is a hard problem.
+
+\newpage
+
+\subsection{Multiclass Classification}
+
+What if $|\mathcal{Y}| > 2$? E.g. $\mathcal{Y} = \{\text{cat}, \text{dog}, \text{fish} \}$
+
+Idea: Train $K := |\mathcal{Y}|$ classifiers $\hat{f}_1,\ldots,\hat{f}_K \in F$.\\
+\subtext{Why not one $\hat{f}$? E.g. discretize further: $1 \mapsto \text{cat}$, $2 \mapsto \text{dog}$, $3 \mapsto \text{fish}$. \\Problem: this assignment suggests cats are closer to dogs than fish.}
+
+We can then predict the class using these $\hat{f}_k$:
+$$
+    \hat{y}(x) = \underset{1\leq k\leq K}{\text{arg max}} \hat{f}_k(x)
+$$
+This leads to one decision boundary per class.
+
+\definition \textbf{One-vs-Rest Training}\\
+Train each model seperately by relabeling for each $\hat{f}_k$:
+\begin{enumerate}
+    \item Define $\mathcal{D}_k = \{x_i, \tilde{y_i}\}$ where $\tilde{y_i} := \begin{cases}
+        -1  & y_i=k \\
+        1   & y_i\neq k
+    \end{cases}$
+    \item Run binary classification on $\mathcal{D}_k$ to get $\hat{f}_k$
+\end{enumerate}
+\subtext{This leads to $K$ classification problems, which might be slow}
+
+Another way to reuse the existing methodology is to use a new loss:
+
+\definition \textbf{Cross-Entropy Loss}
+$$
+    l_\text{ce}\Bigl( \hat{f}_1(x),\ldots,\hat{f}_K(x),\ y \Bigr) = -\log\Biggl( \frac{\exp\bigl(\hat{f}_y(x)\bigr)}{\sum_{k=1}^{K}\exp\bigl( \hat{f}_k(x) \bigr)} \Biggr)
+$$
+\subtext{$y \in \{1,\ldots,K\},\quad \hat{f}_i(x) \in \R$}
+
+$l_\text{ce}$ encourages the \textit{true class} $\hat{f}_{y_i}(x_i)$ to be the largest $\hat{f}_k(x_i)$.
+
+{\scriptsize
+    \remark For $K=2$, if we use $\mathcal{Y}=\{+1,-1\}$ then $l_\text{ce} = l_\text{log}$.
+}
+
+The parametrized optimization problem then is:
+$$
+    \underset{w_1,\ldots,w_K \in \R^d}{\min}\Biggl( \sum_{i=1}^{n} l_\text{ce}\Bigl( f_w(x_i), y_i \Bigr) \Biggr)
+$$
+\subtext{Here, $w \in \R^{d \times K}$ is a matrix: $w = (w_1,\ldots,w_K)$}
+
+This then yields $\hat{f}_k = f_{\hat{w}_k}$
+
+{\scriptsize
+    \remark These methods may lead to very different decision boundaries!
+}
+
+\newpage
+\subsection{Generalization}
+
+First, a lot of assumptions:
+{\small
+    \begin{enumerate}
+        \item Inputs $X \in \mathcal{X}$ come from a prob. distribution $\P_X$
+        \item Training \& Test set sampled i.i.d. from same distribution\\
+        {\color{gray} Note that in general, this is rarely true.}
+        \item There exists a ground-truth $y^*$
+        \item The observed labels are noisy: $(y \sep x) = \epsilon\cdot y^*(x)$\\
+        {\color{gray}\scriptsize A \textit{mutliplicative} noise model, unlike lin.-reg. : $\mathcal{Y} = f^*(X) + \epsilon$}
+        \item $\epsilon$ is also from a prob. distribution $\P_\epsilon$\\
+        {\color{gray} Not necessarily indep. from $x$!}
+    \end{enumerate}
+}
+Focusing on $y^*(x) \in \{+1,-1\}$, we set $\epsilon \in \{+1,-1\}$.\\
+\subtext{Intuitvely: $\epsilon$ just flips the label}
+
+This allows defining a Joint-Distribution 
+$$
+    \P[x,y] = \P_x[x]\cdot\P[y \sep x]
+$$
+
+\subsubsection{Evaluation}
+
+An intuitive metric to check is proximity to $y^*$:\\
+\subtext{Which can be done using the 0-1-loss}
+$$
+    l\Bigl( \hat{y}(x),y^*(x) \Bigr) = \mathbb{I}_{\hat{y}(x)\neq y^*(x)}
+$$
+
+Now, we can define the expected classification error:\\
+$$
+    \E_X\Bigl[ l\bigl( \hat{y}(x), y^*(x) \bigr) \Bigr] = \E_X\Bigl[ \I_{\hat{y}(x) \neq y^*(x)} \Bigr] = \P\Bigl[ \hat{y}(x) \neq y^*(x) \Bigr]
+$$
+
+We can't compute or estimate this, since we don't have $y^*$. \\
+However, we can find an estimate of $\E_{X,Y}\bigl[ l(\hat{y}(X),Y) \bigr]$ using the observed $X,Y$.
+
+Why is this useful? It approximates the generalisation error:
+
+\definition \textbf{Generalisation Error} (0-1-Loss)
+$$
+    L\Bigl( \hat{f};\P_{X,Y} \Bigr) = \E_{X,Y}\Bigl[ l\Bigl( \hat{f}(X),Y \Bigr) \Bigr] = \P_{X,Y}\Bigl( \hat{y}\neq y§ \Bigr)
+$$
+
+We can empirically evaluate this on a test set:
+$$
+    \frac{1}{|\mathcal{D}_\text{test}|} \sum_{(x,y)\in\mathcal{D}_\text{test}} \I_{\hat{y}(x)\neq y^*(x)}
+$$
+
+\newpage
+
+\subsection{Hypothesis Testing}
+Classical statistical methods can also be used.
+
+\definition \textbf{Asymmetric Errors}\\
+Misclassifications may be weighted differently.\\
+\subtext{Mistakenly classifying $x$ with $y^*(x)=1$ as $2$, may be worse than $3$.}
+
+For binary classification, we may label:
+$$
+    +1 \mapsto \text{"Positive"} \qquad -1 \mapsto \text{"Negative"}
+$$
+This leads to the notion of confusion matrices.
+
+\begin{center}
+    \begin{tabular}{l|ll}
+                        & $y=-1$        & $y=+1$        \\
+        \hline
+        $\hat{y}= -1$   & TN            & FN (Type II)  \\
+        $\hat{y}= +1$   & FP (Type I)   & TP
+        
+    \end{tabular}
+\end{center}
+
+\definition \textbf{Empirical Measure}\\
+\smalltext{For an event $A \subset \mathcal X \times \{+1,-1\}$}
+$$
+    \P_n[A] := \frac{1}{n}\sum_{i=1}^{n}\I_{(x_i,y_i) \in A}
+$$
+\subtext{$\mathcal{D} = \{ (x_i,y_i) \sep i \leq n \} \subset \mathcal{X} \times \{+1,-1\}$}
+
+$\P_n[A]$ is the percentage of $(x,y) \in \mathcal{D}_\text{train}$ that belong to $A$.
+
+\lemma $\P_n[A]$ \textbf{is an estimate of} $\P_{X,Y}[A]$:
+$$
+    \underset{n\to\infty}{\lim} \P_n[A] = \P_{X,Y}[A] \qquad \text{\color{gray}\scriptsize (Law of large numbers)}
+$$
+
+\remark \textbf{Asymmetric Loss in binary lassification}
+
+We can now weigh FP, FN differently in the 0-1-error:
+{\small
+$$
+    \frac{c_\text{FN}}{|\{ x \sep y=+1 \}|} \underbrace{\sum_{(x,y), y=1} \I_{\hat{y}\neq -1}}_\text{\#FN} + \frac{c_\text{FP}}{|\{x \sep y =-1 \}|}\underbrace{\sum_{(x,y), y=-1} \I_{\hat{y}(x)=+1}}_\text{\#FP}
+$$
+}
+\subtext{Here $c_\text{FP}, c_\text{FN}$ are the weights for penalization}

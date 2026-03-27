@@ -37,8 +37,8 @@ $$
 \textbf{Multiple Linear Regression} directly uses the $x \in \R^d$. \\
 Here, $F_\text{affine} = \bigl\{ f(x) = w^\top x + w_0 \big| w \in \R^d, w_0 \in \R \bigr\}$. 
 
-Why are we using linear functions instead?\\
-{\scriptsize
+\remark Why are we using linear functions instead?\\
+{\footnotesize\color{gray}
     Any estimator $f \in F_\text{affine}$ can be rewritten as $f\bigl((x,1)\bigr) = (w,w_0)^\top\cdot(x,1)$,
     thus we can augment the inpurs $x \mapsto (x,1)$ and \\
     instead search in $F_\text{linear} = \{ f(x) = \hat{w}^\top x | \hat{w} \in \R^{d+1} \}$
@@ -99,5 +99,3 @@ Which yields the \textbf{Normal Equation} from linear algebra.
 $$
     X^\top X\hat{w} = X^\top y
 $$
-
-
