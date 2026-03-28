@@ -1,3 +1,13 @@
 \newpage
 \subsection{Evaluation}
-Evaluation is then done using tree traversal as we have already seen in the haskell section.
+Evaluation is then done using tree traversal as we have already seen in the Haskell section.
+
+
+\subsubsection{Lazy Evaluation}
+Expressions are substituted before evaluation recursively until there are no more expressions to substitute, at which point the expression is evaluated.
+
+This can obviously lead to duplicated evaluation, i.e. a computation reoccurring.
+
+In Haskell, this is solved using sharing where the terms are represented in a directed graph.
+
+In pattern matching, the arguments are evaluated only as much as is needed to determine a pattern match.
