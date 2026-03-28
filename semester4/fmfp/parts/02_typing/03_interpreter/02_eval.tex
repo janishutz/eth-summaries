@@ -1,6 +1,6 @@
 \newpage
 \subsection{Evaluation}
-Evaluation is then done using tree traversal as we have already seen in the Haskell section.
+Evaluation is then done using tree traversal as we have already seen in the Haskell section
 
 
 \subsubsection{Lazy Evaluation}
@@ -8,6 +8,43 @@ Expressions are substituted before evaluation recursively until there are no mor
 
 This can obviously lead to duplicated evaluation, i.e. a computation reoccurring.
 
+
+\paragraph{In Haskell}
 In Haskell, this is solved using sharing where the terms are represented in a directed graph.
 
 In pattern matching, the arguments are evaluated only as much as is needed to determine a pattern match.
+
+For guards, the execution proceeds sequentially until success occurs.
+For instance in an \texttt{OR} statement, only the first statement is evaluated if it evaluates to true
+
+Local definitions are also lazily evaluated (i.e. bound with \texttt{where} clauses)
+
+
+\paragraph{Applications}
+This concept can be used for data-driven programming.
+For instance, to determine the minimum value of a list, we could use insertion sort and take the head.
+Due to lazy evaluation, we have way fewer evaluations that need to happen.
+
+Additionally for infinite lists or other infinite data structures, lazy evaluation allows creating a finite representation for the infinite data.
+It also allows operating on the infinite data given the operation only operates on a finite subset of the data structure.
+
+An application of that is the prime number algorithm Sieve of Eratosthenes:
+\begin{enumerate}
+    \item Generate list: \texttt{[2 ..]} (list of all natural numbers)
+    \item Mark the first unmarked number: \texttt{head :: [a] -> a} from prelude determines first element
+    \item Cross out all multiples: \verb|dropMults x ys = filter (\y -> y `mod` x /= 0) ys|
+    \item Repeat with recursions: \texttt{sieve xs = head xs : sieve (dropMults (head xs) (tail xs))}
+\end{enumerate}
+
+Another example is Newton's Algorithm to find roots.
+
+
+\paragraph{Correctness}
+Lazy evaluation makes reasoning about complexity and correctness harder, as types like \texttt{[Int]} include
+\begin{enumerate}
+    \item finite, everywhere defined lists (e.g. \texttt{[1, 3, 5]})
+    \item finite lists with undefined elements like \texttt{[1, 2, undef]}
+    \item infinite lists with defined or undefined elements such as \texttt{[1..]}
+\end{enumerate}
+
+However, induction is only sound for the first kind. More on this later on
