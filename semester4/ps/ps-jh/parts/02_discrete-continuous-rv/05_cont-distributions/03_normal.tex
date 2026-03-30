@@ -3,13 +3,15 @@
 mit $\sigma$ Standardabweichung. Auch: Gauss'sche Verteilung
 
 \shortdefinition[Standardnormalverteilung] $\cX \sim \cN(0, 1)$:\\
-$f_\cX = \varphi$ und $\F_\cX = \Phi = \int_{-\8}^{x} \varphi(t) \dx t = \frac{1}{\sqrt{2\phi}} \int_{-\8}^{x} e^\frac{-t^2}{2} \dx t$
+$\Phi = \int_{-\8}^{x} \varphi(t) \dx t = \frac{1}{\sqrt{2\pi}} \int_{-\8}^{x} e^\frac{-t^2}{2} \dx t$ mit $\varphi = f_\cX$.\\
+\bi{Es gilt}: $\Phi(-t) = 1 - \Phi(t)$
 
-\shorttheorem $cX \sim \cN(\mu, \sigma^2)$, dann $\frac{\cX - \mu}{\sigma} \sim \cN(0, 1)$, also:
+\shorttheorem $\cX \sim \cN(\mu, \sigma^2)$, dann $\frac{\cX - \mu}{\sigma} \sim \cN(0, 1)$, also:
 \[
     F_\cX(x) = \P[\cX \leq x] = \P\left[ \frac{\cX - \mu}{\sigma} \leq \frac{x - \mu}{\sigma} \right] = \Phi \left( \frac{x - \mu}{\sigma} \right)
 \]
 
+\newpage
 \shortexample für Phänomene modellierbar mit Normalverteilung:
 \begin{itemize}
     \item Streuung von Messwerten um Mittelwert
