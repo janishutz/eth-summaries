@@ -305,3 +305,47 @@ $$
 $$
 }
 \subtext{Here $c_\text{FP}, c_\text{FN}$ are the weights for penalization}
+
+Generally, reducing FP errors increases FN errors, and vice versa.
+
+% The script had a few more ratios defined here, but they all seem relatively basic so I didn't include them here
+
+\newpage
+\subsection{ROC Curves}
+
+\remark A side-effect of using $\hat{y}(x) = \text{sign}\hat{f}(x)$ is that the magnitude $|\hat{f}(x)|$ can be interpreted as \textit{confidence}.\\
+We can set:
+$$
+    \hat{y}_\tau(x) = \text{sign}\Bigl( \hat{f}(x) - \tau \Bigr) = \begin{cases}
+        +1 & \text{if } \hat{f}(x) > \tau \\
+        -1 & \text{if } \hat{f}(x) < \tau
+    \end{cases}
+$$
+Now $\tau$ can be used to penalize FP ($\tau > 0$) or FN ($\tau < 0$).\\
+\subtext{Note how this way, we don't modify the Optimization problem.}
+
+What if we don't know which FP/TP rate is desired?\\
+\subtext{Formally: which $\tau$ should be used?}
+
+\definition \textbf{ROC Curve} (Receiver Operating Characteristic)\\
+Plots TP Rate against FP Rate for different $\tau$.
+
+\begin{center}
+    ROC Curve on 4 classifiers\\
+    \includegraphics[width=0.75\linewidth]{resources/ROC.png}\\
+    {\scriptsize\color{gray}
+        \textit{Introduction to Machine Learning (2026), p. 160}
+    }
+\end{center}
+
+{\scriptsize
+    \remark \textbf{How to read this?} A straight line is equivalent to random guessing, anything above is better. 
+    $\tau$ isn't directly included in the curve, but it follows from the definition that $\tau$ decreases as the FP rate increases.
+}
+
+How can we measure performance independent of $\tau$?
+
+\definition \textbf{AUROC} (Area under ROC)\\
+AUROC is $1$ for the ideal classifier, and always in $[0,1]$.
+
+% Script further discusses optimizing for minority groups and the notion of fairness in models. Wasn't discussed in class. Might add in summer on 2nd read.

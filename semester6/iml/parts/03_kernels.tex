@@ -1,0 +1,95 @@
+\textbf{Motivation:} Regression using feature maps $\phi: \R^d \to \R^p$:
+$$
+    \underset{w \in \R^p}{\min}\frac{1}{n}\sum_{i=1}^{n}l\Bigl( y_i, w^\top \cdot \phi(x_i) \Bigr)
+$$
+What if computing/storing $\phi(x)$ is expensive/infeasible?\\
+\subtext{e.g. if $p$ is large, or infinite}
+
+{\scriptsize
+    \remark To store a poly. $p(x): \R^d \to \R$ with $\deg(p)=m$ we require $p=\mathcal{O}(d^m)$ features. Storing $n$ data points requires $\mathcal{O}(nd^m)$ memory. Not good.
+}
+
+\subsection{Kernelization}
+
+By constraining $w$ to $\text{span}(\Phi^\top) \subset \R^p$ we can drastically improve memory usage. Since we know a minimizer exists here, we don't "lose anything".
+
+\definition \textbf{Kernelization}
+
+\begin{enumerate}
+    \item \textbf{Reparametrization}: We assume $w = \Phi^\top\alpha$ (i)
+    \item \textbf{Loss via Inner Products}: Observe:
+    $$
+        f(x) = w^\top \phi(x) \overset{\text{(i)}}{=} (\Phi^\top \alpha)^\top \phi(x) = \sum_{i=1}^{n} \alpha_i \Bigl( \phi(x_i)^\top \phi(x) \Bigr)
+    $$
+    Note: $x_i$ only appears in \textit{inner products} $\phi(x_i)^\top \phi(x_j)$
+    \item \textbf{Replace Inner Products}: We define:
+    $$
+        k:\begin{cases}
+            \R^d\times\R^d\to\R \\
+            k(x,x') = \phi(x)^\top \phi(x')
+        \end{cases}
+        \quad
+        K:\begin{cases}
+            K \in \R^{n\times n} \\
+            K_{ij} = k(x_i,x_j)
+        \end{cases}
+    $$
+\end{enumerate}
+
+Now, we can reformulate the optimization problem:
+$$
+    \underset{\alpha\in\R^n}{\min}\frac{1}{n}\sum_{i=1}^{n}l\Biggl( y_i, \sum_{j=1}^{n}\alpha_j k(x_i,x_j) \Biggr) = \underset{\alpha\in\R^n}{\min}\frac{1}{n}\sum_{i=1}^{n}l\Bigl( y_i, (K\alpha)_i \Bigr)
+$$
+
+By storing $K \in \R^{n\times n}$ instead of $\phi(x) \in \R^p$ for $i=1,\ldots,n$, the memory usage is reduced: $\mathcal{O}(np) \to \mathcal{O}(n^2)$.
+
+\newpage
+\subsection{The Kernel Trick}
+
+Using $k$, the computation time is still $\mathcal{O}(n^2p)$ if 
+$$
+    k(x_i,x_j) = \phi(x_i)^\top \phi(x_j)
+$$
+So let's replace $k$ with a simple function, which guarantees the existance of some $\phi$ (which we never calculate).
+
+{\scriptsize
+    \remark Since we only \textit{implicitly} specify $\phi$ via $k$, we can use $\phi$ s.t. $p=\infty$ now.
+}
+
+\definition \textbf{Kernel Function} $k: \R^d \times \R^d \to \R$
+\begin{enumerate}
+    \item $k$ is symmetric: $\forall x,x':\ k(x,x') = k(x',x)$
+    \item $k$ is PSD: $\forall n \in \N, \forall (x_1,\ldots,x_n) \in \R^d$:
+    $$
+        K = \begin{bmatrix}
+            k(x_1,x_1)  & \cdots    & k(x_1,x_n)    \\
+            \vdots      & \ddots    & \vdots        \\
+            k(x_n,x_1)  & \cdots    & k(x_n,x_n)
+        \end{bmatrix} \text{ is PSD}
+    $$
+\end{enumerate}
+
+\theorem \textbf{Kernels guarantee existance of} $\phi$\\
+\smalltext{If $k$ is a kernel, there exists a Hilbert Space $\Bigl(\mathcal{H},\langle\cdot,\cdot\rangle_\mathcal{H}\Bigr)$ s.t.}
+$$
+    \exists\phi:\R^d\to\mathcal{H} \text{ s.t. } k(x.x') = \Bigl\langle \phi(x),\phi(x') \Bigr\rangle_\mathcal{H} \forall x,x' \in \R^d
+$$
+\subtext{$\mathcal{H}$ may be, for example, $\R^p$ with $\Vert\cdot\Vert_2$.}
+
+\lemma \textbf{Properties of Kernels}
+\begin{enumerate}
+    \item Composed feature maps are Kernels
+    $$
+        \begin{rcases*}
+            \phi: \R^d \to \R^p \\
+            \psi: \R^d \to \R^p
+        \end{rcases*}
+        \quad k(x,x') = \Bigl\langle \psi\bigl( \phi(x) \bigr), \psi\bigl( \phi(x') \bigr) \Bigr\rangle
+    $$
+    \item Kernels can be added in 2 ways, yielding a kernel
+    \begin{align*}
+        \text{(i)}\quad     & k\Bigl( (x,y),(x',y') \Bigr)    &= k_1(x,x') + k_2(y,y') \\
+        \text{(ii)}\quad    & k(x,x')                         &= k_1(x,x') + k_2(x,x')  
+    \end{align*}
+    \item Kernels can be multiplied in 2 ways, yielding a kernel
+\end{enumerate}
