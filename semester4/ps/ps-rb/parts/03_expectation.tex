@@ -28,14 +28,15 @@ $$
 \subtext{$X: \Omega \to \R,\quad W \cleq \N,\quad \phi: \R \to \R$}
 
 \begin{center}
-    \begin{tabular}{l|l}
-        $\text{Ber}(p)$             & $\E[X] = p$                   \\
-        $\text{Poisson}(\lambda)$   & $\E[X] = \lambda$             \\
-        $\text{Bin}(n,p)$           & $\E[X] = n\cdot p$            \\
+    \begin{tabular}{l|l|l}
+        $\text{Ber}(p)$             & $\E[X] = p$                   & $\V[X] = p(1-p)$\\
+        $\text{Poisson}(\lambda)$   & $\E[X] = \lambda$             & $\V[X] = \lambda$\\
+        $\text{Bin}(n,p)$           & $\E[X] = n\cdot p$            & $\V[X] = np(1-p)$\\
         $\mathbb{I}_A$              & $\E[\mathbb{I}_A] = \P[A]$    \\
     \end{tabular}    
 \end{center}
 
+\newpage
 \subsection{Stetiger Erwartungswert}
 
 \definition \textbf{Erwartungswert} (stetig)
@@ -43,3 +44,129 @@ $$
     \E[X] = \int_{-\infty}^{\infty} x \cdot f(x)\ dx
 $$
 \subtext{$X: \Omega \to \R,\quad f(x) \text{ Dichtefunktion}$}
+
+\theorem \textbf{Linearität}
+\begin{align*}
+    \text{(i)}  &\quad \E[\lambda X] &=& \lambda \E[X] \\
+    \text{(ii)} &\quad \E[X + Y]     &=& \E[X] + \E[Y]
+\end{align*}
+\subtext{$X,Y:\Omega\to\R,\quad\lambda\in\R$}
+
+\theorem \textbf{Monotonie}
+$$
+    X \leq Y \implies \E[X] \leq \E[Y]
+$$
+
+\theorem \textbf{Multiplikation}\\
+\smalltext{$X,Y$ unabhängig}
+$$
+    \E[X \cdot Y] = \E[X]\cdot\E[Y]
+$$
+
+\theorem \textbf{Dichtefunktion bei Abbildungen}\\
+\smalltext{$\phi:\R\to\R$ stückweise stetig, beschränkt} 
+$$
+    f \text{ Dichte von } X \iff \E[\phi(X)] = \int_{-\infty}^{\infty}\phi(x)f(x)\ dx
+$$
+\subtext{$f:\R\to\R_+$ s.d. $\int_{-\infty}^{\infty}f(x\ dx = 1)$}
+
+\theorem \textbf{Unabhängigkeit} (durch Abbildungen)\\
+\smalltext{$\forall \phi,\psi:\R\to\R$ stückweise stetig, beschränkt}
+$$
+    X,Y \text{ unabh.} \iff \E[\phi(X)\psi(Y)] = \E[\phi(X)]\cdot\E[\psi(Y)]
+$$
+\subtext{Auch verallgemeinert für $X_1,\ldots,X_n$, $\phi_1,\ldots,\phi_n$}
+
+\newpage
+\subsection{Ungleichungen}
+
+\theorem \textbf{Markov}\\
+\smalltext{$X \geq 0,\quad g: X(\Omega)\to[0,\infty)$ wachsend}
+$$
+    \forall c \in \R \text{ s.d. } g(c)>0:\qquad \P[X \geq c] \leq \frac{\E[g(X)]}{g(c)}
+$$
+
+\theorem \textbf{Jensen}\\
+\smalltext{$\phi:\R\to\R$ konvex,$\quad \E[\phi(X)],\E[X]$ wohldefiniert}
+$$
+    \phi\Bigl(\E[X]\Bigr)\leq\E\Bigl[\phi(X)\Bigr]
+$$
+
+\lemma \textbf{Dreiecksungleichung}\\
+\subtext{Jensen mit $\phi(X) = |X|$ und $\phi(X) = X^2$}
+$$
+    \Bigl\vert\E[X]\Bigr\vert\leq\E\Bigl[\vert X\vert\Bigr] \qquad \E[|X|] \leq \sqrt{\E[X^2]}
+$$
+
+\theorem \textbf{Chebychev}\\
+\subtext{$Y$ s.d. $\V[Y] < \infty,\quad c>0$}
+$$
+    \P\Bigl[ |Y-\E[Y]| \geq c \Bigr] \leq \frac{\V[Y]}{c^2}
+$$
+
+\newpage
+\subsection{Varianz}
+
+\definition \textbf{Varianz}\\ 
+\subtext{$\E[X^2]<\infty$}
+$$
+    \mathbb{V}[X] := \E\Bigl[ (X - \E[X])^2 \Bigr]
+$$
+\definition \textbf{Standardabweichung}
+$$
+    \rho(X) := \sqrt{\mathbb{V}[X]}
+$$
+{\scriptsize
+    \notation Auch $\rho, \rho_X$
+}
+
+\lemma \textbf{Varianz} (Alternativ)
+$$
+    \mathbb{V}[X] = \E[X^2]-\E[X]^2 
+$$
+
+\lemma \textbf{Eigenschaften}
+\begin{align*}
+    \text{(i)}      &\quad \V[X]        \geq 0         \\
+    \text{(ii)}     &\quad \V[aX]       = a^2\V[X]     \\
+    \text{(iii)}    &\quad \V[X+a]      = \V[X]
+\end{align*}
+
+\lemma \textbf{Addition} (Unabhängigkeit)\\
+\smalltext{$X_1,\ldots,X_n$ paarweise unabhängig}
+$$
+    \V\Biggl[ \sum_{k=1}^{n}X_k \Biggr] = \sum_{k=1}^{n}\V[X_k]
+$$
+
+\newpage
+\subsection{Kovarianz}
+
+\definition \textbf{Kovarianz}\\
+\subtext{$X,Y$ s.d. $\E[X^2],\E[Y^2]<\infty$}
+$$
+    \text{cov}(X,Y) := \E\Bigl[ (X-\E[X])\cdot(Y-\E[Y]) \Bigr]
+$$
+
+\lemma \textbf{Kovarianz} (Alternativ)
+$$
+    \text{cov}(X,Y) = \E[XY] - \E[X]\E[Y]
+$$
+
+\remark $\text{cov}(X,X) = \V[X]$
+
+\lemma $X,Y$ unabh. $\implies \text{cov}(X,Y)=0$\\
+\subtext{Nicht umgekehrt gültig}
+% Gegenbeispiel: Slides p.240
+
+\lemma \textbf{Eigenschaften von} $\text{cov}$
+
+\definition \textbf{Kovarianzmatrix}
+$$
+    \Sigma = \text{cov}(\textbf{X}) = \begin{bmatrix}
+        \V[X_1] & \text{cov}(X_1,X_2) & \cdots & \text{cov}(X_1,X_n) \\
+        \text{cov}(X_2,X_1) & \text{cov}(X_2,X_2) & \cdots & \text{cov}(X_2,X_n) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \text{cov}(X_n,X_1) & \text{cov}(X_n,X_2) & \cdots & \text{cov}(X_n,X_n)
+    \end{bmatrix}
+$$
+\subtext{$\textbf{X} = (X_1,\ldots,X_n)^\top$}
