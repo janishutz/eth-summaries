@@ -1,0 +1,20 @@
+\subsection{Eigenschaften des Erwartungswerts}
+\shorttheorem[Linearität] Falls $\E[\cX]$ und $\E[\cY]$ wohldefiniert:\\
+$\E[\lambda \cX] = \lambda \E[\cX]$ und $\E[\cX + \cY] = \E[\cX] + \E[\cY]$
+
+\shortremark Z.V $\cX_k$ und $\lambda_k$: $\E\left[ \sum_{k = 1}^{n} \lambda_k \cX_k \right] = \sum_{k = 1}^{n} \lambda_k \E[\cX_k]$
+
+\shorttheorem[Monotonie] Sei $\cX \leq \cY$ mit $\E$ wohldef.: $\E[\cX] \leq \E[\cY]$
+
+\shorttheorem $\cX, \cY$ unabh., dann $\E[\cX \cY] = \E[\cX] \E[\cY]$
+
+\shorttheorem $\cX_k$ alle unabhängig mit $\E[\cX_k]$ endlich. Dann gilt\\
+$\E\left[ \prod_{k = 1}^n \cX_k \right] = \prod_{k = 1}^n \E[\cX_k]$
+
+\shorttheorem $f : \R \rightarrow \R_+$ mit $\int_{-\8}^{\8} f(x) \dx x = 1$. Dann ist äquivalent:
+\bi{(1)} $\cX$ stetig mit Dichte $f$ und \bi{(2)} für jede stückweise stetige Abb. $\varphi : \R \rightarrow \R$ gilt $\E[\varphi(\cX)] = \int_{-\8}^{\8} \varphi(x) f(x) \dx x$
+
+\shorttheorem äquivalent: \bi{1} $\cX, \cY$ unabhängig, für alle $\varphi, \psi : \R \rightarrow \R$: $\E[\varphi(\cX) \psi(\cX)] = \E[\varphi(\cX)] \E[\psi]$
+
+\shorttheorem äquivalent: \bi{(1)} $\cX_i$ unabhängig,\\
+\bi{(2)} $\forall \varphi_i$: $\E[\varphi_1(\cX_1) \cdots \varphi_n(\cX_n)] = \E[\varphi_1(\cX_1)] \cdots \E[\varphi_n(\cX_n)]$
