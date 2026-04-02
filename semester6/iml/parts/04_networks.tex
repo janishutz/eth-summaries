@@ -1,0 +1,111 @@
+\textbf{Motivation}: So far, when looking for $\hat{f}(x)$ the form was $\hat{f}(x)=w^\top x$, or $\hat{f}(x) = w^\top \phi(x)$. 
+Note how the features $x, \phi(x)$ are predetermined. Why not learn them?
+
+\textbf{New Optimization Problem}:
+
+The new join-optimization problem, for $w$ and $\phi$:\\
+\subtext{$\Theta$ is a set of parameters for $\phi$}
+$$
+    \hat{w} = \underset{w\in\R^m,\Theta\in\R^{m\times d}}{\text{arg min}}\Biggl( \frac{1}{n}\sum_{i=1}^n l\Bigl( w^\top \phi(x_i;\Theta),y_i \Bigr) \Biggr)
+$$
+Where $\phi(x,\Theta) = \Bigl( \phi_1(x;\theta_1),\ldots,\phi_m(x;\theta_m) \Bigr)$.\\
+\subtext{$\theta_i$ is the $i$th row of $\Theta$, i.e. $\theta_i := (\Theta)_{i,:}$}
+
+\subsection{Definitions}
+
+\definition \textbf{Activation Function}\\
+We set $\phi_i(x;\theta_i) = \psi(\theta_i^\top x)$, $\psi$ is the activation function.\\
+\subtext{$\theta_i \in \R^d,\quad\psi:\R\to\R$}
+
+{\scriptsize
+    \notation More concisely, $\phi(x;\Theta) = \psi(\Theta x)$
+}
+
+\begin{center}
+    \begin{tabular}{ll}
+        \textbf{Activation Function}    & \textbf{Definition}               \\
+        \hline
+        Identity                        & $\psi(z) = z$                     \\
+        Sigmoid                         & $\psi(z) = \frac{1}{1+e^{-z}}$    \\
+        Hyperbolic tangent              & $\psi(z) = \tanh(z)$              \\
+        Rectified Linear Unit (ReLU)    & $\psi(z) = \max(0,z)$ 
+    \end{tabular}
+\end{center}
+
+\definition \textbf{Artificial Neural Network}\\
+\subtext{The output functions of the above problem take the form:}
+$$
+    f(x;w,\theta) = \sum_{j=1}^{m}w_j\psi(\theta_j^\top x)
+$$
+{\scriptsize
+    \remark Also called Multi-Layer Perceptron (MLP)
+}
+
+\newpage
+\textbf{What is happening here?}\\
+\smalltext{Explaining the calculation steps for such an $f$ naturally leads to the common pictorial depiction of neural networks.}
+\begin{align*}
+    \text{(i)}      &\quad x       &=\quad& (x_1,\ldots,x_n) \in \R^d       & \text{(Input Vector)}             \\
+    \text{(ii)}     &\quad z       &=\quad& \Theta x                        & \text{(Linear transformation)}    \\
+    \text{(iii)}    &\quad h_i     &=\quad& \psi(z_i)                       & \text{(Activation function)}      \\
+    \text{(iv)}     &\quad f(x)    &=\quad& \sum_{j=1}^m w_j h_j            & \text{(Output)}
+\end{align*}
+
+\definition \textbf{Hidden Layer} $h = \psi(z)$
+
+\definition \textbf{Bias Term} $b \in \R^m$\\
+\subtext{Needed, as $f$ might not pass through origin. Similar to using $F_\text{lin}$ in regression, these can also be added by augmenting the input \& hidden layers.}
+
+\textbf{Does this work at all?}\\
+\smalltext{Yes, for most functions this does work.}
+
+\definition \textbf{Sigmoidal Function}
+$$
+    \sigma(t) \text{ s.t. } \begin{cases}
+        \sigma: \R \to \R \\
+        \underset{t\to\infty}{\lim} = 1 \text{ and } \underset{t\to\infty}{\lim}
+    \end{cases}
+$$
+
+\theorem \textbf{Universal Approximation Theorem}\\
+\smalltext{$\hat{f}$, that uniformly approximates $f$, exists and takes this form:}
+$$
+    \hat{f}(x) = \textbf{W}^{(2)}\psi\Bigl( \textbf{W}^{(1)}x + b \Bigr)
+$$ 
+\smalltext{$f: [0,1]^d\to\R$ continuous$,\quad \psi $ sigmoidal}\\
+\subtext{$\textbf{W}^{(1)} \in\R^{m\times d},\quad \textbf{W}^{(2)}\in\R^{1\times m},\quad m \in \N$}
+
+Note how $m$ could be very large.\\
+\subtext{$m$ can intuitively be understood as the "width" of the ANN}
+
+\newpage
+\definition \textbf{Fully Connected Neural Network}
+
+More complex ANNs might have:
+\begin{enumerate}
+    \item More hidden layers
+    \item Multiple outputs
+    \item Differen activation functions across layers
+\end{enumerate}
+These are called \textit{fully connected}, since every node in a layer is connected to every node in the adjacent layers.\\
+\subtext{There are also more complex architectures.}
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{resources/FCANN.png}\\
+    \subtext{\textit{Introduction to Machine Learning (2026), p. 183}}
+\end{center}
+
+\definition \textbf{Forward Propagation}
+
+How can $\hat{f}$ be evaluated?\\
+\subtext{This is just the computation for $1$-layer ANN generalized}
+
+\begin{algorithm}
+    \caption{Forward Propagation}
+    $h^{(0)}\gets x$\;
+    \For{$l=1,\ldots,L$}{
+        $z^{(l)} = \textbf{W}^{(l)}h^{(l-1)} + b^{(l)}$ \\
+        $h^{(l)} = \psi(z^{(l)})$
+    }
+    $f \gets \textbf{W}^{(L)}h^{(L-1)}+b^{(L)}$ \\
+    \Return f
+\end{algorithm}
