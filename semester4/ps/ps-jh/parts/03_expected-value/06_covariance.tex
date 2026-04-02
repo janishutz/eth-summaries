@@ -1,0 +1,40 @@
+\newpage
+\subsection{Kovarianz}
+\shortdefinition $\cov(\cX, \cY) = \E[(\cX - \E[\cX])(\cY - \E[\cY])]$
+
+\shortremark $\cov(\cX, \cY) = \E[\cX \cY] - \E[\cX] \E[\cY]$
+
+\shortremark $\cov(\cX, \cX) = \V[\cX]$
+
+\shortremark $\cov(\cX, \cY) = 0 \Longrightarrow \cX, \cY$ unabh. ($\Leftarrow$ impl. falsch!)
+
+\shortremark $\cX, \cY$ unabh. $\Longleftrightarrow \elementstack{\forall \varphi, \psi \text{stückweise stetig, beschränkt gilt}}{\cov(\varphi(\cX), \psi(\cY)) = 0}$
+
+\shortremark Folgende Terminologie (neg. korr. = antikorreliert):
+\begin{itemize}
+    \item Wenn $\cov(\cX, \cY) > 0$, dann: $\cX$, $\cY$ \bi{positiv korreliert}
+    \item Wenn $\cov(\cX, \cY) = 0$, dann: $\cX$, $\cY$ \bi{unkorreliert}
+    \item Wenn $\cov(\cX, \cY) < 0$, dann: $\cX$, $\cY$ \bi{negativ korreliert}
+\end{itemize}
+
+\shortexample $\cX, \cY$ unkorreliert $\centernot\implies \cX, \cY$ unabhängig
+
+\shortremark Eigenschaften der Kovarianz (alle $a, \ldots \in \R$):
+\begin{itemize}
+    \item \bi{Positive Semidefinitheit}: $\cov(\cX, \cX) \geq 0$
+    \item \bi{Symmetrie}: $\cov(\cX, \cY) = \cov(\cY, \cX)$
+    \item \bi{Bilin.}: $\cov(a\cX + b, c\cY + d) = ac \cov(\cX, \cY)$ und\\
+          $\cov(\cX, (e \cY + f) + (g \cZ + h))\! =\! e \cov(\cX, \cY) + g \cov(\cX, \cZ)$
+\end{itemize}
+
+\shortremark $\displaystyle \V\left[ \sum_{k = 1}^{n} \cX_k \right] = \sum_{k = 1}^{n} \V[\cX]_k + 2 \sum_{k = 1}^{n - 1} \sum_{l = k + 1}^{n} \cov(\cX_k, \cX_l)$
+
+\shortremark In Matrix-Notation für $\vec{\cX} = (\cX_1, \ldots, \cX_n)^\top$
+\[
+    \Sigma = \begin{pmatrix}
+        \V[\cX_1]          & \cov(\cX_1, \cX_2) & \dots  & \cov(\cX_1, \cX_n) \\
+        \cov(\cX_2, \cX_1) & \V[\cX_2]          & \dots  & \cov(\cX_2, \cX_n) \\
+        \vdots             & \vdots             & \ddots & \ddots             \\
+        \cov(\cX_n, \cX_1) & \cov(\cX_n, \cX_2) & \dots  & \V[\cX_n]          \\
+    \end{pmatrix}
+\]

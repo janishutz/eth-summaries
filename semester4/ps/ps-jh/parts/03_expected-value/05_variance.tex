@@ -1,2 +1,25 @@
 \subsection{Varianz}
-\shortdefinition $\cX$ mit $\E[\cX^2] < \8$
+\shortdefinition $\cX$ mit $\E[\cX^2] < \8$, $\V[\cX] = \E[(\cX - \E[\cX])^2]$
+
+\shortdefinition[Standardabweichung] $\sigma(\cX) = \sqrt{\V[\cX]}$
+
+\shortremark $\V[\cX] = \E[\cX^2] - \E[\cX]^2$
+
+\shortexample $\cX$ determ. Z.V (= konst) mit Wert $a$, also $\cX = a1_\Omega$. Dann: $\E[\cX] = a \E[1_\Omega] = a \P[\Omega] = a$ und\\
+$\V[\cX] = \E[\cX^2] - \E[\cX]^2 = a^2\E[1_\Omega] - a^2 = 0$
+
+% Task 4.42 (needs proof?)
+\shortremark $\E[\cX] < \8$, dann $\V[\cX] \geq 0$ mit $=$ g.d.w. $\cX$ konst; zudem $\V[a \cX] = a^2 \V[\cX]$ und $\V[\cX + a] = \V[\cX]$
+
+\shortproposition $\cX_k$ paarw. unabh. $\V\left[ \sum_{k = 1}^{n} \cX_k \right] = \sum_{k = 1}^{n} \V[\cX_k]$
+
+\shortexample Varianz von bekannten Verteilungen
+\begin{itemize}
+    \item $\cX \sim \text{Ber}(p)$, $\V[\cX] = p (1 - p)$
+    \item $\cX \sim \text{Bin}(n, p)$, $\V[\cX] = n p (1 - p)$
+    \item $\cX \sim \text{Poisson}(\lambda)$, $\V[\cX] = \lambda = \E[\cX]$
+    \item $\cX \sim \cU([a, b])$, $\V[\cX] = \frac{(b - a)^2}{12}$
+    \item $\cX \sim \cN(\mu, \sigma^2)$, $\V[\cX] = \sigma^2$
+\end{itemize}
+
+\shortcorollary[Cheb.] $\V[\cY]$ end. $\forall c > 0$ gilt: $\P[|\cY - \E[\cY]| \geq c] \leq \frac{\V[\cY]}{c^2}$
