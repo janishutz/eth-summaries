@@ -1,4 +1,10 @@
 \subsection{Linear Least Squares}
 \bi{Goal}: $\argmin{x \in \R^n} ||\mat{A}\vec{x} - b||^2_2$, $\mat{A}$: rows $i$-th datap. col $c$: $t_i^{c - 1}$.
 
-\bi{Man. sol.}: comp. $M = A^\top A$, $b' = A^\top b$, then $Mx = b'$
+\bi{Man. sol.}: comp. $M = A^\top A$, $b' = A^\top b$, then $Mx = b'$.
+
+\bi{Prob. sol.}: $\text{argmax} p(\vec{x} \divider \vec{z})$ with
+\begin{itemize}
+    \item \bi{Max. Like} $p(\vec{x} | \vec{z}) \propto p(\vec{z} | \vec{x}) = \prod_{i = 1}^N p(\vec{z}_i | \vec{x})$
+    \item \bi{M a Post} $p(\vec{x} | \vec{z}) \propto p(\vec{z} | \vec{x}) p(\vec{x}) = p(\vec{x}) \prod_{i = 1}^N p(\vec{z}_i | \vec{x})$
+\end{itemize}
