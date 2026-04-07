@@ -6,21 +6,21 @@ $_{\color{blue}\fbox{W}}\,\vec{t}\,_{\color{red}\fbox{B}} = \, _{\color{blue}\fb
 
 \shortdefinition[State vector] $x_R$: $x$, $v$ of rob in $W$, pos of sensors
 
-\shortdefinition[Rot. Mat.] $\mat{R}_{z} = \begin{bmatrix}
+\shortdefinition[Rot. Mat.] $\mat{R}_{z}(\psi) = \begin{bmatrix}
         c(\psi) & -s(\psi) & 0 \\
         s(\psi) & c(\psi)  & 0 \\
         0       & 0        & 1
     \end{bmatrix}$\\
 $\mat{R}_y(\theta) = \begin{bmatrix}
-        c(\psi)  & 0 & s(\psi) \\
+        c(\theta)  & 0 & s(\theta) \\
         0        & 1 & 0       \\
-        -s(\psi) & 0 & c(\psi) \\
-    \end{bmatrix}
+        -s(\theta) & 0 & c(\theta) \\
+    \end{bmatrix};
     \mat{R}_x(\varphi)
     \begin{bmatrix}
         1 & 0       & 0        \\
-        0 & c(\psi) & -s(\psi) \\
-        0 & s(\psi) & c(\psi)
+        0 & c(\varphi) & -s(\varphi) \\
+        0 & s(\varphi) & c(\varphi)
     \end{bmatrix}$
 
 \shortremark Application: ${_W} \vec{a} = \mat{R}_{WB} {_B} \vec{a}$
