@@ -1,0 +1,12 @@
+\subsection{Extended Kalman Filater (EKF)}
+Non-l. state trans. model $\vec{x}_k = \vec{f}(\vec{x}_{k - 1}, \vec{u}_k, \vec{w}_k)$ as above:
+\begin{itemize}
+    \item \bi{Mean}: $\hat{\vec{x}}_{k | k - 1} = \vec{f}(\hat{\vec{x}}_{k - 1 | k - 1}, \vec{u}_k)$
+    \item \bi{Cov.}: $\mat{P}_{k | k - 1} = \mat{F}_k \mat{P}_{k - 1 | k - 1} \mat{F}_k^\top + \mat{L}_k \mat{Q}_k \mat{L}_k^\top$\\
+        With $\mat{F}_k$ linearisation $\frac{\partial \vec{f}}{\partial \vec{x}}$ and $\mat{L}_k$ lin. $\frac{\partial \vec{f}}{\partial \vec{w}}$
+\end{itemize}
+\bi{Update} N-Lin. meas.: $\tilde{\vec{z}}_k = \vec{h}(\vec{x}_k) + \vec{v}_k$:
+\begin{itemize}
+    \item \bi{Meas. residual}: $\vec{y}_k = \tilde{\vec{z}}_k - \vec{h}(\hat{\vec{x}}_{k | k - 1})$
+\end{itemize}
+Difference to above: $\mat{H}$ becomes $\mat{H}_k$, and $\mat{H}^\top$ is $\mat{H}_k^\top$

@@ -1,0 +1,8 @@
+\subsection{Particle Filter}
+Is a bayes filter approximating the state distribution with a set of random samples.
+Update step:
+\begin{itemize}
+    \item Apply Bayes rule $w'_{k, s} = \P[\vec{z}_i \divider \vec{x}_{k, s}] w_{k - 1, s}$
+    \item Renormalize: $w_{k, s} = w'_{k, s} \div \sum_{s} w'_{k, s}$
+    \item Resample: rand. sel. $S$ particles acc. to weights and $w_{k, s} = S^{-1}$
+\end{itemize}

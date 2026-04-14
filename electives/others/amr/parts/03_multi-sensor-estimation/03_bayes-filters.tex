@@ -1,0 +1,7 @@
+\subsection{Bayes Filter}
+$\vec{x}_k^R$ state at time k, $\vec{z}_k^p$ dist. meas., $\vec{u}^p_k$ wheel odometry (= meas.).
+Typ. care ab. curr. state: altern. pred. \& update. 
+% TODO: Do we really need the below?
+% Init prev distr $\P[\vec{x}_0^R]$.
+% Pred: $\P[\vec{x}_k^R \divider \vec{u}_{1:k}^p, \vec{z}_{1 : k - 1}^d] = \int \P[\vec{x}_k^R \divider \vec{u}_{k}^p, \vec{x}_{k - 1}^d]
+% \P[\vec{x}_k^R \divider \vec{u}_{1:k - 1}^p, \vec{z}_{1 : k - 1}^d] \dx \vec{x}_{k - 1}^R$
