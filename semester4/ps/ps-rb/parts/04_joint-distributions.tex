@@ -1,0 +1,48 @@
+\subsection{Gemeinsame Diskrete Verteilung}
+
+\definition \textbf{Gemeinsame diskrete Verteilung}\\
+\smalltext{$X_1,\ldots,X_n$ diskret,$\quad W_i \cleq \N,\quad X_i \in W_i$ fast sicher}
+$$
+    p := \Bigl(p(x_1,\ldots,x_n)\Bigr)_{x_1\in W_1,\ldots x_n\in W_n} 
+$$
+$$
+    p(x_1,\ldots,x_n) = \P\Bigl[ X_1=x_1,\ldots,X_n=x_n \Bigr]
+$$
+
+\theorem $\displaystyle\sum_{x_1\in W_1,\ldots,x_n\in W_n} p(x_1,\ldots,x_n) = 1$
+
+% Randverteilung, Erwartungswert ...
+
+\newpage
+\subsection{Gemeinsame Stetige Verteilung}
+
+\definition \textbf{Gemeinsame Stetige Verteilung}\\
+\smalltext{$X_1,\ldots,X_n: \Omega\to\R,\quad f:\R^n\to\R_+,\quad a_1,\ldots a_n \in \R$}
+$$
+    \P\Bigl[ X_1\leq a_1,\ldots,X_n\leq a_n \Bigr] = \int_{-\infty}^{a_1}\cdots\int_{-\infty}^{a_n} f(x_1,\ldots,x_n)\ dx_n\ldots dx_1
+$$
+\subtext{$f$ heisst \textit{gemeinsame Dichte} von $(X_1,\ldots,X_n)$}
+
+\theorem $\displaystyle\int_{-\infty}^\infty\cdots\int_{-\infty}^\infty f(x_1,\ldots,x_n)\ dx_n\ dx_1 = 1$\\
+\subtext{Umgekehrt existiert für jedes solches $f$ ein Raum $(\Omega, \F, \P)$}
+
+% good examples in script
+
+\theorem \textbf{Erwartungswert}\\
+$$
+    \E\Bigl[ \phi(X_1,\ldots,X_n) \Bigr] = \int_{-\infty}^\infty\cdots\int_{-\infty}^\infty\phi(x_1,\ldots,x_n)\cdot f(x_1\cdots x_n)\ dx_n\ldots dx_1
+$$
+
+% Randverteilungen
+
+\theorem \textbf{Unabhängigkeit}
+$$
+    X_1,\ldots,X_n \text{ stetig, } f(x_1,\ldots,x_n) = f_1(x_1)\cdots f_n(x_n)
+$$
+
+{\scriptsize
+    \remark Unabhängige stetige Variablen sind automatisch gemeinsam stetig
+}
+
+% It's important to him to know \E[X]\E[Y] = \E[X\cdot Y] isn't enough for indep., requires \E[\phi(X)]\E[\psi(X)] instead \forall \phi,\psi
+
