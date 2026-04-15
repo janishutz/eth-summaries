@@ -1,2 +1,52 @@
 \subsection{Gemeinsame Diskrete Verteilung}
-\shortdefinition $\cX_i$ haben gemeinsame
+\shortdefinition $\cX_i$ mit Mengen $W_k \subseteq \R$ endlich oder abzählbar mit $\cX_k \in W_k$ fast sicher.
+Die gemeinsame Verteilung (\textit{Joint probability distribution}) von $(\cX_1, \ldots, \cX_n)$ ist Familie von W.:
+\[
+    \{ p(x_1, \ldots, x_n) \}_{x_1 \in W_1, \ldots, x_n \in W_n}
+\]
+mit $p : \R^n \rightarrow [0, 1]$ die gemeinsame Gewichtsfunktion (joint probability mass function) mit
+\[
+    p(x_1, \ldots, x_n) = \P[\cX_1 = x_1, \ldots, \cX_n = x_n]
+\]
+
+\shorttheorem Gemeinsame Verteilung von $\cX_i$ erfüllt stets
+\[
+    \sum_{x_1 \in W_1, \ldots, x_n \in W_n} p(x_1, \ldots, x_n) = 1
+\]
+
+\shortremark Umgekehrt: Für endliche oder abzählbare $W_i$ und Funktion $p : W_1 \times \ldots \times W_n \rightarrow [0, 1]$, die obiges erfüllen, gibt es W-Raum mit Verteilung $p$
+
+\shortproposition Aus $p$ Verteilungsfunktion (analog zu ZH $F_\cX \; \& \; p_\cX$):
+\begin{align*}
+    F(x_1, \ldots, x_n) & = \P[\cX_1 \leq x_1, \ldots, \cX_n \leq x_n]                    \\
+                        & = \sum_{y_1 \leq x_1, \ldots, y_n \leq x_n} p(y_1, \ldots, y_n)
+\end{align*}
+
+\shorttheorem[Verteilung Bild] Sei $\phi : \R^n \rightarrow \R$, $\cX_i$ disk. Z.V. mit Werten jeweils f.s. in $W_1, \ldots, W_n$.
+Dann $\cZ = \varphi(\cX_1, \ldots, \cX_n)$ disk. Z.V. mit Werten f.s. in $W = \varphi(W_1 \times \ldots \times W_n)$. Verteilung von $\cZ$ dann gegeben durch ($\forall z \in W$):
+\[
+    \P[\cZ = z] = \sum_{\elementstack{x_1 \in W_1, \ldots, x_n \in W_n}{\varphi(x_1, \ldots, x_n) = z}} \P[\cX_1 = x_1, \ldots, X_n = x_n]
+\]
+
+\shorttheorem[Randverteilung] $\cX_i$ disk. Z.V. mit gem. $p$.\\
+$\forall k \in \{ 1, \ldots, n \}$ und $\forall x \in W_k$ gilt:
+\[
+    \P[\cX_k = x] = \sum_{\elementstack{x_l \in W_l}{l \in \{1, \ldots, n\} \backslash \{k\}}} p(x_1, \ldots, x_{k - 1}, x, x_{k + 1}, \ldots, x_n)
+\]
+{\scriptsize Also: Elimination der anderen Variable(n) in $p$}
+
+\shortremark Verteilungsf. d. $k$-ten Randv. $F_{\cX_k}(x) = \P[\cX_k \leq x]$
+\[
+    F_{\cX_k}(x) = \lim_{\elementstack{x_l \rightarrow \8}{l \in \{ 1, \ldots, n \} \backslash \{ k \}}} F(x_1, \ldots, x_{k - 1}, x, x_{k + 1}, \ldots, x_n)
+\]
+
+\shorttheorem[Erwartungswert Bild] (Solange Summe wohldefiniert ist, summieren über $x_1 \in W_1, \ldots, x_n \in W_n$)
+\[
+    \E[\varphi(\cX_1, \ldots, \cX_n)] = \sum_{x_1, \ldots, x_n} \varphi(x_1, \ldots, x_n) p(x_1, \ldots, x_n)
+\]
+
+\shorttheorem Folgende Aussagen sind äquivalent (für $\cX_i$ mit Verteilung $\{p(x_1, \ldots, x_n)\}_{x_1 \in W_1, \ldots, x_n \in W_n}$):
+\begin{itemize}
+    \item $\cX_1, \ldots, \cX_n$ sind unabhängig
+    \item $\forall x_1 \in W_1, \ldots, x_n \in W_n$ gilt \[ p(x_1, \ldots, x_n) = \P[\cX_1 = x_1] \cdot \ldots \cdot \P[\cX_n = x_n] \]
+\end{itemize}
