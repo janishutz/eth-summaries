@@ -3,3 +3,34 @@
 \[
     \P[\cX_1 \! \leq \! a_1, \ldots, \cX_n \! \leq \! a_n]\! = \! \int_{-\8}^{a_1}\! \ldots \! \int_{-\8}^{a_n} \! f(x_1, \ldots) \dx x_n \ldots \mbox{d} x_1
 \]
+
+\shorttheorem $f$ gem. Dichte
+\[
+    \int_{-\8}^{\8}\! \ldots \! \int_{-\8}^{\8} \! f(x_1, \ldots) \dx x_n \ldots \mbox{d} x_1 = 1
+\]
+Jeder Funk. $f$ die obiges erfüllt ein W-Raum $(\Omega, \cF, \P)$ und $n$-Z.V. $\cX_i$ zugeo. werden, s.d. $f$ die gem. Dichte von $\cX_i$ ist.
+
+\inlineintuition $f(x_1, \ldots) \dx x_1, \ldots$ beschreibt die W., dass ein zu-fälliger Punkt $(\cX_1, \ldots)$ in $[x_1, x_1 + \dx x_1] \times \ldots$ liegt
+
+\shortexample Gleichverteilungen:
+\begin{itemize}
+    \item \bi{Einheistquadrat} $f(x, y) = \begin{cases}
+                  1 & (x, y) \in [0, 1]^2 \\
+                  0 & \text{sonst}
+              \end{cases}$
+    \item \bi{Einheistkreisscheibe} $D = \{ (x, y) \in \R^2 \divider x^2 + y^2 \leq 1 \}$
+          $f(x, y) = \begin{cases}
+                  \frac{1}{\pi} & (x, y) \in D \\
+                  0             & \text{sonst} \\
+              \end{cases}$
+\end{itemize}
+
+\shorttheorem[Erwartungswert Bild]
+\[
+    \E[\varphi(\cX_1, \ldots)] \! = \! \int_{-\8}^{\8} \ldots \int_{-\8}^{\8} \varphi(x_1, \ldots) f(x_1, \ldots) \dx x_n \ldots
+\]
+
+\shortdefinition[Randverteilung] Falls $\cX, \cY$ gemeinsame Verteilung $F$ haben, so ist $F_\cX : \R \rightarrow [0, 1]$ gegeben durch:
+\[
+    x \mapsto F_\cX(x) \! = \! \P[\cX \leq x] \! = \! \P[\cX \leq x, \cY < \8] \! = \! \limit{y}{\8} F(x, y)
+\]
