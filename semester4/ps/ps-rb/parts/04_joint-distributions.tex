@@ -28,6 +28,18 @@ $$
 
 % good examples in script
 
+\theorem \textbf{Randverteilung}\\
+\smalltext{Die einzelnen Verteilungen $p_X$ lassen sich extrahieren:}\\
+\subtext{$\forall z \in W_i$:}
+$$
+ \P[X_i = z] = \underset{x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n}{\sum} p\Bigl( x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n \Bigr)
+$$
+\subtext{$X_1,\ldots,X_n$ diskret,$\quad$ gem. Vert. $p = \Bigl( p(x_1,\dots,x_n) \Bigr)_{x_1 \in W_1,\ldots,x_n \in W_n}$}
+
+{\footnotesize
+    \remark Nicht umgekehrt: Aus den Randverteilungen lässt sich nichts über die gem. Vert. schliessen.
+}
+
 \theorem \textbf{Erwartungswert}\\
 $$
     \E\Bigl[ \phi(X_1,\ldots,X_n) \Bigr] = \int_{-\infty}^\infty\cdots\int_{-\infty}^\infty\phi(x_1,\ldots,x_n)\cdot f(x_1\cdots x_n)\ dx_n\ldots dx_1
