@@ -1,0 +1,18 @@
+\subsection{Keypoints}
+\bi{Corner det.} $SSD(\Delta_x, \Delta_y) \approx [\Delta_x \; \Delta_y] \mat{M} [\Delta_x \; \Delta_y]^\top$
+with $\mat{M} = \mat{R}^\top \text{diag}(\lambda_1, \lambda_2) \mat{R}$; $\lambda_i$ E.V. of $M$;
+$\mat{R} = \det(M) - \kappa \cdot \text{trace}(M)^2 = \lambda_1\lambda_2 - \kappa(\lambda_1 + \lambda_2)^2$;
+$\displaystyle M = \sum_{x, y \in P} \begin{bmatrix}
+        I_x^2   & I_x I_y \\
+        I_x I_y & I_y^2
+    \end{bmatrix}$
+
+
+\shade{gray}{Blob Detection} ($I$ is the image)
+
+\bi{Laplacian of Gaussian} (LoG): $L = g(x, y, t) \cdot I(x, y)$.
+Then apply Laplacian Operator $\nabla_\text{norm}^2 L = t\left( \frac{\partial^2 L}{\partial x^2} + \frac{\partial L}{\partial y^2} \right)$
+
+\bi{Diff. of Gaussians} (DoG): $\Delta L = L(x, y, t) - L(x, y, kt)$
+
+\bi{SIFT Detector} \bi{(1)} Subsample + Blur \bi{(2)} DoG on each res. image \bi{(3)} Keypoints extrema in DoG pyramid

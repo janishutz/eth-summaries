@@ -1,0 +1,33 @@
+\subsection{Bootstrapping}
+
+\bi{PnP Problem} {\scriptsize Persp. n-P.}
+Find sol. for camera pose \textit{directly}
+
+\bi{RANSAC} {\scriptsize RANdom SAmpling Consensus} for find. outliers \& correct
+
+\bi{Stereo Triang.} Given two rays (known poses for points in 2D).
+Find good point in 3D. Fast sol: \bi{Midpoint Method}:
+
+\bi{1} Find p. along ray w/ min. dist (Lin. Least Squares)
+\rmvspace[0.7]
+\[
+    \vec{\lambda}\! =\! [\lambda_1 \; \lambda_2]^\top\! = \! \argmin{} ||({_W}\vec{t}_{C_2} + \lambda_2 {_W}\vec{e}_2) - ({_W}\vec{t}_{C_1} + \lambda_1 {_W}\vec{e}_2)||^2
+\]
+
+\rmvspace[1]
+\bi{2} Solve normal equation $\mat{A} \vec{\lambda} = \vec{b}$ with $\vec{q} = -{_W}\vec{e}^\top_1 {_W}\vec{e}_2$:
+\rmvspace[0.7]
+\[
+    \mat{A} = \begin{bmatrix}
+        1       & \vec{q} \\
+        \vec{q} & 1
+    \end{bmatrix}
+    \quad
+    \vec{b} = \begin{bmatrix}
+        \vec{e}_1^\top \cdot ({_W}\vec{t}_{C_2} - {_W}\vec{t}_{C_1}) \\
+        -\vec{e}_2^\top \cdot ({_W}\vec{t}_{C_2} - {_W}\vec{t}_{C_1})
+    \end{bmatrix}
+\]
+
+\rmvspace[0.7]
+\bi{3} Pick midp. ${_W}\vec{t}_P \! = \! 0.5(\tau_1 \! + \! \tau_2)$; $\tau_n \! = \! {_W}\vec{t}_{C_n} + \lambda_n{_W}\vec{e}_n)$
