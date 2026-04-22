@@ -7,3 +7,41 @@ Dann konvergiert $\bar{X}_n$ für $n\to\infty$ gegen $\mu$
 $$
     \P\Bigl[ |\bar{X}_n - \mu| < \epsilon \Bigr] \overset{n\to\infty}{\rightarrow} 0
 $$
+\subtext{Intuitiv: Die Summe konvergiert zum Erwartungswert}
+
+% Starkes Gesetz
+
+\definition \textbf{Konvergenz in Verteilung}\\
+\smalltext{$(X_n)_{n\in\mathbb{N}}, X$ Zufallsvariablen}
+$$
+    X_n \overset{\text{Approx.}}{\approx} X \qquad \text{für } n \to \infty
+$$
+Falls:
+$$
+    \forall x \in \R:\quad \underset{n\to\infty}{\lim}\P\Bigl[ X_n \leq x \Bigr] = \P\Bigl[X \leq x\Bigr]
+$$
+
+{\footnotesize
+    \remark Diskrete Zufallsvariablen können zu stetigen konvergieren.
+}
+
+
+% Slides viel detaillierter als Skript
+\theorem \textbf{Zentraler Grentwertsatz}\\
+\smalltext{$(X_k)_{k\geq1}$ i.i.d s.d. $\E[X_k]=\mu, \V[X_k]=\sigma^2, S_n = \sum_{i=1}^{n}X_i$}
+$$
+    \underset{n\to\infty}{\lim}\P\Biggl[ \frac{S_n - n\mu}{\sigma\sqrt{n}} \leq x \Biggr] = \Phi(x)
+$$
+$\Phi(x)$ ist die Verteilung von $\mathcal{N}(0, 1)$.
+$$
+    S_n \overset{\text{approx.}}{\sim} \mathcal{N}(n\mu, n\sigma^2) 
+$$
+\subtext{ZGS wird häufig zur Approximation von Summen verwendet}
+
+\definition \textbf{Standardisierung von $S_n$}
+$$
+    S_n^* := \frac{S_n - n\mu}{\sigma\sqrt{n}} = \frac{S_n - \E[S_n]}{\sqrt{\V[S_n]}}
+$$
+\subtext{Im Skript auch $Z_n$}
+
+% Slides: Chernoff bounds & mehr ZGS (nicht im Skript)
