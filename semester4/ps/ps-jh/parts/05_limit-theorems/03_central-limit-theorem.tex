@@ -1,0 +1,19 @@
+\subsection{Zentraler Grenzwertsatz}
+\shortdefinition[Konvergenz in Verteilung] $(\cX_n)_{n \in \N}$, $\cX$ mit V.F.\\
+$(F_n)_{n \in \N}$, $F$.
+$(\cX_n)_{n \in \N}$ \bi{konvergiert in V.} gegen $\cX$
+($\cX_n \overset{d}{\rightarrow} \cX$ für $n \rightarrow \8$), falls $\forall$ Stetigkeitsp. $x \in \R$ von $F$ gilt:
+\[
+    \limit{n}{\8} F_n(x) = \limit{n}{\8} \P[\cX_n \leq x] = \P[\cX \leq x] = F(x)
+\]
+
+\shorttheorem[Zentraler Grenzwertsatz (\textbf{ZGS})]\\
+{\scriptsize i.i.d = independent and identically distributed (u.i.v in DE)}
+
+$\cX_k$ i.i.d mit $\E[\cX_k] = \mu$, $\V[\cX_k] = \sigma^2$. Für Partialsummen $S_n = \sum_{k = 1}^{n} \cX_k$ gilt $\forall x \in \R$ (mit $\Phi$ V.F. von Std.-Norm.-V):
+\[
+    \limit{n}{\8} \P \left[ \frac{S_n - n\mu}{\sigma \sqrt{n}} \leq x \right] = \Phi(x)
+\]
+
+\shortremark $\E[S_n] = n \mu$, $\V[S_n] = n \sigma^2$; $S_n^* = \frac{S_n - \mu}{\sigma \sqrt{n}} \overset{\text{approx}}{\sim} \cN(0, 1)$
+für grosse $n$, mit $\overset{\text{approx}}{\sim}$ gespr. ``approx. gleichverteilt gemäss''
