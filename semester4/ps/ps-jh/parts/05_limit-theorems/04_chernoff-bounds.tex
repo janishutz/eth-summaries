@@ -1,0 +1,15 @@
+\subsection{Chernoff-Schranken}
+\shortdefinition[Momenterzeugende Funktion] von $\cX$ ist für $t \in \R$ $M_\cX(t) + \E[e^{t\cX}]$
+
+\shortexample $\cX \sim \text{Ber}(p)$, dann $M_\cX(t) = 1 - p + p e^t$;\\
+$\cX \sim \text{Bin}(n, p)$, dann $M_\cX(t) = (1 - p + pe^t)^n$
+
+\shorttheorem[Chernoff-Ungleichung] $\cX_k$ i.i.d. Z.V. mit jeweils $\forall t \in \R \; M_\cX(t)$ endl.; $\forall b \in \R$
+\[
+    \P[S_n \geq b] \leq \exp \left( \inf_{t \in \R}(n \log(M_\cX(t) - tb)) \right)
+\]
+
+\shorttheorem[Chernoff-Schranke] $\cX_k \sim \text{Ber}(p_k)$ unabhängig; $S_n\! = \! \sum_{k = 1}^{n} \cX_k$; $\mu_n = \E[S_n] = \sum_{k = 1}^{n} p_k$ und $\delta > 0$. Dann:
+\[
+    \P[S_n \geq (1 + \delta) \mu_n] \leq \left( \frac{e^\delta}{(1 + \delta)^{1 + \delta}} \right)
+\]

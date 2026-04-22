@@ -15,5 +15,12 @@ $\cX_k$ i.i.d mit $\E[\cX_k] = \mu$, $\V[\cX_k] = \sigma^2$. Für Partialsummen 
     \limit{n}{\8} \P \left[ \frac{S_n - n\mu}{\sigma \sqrt{n}} \leq x \right] = \Phi(x)
 \]
 
-\shortremark $\E[S_n] = n \mu$, $\V[S_n] = n \sigma^2$; $S_n^* = \frac{S_n - \mu}{\sigma \sqrt{n}} \overset{\text{approx}}{\sim} \cN(0, 1)$
-für grosse $n$, mit $\overset{\text{approx}}{\sim}$ gespr. ``approx. gleichverteilt gemäss''
+\shortremark $\E[S_n] = n \mu$, $\V[S_n] = n \sigma^2$; $S_n^* = \frac{S_n - \mu}{\sigma \sqrt{n}} \! \overset{\text{approx}}{\sim} \! \cN(0, 1)$
+für grosse $n$, mit $\overset{\text{approx}}{\sim}$ gespr. ``approx. gleichverteilt gemäss''.
+Also ist für $\E[S_n^*] = 0$ und $\V[S_n^*] = 1$.
+
+Für $S_n$ also: $S_n \! \overset{\text{approx}}{\sim} \! \cN(n\mu, n\sigma^2)$,
+bzw. $\overline{\cX}_n \! \overset{\text{approx}}{\sim} \! \cN \left( \mu, \frac{1}{n} \sigma^2 \right)$
+
+\shortremark Für $S_n \sim \text{Bin}(n, p)$ ist $S_n \overset{\text{approx}}{\sim} \cN(np, np(1 - p))$ und
+$\P[a < S_n \leq b] \approx \Phi \left( \frac{b + \frac{1}{2} - np}{\sqrt{np(1 - p)}} \right) - \Phi \left( \frac{a + \frac{1}{2} - np}{\sqrt{np(1 - p)}} \right)$
