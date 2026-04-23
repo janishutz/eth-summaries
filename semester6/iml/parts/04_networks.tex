@@ -222,9 +222,57 @@ $$
 In Minibatch GD, this becomes:\\
 \subtext{Where $\mathcal{S} \subset \{1,\ldots,n\}$}
 $$
-    \Theta^{t+1} = \Theta^t - \eta_t\cdot\nabla_\Theta L\Biggl( \frac{1}{|\mathcal{S}|}\sum_{i\in \mathcal{S}} l\Bigl( \Theta^t; x_i,y_i \Bigr) \Biggr)
+    \Theta^{t+1} = \Theta^t - \eta_t\cdot\nabla_{\Theta^t} \Biggl( \frac{1}{|\mathcal{S}|}\sum_{i\in \mathcal{S}} l\Bigl( \Theta^t; x_i,y_i \Bigr) \Biggr)
 $$
 
 {\footnotesize
-    \remark An advantage: If $\Theta^t$ approaches a stationary point (which isn't the global minimu), GD will converge, but MB-GD may not converge.
+    \remark An advantage: If $\Theta^t$ approaches a stat. point (which isn't the global minimum), GD will converge, but MB-GD may not converge.
 }
+
+\subsubsection{Vanishing \& Exploding Gradients}
+$$
+    \nabla_{\Theta^t} \Biggl( \frac{1}{|\mathcal{S}|}\sum_{i\in \mathcal{S}} l\Bigl( \Theta^t; x_i,y_i \Bigr) \Biggr) = \frac{1}{|\mathcal{S}|}\sum_{i \in \mathcal{S}}\Bigl( \nabla_{\Theta^t} l(\Theta^t;x_i,y_i) \Bigr)
+$$
+The terms $\nabla_{\Theta^z} l\Bigl(\Theta^t;x_i,y_i\Bigr)$ are composed of $\nabla_{\textbf{W}^{(l)}}l\Bigl(\textbf{W}^{(l)};x_i,y_i\Bigr)$.
+
+\textbf{Problem}: Optimization might fail if:
+$$
+    \Bigl\Vert \nabla_{\textbf{W}^{(l)}}l \Bigr\Vert \to \infty \qquad\text{or}\qquad  \Bigl\Vert \nabla_{\textbf{W}^{(l)}}l \Bigr\Vert \to 0
+$$
+
+\newpage
+
+\textbf{Solution}: $\Vert \nabla_{\textbf{W}^{(l)}}l \Vert$ depends linearly on $\text{diag}\Bigl( \psi'(z^{(l)}) \Bigr)$, so the choice of $\psi$ ($\psi'$) can be used to constrain $\Vert \nabla_{\textbf{W}^{(l)}}l \Vert$\\
+\subtext{Generally, the gradient follows the behaviour of $\psi'$}
+
+% Script contains examples for this on Sigmoid & ReLU. Generally, the properties we need are visible by inspection of the derivatives graph.
+
+Which features do we want $\psi$ ($\psi'$) to fullfil?
+\begin{itemize}
+    \item $\psi'$ should be fast to calculate
+    \item $\psi'$ should be non-zero (and not get too close)
+\end{itemize}
+
+\remark The $\Bigl\Vert \nabla_{\textbf{W}^{(l)}}l \Bigr\Vert$ may still vanish for any $\psi$.
+
+\subsubsection{Random Weight Initialization}
+\begin{align*}
+    \nabla_{\textbf{W}^{(l)}}l  &= \frac{\partial l}{\partial f}\cdot\frac{\partial f}{\partial h^{(l)}}\cdot\frac{\partial h^{(l)}}{\partial z^{(l)}}\cdot\frac{\partial z^{(l)}}{\partial \textbf{W}^{(l)}} \\
+                                &= \frac{\partial l}{\partial f}\cdot\frac{\partial f}{\partial h^{(l)}}\cdot\text{diag}\Bigl( \psi'(z^{(l)}) \Bigr)\cdot\begin{bmatrix}
+                                    (h^{(l-1)})^\top  \\
+                                    \vdots          \\
+                                    (h^{(l-1)})^\top
+                                \end{bmatrix}
+\end{align*}
+So, the gradient $\Vert \nabla_{\textbf{W}^{(l)}}l \Vert$ also depends on $\Vert h^{(l-1)} \Vert$.\\
+\subtext{For $l \in \{1,\ldots,L\}$}
+
+
+\textbf{Problem}: It might be that $\Vert h^{(l-1)} \Vert \to \infty$ or $\Vert h^{(l-1)} \Vert \to 0$.
+
+\textbf{Solution}: Set $h^{(l-1)}$ randomly, bound mean $\mu$ and var. $\sigma^2$.\\
+\subtext{There is no generally optimal bound for $\sigma^2$, it depends on the NN.}
+
+Some useful distributions for common $\psi$:
+
+% Table in script
