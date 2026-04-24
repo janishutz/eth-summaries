@@ -1,0 +1,20 @@
+\newpage
+\subsection{Operational Semantics}
+\subsubsection{Transition Systems}
+\inlinedefinition[Transition System] is a tuple $(\Gamma, T, \rightarrow)$, where $\Gamma$ is a set of \bi{configurations},
+$T$ is a set of terminal configurations, with $T \subseteq \Gamma$ and $\rightarrow$ is a transition relation, with $\rightarrow \; \subseteq \Gamma \times \Gamma$,
+which describes how executions take place. Big-step transitions are of form $\langle s, \sigma \rangle \rightarrow \sigma'$,
+e.g. $\langle \texttt{skip}, \sigma \rangle \rightarrow \sigma$
+
+The transition relations are specified as rules of the form ($^*$ optional side-condition, $\varphi_i$ and $\psi$ transitions)
+\[
+    \begin{prooftree}
+        \hypo{\varphi_1}
+        \hypo{\dots}
+        \hypo{\varphi_n}
+        \infer3[(Name)$^*$]{\psi}
+    \end{prooftree}
+\]
+or spelled out, ``If $\varpi_1, \ldots, \varphi_n$ are transitions (and the \textit{side-condition} is true), then $\psi$ is a transition''.
+
+Herein, $\varphi_1, \ldots, \varphi_n$ are called \bi{premises} of the rule and $\psi$ is the \bi{conclusion}. A rule without premises is an \bi{axiom rule}.

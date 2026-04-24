@@ -1,0 +1,54 @@
+\subsubsection{Big-Step Semantics of IMP}
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Skip}$_{NS}$]{\langle \texttt{skip}, \sigma \rangle \rightarrow \sigma}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{NS}$]{\langle x := e, \sigma \rangle \rightarrow \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma ]}
+    \end{prooftree}
+\]
+
+\shade{gray}{Sequential Composition} $s;s'$ ($s$ is executed in state $\sigma$, then $s'$ in resulting $\sigma'$, resulting in $\sigma''$)
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \hypo{\langle s', \sigma' \rangle \rightarrow \sigma''}
+        \infer2[\textsc{Seq}$_{NS}$]{\langle s;s', \sigma \rangle \rightarrow \sigma''}
+    \end{prooftree}
+\]
+
+\shade{gray}{Conditional Statements} $\texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}$ (If $b$ holds, execute $s$, otherwise execute $s'$)
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{IfT}$_{NS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{IfF}$_{NS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+\]
+Where the first rule applies if $\cB\llbracket b \rrbracket \sigma = \texttt{tt}$
+
+\shade{gray}{Loop statements} $\texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}$ (If $b$ holds, execute $s$ once, whole statement executed in resulting state $\sigma$)
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \hypo{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma' \rangle \rightarrow \sigma''}
+        \infer2[\textsc{WhT}$_{NS}$]{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma \rangle \rightarrow \sigma''}
+    \end{prooftree}
+    \qquad
+    \text{if }
+    \cB\llbracket b \rrbracket \sigma = \texttt{tt}
+\]
+If $b$ does not hold, the while statement does \textit{not} modify the state
+\[
+    \begin{prooftree}
+        \infer0[\textsc{WhF}$_{NS}$]{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma \rangle \rightarrow \sigma}
+    \end{prooftree}
+    \qquad
+    \text{if }
+    \cB\llbracket b \rrbracket \sigma = \texttt{ff}
+\]

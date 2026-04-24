@@ -1,0 +1,81 @@
+\subsubsection{Properties of expression semantics}
+Since we have recursive definitions for the semantics and syntax, we can use structural induction.
+
+\begin{recall}[]{Structural Induction}
+    For the data structure \texttt{Nat}, given by
+    \mint{haskell}+data Nat = Zero | Succ Nat+
+    the structural induction derivation rule is given by
+    \[
+        \begin{prooftree}
+            \hypo{\Gamma \vdash P(\texttt{Zero})}
+            \hypo{\Gamma, P(m) \vdash P(\texttt{Succ}\; m)}
+            \infer2[$m$ not free in $\Gamma$]{\Gamma \vdash \forall n \in \texttt{Nat}. P(n)}
+        \end{prooftree}
+    \]
+    Where we now write $P(m)$ instead of $P[n \mapsto m]$ and the second premise needs to be proven for all $m$
+\end{recall}
+
+
+\paragraph{Inductive Definitions}
+If we are to introduce a new arithmetic expression $-e$, we could do this in two ways.
+For one, we could define $\cA\llbracket -e \rrbracket \sigma = 0 - \cA\llbracket e \rrbracket \sigma$. This \textit{is} an inductive definition because $e$ is a subterm of $-e$.
+
+If on the other hand we define $\cA\llbracket -e \rrbracket \sigma = \cA\llbracket 0 - e \rrbracket \sigma$,
+it is \textit{not} an inductive definition because $0 - e$ is \textit{not} a subterm of $-e$
+
+
+\newpage
+\paragraph{Free Variables}
+For Arithmetic Expressions
+\begin{align*}
+    FV(e_1 \; \texttt{op} \; e_2) & = FV(e_1) \cup FV(e_2) \\
+    FV(n)                         & = \varnothing          \\
+    FV(x)                         & = \{ x \}
+\end{align*}
+
+For Boolean Expressions
+\begin{align*}
+    FV(b_1 \; \texttt{op} \; b_2)  & = FV(b_1) \cup FV(b_2) \\
+    FV(\texttt{not} b)             & = FV(b)                \\
+    FV(b_1 \; \texttt{or} \; b_2)  & = FV(b_1) \cup FV(b_2) \\
+    FV(b_1 \; \texttt{and} \; b_2) & = FV(b_1) \cup FV(b_2)
+\end{align*}
+
+And finally for Statements:
+\begin{align*}
+    FV(\texttt{skip})                                                                  & = \varnothing                     \\
+    FV(x := e)                                                                         & = \{ x \} \cup FV(s_2)            \\
+    FV(s_1; s_2)                                                                       & = FV(s_1) \cup FV(s_2)            \\
+    FV(\texttt{if}\; b\; \texttt{then} \; s_1 \; \texttt{else} \; s_2 \; \texttt{end}) & = FV(b) \cup FV(s_1) \cup FV(s_2) \\
+    FV(\texttt{while}\; b\; \texttt{do} \; s \; \texttt{end})                          & = FV(b) \cup FV(s)
+\end{align*}
+
+
+\paragraph{Substitution}
+{\scriptsize We have already seen this kind of expression in the states, with this explanation it should make a lot more sense intuitively.}
+
+A substitution $f[x \mapsto e]$ replaces each free occurrence of variable $x$ in $f$ by $e$, where $f$ is any expression.
+
+Detailed rules for arithmetic expressions:
+\begin{align*}
+    (e_1 \; \texttt{op} \; e_2)[x \mapsto e] & \equiv (e_1[x \mapsto e] \; \texttt{op} \; e_2[x \mapsto e]) \\
+    n[x \mapsto e]                           & \equiv n                                                     \\
+    y[x \mapsto e]                           & \equiv \begin{cases}
+                                                          e & \text{if } x \equiv y \\
+                                                          y & \text{otherwise}
+                                                      \end{cases}
+\end{align*}
+
+The same for boolean expressions:
+\begin{align*}
+    (e_1 \; \texttt{op} \; e_2)[x \mapsto e]  & \equiv (e_1[x \mapsto e] \; \texttt{op} \; e_2[x \mapsto e])  \\
+    (\texttt{not} \; b)[x \mapsto e]          & \equiv \texttt{not} \; (b[x \mapsto e])                       \\
+    (b_1 \; \texttt{or} \; b_2)[x \mapsto e]  & \equiv (b_1[x \mapsto e] \; \texttt{or} \; b_2[x \mapsto e])  \\
+    (b_1 \; \texttt{and} \; b_2)[x \mapsto e] & \equiv (b_1[x \mapsto e] \; \texttt{and} \; b_2[x \mapsto e])
+\end{align*}
+
+\begin{lemma}[]{Substitution Lemma}
+    \[
+        \cB\llbracket b[x \mapsto e] \rrbracket \Leftrightarrow \cB\llbracket b \rrbracket (\sigma[x \mapsto \cA\llbracket e \rrbracket \sigma])
+    \]
+\end{lemma}

@@ -1,0 +1,37 @@
+\subsection{IMP Language}
+\subsubsection{The syntax}
+The allowed characters:
+\begin{code}{haskell}
+    Letter = 'A' | . . . | 'Z' | 'a' | . . . | 'z'
+    Digit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+\end{code}
+
+And the allowed tokens:
+\begin{code}{haskell}
+    Ident = Letter { Letter | Digit }*
+    Numeral = Digit | Numeral Digit
+    Var = Ident
+\end{code}
+
+Arithmetic and Boolean statements could be defined in Haskell as follows
+\begin{code}{haskell}
+    data Aexp = Bin Op Aexp Aexp | Var String | Num Integer
+    data Op = Add | Sub | Mul
+    data Bexp = Or Bexp Bexp | And Bexp Bexp | Not Bexp | Rel Rop Aexp Aexp
+    data Rop = Eq | Neq | Le | Leq | Ge | Geq
+\end{code}
+
+Statements could be defined in Haskell as follows
+\mint{haskell}+data Stm = Skip | Assign String Aexp | Seq Stm Stm | If Bexp Stm Stm | While Bexp Stm+
+
+We use the following naming conventions for meta-variables:
+\begin{tables}{ll}{Variable     & Type}
+              $n$               & for numerals (\texttt{Numeral})            \\
+              $x, y, z$         & for variables (\texttt{Var})               \\
+              $e, e', e_1, e_2$ & for arithmetic expressions (\texttt{Aexp}) \\
+              $b, b_1, b_2$     & for boolean expressions (\texttt{Bexp})    \\
+              $s, s', s_1, s_2$ & for Statements (\texttt{Stm}) \\
+\end{tables}
+Meta-variables stand for arbitrary program variables, whereas program variables are concrete variables in a program.
+
+To denote \bi{syntactic equality} of two variables or statements, we use $\equiv$

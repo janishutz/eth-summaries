@@ -1,0 +1,58 @@
+\subsubsection{The semantics}
+\paragraph{Numerals}
+The semantic function $\cN : \texttt{Numeral} \rightarrow \texttt{Val}$ maps a numeral $n$ to an integer value $\cN\llbracket n \rrbracket$,
+with $x \in \{ 0, \ldots, 9 \}$:
+\begin{align*}
+    \cN\llbracket x \rrbracket = x &  & \cN\llbracket n x \rrbracket = \cN\llbracket n \rrbracket \cdot 10 + x
+\end{align*}
+
+
+\paragraph{States}
+A state assigns a value to each program variable. It is a total function and is typically denoted by the meta-variable $\sigma$
+\[
+    \sigma : \texttt{Var} \rightarrow \texttt{Val}
+\]
+To update states, we use the notation $\sigma[y \mapsto v]$, which is given by
+\[
+    (\sigma[y \mapsto v])(x) = \begin{cases}
+        v         & \text{if } x \equiv y     \\
+        \sigma(x) & \text{if } x \not\equiv y
+    \end{cases}
+\]
+Two states $\sigma_1, \sigma_2 $ are equal if they are equal as functions: $\sigma_1 = \sigma_2 \Leftrightarrow \forall x. (\sigma_1(x) = \sigma_2(x))$
+
+
+\paragraph{Arithmetic Expressions}
+$\cA : \texttt{Aexp} \rightarrow \texttt{State} \rightarrow \texttt{Val}$ maps an arithmetic expression $e$ and a state $\sigma$ to a value $\cA\llbracket e \rrbracket \sigma$,
+given by:
+\begin{align*}
+    \cA\llbracket x \rrbracket \sigma                         & = \sigma(x)                                                                                            \\
+    \cA\llbracket n \rrbracket \sigma                         & = \cN\llbracket x \rrbracket                                                                           \\
+    \cA\llbracket e_1 \; \texttt{op} \; e_2 \rrbracket \sigma & = \cA\llbracket e_1 \rrbracket \sigma \; \overline{\texttt{op}} \; \cA\llbracket e_2 \rrbracket \sigma
+\end{align*}
+For $\texttt{op} \in \texttt{Op}$, $\overline{\texttt{op}}$ is the corresponding operation $\texttt{Val} \times \texttt{Val} \rightarrow \texttt{Val}$
+
+
+\paragraph{Boolean Expressions}
+$\cB : \texttt{Bexp} \rightarrow \texttt{State} \rightarrow \texttt{Bool}$ maps boolean expression $b$ and a state $\sigma$ to a truth value $\cB\llbracket b \rrbracket \sigma$,
+given by:
+\[
+    \cB\llbracket e_1 \; \texttt{op} \; e_2 \rrbracket \sigma = \begin{cases}
+        \texttt{tt} & \text{if } \cA\llbracket e_1 \rrbracket \sigma \; \overline{\texttt{op}} \; \cA\llbracket e_2 \rrbracket \sigma \\
+        \texttt{ff} & \text{otherwise}
+    \end{cases}
+\]
+Thus, for the \texttt{op} \texttt{or}, we would have (analogous for \texttt{and})
+\[
+    \cB\llbracket b_1 \; \texttt{or} \; b_2 \rrbracket \sigma = \begin{cases}
+        \texttt{tt} & \text{if } \cA\llbracket b_1 \rrbracket \sigma = \texttt{tt} \; \texttt{or} \; \cA\llbracket b_2 \rrbracket \sigma = \texttt{tt} \\
+        \texttt{ff} & \text{otherwise}
+    \end{cases}
+\]
+\texttt{not} is defined as follows:
+\[
+    \cB\llbracket \texttt{not}\; b \rrbracket \sigma = \begin{cases}
+        \texttt{tt} & \text{if } \cA\llbracket b \rrbracket \sigma = \texttt{ff} \\
+        \texttt{ff} & \text{otherwise}
+    \end{cases}
+\]
