@@ -1,0 +1,10 @@
+\paragraph{Termination}
+\inlinetheorem The execution of a statement $s$ in a state $\sigma$
+\begin{itemize}
+    \item \bi{terminates} if and only if there is a finite derivation sequence starting with $\langle s, \sigma \rangle$
+    \item \bi{runs forever} if and only if there is an infinite derivation sequence starting with $\langle s, \sigma \rangle$
+\end{itemize}
+
+\inlinetheorem The execution of statement $s$ in state $\sigma$ \bi{terminates} successfully, if and only if $\exists \sigma'. \langle s, \sigma \rangle \rightarrow^*_1 \sigma'$
+
+Of note is that these are properties of \bi{configurations} and not just statements.

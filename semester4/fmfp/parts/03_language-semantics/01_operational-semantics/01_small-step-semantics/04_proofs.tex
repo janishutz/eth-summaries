@@ -1,0 +1,6 @@
+\paragraph{Proving properties of Derivation Sequences}
+For reasoning about finite derivation sequences, we commonly reason about a multi-step execution $\gamma \rightarrow_1^k \gamma'$
+by \bi{strong induction on the number of steps $k$}, where we define $P(k) \equiv$ ``for all executions of length k, our property holds'' and we prove $P(k)$ for arbitrary $k$
+with the \bi{induction hypothesis} $\forall k' < k. P(k')$ holds
+
+After the setup, it \textit{often} proceeds by case distinction on the $0$ step and the other steps

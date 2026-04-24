@@ -4,9 +4,23 @@
 
 \usepackage{lmodern}
 \usepackage{ebproof}
+\usepackage{overarrows}
+
+\NewOverArrowCommand{\overrightharpoon}{%
+    end=\rightharpoonup
+}
 \ebproofset{separation=2.5em}
 \setFontType{sans}
 \multicolsep 5pt plus 2pt minus 2pt
+
+\setcounter{secnumdepth}{5}
+\makeatletter
+\renewcommand\subparagraph{%
+    \@startsection{subparagraph}{5}{0mm}%
+    {-.5\baselineskip}%
+    {.25\baselineskip}%
+    {\normalfont\normalsize\bfseries}}
+\makeatother
 
 \setup{Formal Methods \& Functional Programming}
 
@@ -94,7 +108,22 @@
 \input{parts/03_language-semantics/00_imp/02_properties.tex}
 \input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/00_transition-systems.tex}
 \input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/01_semantics.tex}
+\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/02_instantiations.tex}
+\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/03_termination.tex}
+\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/04_semantic-equivalence.tex}
+\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/05_unfolding-loops.tex}
+\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/06_deterministic-semantics.tex}
+\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/07_extensions-of-imp.tex}
 % \input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/00_structural-operational-semantics.tex}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/01_rules.tex}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/02_multi-step-derivation-seq.tex}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/03_termintation.tex}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/04_proofs.tex}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/05_semantic-equivalence.tex}
+\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/06_extensions.tex}
+% \input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/}
+\input{parts/03_language-semantics/01_operational-semantics/02_equiv.tex}
 % \input{parts/03_language-semantics/01_operational-semantics/}
 % \input{parts/03_language-semantics/}
 

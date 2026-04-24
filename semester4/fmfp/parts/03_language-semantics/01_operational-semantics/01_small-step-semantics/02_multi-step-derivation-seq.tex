@@ -1,0 +1,22 @@
+\paragraph{Multi-Step Execution}
+We use the definitions we have to define a \bi{$k$-step execution}, denoted $\gamma \rightarrow_1^k \gamma'$.
+Of course, this means intuitively that there is an execution of exactly $k$ steps from $\gamma$ to $\gamma'$.
+
+We define the relation inductively over $k$:
+\begin{itemize}
+    \item $\gamma \rightarrow_1^0 \gamma'$ if and only if $\gamma = \gamma'$
+    \item $\gamma \rightarrow_1^k \gamma'$ if and only if there exists $\gamma''$ such that both $\vdash \gamma \rightarrow_1$ and $\gamma'' \rightarrow_1^{k - 1} \gamma'$
+\end{itemize}
+Resulting from this, $\gamma \rightarrow_1^{k_1 + k_2} \gamma'$ if and only if $\exists \gamma'' . \gamma \rightarrow_1^{k_1} \gamma'' \land \gamma'' \rightarrow_1^{k_2} \gamma'$
+
+We write $\gamma \rightarrow_1^* \gamma'$ to signify that there is an execution from $\gamma$ to $\gamma'$ in some finite number of steps, or more formally:
+\[
+    \exists k. \gamma \rightarrow_1^k \gamma'
+\]
+
+
+\paragraph{Derivation Sequences}
+\inlinedefinition A \bi{derivation sequence} is a non-empty sequence of configurations $\gamma_0, \ldots$, for which $\gamma_i \rightarrow_1^1 \gamma_{i + 1}$ for each $0 \leq i$,
+such that $i + 1$ is in the range of the sequence. If the sequence is finite, then the last configuration in the sequence is either a terminal or stuck configuration.
+
+The \bi{length} of the derivation sequence is the number of transitions (thus number of states minus one!)

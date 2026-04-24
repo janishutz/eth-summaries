@@ -1,0 +1,16 @@
+\paragraph{Semantic Equivalence and Determinism}
+\inlinedefinition Under the small-step semantics, two statements $s_1$ and $s_2$ are \bi{semantically equivalent} if for all states $\sigma$ both:
+\begin{itemize}
+    \item for all stuck or terminal configurations $\gamma$ we have $\langle s_1, \sigma \rangle \rightarrow_1^* \gamma$ if and only if
+          $\langle s_2, \sigma \rangle \rightarrow_1^* \gamma$, and
+    \item there is and infinite derivation sequence starting in $\langle s_1, \sigma \rangle$ if and only if there is one starting in $\langle s_2, \sigma \rangle$
+\end{itemize}
+
+\inlinelemma The small-step semantics of IMP is \bi{deterministic}. That is:
+\[
+    \forall s, \sigma, \gamma, \gamma'. \vdash \langle s, \sigma \rangle \rightarrow_1 \gamma
+    \land \vdash \langle s, \gamma \rangle \rightarrow_1 \gamma'
+    \implies \gamma = \gamma'
+\]
+
+\inlinecorollary There is exactly one derivation sequence starting in configuration $\langle s, \sigma \rangle$

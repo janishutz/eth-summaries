@@ -1,6 +1,10 @@
 \newpage
 \subsection{Operational Semantics}
-\subsubsection{Transition Systems}
+Big-step semantics describe how the \bi{overall} results of the execution are obtained and use Natural semantics rules.
+Small-step semantics describe how the individual steps of the computations take place and use Structural Operational Semantics (SOS)
+
+\subsubsection{Big-Step Semantics}
+\paragraph{Transition Systems}
 \inlinedefinition[Transition System] is a tuple $(\Gamma, T, \rightarrow)$, where $\Gamma$ is a set of \bi{configurations},
 $T$ is a set of terminal configurations, with $T \subseteq \Gamma$ and $\rightarrow$ is a transition relation, with $\rightarrow \; \subseteq \Gamma \times \Gamma$,
 which describes how executions take place. Big-step transitions are of form $\langle s, \sigma \rangle \rightarrow \sigma'$,

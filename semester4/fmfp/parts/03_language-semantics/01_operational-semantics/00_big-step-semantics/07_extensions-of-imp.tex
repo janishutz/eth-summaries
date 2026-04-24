@@ -1,0 +1,73 @@
+\newpage
+\paragraph{Extensions of IMP}
+\subparagraph{Local Variable Declarations}
+\label{sec:big-step-local-var}
+A statement \texttt{var x := e in s end} declares a local variable that is visible in the sub-statement of the declaration, \texttt{s}.
+
+Here, the Expression $e$ is evaluated in the initial state, then $s$ is executed in a state in which $x$ has the value of $e$ and after the execution,
+the original value of $x$ is restored.
+
+The corresponding Big-step semantics rule is:
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma[x \mapsto \cA \llbracket e \rrbracket \sigma] \rangle \rightarrow \sigma' }
+        \infer1[\textsc{Loc}$_{NS}$]{\langle \texttt{var x := e in s end}, \sigma \rangle \rightarrow \sigma'[x \mapsto \sigma(x)]}
+    \end{prooftree}
+\]
+
+
+\subparagraph{Procedure Declaration and Calls}
+\[
+    \texttt{procedure p(}x_1, \ldots, x_n; y_1, \ldots, y_m \texttt{) begin s end}
+\]
+Here, the $x_i$ are the \bi{value} parameters and the $y_j$ are the \bi{variable} parameters. The latter can be used to assign values back to the procedure caller (return values).
+
+In a \bi{procedure declaration} the \bi{formal} parameter names $x_i$ and $y_j$ must be pairwise distinct and the only free variables in $s$.
+
+For the \bi{procedure call} $p(e_1, \ldots, e_n; z_1, \ldots, z_m)$, the \bi{actual} variable parameters must be pairwise distinct.
+
+The corresponding Big-step semantics rule is:
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma_\text{zero}[\overrightharpoon{x_i} \mapsto \overrightharpoon{\cA \llbracket e_i \rrbracket \sigma}]
+            [\overrightharpoon{y_j} \mapsto \overrightharpoon{\sigma(z_j)}] \rangle \rightarrow \sigma'}
+        \infer1[\textsc{Call}$_{NS}$]{\langle p(\overrightharpoon{e_i}; \overrightharpoon{z_j}), \sigma \rangle
+            \rightarrow \sigma[\overrightharpoon{z_j} \mapsto \overrightharpoon{\sigma'(y_j)}]}
+    \end{prooftree}
+\]
+where the notation $\sigma[\overrightharpoon{x_i} \mapsto \overrightharpoon{v_i}]$ is an abbreviation of $\sigma[x_1 \mapsto v_1]\ldots[x_n \mapsto v_n]$
+
+
+\subparagraph{Non-determinism}
+For a statement $s \bigbox s'$, either $s$ or $s'$ is non-deterministically chosen to be executed.
+
+\inlineexample In the statement \texttt{x := 1 $\bigbox$ (x := 2; x := x + 2)}, we either get $x = 1$ or $x = 4$
+(either the statement on the left or right of the box is evaluated)
+
+The corresponding rules are:
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{ND1}$_{NS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s', \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{ND2}$_{NS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+\]
+An important note on non-terminating branches, we will not ``see'' them, because big-step semantics can't encompass that concept.
+
+
+\subparagraph{Parallelism}
+In a statement \texttt{s par s'}, both $s$ and $s'$ are executed, but their execution can be \bi{interleaved}.
+
+\inlineexample \texttt{x := 1 par (x := 2; x := x + 2)} could result in:
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $4$: first \texttt{x:=1}, then \texttt{x:=2} and finally \texttt{x:=x+2}
+        \item $1$: first \texttt{x:=2}, then \texttt{x:=x+2} and finally \texttt{x:=1}
+        \item $3$: first \texttt{x:=2}, then \texttt{x:=1} and finally \texttt{x:=x+2}
+    \end{itemize}
+\end{multicols}
+In Big-step semantics however, there are no rules for this, because it can only define atomic steps.

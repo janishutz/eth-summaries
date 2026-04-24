@@ -1,0 +1,17 @@
+\paragraph{Rule Schemes and Instantiations}
+Each inference rule is actually a rule scheme, where the meta-variables are placeholders for statements, states, etc.
+Each rule scheme describes infinitely many \bi{rule instances}.
+
+A rule is \bi{instantiated} when all meta-variables are replaced with syntactic elements
+Assignment rule scheme vs. instance
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{NS}$]{\langle x := e, \sigma \rangle \rightarrow \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma]}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{NS}$]{\langle v := v + 1, \sigma_\text{zero} \rangle \rightarrow \sigma[v \mapsto \cA\llbracket v + 1 \rrbracket \sigma_\text{zero}]}
+    \end{prooftree}
+\]
+
+The \bi{rule instances} can be combined to derive a transition $\langle s, \sigma \rangle \rightarrow \sigma'$ and we get a derivation tree.

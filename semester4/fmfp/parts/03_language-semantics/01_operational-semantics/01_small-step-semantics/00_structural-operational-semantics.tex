@@ -1,0 +1,17 @@
+\newpage
+\subsubsection{Small-Step semantics}
+\paragraph{Structural Operational Semantics (SOS)}
+Expressing each individual steps of execution allows one to express the \bi{order of execution} of these steps,
+thus allowing us to describe properties of non-terminating programs and parallelization.
+
+$\gamma$ is used as the meta-variable for terminal and non-terminal configurations.
+For the transitions, we denote the relation $\rightarrow_1$, which can have two forms:
+\begin{itemize}
+    \item $\langle s, \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle$ is for any non-complete computation,
+          where the next computation is expressed by the intermediate configuration $\langle s', \sigma' \rangle$
+    \item $\langle s, \sigma \rangle \rightarrow_1 \sigma'$ is the final execution that reaches a terminal state.
+\end{itemize}
+
+Finally, a transition $\langle s, \sigma \rangle \rightarrow_1 \gamma$ describes the \bi{first step} of the execution of $s$ in state $\sigma$.
+
+A non-terminal configuration $\langle s, \sigma \rangle$ is \bi{stuck}, if there does not exist a configuration $\gamma$ such that $\langle s, \sigma \rangle \rightarrow_1 \gamma$.

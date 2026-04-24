@@ -1,0 +1,45 @@
+\paragraph{Unfolding loops}
+In languages like \texttt{C} (and by extension \texttt{C++}) and \texttt{Java}, unfolding a loop leads to non-equivalent code:
+
+\begin{multicols}{2}
+    \begin{code}{c}
+        int i = 0;
+        while ( i < 2 ) {
+
+
+            while ( i < 1 )
+                if ( i == 0 ) break;
+
+            i++;
+        }
+        printf( "i = %d", i );
+    \end{code}
+    Prints \shade{gray}{\texttt{i = 2}}
+    \begin{code}{c}
+        int i = 0;
+        while ( i < 2 ) {
+            if ( i == 0 ) {
+                if ( i == 0 ) break;
+                while ( i < 1 )
+                    if ( i == 0 ) break;
+            }
+            i++;
+        }
+        printf( "i = %d", i );
+    \end{code}
+    Prints \shade{gray}{\texttt{i = 0}}
+\end{multicols}
+
+In IMP however, this kind of action leads to equivalence:
+\[
+    \forall b, s.(\texttt{while b do s end} \; \simeq \; \texttt{if b then s; while b do s end end})
+\]
+So what we have to prove is this:
+\[
+    \forall b, s, \sigma, \sigma'.(\vdash \langle \texttt{while b do s end}, \sigma \rangle \; \simeq \;
+    \vdash \langle \texttt{if b then s; while b do s end end}, \sigma \rangle \rightarrow \sigma')
+\]
+
+A proof idea is to show equivalence by proving the implication in both directions. For each of them, we show that there is a derivation tree.
+
+\inlineproof available in the lecture slides for Formal Methods, Slides 78 - 80 (Slide Deck 3, pages 23 - 25)

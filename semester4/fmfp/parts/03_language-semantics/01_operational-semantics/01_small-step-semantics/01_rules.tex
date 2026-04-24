@@ -1,0 +1,56 @@
+\subparagraph{The rules}
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Skip}$_{SOS}$]{\langle \texttt{skip}, \sigma \rangle \rightarrow_1 \sigma}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{SOS}$]{\langle x := e, \sigma \rangle \rightarrow_1 \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma ]}
+    \end{prooftree}
+\]
+
+\shade{gray}{Sequential Composition} $s;s'$ ($s$ is executed in state $\sigma$, then $s'$ in resulting $\sigma'$, resulting in $\sigma''$).
+Then, either $s$ executes completely in one step (\textsc{Seq1}), or does not (\textsc{Seq2}).
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{Seq1}$_{SOS}$]{\langle s;s', \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s', \sigma' \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{Seq2}$_{SOS}$]{\langle s;s', \sigma \rangle \rightarrow_1 \langle s'';s', \sigma' \rangle}
+    \end{prooftree}
+\]
+
+\shade{gray}{Conditional Statements} $\texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}$ (If $b$ holds, execute $s$, otherwise execute $s'$)
+\[
+    \begin{prooftree}
+        \infer0[\textsc{IfT}$_{SOS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{IfF}$_{SOS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+\]
+Where the first rule applies if $\cB\llbracket b \rrbracket \sigma = \texttt{tt}$. Below a further two rules for the true case:
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{IfT1}$_{SOS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \sigma'}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{IfT2}$_{SOS}$]{\langle \texttt{if}\;b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \langle s''', \sigma' \rangle}
+    \end{prooftree}
+\]
+
+
+\shade{gray}{Loop statements} $\texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}$ (If $b$ holds, execute $s$ once, whole statement executed in resulting state $\sigma$)
+\[
+    \begin{prooftree}
+        \infer0[\textsc{While}$_{SOS}$]{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma \rangle \rightarrow_1 
+        \langle \texttt{if} \; b \; \texttt{then} \; s; \; \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end else skip end}, \sigma \rangle}
+    \end{prooftree}
+\]

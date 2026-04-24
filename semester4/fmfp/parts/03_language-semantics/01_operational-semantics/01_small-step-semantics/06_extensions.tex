@@ -1,0 +1,67 @@
+\paragraph{Extensions of IMP}
+
+\subparagraph{Local Variable Declarations}
+As already partially established in Section \ref{sec:big-step-local-var}, the steps to define a local variable are (for \texttt{var x:=e in s end}):
+\begin{multicols}{3}
+    \begin{enumerate}
+        \item Assign $e$ to $x$
+        \item Execute $s$ (possibly many steps)
+        \item Restore the initial value of $x$
+    \end{enumerate}
+\end{multicols}
+
+Since we need to somehow inject he restore instruction into the statements $s$, we extend the \texttt{Stm} category with a \texttt{restore} statement,
+defined as \texttt{restore (Var, Val)}.
+
+With that, we can define the rules:
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Loc}$_{SOS}$]{\langle \texttt{var x:= e in s end}, \sigma \rangle \rightarrow_1 \langle \texttt{s;restore }(x, \sigma(x)),
+            \sigma[x \mapsto \cA \llbracket e \rrbracket \sigma] \rangle}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Ret}$_{SOS}$]{\langle \texttt{restore }(x, \sigma(x)), \sigma \rangle \rightarrow_1 \sigma[x \mapsto v]}
+    \end{prooftree}
+\]
+
+Of course, we could also just model execution stacks, as most languages do.
+
+
+\subparagraph{Non-determinism}
+The rules here are analogous to the ones from the big-step rules
+\[
+    \begin{prooftree}
+        \infer0[\textsc{ND1}$_{SOS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow_1 \langle s, \sigma \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{ND2}$_{SOS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow_1 \langle s, \sigma' \rangle}
+    \end{prooftree}
+\]
+
+
+\subparagraph{Parallelism}
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{Par1}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s'' \texttt{ par } s', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{Par2}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \hypo{\langle s', \sigma \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{Par3}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s \texttt{ par } s'', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s', \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{Par4}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s, \sigma' \rangle}
+    \end{prooftree}
+\]

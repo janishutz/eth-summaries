@@ -1,0 +1,17 @@
+\paragraph{Deterministic Semantics}
+\inlinelemma The big-step semantics of IMP is deterministic
+
+\inlineproof We need to show $\forall s, \sigma, \sigma', \sigma''.
+    (\vdash \langle s, \delta \rangle \rightarrow \sigma' \land \vdash \langle s, \sigma \rangle \rightarrow \sigma'' \implies \sigma' = \sigma'')$
+
+The full proof for this is available on the slides for Formal Methods, pages 82 - 91 (Slide Deck 3, pages 27 - 40)
+
+In there, \bi{Induction on Derivation Trees} is used.
+Similar like other induction proofs, we show that a property $P(T)$ holds for all derivation trees $T$,
+we prove that $P(T)$ holds for an arbitrary derivation tree $T$ under the assumption (the induction hypothesis) that $P(T')$ holds for all sub-trees $T'$ of $T$
+
+This kind of induction is a special case of \bi{well-founded (Noetherian) induction}.
+We define $T' \sqsubset T$ (with $T, T'$ derivation trees) to mean that $T'$ is a proper sub-tree of $T$. 
+$\sqsubset$ is a well-founded ordering, because derivation trees are finite and we call $T'$ a \bi{sub-derivation} of $T$ if $T' \sqsubset T$.
+Typically, \textit{case distinction} is used on the rule applied at the root of $T$ because that provides more information about the structure of the derivation,
+such as telling us about sub-derivation to which the induction hypothesis applies.

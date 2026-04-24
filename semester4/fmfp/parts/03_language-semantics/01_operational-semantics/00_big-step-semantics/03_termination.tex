@@ -1,0 +1,9 @@
+\newpage
+\paragraph{Termination}
+\begin{definition}[]{Termination}
+    The execution of a statement $s$ in a state $\sigma$
+    \begin{itemize}
+        \item \bi{terminates successfully} if and only if there exists a state $\sigma'$ such that $\vdash \langle s, \sigma \rangle \rightarrow \sigma'$
+        \item \bi{fails to terminate} if and only if there is no state $\sigma'$ such that $\vdash \langle s, \sigma \rangle \rightarrow \sigma'$
+    \end{itemize}
+\end{definition}

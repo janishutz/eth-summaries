@@ -1,0 +1,24 @@
+\newpage
+\subsubsection{Equivalence}
+\begin{theorem}[]{Equivalence Theorem}
+    For every statement $s$ of IMP, we have
+    \[
+        \vdash \langle s, \sigma \rangle \rightarrow \sigma' \Leftrightarrow \langle s, \sigma \rangle \rightarrow_1^* \sigma'
+    \]
+    {\scriptsize If the execution of $s$ from some state terminates successfully in one of the semantics, than so will it in the other.
+    The execution fails to terminate in the big-step semantics if and only if it either gets stuck, or runs forever in the small-step semantics}
+\end{theorem}
+
+
+\inlinelemma[Equivalence Lemma 1] For every statement $s$ of IMP and states $\sigma$ and $\sigma'$ we have:
+\[
+    \vdash \langle s, \sigma \rangle \rightarrow \sigma' \implies \langle s, \sigma \rangle \rightarrow_1^* \sigma'
+\]
+{\scriptsize If the execution of $s$ from $\sigma$ terminates successfully in the big-step semantics, so will it in the small-step semantics (in the same state, too!)}
+
+
+\inlinelemma[Equivalence Lemma 2] For every statement $s$ of IMP and states $\sigma$ and $\sigma'$ and $k \in \N$, we have:
+\[
+    \langle s, \sigma \rangle \rightarrow_1^k \sigma' \implies \vdash \langle s, \sigma \rangle \rightarrow \sigma'
+\]
+{\scriptsize If the execution of $s$ from $\sigma$ terminates successfully in the small-step semantics, so will it in the big-step semantics (in the same state, too!)}
