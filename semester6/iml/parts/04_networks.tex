@@ -229,18 +229,25 @@ $$
     \remark An advantage: If $\Theta^t$ approaches a stat. point (which isn't the global minimum), GD will converge, but MB-GD may not converge.
 }
 
+The further subsections go into more details:
+\begin{enumerate}
+    \item Preventing vanishing \& exploding Gradients
+    \item Choice of initial $w_i$
+    \item Choice of $\mu_t$
+\end{enumerate}
+
+\newpage
+
 \subsubsection{Vanishing \& Exploding Gradients}
 $$
     \nabla_{\Theta^t} \Biggl( \frac{1}{|\mathcal{S}|}\sum_{i\in \mathcal{S}} l\Bigl( \Theta^t; x_i,y_i \Bigr) \Biggr) = \frac{1}{|\mathcal{S}|}\sum_{i \in \mathcal{S}}\Bigl( \nabla_{\Theta^t} l(\Theta^t;x_i,y_i) \Bigr)
 $$
-The terms $\nabla_{\Theta^z} l\Bigl(\Theta^t;x_i,y_i\Bigr)$ are composed of $\nabla_{\textbf{W}^{(l)}}l\Bigl(\textbf{W}^{(l)};x_i,y_i\Bigr)$.
+The terms $\nabla_{\Theta^t} l\Bigl(\Theta^t;x_i,y_i\Bigr)$ each contain $\nabla_{\textbf{W}^{(l)}}l\Bigl(\textbf{W}^{(l)};x_i,y_i\Bigr)$.
 
 \textbf{Problem}: Optimization might fail if:
 $$
     \Bigl\Vert \nabla_{\textbf{W}^{(l)}}l \Bigr\Vert \to \infty \qquad\text{or}\qquad  \Bigl\Vert \nabla_{\textbf{W}^{(l)}}l \Bigr\Vert \to 0
 $$
-
-\newpage
 
 \textbf{Solution}: $\Vert \nabla_{\textbf{W}^{(l)}}l \Vert$ depends linearly on $\text{diag}\Bigl( \psi'(z^{(l)}) \Bigr)$, so the choice of $\psi$ ($\psi'$) can be used to constrain $\Vert \nabla_{\textbf{W}^{(l)}}l \Vert$\\
 \subtext{Generally, the gradient follows the behaviour of $\psi'$}
@@ -273,6 +280,223 @@ So, the gradient $\Vert \nabla_{\textbf{W}^{(l)}}l \Vert$ also depends on $\Vert
 \textbf{Solution}: Set $h^{(l-1)}$ randomly, bound mean $\mu$ and var. $\sigma^2$.\\
 \subtext{There is no generally optimal bound for $\sigma^2$, it depends on the NN.}
 
-Some useful distributions for common $\psi$:
+\newpage
+
+\remark Practical distributions for common $\psi$:\\
+\subtext{$n_\text{out},n_\text{out}$ are the node counts of the layers adjacent to $w_i$}
 
 % Table in script
+\begin{center}
+    \begin{tabular}{l|l}
+        $\psi$      & \textbf{Weights} \\
+        \hline
+        $\tanh$     & $w_i \sim \mathcal{N}\Bigl( 0, \frac{1}{n_{\text{in}}}            \Bigr)$ \\
+        $\tanh$     & $w_i \sim \mathcal{N}\Bigl( 0, \frac{2}{n_\text{in}+n_\text{out}} \Bigr)$ \\
+        \text{ReLu} & $w_i \sim \mathcal{N}\Bigl( 0, \frac{2}{n_\text{in}}              \Bigr)$
+    \end{tabular}
+\end{center}
+
+\subsubsection{Learning Rate \& Weight Updates}
+$$
+    \Theta^{t+1} = \Theta^{t} - \mu_t \cdot \nabla_{\Theta^t}\Biggl( \frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}}l\Bigl( \Theta^t; x_i,y_i \Bigr) \Biggr)
+$$
+\textbf{Problem}: How to choose $\mu$? (Learning Rate)
+
+\textbf{Solution}: Heuristics.\\
+\subtext{There is no generally optimal $\mu$.}
+
+\method \textbf{Piecewise constant $\mu_t$}
+
+Intuitively, it makes sense to reduce $\mu_t$ as optimization progresses, as the algorithm approaches the minimum.\\
+\subtext{Linear/cosine decay could also be used.}
+$$
+    \mu_t = \begin{cases}
+        1       & 0 \geq t < 3 \\
+        0.5     & 3 \leq t < 6 \\
+        0.25    & 6 \leq t < 9 \\
+        \ldots
+    \end{cases}
+$$   
+
+\method \textbf{Weight update indicator}
+
+In practice, SGD often oscillates in finding the minimum. Then, a monotonic $\mu_t$ doesn't make sense. 
+$$
+    \frac{\Big| \nabla_{\Theta^t} L( \Theta^t;\mathcal{D} ) \Big|}{\Vert \Theta^t \Vert}
+$$
+In general, if this indicator ratio is small, a higher learning rate makes sense (and vice versa).\\
+\subtext{Intuitively: How strongly is the weight change, relative to weight size.}
+
+\method \textbf{Momentum}
+
+Combine the update direction with the previous update directions, for some weight $m > 0$, to stabilize.
+
+\newpage
+
+\subsection{Regularization}
+
+\textbf{Problem}: How can overfitting be avoided?
+
+A few methods can be applied directly to SGD:
+
+\method \textbf{Penalty Term}
+
+Similar to Ridge/LASSO Regression, a penalty term can be used, with some weight $\lambda > 0$.
+$$
+    \underset{\Theta \in \R^d}{\text{arg min}}\Bigl( L(\Theta;\mathcal{D}) \Bigr) \quad \to \quad \underset{\Theta \in \R^d}{\text{arg min}}\Bigl( L(\Theta;\mathcal{D}) + \lambda \Vert\Theta\Vert^2 \Bigr)
+$$
+
+\method \textbf{Earlier stop}
+
+Choosing a different stop criterion for SGD, e.g. performance on the test set $\mathcal{D}'$.
+
+\remark \textbf{Validation \& Training Error}
+
+Overfitting occurs when the training error (on $\mathcal{D}$) continues to fall, but the test error increases (on $\mathcal{D}'$).
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{resources/ValidationTrainingErrors.png}\\
+    \color{gray}\footnotesize
+    \textit{Introduction to Machine Learning (2026), p. 196}
+\end{center}
+
+\newpage
+\subsubsection{Dropout Regularization}
+
+This is a method specific to Neural Networks.
+
+\method \textbf{Dropout}
+
+Fix some $p \in (0,1)$. For each SGD iteration in training:\\
+\textit{Drop out} each hidden unit with probability $1-p$, and skip their optimization for this iteration.
+\begin{align*}
+    z_j^{(l)} &= \sum_{i=0}^{n_{i-1}}\Bigl( w_{j,i}^{(l)}h_i^{(l-1)} \Bigr) + b_j^{(l)}                         & \text{(Regular Neuron)}       \\
+    z_j^{(l)} &= \sum_{i=0}^{n_{i-1}}\Bigl( w_{j,i}^{(l)}h_i^{(l-1)} \cdot \mathbb{I}_{C_i} \Bigr) + b_j^{(l)}  & \text{(With Dropout)}
+\end{align*}
+\subtext{Where $C_i:=\{\text{"Unit } h_i^{(l-1)} \text{ is kept this iter."}\}$, so $\P[C_i] = p$}
+
+\textbf{Problem}: For $\mathcal{D}'$, we again want to use all layers.
+
+\textbf{Solution}: Scale all weights with $p$
+
+% This makes sense but I don't get why exactly the scaling is needed
+
+For this, we use $\E\Bigl[ z_j^{(l)} \Bigr]$ instead of $z_j^{(l)}$.
+\begin{align*}
+    \E\Bigl[ z_j^{(l)} \Bigr] = \Bigl( p\cdot w_j^{(l)} \Bigr)^\top \cdot h^{(l-1)} + b_j^{(l)}
+\end{align*}
+\subtext{By using $\E\bigl[ \mathbb{I}_{C_i} \bigr] = \P[C_i] = p$}
+
+\subsubsection{Batch Normalization}
+
+During SGD, the weight's $\sigma^2$ may again explode.\\
+\subtext{After few iterations, $w_i$ may have changed completely from init.}
+
+\textbf{Problem}: Internal covariate shift.\\
+\subtext{The mean $\mu$ deviates from $0$ and $\sigma^2$ might increase}
+
+\textbf{Solution}: Standardize $\psi$ also during training.
+
+\newpage
+
+\method \textbf{Batch Normalization}
+
+% The script doesn't specify how \alpha is set, unfortunately
+
+In pratice, only batches of $\psi$ are normalized. The core idea is to set $\mu \mapsto 0$ and $\sigma^2 \mapsto 1$ within the batch.\\
+\subtext{This isn't optimal for all problems, and can be tweaked using $\beta,\gamma$}
+
+The algorithm uses the parameters $\beta, \gamma$ and buffers $\mu_\text{EMA}, \sigma^2_\text{EMA}$.\\
+\subtext{$\beta,\gamma$ are learnable and can also be optimized}
+
+\textbf{Normalization Step} (Training set)\\
+\smalltext{For a minibatch $\mathcal{S} = \{i_1,\ldots,i_k\}$, the batch is $\{x_{i_1},\ldots,x_{i_k}\}$.}
+
+\textbf{Step 1}: Find current values of $\mu, \sigma^2$.
+\begin{align*}
+    \mu_\mathcal{S}         &:= \frac{1}{|\mathcal{S}|}\sum_{j\in\mathcal{S}}x_j                                    & \text{\color{gray}\footnotesize(minibatch mean)}       \\
+    \sigma^2_\mathcal{S}    &:= \frac{1}{|\mathcal{S}|}\sum_{j\in\mathcal{S}}\Bigl( x_i-\mu_\mathcal{S} \Bigr)^2    & \text{\color{gray}\footnotesize(minibatch variance)} 
+\end{align*}
+\textbf{Step 2}: Update the moving average: $\mu_\text{EMA},\sigma^2_\text{EMA}$.
+\begin{align*}
+    \mu_\text{EMA}          &= (1-\alpha)\mu_\text{EMA} + \alpha \cdot \mu_\mathcal{S}                              & \text{\color{gray}\footnotesize(avg. mean update)}     \\
+    \sigma^2_\text{EMA}     &= (1-\alpha)\sigma^2_\text{EMA}+\alpha\cdot \sigma_\mathcal{S}^2                       & \text{\color{gray}\footnotesize(avg. variance update)} 
+\end{align*}
+\textbf{Step 3}: Update the $x_j$.
+\begin{align*}
+    \hat{x}_j               &= \frac{x_j-\mu_\mathcal{S}}{\sqrt{\sigma^2_\mathcal{S} + \epsilon}}                   & \text{\color{gray}\footnotesize(point normalization)}  \\
+    \bar{x}_j               &= \gamma\cdot\hat{x}_j + \beta                                                         & \text{\color{gray}\footnotesize(scale \& shift)}
+\end{align*}
+
+\textbf{Normalization Step} (Test set)\\
+\smalltext{Only apply step 3, now using the moving average values.}
+\begin{align*}
+    \hat{x}_j               &= \frac{x_j-\mu_\text{EMA}}{\sqrt{\sigma^2_\text{EMA}+\epsilon}}                       & \text{\color{gray}\footnotesize(point normalization)}  \\
+    \bar{x}_j               &= \gamma\cdot\hat{x}_j + \beta                                                         & \text{\color{gray}\footnotesize(scale \& shift)}     
+\end{align*}
+
+\newpage
+
+\subsection{Convolutional Neural Networks}
+
+In fully connected NNs:
+$$
+    h^{(l)} = \psi\Bigl( \textbf{W}^{(l)} h^{(l-1)} \Bigr)
+$$
+Each unit of layer $l-1$ affects each unit of layer $l$.\\
+In CNNs, this is relaxed: not all nodes (must) interact.
+
+\definition \textbf{Convolutional Neural Network} (CNN)\\
+Layers are connected via convolutions.
+$$
+    h^{(l)} = \psi\Bigl( w^{(l)} * h^{(l-1)} \Bigr)
+$$
+
+{\footnotesize
+    \remark In CNNs, the weights are also called \textit{filters}.
+}
+
+\definition \textbf{Convolution} {\footnotesize (Discrete, 2D) } \\
+\subtext{$w \in \R^k,\quad x \in \R^d$}
+$$
+    w * x := \sum_{j=\max\{1,i-d+1\}}^{\min\{i,k\}}\Biggl( w_j\cdot x_{i-j+1} \Biggr)
+$$
+Understanding this is easier by example:
+
+\smalltext{\textbf{Example}: $w = (w_1,w_2)^\top,\quad x=(x_1,x_2,x_3)^\top$}
+{\footnotesize
+$$
+    w*x = \begin{bmatrix}
+        w_1 \cdot x_1           + \color{gray}w_2 \cdot 0     \\
+        w_1 \cdot x_2           + w_2 \cdot x_1               \\
+        w_1 \cdot x_3           + w_2 \cdot x_2               \\
+        \color{gray}w_1 \cdot 0 + \color{black}w_2 \cdot x_3
+    \end{bmatrix}
+$$
+}
+
+\smalltext{\textbf{Example}: a CNN with $3$ inputs and $1$ hidden layer:}
+{\footnotesize
+$$
+    \begin{bmatrix}
+        z_1 \\
+        z_2 \\
+        z_3 \\
+        z_4
+    \end{bmatrix} = \underbrace{\begin{bmatrix}
+        w_1 & 0     & 0     \\
+        w_2 & w_1   & 0     \\
+        0   & w_2   & w_1   \\
+        0   & 0     & w_2   \\
+    \end{bmatrix}}_{\textbf{W}^{(1)} \text{ in CNN}} \cdot \begin{bmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{bmatrix} = w * x
+$$
+}
+
+\subsubsection{Multidimensional Convolution}
+\textbf{TODO} add explanation
+
+% The script has a very good intutive walkthrough of how this works.

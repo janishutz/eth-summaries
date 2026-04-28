@@ -1,0 +1,96 @@
+In \textbf{Unsupervised Learning}, $\mathcal{D}$ contains no labels.\\
+Models both define labels \& assign inputs to labels.
+$$
+    \mathcal{D} = \Bigl\{ x_1,\ldots,x_n \Bigr\}    \qquad      \text{\color{gray}\footnotesize(Dataset in unsupervised learning)}
+$$
+There are many use-cases:
+\begin{enumerate}
+    \item Compression
+    \item Discovery of latent variables
+    \item Anomaly detection
+    \item Exploratory data analysis
+\end{enumerate}
+
+\subsection{Clustering}
+
+\definition \textbf{Clustering}
+
+The goal here is to group inputs into clusters, based on some definiton of similarity, e.g. $l_2$ distance for $\mathcal{D} \subset \R^2$.\\
+\subtext{This can be seen as the unsupervised analogy to classification}
+
+\method \textbf{Hierarchical Clustering}
+
+A simple method, using the "similarity" measure directly.
+
+\begin{enumerate}
+    \item Each $x \in \mathcal{D}$ starts in its own cluster
+    \item Iteratively, the $2$ "closest" clusters are merged
+\end{enumerate}
+
+This results in a tree, thus \textit{hierarchical} clustering.
+
+\method \textbf{Partitioning}
+
+In Partitioning methods, a weighted graph is constucted using $\mathcal{D}$ and partitioned using graph theory approaches, i.e. using cuts or spectral analysis.
+
+{\footnotesize
+    \remark Both Hierarchical and Partitioning do not give a natural way to deduce cluster membership for new datapoints.
+}
+
+\newpage
+
+\subsubsection{$k$-Means Clustering}
+
+In $k$-means, a cluster is represented by its center: $\mu_j \in \R^d$.
+The cluster assignment $z_i$ for $x_i \in \mathcal{D}$:
+$$
+    z_i = \underset{j=1,\ldots,k}{\text{arg min}}\Bigl\Vert x_i-\mu_j \Bigr\Vert    \qquad {\color{gray}\footnotesize \text{(Closest center)} }
+$$
+{\footnotesize
+    \remark This strategy induces a partition of $\R^d$. (Voronoi Pattern)
+}
+
+\textbf{Problem}: How to find $\mu = (\mu_1,\ldots,\mu_k)^\top$?
+
+A new optimization objective:
+$$
+    \hat{R}(\mu) = \sum_{i=1}^n \underset{j\in\{1,\ldots,k\}}{\min}\Bigl\Vert x_i-\mu_j \Bigr\Vert^2 = \sum_{i=1}^n \Bigl\Vert x_i-\mu_{z_i} \Bigr\Vert
+$$
+\subtext{(minimize the sum of sq. distances between points \& their centers)}
+
+So we are searching:
+$$
+    \underset{\mu}{\text{arg min}} \Bigl( \hat{R}(\mu) \Bigr) \qquad {\color{gray}\footnotesize \text{(optimal $k$-means cluster)}}
+$$
+\remark This is non-convex \& NP-hard.
+
+\method \textbf{Lloyd's Heuristic}
+
+This is an iterative method to find the cluster centers.
+
+{\footnotesize
+    \definition $z^{(t)} = \Bigl( z_1^{(t)},\ldots,z_n^{(t)} \Bigr)^\top$ \color{gray}(assignment of $x_i$ at iter. $t$)\color{black}
+
+    \definition $\mu^{(t)} = \Bigl( \mu_1^{(t)},\ldots,\mu_k^{(t)}\Bigr)^\top$ \color{gray}(Cluster centers at iter. $t$)\color{black}
+
+    \definition $n_j^{(t)} = \Bigl| \Bigl\{ i=1,\ldots,n\ \Big|\ z_j^{(t)}=j \Bigr\} \Bigr|$ \color{gray}(Size of cluster $j$ at iter. $t$)\color{black}
+}
+
+\begin{algorithm}
+    \caption{Lloyd's Heuristic}
+    $\mu^{(0)}\gets \Bigl( \mu_1^{(0)},\ldots,\mu_k^{(0)} \Bigr)$\;
+    \SetKwRepeat{Do}{repeat}{until}
+        \Do{\text{convergence}}{ 
+            $z_i^{(t)} \gets \underset{j \in \{1,\ldots,k\}}{\text{arg min}}\Bigl\Vert x_i-\mu_j^{(t-1)} \Bigr\Vert\quad\ $ for $i=1,\ldots,n$ \;
+            $\mu_j^{(t)} \gets \frac{1}{n_j^{(t)}}\displaystyle\sum_{i \text{ s.t. } z_{i}^{(t)}=j} x_i\qquad\qquad$ for $j=1,\ldots,k$ \;
+            $t \gets t+1$ \;
+        }
+\end{algorithm}
+{\footnotesize
+    \remark Each iteration is in $\mathcal{O}\bigl( nkd \bigr)$.
+}
+
+% Continue with convergence analysis, k-means++
+
+\newpage
+\subsection{Principal Component Analysis}
