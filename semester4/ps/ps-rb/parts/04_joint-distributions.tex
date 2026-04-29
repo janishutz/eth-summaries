@@ -11,7 +11,17 @@ $$
 
 \theorem $\displaystyle\sum_{x_1\in W_1,\ldots,x_n\in W_n} p(x_1,\ldots,x_n) = 1$
 
-% Randverteilung, Erwartungswert ...
+\theorem \textbf{Randverteilung}\\
+\smalltext{Die einzelnen Verteilungen $p_X$ lassen sich extrahieren:}\\
+\subtext{$\forall z \in W_i$:}
+$$
+ \P[X_i = z] = \underset{x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n}{\sum} p\Bigl( x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n \Bigr)
+$$
+\subtext{$X_1,\ldots,X_n$ diskret,$\quad$ gem. Vert. $p = \Bigl( p(x_1,\dots,x_n) \Bigr)_{x_1 \in W_1,\ldots,x_n \in W_n}$}
+
+{\footnotesize
+    \remark Nicht umgekehrt: Aus den Randverteilungen lässt sich nichts über die gem. Vert. schliessen.
+}
 
 \newpage
 \subsection{Gemeinsame Stetige Verteilung}
@@ -26,19 +36,28 @@ $$
 \theorem $\displaystyle\int_{-\infty}^\infty\cdots\int_{-\infty}^\infty f(x_1,\ldots,x_n)\ dx_n\ dx_1 = 1$\\
 \subtext{Umgekehrt existiert für jedes solches $f$ ein Raum $(\Omega, \F, \P)$}
 
-% good examples in script
-
-\theorem \textbf{Randverteilung}\\
-\smalltext{Die einzelnen Verteilungen $p_X$ lassen sich extrahieren:}\\
-\subtext{$\forall z \in W_i$:}
-$$
- \P[X_i = z] = \underset{x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n}{\sum} p\Bigl( x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n \Bigr)
-$$
-\subtext{$X_1,\ldots,X_n$ diskret,$\quad$ gem. Vert. $p = \Bigl( p(x_1,\dots,x_n) \Bigr)_{x_1 \in W_1,\ldots,x_n \in W_n}$}
+{\scriptsize
+    \textbf{Beispiel:} Finde $c$ s.d. $f_{X,Y}$ eine Dichte ist, wobei
+    $
+        f_{X,Y}=\begin{cases}
+            ce^{-x}     & 0 < x < y \\
+            0           & \text{sonst}
+        \end{cases}
+    $
+    \begin{align*}
+        \int_0^\infty \int_0^x ce^{-x}\ dy\ dx  &= c\cdot \int_0^\infty xe^{-x}\ dx                                                     \\ 
+                                                &= c\cdot\biggl( \Bigl[ -xe^{-x} \Bigr]_0^\infty + \int_0^\infty e^{-x}\ dx \biggr)     \\
+                                                &= c\cdot\biggl( 0 + \Bigl[ -e^{-x} \Bigr]_0^\infty \biggr)                             \\
+                                                &= c
+    \end{align*}
+    Also gilt wegen dem vorherigen Satz: $c=1$.
+}
 
 {\footnotesize
-    \remark Nicht umgekehrt: Aus den Randverteilungen lässt sich nichts über die gem. Vert. schliessen.
+    \remark Randdichten: Integration über übrige Variablen.
 }
+
+% Bedingte Dichten fehlen noch, siehe HW5, F3
 
 \theorem \textbf{Erwartungswert}\\
 $$

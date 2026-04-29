@@ -96,7 +96,7 @@ $$
 
 \theorem \textbf{Diskrete Verteilungsfunktion}
 $$
-    F_X(x) = \P[x \leq X] = \sum_{y \leq x} p(y) \qquad y \in W
+    F_X(x) = \P[X \leq x] = \sum_{y \leq x} p(y) \qquad y \in W
 $$
 
 \newpage
@@ -229,7 +229,7 @@ $$
     \end{cases}
 $$
 
-\definition \textbf{Exponentialverteilung} $T \sim \text{exp}(\lambda)$
+\definition \textbf{Exponentialverteilung} $T \sim \text{Exp}(\lambda)$
 $$
     f_T(x) = \begin{cases}
         \lambda e^{-\lambda x}  & x \geq 0 \\
@@ -238,7 +238,12 @@ $$
 $$
 \subtext{$\lambda > 0$}
 
-\lemma \textbf{Eigenschaften von} $\text{exp}$
+\lemma \textbf{Eigenschaften von} $T \sim \text{Exp}(\lambda)$
+\begin{enumerate}
+    \item $\forall t \geq 0:\quad \P[T > t] = e^{-\lambda t}$
+    \item $\forall t,s \geq 0:\quad \P\Bigl[ T > t+s\ \Big|\ T > t \Bigr] = \P[T>s]$ 
+\end{enumerate}
+\subtext{(2) wird \textit{Gedächtnislosigkeit} genannt.}
 
 \definition \textbf{Normalverteilung} $X \sim \mathcal{N}(m, \sigma^2)$
 $$
