@@ -92,5 +92,72 @@ This is an iterative method to find the cluster centers.
 
 % Continue with convergence analysis, k-means++
 
-\newpage
+\subsubsection{Convergence}
+
+$k$-Means is guaranteed to converge to a local optimum:
+
+\theorem \textbf{Motonically decreasing convergence}\\
+\smalltext{$\forall t \geq 1:$}
+$$
+    \hat{R}\bigl( \mu^{(t)},z^{(t)} \bigr) \geq \hat{R}\bigl( \mu^{(t+1)},z^{(t+1)} \bigr)
+$$
+
+{\footnotesize
+    \remark For the global optimum, the initialization is critical.
+}
+
+{\footnotesize
+    \remark $k$-Means may produce bad results for non-sperical clusters.\\ 
+    \color{gray}(A consequence of using $\Vert\cdot\Vert_2$, kernels can overcome this)
+}
+
+\subsubsection{initialization}
+
+\textbf{Problem}: How to choose $\mu^{(0)} = \Bigl(\mu^{(0)}_1,\ldots,\mu^{(0)}_k  \Bigr)$?
+
+\textbf{Solution}: Heuristics.
+
+A simple approach is sampling uniformly from $\mathcal{D} = \{x_1,\ldots,x_n\}$. However, This is problematic for unbalanced cluster sizes.\\
+\subtext{The chance that small clusters receive no initial $\mu^{(0)}_i$ is high.}
+
+\method \textbf{Furthest Point Heuristic}\\
+Select $\mu^{(0)}_0$ randomly, then iteratively maximize distance to the nearest cluster center for subsequent $\mu^{(0)}_{i\geq1}$.
+
+\method \textbf{k-means++}\\
+More robust heuristic: more random factors against outliers.
+
+\textbf{Step 1}: Pick $\mu^{(0)}_0$ randomly.
+$$
+    \mu^{(0)}_0 = x_i \in \mathcal{D}, \qquad i \sim \mathcal{U}\bigl(\{1,\ldots,n\}\bigr)
+$$
+\textbf{Step 2}: Pick $\mu^{(0)}_{2,\ldots,k}$ using this rule.
+$$
+    \mu^{(0)}_j = x_i \in \mathcal{D}, \qquad i \sim p(i) \propto \underset{1 \leq m \leq j-1}{\min}\bigl\Vert x-\mu_m \bigr\Vert^2
+$$
+
+\theorem \textbf{k-means++ is optimal up to} $\mathcal{O}\bigl(\log(k)\bigr)$
+$$
+    \hat{R}\bigl( \mu_\text{k-means++} \bigr) \leq \mathcal{O}\bigl(\log(k)\bigr)\cdot \underset{\mu}{\min} \hat{R}(\mu)
+$$
+
+\subsubsection{Choosing $k$}
+
+\textbf{Problem}: How to choose $k$?
+
+{\footnotesize
+    \remark Unfortunately, cross-validation can't be used: Both the training \& test loss will decrease as $k$ increases, so the loss provides no good stopping criterion.
+}
+
+\method Increase $k$ until $\hat{R}$ yields diminishing returns.\\
+\subtext{Usually, plotting $k$ against $\hat{R}$ yields something like $\exp$ decay.}
+% Lecture 29.04: Nonlinear k-means/PCA with kernels, NOT in script
+
+\method Penalize higher model complexity.\\
+\subtext{weight $\lambda > 0$ is generally easier to choose than $k$ directly.}
+$$
+    \hat{R}' = \hat{R}(\mu) + \lambda\cdot k
+$$
+
+There are several other methods to do this, based e.g. on concepts from information theory.
+
 \subsection{Principal Component Analysis}
