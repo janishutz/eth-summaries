@@ -1,3 +1,23 @@
 \subsection{Schätzer}
 \shortdefinition[Schätzer] ist eine Z.V. der Form $T_l = t_l(\cX_1, \ldots, \cX_n)$, mit zu findender Schätzfunktion $t_l : \R^n \rightarrow \R$.
 Einsetzen von Daten liefer dann \bi{Schätzwerte}. Oft schreiben wir $T = (T_1, \ldots, T_m)$ und $\vartheta = (\vartheta_1, \ldots, \vartheta_m)$
+
+\shortremark \bi{Schätzwert} ist Zahl ($T_l(\omega)$), \bi{Schätzer} ist Z.V. ($T_l$)
+
+\shortexample \bi{Simple Schätzer} (beide Erwartungstreu)\\
+\bi{Letztes Ergebnis}: $T = X_n$ mit $X_n$ letztes Ergebnis\\
+\bi{Durchschnitt}: $T = \overline{X}_n = \frac{1}{n} S_n$ ($\frac{1}{n} \sum_{k = 1}^{n} x_k$ für Daten $x_i$)
+
+\shortdefinition[Erwartungstreue] Schätzer $T$ unbiased für $\vartheta$, falls $\forall \vartheta \in \Theta$ gilt $\E_\vartheta [T] = \vartheta$.
+($T$ schätzt im Mittel richtig)
+
+\shortdefinition[Bias] \bi{Erwarteter Schätzf.} von $T$ ($\P_\vartheta$) ist $\E_\vartheta[T] - \vartheta$
+
+\shortdefinition[MSE] \bi{Mittlerer quadratischer Schätzfehler} \textit{(mean squared err.)} von $T$ mit $\P_\vartheta$ ist
+$\text{MSE}_\vartheta[T] = \E_\vartheta[(T - \vartheta)^2]$
+
+\shortremark $\text{MSE}_\vartheta[T] = \V_\vartheta[T] + (\E_\vartheta[T] - \vartheta)^2$
+
+\shortdefinition \bi{Folge von Schätzern} $T^{(n)}$, $n \in \N$ ist \bi{konsistent} für $\vartheta$,
+falls $T^{(n)}$ für $n \rightarrow \8$ in $\P_\vartheta$-W. gegen $\vartheta$ konvergiert, also $\forall \vartheta \in \Theta, \varepsilon > 0$:
+$\limit{n}{\8} \P_\vartheta [|T^{(n)} - \vartheta| > \varepsilon] = 0$

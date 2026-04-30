@@ -1,0 +1,70 @@
+\subsection{Maximum-Likelihood-Method}
+In Modell $\P_\vartheta$ sind $\overrightarrow{\cX} = (\cX_1, \ldots, \cX_n)$ entweder
+\begin{itemize}
+    \item \bi{diskret} (gem. Gew. $p_{\overrightarrow{\cX}} (x_1, \ldots, x_n; \vartheta)$)
+    \item \bi{stetig} (gem. Dichte $f_{\overrightarrow{\cX}} (x_1, \ldots, x_n; \vartheta)$)
+\end{itemize}
+Da oft $X_k$ i.i.d mit ind. Gew. $p_\cX(x; \vartheta)$ bzw. Dichte $f_\cX(x; \vartheta)$, also (mit $g$ ersetzt durch $p$ oder $f$)
+\[
+    g_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) = \prod_{k = 1}^n g_\cX(x_k; \vartheta)
+\]
+
+\shortdefinition[Likelihood-Funktion]
+\[
+    L(x_1, \ldots, x_n; \vartheta) = \begin{cases}
+        p_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im diskreten Fall} \\
+        p_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im stetigen Fall}
+    \end{cases}
+\]
+\bi{log-Likelihood-Funktion} $\log(L(x_1, \ldots, x_n; \vartheta))$. Ist im i.i.d-Fall eine Summe.
+
+\newpage
+\shortdefinition[ML-Schätzer] $T_{ML}$ für $\vartheta$ maximiert die Funktion $\vartheta \mapsto L(\cX_1, \ldots, \cX_n; \vartheta)$ für alle $\vartheta$, also
+\[
+    T_{ML} = t_{TM}(\cX_1, \ldots, \cX_n) \in \underset{\vartheta \in \Theta}{\text{argmax}}\; L(\cX_1, \ldots, \cX_n; \vartheta)
+\]
+Meistens sind $\cX_k$ i.i.d. unter $\P_\vartheta$, dann $L$ produkt, also besser $\log(L)$ maximieren (da Summe).
+
+\shortremark
+Einfacher: Statt maximieren, Nullstellen von Ableitung nach $\vartheta$.
+% TODO: Maybe remark from slide 356 (= p33 in 7)
+
+\shortexample \bi{Verteilungen}\\
+\fbox{\bi{Bernoulli}} $\cX_i \sim \text{Ber}(p)$ i.i.d, hier $\vartheta = p$. Dabei:
+$p_\cX(x; \vartheta) = \P_\vartheta[\cX = x] = \vartheta^x (1 - \vartheta)^{1 - x}$ mit $x \in \{0, 1\}$. LH-Func:
+\[
+    L(x_1, \ldots, x_n; \vartheta) = \vartheta^{\sum_{k = 1}^{n} x_k} (1 - \vartheta)^{n - \sum_{k = 1}^{n} x_k}
+\]
+Log LH-Func: $\log(\vartheta) \sum_{k = 1}^{n} x_k + \log(1 - \vartheta) \left( n - \sum_{k = 1}^{n} x_k \right)$\\
+\bi{ML-Schätzer}: $T = \frac{1}{n} \sum_{k = 1}^{n} \cX_k = \overline{\cX}_n$
+
+\fbox{\bi{Normalverteilung}} $\cX_i \sim \cN(\mu, \sigma^2)$ i.i.d. Dabei:
+\[
+    f_\cX(x; \vartheta) = \frac{1}{\sqrt{2\pi v}} e^{-\frac{(x - \mu)^2}{2v}}
+\]
+Weil i.i.d:
+\[
+    L(x_1, \ldots, x_n; \vartheta) = \prod_{k = 1}^n f_\cX(x_k; \vartheta)
+\]
+und somit:
+\[
+    \log(L) = -\frac{1}{2} n(\log(2 \pi) + \log(v)) - \sum_{k = 1}^{n} \frac{(x_k - \mu)^2}{2v}
+\]
+
+Der Schätzer ist $T = (T_1, T_2)$ (\bi{Momentschätzer}):
+\[
+    T_1 = \overline{\cX}_n \quad
+    T_2 = \frac{1}{n} \sum_{k = 1}^{n} \cX_k^2 - (\overline{\cX}_n)^2
+\]
+Für $T$ gilt: $(\E_\vartheta[\cX], \V_\vartheta[\cX])$. Ist nicht Erwartungstreu.
+Es gilt $\E_\vartheta[\cX_k \cX_l] = \E_\vartheta[\cX_k] \E_\vartheta[\cX_l] = \E_\vartheta[\cX]^2$
+und folglich:
+\[
+    \E_\vartheta[(\overline{\cX}_n)^2] = \frac{1}{n} \E_\vartheta[\cX^2] + \frac{n^2 - n}{n^2} (\E_\vartheta[\cX])^2
+\]
+Erwartungstreuer Schätzer für $(\E_\vartheta[\cX], \V_\vartheta[\cX])$:
+\[
+    T_1' = T_1 \quad
+    T_2' = \frac{n}{n - 1} T_2
+\]
+{\scriptsize $T_2'$ ist (korrigierte) empirische (Stichproben)varianz \textit{((un)biased sample variance)}}
