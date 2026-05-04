@@ -20,6 +20,7 @@ Arithmetic and Boolean statements could be defined in Haskell as follows
     data Bexp = Or Bexp Bexp | And Bexp Bexp | Not Bexp | Rel Rop Aexp Aexp
     data Rop = Eq | Neq | Le | Leq | Ge | Geq
 \end{code}
+with the abbreviations for \texttt{Eq} (=), \texttt{Neq} (\#), \texttt{Le} ($<$), \texttt{Leq} ($\leq$), \texttt{Ge} ($>$) and \texttt{Geq} ($\geq$)
 
 Statements could be defined in Haskell as follows
 \mint{haskell}+data Stm = Skip | Assign String Aexp | Seq Stm Stm | If Bexp Stm Stm | While Bexp Stm+
