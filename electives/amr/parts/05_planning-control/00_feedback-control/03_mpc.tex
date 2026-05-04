@@ -1,0 +1,16 @@
+\subsection{MPC}
+\bi{Cost function} ($p(\vec{x}_N)$ \textit{terminal cost}, sum the \textit{stage cost})
+\[
+    J_{0 \rightarrow N}(\vec{x}_0, \vec{u}_0, \ldots, \vec{u_{N - 1}}) = p(\vec{x}_N) + \sum_{k = 0}^{N - 1} q(\vec{x}_k, \vec{u}_k)
+\]
+We minimize the above s.t. for $k \in \{ 0, \ldots, N - 1 \}$ we have $\vec{x}_{k + 1} = \vec{f}(\vec{x}_k, \vec{u}_k)$, $\vec{g}(\vec{x}_k, \vec{u}_k) \leq \vec{0}$
+and $\vec{x}_N \in \cX_f$ and $\vec{x}_0 = \vec{x}(0)$
+
+\bi{Finite-Horizon Lin-Quad Control}
+Quad. Cost:
+\[
+    J_{0 \rightarrow N}(\vec{x}_0, \vec{u}_0, \ldots) =
+    \vec{x}_N^\top \vec{P} \vec{x}_N + \sum_{k = 0}^{N - 1} \vec{x}_k^\top \mat{Q} \vec{x}_k + \vec{u}_k^\top \mat{R} \vec{u}_k
+\]
+without constraints, \bi{State Feedback Law} $\vec{u}^*_0 = -\mat{K}\vec{x}(0)$.
+With constraints, minimize as above.

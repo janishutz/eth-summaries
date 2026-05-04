@@ -1,0 +1,14 @@
+\subsection{Linear Quadratic Regulator (LQR)}
+For lin. cont.-time dyn. $\dot{\vec{x}}(t) = \vec{F}_c \vec{x}(t) + \vec{G}_c \vec{u}(t)$.
+
+We try to minimise cost functional (for $\vec{u}(t) = -\mat{K}\vec{x}(t)$)
+\[
+    J = \int_{t}^{\8} \vec{x}(\tau)^\top \vec{Q}\vec{x}(\tau) + \vec{u}(\tau)^\top \vec{R} \vec{u}(\tau) \dx \tau
+\]
+Solution: $\mat{K} = \mat{R}^{-1} (\mat{G}_c^\top \mat{P})$, with $\mat{P}$ found from
+\[
+    \mat{F}_c^\top \mat{P} + \mat{PF}_c - (\mat{PG}_c) \mat{R}^{-1} + \mat{Q} = \mat{0}
+\]
+Finding $\mat{K}$ is expensive, but \textit{offline}, at runtime only $\vec{u}(t)$.
+
+\bi{Non-Lin}: Approx, $\delta\dot{\vec{x}}(t) = \vec{F}_c \delta \vec{x}(t) + \mat{G}_c \delta \vec{u}(t)$
