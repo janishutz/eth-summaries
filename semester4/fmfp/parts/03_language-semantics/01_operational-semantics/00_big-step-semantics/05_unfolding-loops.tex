@@ -36,7 +36,7 @@ In IMP however, this kind of action leads to equivalence:
 \]
 So what we have to prove is this:
 \[
-    \forall b, s, \sigma, \sigma'.(\vdash \langle \texttt{while b do s end}, \sigma \rangle \; \simeq \;
+    \forall b, s, \sigma, \sigma'.(\vdash \langle \texttt{while b do s end}, \sigma \rangle \; \Leftrightarrow \;
     \vdash \langle \texttt{if b then s; while b do s end end}, \sigma \rangle \rightarrow \sigma')
 \]
 
