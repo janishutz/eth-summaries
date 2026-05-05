@@ -1,0 +1,36 @@
+\subsection{Verteilungsaussagen}
+Approx. von Verteilung von Schätzer unter $\P_\vartheta$ (wenn $T$ Summe mit $\cY_k$ im $\P_\vartheta$).
+Solche sind approx. Normalverteilt unter $\P_\vartheta$, mit Parametern $\mu = n \E_\vartheta[\cY_k]$ und $\sigma^2 = n \V_\vartheta[\cY_k]$.
+
+\shortdefinition[$\chi^2$-Verteilung] $\cX$ ist $\chi^2$-verteilt mit $m$ Freiheitsgraden, falls Dichte für $x \geq 0$ (wir schreiben $\cX \sim \chi^2_m$):
+\[
+    f_\cX(x) = \frac{1}{2^{\frac{m}{2}} \Gamma\left(\frac{m}{2}\right)} x^{\frac{m}{2} - 1} e^{-\frac{x}{2}}
+\]
+
+\shortremark[(Eulersche) Gammafunktion] $\forall x \geq 0$:
+\[
+    \Gamma(x) = \int_{0}^{\8} t^{x - 1} e^{-t} \dx t \qquad \Gamma(n + 1) = n! \text{ mit } n \in \N_0
+\]
+
+\shortremark $\cX_k \sim \cN(0, 1)$ i.i.d: $\displaystyle \left( \sum_{k = 1}^{m} \cX_k^2 \right) \sim \chi^2_m$.
+$\chi^2_2 = \text{Exp}(\frac{1}{2})$
+
+\shortdefinition[Studentsche $t$-Verteilung] $\cX \sim t_m$ falls Dichte
+\[
+    f_\cX(x) = \frac{\Gamma\left( \frac{m + 1}{2} \right)}{\sqrt{m \pi} \Gamma \left( \frac{m}{2} \right)} \left( 1 + \frac{x^2}{m} \right)^{-\frac{m + 1}{2}}
+\]
+
+\shortremark $\cX \sim \cN(0, 1)$, $\cY \sim \chi^2_m$ unabh., dann: $\frac{\cX}{\sqrt{\frac{1}{m} \cY}} \sim t_m$
+Mit $m = 1$ Cauchy-V. mit $m \rightarrow \8$ asympt. $\cN(0, 1)$. $t_m$ symm. um $0$ wie $\cN(0, 1)$, aber \bi{langschänziger}
+
+\shorttheorem Für $\cX_k \sim \cN(\mu, \sigma^2)$ i.i.d. und
+\[
+    \overline{\cX}_n = \sum_{k = 1}^{n} \cX_k, \qquad S^2 = \frac{1}{n - 1} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2
+\]
+\begin{enumerate}
+    \item $\overline{\cX}_n \sim \cN\left( \mu, \frac{1}{n} \sigma^2 \right)$, also: $\frac{\overline{\cX}_n - \mu}{q} \sim \cN(0, 1)$ mit $q = \frac{\sigma}{\sqrt{n}}$
+    \item $\frac{n - 1}{\sigma^2} S^2 = \frac{1}{\sigma^2} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2 \sim \chi^2_{n - 1}$
+    \item $\overline{\cX}_n$ und $S^2$ sind unabhängig
+    \item $\displaystyle \frac{\overline{\cX}_n - \mu}{\frac{S}{\sqrt{n}}}
+              = \frac{\frac{\overline{\cX}_n - \mu}{\sigma \div \sqrt{n}}}{\sqrt{\frac{1}{n - 1} \frac{n - 1}{\sigma^2} S^2}}$
+\end{enumerate}
