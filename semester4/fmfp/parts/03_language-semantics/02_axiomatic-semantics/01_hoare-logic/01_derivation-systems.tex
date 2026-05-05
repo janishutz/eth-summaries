@@ -1,0 +1,78 @@
+\paragraph{Derivation Systems}
+We again use derivation trees, where their rules specify which triples can be derived for each statement.
+The premises and conclusions of the derivation rules are Hoare Triples.
+
+Again, we write $\vdash \{ \bm{P} \} \ s \ \{ \bm{Q} \}$ if there exists a (finite) derivation tree ending in $\{ \bm{P} \} \ s \ \{ \bm{Q} \}$, and
+\[
+    \vdash \{ \bm{P} \} \ s \ \{ \bm{Q} \} \Leftrightarrow \exists T. \texttt{root}(T) \equiv \{ \bm{P} \} \ s \ \{ \bm{Q} \}
+\]
+
+
+\subparagraph{The rules}
+\[
+    \begin{prooftree}
+        \infer0[$\textsc{Skip}_{Ax}$]{\{ \bm{P} \} \ \texttt{skip} \ \{ \bm{P} \}}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[$\textsc{Ass}_{Ax}$]{\{ \bm{P}[x \mapsto e] \} \ \texttt{x := e} \ \{ \bm{P} \}}
+    \end{prooftree}
+\]
+
+Sequential Composition \texttt{s;s'}, loop (\texttt{while b do s end}) and conditional statements (\texttt{if b then s1 else s2 end})
+\[
+    \begin{prooftree}
+        \hypo{\{ \bm{P} \} \ s \ \{ \bm{Q} \}}
+        \hypo{\{ \bm{Q} \} \ s' \ \{ \bm{R} \}}
+        \infer2[$\textsc{Seq}_{Ax}$]{\{ \bm{P} \} \ \texttt{s;s'} \ \{ \bm{P} \}}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\{ b \land \bm{P} \} \ s \ \{ \bm{Q} \}}
+        \hypo{\{ \neg b \land \bm{P} \} \ s' \ \{ \bm{Q} \}}
+        \infer2[$\textsc{If}_{Ax}$]{\{ \bm{P} \} \ \texttt{if b then s else s' end} \ \{ \bm{Q} \}}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \hypo{\{ b \land \bm{P} \} \ s \ \{ \bm{P} \}}
+        \infer1[$\textsc{Wh}_{Ax}$]{\{ \bm{P} \} \ \texttt{while b do s end} \ \{ \neg b \land \bm{P} \}}
+    \end{prooftree}
+\]
+With these rules, we can only evaluate \textit{syntactically}, thus expressions like $\{ x = 4 \land y = 5 \} \ \texttt{skip} \ \{ y = 5 \land x = 4 \}$
+are not an instance of the $\textsc{Skip}_{Ax}$ because the precondition and postcondition are not identical. Thus we often need to apply \textit{semantic} reasoning,
+e.g. applying mathematical properties.
+
+\inlinedefinition[Semantic entailment] expresses the reasoning steps
+``We write $\bm{P} \models \bm{Q}$ if and only if for all states $\sigma$,
+$\cB \llbracket \bm{P} \rrbracket \sigma = \texttt{tt}$ implies $\cB \llbracket \bm{Q} \rrbracket \sigma = \texttt{tt}$''
+
+This leads to the \bi{Rule of Consequence}
+\[
+    \begin{prooftree}
+        \hypo{\{ \bm{P}' \} \ s \ \{ \bm{Q}' \}}
+        \infer1[$\textsc{Cons}_{Ax}$]{\{ \bm{P} \} \ s \ \{ \bm{Q} \}}
+    \end{prooftree}
+    \qquad
+    \text{if } \bm{P} \models \bm{P}' \text{ and } \bm{Q}' \models \bm{Q}
+\]
+a rule, where we can \bi{strengthen preconditions} ($\bm{P}$ cannot be weaker than $\bm{P}'$) and \bi{weaken postconditions} ($\bm{Q}$ cannot be stronger than $\bm{Q}'$)
+
+Since the derivation trees often get quite large, we can group them around each line in the program text.
+
+\shade{gray}{Inline Notation} can be used to make the changes more easily legible.
+For example, to express instances of $\textsc{Skip}_{Ax}$, instead of writing $\vdash \{ \bm{P} \} \ \texttt{skip} \ \{ \bm{P} \}$, we can write. 
+More examples on slides 167 - 170 (pages 30 - 33 in Slide Deck 4)
+\rmvspace
+\begin{align*}
+     & \{ \bm{P} \}        \\
+     & \quad \texttt{skip} \\
+     & \{ \bm{P} \}
+\end{align*}
+
+\shade{gray}{Forward Assignment}
+\[
+    \begin{prooftree}
+        \infer0[$\textsc{AssF}_{Ax}$]{\{ \bm{P} \} \ x := e \ \{ \exists V. \bm{P}[x \mapsto V] \land x = e[x \mapsto V] \}}
+    \end{prooftree}
+\]

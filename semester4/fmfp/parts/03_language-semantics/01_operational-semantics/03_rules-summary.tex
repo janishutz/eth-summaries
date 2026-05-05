@@ -1,0 +1,184 @@
+\newpage
+\subsubsection{Operational Semantics Rules Overview}
+\paragraph{Big-Step Semantics}
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Skip}$_{NS}$]{\langle \texttt{skip}, \sigma \rangle \rightarrow \sigma}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{NS}$]{\langle x := e, \sigma \rangle \rightarrow \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma ]}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \hypo{\langle s', \sigma' \rangle \rightarrow \sigma''}
+        \infer2[\textsc{Seq}$_{NS}$]{\langle s;s', \sigma \rangle \rightarrow \sigma''}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{IfT}$_{NS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{IfF}$_{NS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+\]
+
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \hypo{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma' \rangle \rightarrow \sigma''}
+        \infer2[\textsc{WhT}$_{NS}$]{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma \rangle \rightarrow \sigma''}
+    \end{prooftree}
+     &  &
+    \begin{prooftree}
+        \infer0[\textsc{WhF}$_{NS}$]{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma \rangle \rightarrow \sigma}
+    \end{prooftree} \\
+    \text{if }
+    \cB\llbracket b \rrbracket \sigma = \texttt{tt}
+     &  &
+    \text{if }
+    \cB\llbracket b \rrbracket \sigma = \texttt{ff}
+\end{align*}
+
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{NS}$]{\langle x := e, \sigma \rangle \rightarrow \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma]}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{NS}$]{\langle v := v + 1, \sigma_\text{zero} \rangle \rightarrow \sigma[v \mapsto \cA\llbracket v + 1 \rrbracket \sigma_\text{zero}]}
+    \end{prooftree}
+\]
+
+\paragraph{Small-Step Semantics}
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Skip}$_{SOS}$]{\langle \texttt{skip}, \sigma \rangle \rightarrow_1 \sigma}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{Ass}$_{SOS}$]{\langle x := e, \sigma \rangle \rightarrow_1 \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma ]}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{Seq1}$_{SOS}$]{\langle s;s', \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s', \sigma' \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{Seq2}$_{SOS}$]{\langle s;s', \sigma \rangle \rightarrow_1 \langle s'';s', \sigma' \rangle}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \infer0[\textsc{IfT}$_{SOS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{IfF}$_{SOS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{IfT1}$_{SOS}$]{\langle \texttt{if}\; b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \sigma'}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{IfT2}$_{SOS}$]{\langle \texttt{if}\;b \; \texttt{then} \; s \; \texttt{else} \; s' \; \texttt{end}, \sigma \rangle \rightarrow_1 \langle s''', \sigma' \rangle}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \infer0[\textsc{While}$_{SOS}$]{\langle \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end}, \sigma \rangle \rightarrow_1
+            \langle \texttt{if} \; b \; \texttt{then} \; s; \; \texttt{while} \; b \; \texttt{do} \; s \; \texttt{end else skip end}, \sigma \rangle}
+    \end{prooftree}
+\]
+
+\paragraph{Extensions}
+\subparagraph{Big-Step Semantics}
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma[x \mapsto \cA \llbracket e \rrbracket \sigma] \rangle \rightarrow \sigma' }
+        \infer1[\textsc{Loc}$_{NS}$]{\langle \texttt{var x := e in s end}, \sigma \rangle \rightarrow \sigma'[x \mapsto \sigma(x)]}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma_\text{zero}[\overrightharpoon{x_i} \mapsto \overrightharpoon{\cA \llbracket e_i \rrbracket \sigma}]
+            [\overrightharpoon{y_j} \mapsto \overrightharpoon{\sigma(z_j)}] \rangle \rightarrow \sigma'}
+        \infer1[\textsc{Call}$_{NS}$]{\langle p(\overrightharpoon{e_i}; \overrightharpoon{z_j}), \sigma \rangle
+            \rightarrow \sigma[\overrightharpoon{z_j} \mapsto \overrightharpoon{\sigma'(y_j)}]}
+    \end{prooftree}
+\]
+
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{ND1}$_{NS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s', \sigma \rangle \rightarrow \sigma'}
+        \infer1[\textsc{ND2}$_{NS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow \sigma'}
+    \end{prooftree}
+\]
+
+
+\subparagraph{Small-Step Semantics}
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Loc}$_{SOS}$]{\langle \texttt{var x:= e in s end}, \sigma \rangle \rightarrow_1 \langle \texttt{s;restore }(x, \sigma(x)),
+            \sigma[x \mapsto \cA \llbracket e \rrbracket \sigma] \rangle}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \infer0[\textsc{Ret}$_{SOS}$]{\langle \texttt{restore }(x, \sigma(x)), \sigma \rangle \rightarrow_1 \sigma[x \mapsto v]}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \infer0[\textsc{ND1}$_{SOS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow_1 \langle s, \sigma \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \infer0[\textsc{ND2}$_{SOS}$]{\langle s \bigbox s', \sigma \rangle \rightarrow_1 \langle s, \sigma' \rangle}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{Par1}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s'' \texttt{ par } s', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s, \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{Par2}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s', \sigma' \rangle}
+    \end{prooftree}
+\]
+\[
+    \begin{prooftree}
+        \hypo{\langle s', \sigma \rangle \rightarrow_1 \langle s'', \sigma' \rangle}
+        \infer1[\textsc{Par3}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s \texttt{ par } s'', \sigma' \rangle}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\langle s', \sigma \rangle \rightarrow_1 \sigma'}
+        \infer1[\textsc{Par4}$_{SOS}$]{\langle s \texttt{ par } s', \sigma \rangle \rightarrow_1 \langle s, \sigma' \rangle}
+    \end{prooftree}
+\]

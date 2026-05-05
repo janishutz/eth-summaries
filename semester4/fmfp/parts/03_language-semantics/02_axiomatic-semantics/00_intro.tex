@@ -1,0 +1,45 @@
+\newpage
+\subsection{Axiomatic Semantics}
+\subsubsection{Program Correctness}
+\inlinedefinition[Partial Correctness] \textit{if} a program terminates \textit{then} there will be a certain relationship between the initial and final state
+
+\inlinedefinition[Total Correctness] Program terminates \textit{and} is partially correct, i.e.\\
+\texttt{total correctness = partial correctness + termination}
+
+\inlinedefinition[Formal Specification] is used to expressed the aforementioned relationship between the initial and final state.
+It does not include guarantees for termination and can thus only be used to provide a starting point for a prove of partial correctness.
+
+We typically express \bi{Formal Specifications} using Small- or Big-Step semantics.
+
+\inlineexample Consider the factorial statement
+\begin{code}{text}
+    y := 1;
+    while not x = 1 do
+        y := y * x;
+        x := x - 1
+    end
+\end{code}
+The specification that we want to prove is here given by ``The final value of \texttt{y} is the factorial of the initial value \texttt{x}''.
+Do note that this statement is only partially correct, as it does not terminate for $x < 1$.
+
+We can express the specification formally as follows using big-step semantics:
+\[
+    \forall \sigma, \sigma'. \vdash \langle y := 1; \texttt{while not x = 1 do y := y * x; x := x - 1 end}, \sigma \rangle \rightarrow \sigma' 
+    \implies \sigma'(\texttt{y}) = \sigma(\texttt{x})! \land \sigma(\texttt{x}) > 0
+\]
+
+% We then prove the partial correctness in three steps:
+%
+% \bi{Step 1}: The body of the loop
+% \[
+%     \forall \sigma, \sigma''. \vdash \langle \texttt{y := y * x; x := x - 1}, \sigma \rangle \rightarrow \sigma'' \land \sigma''(\texttt{x}) > 0
+%     \implies \sigma(\texttt{y}) \times \sigma(\texttt{x})! = \sigma''(\texttt{y}) \times \sigma''(\texttt{x})! \land \sigma(\texttt{x}) > 0
+% \]
+%
+% \bi{Step 2}: The loop satisfies
+% \[
+%     \forall \sigma, \sigma''. \vdash \langle \texttt{y := y * x; x := x - 1}, \sigma \rangle \rightarrow \sigma'' \land \sigma''(\texttt{x}) > 0
+%     \implies \sigma(\texttt{y}) \times \sigma(\texttt{x})! = \sigma''(\texttt{y}) \times \sigma''(\texttt{x})! \land \sigma(\texttt{x}) > 0
+% \]
+Since these kinds of proofs take a lot of effort and get very complicated rather quickly, axiomatic semantics provide a nice and fast way of proving correctness,
+because we can focus on the essential properties.

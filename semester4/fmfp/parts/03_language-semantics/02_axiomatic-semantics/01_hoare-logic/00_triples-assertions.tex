@@ -1,0 +1,17 @@
+\newpage
+\subsubsection{Hoare Logic}
+\paragraph{Hoare Triples}
+\inlinedefinition Properties are specified as \bi{Hoare Triples} $\{ \bm{P} \} \ s \ \{ \bm{Q} \}$, with statement $s$, $\bm{P}$ the precondition and $\bm{Q}$ the postcondition.
+Here, $\bm{P}, \bm{Q}$ are assertions and are, together with $\bm{R}$, meta-variables over assertions.
+
+\inlinedefinition[Logical Variables] To keep the original value of a variable, we can ``reassign'' values in the precondition
+(e.g. $x = N$ to then in the postcondition state something regarding $N$).
+
+Pre- and Postconditions are assertions, i.e. they are boolean expressions plus logical variables.
+Often, quantification is used in assertions as well in practice, as well as other expressions such as $x!$ when it is convenient and we also assume that the \bi{substitution lemma}
+still holds:
+\[
+    \cB \llbracket \bm{P}[x \mapsto e] \rrbracket \sigma = \cB \llbracket \bm{P} \rrbracket \sigma [x \mapsto \cA \llbracket e \rrbracket \sigma]
+\]
+
+We use $P_1 \land P_2$ instead of $P_1 \texttt{and} P_2$, $P_1 \lor P_2$ instead of $P_1 \texttt{or} P_2$ and $\neg P$ instead of $\texttt{not} P$

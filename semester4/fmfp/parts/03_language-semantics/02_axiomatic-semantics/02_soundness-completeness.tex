@@ -1,0 +1,27 @@
+\subsubsection{Soundness and Completeness}
+\inlinedefinition[Soundness] If a property can be proven, then it holds.
+As a result, an unsound derivation system does not provide any guarantees, as we may miss errors (we may have false negatives).
+
+\inlinedefinition[Completeness] If a property holds, then it can be proven.
+As a result, we may have a correct program that we can't prove in an incomplete derivation system (we may have false positives)
+
+Both can be proven with regard to an operational semantics.
+
+\inlineexample The partial correctness triple $\{ \bm{P} \} \ s \ \{ \bm{Q} \}$ is valid, written $\models \{ \bm{P} \} \ s \ \{ \bm{Q} \}$ if and only if
+\[
+    \forall \sigma, \sigma'. \cB \llbracket \bm{P} \rrbracket \sigma = \texttt{tt} \land \vdash \langle s, \sigma \rangle \rightarrow \sigma'
+    \implies \cB \llbracket \bm{Q} \rrbracket \sigma' = \texttt{tt}
+\]
+
+More generally:
+\begin{itemize}
+    \item \bi{Soundness} $\vdash \{ \bm{P} \} \ s \ \{ \bm{Q} \} \implies \models \{ \bm{P} \} \ s \ \{ \bm{Q} \}$
+    \item \bi{Soundness} $\models \{ \bm{P} \} \ s \ \{ \bm{Q} \} \implies \vdash \{ \bm{P} \} \ s \ \{ \bm{Q} \}$
+\end{itemize}
+
+\begin{theorem}[]{Soundness, Completeness}
+    For all partial correctness triples $\{ \bm{P} \} \ s \ \{ \bm{Q} \}$ of IMP we have
+    \[
+        \vdash \{ \bm{P} \} \ s \ \{ \bm{Q} \} \Leftrightarrow \models \{ \bm{P} \} \ s \ \{ \bm{Q} \}
+    \]
+\end{theorem}

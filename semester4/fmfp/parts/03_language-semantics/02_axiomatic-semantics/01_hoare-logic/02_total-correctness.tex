@@ -1,0 +1,12 @@
+\paragraph{Total Correctness}
+We use a different form of Hoare triple $\{ \bm{P} \} \ s \ \{ \Downarrow \bm{Q} \}$, which describes total correctness.
+
+All rules for total correctness are equivalent to the ones for partial correctness, apart from the rule for loops.
+\[
+    \begin{prooftree}
+        \hypo{\{ b \land \bm{P} \land e = Z \} \ s \ \{ \Downarrow \bm{P} \land e < Z \}}
+        \infer1[$\textsc{WhTot}_{Ax}$]{\{ \bm{P} \} \ \texttt{while b do s end} \ \{ \Downarrow \neg b \land \bm{P} \}}
+    \end{prooftree}
+    \qquad
+    \text{if } b \land \bm{P} \models 0 \leq e
+\]
