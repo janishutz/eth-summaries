@@ -1,2 +1,22 @@
 \subsection{Konstruktion von Tests}
 % Slide 401 (P24)
+$\cX_i$ diskret oder gemeinsam stetig unter $\P_{\vartheta_0}$ und $\P_{\vartheta_A}$. Sei $L(x_1, \ldots, x_n; \vartheta)$ die Likelihood-Funktion
+
+\shortdefinition[Likelihood-Quotient] Für $\vartheta_0 \in \Theta_0$, $\vartheta_A \in \Theta_A$ und $x_i \in \R$:
+$R(x_1, \ldots, x_n; \vartheta_0, \vartheta_A) = \frac{L(x_1, \ldots, x_n; \vartheta_A)}{L(x_1, \ldots, x_n; \vartheta_0)}$.\\
+$R(x_1, \ldots; \vartheta_0, \vartheta_A) = +\8$ wenn $L(x_1, \ldots; \vartheta_0) = 0$.
+Wenn $R$ gross ist, sind Beobachtungen in $\P_{\vartheta_A}$ deutlich wahrscheinlicher als in $\P_{\vartheta_0}$.
+
+% TODO: More places with highlighting
+\shortdefinition[Likelihood-Quotienten-Test] Sei $c \geq 0$. Der LQT mit param $c$ ist Test $(T, K)$ mit $T = R(\cX_1, \ldots, \cX_n; \vartheta_0, \vartheta_A)$ 
+und $K = (c, \8)$. $H_0$ wird verworfen wenn $R$ gross wird.
+
+\shorttheorem[Neyman-Pearson] Seien $\Theta_0, \Theta_A$ \textit{einfach} und $(T, K)$ ein LQT mit $c$ und sig.-niv. $\alpha^* := \P_{\vartheta_0}[T \in K]$.
+Anderer Test $(T', K')$ mit $\P_{\vartheta_0}[T' \in K'] =: \alpha \leq \alpha^*$, so gilt auch $\P_{\vartheta_A}[T' \in K'] \leq \P_{\vartheta_A}[T \in K]$.
+
+\inlineintuition Jeder Test mit kleinerem Signifikanzniveau hat auch kleinere Macht
+
+\shortdefinition[Verallgemeinerte LQ] ist gegeben durch
+\[
+    R(x_1, \ldots, x_n) = \frac{\sup_{\vartheta \in \Theta_A} L(x_1, \ldots, x_n; \vartheta)}{\sup_{\vartheta \in \Theta_0} L(x_1, \ldots, x_n; \vartheta)}
+\]
