@@ -1,0 +1,32 @@
+\subsection{Grundbegriffe}
+Wiederum Stichprobe $\cX_1, \ldots, \cX_n$, mögliche Modelle durch Familie $(\P_\vartheta)_{\theta \in \Theta}$ beschrieben und $\vartheta$ ein-/mehrdimensional.
+Wir haben \textit{Vermutung} wo in $\Theta$ richtiges $\vartheta$ liegt.
+
+Wir entscheiden zwischen folgenden, mit $\Theta_0 \cap \Theta_A = \emptyset$.:
+\begin{itemize}
+    \item \bi{Hypothese} $\Theta_0 \subseteq \Theta$ (oft: $H_0: \vartheta \in \Theta_0$)
+    \item \bi{Alternative} $\Theta_A \subseteq \Theta$ (oft: $H_A: \vartheta \in \Theta_A$)
+\end{itemize}
+Falls keine Alternative spezifiziert, so gilt $\Theta_A = \Theta_0^C = \Theta \backslash \Theta_0$.
+Sie heissen \bi{Einfach}, falls $\Theta_0 = \{ \vartheta_0 \}$, resp. $\Theta_A = \{ \vartheta_A \}$, sonst \bi{Zusammengesetzt}
+
+\shortdefinition[Test] ist ein Paar $(T, K)$ mit
+\begin{itemize}
+    \item \bi{Teststatistik} $T = t(\cX_1, \ldots, \cX_n)$ eine Zufallsvariable mit messbarer Funktion $t: \R^n \rightarrow \R$
+    \item \bi{Verwerfungsbereich} $K \subseteq \R$
+\end{itemize}
+\shade{gray}{Entscheidungsregel} $H_0$ wird \textit{verworfen}, falls $T(\omega) \in K$, sonst \textit{angenommen}, bzw. nicht verworfen
+
+\shade{gray}{Fehlerarten}
+\bi{Fehler 1. Art} (Hypothese abgelehnt, ist aber richtig), falls $\vartheta \in \Theta_0$, aber $T \in K$, also
+$\P_\vartheta[T \in K]$ für $\vartheta \in \Theta_0$ ist W. für F. 1. Art\\
+\bi{Fehler 2. Art} (Hypothese angenommen, ist aber falsch), falls $\vartheta \in \Theta_A$, aber $T \notin K$, also
+$\P_\vartheta[T \notin K]$ für $\vartheta \in \Theta_A$ ist W. für F. 2. Art
+
+\shortremark Entscheidung hängt dabei von \bi{Realisierung} $\omega$ ab.
+Da $T$ eine Z.V. ist, können $\P_\vartheta[T \in K]$ in jedem $\P_\vartheta$ betrachten
+
+\bi{Signifikanzniveau} $\alpha \in (0, 1)$. Ziel: $\underset{\vartheta \in \Theta_0}{\sup} \P_\vartheta[T \in K] \leq \alpha$
+(Fehler 1. Art so klein wie möglich). Typisch: $\alpha = 0.05$
+
+\bi{Macht} $\beta: \Theta_A \rightarrow [0, 1]$, mit $\beta(\vartheta) = \P_\vartheta[T \in K]$ soll möglichst gross werden (Fehler 2. Art so klein wie möglich)
