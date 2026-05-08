@@ -43,6 +43,18 @@ $$
     (iii)   & $\underset{a \to -\infty}{\lim} F_X(a) = 0 \quad\land\quad \underset{a \to \infty}{\lim}F_X(a)=1$
 \end{tabular}
 
+{\footnotesize
+    \textbf{Beispiel:} Zeige, dass $F$ eine Verteilungsfunktion ist:\\
+    $F(t) = \begin{cases}
+        0 & t \leq 0 \\
+        1-\exp(-\frac{t}{4}) & t > 0
+    \end{cases}$
+
+    (i) $F$ ist monoton wachsend, da $F'(t) = \frac{1}{4}\exp(-\frac{t}{4}) > 0 \forall t \in (-\infty, 0]$.\\
+    (ii) $F$ ist rechtsstetig, da $F$ eine Komp. stetiger Funktionen ist.\\
+    (iii) Es gilt $\underset{t\to-\infty}{\lim}F(t)=0$ und $\underset{t\to\infty}{\lim}F(t)=1$
+}
+
 \definition \textbf{Unabhängigkeit}\\
 \smalltext{$X_1,\cdots,X_n \text{ unabhängig } \iffdef§  \forall x_1,\cdots,x_n \in \R:$}
 $$
@@ -228,6 +240,10 @@ $$
         0               & \text{sonst}
     \end{cases}
 $$
+
+\lemma \textbf{Intervalle} $\quad \P\bigl[ X \in [c, c+l] \bigr] = \frac{l}{b-a}$\\
+\subtext{$X \sim \mathcal{U}([a,b])$}
+
 
 \definition \textbf{Exponentialverteilung} $T \sim \text{Exp}(\lambda)$
 $$

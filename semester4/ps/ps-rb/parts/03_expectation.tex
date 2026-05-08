@@ -33,6 +33,8 @@ $$
         $\text{Poisson}(\lambda)$   & $\E[X] = \lambda$             & $\V[X] = \lambda$\\
         $\text{Bin}(n,p)$           & $\E[X] = n\cdot p$            & $\V[X] = np(1-p)$\\
         $\mathbb{I}_A$              & $\E[\mathbb{I}_A] = \P[A]$    \\
+        $\exp(\lambda)$             & $\E[X] = \frac{1}{\lambda}$   \\
+        $\mathcal{U}([a,b])$        & $\E[X] = \frac{a+b}{2}$ 
     \end{tabular}    
 \end{center}
 
@@ -166,11 +168,16 @@ $$
 
 \remark $\text{cov}(X,X) = \V[X]$
 
-\lemma $X,Y$ unabh. $\implies \text{cov}(X,Y)=0$\\
-\subtext{Nicht umgekehrt gültig}
-% Gegenbeispiel: Slides p.240
-
 \lemma \textbf{Eigenschaften von} $\text{cov}$
+\begin{align*}
+    \text{(i)}\quad         & \text{cov}(X,Y) \geq 0 \\
+    \text{(ii)}\quad        & \text{cov}(X,Y) = \text{cov}(Y,X) \\
+    \text{(iii)}\quad       & X,Y \text{ unabh. } \implies \text{cov}(X,Y) = 0 \\
+    \text{(iv)}\quad        & \V[X \pm Y] = \V[X] + \V[Y] \pm 2\text{cov}(X,Y) \\
+    \text{(v)}\quad         & \text{cov}\Biggl( \sum_{i=1}^{n}X_i,\sum_{j=1}^{n}Y_i \Biggr) = \sum_{i=1}^{n}\sum_{j=1}^{n}\text{cov}(X_i,Y_j) \\
+    \text{(vi)}\quad        & \text{cov}(aX+b, cY+d) = ac\cdot\text{cov}(X,Y) \\
+    \text{(vii)}\quad       & \text{cov}\Bigl(X, (eY+f) + (gZ+h)\Bigr) = e\text{cov}(X,Y) + g\text{cov}(X,Z)
+\end{align*}
 
 \definition \textbf{Kovarianzmatrix}
 $$
