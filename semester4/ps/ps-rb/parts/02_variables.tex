@@ -245,9 +245,38 @@ $$
 \end{enumerate}
 \subtext{(2) wird \textit{Gedächtnislosigkeit} genannt.}
 
+\newpage
+
 \definition \textbf{Normalverteilung} $X \sim \mathcal{N}(m, \sigma^2)$
 $$
     f_X(x) = \frac{1}{ \sqrt{2\pi\sigma^2} } e^{ -\frac{(x-m)^2}{2\sigma^2} }
 $$
 
-\lemma \textbf{Eigenschaften von} $\mathcal{N}$
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{res/normal-distribution.png}
+\end{center}
+
+\lemma \textbf{Summe von Normalverteilten ist normalverteilt}\\
+\smalltext{$X_1,\ldots,X_n$ unabh. s.d. $X_i \sim \mathcal{N}(m_i,\sigma_i^2)$}
+\begin{align*}
+    Z &= m_0 + \lambda_1X_1 + \ldots + \lambda_nX_n \\
+    Z &\sim \mathcal{N}\Biggl( \underbrace{m_0 + \sum_{i=1}^n \lambda_iX_i}_{m_Z}\quad,\quad \underbrace{\sum_{i=1}^n \lambda_i^2 \sigma_i^2}_{\sigma^2_Z} \Biggr)
+\end{align*}
+
+\definition \textbf{Standardnormalverteilung} 
+$$X \sim \mathcal{N}(0,1) \qquad \Phi(x) := \P[X \leq x]$$
+
+\lemma \textbf{Symmetrie} $\quad \Phi(-x) = 1-\Phi(x)$
+
+
+\lemma \textbf{Normalverteilung via } $\mathcal{N}(0,1)$\\
+\smalltext{$Z \sim \mathcal{N}(m, \sigma^2) \text{ arbiträr},\quad X \sim \mathcal{N}(0,1)$}
+$$
+    Z = m + \sigma\cdot X
+$$
+
+\lemma \textbf{Standardisierung}\\
+\smalltext{$Z \sim \mathcal{N}(m, \rho^2),\quad x\in\R$}
+$$
+    \P[x\leq Z] = \Phi\Biggl( \frac{x - m}{\rho} \Biggr)
+$$
