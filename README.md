@@ -35,7 +35,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 4
 #### Probability & Statistics
 - [Probability & Statistics Cheat-Sheet (DE)](./semester4/ps/ps-jh/probability-and-statistics-cheatsheet.pdf) Author: Janis Hutz
-- [Probability & Statistics Cheat-Sheet (TBD)](./semester4/ps/ps-rb/main.pdf) Author: Robin Bacher
+- [Probability & Statistics Cheat-Sheet (DE)](./semester4/ps/ps-rb/main.pdf) Author: Robin Bacher
 #### Other Courses
 - [Formal Methods & Functional Programming Summary (EN)](./semester4/fmfp/formal-methods-functional-programming-summary.pdf) Author: Janis Hutz
 - [Data Modelling & Databases Summary (EN)](./semester4/dmdb/data-modelling-databases-summary.pdf) Author: Janis Hutz
@@ -43,7 +43,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 
 ### Semester 6
 #### Introduction to Machine Learning
-- [Introduction to Machine Learning Cheat-Sheet (EN)](./semester6/iml/main.pdf) Author: Robin Bacher
+- [Introduction to Machine Learning Summary (EN)](./semester6/iml/main.pdf) Author: Robin Bacher
 
 
 ### Electives
