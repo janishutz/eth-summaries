@@ -1,0 +1,36 @@
+\subsubsection{A* Algorithm}
+Function \texttt{h(\dots)} is a lower bound of optimal cost. 
+% TODO: If space constrained, move to below
+% Init vert. with \texttt{dist}, \texttt{totDistEst} to $\8$, \texttt{prev} \texttt{undef}, \texttt{start}
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Astar}{\texttt{Graph, start, goal}}
+            \For{each \texttt{v} in \texttt{Graph.Verticies}}
+                \State $\texttt{dist[v]} \gets \8$
+                \State $\texttt{totDistEst[v]} \gets \8$
+                \State $\texttt{prev[v]} \gets \texttt{undef}$
+            \EndFor
+            \State \texttt{insert start into openSet}
+            \State $\texttt{dist[start]} \gets 0$
+            \State $\texttt{totDistEst[start]} \gets \texttt{h(start, goal)}$
+            \While{\texttt{openSet not empty}}
+                \State $\texttt{u} \gets \texttt{vert in openSet w/ min totDistEst}$
+                \State \texttt{remove u from openSet}
+                \If{\texttt{u == goal}}
+                    \State \Return{\texttt{dist[u], prev}}
+                \EndIf
+                \For{each neighbour \texttt{v} of \texttt{u}}
+                    \State $\texttt{alt} \gets \texttt{dist[u] + G.Edges(u, v).dist}$
+                    \If{\texttt{alt < dist[v]}}
+                        \State $\texttt{dist[v]} \gets \texttt{alt}$
+                        \State $\texttt{totDistEst[v]} \gets \texttt{alt + h(v, goal)}$
+                        \State \texttt{insert v into openSet}
+                        \State $\texttt{prev[v]} \gets \texttt{u}$
+                    \EndIf
+                \EndFor
+            \EndWhile
+            \State \Return $\8$, \texttt{prev}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+

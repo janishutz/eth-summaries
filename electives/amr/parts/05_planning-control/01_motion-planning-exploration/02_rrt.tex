@@ -1,0 +1,46 @@
+\newpage
+\subsubsection{Rapidly-Exploring Random Tree (RRT)}
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{RRT}{\texttt{start, goal}}
+            \State \Call{insertVertex}{\texttt{start, Graph}}
+            \For{\texttt{k < MAX\_ITER}}
+                \State $\texttt{s} \gets \texttt{scal.}\ \texttt{unif.}\ \texttt{rand.}\ \texttt{sample on}\ [0, 1]$
+                \If{\texttt{s < GOAL\_CONNECT\_PROB}}
+                    \State $x \gets \texttt{goal}$
+                \Else
+                    \State $x \gets \texttt{random coll.-free config}$
+                \EndIf
+                \State $x_n \gets$ \Call{nearestConfiguration}{\texttt{Graph}, $x$}
+                \State $x_f \gets$ \Call{stoppingConfiguration}{$x_n, x$}
+                \If{$x_f \neq x_n$}
+                    \State \texttt{insertVertex}{\texttt{Graph}, $x_f$}
+                    \State \Comment{Extension of \texttt{RRT}* goes here}
+                    \State \texttt{insertEdge}{\texttt{Graph}, $x_n, x_f$}
+                \EndIf
+                \If{$x_f \texttt{==} x_n$}
+                    \State \Return{\texttt{SUCCESS}, \texttt{Graph}}
+                \EndIf
+            \EndFor
+            \State \Return \texttt{FAILURE}, \texttt{Graph}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+Returns a collision-free path as grapha. Need nearest neighbour search.
+Extension to RRT* to make path better (because this is quite bad)
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \State $X_{\text{near}} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}
+        \State $x_{\min} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}
+        \State $c_{\min} \gets$ \Call{cost}{$x_n$} + \Call{edgeCost}{$x_n, x_f$}
+        \For{each $x_{\text{near}}$ in $X_\text{near}$}
+            \If{\Call{edgeCollisionFree}{$x_\text{near}, x_f$} and \Call{cost}{$x_\text{near}$} + \Call{edgeCost}{$x_\text{near}, x_f$} $< c_{\min}$}
+                \State \Call{insertEdge}{\texttt{Graph}, $x_f, x_{\text{near}}$}
+                \State $x_\text{parent} \gets$ \Call{parent}{\texttt{Graph}, $x_{\text{near}}$}
+                \State \Call{removeEdge}{\texttt{Graph}, $x_\text{parent}, x_{\text{near}}$}
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+\bi{Informed RRT*} extension: Once conn. betw. start and goal found, restrict sampling to (hyper)ellipsoid.

@@ -1,0 +1,11 @@
+\subsection{Motion Planning}
+\bi{Config. Space}: $\cC$. Subset of robot states for planning.
+
+\bi{Free C-Space}: $\cC_{\text{free}}$, \bi{C-Space Obstacles} $\cC_\text{obst}$ (occupied)
+
+\bi{Collision checker}: $c(\vec{x}) : \cC \rightarrow \{ 0, 1 \}$ 
+
+\bi{Visibility graph}: Connect corners, goal outside obstacles
+
+\bi{Voronoi Diagram}: Edges at max. dist. from obst. (benefit: safer paths).
+Also tends to be faster than Dijkstra.

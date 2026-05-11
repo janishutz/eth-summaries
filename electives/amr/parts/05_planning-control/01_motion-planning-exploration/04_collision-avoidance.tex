@@ -1,0 +1,13 @@
+\subsubsection{Collision Avoidance}
+\bi{Dynamic Window Approach} Assume: Robot moves inst. on circ. arcs $(v, \omega)$.
+Compute arcs with coll. {\color{ForestGreen} Accounts for Kino-Dyn}, {\color{red} Cost func prone to loc. min, assumes static obj}
+
+\bi{Vel. Obst.} Assume: Robot in str. line $(v_x, v_y)$. Comp pos with coll.
+    {\color{ForestGreen} Vel. of obj}, {\color{red} prone to local optima, no kino-dyn.}
+
+\bi{Potential Field Methods} Define {\color{gray} \textit{repulsive}} and {\color{purple} attractive} potential $c = {\color{purple} c_{\text{att}}} + {\color{gray} c_{\text{rep}}}$.
+With e.g. ${\color{purple} c_\text{att}} = \frac{1}{2} k_\text{att} ||\vec{x} - \vec{x}_\text{goal}||^2$ and ${\color{gray} c_\text{rep}} = \begin{cases}
+        \frac{1}{2} k_\text{rep} \left( \frac{1}{\rho(\vec{x})} + \frac{1}{\rho_{\lim}} \right) & \rho \leq \rho_{\lim} \\
+        0                                                                                       & \text{else}
+    \end{cases}$
+    {\color{ForestGreen} Simple control laws}, {\color{red} may trap in loc. min., no diff. const, no guar. to avoid coll}
