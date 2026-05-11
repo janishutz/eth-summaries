@@ -10,6 +10,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 1
 <details>
 <summary>Summaries for Semester 1</summary>
+
 - [Algorithms & Datastructures Summary (EN)](./semester1/algorithms-and-datastructures/ad-janishutz.pdf) Author: Janis Hutz
 - [Linear Algebra Cheat-Sheet (EN)](./semester1/linear-algebra/linAlg-janishutz.pdf) Author: Janis Hutz
 - [Introduction to Programming Short summary (EN)](./semester1/eprog/eprog-janishutz.pdf) Author: Janis Hutz
@@ -18,6 +19,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 2
 <details>
 <summary>Summaries for Semester 2</summary>
+
 #### Analysis I
 - [Cheat-Sheet (EN & DE)](./semester2/analysis-i/cheat-sheet-jh/README.md) Author: Janis Hutz
 - [Cheat-Sheet (DE)](./semester2/analysis-i/cheat-sheet-rb/main.pdf) Author: Robin Bacher
@@ -29,6 +31,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 3
 <details>
 <summary>Summaries for Semester 3</summary>
+
 #### Theoretical Computer Science
 - [Summary (DE)](./semester3/ti/main/ti-summary.pdf) Author: Janis Hutz
 - [Compact Summary (EN)](./semester3/ti/compact/ti-compact.pdf) Author: Janis Hutz
@@ -44,6 +47,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 4
 <details>
 <summary>Summaries for Semester 4</summary>
+
 #### Probability & Statistics
 - [Probability & Statistics Cheat-Sheet (DE)](./semester4/ps/ps-jh/probability-and-statistics-cheatsheet.pdf) Author: Janis Hutz
 - [Probability & Statistics Cheat-Sheet (DE)](./semester4/ps/ps-rb/main.pdf) Author: Robin Bacher
@@ -56,6 +60,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 ### Semester 6
 <details>
 <summary>Summaries for Semester 6</summary>
+
 #### Introduction to Machine Learning
 - [Introduction to Machine Learning Summary (EN)](./semester6/iml/main.pdf) Author: Robin Bacher
 </details>
@@ -63,6 +68,8 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 
 ### Electives
 <details>
+<summary>Electives summaries</summary>
+
 - [Autonomous Mobile Robots Cheat-Sheet (EN)](./electives/amr/autonomous-mobile-robots-cheatsheet.pdf) Author: Janis Hutz
 - [Virtual Reality I Summary (EN)](./electives/vr1/virtual-reality1-summary.pdf) Author: Janis Hutz
 </details>
