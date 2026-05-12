@@ -112,10 +112,10 @@ Applying several transformations:
         \hat{\theta}_\text{MLE} &= \underset{\theta\in\Theta}{\text{arg max}}\prod_{i=1}^n p\bigl( x_i,y_i;\theta \bigr)                                                                        \\
                                 &= \underset{\theta\in\Theta}{\text{arg max}}\ \log \Biggl( \prod_{i=1}^n p\bigl( x_i,y_i;\theta \bigr) \Biggr)                                                 \\
                                 &= \underset{\theta\in\Theta}{\text{arg max}}\ \sum_{i=1}^n \log \Bigl( p\bigl( x_i,y_i;\theta \bigr) \Bigr)                                                    \\
-                                &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( x_i,y_i;\theta \bigr) \Bigr)                                                   \\
+                                &= \underbrace{\underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( x_i,y_i;\theta \bigr) \Bigr)}_\text{Generative Model}              \\
                                 &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr)\cdot p(x_i) \Bigr)                                \\
                                 &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr) \Bigr) + \underbrace{\sum_{i=1}^n - \log\bigl(p(x_i)\bigr)}_\text{Indep. from $\theta$}    \\
-                                &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr) \Bigr)
+                                &= \underbrace{\underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr) \Bigr)}_\text{Discriminative Model}
 \end{align*}        
 }
 
@@ -139,12 +139,51 @@ Finds $\hat{\theta}_\text{MAP}$, which maximizes post. belief $p(\theta\sep\math
 
 \definition \textbf{Maximum A Posteriori Estimator}\\
 \smalltext{Corresponding to $\hat{\P}_{X,Y} = \P^{\hat{\theta}_\text{MAP}}_{X,Y}$}
+$$
+\hat{\theta}_\text{MAP} = \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \theta\sep\mathcal{D} \bigr)
+$$
+Applying several transformations:
+{\footnotesize
 \begin{align*}
-    \hat{\theta}_\text{MAP} &= \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \theta\sep\mathcal{D} \bigr)                                                                       \\
-                            &= \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \mathcal{D}\sep\theta \bigr)\cdot p(\theta)                                                        \\
-                            &\overset{\text{i.i.d.}}{=} \underset{\theta \in \Theta}{\text{arg max}}\Biggl( \prod_{i=1}^n p\bigl( x_i,y_i \sep \theta \bigr) \Biggr)\cdot p(\theta)     \\   
+    \hat{\theta}_\text{MAP}     &= \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \theta\sep\mathcal{D} \bigr)                                                                                                               \\
+                                &= \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \mathcal{D}\sep\theta \bigr)\cdot p(\theta)                                                                                                \\
+                                &\overset{\text{i.i.d.}}{=} \underbrace{\underset{\theta \in \Theta}{\text{arg max}}\Biggl( \prod_{i=1}^n p\bigl( x_i,y_i \sep \theta \bigr) \Biggr)\cdot p(\theta)}_\text{Generative Model}        \\ 
+                                &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n -\log\Bigl( p\bigl( x_i,y_i \sep \theta \bigr) \Bigr) - \log\bigl( p(\theta) \bigr)                                                      \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n -\log\Bigl( p\bigl( y_i \sep x_i , \theta \bigr) \Bigr)\cdot p\bigl( x_i \sep \theta \bigr) - \log\bigl( p(\theta) \bigr)                \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n -\log\Bigl( p\bigl( y_i \sep x_i , \theta \bigr) \Bigr) + \underbrace{\sum_{i=1}^n -\log\bigl( p(x_i) \bigr)}_\text{Indep. from $\theta$} - \log\bigl( p(\theta) \bigr)           \\
+                                &= \underbrace{\underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n -\log\Bigl( p\bigl( y_i \sep x_i , \theta \bigr) \Bigr) - \log\bigl( p(\theta) \bigr)}_\text{Discriminative Model}
 \end{align*}
+}
 {\footnotesize
     \remark Intuitively, we can use $p(\theta)$ as a weight for $\theta$, which can be used to introduce prior assumptions.
 }
 
+\lemma \textbf{MAP without prior knowledge is MLE}\\
+\smalltext{Assume $\P_{\theta^*}=\mathcal{U}(\Theta)$}
+{\footnotesize
+$$
+    \hat{\theta}_\text{MAP} = \underset{\theta\in\Theta}{\text{arg max}} \prod_{i=1}^n p\bigl( x_i,y_i \sep \theta \bigr) = \underset{\theta\in\Theta}{\text{arg max}} \prod_{i=1}^n p\bigl( x_i,y_i; \theta \bigr) = \hat{\theta}_\text{MLE}
+$$
+}
+\subtext{Since $p(\theta)$ can thus be eliminated}
+
+\newpage
+\subsection{Bayes Optimal Predictor}
+What can we do once we have $\hat{\P}$? We can estimate $\P_{\mathcal{Y}\sep X=x}$ and thus derive a decision rule $f^*(x)$.
+
+\definition \textbf{Bayes' Optimal Predictor}\\
+\smalltext{Best possible predictor when knowing $\P_{\mathcal{Y}|X}$}
+$$
+    f^*(x) = \underset{a \in \mathcal{Y}}{\text{arg min}}\ \E\Bigl[ l(a,\mathcal{Y}) \sep X=x \Bigr] = \underset{a\in\mathcal{Y}}{\text{arg min}}\int p\bigl( y\sep x \bigr)\cdot l(a,y)\ \text{d}y 
+$$
+{\footnotesize
+    \remark In practice, $\P_{\mathcal{Y}|X}$ is unknown, so $\hat{\P}_{Y|X}$ is used.
+}
+
+This is the theoretically best possible predictor over all function classes $F$, an optimal solution to supervised learning:
+$$
+    \hat{f} = \underset{f\in F}{\text{arg min}}\sum_{i=1}^n l\Bigl( f(x_i),y \Bigr)
+$$
+\subtext{The proof for this is surprisingly straightforward}
+
+\subsection{Probabilistic Perspective: Regression}
