@@ -1,0 +1,150 @@
+A different approach: Try to learn $\P^*$ directly.\\
+\subtext{$\P^*$ is the data-generating distribution}
+
+Some terminology:
+
+\begin{tabular}{ll}
+    $\mathcal{D} = \bigl\{ (x_i,y_i) \bigr\}_{i=1}^n$   & Dataset, sampled i.i.d. from $\P^*$      \\
+    $\P^*$                                              & Data-generating distribution      \\
+    $\mathcal{P}$                                       & Family of potential distributions \\
+    $\hat{\P} \in \mathcal{P}$                          & Optimal model of $\P^*$
+\end{tabular}
+
+Some advantages \& applications:
+\begin{enumerate}
+    \item Allows assumptions about data-generating process\\
+    \subtext{e.g. what is the likelihood of sampling $\mathcal{D}$}?
+    \item Understand why some methods work\\
+    \subtext{e.g. on which distributions does the square loss work?}
+    \item Encode prior knowledge into the model
+    \item Quantify uncertainty of predictions
+    \item Develop new decision rules
+    \item Generate entirely new samples
+\end{enumerate}
+
+\subsection{Assumptions}
+
+\textbf{Assumption 1}: We assume $\mathcal{D}$ is i.i.d. sampled from $\P^*_{X,Y}$. Thus:
+$$
+    \P_\mathcal{D} = \prod_{i=1}^n \P_{X_i,Y_i} \qquad \text{(Independence)}
+$$
+
+\remark i.i.d. is a strong assumption: often false in practice.\\
+\subtext{e.g. sampling with temporal/spatial dependencies, bias, etc.}
+
+\method \textbf{General-purpose Estimators}\\
+Methods that make no further assumptions, e.g. Histograms or Kernel Density Estimation (KDE).\\
+\subtext{Generally require large $\mathcal{D}$ to be accurate, thus discouraged}
+
+\newpage
+
+\textbf{Assumption 2}: $\P^* \in \mathcal{P}$ (some family of param. models $\mathcal{P}$)
+
+\definition \textbf{Parametric family of distributions}\\
+\smalltext{$\theta \in \Theta \subset \R^p$ fully describes the distribution $\P^\theta$}
+$$
+    \mathcal{P} = \Bigl\{ \P^\theta \ \Big|\ \theta \in \Theta \Bigr\}
+$$
+
+The art here, is to choose $\mathcal{P}$ s.t. $\P^* \in \mathcal{P}$ is likely. Then:
+$$
+    \exists \theta^* \in \Theta:\quad \P^* = \P^{\theta^*} \in \mathcal{P}
+$$
+\subtext{$\theta \mapsto \P^\theta$ is assumed to be continuous. The advantage of this is that, if $\theta$ is close to $\theta^*$, then $\P^\theta$ is close to $\P^{\theta^*}=\P^*$.}
+
+\subsection{Statistical Inference}
+
+\textbf{Problem}: How to choose $\hat{\P}$ from $\mathcal{P}$, s.t. $\hat{\P}$ is close to $\P^*$?\\
+\subtext{If $\mathcal{P}$ is parametric, this is the same as looking for $\hat{\theta} \in \Theta$ close to $\theta^*$}
+
+{\footnotesize
+    \notation if $Z$ has $\P_Z \in \mathcal{P} = \{ \P^\theta_Z \sep \theta \in \Theta \}$
+    \begin{align*}
+        p(z;\theta)         &= p_Z^\theta(z)
+    \end{align*}
+    \notation In the Bayesian context, where $\theta^*$ is sampled from $\P_\theta$:
+    \begin{align*}
+        p(\theta)           &= p_{\theta^*}(\theta)     \\
+        p(z \sep \theta)    &= p_{Z|\theta^*=\theta}(z) \\
+        p(\theta \sep z)    &= p_{\theta^*|Z=z} 
+    \end{align*}
+    Where $p$ is either a density or mass function.
+}
+
+There are 2 paradigms:
+\begin{enumerate}
+    \item \textbf{Frequentist}: Model only using observed data
+    \item \textbf{Bayesian}: Model also using prior beliefs
+\end{enumerate}
+
+\subsubsection{Bayesian Paradigm}
+
+\textbf{Further Assumption}: $\theta^*$ is sampled from a distribution $\P_{\theta^*}$\\
+\subtext{Note how $\P_{\theta^*} \neq \P^{\theta^*}$.}
+
+\theorem \textbf{Bayes' Theorem} (Applied to Inference)
+$$
+    \underbrace{p(\theta \sep \mathcal{D})}_\text{Posterior Belief} = \underbrace{\frac{p(\mathcal{D}\sep\theta)}{p(\mathcal{D})}}_\text{Update} \cdot \underbrace{p(\theta)}_\text{Prior Belief}
+$$
+$$
+    p(\mathcal{D}) = \int p(\mathcal{D}\sep\theta) \cdot p(\theta)\ \text{d}\theta
+$$
+
+\subsubsection{Maximum Likelihood Estimator (MLE)}
+
+Frequentist Approach: $\theta^*$ is considered fixed a priori.
+
+\method \textbf{Maximum Likelihood Estimator}\\
+Finds $\hat{\theta}_\text{MLE}$, which maximizes chance of observing $\mathcal{D}$ over the possible distributions $\mathcal{P} = \bigl\{ \P^\theta_{X,Y} \sep \theta \in \Theta \bigr\}$.
+
+\definition \textbf{Maximum Likelihood Estimator}\\
+\smalltext{Corresponding to $\hat{\P}_{X,Y}=\P^{\hat{\theta}_\text{MLE}}_{X,Y}$}
+$$
+    \hat{\theta}_\text{MLE} = \underset{\theta\in\Theta}{\text{arg max}}\ p(\mathcal{D};\theta) \overset{\text{i.i.d.}}{=} \underset{\theta\in\Theta}{\text{arg max}}\prod_{i=1}^n p\bigl( x_i,y_i;\theta \bigr) 
+$$ 
+{\footnotesize
+    \remark Since $\log$ is strictly mon. increasing, the maximizer of the log-likelihood also maximizes the likelihood.
+}
+
+Applying several transformations:
+{\footnotesize
+\begin{align*}
+        \hat{\theta}_\text{MLE} &= \underset{\theta\in\Theta}{\text{arg max}}\prod_{i=1}^n p\bigl( x_i,y_i;\theta \bigr)                                                                        \\
+                                &= \underset{\theta\in\Theta}{\text{arg max}}\ \log \Biggl( \prod_{i=1}^n p\bigl( x_i,y_i;\theta \bigr) \Biggr)                                                 \\
+                                &= \underset{\theta\in\Theta}{\text{arg max}}\ \sum_{i=1}^n \log \Bigl( p\bigl( x_i,y_i;\theta \bigr) \Bigr)                                                    \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( x_i,y_i;\theta \bigr) \Bigr)                                                   \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr)\cdot p(x_i) \Bigr)                                \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr) \Bigr) + \underbrace{\sum_{i=1}^n - \log\bigl(p(x_i)\bigr)}_\text{Indep. from $\theta$}    \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr) \Bigr)
+\end{align*}        
+}
+
+This has turned into an optimization problem. 2 approaches:
+\begin{enumerate}
+    \item Analytically: insert $p\bigl( x_i,y_i ; \theta \bigr)$ or $p\bigl( y_i \sep x_i ; \theta \bigr)$.\\
+    \subtext{There are closed-form expressions in this statistical model.}
+    \item Numerically: Gradient Descent
+\end{enumerate}
+
+\remark MLE is useful: It can be shown to converge to $\theta^*$.
+
+\newpage
+
+\subsubsection{Maximum A Poseriori Estimator (MAP)}
+
+Bayesian Approach: $\theta^*$ is considered a random variable.
+
+\method \textbf{Maximum A Posteriori Estimator}\\
+Finds $\hat{\theta}_\text{MAP}$, which maximizes post. belief $p(\theta\sep\mathcal{D})$, i.e. it finds the $\theta \in \Theta$ with the highest density \textit{after} obataining $\mathcal{D}$.
+
+\definition \textbf{Maximum A Posteriori Estimator}\\
+\smalltext{Corresponding to $\hat{\P}_{X,Y} = \P^{\hat{\theta}_\text{MAP}}_{X,Y}$}
+\begin{align*}
+    \hat{\theta}_\text{MAP} &= \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \theta\sep\mathcal{D} \bigr)                                                                       \\
+                            &= \underset{\theta \in \Theta}{\text{arg max}}\ p\bigl( \mathcal{D}\sep\theta \bigr)\cdot p(\theta)                                                        \\
+                            &\overset{\text{i.i.d.}}{=} \underset{\theta \in \Theta}{\text{arg max}}\Biggl( \prod_{i=1}^n p\bigl( x_i,y_i \sep \theta \bigr) \Biggr)\cdot p(\theta)     \\   
+\end{align*}
+{\footnotesize
+    \remark Intuitively, we can use $p(\theta)$ as a weight for $\theta$, which can be used to introduce prior assumptions.
+}
+
