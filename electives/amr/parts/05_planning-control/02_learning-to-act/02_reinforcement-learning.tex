@@ -1,0 +1,28 @@
+\subsubsection{Reinforcement Learning}
+\bi{Passive} \textit{Direct Evaluation} Act according to policy $\vec{\pi}$, store sum of discounted rewards, average them. (But too simple)
+
+\textit{Sample-Based} Use $V_{i + 1}^{\vec{\pi}}(\vec{x}) = Q(\vec{x}, \vec{\pi}(\vec{x}))$ w/ $V_0^\pi(\vec{x}) = 0$.
+We need state trans. model, instead $\tilde{R}_j$ (approx. prob. w/ statistics) and thus
+\[
+    V_{i + 1}^{\vec{x}}(\vec{x}) = \frac{1}{N} \sum_{j = 1}^{N} \tilde{R}_j(\vec{x}, \vec{\pi}(\vec{x}), \vec{x}_+) + \gamma V_i^{\vec{\pi}}(\vec{x}_+)
+\]
+
+\bi{Active} Find optimal policy $\vec{\pi}$ instead of state values $V(\vec{x})$.
+
+\textit{Q-Learn.} Here: restate Val. Iter in $Q$-Values ($Q_0(\vec{x}, \vec{u}) = 0$):
+\[
+    Q_{i + 1}(\vec{x}, \vec{u}) = Q(\vec{x}, \vec{u}) \quad \text{with } V_i(\vec{x}_+) = \max_{\vec{u}}(\vec{Q}_i(\vec{x}_+, \vec{u}))
+\]
+Compute using sample:
+\[
+    \tilde{Q}_i(\vec{x}, \vec{u}) = \tilde{R}_i(\vec{x}, \vec{u}, \vec{x}_+) + \gamma \max_{\vec{u}}(\vec{Q}_i(\vec{x}_+, \vec{u}))
+\]
+Then update: $Q_{i + 1}(\vec{x}, \vec{u}) = (1 - \alpha)Q_i(\vec{x}, \vec{u}) + \alpha \tilde{Q}_i(\vec{x}, \vec{u})$.
+Called off-policy learning, needs exploration. Simplest is random actions ($\varepsilon$-greedy):
+$\varepsilon$ is prob. to act randomly, $1 - \varepsilon$ is prob. to act on pol. {\color{red} Space explored, still doing random stuff}
+
+\bi{Approaches} 
+\textit{Model-based} (estimate trans. model, e.g. Dyna),
+Value-based (estimate val or $Q$-func and extract pol., e.g. Q-Learn),
+Actor-Critic (estim. val or $Q$ of curr. pol., improve pol., e.g. A3C, SAC),
+Policy-Gradient (diff. expect. reward w.r.t. params of policy network, e.g. REINFORCE)

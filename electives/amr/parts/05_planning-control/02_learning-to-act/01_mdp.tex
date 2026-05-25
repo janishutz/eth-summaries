@@ -1,0 +1,31 @@
+\subsubsection{Markov Decision Process}
+The goal is to maximize the reward. Along the route, get small reward,
+at the end large reward (good or bad).
+
+Def. by states $\vec{x} \in \cX$ (RL: $s$), actions $\vec{u} \in \cU$ (RL: $a$), prob. state trans. $\cT(\vec{x}, \vec{u}, \vec{x}_+) = \P(\vec{x}_+ \divider \vec{x}, \vec{u})$,
+reward func $\cR(\vec{x}, \vec{u}, \vec{x}_+)$, start state $\vec{x}_0$, optional terminal state $\vec{x}_N$.
+
+\bi{Utility Func} Expected reward: $V = \sum_{k = 0}^{N} r_k$ or \textit{discounted} reward  $V = \sum_{k = 0}^{\8} \gamma^k r_k$ with $\gamma < 1$
+
+\bi{Solving} (Val iter) $V_0(\vec{x}) = 0$ and $V_{i + 1}(\vec{x}) = \max_{\vec{u}} Q(\vec{x}, \vec{u})$ with
+\[
+    Q(\vec{x}, \vec{u}) = \sum_{\vec{x}_+} \P(\vec{x}_+ \divider \vec{x}, \vec{u}) [\cR(\vec{x}, \vec{u}, \vec{x}^+) + \gamma V_i(\vec{x}_+)]
+\]
+Repeat until conv. to $V^*$ ($\tco{|\cU||\cX|^2}$ per iter). Optimal policy:
+\[
+    \vec{\pi}^*(\vec{x}) = \text{argmax}_{\vec{u}} Q(\vec{x}, \vec{u})
+\]
+
+Using policy iter:
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \State Choose $\vec{\pi}_0(\vec{x})$
+        \While{\textit{policy} has not converged}
+        \Repeat $V_{i + 1}^{\vec{\pi}_j}(\vec{x}) = Q(\vec{x}, \vec{\pi}(\vec{x}))$ $\forall \vec{x}$ and \textit{fixed} pol. $\vec{\pi}_j$
+            \Until{values converge}
+        \EndWhile
+        \State One step: $\vec{\pi}_{j + 1}(\vec{x}) = \text{argmax}_{\vec{u}} Q(\vec{x}. \vec{u})$ with $V_i = V_{i + 1}^{\pi_j}$
+    \end{algorithmic}
+\end{algorithm}
+
+Model-based learning uses empirical models of $\cT$ and $\cR$
