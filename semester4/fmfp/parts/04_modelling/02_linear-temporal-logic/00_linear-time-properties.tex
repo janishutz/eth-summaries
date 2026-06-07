@@ -1,0 +1,66 @@
+% TOOD: Some more intuition
+\subsection{Linear Temporal Logic}
+\subsubsection{Transition System of a Promela Model}
+For the transition systems, compared to earlier, we use a fixed initial configuration because we only model one program or system,
+as opposed to all programs of a programming language, as previously.
+In addition, we omit terminal configurations from the definition, which simplifies the theory, and termination can be modelled by a transition into a special state,
+the \bi{sink state}, which only allows further transitions back to itself.
+
+
+\paragraph{Converting a Promela model into a transition system}
+
+The configurations are the states of the model, such as global variables and channels, as well as per active process the local variables, channels, and location counters.
+
+The initial configuration is the initial state of the model.
+
+The transition relation is defined by the operational semantics of the statements. They are kept informal in this course.
+
+A Promela model has a finite number of states, since there are a finite number of allowed active processes (255), as well as finite numbers of variables and channels,
+finite ranges of variables and finite buffers of channels.
+
+
+\shade{gray}{Computations}
+
+$S^\omega$ is the set of infinite sequences of elements of set $S$ and $s_{[i]}$ denotes the $i$-th element of the sequence $s \in S^\omega$
+
+$\gamma \in \Gamma^\omega$ is a \bi{computation} of a transition system if:
+\begin{itemize}
+    \item $\gamma_{[0]} = \sigma_I$
+    \item $\gamma_{[i]} \rightarrow \gamma_{[i + 1]}$ (for all $i \geq 0$)
+\end{itemize}
+Note that we use $\sigma$ to range over the states $\Gamma$ of a transition system. Here $\gamma_{[i]}$ denotes the $i$-th element in $\gamma = \sigma_0 \sigma_1 \ldots$
+
+We use $\cC(TS)$ to denote the set of all computations of a transition system $TS$
+
+
+
+\subsubsection{Linear Time Properties}
+LT-Properties can be used to specify the permitted computations of a transition system.
+A linear time property $P$ over $\Gamma$ is a subset of $\Gamma^\omega$, where $P$ specifies a particular set of infinite sequences of configurations.
+
+A transition system $TS$ \bi{satisfies} the LT-Property $P$ (over $\Gamma$), denoted $TS \models P$, if and only if $\cC(TS) \subseteq P$.
+Intuitively, this means that all computations of $TS$ belong to the set $P$.
+
+LT-Properties \bi{precisely} express properties of computations.
+Non-termination is handled using infinite sequences and non-determinism is handled by considering each computation separately.
+
+To make notation cleaner and quicker, we define \bi{atomic propositions} (AP) for a transition system $TS$, which is a proposition that does not contain any logical connectives.
+For example, $AP = \{ open, closed \}$ (for files).
+
+We then provide a \bi{labeling function} $L : \Gamma \rightarrow \cP(AP)$ that maps configurations to sets of atomic propositions from AP.
+$L(\sigma)$ is called an \bi{abstract state}. AP and $L$ are both considered to be \hl{part of the transition system}.
+
+
+\paragraph{Traces}
+A trace is an abstraction of a computation, which only observes the propositions of each state, not the concrete state itself.
+It is an infinite sequence of abstract states $\cP(AP)^\omega$.
+
+$t \in \cP(AP)^\omega$ is a trace of a transition system $TS$ if $t = L(\gamma_{[0]} L(\gamma_{[1]}) \ldots$ and $\gamma$ is a computation of $TS$.
+The set of all traces of $TS$ is $\cT(TS)$.
+The LT-Properties are typically specified over infinite sequences of abstract states, rather than over sequences of configurations.
+
+
+\subparagraph{Safety Properties}
+
+
+\subparagraph{Liveness Properties}
