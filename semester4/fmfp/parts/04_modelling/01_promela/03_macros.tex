@@ -1,0 +1,5 @@
+\subsubsection{Macros}
+Promela does \textit{not} support procedures. However, many of the effects (apart from recursion) can be achieved with macros.
+
+We define them using \mint{promela}|inline name(arg1, arg2) { /* body */ }|
+As is the case in \texttt{C}, they are simply replaced in the code and thus have no new variable scope, support no recursion and have no return value.

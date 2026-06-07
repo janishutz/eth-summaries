@@ -1,0 +1,26 @@
+\subsubsection{Statements}
+The following statement types are supported by Promela:
+\begin{itemize}
+    \item \texttt{skip}: Does not change the state (except the location counter). Always executable
+    \item \texttt{assert(E)}: Aborts execution if \texttt{E} evaluates to zero, otherwise is equivalent to \texttt{skip}. Always executable
+    \item Assignment: \texttt{x = E} assigns value of \texttt{E} to variable \texttt{x}. For arrays, use \texttt{a[n] = E}. Always executable
+    \item \texttt{s1;s2} (Sequential composition): Executable if \texttt{s1} is executable
+    \item Expression statement: Evaluates expression \texttt{E}, executable if \texttt{E} evaluates $\neq 0$. \texttt{E} must be \bi{side effect free}.
+\end{itemize}
+
+In addition, selection statements (i.e. if / switch) and repetitions (loops) are supported:
+\begin{code}{promela}
+    if
+    :: s1 -> code;
+    :: s2 -> code;
+    :: code; // The else statement, executes if no other option executable
+    fi
+
+    do
+    :: s1 -> loop_body_1; // We can use this technique to combine if and loops
+    :: s2 -> loop_body_2;
+    :: else -> break;
+    od
+\end{code}
+
+Then, we have atomic statements, which has signature \texttt{atomic \{ s \}}, which executes \texttt{s} atomically.
