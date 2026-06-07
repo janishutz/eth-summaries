@@ -1,0 +1,23 @@
+\subsection{Model Checking}
+\begin{definition}[]{Model Checking}
+    Model checking is an automated technique that, given
+    a finite-state model of a system and a formal property,
+    systematically checks whether this property holds for
+    (a given state in) that model.
+\end{definition}
+
+Model checkers enumerate all possible states of a system, either through explicitly representing state through concrete values or symbolically through (boolean) formulas.
+
+They are primarily used to analyze system \bi{designs}, and not implementations and are often used to analyze deadlocks, the reachability of undesired states and protocol violations.
+
+
+\subsubsection{The Model Checking Process}
+The first and most important phase is the \bi{modeling phase}, where we model the system in the description language of the model checker (here Promela).
+It also includes formalizing the properties to be checked in said language.
+
+Next, we run the model checker to check the validity of the model. 
+In the case of this course, we use \texttt{spin}, and we can run a promela model using \texttt{spin -x <promela file>.pml},
+which wraps \texttt{spin -a <promela file>.pml}, \texttt{gcc <promela file>.c} and \texttt{./a.out} into a single command.
+
+After running, it is time to analyze the output of the model checker. If the property is violated, analyze the found conter example.
+If the mdeol is too large, it can happen that the checker runs out of memory. In that case, reduce the model and try again.
