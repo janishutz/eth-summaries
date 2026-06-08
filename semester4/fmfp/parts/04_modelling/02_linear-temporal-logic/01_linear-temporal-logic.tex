@@ -1,0 +1,52 @@
+\subsubsection{Linear Temporal Logic}
+This is used to formalize LT-properties of traces.
+
+\paragraph{Operators}
+The basic operators are, with $p$ a proposition from $AP \neq \emptyset$ and $\Phi$ and $\Psi$ LTL formulas:
+\begin{itemize}
+    \item $p$ states that it is true ``\textit{now}''
+    \item $\Phi U \Psi$ states that $\Phi$ holds ``\textit{until}'' $\Psi$ holds. I.e. there are no other valid propositions that hold in between.
+    \item $\bigcirc \Phi$ states that the $\Phi$ holds for the ``\textit{next}''
+\end{itemize}
+
+
+\paragraph{Semantics}
+$t \models \Phi$ expresses that a trace $t \in \cP(AP)^\omega$ satisfies the LTL formula $\Phi$
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $t \models p$ if and only if $p \in t_{[0]}$
+        \item $t \models \neg \Phi$ if and only if not $t \models \Phi$
+        \item $t \models \Phi \land \Psi$ if and only if $t \models \Phi$ and $t \models \Psi$
+        \item $t \models \Phi U \Psi$ if and only if there is a $k \geq 0$ with $t_{(\geq k)} \models \Psi$ and $t_{(\geq j)} \models \Phi$ for all $j$ with $0 \leq j \leq k$
+        \item $t \models \bigcirc \Phi$ if and only if $t_{(\geq 1)} \models \Phi$
+    \end{itemize}
+\end{multicols}
+
+
+\paragraph{Derived operators}
+There are a number of handy derived operators defined here that we can use, unless otherwise specified.
+\begin{itemize}
+    \item Eventually: $\Diamond \Phi \equiv (\texttt{true}\; U \Phi)$
+    \item Always (from now on): $\Square \Phi \equiv \neg \Diamond \neg \Phi$
+\end{itemize}
+
+Precedences are unary operators (such as $\Diamond \Phi \Rightarrow \Psi$ means $(\Diamond \Phi) \Rightarrow \Psi$), but we use parenthesis to avoid ambiguities.
+
+
+\newpage
+\paragraph{Useful patterns}
+\begin{itemize}
+    \item Strong invariant $\square \Psi$: $\Psi$ always holds and this is a safety property if $\Psi$ is a safety property.
+          For instance, a file is always open or closed ($\square(\texttt{open} \lor \texttt{closed})$)
+    \item Monotone invariant $\square(\Psi \Rightarrow \square \Psi)$: Once $\Psi$ is \texttt{true}, it will always be \texttt{true}.
+          It is a safety property if $\Psi$ is a safety property.
+          For instance, once information is public, it can never be private again ($\square(\texttt{public} \Rightarrow \square \texttt{public}$)
+    \item Establishing an invariant $\Diamond \square \Psi$: Eventually, $\Psi$ will \textit{always} hold. It is a liveness property if $\Psi$ is satisfiable.
+          For instance, system initialization starts server ($\Diamond \square \texttt{serverRunning}$)
+    \item Responsiveness $\square(\Psi \Rightarrow \Diamond \Phi)$: Every time that $\Psi$ holds, $\Phi$ will eventually hold.
+          It is a liveness property if $\Phi$ satisfiable.
+          For instance, all opened files must be closed eventually ($\square(\texttt{open} \Rightarrow \Diamond \texttt{closed})$)
+    \item Fairness $\square \Diamond \Psi$: $\Psi$ holds infinitely often.
+          It is a liveness property if $\Psi$ is satisfiable.
+          For instance, a producer does not wait infinitely long before entering the critical section ($\square \Diamond \texttt{critical}$)
+\end{itemize}

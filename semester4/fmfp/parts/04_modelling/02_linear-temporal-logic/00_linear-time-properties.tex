@@ -1,4 +1,5 @@
 % TOOD: Some more intuition
+\newpage
 \subsection{Linear Temporal Logic}
 \subsubsection{Transition System of a Promela Model}
 For the transition systems, compared to earlier, we use a fixed initial configuration because we only model one program or system,
@@ -60,7 +61,42 @@ The set of all traces of $TS$ is $\cT(TS)$.
 The LT-Properties are typically specified over infinite sequences of abstract states, rather than over sequences of configurations.
 
 
-\subparagraph{Safety Properties}
+\paragraph{Safety Properties}
+\inlinedefinition An LT-property $P$ is a safety property if for all infinite sequences $t \in \cP(AP)^{\omega}$:
+if $t \notin P$ then there is a finite prefix $\hat{t}$ of $t$ such that for every $t'$ with prefix $\hat{t}$, $t \notin P$.
+
+\inlineintuition More informally, it \textit{does not allow anything bad to happen}. Or, more exhaustively, if a sequence $t$ is no allowed by the LT-property,
+then there exists a finite prefix $\hat{t}$, which contains everything that makes the sequence violate the LT-property.
+Thus, whatever sequence we append to it, it will always remain in violation of the property $P$.
 
 
-\subparagraph{Liveness Properties}
+\paragraph{Liveness Properties}
+\inlinedefinition An LT-property $P$ is a liveness property if every finite sequence $\hat{t} \in \cP(AP)^*$ is a prefix of an infinite sequence $t \in P$
+
+\inlineintuition More informally, it states that \textit{something good will happen eventually}.
+Or, more exhaustively, if every finite sequence of atomic propositions can be extended to a sequence that is allowed by the LT-property.
+
+
+\paragraph{On proves and examples}
+Some remarks for common exam multiple-choice questions
+\begin{itemize}
+    \item Safety Property and Liveness Property: Only \texttt{true} is such an example
+    \item Neither: There are no examples, since every LT-property is a conjunct of a safety and liveness property and every LT-property can be rewritten as such a conjunct.
+\end{itemize}
+
+Typically, the exam includes questions on whether or not a given LT-property $\varphi$ is a liveness property, safety property or a conjunct of both.
+To determine that, use the following flow chart:
+\begin{center}
+    \begin{tikzpicture}[node distance = 0.5cm and 0.5cm, >={Classical TikZ Rightarrow[width=7pt]}]
+        \node (start) {Is $\varphi$ safety property?};
+        \node (safety) [below left=of start] {Safety Property};
+        \node (isliveness) [below right=of start] {Is $\varphi$ a liveness property?};
+        \node (liveness) [below left=of isliveness] {Liveness Property};
+        \node (conjunct) [below right=of isliveness] {Conjunct};
+
+        \draw[arrows = ->, distance = 1.5pt] (start) -- node [above left] {\scriptsize Yes} (safety);
+        \draw[arrows = ->, distance = 1.5pt] (start) -- node [above right] {\scriptsize No} (isliveness);
+        \draw[arrows = ->, distance = 1.5pt] (isliveness) -- node [below right] {\scriptsize Yes} (liveness);
+        \draw[arrows = ->, distance = 1.5pt] (isliveness) -- node [below left] {\scriptsize No} (conjunct);
+    \end{tikzpicture}
+\end{center}
