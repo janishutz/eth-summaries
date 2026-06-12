@@ -1,0 +1,53 @@
+\subsection{Tabelle von Auf- und Ableitungen}
+\begin{scriptsize}
+    \begin{tables}{lll}{\tr{Antiderivative}{Stammfunktion}                    & \tr{Function}{Funktion}                       & \tr{Derivative}{Ableitung}}
+              $\displaystyle \frac{x^{n + 1}}{n + 1}$                     & $x^n$                                         & $n \cdot x^{n - 1}$                        \\
+              $\ln|x|$                                                    & $\displaystyle \frac{1}{x} = x^{-1}$          & $\displaystyle -x^{-2} = -\frac{1}{x^2}$   \\[0.2cm]
+              $\frac{2}{3} x^{\frac{3}{2}}$                               & $\displaystyle \sqrt{x} = x^{\frac{1}{2}}$    & $\displaystyle \frac{1}{2 \cdot \sqrt{x}}$ \\[0.3cm]
+              $\frac{n}{n + 1} x^{\frac{1}{n} + 1}$                       & $\displaystyle \sqrt[n]{x} = x^{\frac{1}{n}}$ & $\frac{1}{n} x^{\frac{1}{n} - 1}$          \\[0.3cm]
+              \hline                                                                                                                                                   \\[-0.2cm]
+              $e^x$                                                       & $e^x$                                         & $e^x$                                      \\
+              $\exp(x)$                                                   & $\exp(x)$                                     & $\exp(x)$                                  \\
+              $\frac{1}{a \cdot (n + 1)}(ax + b)^{n + 1}$                 & $(ax + b)^n$                                  & $n\cdot (ax + b)^{n - 1} \cdot a$          \\
+              $x \cdot (\ln|x| - 1)$                                      & $\ln(x)$                                      & $\frac{1}{x} = x^{-1}$                     \\
+              $\displaystyle \frac{1}{\ln(a)}\cdot a^x$                   & $a^x$                                         & $a^x \cdot \ln(a)$                         \\
+              $\frac{x}{\ln(a)} \cdot (\ln|x| - 1)$                       & $\log_a|x|$                                   & $\displaystyle \frac{1}{x \cdot \ln(a)}$   \\[0.3cm]
+              \hline                                                                                                                                                   \\[-0.2cm]
+              $-\cos(x)$                                                  & $\sin(x)$                                     & $\cos(x)$                                  \\
+              $\sin(x)$                                                   & $\cos(x)$                                     & $-\sin(x)$                                 \\
+              $-\ln|\cos(x)|$                                             & $\tan(x)$                                     & $\displaystyle \frac{1}{\cos^2(x)}$        \\[0.3cm]
+              $x \cdot \arcsin(x) + \sqrt{1 - x^2}$                       & $\arcsin(x)$                                  & $\displaystyle\frac{1}{\sqrt{1 - x^2}}$    \\
+              $x \cdot \arccos(x) - \sqrt{1 - x^2}$                       & $\arccos(x)$                                  & $\displaystyle -\frac{1}{\sqrt{1 - x^2}}$  \\
+              $\displaystyle x \cdot \arctan(x) - \frac{\ln(x^2 + 1)}{2}$ & $\arctan(x)$                                  & $\displaystyle \frac{1}{x^2 + 1}$          \\[0.2cm]
+              $\ln|\sin(x)|$                                              & $\cot(x)$                                     & $\displaystyle -\frac{1}{\sin^2(x)}$       \\
+              $\cosh(x)$                                                  & $\sinh(x)$                                    & $\cosh(x)$                                 \\
+              $\sinh(x)$                                                  & $\cosh(x)$                                    & $\sinh(x)$                                 \\
+              $\ln|\cosh(x)|$                                             & $\tanh(x)$                                    & $\displaystyle \frac{1}{\cosh^2(x)}$       \\
+                                                                          & $\arcsinh(x)$                                 & $\frac{1}{\sqrt{1 + x^2}}$                 \\
+                                                                          & $\arccosh(x)$                                 & $\frac{1}{\sqrt{x^2 - 1}}$                 \\
+                                                                          & $\arctanh(x)$                                 & $\frac{1}{1 - x^2}$                        \\
+    \end{tables}
+\end{scriptsize}
+
+\shade{teal}{Weitere Ableitungen}
+\begin{tables}{cc}{$F(x)$                                                            & $f(x)$}
+              $\frac{1}{a} \ln|ax + b|$                                              & $\frac{1}{ax + b}$                          \\
+              $\frac{ax}{c} - \frac{ad - bc}{c^2} \ln|cx + d|$                       & $\frac{a (cx + d) - c(ax + b)}{(cx + d)^2}$ \\
+              $\frac{x}{2} f(x) + \frac{a^2}{2} \ln|x + f(x)|$                       & $\sqrt{a^2 + x^2}$                          \\
+              $\frac{x}{2} f(x) - \frac{a^2}{2} \arcsin\left( \frac{x}{|a|} \right)$ & $\sqrt{a^2 - x^2}$                          \\
+              $\frac{x}{2} f(x) - \frac{a^2}{2} \ln|x + f(x)|$                       & $\sqrt{x^2 - a^2}$                          \\
+              $\ln(x + \sqrt{x^2 \pm a^2})$                                          & $\frac{1}{\sqrt{x^2 \pm a^2}}$              \\
+              $\arcsin \left( \frac{x}{|a|} \right)$                                 & $\frac{1}{\sqrt{x^2 - a^2}}$                \\
+              $\frac{1}{a}\arctan \left( \frac{x}{|a|} \right)$                      & $\frac{1}{a^2 - x^2}$                       \\
+\end{tables}
+\begin{tables}{cc}{$F(x)$                             & $f(x)$}
+              $-\frac{1}{a} \cos(ax + b)$             & $\sin(ax + b)$                                                \\
+              $\frac{1}{a} \sin(ax + b)$              & $\cos(ax + b)$                                                \\[1mm]
+              \hline
+              $x^x$                                   & $x^x \cdot (1 + \ln|x|)$                                      \\
+              $(x^x)^x$                               & $(x^x)^x \cdot (x + 2x\ln|x|)$                                \\
+              $x^{(x^x)}$                             & $x^{(x^x)} \cdot (x^{x - 1} + \ln|x| \cdot x^x (1 + \ln|x|))$ \\
+              \hline                                                                                                  \\[-3mm]
+              $\frac{1}{2}(x - \frac{1}{2} \sin(2x))$ & $\sin(x)^2$                                                   \\[1mm]
+              $\frac{1}{2}(x + \frac{1}{2} \sin(2x))$ & $\cos(x)^2$                                                   \\
+\end{tables}
