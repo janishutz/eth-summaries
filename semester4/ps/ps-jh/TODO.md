@@ -4,4 +4,6 @@
 - [ ] Tips & Tricks
 - [ ] Better examples
 - [ ] Shorten defs, etc
-- [ ] Link together (decide on style for that)
+- [ ] Link together better (decide on style for that)
+- [ ] Convex function def
+- [ ] Multiplication, div diff rules

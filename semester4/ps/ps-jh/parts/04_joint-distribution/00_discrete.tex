@@ -1,5 +1,5 @@
 \subsection{Gemeinsame Diskrete Verteilung}
-\shortdefinition $\cX_i$ mit Mengen $W_k \subseteq \R$ endlich oder abzählbar mit $\cX_k \in W_k$ fast sicher.
+\shortdefinition $\cX_k$ mit Mengen $W_k \subseteq \R$ endlich oder abzählbar mit $\cX_k \in W_k$ fast sicher.
 Die gemeinsame Verteilung (\textit{Joint probability distribution}) von $(\cX_1, \ldots, \cX_n)$ ist Familie von W.:
 \[
     \{ p(x_1, \ldots, x_n) \}_{x_1 \in W_1, \ldots, x_n \in W_n}
@@ -22,7 +22,7 @@ mit $p : \R^n \rightarrow [0, 1]$ die gemeinsame Gewichtsfunktion (joint probabi
                         & = \sum_{y_1 \leq x_1, \ldots, y_n \leq x_n} p(y_1, \ldots, y_n)
 \end{align*}
 
-\shorttheorem[Verteilung Bild] Sei $\phi : \R^n \rightarrow \R$, $\cX_i$ disk. Z.V. mit Werten jeweils f.s. in $W_1, \ldots, W_n$.
+\shorttheorem[Verteilung Bild] Sei $\varphi : \R^n \rightarrow \R$, $\cX_i$ disk. Z.V. mit Werten jeweils f.s. in $W_1, \ldots, W_n$.
 Dann $\cZ = \varphi(\cX_1, \ldots, \cX_n)$ disk. Z.V. mit Werten f.s. in $W = \varphi(W_1 \times \ldots \times W_n)$. Verteilung von $\cZ$ dann gegeben durch ($\forall z \in W$):
 \[
     \P[\cZ = z] = \sum_{\elementstack{x_1 \in W_1, \ldots, x_n \in W_n}{\varphi(x_1, \ldots, x_n) = z}} \P[\cX_1 = x_1, \ldots, X_n = x_n]
@@ -48,5 +48,6 @@ $\forall k \in \{ 1, \ldots, n \}$ und $\forall x \in W_k$ gilt:
 \shorttheorem Folgende Aussagen sind äquivalent (für $\cX_i$ mit Verteilung $\{p(x_1, \ldots, x_n)\}_{x_1 \in W_1, \ldots, x_n \in W_n}$):
 \begin{itemize}
     \item $\cX_1, \ldots, \cX_n$ sind unabhängig
-    \item $\forall x_1 \in W_1, \ldots, x_n \in W_n$ gilt \[ p(x_1, \ldots, x_n) = \P[\cX_1 = x_1] \cdot \ldots \cdot \P[\cX_n = x_n] \]
+    \item $\forall x_1 \in W_1, \ldots, x_n \in W_n$ gilt (prod. Randv. von $\cX_i$)
+        \[ p(x_1, \ldots, x_n) = \P[\cX_1 = x_1] \cdot \ldots \cdot \P[\cX_n = x_n] \]
 \end{itemize}

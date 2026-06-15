@@ -1,9 +1,6 @@
 % P28: TODO: may need expansion
 \subsection{Konstruktion von Zufallsvariablen}
-\shortdefinition[Bernoulli ZV] mit param. $p \in [0, 1]$ falls\\
-$\P[\cX = 0] = 1 - p$ und $\P[\cX = 1] = p$. Not.: $\cX \sim \text{Ber}(p)$
-
-\shorttheorem[$\exists$-T v. Kolmogorov] $\exists$ W-Raum und n. endl. uiv Folge von $\cX_i \sim \text{Ber}\left( \frac{1}{2} \right)$
+\shorttheorem[$\exists$-T v. Kolmogorov] $\exists$ W-Raum und endl. uiv Folge von $\cX_i \sim \text{Ber}\left( \frac{1}{2} \right)$ mit param $0.5$
 
 \shortdefinition ZV $U$ heisst \bi{gleichverteilt auf} [0, 1], falls\\
 $F_U(x) = \begin{cases}
@@ -17,10 +14,10 @@ Wir schreiben $U \sim \cU([0, 1])$
 $\cY(\omega) = \sum_{n = 1}^{\8} 2^{-n} \cX_n (\omega)$ absolut, mit $\cY(\omega) \in [0, 1]$.
 $\cY \sim \cU([0, 1])$
 
-\shortdefinition[Pseudoinverse] von $F$ ist $F^{-1} : (0, 1) \rightarrow \R$. Def:\\
+\shortdefinition[Inverse Vert.] von $F$ ist $F^{-1} : (0, 1) \rightarrow \R$. Def:\\
 $\forall \alpha \in (0, 1) \quad F^{-1} (\alpha) = \inf\{ x \in \R \divider F(x) \geq \alpha \}$
 
-\shorttheorem[Inversionsmethode] $F$ erfüllt eig. v. T2.4, $U \sim \cU(\dots)$, dann hat ZV $X = F^{-1}(U)$ die Verteilfunk. $F_X = F$
+\shorttheorem[Inversionsmethode] $F$ erfüllt T2.4, u. $U \sim \cU(\dots)$, dann hat ZV $X = F^{-1}(U)$ die Verteilfunk. $F_X = F$
 
 \shortremark $X$ wohldefiniert mit $X(\omega) = F^{-1}(U(\omega))$ falls $U(\omega) \in (0, 1)$ und $X(\omega) = 0$ sonst.
 

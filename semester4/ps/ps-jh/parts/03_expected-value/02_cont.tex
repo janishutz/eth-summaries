@@ -1,12 +1,13 @@
 \subsection{Stetige Zufallsvariablen}
 \shortdefinition $\cX$ stetig $\E[\cX] = \int_{-\8}^{\8} x f_\cX(x) \dx x$
 
-\shorttheorem $\E[\varphi(\cX)] = \int_{-\8}^{\8} \varphi(x) f_\cX(x) \dx x$, falls int. wohldefiniert
+\shorttheorem $\E[\varphi(\cX)] = \int_{-\8}^{\8} \varphi(x) f_\cX(x) \dx x$, falls int. wohldef.
+
+\shortlemma[Int über gauss. Glockenk.] $\int_{-\8}^{\8} e^{\frac{-x^2}{2\sigma^2}} \dx x = \sqrt{2 \pi \sigma^2}$
 
 \subsubsection{Beispiele}
 % TODO: Consider if need derivation of them here and prev section as well
 % TODO: Also add the ones proven in exercises
-\shortlemma[Int über gauss. Glockenk.] $\int_{-\8}^{\8} e^{\frac{-x^2}{2\sigma^2}} \dx x = \sqrt{2 \pi \sigma^2}$
 \begin{itemize}
     \item $\cX \sim \cU([a, b])$, $a < b$: $\E[\cX] = \frac{a + b}{2}$
     \item $\cX \sim \text{Exp}(\lambda)$, $\lambda > 0$: $\E[\cX] = \frac{1}{\lambda}$

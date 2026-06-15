@@ -1,5 +1,5 @@
 \subsection{Chernoff-Schranken}
-\shortdefinition[Momenterzeugende Funktion] von $\cX$ ist für $t \in \R$ $M_\cX(t) + \E[e^{t\cX}]$
+\shortdefinition[Momenterzeugende Funktion] von $\cX$ ist für $t \in \R$ $M_\cX(t) = \E[e^{t\cX}]$
 
 \shortexample $\cX \sim \text{Ber}(p)$, dann $M_\cX(t) = 1 - p + p e^t$;\\
 $\cX \sim \text{Bin}(n, p)$, dann $M_\cX(t) = (1 - p + pe^t)^n$
@@ -13,3 +13,4 @@ $\cX \sim \text{Bin}(n, p)$, dann $M_\cX(t) = (1 - p + pe^t)^n$
 \[
     \P[S_n \geq (1 + \delta) \mu_n] \leq \left( \frac{e^\delta}{(1 + \delta)^{1 + \delta}} \right)
 \]
+Dabei ist $\delta$ der Faktor der Abweichung
