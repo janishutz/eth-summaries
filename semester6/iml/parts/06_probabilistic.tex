@@ -173,17 +173,291 @@ What can we do once we have $\hat{\P}$? We can estimate $\P_{\mathcal{Y}\sep X=x
 
 \definition \textbf{Bayes' Optimal Predictor}\\
 \smalltext{Best possible predictor when knowing $\P_{\mathcal{Y}|X}$}
+{\small
 $$
     f^*(x) = \underset{a \in \mathcal{Y}}{\text{arg min}}\ \E\Bigl[ l(a,\mathcal{Y}) \sep X=x \Bigr] = \underset{a\in\mathcal{Y}}{\text{arg min}}\int p\bigl( y\sep x \bigr)\cdot l(a,y)\ \text{d}y 
 $$
+}
 {\footnotesize
-    \remark In practice, $\P_{\mathcal{Y}|X}$ is unknown, so $\hat{\P}_{Y|X}$ is used.
+    \remark In practice, $\P_{Y|X}$ is unknown, so $\hat{\P}_{Y|X}$ is used.
 }
 
-This is the theoretically best possible predictor over all function classes $F$, an optimal solution to supervised learning:
+This is the theoretically best possible predictor when knowing $\P_{Y|X}$, an optimal solution to supervised learning over all $F$:
 $$
     \hat{f} = \underset{f\in F}{\text{arg min}}\sum_{i=1}^n l\Bigl( f(x_i),y \Bigr)
 $$
-\subtext{The proof for this is surprisingly straightforward}
+The conceptual difference between $\hat{f}$ and $f^*$ is that $\hat{f}$ minimizes the \textit{total} loss on $\{x_1,\ldots,x_n\}$ over a func. class $F$, while $f^*$ minimizes the expected loss for each $x_i$ seperately, unconstrained by any $F$.
 
 \subsection{Probabilistic Perspective: Regression}
+
+How do we define a discriminative statistical model and use MLE/MAP for regression tasks?
+
+\textbf{Problem}: We want to find $\P_{Y|X}^\theta$
+
+\textbf{Assumption}: Outputs $y$ have additive noise $\epsilon$:\\
+\subtext{$\epsilon$ indep. of $x,\quad f \in F$ for some func. class}
+$$
+    y = f(x;\theta^*) + \epsilon
+$$
+
+\definition \textbf{Gaussian Noise} $\epsilon \sim \mathcal{N}\bigl( 0, \sigma^2 \bigr)$\\
+\subtext{This is the most common choice of $\epsilon$}
+
+{\footnotesize
+    \remark Normally, $\sigma^2$ is assumed to be known. If $\sigma^2$ is unknown, we optimize for $\theta = (\gamma, \sigma)$ s.t. $\gamma$ are the parameters needed for $f$.
+}
+
+For Gaussian Noise, we can model $\P_{X|Y}^\theta$ like this:
+\begin{align*}
+    Y\sep X                         &= x \sim \mathcal{N}\Bigl( f(x;\theta), \sigma^2 \Bigr) \\
+    p\bigl( y \sep x;\theta \bigr)  &= \frac{1}{\sqrt{2\pi\sigma^2}}\exp\biggl( -\frac{1}{2\sigma^2} \Bigl( y_i - f(x_i;\theta) \Bigr)^2 \biggr)
+\end{align*}
+
+\newpage
+
+\subsubsection{Regression with MLE}
+
+\textbf{Solution}: Find $\hat{\theta}_\text{MLE}$ for $\P_{X|Y}^{\hat{\theta}_\text{MLE}}$.
+{\footnotesize
+\begin{align*}
+\hat{\theta}_\text{MLE}     &=\underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Bigl( p\bigl( y_i \sep x_i ; \theta \bigr) \Bigr)                                                                             \\
+                            &=\underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n -\log \Biggl( \frac{1}{\sqrt{2\pi\sigma^2}}\exp\biggl( -\frac{1}{2\sigma^2} \Bigl( y_i - f(x_i;\theta) \Bigr)^2 \biggr) \Biggr)      \\                        
+                            &=\underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n \biggl( \underbrace{\frac{1}{2}\log\bigl( 2\pi\sigma^2 \bigr) + \frac{1}{2\sigma^2}}_\text{Indep. from $\theta$}\Bigl( y_i - f(x_i;\theta) \Bigr)^2 \biggr)                   \\
+                            &=\underset{\theta\in\Theta}{\text{arg min}}\ \sum_{i=1}^n \Bigl( y_i - f(x_i;\theta) \Bigr)^2
+\end{align*}
+}
+
+MLE using data with i.i.d. Gaussian Noise \& constant, known $\sigma^2$ is equivalent to minimizing the square loss. If we consider only linear $f$, this is equivalent to linear regression.
+
+{\footnotesize
+    \remark Defining $y_i = f(x_i;\theta) + \epsilon_i$ with $\epsilon_i \sim \mathcal{N}(0,\sigma_i^2)$ (Different $\sigma_i^2$ per $\epsilon_i$) corresponds to weighted square loss: Higher $\sigma_i^2$ means lower weight.
+
+    \remark Similar equivalences can be found for other losses too, using other distributions for $\epsilon$.
+}
+
+In general: the choice of likelihood function implicitly corresponds to the choice of loss function. So: Losses can now be chosen based on assumptions about the noise.
+
+\newpage
+
+\subsubsection{Regression with MAP}
+
+\textbf{Solution}: Find $\hat{\theta}_\text{MAP}$ for $\P^{\hat{\theta}_\text{MAP}}_{X|Y}$.
+
+$\theta^*$ is now considered a random variable, so we need a prior.
+
+\definition \textbf{Gaussian Prior} $\theta^* \sim \mathcal{N}(0,\sigma^2_\theta \cdot \mathbf{I}_d)$
+$$
+    p(\theta) = \frac{1}{(2\pi\sigma_\theta^2)^{\frac{d}{2}}}\exp\biggl( -\frac{1}{2\sigma_\theta^2}\Vert \theta \Vert^2 \biggr)
+$$
+Now applying the definiton of the discriminative $\hat{\theta}_\text{MAP}$:
+{\scriptsize
+\begin{align*}
+    \hat{\theta}_\text{MAP} &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \biggl( -\log\Bigl( p(y_i \sep x_i, \theta) \Bigr) - \log\bigl(p(\theta)\bigr) \biggr) \\
+                            &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \biggl( \frac{1}{2}\log(2\pi\sigma^2)+\frac{1}{2\sigma^2}\Bigl( y_i - f(x_i,\theta) \Bigr)^2 \biggr) + \frac{d}{2}\log(\pi\sigma_\theta^2) + \frac{1}{2\sigma_\theta^2}\Vert\theta\Vert^2 \\
+                            &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \frac{1}{2\sigma^2}\Bigl( y_i-f(x_i;\theta) \Bigr)^2 + \frac{1}{2\sigma_\theta^2}\Vert\theta\Vert^2 \\
+                            &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \Bigl( y_i - f(x_i;\theta) \Bigr)^2 + \frac{\sigma^2}{\sigma_\theta^2}\Vert\theta\Vert^2
+\end{align*}
+}
+
+MLA using data with i.i.d. Gaussian Noise and Gaussian prior on $\theta_i$ is equialent to $l_2$-regularized regression ($\lambda = \frac{\sigma^2}{\sigma_\theta^2}$) with square loss. If $f$ is linear, this is ridge regression.
+
+{\footnotesize
+    \remark $\lambda$ implicitly corresponding to $\frac{\sigma^2}{\sigma_\theta^2}$ justifies the idea of $\lambda$ regulating model complexity. High $\lambda = \frac{\sigma^2}{\sigma_\theta^2}$ means the data is assumed to be noisy, and vice versa.
+}
+
+\definition \textbf{Laplace Prior} $\theta_i^* \sim \text{Laplace}(0, b)$
+$$
+    p(\theta_i) = \frac{1}{2b}\exp\biggl(-\frac{|\theta_i|}{b}\biggr)
+$$
+{\footnotesize
+\begin{align*}
+    \hat{\theta}_\text{MAP} &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \biggl( -\log\Bigl( p(y_i \sep x_i, \theta) \Bigr) - \log\bigl(p(\theta)\bigr) \biggr) \\
+                            &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \biggl( \frac{1}{2\sigma^2}\Bigl( y_i - f(x_i;\theta) \Bigr)^2 + \frac{1}{b}\Vert \theta \Vert_1 \biggr) \\
+                            &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^{n} \Bigl( y_i - f(x_i;\theta) \Bigr)^2 + \frac{2\sigma^2}{b}\Vert\theta\Vert_1
+\end{align*}
+}
+MLA using the Laplcace prior instead is equivalent to $l_1$-regularized regression ($\lambda = \frac{2\sigma^2}{b}$) with square loss. If $f$ is linear, this is LASSO regression.
+
+\newpage
+
+\subsubsection{Bayes Optimal Regression: Square Loss}
+
+\textbf{Problem}: What's an optimal decision rule for square loss?
+{\small
+\begin{align*}
+    f^*(x) = \underset{a\in\mathcal{Y}}{\text{arg min}}\ \E\Bigl[ l(a, Y) \sep X=x \Bigr] \quad \text{s.t.} \quad l\bigl( f(x), y \bigr) = \bigl( f(x)-y \bigr)^2
+\end{align*}
+}
+
+\textbf{Solution}: Minimize analytically for $a$:
+{\footnotesize
+\begin{align*}
+    & \frac{\partial}{\partial a} \E\Bigl[ l(a,Y)\sep X=x \Bigr] \\
+    &= \frac{\partial}{\partial a} \biggl( a^2 - 2a\E[Y\sep X=x] + \E[Y^2\sep X=x] \biggr) \\
+    &= 2a - 2\E[Y\sep X=x] \\
+    &\overset{!}{=} 0 \implies a = \E[Y\sep X=x]
+\end{align*}
+}
+So we get:
+$$
+    f^*(x) = \underset{a\in\mathcal{Y}}{\text{arg min}}\ \E\Bigl[ l(a,Y)\sep X=x \Bigr] = \underbrace{\E[Y\sep X=x]}_\text{Mean of $\P_{Y|X=x}$}
+$$
+The Bayes opt. pred. for square loss is the conditional mean.\\
+\subtext{Intuitively, this makes sense since square loss penalizes larger deviations more.}
+
+\subsection{Probabilistic Perspective: Classification}
+
+There are 2 approaches:
+
+\begin{enumerate}
+    \item \textbf{Discriminative Modelling}: Model $Y\sep X$ only: $\P_{X|Y}$\\
+    \subtext{Explicitly model $\P_{X|Y}$, modelling $\P_X$ is optional}
+    \item \textbf{Generative Modelling}: Model the joint distr. $\P_{X,Y}$\\
+    \subtext{Explicitly model both $\P_{X|Y}$ and $\P_Y$}
+\end{enumerate}
+
+Both can be used to model the joint distribution. Depending on the proplem, one factorization may be more natural.
+$$
+    \P_{X,Y} = \underbrace{\P_{Y|X}\cdot\P_X}_\text{discriminative} = \underbrace{\P_{X|Y}\cdot\P_Y}_\text{generative}
+$$
+{\footnotesize
+    \remark Discriminative M. is good if only predicting $y$ for $x$ is required.
+
+    \remark Generative M. is good if new $x$ for a given $y$ are required.
+}
+
+\newpage
+
+\subsubsection{Classification: Discriminative}
+
+We first need a distribution, then we can use MLE/MAP.
+
+\textbf{Problem}: Modelling binary Classification: $y \in \{+1,-1\}$
+
+\textbf{Assumption}: Labels are generated via some $f(\cdot,\theta^*) \in F$.\\
+\subtext{$f$ is called \textit{discriminator}.}
+
+\textbf{Solution}: We choose a logistic model, using $\sigma(z)$:\\
+\subtext{$\sigma(z) = \frac{1}{1+\exp(-z)}$ (Logistic function)}
+$$
+    Y\sep X = x \sim \text{Ber}\Bigl( \sigma\bigl( f(x;\theta) \bigr) \Bigr)
+$$
+
+Using $p(x)$ for $\text{Ber}(p)$:\\
+\subtext{Note $1-\sigma(z) = \sigma(-z)$}
+\begin{align*}
+    p(y\sep x;\theta)   &= \begin{cases}
+                                \sigma\bigl( f(x;\theta) \bigr),        & y = +1 \\
+                                1 - \sigma\bigl( f(x;\theta) \bigr)     & y = -1 
+                            \end{cases} \\
+                        &= \sigma\bigl( y \cdot f(x;\theta) \bigr)  \\
+                        &= \frac{1}{1-\exp\bigl(-y \cdot f(x;\theta)\bigr)}
+\end{align*}
+We receive the decision criterion:
+$$
+    \hat{y} = \underset{y\in\{ +1,-1 \}}{\text{arg max}} p(y\sep x;\theta)
+$$
+
+Now we can apply MLE/MAP to find a good $\theta$.
+
+{\footnotesize
+    \remark $X \sim \text{Ber}(p)$ is normally $X \in \{0,1\}$, but here: $X \in \{+1,-1\}$
+
+    \remark Similar to how $\epsilon \sim \mathcal{N}(0,\sigma^2)$ was noise in regression, here the noisy outputs are simply $\{+1,-1\}$. ("Bernoulli Noise")
+}
+
+MLE corresponds to minimizing logistic loss:
+\begin{align*}
+    \hat{\theta}_\text{MLE} &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n -\log\Bigl( y_i \sep x_i;\theta \Bigr) \\
+                            &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n  \log\Bigl( \underbrace{1+\exp\bigl( -y_i \cdot f(x_i;\theta) \bigr)}_\text{Logistic Loss} \Bigr)
+\end{align*}
+
+\newpage
+
+MAP corresponds to $l_2$-regularized regression with sq. loss.\\
+\subtext{Using a Gaussian prior: $\theta^* \sim \mathcal{N}(0,\sigma_\theta^2 \cdot \mathbf{I}_d)$}
+{\footnotesize
+    \begin{align*}
+        \hat{\theta}_\text{MAP} &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n \Bigl( -\log\bigl( p(y_i\sep x_i, \theta) \bigr) - \log\bigl(p(\theta)\bigr) \Bigr) \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n \log \Bigl( 1+\exp\bigl( -y_i \cdot f(x_i;\theta) \bigr) \Bigr) + \frac{d}{2}\log(2\pi\sigma^2_\theta) + \frac{1}{\sigma^2_\theta}\Vert\theta\Vert^2 \\
+                                &= \underset{\theta\in\Theta}{\text{arg min}} \sum_{i=1}^n \log \Bigl( 1+\exp\bigl( -y_i \cdot f(x_i;\theta) \bigr) \Bigr) + \frac{1}{\sigma^2_\theta}\Vert\theta\Vert^2
+    \end{align*}
+}
+
+{\footnotesize
+    \remark A Laplace prior corresponds to $l_1$-regularized log. regression
+}
+
+\subsubsection{Classification: Generative}
+
+\textbf{Problem}: Estimate the joint distribution $\P_{X,Y}$
+
+An advantage of this is: $Y\sep X$ can be estimated from $\P_{X,Y}$:
+$$
+    p(y\sep x) = \frac{p(y,x)}{p(x)} = \frac{p(y,x)}{\int_{y'}p(y',x)\ \text{d}y'}
+$$
+However, estimating $\P_{X,Y}$ from $Y \sep X$ is impossible.\\ 
+We instead rely on:
+$$
+    p(y\sep x) \propto p(y)\cdot p(x\sep y) \qquad \text{(Bayes)}
+$$
+
+\method \textbf{Gaussian Naive Bayes}\\
+\smalltext{This model is used:}
+$$
+    \P[Y=y] = p_y \quad \text{s.t.} \quad y \in \mathcal{Y} = \{1,\ldots,c\} \land \sum_{y=1}^c p_y = 1
+$$
+\textbf{Assumption}: Conditional independene.\\
+\subtext{i.e. every feature is independent, thus \textit{naive} Bayes.}
+$$
+    p\bigl( x_1,\ldots,x_n \sep y \bigr) = \prod_{j=1}^n p(x_i \sep y)
+$$
+For each $x_i$ we use a Gaussian distribution:
+$$
+    X_j \sep Y = y \sim \mathcal{N}(\mu_{y,j},\sigma^2_{y,j})
+$$
+
+\newpage
+
+\lemma \textbf{MLE of the Gaussian Naive Bayes Model}
+{\small
+$$
+    \hat{p}_y = \frac{n_y}{n},\quad \hat{\mu}_{y,j} = \frac{1}{n_y}\sum_{i:y_i=y} x_{i,j},\quad \hat{\sigma}^2_{y,j} = \frac{1}{n_y} \sum_{i:y_i=y}\Bigl( x_{i,j}-\hat{\mu}_{y,j} \Bigr)^2
+$$
+}
+\subtext{Here $n_y$ is the frequency of label $y$ in $\mathcal{D}$}
+
+This yields the decision rule for Gaussian Naive Bayes:
+{\small
+\begin{align*}
+    \hat{y} &= \underset{y}{\text{arg max}}\ \log\Bigl( \hat{p}(y\sep x) \Bigr) \\
+            &\overset{\text{Bay.}}{=} \underset{y}{\text{arg max}}\ \log\Bigl( \hat{p}(y) \Bigr) + \sum_{j=1}^d \log\Bigl( \hat{p}(x_j\sep y) \Bigr) \\
+            &\overset{\text{Lem.}}{=} \underset{y}{\text{arg max}}\ \log\Bigl( \hat{p}(y) \Bigr) - \frac{1}{2}\sum_{j=1}^d\biggl( \log \hat{\sigma}^2_{y,j} + \frac{1}{\hat{\sigma}^2_{y,j}}\Bigl( x_j - \hat{\mu}_{y,j} \Bigr)^2 \biggr)
+\end{align*}
+}
+And the special case for binary classification:
+{\small
+$$
+    \hat{y} = \text{sign}\Bigl( \hat{f}(x) \Bigr) = \text{sign}\biggl( \log\frac{\hat{p}(+1\sep x)}{\hat{p}(-1\sep x)} \biggr)
+$$
+}
+
+\method \textbf{Linear Discriminant Analysis}
+
+Special Case: GNB with $\forall j \leq d:\ \sigma_{+1,j}^2 = \sigma_{-1,j}^2 = \sigma_j$.\\
+In this case $\hat{f}$ is a linear decision boundary.
+$$
+    \hat{y} = \text{sign}\Bigl( \hat{f}(x) \Bigr) = \text{sign}\Bigl( \mathbf{w}^\top \mathbf{x} + w_0 \Bigr)
+$$
+Where $\mathbf{w}, w_0$ can be derived like this:
+{\footnotesize
+\begin{align*}
+\widehat{f}(\boldsymbol{x}) &= \log \frac{\widehat{p}(+\mid \boldsymbol{x})}{\widehat{p}(-\mid \boldsymbol{x})} \\
+                            &= \log \frac{\widehat{p}_+ \prod_{j=1}^d p(x_j \mid +) / p(\boldsymbol{x})}{\widehat{p}_- \prod_{j=1}^d p(x_j \mid -) / p(\boldsymbol{x})} \\
+                            &= \log \frac{\widehat{p}_+}{1 - \widehat{p}_+} + \log \frac{\prod_{j=1}^d \frac{1}{\sqrt{2\pi\widehat{\sigma}_j^2}} \exp \left( -\frac{(x_j - \widehat{\mu}_{+,j})^2}{2\widehat{\sigma}_j^2} \right)}{\prod_{j=1}^d \frac{1}{\sqrt{2\pi\widehat{\sigma}_j^2}} \exp \left( -\frac{(x_j - \widehat{\mu}_{-,j})^2}{2\widehat{\sigma}_j^2} \right)} \\
+                            &= \log \frac{\widehat{p}_+}{1 - \widehat{p}_+} + \sum_{j=1}^d \frac{1}{2\widehat{\sigma}_j^2} \biggl( -(x_j - \widehat{\mu}_{+,j})^2 + (x_j - \widehat{\mu}_{-,j})^2 \biggr) \\
+                            &= \underbrace{\sum_{j=1}^d \frac{1}{\widehat{\sigma}_j^2} \left( \widehat{\mu}_{+,j} - \widehat{\mu}_{-,j} \right) x_j}_{=: \boldsymbol{w}^\top \boldsymbol{x}} + \underbrace{\log \frac{\widehat{p}_+}{1 - \widehat{p}_+} + \sum_{j=1}^d \frac{\widehat{\mu}_{-,j}^2 - \widehat{\mu}_{+,j}^2}{2\widehat{\sigma}_j^2}}_{=: w_0}.
+\end{align*}
+}
+
+% Bayes Optimal section missing, discussess deriving bayes optimal decision boundary for specific losses (0-1 & variations)

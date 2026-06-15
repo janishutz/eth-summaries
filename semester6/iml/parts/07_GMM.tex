@@ -1,0 +1,131 @@
+The unsupervised case: No labels given: $\mathcal{D}=\{x_i\}_{i=1}^n$.
+
+{\footnotesize
+    \notation $Z$ is used over $Y$ as we assume the labels to be unknown.\\
+    \color{gray} (Unsupervised Learning)
+}
+
+\definition \textbf{Gaussian Mixture Model}
+
+
+\textbf{Parameters}: $\theta = \Bigl(\overbrace{\mu_j, \Sigma_j}^{\mathcal{N}_j}, w_j\Bigr)_{j=1}^k$
+
+\textbf{Assumption}: $x$ is convex comb. of Gaussian distributions.\\
+\subtext{i.e. a mixture of models}
+\begin{align*}
+    \P[x\sep\theta] &= \P[x \sep \mu,\Sigma,w]                                              & \small\color{gray}\text{(Convex comb.)} \\
+                    &= \sum_{j=1}^k \P[Z=j]\cdot\P[x\sep Z]                                 & \small\color{gray}\text{(Gaussian)}     \\
+                    &= \sum_{j=1}^k w_j \cdot \mathcal{N}\bigl( x;\ \mu_j,\Sigma_j \bigr)
+\end{align*}
+
+$w_j = \P[Z=j]$ is the weight of class $j$, $\mathcal{N}(\mu_j,\Sigma_j)$ its distr.\\ 
+\subtext{$w_j\geq0,\quad \sum_{j=1}^{k}w_j=1$}
+
+\lemma \textbf{Negative Log-Likelihood} (GMM)
+$$
+    L\Bigl( w_{1:k},\mu_{1:k},\Sigma_{1:k} \Bigr) = -\sum_{i=1}^n \log\Biggl( \sum_{j=1}^k w_j\cdot\mathcal{N}(x_i;\ \mu_j,\Sigma_j) \Biggr)
+$$
+
+\remark This is NP-hard for unobserved labels.\\ 
+\subtext{SGD can be used, but EM is preferred.}
+
+\lemma \textbf{Classification Rule} (GMM)
+{\small
+\begin{align*}
+    \hat{y} &\overset{\text{def}}{=}\ \underset{y}{\text{arg max}}\ p(y\sep x) \\
+            &\overset{\text{Bay.}}{=} \underset{y}{\text{arg max}}\ p(y)\cdot p(x\sep y)\\ 
+            &\overset{\text{GMM}}{=} \underset{j}{\text{arg max}}\biggl( \log(w_j) + \frac{1}{2}\log\Bigl( \det(2\pi\Sigma_j) \Bigr) + \frac{1}{2}(x-\mu_j)^\top \Sigma_j^{-1} (x-\mu_j) \biggr)
+\end{align*}
+}
+
+\newpage
+\subsection{Expectation Maximization}
+
+\textbf{Problem}: Fitting a GMM: unknown labels \& missing data.
+
+\textbf{Solution}: Iterative methods.\\
+\subtext{Intuitively: Impute labels using guessed $\theta$, then update guessed $\theta$.}
+
+\method \textbf{Hard Expectation Maximization}\\
+\smalltext{Assign a fixed class to each label.}
+
+\textbf{Initialisation}: $\theta^{(0)} = \Bigl( \mu_j^{(0)}, \Sigma_j^{(0)}, w_j^{(0)} \Bigr)_{j=1}^k$
+
+\textbf{Iteration:} $t \geq 1$
+\begin{itemize}
+    \item \textbf{E-Step}: Find $ \mathcal{D}^{(t)} = \Bigl\{ (x_1, z_1^{(t)}),\ldots, (x_n, z_n^{(t)}) \Bigr\}$ via:
+    \begin{align*}
+        z_i^{(t)}   &= \underset{z}{\text{arg max}}\ \P[z \sep x_i, \theta^{(t-1)}] \\
+                    &= \underset{z}{\text{arg max}}\ \P[z \sep \theta^{(t-1)}]\cdot\P[x_i \sep z, \theta^{(t-1)}]
+    \end{align*}
+    \item \textbf{M-Step} Compute $\hat{\theta}_\text{MLE}$ as for Gauss. Bayes Classifier:
+    \begin{align*}
+        \theta^{(t)} = \underset{\theta}{\text{arg max}}\ \P[\mathcal{D}^{(t)} \sep  \theta]
+    \end{align*}
+\end{itemize}
+
+\method \textbf{Soft Expectation Maximization}\\
+\smalltext{Find membership weights for each cluster.}
+
+\textbf{Initialisation}: $\theta^{(0)} = \Bigl( \mu_j^{(0)}, \Sigma_j^{(0)}, w_j^{(0)} \Bigr)_{j=1}^k$
+
+\textbf{Iteration:} $t \geq 1$
+\begin{itemize}
+    \item \textbf{E-Step}: Find $\gamma_j^{(t)}(x_i)$ for all $i\leq n,j\leq k$.\\
+    \subtext{$\gamma_j^{(t)}(x_i)$ are the cluster membership weights}
+    \begin{align*}
+        \gamma_j^{(t)}(x_i) = \frac{w_j^{(t-1)}\cdot\mathcal{N}(x;\ \mu_j^{(t-1)}, \Sigma_j^{(t-1)})}{\sum_{l=1}^k w_l^{(t-1)}\cdot\mathcal{N}(x;\ \mu_l^{(t-1)}, \Sigma_l^{(t-1)})}
+    \end{align*}
+    \item \textbf{M-Step} Update the model parameters (MLE):
+    \begin{align*}
+        w_j^{(t)} \gets \frac{1}{n}\sum_{i=1}^{n}\gamma_j^{(t)}(x_i),\quad \mu_j^{(t)} \gets \frac{\sum_{i=1}^{n}\gamma_j^{(t)}(x_i)\cdot x_i}{\sum_{i=1}^{n}\gamma_j^{(t)}(x_i)} \\
+        \Sigma_j^{(t)} \gets \frac{\sum_{i=1}^{n} \gamma_j^{(t)}(x_i)\cdot(x_i-\mu_j^{(t)})(x_i-\mu_j^{(t)})^\top}{\sum_{i=1}^{n}\gamma_j^{(t)}(x_i)}
+    \end{align*}
+\end{itemize}
+
+\subsubsection{Convergence}
+
+EM does not generally guarantee global convergence.
+
+\theorem \textbf{Continuous Improvement of EM}\\
+\smalltext{EM guarantees continuous improvement for $\{\theta^{(t)}\}_{t=1}^\infty$}
+$$
+    \log\Bigl( P\bigl( X \sep \theta^{(t+1)} \bigr) \Bigr) \geq \log\Bigl( P\bigl( X \sep \theta^{(t)} \bigr) \Bigr)
+$$
+\subtext{Where $P(X\sep \theta^{(t)})$ is the log-likelihood.}
+
+Further, $\bigl\{ \log\bigl(P(X\sep\theta^{(t)})\bigr) \bigr\}_{t=1}^\infty$ converges to a finite value and $\bigl\{ \theta^{(t)} \bigr\}_{t=1}^\infty$ converges to a stationary point of the log-likelihood.
+
+\subsection{Model Selection}
+
+\textbf{Problem}: How to choose $k$?
+
+{\footnotesize
+    \remark Increasing $k$ also increases the likelihood (in general), as increasingly every point can be seen as a seperate cluster.
+}
+
+\textbf{Solution}: Quantitative criteria \& domain knowledge.
+
+BIC \& AIC are used: Lower is better. Both metrics balance model fit against complexity by penalizing large $k$.
+
+\definition \textbf{Bayesian Information Criterion} 
+$$
+    \text{BIC}(k) = k\log(n)-\log(L)
+$$
+\definition \textbf{Akaike Information Criterion}
+$$
+    \text{AIC}(k) = k - \log(L)
+$$
+\subtext{$L$ is log-likelihood, $n$ is number of datapoints}
+
+\method \textbf{Model Selection}
+\begin{enumerate}
+    \item Find BIC \& AIC for a range (e.g. $1 \leq k \leq 100$) 
+    \item Choose $k$ with lowest metric
+\end{enumerate}
+
+{\footnotesize
+    \remark \textbf{Elbow Methow}\\
+    Alternatively, plot some performance metric (e.g. neg. log-likelihood) and find the inflection point indicating diminishing returns.
+}
+
