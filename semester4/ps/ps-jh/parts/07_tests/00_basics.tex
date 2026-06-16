@@ -1,6 +1,6 @@
 \subsection{Grundbegriffe}
 Wiederum Stichprobe $\cX_1, \ldots, \cX_n$, mögliche Modelle durch Familie $(\P_\vartheta)_{\theta \in \Theta}$ beschrieben und $\vartheta$ ein-/mehrdimensional.
-Wir haben \textit{Vermutung} wo in $\Theta$ richtiges $\vartheta$ liegt.
+Wir haben \bi{Vermutung} wo in $\Theta$ richtiges $\vartheta$ liegt.
 
 Wir entscheiden zwischen folgenden, mit $\Theta_0 \cap \Theta_A = \emptyset$.:
 \begin{itemize}
@@ -8,25 +8,38 @@ Wir entscheiden zwischen folgenden, mit $\Theta_0 \cap \Theta_A = \emptyset$.:
     \item \bi{Alternative} $\Theta_A \subseteq \Theta$ (oft: $H_A: \vartheta \in \Theta_A$)
 \end{itemize}
 Falls keine Alternative spezifiziert, so gilt $\Theta_A = \Theta_0^C = \Theta \backslash \Theta_0$.
-Sie heissen \bi{Einfach}, falls $\Theta_0 = \{ \vartheta_0 \}$, resp. $\Theta_A = \{ \vartheta_A \}$, sonst \bi{Zusammengesetzt}
+Sie heissen \bi{Einfach}, falls $\Theta_0 = \{ \vartheta_0 \}$, resp. $\Theta_A = \{ \vartheta_A \}$, sonst \bi{Zusammengesetzt} (e.g. $\Theta_A = (0.5, 1]$)
 
 \shortdefinition[Test] ist ein Paar $(T, K)$ mit
 \begin{itemize}
     \item \bi{Teststatistik} $T = t(\cX_1, \ldots, \cX_n)$ eine Zufallsvariable mit messbarer Funktion $t: \R^n \rightarrow \R$
-    \item \bi{Verwerfungsbereich} $K \subseteq \R$
+    \item \bi{Verwerfungsbereich} $K \subseteq \R$ (auch \textit{kritischer Bereich})
 \end{itemize}
 \shade{gray}{Entscheidungsregel} $H_0$ wird \textit{verworfen}, falls $T(\omega) \in K$, sonst \textit{angenommen}, bzw. nicht verworfen
 
-\shade{gray}{Fehlerarten}
-\bi{Fehler 1. Art} (Hypothese abgelehnt, ist aber richtig), falls $\vartheta \in \Theta_0$, aber $T \in K$, also
-$\P_\vartheta[T \in K]$ für $\vartheta \in \Theta_0$ ist W. für F. 1. Art\\
-\bi{Fehler 2. Art} (Hypothese angenommen, ist aber falsch), falls $\vartheta \in \Theta_A$, aber $T \notin K$, also
-$\P_\vartheta[T \notin K]$ für $\vartheta \in \Theta_A$ ist W. für F. 2. Art
+\shortdefinition[Fehler 1. Art] (Hypothese abgelehnt, ist aber richtig), falls $\vartheta \in \Theta_0$, aber $T \in K$, also
+$\P_\vartheta[T \in K]$ für $\vartheta \in \Theta_0$ ist W. für F. 1. Art
+
+\shortdefinition[Fehler 2. Art] (Hypothese angenommen, aber falsch), falls $\vartheta \in \Theta_A$, aber $T \notin K$, also
+$\P_\vartheta[T \notin K] = 1 - \P_\vartheta[T \in K]$ für $\vartheta \in \Theta_A$ ist W. für F. 2. Art
 
 \shortremark Entscheidung hängt dabei von \bi{Realisierung} $\omega$ ab.
 Da $T$ eine Z.V. ist, können $\P_\vartheta[T \in K]$ in jedem $\P_\vartheta$ betrachten
 
-\bi{Signifikanzniveau} $\alpha \in (0, 1)$. Ziel: $\underset{\vartheta \in \Theta_0}{\sup} \P_\vartheta[T \in K] \leq \alpha$
+\shortdefinition[Signifikanzniveau] $\alpha \in (0, 1)$. Ziel: $\underset{\vartheta \in \Theta_0}{\sup} \P_\vartheta[T \in K] \leq \alpha$
 (Fehler 1. Art so klein wie möglich). Typisch: $\alpha = 0.05$
 
-\bi{Macht} $\beta: \Theta_A \rightarrow [0, 1]$, mit $\beta(\vartheta) = \P_\vartheta[T \in K]$ soll möglichst gross werden (Fehler 2. Art so klein wie möglich)
+\shortdefinition[Macht] $\beta: \Theta_A \rightarrow [0, 1]$, mit $\beta(\vartheta) = \P_\vartheta[T \in K]$ soll möglichst gross werden (Fehler 2. Art so klein wie möglich)
+
+\shortremark Seriöser Test nutzt immer \highlight{negation der Aussage} als Hypothese (da Hypothese eher angenommen als abgelehnt wird).
+Entscheidung ist nicht \textit{Beweis}, sondern \textit{Interpr.}
+
+\shortexample[Tea Tasting Lady] Lady behauptet, sie kann schmecken, ob zuerst Tee oder Milch eingegossen wurde.
+Hypothese: ist Raten ($H_0: \vartheta = 0.5$, $H_A: \vartheta > 0.5$). Unter $\P_\vartheta$, $\cX_i \sim \text{Ber}(\vartheta)$ i.i.d und
+$S_n = \sum_{k = 1}^{n} \cX_k \sim \text{Bin}(n, \vartheta)$. Grosser Wert von $S_n$ eher $H_A$ als $H_0$. 
+
+\bi{Test}: $T = S_n$, $K = (c, \8)$. Für Bestimmung von $\alpha$ brauchen wir $\P_\vartheta[S_n > c]$ für $\vartheta = 0.5$.
+Berechnen Verteilung von $T$ (nicht immer möglich, wenn nicht, nutzen Approximation). Für $\alpha$ muss $\P_\vartheta[S_n > c] \leq \alpha$ sein.
+Wählen $c$ so, dass $\alpha$ ungefähr 5\% ist. 
+
+\bi{Macht} ersichtlich durch Berechnung von $\beta(0.6)$ hier. Fehler 2. Art ist gross ($1 - \beta(\vartheta)$ gross)

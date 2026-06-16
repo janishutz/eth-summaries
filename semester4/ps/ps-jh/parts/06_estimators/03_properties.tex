@@ -1,6 +1,8 @@
+\newpage
 \subsection{Verteilungsaussagen}
-Approx. von Verteilung von Schätzer unter $\P_\vartheta$ (wenn $T$ Summe mit $\cY_k$ im $\P_\vartheta$).
-Solche sind approx. Normalverteilt unter $\P_\vartheta$, mit Parametern $\mu = n \E_\vartheta[\cY_k]$ und $\sigma^2 = n \V_\vartheta[\cY_k]$.
+\label{sec:estimators-properties}
+Approx. V. von Schätzer unter $\P_\vartheta$ (wenn $T = \sum_{k = 1}^{n} \cY_k$, mit $\cY_k$ i.i.d in $\P_\vartheta$).
+Dabei $T \sim \cN(n \E_\vartheta[\cY_k], n \V_\vartheta[\cY_k])$ unter $\P_\vartheta$
 
 \shortdefinition[$\chi^2$-Verteilung] $\cX$ ist $\chi^2$-verteilt mit $m$ Freiheitsgraden, falls Dichte für $x \geq 0$ (wir schreiben $\cX \sim \chi^2_m$):
 \[
@@ -21,7 +23,7 @@ $\chi^2_2 = \text{Exp}(\frac{1}{2})$
 \]
 
 \shortremark $\cX \sim \cN(0, 1)$, $\cY \sim \chi^2_m$ unabh., dann: $\frac{\cX}{\sqrt{\frac{1}{m} \cY}} \sim t_m$
-Mit $m = 1$ Cauchy-V. mit $m \rightarrow \8$ asympt. $\cN(0, 1)$. $t_m$ symm. um $0$ wie $\cN(0, 1)$, aber \bi{langschwänziger}
+Mit $m = 1$ Cauchy-V. mit $m \rightarrow \8$ asympt. $\cN(0, 1)$. $t_m$ symm. um $0$ wie $\cN(0, 1)$, aber \bi{langschwänziger} (see \ref{sec:cauchy-dist})
 
 \shorttheorem Für $\cX_k \sim \cN(\mu, \sigma^2)$ i.i.d. und
 \[

@@ -6,18 +6,19 @@ Teststatistik ist immer:
 \[
     T = \frac{\overline{\cX}_n - \vartheta_0}{\frac{\sigma}{\sqrt{n}}} \sim \cN(0, 1) \qquad \text{unter } \P_{\vartheta_0}
 \]
-Kritischer Bereich $K$: $(c_>, \8)$, bzw. $(-\8, c_<)$ für einseitig, $(-\8, -c_{\neq}) \cup (c_{\neq}, \8)$ für zweiseitig (verw. falls $|T| > c_{\neq}$).
+$K$: $(c_>, \8)$, bzw. $(-\8, c_<)$ für einseitig, $(-\8, -c_{\neq}) \cup$\\
+$(c_{\neq}, \8)$ für zweiseitig (verwerfen $H_0$ falls $|T| > c_{\neq}$).
 
 \bi{Bestimmung $c$s}: Mit Verteilung von $T$. Bsp: $\alpha = \P_{\vartheta_0}[T > c_>] = 1 - \Phi(c_>)$, folglich $c_> = \Phi^{-1}(1 - \alpha) =: z_{1 - \alpha}$
 
 
 \shortexample[t-Test] $\cX_i$ i.i.d. $\sim \cN(\mu, \sigma^2)$ unter $\P_{\overrightarrow{\vartheta}}$
 mit $\overrightarrow{\vartheta} := (\mu, \sigma^2)$ (und insbesondere $\sigma^2)$ unbekannt.
-Testen wieder $H_0 : \mu = \mu_0$. Teststatistik ist hier:
+Testen wieder $H_0 : \mu = \mu_0$. Teststatistik ist hier (see \ref{sec:estimators-properties}, $t_m$-V.):
 \[
     T = \frac{\overline{X}_n - \mu_0}{\frac{S}{\sqrt{n}}} \qquad S^2 = \frac{1}{n - 1} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2
 \]
-Kritischer Bereich $K$: $c_> = t_{n - 1, 1 - \alpha}$, $c_< = t_{n - 1, \alpha} = -c_>$ und $c_{\neq} = t_{n - 1, 1 - 0.5 \alpha}$,
+$K$: $c_> = t_{n - 1, 1 - \alpha}$; $c_< = t_{n - 1, \alpha} = -c_>$; $c_{\neq} = t_{n - 1, 1 - 0.5 \alpha}$,
 mit $t_{m, \gamma}$ das $\gamma$-Quantil, mit $\P[\cX \leq t_{m, \gamma}] = \gamma$ für $\cX \sim t_m$
 
 
@@ -30,15 +31,15 @@ Differenzen $\cZ_k = \cX_k - \cY_k$ unter $\P_\vartheta$ i.i.d. $\sim \cN(\mu_\c
 Wenn nicht unabhängig: $\sim \cN(\mu_\cX - \mu_\cY, 2(1 - \rho) \sigma^2)$ mit $\rho \in (-1, 1)$ Korrelation und $\rho = 0$ Unabhängigkeit.
 
 
-\shortexample[Ungepaart] $\cX_i$, $\cY_j$ wie zuvor ($n$ und $m$ je). 
+\shortexample[Ungepaart] $\cX_i$, $\cY_j$ wie zuvor ($n$ und $m$ je).
 
-$z$-Test (falls $\sigma^2$ bekannt):
+\bi{$z$-Test} (falls $\sigma^2$ bekannt):
 \[
     T = \frac{(\overline{\cX}_n - \overline{\cY}_m) - (\mu_\cX - \mu_\cY)}{\sigma \sqrt{\frac{1}{n} + \frac{1}{m}}} \sim \cN(0, 1)
 \]
 $\mu_\cX - \mu_\cY$ muss aus $H_0$ bekannt sein. Der kritische Bereich ist wieder Quantile der $\cN(0, 1)$-Verteilung.
 
-$t$-Test (falls $\sigma^2$ unbekannt):
+\bi{$t$-Test} (falls $\sigma^2$ unbekannt):
 \[
     T = \frac{(\overline{\cX}_n - \overline{\cY}_m) - (\mu_\cX - \mu_\cY)}{S \sqrt{\frac{1}{n} + \frac{1}{m}}} \sim t_{n + m - 2}
 \]
