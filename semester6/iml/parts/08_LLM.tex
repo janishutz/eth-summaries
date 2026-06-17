@@ -78,3 +78,102 @@ Each token receives a position in $d$-dimensional space: Semantically similar to
 \newpage
 \subsection{Transformers \& Attention}
 
+\textbf{Problem}: How to efficiently model sequences?
+
+{\footnotesize
+    \remark Historically, Recurrent Neural Networks (RNNs) were used.\\
+    \subtext{RNNS run sequentially: too slow for sequence modelling.}
+}
+
+\subsubsection{Single-Head Attention}
+The model weighs previous tokens relevant for the next one.\\
+\subtext{$w_{e,i}$ is $i$-th row of $\mathbf{W}_e$, $w_{p,i}$ is the positional encoding.}
+$$
+    z_i = w_{e,i} + w_{p,i}
+$$
+$\mathbf{W}_q, \mathbf{W}_k, \mathbf{W}_v$ are learnable parameter matrices.\\ 
+Intuitively, the model should learn to produce queries \& keys with high scores for relevant token pairs.
+$$
+    \underbrace{q_i = z_i \mathbf{W}_q}_\text{Query} \quad \underbrace{k_i = z_i \mathbf{W}_k}_\text{Key} \quad \underbrace{v_i = z_i \mathbf{W}_v}_\text{Value}
+$$
+\definition \textbf{Attention Score}\\
+\smalltext{Measures how relevant token $j$ is for predicting token $i$.}
+$$
+    \text{score}_{i,j} \propto \exp\Biggl( \frac{q_i k_j^\top}{\sqrt{d_k}} + m_{i,j} \Biggr) 
+    \qquad m_{i,j} = \begin{cases}
+        0 & j \leq i \\
+        -\infty & j > i
+    \end{cases}
+$$
+\subtext{$\sqrt{d_k}$ is a scaling factor, $m_{i,j}$ is a mask to prevent scoring future tokens.}
+
+\definition \textbf{Token Update}
+$$
+    z_i' = \sum_{j=1}^n \text{score}_{i,j} v_j \quad \text{(Weighted sum of values)}
+$$
+$$
+    \mathbf{Z}' = \text{softmax}\Bigl( \frac{\mathbf{Q}\mathbf{K}^\top}{\sqrt{d_k}} + \mathbf{M} \Bigr)\mathbf{V}
+$$
+\subtext{$\mathbf{Q},\mathbf{K},\mathbf{V} \in \R^{n \times d_k}$ are queries, keys, values. $\mathbf{M}$ is the mask matrix.}
+
+{\footnotesize
+    \remark Unlike in RNNs, all tokens can be processed in parallel.
+}
+
+\newpage
+\subsubsection{Multi-Head Attention}
+
+In practice, multiple attention "heads" are used to capture different aspects of the input.\\
+\subtext{Each head $r = 1, \ldots, h$ has its own $\mathbf{W}_r^Q, \mathbf{W}_r^K, \mathbf{W}_r^V$ matrices.}
+
+\definition \textbf{Multi-Head Attention Update}\\
+\smalltext{Use $h$ heads in parallel. The concatenation collects all heads' information, and $\mathbf{W}^O$ projects it back to the original dimension $d$.}
+$$
+    \mathbf{Z}'_r = \text{softmax}\Bigl( \frac{\mathbf{Q}_r\mathbf{K}_r^\top}{\sqrt{d_k}} + \mathbf{M} \Bigr)\mathbf{V}_r
+$$
+$$
+    \text{MultiHead}(\mathbf{Z}) = \text{Concat}(\mathbf{Z}'_1, \ldots, \mathbf{Z}'_h)\mathbf{W}^O
+$$
+\subtext{For $\mathbf{Q}_r = \mathbf{Z}\mathbf{W}_r^Q$, $\mathbf{K}_r = \mathbf{Z}\mathbf{W}_r^K$, $\mathbf{V}_r = \mathbf{Z}\mathbf{W}_r^V$}
+
+\subsubsection{Transformer}
+
+To build a network from multi-head attention, the transformer block is used. 
+
+\definition \textbf{Transformer Block}\\
+\smalltext{A Transformer block consists of a Multi-Head Attention layer followed by a Feed-Forward Neural Network layer. Each layer has residual connections ($\oplus$) and layer normalization.}
+
+\begin{center}
+    \includegraphics[width=0.3\linewidth]{resources/Transfomer.png}\\
+    \footnotesize\color{gray}\textit{Introduction to Machine Learning (2026), p. 285}
+\end{center}
+
+Normalization \& residual connections help prevent vanishing gradients and stabilize training. Intuitively: only learn small corrections instead of relearning the whole token.
+
+\newpage
+\subsubsection{Decoding}
+
+This is the process of generating text from the model.
+
+At each step, all tokens (so far) are used as input, returning a probability distribution over the vocabulary. The next token is sampled from it.
+
+{\footnotesize
+    \remark During training, the entire sequence is used for the foreward pass (with causal masking). At inference, each token requires a new foreward pass.
+}
+
+\method \textbf{Greedy Decoding}\\
+\smalltext{At each step, choose the token with the highest probability.}
+$$
+    x_t = \underset{x}{\text{arg max}}\ P\Bigl(X_t=x\sep X_{1:t-1}=x_{1:t-1}, \theta\Bigr)
+$$
+\subtext{Fast, but leads to repetitive text.}
+
+\method \textbf{Beam Search}\\
+\smalltext{Keep track of the $b$ most likely sequences at each step, then expand by each by one token, keep the best $b$ again.}
+
+\method \textbf{Sampling}\\
+\smalltext{Sample the next token from the predicted distribution.}\\
+$$
+    P\Bigl(X_t=x\sep X_{1:t-1}=x_{1:t-1}\Bigr) = \text{softmax}\Bigl( \frac{f(x_{1:t-1})_x}{\tau} \Bigr)_x
+$$
+\subtext{$\tau$ is the temperature parameter, controlling the sharpness of the distribution. $\tau \to 0$ mimics greedy decoding, $\tau \to \infty$ leads to uniform sampling.}
