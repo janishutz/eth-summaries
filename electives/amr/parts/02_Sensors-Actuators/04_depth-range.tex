@@ -13,17 +13,23 @@ $z = \frac{b \cdot f}{u_r - u_l}$ with $u_l = f\cdot \frac{x}{z} + c_u$ and $u_r
 \subsubsection{Time of Flight, Projection}
 {\color{ForestGreen}No occlusions/shadows}, {\color{red}Interference with other dev, multipath leading to larger distances sensed}
 
-\bi{Proj.} $\vec{z} = \begin{bmatrix}
+\bi{Proj.} $\vec{z} =
+    {\scriptsize
+    \begin{bmatrix}
         \vec{u} \\ d
     \end{bmatrix} =
     \begin{bmatrix}
         \vec{k}(\vec{d}(\vec{p}({_C}\vec{t}_P))) \\
         [0, 0, 1] {_c}\vec{t}_P
-    \end{bmatrix}$
+    \end{bmatrix}
+    }$
 \bi{Back}: ${_C}\vec{t}_P
-    = \begin{bmatrix}
-        d \vec{x'} \\d
-    \end{bmatrix}$
+        =
+        {\scriptsize
+            \begin{bmatrix}
+                d \vec{x'} \\d
+            \end{bmatrix}
+        }$
 
 
 \subsubsection{Range Sensors}
