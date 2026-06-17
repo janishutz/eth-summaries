@@ -7,7 +7,7 @@ We try to minimise cost functional (for $\vec{u}(t) = -\mat{K}\vec{x}(t)$)
 \]
 Solution: $\mat{K} = \mat{R}^{-1} (\mat{G}_c^\top \mat{P})$, with $\mat{P}$ found from
 \[
-    \mat{F}_c^\top \mat{P} + \mat{PF}_c - (\mat{PG}_c) \mat{R}^{-1} + \mat{Q} = \mat{0}
+    \mat{F}_c^\top \mat{P} + \mat{PF}_c - (\mat{PG}_c) \mat{R}^{-1} (\mat{G}_c^\top \mat{P}) + \mat{Q} = \mat{0}
 \]
 Finding $\mat{K}$ is expensive, but \textit{offline}, at runtime only $\vec{u}(t)$.
 
