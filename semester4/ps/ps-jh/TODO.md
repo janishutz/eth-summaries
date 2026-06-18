@@ -6,4 +6,4 @@
 - [ ] Shorten defs, etc
 - [ ] Link together better (decide on style for that)
 - [ ] Convex function def
-- [ ] Multiplication, div diff rules
+- [ ] Multiplication, div diff rules (Analysis)

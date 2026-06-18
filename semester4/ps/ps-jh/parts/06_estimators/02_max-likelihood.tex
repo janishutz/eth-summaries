@@ -18,7 +18,7 @@ Da oft $X_k$ i.i.d mit individueller Gew. $p_\cX(x; \vartheta)$ bzw. Dichte $f_\
         f_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im stetigen Fall}
     \end{cases}
 \]
-\bi{log-Likelihood-Funktion} $\log(L(x_1, \ldots, x_n; \vartheta))$. Ist im i.i.d-Fall eine Summe.
+\bi{log-Likelihood-Funktion} $l(\vartheta) = \log(L(x_1, \ldots, x_n; \vartheta))$. Ist im i.i.d-Fall eine Summe.
 
 \inlineintuition Likelihood-F. gibt W., dass in $\P_\vartheta$ die Stichprobe $\cX_1, \ldots, \cX_n$ genau Werte $x_1, \ldots x_n$ liefert.
 
@@ -30,11 +30,27 @@ Da oft $X_k$ i.i.d mit individueller Gew. $p_\cX(x; \vartheta)$ bzw. Dichte $f_\
 Meistens sind $\cX_k$ i.i.d. unter $\P_\vartheta$, dann $L$ produkt, also besser $\log(L)$ maximieren (da Summe).
 
 \shortremark
-Einfacher: Statt max., Nullstellen von Abl. nach $\vartheta$.
+\hl{Einfacher:} Statt max., Nullstellen von Abl. (einfachheitshalber von $l(\vartheta)$) nach $\vartheta$.
 
 \shortremark Suchen oft optimales $L(x_1, \ldots, x_n; \vartheta)$,
 da es einfacher ist, ersetzen dann $x_1, \ldots$ durch $\cX_1, \ldots$
-% TODO: Maybe remark from slide 356 (= p33 in 7)
+
+\shortexample[Von Serie] Kalibrierung von Gerät bis erfolgreich. $\cX \sim \text{Geo}(\theta)$ Anzahl Versuche, mit $\P_\theta[\cX = k] = \theta (1 - \theta)^{k - 1}$,
+gesucht $\theta$, $\cX_i$ unter $\P_\theta$ u.i.v. \bi{Aufgaben}
+
+\underline{LH-Func und $\log$-LH}: Mit Beobachtungen $x_i$ berechnen.\\
+$L(x_1, \ldots; \theta) = \ldots = \prod_{k = 1}^n \theta (1 - \theta)^{x_k - 1}$ (s. \ref{sec:series}),\\
+$l(\theta) = n \ln(\theta) + (S - n) \ln(1 - \theta)$, mit $S = \sum_{k = 1}^n x_k$.\\
+$\log(0)$ möglich (wenn $\theta = 1$ und $S \neq n$, ohne expanding)
+
+\underline{ML-Sch}: $S > n$: $l'(\theta) = \frac{n}{\theta} + \frac{S - n}{1 - \theta}$,
+Nullstelle von $l'(\theta)$ ist $\hat{\theta} = \frac{n}{S}$, check mit $l''(\frac{n}{S}) < 0$, ist max. Also ist $T_{ML} = \frac{n}{\sum_{k = 1}^{n} \cX_k}$
+
+\underline{Mit Werten} Einfach einsetzen und auflösen.
+
+
+% ────────────────────────────────────────────────────────────────────
+\hrule
 
 \shortexample \bi{Verteilungen} (Dimension $\vartheta$ gleich dim. param der V.)\\
 \highlight{Bernoulli} $\cX_i \sim \text{Ber}(p)$ i.i.d, hier $\vartheta = p$. Dabei:
@@ -45,17 +61,22 @@ $p_\cX(x; \vartheta) = \P_\vartheta[\cX = x] = \vartheta^x (1 - \vartheta)^{1 - 
 Log LH-Func: $\log(\vartheta) \cdot S + \log(1 - \vartheta) \left( n - S \right)$\\
 \bi{ML-Schätzer}: $T = \frac{1}{n} \sum_{k = 1}^{n} \cX_k = \overline{\cX}_n$
 
-\fbox{\bi{Normalverteilung}} $\cX_i \sim \cN(\mu, \sigma^2)$ i.i.d. Dabei:
+\fbox{\bi{Normalverteilung}} $\cX_i \sim \cN(\mu, \sigma^2)$ i.i.d. ($\sigma^2 = v$):
 \[
     f_\cX(x; \vartheta) = \frac{1}{\sqrt{2\pi v}} e^{-\frac{(x - \mu)^2}{2v}}
 \]
-Weil i.i.d (und $\vartheta = (\mu, \sigma^2)$):
+Weil i.i.d (und $\vartheta = (\mu, \sigma^2) = (\mu, v)$):
 \[
     L(x_1, \ldots, x_n; \vartheta) = \prod_{k = 1}^n f_\cX(x_k; \vartheta)
 \]
-und somit:
+und somit ($l(\vartheta) = \log(L(x_1, \ldots, x_n; \vartheta))$):
 \[
-    \log(L) = -\frac{1}{2} n(\log(2 \pi) + \log(v)) - \sum_{k = 1}^{n} \frac{(x_k - \mu)^2}{2v}
+    l(\vartheta) = -\frac{1}{2} n(\log(2 \pi) + \log(v)) - \sum_{k = 1}^{n} \frac{(x_k - \mu)^2}{2v}
+\]
+Ableitungen nach $\mu$ und $v$ (beide $0$ für Max, $l$ kurz für $l(\vartheta)$):
+\[
+    \partial_\mu l = 2 \sum_{k = 1}^{n} \frac{x_k - \mu}{2v} \quad
+    \partial_v l = - \frac{n}{2v} + \frac{1}{2v^2} \sum_{k = 1}^n (x_k - \mu)^2
 \]
 
 Der \bi{Schätzer} ist $T = (T_1, T_2)$ (\textbf{Momentschätzer}):
@@ -69,7 +90,7 @@ und folglich:
 \[
     \E_\vartheta[(\overline{\cX}_n)^2] = \frac{1}{n} \E_\vartheta[\cX^2] + \frac{n^2 - n}{n^2} (\E_\vartheta[\cX])^2
 \]
-\bi{Erwartungstreuer Schätzer} für $(\E_\vartheta[\cX], \V_\vartheta[\cX])$:
+\bi{Erwartungstreuer Schätzer} für $(\E_\vartheta[\cX], \V_\vartheta[\cX])$ (s. \ref{sec:estimators}):
 \[
     T_1' = T_1 \quad
     T_2' = \frac{n}{n - 1} T_2

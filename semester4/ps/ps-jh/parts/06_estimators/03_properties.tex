@@ -1,4 +1,3 @@
-\newpage
 \subsection{Verteilungsaussagen}
 \label{sec:estimators-properties}
 Approx. V. von Schätzer unter $\P_\vartheta$ (wenn $T = \sum_{k = 1}^{n} \cY_k$, mit $\cY_k$ i.i.d in $\P_\vartheta$).
@@ -25,6 +24,8 @@ $\chi^2_2 = \text{Exp}(\frac{1}{2})$
 \shortremark $\cX \sim \cN(0, 1)$, $\cY \sim \chi^2_m$ unabh., dann: $\frac{\cX}{\sqrt{\frac{1}{m} \cY}} \sim t_m$
 Mit $m = 1$ Cauchy-V. mit $m \rightarrow \8$ asympt. $\cN(0, 1)$. $t_m$ symm. um $0$ wie $\cN(0, 1)$, aber \bi{langschwänziger} (see \ref{sec:cauchy-dist})
 
+\hl{Untenstehendes sehr nützlich zur Bestimmung von V.}
+
 \shorttheorem Für $\cX_k \sim \cN(\mu, \sigma^2)$ i.i.d. und
 \[
     \overline{\cX}_n = \sum_{k = 1}^{n} \cX_k, \qquad S^2 = \frac{1}{n - 1} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2
@@ -34,5 +35,6 @@ Mit $m = 1$ Cauchy-V. mit $m \rightarrow \8$ asympt. $\cN(0, 1)$. $t_m$ symm. um
     \item $\frac{n - 1}{\sigma^2} S^2 = \frac{1}{\sigma^2} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2 \sim \chi^2_{n - 1}$
     \item $\overline{\cX}_n$ und $S^2$ sind unabhängig
     \item $\displaystyle \frac{\overline{\cX}_n - \mu}{\frac{S}{\sqrt{n}}}
-              = \frac{\frac{\overline{\cX}_n - \mu}{\sigma \div \sqrt{n}}}{\sqrt{\frac{1}{n - 1} \frac{n - 1}{\sigma^2} S^2}}$
+              \sim t_{n - 1}$
+          $\left( = \frac{\frac{\overline{\cX}_n - \mu}{\sigma \div \sqrt{n}}}{\sqrt{\frac{1}{n - 1} \frac{n - 1}{\sigma^2} S^2}} \right)$
 \end{enumerate}
