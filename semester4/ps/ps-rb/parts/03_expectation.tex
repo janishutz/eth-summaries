@@ -172,20 +172,21 @@ $$
 \begin{align*}
     \text{(i)}\quad         & \text{cov}(X,Y) \geq 0 \\
     \text{(ii)}\quad        & \text{cov}(X,Y) = \text{cov}(Y,X) \\
-    \text{(iii)}\quad       & X,Y \text{ unabh. } \implies \text{cov}(X,Y) = 0 \\
+    \text{(iii)}\quad       & X,Y \text{ unabh. } \implies \text{cov}(X,Y) = 0\quad \text{\subtext{Nicht umgekehrt!}} \\
     \text{(iv)}\quad        & \V[X \pm Y] = \V[X] + \V[Y] \pm 2\text{cov}(X,Y) \\
     \text{(v)}\quad         & \text{cov}\Biggl( \sum_{i=1}^{n}X_i,\sum_{j=1}^{n}Y_i \Biggr) = \sum_{i=1}^{n}\sum_{j=1}^{n}\text{cov}(X_i,Y_j) \\
     \text{(vi)}\quad        & \text{cov}(aX+b, cY+d) = ac\cdot\text{cov}(X,Y) \\
     \text{(vii)}\quad       & \text{cov}\Bigl(X, (eY+f) + (gZ+h)\Bigr) = e\text{cov}(X,Y) + g\text{cov}(X,Z)
 \end{align*}
 
-\definition \textbf{Kovarianzmatrix}
-$$
+\definition \textbf{Kovarianzmatrix} \subtext{$\quad \textbf{X} = (X_1,\ldots,X_n)^\top$}
+{\small
+    $$
     \Sigma = \text{cov}(\textbf{X}) = \begin{bmatrix}
         \V[X_1] & \text{cov}(X_1,X_2) & \cdots & \text{cov}(X_1,X_n) \\
         \text{cov}(X_2,X_1) & \text{cov}(X_2,X_2) & \cdots & \text{cov}(X_2,X_n) \\
         \vdots & \vdots & \ddots & \vdots \\
         \text{cov}(X_n,X_1) & \text{cov}(X_n,X_2) & \cdots & \text{cov}(X_n,X_n)
     \end{bmatrix}
-$$
-\subtext{$\textbf{X} = (X_1,\ldots,X_n)^\top$}
+    $$
+}
