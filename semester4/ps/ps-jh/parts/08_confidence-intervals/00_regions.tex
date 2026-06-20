@@ -1,8 +1,12 @@
-\shortdefinition[Konfidenzbereich] ist für $\vartheta$ zu Daten $x_i$ eine Menge $C(x_1, \ldots, x_n) \subseteq \Theta$.
-Mit genrierenden Z.V. ist $\tilde{C}(\cX_1, \ldots \cX_n)$ eine \bi{zufällige Teilmenge von} $\Theta$.
+\shortdefinition[Konfidenzbereich] $C(x_1, \ldots, x_n) \subseteq \Theta$.
+Mit genrierenden Z.V. ist $\tilde{C} := C(\cX_1, \ldots \cX_n)$ eine \bi{zufällige Teilmenge von} $\Theta$,
+{\scriptsize (\textit{Realisierung}) $\tilde{C}(\omega) = C(\cX_1(\omega), \ldots, \cX_n(\omega))$}
 
-\bi{Realisierung} $\tilde{C}(\omega) = C(\cX_1(\omega), \ldots, \cX_n(\omega))$.
 Für $\alpha \in [0, 1]$ ist $C$ \bi{Konfidenzbereich zum Niveau} $1 - \alpha$, falls
 \[
-    \P_\vartheta[C(\cX_1, \ldots, \cX_n) \ni \vartheta] \geq 1 - \alpha \quad \forall \vartheta \in \Theta
+	\P_\vartheta[C(\cX_1, \ldots, \cX_n) \ni \vartheta] \geq 1 - \alpha \quad \forall \vartheta \in \Theta
 \]
+{\scriptsize Man erwischt also mit grosser W. den Param in jedem Modell}
+
+\shortexample $C(\cX_1, \ldots) = [\overline{X}_n - c, \overline{X}_n + c]$, mit $c$ zu bestimmen.
+

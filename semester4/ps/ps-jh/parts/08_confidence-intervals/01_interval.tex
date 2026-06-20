@@ -1,31 +1,31 @@
 \shortdefinition[Konfidenzintervall (K.I.)] mit Niveau $1 - \alpha$ ist Zufallsintervall $I = [A, B]$ s.d. $\forall \vartheta \in \Theta$ gilt:
 \[
-    \P_\vartheta[[A, B] \ni \vartheta] = \P_\vartheta[A \leq \vartheta \leq B] \geq 1 - \alpha
+	\P_\vartheta[[A, B] \ni \vartheta] = \P_\vartheta[A \leq \vartheta \leq B] \geq 1 - \alpha
 \]
 mit $A, B$ Z.V. wie $A = a(\cX_1, \ldots, \cX_n)$, mit $a, b: \R^n \rightarrow \R$.
-Dabei ist $\vartheta$ deterministisch
+Dabei ist $\vartheta$ deterministisch. (\hl{Berechnung}: s. \ref{sec:distribution-function})
 
 \shortremark[Approx. K.I.] Nur wenn genaue Verteilungsaussagen zur Verfügung stehen, sind exakte K.I. möglich,
 sonst mittels zentralem Grenzwertsatz approx. berechnen ($z = z_{1 - \frac{\alpha}{2}}$)
 \[
-    P_\vartheta[|S_n^*| \leq z] \approx 1 - \alpha
+	P_\vartheta[|S_n^*| \leq z] \approx 1 - \alpha
 \]
-Auflösen von
+Auflösen von untenstehendem nach $\vartheta$ ($S_n$ wie in \ref{sec:weak-law-of-large-numbers})
 \[
-    |S_n - n \vartheta| \leq z \sqrt{n \vartheta(1 - \vartheta)} \text{ bzw. } (S_n - n \vartheta)^2 \leq z^2 n \vartheta(1 - \vartheta)
+	|S_n - n \vartheta| \leq z \sqrt{n \vartheta(1 - \vartheta)} \text{ bzw. } (S_n - n \vartheta)^2 \leq z^2 n \vartheta(1 - \vartheta)
 \]
-$\vartheta$ ist kompliziert, ersetzen der Ugl. durch Gl. (quad. Gl.)
+Ist kompliziert, ersetzen der Ugl. durch Gl. (quad. Gl.)
 \[
-    \hat{\vartheta}_\pm = \frac{2 S_n + z^2 \pm \sqrt{(2 S_n + z^2)^2 - 4S_n^2(1 + \frac{z^2}{n})}}{2n(1 + \frac{z^2}{n})}
+	\hat{\vartheta}_\pm = \frac{2 S_n + z^2 \pm \sqrt{(2 S_n + z^2)^2 - 4S_n^2(1 + \frac{z^2}{n})}}{2n(1 + \frac{z^2}{n})}
 \]
 Konfidenzintervall ist $[\hat{\vartheta}_-, \hat{\vartheta}_+]$.
 
 \shade{gray}{Alternative Methoden} (Annahme $\vartheta(1 - \vartheta) \approx \frac{1}{4}$):
 \[
-    \left[\overline{S}_n - \frac{z}{2 \sqrt{n}}, \overline{S}_n + \frac{z}{2 \sqrt{n}}\right]
+	\left[\overline{S}_n - \frac{z}{2 \sqrt{n}}, \overline{S}_n + \frac{z}{2 \sqrt{n}}\right]
 \]
 (Ersetzen von $\vartheta$ durch $\overline{S}_n$):
 \[
-    \left[ \overline{S}_n - \frac{z}{2 \sqrt{n}} \sqrt{\overline{S}_n (1 - \overline{S}_n)}, \overline{S}_n + \frac{z}{2 \sqrt{n}} \sqrt{\overline{S}_n (1 - \overline{S}_n)} \right]
+	\left[ \overline{S}_n - \frac{z}{2 \sqrt{n}} \sqrt{\overline{S}_n (1 - \overline{S}_n)}, \overline{S}_n + \frac{z}{2 \sqrt{n}} \sqrt{\overline{S}_n (1 - \overline{S}_n)} \right]
 \]
 Alle Methoden liefern unterschiedliche Resultate
