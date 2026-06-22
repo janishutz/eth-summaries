@@ -4,6 +4,7 @@
 
 \setupGlossary
 \input{glossary/main.tex}
+\setGlossaryMarkup
 
 \usepackage{lmodern}
 \setFontType{sans}
@@ -33,8 +34,10 @@
 	FS2026, ETHZ
 
 	\begin{Large}
-		Summary of the Script and Lectures
+		Summary of the Lecture Slides
 	\end{Large}
+
+	\url{https://systems.ethz.ch/education/courses/2026-spring/dmdb.html}
 \end{center}
 
 \newpage
@@ -50,11 +53,25 @@ This summary assumes some basic knowledge about databases.
 All words written in \textbf{bold} should be clickable and should link you to the corresponding term in the glossary.
 If I did not forget a term that is, of course.
 
+\subsection{IMS}
+Early databases were not relational and they also required the user of the system to know \textit{how the data was stored}.
+This of course is not ideal, as any update to the data structure also required an update to the code interacting with it.
+In addition, manual query optimization has to be done.
 
-\newsection
-\section{SQL}
-\input{parts/00_sql/00_intro.tex}
-\input{parts/00_sql/01_operations.tex}
+Non-relational databases commonly have data redundancy, due to non-hierarchical applications being forced into a tree-based model.
+This causes issues when updating the data, as one needs to update the data in all places where a copy of the data exists.
+
+\subsection{Network Model}
+In a network model, one \gls{record} is fetched at a time, so it essentially traverses the network.
+However, we again do not have data independence, thus the application again needs to change when the physical data representation changes.
+In addition, manual query optimization has to happen again, thus, any change to the physical data representation may cause the need to redo the optimization.
+
+\subsection{Relational Model}
+\bi{This is the focus of this course}
+
+
+\include{parts/00_sql/main.tex}
+\include{parts/01_relational-logic/main.tex}
 
 
 \printGlossary
