@@ -4,7 +4,7 @@ For that, we provide a table name, the columns and their data types.
 
 \sql\ supports the following data types (plus more):
 \begin{multicols}{2}
-    \begin{itemize}[itemsep=-2pt]
+	\begin{itemize}[itemsep=-2pt]
 		\item \texttt{char(n)}
 		\item \texttt{varchar(n)}
 		\item \texttt{integer}
@@ -16,15 +16,21 @@ For that, we provide a table name, the columns and their data types.
 
 \subsubsection{Creating Tables}
 Use the DDL \texttt{CREATE TABLE} keyword to create a table. We can set default values for certain attributes,
-or can add constraints to them
+or can add constraints to them.
 
 % TODO: Constraints (such as NOT NULL)
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/create.sql}
 
 
-
+% TODO: Make sure all the sql statements actually execute in pgsql
 \subsubsection{Updating / Altering Tables}
+Use the DDL \texttt{ALTER TABLE} keyword to update a table's schema.
+Be aware that if we ADD a column to the schema, unless a default value is provided, the column is set to \texttt{NULL} (see \ref{sec:sql-null})
+
+\inputcodewithfilename{sql}{}{code/sql/ddl/alter.sql}
 
 
 \subsubsection{Deleting Tables}
+
+\inputcodewithfilename{sql}{}{code/sql/ddl/delete.sql}
