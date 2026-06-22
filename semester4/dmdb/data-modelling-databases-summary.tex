@@ -2,6 +2,9 @@
 
 \input{~/projects/latex/janishutz-helpers.tex}
 
+\setupGlossary
+\input{glossary/main.tex}
+
 \usepackage{lmodern}
 \setFontType{sans}
 
@@ -12,35 +15,40 @@
 
 \vspace{1cm}
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{~/projects/latex/assets/logo.jpg}
+	\includegraphics[width=0.5\linewidth]{~/projects/latex/assets/logo.jpg}
 \end{center}
 
 
 \vspace{2cm}
 \begin{center}
-    \begin{Large}
-        \quote{A curry can be written in many different ways}
-    \end{Large}
+	\begin{Large}
+		\quote{A curry can be written in many different ways}
+	\end{Large}
 
-    \hspace{3cm} - Prof. Dr. Gustavo Alonso, 2026
+	\hspace{3cm} - Prof. Dr. Gustavo Alonso, 2026
 \end{center}
 
 \vspace{1.5cm}
 \begin{center}
-    FS2026, ETHZ
+	FS2026, ETHZ
 
-    \begin{Large}
-        Summary of the Script and Lectures
-    \end{Large}
+	\begin{Large}
+		Summary of the Script and Lectures
+	\end{Large}
 \end{center}
 
-
 \newpage
+
 \printtoc{Aquamarine}
 
+\newpage
 
 \section{Introduction}
 A note on the quote on the title page: He did not \textit{actually} mean ``curry'', but of course ``query'', but he just pronounced it that way.
+
+This summary assumes some basic knowledge about databases.
+All words written in \textbf{bold} should be clickable and should link you to the corresponding term in the glossary.
+If I did not forget a term that is, of course.
 
 
 \newsection
@@ -48,6 +56,8 @@ A note on the quote on the title page: He did not \textit{actually} mean ``curry
 \input{parts/00_sql/00_intro.tex}
 \input{parts/00_sql/01_operations.tex}
 
+
+\printGlossary
 
 
 \end{document}
