@@ -1,0 +1,11 @@
+\subsubsection{Keys}
+\inlinedefinition[Candidate Key] The minimal set of fields that identify each tuple uniquely
+
+\inlinedefinition[Primary Key] A single candidate key, i.e. just a single field.
+We mark the primary key using \underline{underlining} in visual \glspl{schema}.
+Formally, we write $R(\underline{k : D_k}, a:D_a, b:D_b)$ for a given relation, with all valid instances fulfilling
+\[
+	I \subseteq D_k \times D_a \times D_b \land \forall (k, a, b), (k', a', b') \in I : k = k' \rightarrow (a, b) = (a', b')
+\]
+i.e. if the key is equal, so is the rest of the tuple (thus they are one and the same\footnote{\hlhref{https://www.youtube.com/watch?v=tGeSEbYzhBU}{Heidrun is her name}}).
+

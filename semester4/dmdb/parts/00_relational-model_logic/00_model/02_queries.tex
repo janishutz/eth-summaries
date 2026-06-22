@@ -1,0 +1,6 @@
+\subsubsection{Queries}
+We write queries in a relational model using the following set notation (using \acrshort{sql} for an actual DB):
+\[
+    \{ (r, p) \divider r \in \texttt{Supplies} \land p \in \texttt{Parts} \land \texttt{r.pid = p.pid} \land \texttt{p.name = "A"} \}
+\]
+The query language thus processes an entire set at a time and applies set operations over the relations.

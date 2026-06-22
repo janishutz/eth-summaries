@@ -1,0 +1,44 @@
+\subsubsection{Operators}
+\begin{itemize}
+	\item \bi{Union} $\cup$: $x \in R_1 \cup R_2 \Leftrightarrow x \in R_1 \lor x \in R_2$
+	      (All tuples from both sets (Only valid for same schemas))
+	\item \bi{Difference} $-$: $x \in R_1 - R_2 \Leftrightarrow x \in R_1 \land x \notin R_2$
+	      (Tuples that appear in $R_1$, but not in $R_2$)
+	\item \bi{Intersection} $\cap$: $x \in R_1 \cap R_2 = R_1 - (R_1 - R_2)$
+	      (Tuples that don't appear in both sets)
+	\item \bi{Selection} $\sigma$: $x \in \sigma_c(R) \Leftrightarrow x \in R \land c(x) = \texttt{true}$, with $c$ a predicate on the passed in set.
+	      (Tuples that fulfil the predicate $c$)
+	\item \bi{Projection} $\Pi$: $\Pi_{A_1, \ldots, A_n}(R)$
+	      (Keep only a subset of the columns, e.g. for columns \texttt{name}, \texttt{pid}, $\Pi_{\texttt{name}}(R)$ returns only the column \texttt{name})
+	\item \bi{Cartesian Product} $\times$: $(x, y) \in R_1 \times R_2 \Leftrightarrow x \in R_1 \land y \in R_2$
+	      (Primarily used to express join operations. This however simply joins together the two tables (i.e. similar to expanding terms in maths))
+	\item \bi{Renaming} $\rho$: $\rho_{B_1, \ldots, B_n}(R)$
+	      (Change the name of the attributes of $R$ to $B_i$)
+	\item \bi{Natural Join} $\bowtie$: $R_1(A, B) \bowtie R_2(B, C) = \Pi_{A, B, C} (\sigma_{R_1.B = R_2.B}(R_1 \times R_2))$.
+	      (Join two relations into a table on a column. Natural join joins on columns with same name in both (or all) relations)
+	      Edge cases:
+	      \begin{itemize}
+		      \item No shared attributes $R(A, B, C)$, $S(D, E)$: $R \bowtie S = R \times S$
+		      \item All attributes shared $R(A, B, C)$, $S(A, B, C)$: $R \bowtie S = R \cap S$
+	      \end{itemize}
+	\item \bi{Theta Join} $\bowtie_\theta$: $R_1 \bowtie_\theta R_2 = \sigma_\theta(R_1 \times R_2)$
+	      (Join with custom predicate $\theta$)
+	\item \bi{Equi-Join} $\bowtie_{A = B}$: $R_1 \bowtie_{A = B} = \sigma_{A = B}(R_1 \times R_2)$
+	      (Join column A with column B)
+	\item \bi{Semi-Join} $\ltimes_C$: $R_1 \ltimes_C R_2 = \Pi_{A_1, \ldots, A_n}(R_1 \bowtie_C$, with $R_1(A_1, \ldots, A_n)$ and $R_2(B_1, \ldots, B_m)$
+	      (Returns columns only from one side if there is a match in the join)
+	\item \bi{Relational division} $\div$: $R \div S = \Pi_{R - S} R - \Pi_{R - S}((\Pi_{R - S} R) \times S - R)$.
+	      In other words, $R \div S = T$, with $T$ being the \textit{largest} relation such that $S \times T \subseteq R$.
+	      (Find all rows that do not fulfil a condition)
+\end{itemize}
+% TODO: Add other join operations
+
+\shade{purple}{Semi-Join Reduction} A useful trick with semi-joins. It is especially useful in distributed DB, where $R$ and $S$ are on different machines.
+Suppose we want to Join $R(A, B)$ with $S(B, C)$ on $B$, then we can do the following $R \bowtie S = (R \ltimes \Pi_B S) \bowtie S$.
+
+The idea is to send the column on which the relations are to be joined from the second system to the first,
+there execute a semi-join (thus only returning the contents of $R$ that matched with contents of $S$),
+then sending only that data to the second machine to finish the full join operation.
+
+Of course, in the real world, users of DB systems don't write relational algebra, as in this case, the order of operations matters for performance,
+whereas we want database systems to figure this out by themselves.

@@ -1,0 +1,30 @@
+\subsection{Data Definition Language (DDL)}
+The DDL is used to describe the schema of relations, in \sql\ called tables.
+For that, we provide a table name, the columns and their data types.
+
+\sql\ supports the following data types (plus more):
+\begin{multicols}{2}
+    \begin{itemize}[itemsep=-2pt]
+		\item \texttt{char(n)}
+		\item \texttt{varchar(n)}
+		\item \texttt{integer}
+		\item \texttt{blob} or \texttt{raw} (for large binaries)
+		\item \texttt{date}
+	\end{itemize}
+\end{multicols}
+
+
+\subsubsection{Creating Tables}
+Use the DDL \texttt{CREATE TABLE} keyword to create a table. We can set default values for certain attributes,
+or can add constraints to them
+
+% TODO: Constraints (such as NOT NULL)
+
+\inputcodewithfilename{sql}{}{code/sql/ddl/create.sql}
+
+
+
+\subsubsection{Updating / Altering Tables}
+
+
+\subsubsection{Deleting Tables}

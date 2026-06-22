@@ -2,17 +2,23 @@
 
 \input{~/projects/latex/janishutz-helpers.tex}
 
+
 \setupGlossary
 \input{glossary/main.tex}
 \setGlossaryMarkup
 
+
 \usepackage{lmodern}
 \setFontType{sans}
+
+\newcommand{\sql}{\acrshort{sql}}
 
 \setup{Data Modelling \& Databases}
 
 \begin{document}
 \startDocument
+
+\mediumverticalspacing
 
 \vspace{1cm}
 \begin{center}
@@ -69,9 +75,12 @@ In addition, manual query optimization has to happen again, thus, any change to 
 \subsection{Relational Model}
 \bi{This is the focus of this course}
 
+The relational model has the benefit of having data independence: The application doesn't know how the data is stored and represented.
+The queries stay the same, even if the data representation changes.
+In addition, the end user does not have to worry about optimization too much. This, of course, only applies to a limited extent.
 
-\include{parts/00_sql/main.tex}
-\include{parts/01_relational-logic/main.tex}
+\include{parts/00_relational-model_logic/main.tex}
+\include{parts/01_sql/main.tex}
 
 
 \printGlossary
