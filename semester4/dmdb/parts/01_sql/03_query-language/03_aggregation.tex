@@ -1,0 +1,41 @@
+\newpage
+\subsubsection{Aggregations, Grouping, Sorting}
+\paragraph{Aggregations}
+\sql\ supports (at least) the aggregation functions \texttt{SUM}, \texttt{MIN}, \texttt{MAX}, \texttt{AVG}, \texttt{COUNT},
+whose output should be evident.
+
+Please note that you cannot use the aggregation functions and still output another column,
+as they produce a single value.
+
+For each of the functions, you can optionally specify \texttt{DISTINCT}.
+
+We typically want to specify an \texttt{AS} clause, to make the output nicer to read
+
+
+\paragraph{Grouping}
+Grouping is used to, well, group together the outputs on a column.
+Using SQL, this is achieved using the \texttt{GROUP BY} clause.
+We specify the columns on which the grouping should occur.
+
+\hl{\textbf{\textit{IMPORTANT}}} We can only use aggregates and columns appearing in the \texttt{GROUP BY} clause in the \texttt{SELECT} clause.
+
+Using a \texttt{JOIN} function, it is of course then possible to go back retrieve the other columns.
+
+To apply filtering on the columns, the \texttt{HAVING} clause can be used.
+It applies a comparison to a grouping column or an aggregate as specified in the \texttt{SELECT} clause:
+\mint{sql}|SELECT COUNT(name) as cnt FROM Students GROUP BY Department HAVING cnt > 1;|
+
+
+\paragraph{Sorting}
+We can sort the output of any query using the \texttt{ORDER BY column DIRECTION} clause, where \texttt{DIRECTION} is to be replaced with \texttt{ASC} or \texttt{DESC}:
+\mint{sql}|SELECT name FROM Students ORDER BY name DESC;|
+
+
+\paragraph{Limit}
+We can limit the number of columns to return using the \texttt{LIMIT} clause. Example:
+\mint{sql}|SELECT * FROM Exams LIMIT 10;|
+
+
+\paragraph{Example}
+Below some examples of \sql\ Queries using grouping, aggregations, sorting and grouping
+\inputcodewithfilename{sql}{}{code/sql/aggregations.sql}

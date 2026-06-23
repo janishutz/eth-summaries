@@ -1,0 +1,23 @@
+\subsubsection{Views}
+Views are a useful way of abstracting a complex query and is the result of a stored query.
+
+We can create views using the following template:
+\mint{sql}|CREATE VIEW name AS query;|
+
+We can then operate on it as if it were a table.
+
+Common applications for views are privacy / access control, because you can limit access to tables only via certain views for every user;
+Usability is also often much better due to having less complex queries to write - you are just writing them once.
+
+\shade{orange}{How a view is evaluated}
+This is quite simple in essence, the \texttt{VIEW}'s query is inserted into the query using the view.
+It then is then optimized as it normally would be, too. Of course, it is likely that more optimization can and has to be done on views.
+
+
+\paragraph{Updatable Views}
+Updating Views refers to updating values of the tables in the views.
+This is not straight forward and thus, many restrictions are placed on what kind of views are considered updatable.
+
+In \sql, a view is updatable if and only if it involves \bi{one} base relation and its key, it does \bi{not} involve aggregates, groups or duplicate elimination.
+
+In short, if there is one-to-one mapping between the view and base relation, it is updatable.

@@ -7,16 +7,23 @@ To rename, we can set \texttt{I = Column as Name, Column2 as Name2}, etc
 
 % TODO: Make RA an acronym, too
 \inlinetheorem Every SPJR RA expression can be written in \texttt{SELECT ... FROM ... WHERE ...} form:
-\begin{tables}{lll}{Operation & Notation & SQL}
-	Selection & $\sigma_c(R)$ & \texttt{SELECT * FROM R WHERE c;} \\
-	Projection & $\Pi_{A_1, \ldots, A_n} R$ & \texttt{SELECT A1, \ldots, An FROM R;} \\
-    Cartesian Product & $R_1 \times R_2$ & \texttt{SELECT * FROM (R1, R2);} \\
-    Rename & $\rho_{a, b, c} R$ & \texttt{SELECT A as a, \ldots, B as c FROM R;} \\
-    Union & $R_1 \cup R_2$ & \texttt{R1 UNION R2;} \\
-    Difference & $R_1 - R_2$ & \texttt{R1 EXCEPT R2;} \\
-    Intersection & $R_1 - R_2$ & \texttt{R1 INTERSECT R2;} \\
+\begin{tables}{lll}{Operation   & Notation                   & SQL}
+              Selection         & $\sigma_c(R)$              & \texttt{SELECT * FROM R WHERE c;}              \\
+              Projection        & $\Pi_{A_1, \ldots, A_n} R$ & \texttt{SELECT A1, \ldots, An FROM R;}         \\
+              Cartesian Product & $R_1 \times R_2$           & \texttt{SELECT * FROM (R1, R2);}               \\
+              Rename            & $\rho_{a, b, c} R$         & \texttt{SELECT A as a, \ldots, B as c FROM R;} \\
+              Union             & $R_1 \cup R_2$             & \texttt{R1 UNION R2;}                          \\
+              Difference        & $R_1 - R_2$                & \texttt{R1 EXCEPT R2;}                         \\
+              Intersection      & $R_1 - R_2$                & \texttt{R1 INTERSECT R2;}                      \\
 \end{tables}
-Since \sql\ implements bag and not set semantics, there is a \texttt{DISTINCT} keyword, which is used to remove duplicates.
 
-For the last three operations, \texttt{R1} and \texttt{R2} typically are other \sql\ statements:
+Since \sql\ implements \gls{bag} and not set semantics, there is a \texttt{DISTINCT} keyword, which is used to remove duplicates.
+It is to be applied in the \texttt{SELECT} clause (\texttt{I} above), e.g.
+\mint{sql}|SELECT DISTINCT name FROM Data;|
+
+For the last three operations, \texttt{R1} and \texttt{R2} typically are other \sql\ statements, example:
 \mint{sql}|(SELECT name FROM FirstTable) UNION (SELECT name FROM SecondTable)|
+In addition, to apply \textit{bag semantics}, as opposed to \textit{set semantics} append \texttt{ALL} to the expression (e.g. \texttt{UNION ALL})
+
+We can also name the tables, e.g. $\texttt{T} = \texttt{One o, Two t}$, and then access columns from a specific table using
+$\texttt{I} = \texttt{o.Col, b.Col}$, or the like.

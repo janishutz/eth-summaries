@@ -3,14 +3,18 @@ The DDL is used to describe the schema of relations, in \sql\ called tables.
 For that, we provide a table name, the columns and their data types.
 
 \sql\ supports the following data types (plus more):
-\begin{multicols}{2}
-	\begin{itemize}[itemsep=-2pt]
-		\item \texttt{char(n)}
-		\item \texttt{varchar(n)}
-		\item \texttt{integer}
-		\item \texttt{blob} or \texttt{raw} (for large binaries)
-		\item \texttt{date}
-	\end{itemize}
+\begin{multicols}{3}
+    \begin{itemize}[itemsep=-2pt]
+        \item \texttt{CHAR(n)}
+        \item \texttt{VARCHAR(n)}
+        \item \texttt{INT}
+        \item \texttt{BIGINT}
+        \item \texttt{SMALLINT}
+        \item \texttt{FLOAT}
+        \item \texttt{BLOB(n)} (for large binaries)
+        \item \texttt{DATETIME}
+        \item \texttt{MONEY}
+    \end{itemize}
 \end{multicols}
 
 
@@ -18,7 +22,8 @@ For that, we provide a table name, the columns and their data types.
 Use the DDL \texttt{CREATE TABLE} keyword to create a table. We can set default values for certain attributes,
 or can add constraints to them.
 
-% TODO: Constraints (such as NOT NULL)
+Since the primary key must be unique for each entry, it may be useful to configure the primary key attribute with the following constraints
+\texttt{PrimaryKeyField INT NOT NULL AUTO\_INCREMENT}
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/create.sql}
 
@@ -34,3 +39,28 @@ Be aware that if we ADD a column to the schema, unless a default value is provid
 \subsubsection{Deleting Tables}
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/delete.sql}
+
+
+\subsubsection{Constraints}
+\sql\ supports a number of constraints that can be put on the different attributes of a schema.
+\begin{itemize}
+    \item \texttt{NOT NULL}: Disallows this column to be set to \texttt{NULL}, or have a \texttt{NULL} value
+    \item \texttt{UNIQUE}: The value of each value in this column must be unique, but it can be \texttt{NULL}.
+          An arbitrary number of columns can have \texttt{NULL} and still be valid
+    \item \texttt{PRIMARY KEY}: Sets this column as the primary key. \texttt{NOT NULL} and \texttt{UNIQUE} is set on it implicitly.
+          Contrary to common intuition, it can be set on multiple columns.
+    \item \texttt{CHECK c}: Check that the values fulfil a condition.
+          This condition has the same syntax as for the \texttt{WHERE} clause (see \ref{sec:sql-basic-ops})
+    \item \texttt{REFERENCES table}: A Foreign Key, used to refer to another tuple from a different relation.
+          It is typically referencing the primary key of the other table.
+\end{itemize}
+For \texttt{REFERENCES}, there are many options for maintenance, which can be set on creating a reference:
+\begin{itemize}
+    \item \bi{Cascade}: Propagate \texttt{UPDATE} and \texttt{DELETE}
+    \item \bi{Restrict}: Prevent deletion of the primary key before the change, causes error
+    \item \bi{No Action}: Prevent modifications after attempting change, causes error
+    \item \bi{Set default, Set Default}: Set references to \texttt{NULL} or default value
+\end{itemize}
+
+\inlineexample
+\mint{sql}|CREATE TABLE tab (id integer REFERENCES OtherTable ON DELETE cascade ON UPDATE cascade)|

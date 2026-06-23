@@ -1,0 +1,21 @@
+\newpage
+\subsubsection{Null}
+\label{sec:sql-null}
+Whenever we have incomplete information, we can set a column to be \texttt{NULL}.
+If you have a column that has \texttt{NULL} values, when using \texttt{WHERE} clauses, these values are skipped.
+\textit{However} if you are not filtering on the column, a \texttt{NULL} value is returned.
+
+To check if a column is \texttt{NULL}, you can use the \texttt{IS} keyword:
+\mint{sql}|SELECT * FROM Data WHERE name IS NULL|
+
+\begin{itemize}[itemsep=-3pt]
+    \item In \texttt{GROUP BY}, all \texttt{NULL}s form a single group.
+    \item \texttt{COUNT(*)}, also counts rows with \texttt{NULL}
+    \item \texttt{COUNT(TheColWithNull)} ignores rows with \texttt{NULL}
+    \item Most other aggregations ignore \texttt{NULL}
+    \item If all rows in an aggregations are \texttt{NULL}, so is the result
+\end{itemize}
+
+The \texttt{OUTER JOIN} operators may (and likely will) introduce \texttt{NULL}
+
+% TODO: Schema concepts? (slides 05, P20ff)

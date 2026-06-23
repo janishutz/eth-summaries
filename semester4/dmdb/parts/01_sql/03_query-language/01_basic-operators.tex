@@ -1,0 +1,33 @@
+\newpage
+\subsubsection{Basic operators}
+\label{sec:sql-basic-ops}
+\paragraph{Logical Operators}
+The following \sql\ logical operators are available (may not be exhaustive for all systems, \texttt{cop} is a comparison operator):
+\begin{tables}{p{4.5cm}p{12cm}}{Operator      & Description}
+              \texttt{P1 AND P2}              & TRUE if \texttt{P1} and \texttt{P2} both are true                                                                             \\
+              \texttt{P1 OR P2}               & TRUE if one of \texttt{P1} or \texttt{P2}, or both are true                                                                   \\
+              \texttt{C cop ALL query}         & TRUE if all values \texttt{x} returned in \gls{subquery}\ \texttt{query} fulfil \texttt{C cop x}                               \\
+              \texttt{C cop ANY query}         & TRUE if one (or more) values \texttt{x} returned in \gls{subquery}\ \texttt{query} fulfil \texttt{C cop x}.
+              \texttt{SOME} is logically equivalent                                                                                                                           \\
+              \texttt{C BETWEEN low AND high} & TRUE if numerical, text or date value of \texttt{C} is between \texttt{low} and \texttt{high}. Both ends inclusive, negatable \\
+              \texttt{C IN list}              & TRUE if value of \texttt{C} is in the provided \texttt{list}.
+              List format: \texttt{(val, val2)}. List can also be a \gls{subquery}, negatable                                                                                 \\
+              \texttt{C LIKE R}               & TRUE if value of \texttt{C} matches regex-like pattern \texttt{R}.
+              (\% matches any number of chars, \_ matches a single, arbitray character)                                                                                       \\
+              \texttt{EXISTS query}           & TRUE if \gls{subquery}\ \texttt{query} retuns at least one row                                                                \\
+              % \texttt{IN} & TRUE if \\
+\end{tables}
+
+
+\paragraph{Comparison \& Arithmetic Operators}
+\shade{gray}{Comparison Operators} $<, <=, =, >=, >$ are defined as usually, $<>$ is defined as not equal.
+
+\shade{gray}{Arithmetic Operators} $+, -, *, /, \%$ are defined as usual.
+
+We can use the arithmetic operators like this:
+\mint{sql}|SELECT Value * 1.1 FROM Data;|
+or in \texttt{WHERE} clauses like this:
+\mint{sql}|SELECT Value FROM (Data a, Data b) WHERE a.Value = b.Value - 1;|
+
+\inlineremark You may have noticed that in the above query, the same table was used twice.
+This is referred to as a \bi{Self-Join} and can come in handy when comparing values in a single table.
