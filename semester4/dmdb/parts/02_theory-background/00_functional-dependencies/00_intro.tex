@@ -1,0 +1,21 @@
+\subsection{Functional Dependency}
+As with relational algebra, we again define a schema to be a relation, e.g. $\cR(A:D_A, B:D_B, C:D_C, D: D_D)$,
+with an instance of it being $R \subseteq D_A \times D_B \times D_C \times D_D$.
+
+Then, we let $\alpha, \beta \subseteq \cR$, i.e. they each have a subset of the columns of $\cR$.
+
+$\alpha \rightarrow \beta$ ($\beta$ is a functional dependency of $\alpha$) if and only if $\forall r, s \in R : r.\alpha = s.\alpha \implies r.\beta = s.\beta$
+
+We write $R \models \alpha \rightarrow \beta$ if $R$ satisfies $\alpha \rightarrow \beta$ semantically,
+and $R \vdash \alpha \rightarrow \beta$ if the same applies syntactically (i.e. we can apply inference rules over Functional Dependencies).
+
+\inlineintuition This means that there is a function that maps the values of columns $\alpha$ to the values of columns $\beta$.
+
+
+\inlinedefinition $\alpha \subseteq \R$ is a \bi{superkey} if and only if $\alpha \rightarrow \cR$.
+
+\inlineintuition This means that if we know the values of columns $\alpha$, we know the value of the rest of the columns in $\cR$
+
+
+\inlinedefinition $\alpha \rightarrow \beta$ is minimal if and only if $\forall A \in \alpha : (\alpha - \{ A \}) \centernot{\rightarrow} \beta$.
+These are denoted $\alpha \rightarrow ^.\beta$

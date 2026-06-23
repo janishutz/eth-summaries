@@ -1,0 +1,50 @@
+\subsubsection{Closure Algorithm}
+For the definition of the closure, see above.
+
+Finding a closure $\alpha^+$ using an algorithm\footnote{Yes, I did name the algorithm that. Sorry about that, the pun was too good to skip}:
+
+\begin{algorithm}
+    \caption{Finding Closure}
+    \begin{algorithmic}[1]
+        \Procedure{FindClosure}{$F$}
+            \State $\alpha^+ \gets \alpha$
+            \Repeat
+                \State $\alpha^+_\text{old} \gets \alpha^+$
+                \For{\textbf{each} FD $\beta \rightarrow \gamma \in F$}
+                    \If{$\beta \subseteq \alpha^+$}
+                        \State $\alpha^+ \gets \alpha^+ \cup \gamma$
+                    \EndIf
+                \EndFor
+            \Until{$\alpha^+ = \alpha^+_\text{old}$}
+            \State \Return $\alpha^+$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+We can use that to check the following:
+\begin{itemize}
+    \item $F \vdash \alpha \rightarrow \gamma$: Calculate $\alpha^+$ and check $\gamma \in \alpha^+$
+    \item $F \vdash G$: For each $\alpha \rightarrow \gamma \in G$, check $F \vdash \alpha \rightarrow \gamma$
+    \item $F$ equivalent to $G$: Check $F \vdash G$ and $G \vdash F$
+    \item $K \subseteq \cR$ superkey for $F$: Check $F \vdash K \rightarrow \cR$:
+\end{itemize}
+
+
+\begin{definition}[]{Minimal Cover}
+    A minimal cover (or minimum basis) of $F$ is a set of FDs $G$ that has the following properties:
+    \begin{itemize}
+        \item $G \equiv F$
+        \item All FDs in $G$ have form $X \rightarrow A$, with $A$ being a single attribute
+        \item It is not possible to make $G$ ``smaller'', i.e. if deleting a FD, $G - \{ X \rightarrow A \} \centernot{\equiv} G$,
+              or $G - \{ XA \rightarrow B \} + \{ X \rightarrow B \} \centernot{\equiv} G$, for any FD $XA \rightarrow B \in G$
+    \end{itemize}
+\end{definition}
+
+Computing the minimum basis:
+\begin{enumerate}
+    \item $G$ set of FDs obtained from $F$ by decomposing the right hand sides of each FD to single attribute
+    \item Remove trivial FDs
+    \item Remove redundant attributes from LHS of FDs in $G$ (by, for each $X \rightarrow Y$ taking each attribute $x \in X$ and,
+          if $X - \{ x \} \rightarrow Y$ implies $X \rightarrow Y$, replacing $X \rightarrow Y$ with $X - \{ x \} \rightarrow Y$)
+    \item Remove all redundant FDs
+\end{enumerate}

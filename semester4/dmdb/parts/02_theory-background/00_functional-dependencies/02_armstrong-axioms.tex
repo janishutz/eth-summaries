@@ -1,0 +1,25 @@
+\subsubsection{Armstrong's Axioms}
+\begin{itemize}
+    \item \bi{Reflexivity} $\alpha \subseteq \beta \implies \beta \rightarrow \alpha$, special case: $\cR \rightarrow \alpha$ (referred to as \textit{trivial FDs})
+    \item \bi{Augmentation} $\alpha \rightarrow \beta \implies \alpha \gamma \rightarrow \beta \gamma$, with $\alpha \gamma = \alpha \cup \gamma$
+    \item \bi{Transitivity} $\alpha \rightarrow \beta \land \beta \rightarrow \gamma \implies \alpha \rightarrow \gamma$
+\end{itemize}
+These three axioms are all complete and sound.
+All other possible FDs can be implied from these axioms.
+
+% TODO: Want the proofs?
+
+\begin{itemize}
+    \item $F$ \bi{derives} $f = \alpha \rightarrow \beta$, denoted $F \vdash f$, if there is a derivation for $f$ using only Armstrong's axioms.
+    \item $F$ \bi{implies} $f$, denoted $F \models f$, if for every relation instance $R$ of $\cR$ that satisfies all FD in $F$ also satisfies $f$.
+\end{itemize}
+
+\inlinedefinition[Soundness] $F \vdash f \rightarrow \implies F \models f$
+
+\inlinedefinition[Completeness] $F \models f \implies F \vdash f$
+
+\inlinedefinition[Closure] of $\alpha$ with respect to $F$ $\alpha^+$ is the set of all attributes $y \in \cR$ such that $\alpha \rightarrow y$ can be derived from $F$
+using Armstrong's axioms:
+\[
+    \alpha^+ = \{ y \in \cR \divider F \vdash \alpha \rightarrow y \} \qquad F \vdash \alpha \rightarrow \beta \Leftrightarrow \beta \subseteq \alpha^+
+\]

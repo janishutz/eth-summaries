@@ -1,0 +1,10 @@
+\subsubsection{Inference}
+A fundamental result for a given set of Functional Dependencies $F$ is $F \models \alpha \rightarrow \beta \Leftrightarrow F \vdash \alpha \rightarrow \beta$
+(assuming $\vdash$ is defined by Armstrong's Axioms)
+
+The goal is to find new FDs that can are implied from a set of FDs $F$ on scheme $\cR$. Let $\alpha \rightarrow \beta$ be another FD on $\cR$. Then:
+\begin{itemize}
+    \item $F$ implies $\alpha \rightarrow \beta$, if every relation instance $R$ of $\cR$ that satisfies all FDs in $F$ also satisfies $\alpha \rightarrow \beta$.
+    \item The \bi{closure} $F+$ of $F$ is the set of all FDs implied by $F$.
+    \item Let $G$ be another set of FDs on scheme $\cR$. $F$ and $G$ are \bi{equivalent} ($F \equiv G$) if $F \models G$ and $G \models F$
+\end{itemize}
