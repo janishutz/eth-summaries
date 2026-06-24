@@ -1,0 +1,10 @@
+\subsection{Second Normal Form}
+The two dependencies $\{ \text{Legi}, \text{Nr} \} \rightrightarrow \{ \text{Name}, \text{Semester} \}$,
+$\{ \text{Legi} \} \rightrightarrow \{ \text{Name}, \text{Semester} \}$ state the following:
+
+\begin{itemize}
+    \item Legi determines the name and semester of a student.
+    \item The first map has to happen, even though mapping $\{ \text{Legi}, \text{Nr} \}$ to $\{ \text{Legi} \}$ would be enough. We thus will have redundancy.
+          However, this is the exact relationship that the table is meant to capture
+          Thus, $\{ \text{Name}, \text{Semester} \}$ should not be in the table at all.
+\end{itemize}
