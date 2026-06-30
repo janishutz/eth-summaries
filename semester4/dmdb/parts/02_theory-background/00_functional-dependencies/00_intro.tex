@@ -1,4 +1,5 @@
 \subsection{Functional Dependency}
+\label{sec:functional-dependency}
 As with relational algebra, we again define a schema to be a relation, e.g. $\cR(A:D_A, B:D_B, C:D_C, D: D_D)$,
 with an instance of it being $R \subseteq D_A \times D_B \times D_C \times D_D$.
 
@@ -12,9 +13,10 @@ and $R \vdash \alpha \rightarrow \beta$ if the same applies syntactically (i.e. 
 \inlineintuition This means that there is a function that maps the values of columns $\alpha$ to the values of columns $\beta$.
 
 
-\inlinedefinition $\alpha \subseteq \R$ is a \bi{superkey} if and only if $\alpha \rightarrow \cR$.
+\inlinedefinition $\alpha \subseteq \R$ is a \gls{superkey} if and only if $\alpha \rightarrow \cR$.
 
-\inlineintuition This means that if we know the values of columns $\alpha$, we know the value of the rest of the columns in $\cR$
+\inlineintuition This means that if we know the values of columns $\alpha$, we know the value of the rest of the columns in $\cR$.
+It is a superset of some candidate keys (see \ref{sec:relations-keys})
 
 
 \inlinedefinition $\alpha \rightarrow \beta$ is minimal if and only if $\forall A \in \alpha : (\alpha - \{ A \}) \centernot{\rightarrow} \beta$.

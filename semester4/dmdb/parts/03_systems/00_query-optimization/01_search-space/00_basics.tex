@@ -1,0 +1,32 @@
+\subsubsection{Search Space}
+To create the search space, the optimizer splits a query into a collection of query blocks,
+where each query block has one \texttt{SELECT} and \texttt{FROM} clause and \textit{at most} one \texttt{WHERE}, \texttt{GROUP BY} and \texttt{HAVING} clause.
+
+Query plans are typically drawn up as trees, as they are typically easier to understand that way than as both SQL query or in relational algebra notation.
+In addition, the query parser commonly transforms it into a tree-like data structure, so thinking about query plans in this way is a good habit.
+For the symbols used here, see section \ref{sec:relational-algebra}.
+
+
+\begin{center}
+    \begin{forest}
+        for tree={
+        ellipse,
+        inner sep=1mm,
+        s sep=10mm,
+        l sep=3mm
+        }
+        [$\Pi_{\texttt{s.PersNr}, \texttt{t.Grade}}$
+        [$\bowtie_{\texttt{t.LectureID = l.LectureID}}$
+        [$\bowtie_{\texttt{s.PersNr = t.PersNr}}$
+        [$\Sigma_{\texttt{s.semester < 5}}$
+        [\texttt{Student}]
+        ]
+        [\texttt{Test}]
+        ]
+        [$\Sigma_{\texttt{l.Name = 'Databases'}}$
+        [\texttt{Lecture}]
+        ]
+        ]
+        ]
+    \end{forest}
+\end{center}

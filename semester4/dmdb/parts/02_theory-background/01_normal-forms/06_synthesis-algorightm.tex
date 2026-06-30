@@ -1,0 +1,19 @@
+\subsubsection{3NF Synthesis Algorithm}
+\begin{algorithm}
+    \caption{Synthesis algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Synthesis}{$\cR$}
+            % TODO: what is the minimal basis?
+            \State Compute the minimal basis $F_c$ of $F$
+            \For{\textbf{all} $\alpha \rightarrow \beta \in F_c$}
+                \State create $R_{\alpha \cup \beta}(\alpha \cup \beta)$
+            \EndFor
+            \State If none of the above relations contains a superkey, add a relation with a key
+            \State Eliminate $R_\alpha$ if there exists $R_\alpha'$ such that $\alpha \subseteq \alpha'$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+In words, this algorithm takes as input a schema $\cR$ and outputs a list of schemas $\cL = \cR_1, \ldots, \cR_n$,
+such that $\cL$ is a lossless decomposition of $\cR$ and each of the $\cR_i$ are in 3NF.
+
+This algorithm preserves all functional dependencies, however does not remove redundancies because it is not BCNF.

@@ -1,0 +1,8 @@
+A lot of performance can be gained in a database system by executing the query in the correct order.
+For that, a query optimizer exists, which uses a quite large amount of metadata to speed up query execution.
+
+A query optimizer very broadly works as follows:
+\begin{enumerate}
+    \item It searches the space of equivalent execution plans. This space tends to be huge, so efficient exploration is needed.
+    \item Of all the discovered plans, the best is chosen using a cost model, which describes the most efficient plan
+\end{enumerate}

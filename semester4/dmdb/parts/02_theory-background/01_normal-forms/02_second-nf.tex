@@ -1,10 +1,16 @@
 \subsection{Second Normal Form}
-The two dependencies $\{ \text{Legi}, \text{Nr} \} \rightrightarrow \{ \text{Name}, \text{Semester} \}$,
-$\{ \text{Legi} \} \rightrightarrow \{ \text{Name}, \text{Semester} \}$ state the following:
+% The two dependencies $\{ \text{Legi}, \text{Nr} \} \rightrightarrow \{ \text{Name}, \text{Semester} \}$,
+% $\{ \text{Legi} \} \rightrightarrow \{ \text{Name}, \text{Semester} \}$ state the following:
+%
+% \begin{itemize}
+%     \item Legi determines the name and semester of a student.
+%     \item The first map has to happen, even though mapping $\{ \text{Legi}, \text{Nr} \}$ to $\{ \text{Legi} \}$ would be enough. We thus will have redundancy.
+%           However, this is the exact relationship that the table is meant to capture
+%           Thus, $\{ \text{Name}, \text{Semester} \}$ should not be in the table at all.
+% \end{itemize}
 
-\begin{itemize}
-    \item Legi determines the name and semester of a student.
-    \item The first map has to happen, even though mapping $\{ \text{Legi}, \text{Nr} \}$ to $\{ \text{Legi} \}$ would be enough. We thus will have redundancy.
-          However, this is the exact relationship that the table is meant to capture
-          Thus, $\{ \text{Name}, \text{Semester} \}$ should not be in the table at all.
-\end{itemize}
+For a relation to be in 2NF, every non-key attribute needs to minimally dependent on \bi{every} key, i.e. no attribute depends on part of a key.
+If relations are not in 2NF, they may experience insert, update and delete anomalies,
+which can lead to incorrect, redundant or inconsistent updates of the relations.
+
+However, some relations can still suffer from update and / or delete anomalies

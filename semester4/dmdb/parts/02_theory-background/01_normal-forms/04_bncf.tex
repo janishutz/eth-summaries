@@ -1,0 +1,13 @@
+\subsubsection{Boyce-Codd Normal Form (BCNF)}
+$R$ is in BCNF if and only if for all $\alpha \rightarrow B$ at least one of the following conditions holds:
+\begin{itemize}
+    \item $B \in \alpha$ (thus, $\alpha \rightarrow B$ is a trivial FD)
+    \item $\alpha$ is a \gls{superkey} of $R$
+\end{itemize}
+\inlineintuition In each relation, you only store the same information once.
+
+The following FD are okay in both 3NF and BCNF because both left hand sides are candidate keys for the table.
+\begin{itemize}
+    \item $\{ \text{PersNr} \} \rightarrow $ Name, Level, Room, City, Street, Canton
+    \item $\{ \text{Room} \} \rightarrow $ PersNr
+\end{itemize}

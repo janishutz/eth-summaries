@@ -1,0 +1,25 @@
+\subsubsection{BCNF Decomposition Algorithm}
+\begin{algorithm}
+    \caption{Decomposition algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{Decomposition}{$\cR$}
+            \State \texttt{result} $\gets \{ \cR \}$
+            \While{$\exists \cR_i$ in \texttt{result} such that $\cR_i$ is not in BCFN}
+                \State let $\alpha \rightarrow \beta$ be the evil FD
+                \State $\cR_i^1 \gets \alpha \cup \beta$
+                \State $\cR_i^2 \gets \cR_i - \beta$
+                \State $\texttt{result} \gets (\texttt{result} - \cR_i) \cup \{ \cR_i^1, \cR_i^2 \}$
+            \EndWhile
+            \State \Return \texttt{result}
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+In words, this algorithm takes as input a schema $\cR$ and outputs a list of schemas $\cL = \cR_1, \ldots, \cR_n$,
+such that $\cL$ is a lossless decomposition of $\cR$ (i.e. joining them together will perfectly recover the information in $\cR$)
+and each of the $\cR_i$ are in BCNF.
+
+Of note is that this does \bi{not} preserve the functional dependencies and some data redundancies will still remain,
+only the ones caused by functional dependencies.
+
+In addition, the order of picking the evil FD matters, so we use heuristics, which pick the one with the largest right hand side.
+

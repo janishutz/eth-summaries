@@ -1,0 +1,11 @@
+\subsubsection{Third Normal Form}
+A relation $R$ is in 3NF if and only if for all $\alpha \rightarrow B$, at least one of the following conditions holds:
+\begin{itemize}
+    \item $B \in \alpha$ (then $\alpha \rightarrow B$ is a trivial FD)
+    \item $B$ is an attribute of at least one key
+    \item $\alpha$ is a \gls{superkey} of $R$
+\end{itemize}
+\inlineintuition if $\alpha \rightarrow B$ does not satisfy any of these conditions, $\alpha$ is a concept in its own right,
+thus, the 3NF tries to get rid of ``transitive dependencies'' (e.g. $A \rightarrow B, B \rightarrow C$)
+
+The 3NF can still experience update and delete anomalies.

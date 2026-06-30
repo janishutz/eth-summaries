@@ -1,0 +1,21 @@
+\paragraph{Rewriting Rules}
+Given a logical plan as above, there are multiple ways in which we can construct a physical plan.
+We can use different join orders, decide when selection happens and specific implementations of operators.
+
+The following rules were discussed in the lectures:
+\begin{enumerate}[label=\textbf{R\arabic*}]
+    \item Conjunctive selection operators can be deconstructed into a sequence of individual selections:
+          \[
+              \sigma_{\theta_1 \land \theta_2} = \sigma_{\theta_1}(\sigma_{\theta_2}(E))
+          \]
+          This is useful to split selections to push them earlier in the execution plan (reduces the number of elements to process subsequently)
+    \item Selection operators are commutative:
+          \[
+              \sigma_{\theta_1}(\sigma_{\theta_2}(E)) = \sigma_{\theta_2}(\sigma_{\theta_1}(E))
+          \]
+          This is useful to allow to first put the one that e.g. has an index.
+    \item Only the last in a sequence of projections is needed, others can be omitted
+          \[
+              \Pi_{t_1}(\Pi_{t_2}(E)) = \Pi_{t_1}(E)
+          \]
+\end{enumerate}
