@@ -1,0 +1,31 @@
+\subsubsection{Execution Model}
+There are a number of ways in which the execution can happen
+
+
+\paragraph{Materialization Model}
+Here, each operator processes its entire input all at once and then emits its output all at once.
+
+This is ideal, if the intermediate results are not much larger than the final results, as very little overhead is created.
+The efficiency of this approach however is more limited the larger the intermediate results are.
+
+
+\paragraph{Iterator Model}
+Here, each operator is an iterator, it takes as input a set of streams of tuples (each of which provides a \texttt{next()} function) and outputs a stream of tuples,
+that can in turn again be accessed using a \texttt{next()} function.
+To get a result, we run \texttt{root.next()} again and again, until no more data is available to be pulled in.
+
+This is a \bi{Volcano Mode}, data flows from bottom to top.
+
+This method has the benefits of there being a single interface for all operators, thus we don't (need to) know what the previous operator did.
+Furthermore, iterators are easy to implement and there are little to no memory overheads and the whole thing can be pipelined, parallelized and distributed.
+
+On the other hand, method calls introduce a large overhead and suffer from poor instruction cache locality.
+
+
+\paragraph{Vectorization Model}
+This method is similar to the iterator model, but instead of a single tuple, the \texttt{next()} invocation returns a batch of tuples.
+
+We can also use vector instructions on the batch of tuple, which reduces overhead by requiring fewer function and instruction calls.
+
+Of course, the limitation here is that the hardware needs to support vector instructions, though nowadays that is hardly an issue,
+since AVX instructions are supported on CPUs as old as the Sandy Bridge Architecture (e.g. Intel Core i7-2600K) for Intel (2011) and Bulldozer (e.g. AMD FX-8100) for AMD (2011).

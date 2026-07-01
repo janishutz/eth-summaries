@@ -1,0 +1,36 @@
+\subsubsection{Search}
+We now know how to generate a set of semantically equivalent physical plans and how to estimate the cost for each of them.
+The question that remains is how to efficiently find the best plan.
+
+Since real-world queries can be very complex, searching for the best physical plan can be hard.
+There are a few options, but we only covered a simple approach.
+
+We can constrain the search space by only considering \bi{left-deep join trees}, i.e. trees that have only leafs on the right hand side of each join statement.
+The rationale behind this is that many of these are fully pipelined plans and no intermediate results have to be written to temporary files.
+This is the concept \texttt{System R}, the first relational database used.
+
+An example for a non-pipelined left-deep join tree is one in volving sort operations.
+This brings the complexity down to \tco{n!}, where $n$ is the number of realations in the join.
+
+\begin{itemize}
+    \item Enumerate join orders (different left deep trees)
+    \item Enumerate plans for each operator (hash join, sort merge join, nested loop join, \dots)
+    \item Enumerate access methods for each operator (B+-Tree, hash table, sequential scan, \dots)
+\end{itemize}
+
+This can be achieved using dynamic programming.
+
+We then find the best 1-relation plan, then the best 2-relation plan by finding ways to join a relation with the best 1-relation plan, etc.
+
+While this is still slow, it's faster than enumerating all possible join trees.
+
+Later, systems started introducing heuristics to reduce the number of choices that must be made in a cost-based fashion.
+
+Heuristic optimization transforms the query-tree using a set of rules typically improve execution performance:
+\begin{itemize}
+    \item Perform selection early (reduces the number of tuples to process)
+    \item Perform projection early (reduces the number of attributes to process)
+    \item Perform most restrictive selection and join operations before other similar operations
+\end{itemize}
+
+Some systems only use heuristics, while others combine them with partial cost-based optimization.

@@ -1,0 +1,66 @@
+\subsubsection{Cost Model}
+A cost model is used to \bi{estimate} the computation cost of a given physical plan, without actually running it.
+
+Since the ccost of running each operator depends on the input and output size of it, we can easily convert this into cost.
+
+Thus, to estimate the cost, we need to know the runtime of an operator and the number of inputs and outputs.
+The first of these two aspects is of course very easily attainable, whereas the \bi{cardinality estimation},
+i.e. the estimation of the number of tuples an operator returns, is very hard.
+
+To make this a bit easier, commonly a \bi{selectivity} or \bi{reduction factor} is used, which tells us how much of the input an operator returns.
+
+Below some reduction factor estimators (we assume that the values are uniformly distributed)
+
+\begin{tables}{lllll}{Predicate    & Reduction Factor                                                                     & Predicate Example}
+              \texttt{col = val}   & \texttt{1 / \#UniqueValues(col)}                                                     & \texttt{col = 2}         \\
+              \texttt{col > val}   & $|\max(\texttt{col}) - \texttt{val}| \div (\max(\texttt{col}) - \min(\texttt{col}))$ & \texttt{col > 5}         \\
+              \texttt{col < val}   & $|\texttt{val} - \min(\texttt{col})| \div (\max(\texttt{col}) - \min(\texttt{col}))$ & \texttt{col < 5}         \\
+              \texttt{col1 = col2} & $1 \div \max(\#\texttt{UniqueValues(col1)}, \#\texttt{UniqueValues(col2)})$          & \texttt{t.name = s.name} \\
+\end{tables}
+
+This table shows the overall concept for the cardinality estimation.
+For each predication, a reduction factor is determined, as each predicate ``filters'' out some tuples.
+
+Thus, the resulting cardinality is $\max(\#\text{tuples}) \cdot \prod_{r \in RF} r$, where $RF$ is the \gls{bag} of all reduction factors.
+
+In all of the above estimators, we assumed that the values are uniformly distributed.
+This of course is not always true --- there are many cases where data is heavily skewed --- in which cases, histograms are used.
+
+Two types of histograms are commonly used:
+\begin{itemize}
+    \item \bi{Equi-Width}: Here, the heights (tuple counts) of the buckets differ, as we fix the values for each bucket.
+          This is useful for identifying hot-spots.
+    \item \bi{Equi-Depth} (or Equi-Height): Here, the width differs, because we want all buckets to contain the same number of tuples.
+          The size of a range helps with cardinality estimates
+    \item \bi{Singleton} (or Frequency): Plots how often a single item appears in a table.
+          This is very useful to compute the selectivity of queries
+\end{itemize}
+
+\newpage
+To enable quick processing of the cost function, the following metadata, or statistics, are typically stored:
+\begin{multicols}{2}
+    \bi{Table statistics}
+    \begin{itemize}
+        \item Number of rows
+        \item Number of blocks
+        \item Average row length
+    \end{itemize}
+    \bi{Column statistics}
+    \begin{itemize}
+        \item Number of distinct values (NDV) in columns
+        \item Number of nulls in column
+        \item Data distribution (histogram)
+    \end{itemize}
+    \bi{Extended statistics}
+    \begin{itemize}
+        \item Index statistics
+        \item Number of leaf blocks
+        \item Levels
+        \item Clustering factor
+    \end{itemize}
+    \bi{System statistics}
+    \begin{itemize}
+        \item I/O performance and utilization
+        \item CPU performance and utilization
+    \end{itemize}
+\end{multicols}

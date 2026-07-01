@@ -18,4 +18,70 @@ The following rules were discussed in the lectures:
           \[
               \Pi_{t_1}(\Pi_{t_2}(E)) = \Pi_{t_1}(E)
           \]
+          This avoids going over the data twice
+    \item Selections can be combined with cartesian products and theta joins
+          \[
+              \sigma_\theta(E_1 \times E_2) = E_1 \bowtie_\theta E_2
+              \qquad \sigma_{\theta_1}(E_1 \bowtie_{\theta_2} E_2) = E_1 \bowtie_{\theta_1 \land \theta_2} E_2
+          \]
+          This combines the join and selection (thus avoiding having to go over the data twice)
+    \item Theta-join operations (and natural joins) are commutative.
+          \[
+              E_1 \bowtie_\theta E_2 = E_2 \bowtie_\theta E_1
+          \]
+          This is useful so we ccan choose as the smaller table as the outer table or as the inner one the one with an index.
+    \item Natural join operations are associative, so are theta joins (with restrictions)
+          \[
+              (E_1 \bowtie E_2) \bowtie E_3 = E_1 \bowtie (E_2 \bowtie E_3)
+              \qquad (E_1 \bowtie_{\theta_1} E_2) \bowtie_{\theta_2 \land \theta_3} = E_1 \bowtie_{\theta_1 \land \theta_3} (E_2 \bowtie_{\theta_2} E_3)
+          \]
+          This allows for joins to be performed in different orders, allowing us to do the most selective first (fewer rows)
+    \item Pushdown selection:
+          \[
+              \sigma_\theta (E_1 \bowtie E_2) = \sigma_\theta(E_1) \bowtie E_2
+          \]
+          This allows us to first remove the data that is not needed before doing the more expensive operations
+    \item Projections distribute over theta joins (applies if $\theta$ involves only attributes from $L_1 \cup L_2$ of course)
+          \[
+              \Pi_{L_1 \cup L_2}(E_1 \bowtie_\theta E_2) = \Pi_{L_1}(E_1) \bowtie_\theta \Pi_{L_2}(E_2)
+          \]
+          This allows the table width to be reduced before the join to reduce \bi{data movement}
+    \item Union and Intersection are commutative
+          \[
+              E_1 \cup E_2 = E_2 \cup E_1 \qquad E_1 \cap E_2 = E_2 \cap E_1
+          \]
+          This allows us to perform one side before the other, depending on resource constraints
+    \item Set union and intersection are associative
+          \[
+              (E_1 \cup E_2) \cup E_3 = E_1 \cup (E_2 \cup E_3)
+              \qquad (E_1 \cap E_2) \cap E_3 = E_1 \cap (E_2 \cap E_3)
+          \]
+          This allows us to change the order in which operations are done and how the operator tree is executed.
+    \item The selection operation distributes over $\cup, \cap$ and $-$
+          \[
+              \sigma_\theta(E_1 - E_2) = \sigma_\theta(E_1) - \sigma_\theta(E_2)
+              \qquad \sigma_\theta(E_1 \cup E_2) = \sigma_\theta(E_1) \cup \sigma_\theta(E_2)
+              \qquad \sigma_\theta(E_1 \cap E_2) = \sigma_\theta(E_1) \cap \sigma_\theta(E_2)
+          \]
+          In addition, we have
+          \[
+              \sigma_\theta(E_1 - E_2) = \sigma_\theta(E_1) - E_2
+              \qquad \sigma_\theta(E_1 \cap E_2) = \sigma_\theta(E_1) \cap E_2
+              \qquad \text{not for } \cup
+          \]
+          This allows us to remove unneeded tuples before performing the next operation,
+          which may be involving comparisons
+    \item The projection operation distributes over union
+          \[
+              \Pi_L(E_1 \cup E_2) = \Pi_L(E_1) \cup \Pi_L(E_2)
+          \]
+          This allows us to remove columns before the union, requiring less \bi{data movement}
 \end{enumerate}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=1\textwidth]{assets/join-ordering-example.png}
+    \end{center}
+    \caption{Example application of the rewriting rules.
+        (Figure from lecture slides 08, slide 21)}
+\end{figure}
