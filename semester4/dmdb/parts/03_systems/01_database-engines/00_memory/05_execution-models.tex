@@ -1,0 +1,66 @@
+\subsubsection{Execution Models}
+\label{sec:execution-models-advanced}
+We model execution as a tree of operators (as seen previously). At the root, we have the query results, at the leaves we have the tables.
+Typically, each operator has \textit{at most} two inputs from lower layers (join operators have two, the rest typically has one).
+
+We remember that we can use any subtree of a query as input for the higher parts of the tree, since we can ``materialize'' the result as a table.
+
+
+\paragraph{Basic Execution Models}
+Each node (operator) in the tree operates independently, i.e. does input, putput, output.
+
+Each operator can read their input tuples in one go, or one at a time and the same goes for the output.
+Some operators may also be \textit{blocking}, i.e. no result can be issued until all operations are completed.
+
+
+\paragraph{More advanced models}
+As a reminder, we already covered some aspects of three execution models in section \ref{sec:execution-models}.
+
+
+\subparagraph{Iterator Model}
+Some typical dataflow operators:
+\begin{itemize}
+    \item \bi{Union}: read both sides, issue all tuples (if they have the same schema)
+    \item \bi{Union without duplicates}: We first union, then we check for duplicates
+    \item \bi{Select}: We apply a filter function to the tuples
+    \item \bi{Projection}: For each tuple, we output only the specified attributes
+    \item \bi{Join}: Trivial nested loop join
+    \item \bi{Join with index on inner relation}: For all tuples, fetch matchin tuple in S <= another operator
+\end{itemize}
+
+\shade{green}{Advantages}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item Generic interface for all operators
+        \item Easy to implement operators
+        \item Supports buffer management strategies
+        \item No overhead in terms of main memory
+        \item Supports pipelining
+        \item Supports parallelism and distribution
+    \end{itemize}
+\end{multicols}
+
+\shade{red}{Disadvantages}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item High overhead of method calls
+        \item Poor instruction cache locality
+    \end{itemize}
+\end{multicols}
+
+
+\paragraph{Pull \& Push Mode}
+\inlinedefinition[Pull Mode] Intuitively like dynamic programming: Data is obtained by one operator through a function call to a lower operator.
+It is good for disk based systems and when data doesn't fit into memory and is also really easy to implement.
+
+\inlinedefinition[Push Mode] This is the Pull Mode flipped on its head.
+While it \textit{can} be faster, there need to be buffers everywhere and it is significantly harder to implement.
+
+
+\paragraph{EXCHANGE operator}
+The \texttt{EXCHANGE} operator is useful for parallel processing, as it simply moves data from one place to another.
+This allows to parallelize a plan across one or more machines.
+
+This can be implemented as a sort of ``driver'' on top of an operator, by calling \texttt{next()} on the operator a few times,
+collecting the results and sending them to the other side.
+The other side uses the data to respond to further next calls to the original operator.

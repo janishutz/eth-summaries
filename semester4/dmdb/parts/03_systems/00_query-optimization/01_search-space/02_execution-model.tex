@@ -1,5 +1,6 @@
 \subsubsection{Execution Model}
-There are a number of ways in which the execution can happen
+\label{sec:execution-models}
+There are a number of ways in which the execution can happen. More details can be found in section \ref{sec:execution-models-advanced}
 
 
 \paragraph{Materialization Model}
@@ -28,4 +29,4 @@ This method is similar to the iterator model, but instead of a single tuple, the
 We can also use vector instructions on the batch of tuple, which reduces overhead by requiring fewer function and instruction calls.
 
 Of course, the limitation here is that the hardware needs to support vector instructions, though nowadays that is hardly an issue,
-since AVX instructions are supported on CPUs as old as the Sandy Bridge Architecture (e.g. Intel Core i7-2600K) for Intel (2011) and Bulldozer (e.g. AMD FX-8100) for AMD (2011).
+since \acrshort{avxa} instructions are supported on CPUs as old as the Sandy Bridge Architecture (e.g. Intel Core i7-2600K) for Intel (2011) and Bulldozer (e.g. AMD FX-8100) for AMD (2011).

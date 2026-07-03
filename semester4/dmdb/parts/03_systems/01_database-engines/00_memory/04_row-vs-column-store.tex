@@ -1,0 +1,29 @@
+\subsubsection{Row and Column Stores}
+\paragraph{Row Store}
+Here, as we have assumed thus far, tuples are stored with all their attributes together.
+This means that accesses to tuples is quick and easy.
+
+This scheme is used by actual systems, but they also have many additional details added to improve management and speed.
+
+A typical ideal application for a row store is Online Transaction Processing (OLTP).
+This is visible for example with banking applications, shopping carts, etc, where the operations mostly are on a single tuple.
+
+However, for xomplex queries, the row store can become cumbersome.
+
+
+\paragraph{Column Store}
+This is where the column store comes in, in which the data is stored by columns.
+This obviously speeds up operations on the columns, as the access is very quick.
+
+Column stores also have the advantage that they present the data exactly in the representation needed for \acrshort{simd} instructions such as \acrshort{avxa},
+which is now widely available on modern CPUs.
+
+Modern database systems have started to adopt column stores to address the memory wall,
+since Column Stores are a more compact representation and cache lines are likely to bring the data we want to see,
+thus the cache utilization tends to be higher than with row stores.
+
+Column store databases are today primarily used today for analytical databases and in-memory databases.
+
+
+An alternative is a hybrid approach, called \bi{Partition Attributes Across (PAX)} representation.
+There, each block contains several tuples, but it is organized as a column store.
