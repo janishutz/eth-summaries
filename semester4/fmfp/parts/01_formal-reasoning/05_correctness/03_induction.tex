@@ -9,7 +9,7 @@ To prove $\forall n \in \N. P$ (with $n$ free in $P$), we do the following:
 
 \shade{blue}{Base case} We show that $P[n \mapsto 0]$ is correct
 
-\shade{green}{Step case} For an arbitrary $m$ not free in $P$, we show that $P[n \mapsto m + 1]$ is correct under the assumption that $P[n \mapsto m]$
+\shade{green}{Step case} For an arbitrary $m$ not free in $P$, we show that $P[n \mapsto m + 1]$ is correct under the assumption that $P[n \mapsto m]$ is correct.
 
 For \bi{well-founded} domains, we have to adjust the induction hypothesis slightly: We assume $\forall l \in \N. l < m \rightarrow P[n \mapsto l]$
 and then prove $P[n \mapsto m]$ under our assumption.
