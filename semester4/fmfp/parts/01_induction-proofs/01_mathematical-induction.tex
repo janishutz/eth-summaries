@@ -1,24 +1,34 @@
 \subsection{Mathematical Induction}
-{\small NOTE: These types of induction were (primarily) mentioned in the Formal Methods part of the course, but made most sense to be put here}
+To prove something of the form $\forall n \in \N. P$ (with $n$ free in $P$), we can use one of these two schemes
 
 \subsubsection{Weak Mathematical Induction}
-To prove $\forall n \in \N. P$ (with $n$ free in $P$), we do the following:
+If $P$ is not defined yet (e.g. we just have a description of what we need to prove), give a full definition of $P$, which is our induction hypothesis.
+Then state that we are proving $\forall n \in \N. P$ using \textit{weak} mathematical induction.
 
-\shade{blue}{Base case} We show that $P[n \mapsto 0]$ is correct
+\shade{blue}{Base case} We show that $P[n \mapsto 0]$ holds.
 
-\shade{green}{Step case} For an arbitrary $m$ not free in $P$, we show that $P[n \mapsto m + 1]$ is correct under the assumption that $P[n \mapsto m]$ is correct.
-
-For \bi{well-founded} domains, we have to adjust the induction hypothesis slightly: We assume $\forall l \in \N. l < m \rightarrow P[n \mapsto l]$
-and then prove $P[n \mapsto m]$ under our assumption.
+\shade{green}{Step case} We proceed by stating the following:
+``Let $m \geq 0$ be arbitrary. We assume $P[n \mapsto m]$ holds, and we prove $P[n \mapsto m + 1]$.''
+Finally, do the actual proof. It is also possible to state $P[n \mapsto m]$ simply as $P(m)$
 
 The same, but expressed as a Natural Deduction rule:
 \[
     \begin{prooftree}
         \hypo{\Gamma \vdash P(0)}
         \hypo{\Gamma, P(n) \vdash P(n + 1)}
-        \infer2{\Gamma \vdash \forall n. P(n)}
+        \infer2[$n$ not free in $\Gamma$]{\Gamma \vdash \forall n. P(n)}
     \end{prooftree}
 \]
 
-
 \subsubsection{Strong Mathematical Induction}
+If $P$ is not yet defined, then define it. It is our induction hypothesis.
+Then state: ``We prove $\forall k. P(k)$ by strong (mathematical) induction.
+Let $k$ be arbitary and let us assume $P(j)$ for all $j < k$''. Finally, do case distinction on the different values $k$ can take.
+
+The same, but expressed as a Natural Deduction rule:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma, \forall m < n. P(m) \vdash P(n)}
+        \infer1[$n$ not free in $\Gamma$, $m$ not free in $P(n)$]{\Gamma \vdash \forall n . P(n)}
+    \end{prooftree}
+\]
