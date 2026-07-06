@@ -28,6 +28,8 @@
 
 \setup{Formal Methods \& Functional Programming}
 
+% ────────────────────────────────────────────────────────────────────
+
 \begin{document}
 \startDocument
 
@@ -59,6 +61,8 @@
 \newpage
 \printtoc{Aquamarine}
 
+% TODO: Strong and weak structural induction and more
+
 
 \newsection
 \section{Haskell}
@@ -67,84 +71,89 @@
 
 
 \newsection
+\section{Induction Proofs}
+\input{parts/01_induction-proofs/00_intro.tex}
+\input{parts/01_induction-proofs/01_mathematical-induction.tex}
+\input{parts/01_induction-proofs/02_structural-induction.tex}
+% \input{parts/01_induction-proofs/}
+
+\newsection
 \section{Formal Reasoning}
-\input{parts/01_formal-reasoning/00_formal-proofs.tex}
-\input{parts/01_formal-reasoning/01_natural-deduction.tex}
-\input{parts/01_formal-reasoning/02_propositional-logic/00_syntax.tex}
-\input{parts/01_formal-reasoning/02_propositional-logic/01_semantics.tex}
-\input{parts/01_formal-reasoning/02_propositional-logic/02_deductive-system.tex}
-\input{parts/01_formal-reasoning/02_propositional-logic/03_natural-deduction-prop-logic.tex}
-\input{parts/01_formal-reasoning/02_propositional-logic/04_derivation-rules-overview.tex}
-\input{parts/01_formal-reasoning/03_first-order-logic/00_syntax.tex}
-\input{parts/01_formal-reasoning/03_first-order-logic/01_semantics.tex}
-\input{parts/01_formal-reasoning/03_first-order-logic/02_quantifiers.tex}
-\input{parts/01_formal-reasoning/04_equality.tex}
-\input{parts/01_formal-reasoning/05_correctness/00_intro.tex}
-\input{parts/01_formal-reasoning/05_correctness/01_termination.tex}
-\input{parts/01_formal-reasoning/05_correctness/02_behaviour.tex}
-\input{parts/01_formal-reasoning/05_correctness/03_induction.tex}
-% \input{parts/01_formal-reasoning/05_correctness/}
-% \input{parts/01_formal-reasoning/}
+\input{parts/02_formal-reasoning/00_formal-proofs.tex}
+\input{parts/02_formal-reasoning/01_natural-deduction.tex}
+\input{parts/02_formal-reasoning/02_propositional-logic/00_syntax.tex}
+\input{parts/02_formal-reasoning/02_propositional-logic/01_semantics.tex}
+\input{parts/02_formal-reasoning/02_propositional-logic/02_deductive-system.tex}
+\input{parts/02_formal-reasoning/02_propositional-logic/03_natural-deduction-prop-logic.tex}
+\input{parts/02_formal-reasoning/02_propositional-logic/04_derivation-rules-overview.tex}
+\input{parts/02_formal-reasoning/03_first-order-logic/00_syntax.tex}
+\input{parts/02_formal-reasoning/03_first-order-logic/01_semantics.tex}
+\input{parts/02_formal-reasoning/03_first-order-logic/02_quantifiers.tex}
+\input{parts/02_formal-reasoning/04_equality.tex}
+\input{parts/02_formal-reasoning/05_correctness/00_intro.tex}
+\input{parts/02_formal-reasoning/05_correctness/01_termination.tex}
+\input{parts/02_formal-reasoning/05_correctness/02_behaviour.tex}
+% \input{parts/02_formal-reasoning/05_correctness/}
+% \input{parts/02_formal-reasoning/}
 
 
 \newsection
 \section{Typing}
-\input{parts/02_typing/00_intro.tex}
-\input{parts/02_typing/01_mini-haskell/00_syntax.tex}
-\input{parts/02_typing/01_mini-haskell/01_lambda-calculus.tex}
-\input{parts/02_typing/01_mini-haskell/02_further-rules.tex}
-\input{parts/02_typing/01_mini-haskell/03_type-inference.tex}
-\input{parts/02_typing/02_algebraic-data-types/00_correctness.tex}
-\input{parts/02_typing/02_algebraic-data-types/01_induction-nat-num.tex}
-\input{parts/02_typing/02_algebraic-data-types/02_lists.tex}
-\input{parts/02_typing/02_algebraic-data-types/03_trees.tex}
-\input{parts/02_typing/02_algebraic-data-types/04_structural-induction.tex}
-\input{parts/02_typing/03_interpreter/00_intro.tex}
-\input{parts/02_typing/03_interpreter/01_read.tex}
-\input{parts/02_typing/03_interpreter/02_eval.tex}
-% \input{parts/02_typing/03_interpreter/}
+\input{parts/03_typing/00_intro.tex}
+\input{parts/03_typing/01_mini-haskell/00_syntax.tex}
+\input{parts/03_typing/01_mini-haskell/01_lambda-calculus.tex}
+\input{parts/03_typing/01_mini-haskell/02_further-rules.tex}
+\input{parts/03_typing/01_mini-haskell/03_type-inference.tex}
+\input{parts/03_typing/02_algebraic-data-types/00_correctness.tex}
+\input{parts/03_typing/02_algebraic-data-types/01_induction-nat-num.tex}
+\input{parts/03_typing/02_algebraic-data-types/02_lists.tex}
+\input{parts/03_typing/02_algebraic-data-types/03_trees.tex}
+\input{parts/03_typing/03_interpreter/00_intro.tex}
+\input{parts/03_typing/03_interpreter/01_read.tex}
+\input{parts/03_typing/03_interpreter/02_eval.tex}
+% \input{parts/03_typing/03_interpreter/}
 
 
 \newsection
 \section{Language Semantics}
-\input{parts/03_language-semantics/00_imp/00_syntax.tex}
-\input{parts/03_language-semantics/00_imp/01_semantics.tex}
-\input{parts/03_language-semantics/00_imp/02_properties.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/00_transition-systems.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/01_semantics.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/02_instantiations.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/03_termination.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/04_semantic-equivalence.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/05_unfolding-loops.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/06_deterministic-semantics.tex}
-\input{parts/03_language-semantics/01_operational-semantics/00_big-step-semantics/07_extensions-of-imp.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/00_structural-operational-semantics.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/01_rules.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/02_multi-step-derivation-seq.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/03_termintation.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/04_proofs.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/05_semantic-equivalence.tex}
-\input{parts/03_language-semantics/01_operational-semantics/01_small-step-semantics/06_extensions.tex}
-\input{parts/03_language-semantics/01_operational-semantics/02_equiv.tex}
-\input{parts/03_language-semantics/01_operational-semantics/03_rules-summary.tex}
-\input{parts/03_language-semantics/02_axiomatic-semantics/00_intro.tex}
-\input{parts/03_language-semantics/02_axiomatic-semantics/01_hoare-logic/00_triples-assertions.tex}
-\input{parts/03_language-semantics/02_axiomatic-semantics/01_hoare-logic/01_derivation-systems.tex}
-\input{parts/03_language-semantics/02_axiomatic-semantics/01_hoare-logic/02_total-correctness.tex}
-\input{parts/03_language-semantics/02_axiomatic-semantics/02_soundness-completeness.tex}
-% \input{parts/03_language-semantics/}
+\input{parts/04_language-semantics/00_imp/00_syntax.tex}
+\input{parts/04_language-semantics/00_imp/01_semantics.tex}
+\input{parts/04_language-semantics/00_imp/02_properties.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/00_transition-systems.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/01_semantics.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/02_instantiations.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/03_termination.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/04_semantic-equivalence.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/05_unfolding-loops.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/06_deterministic-semantics.tex}
+\input{parts/04_language-semantics/01_operational-semantics/00_big-step-semantics/07_extensions-of-imp.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/00_structural-operational-semantics.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/01_rules.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/02_multi-step-derivation-seq.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/03_termintation.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/04_proofs.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/05_semantic-equivalence.tex}
+\input{parts/04_language-semantics/01_operational-semantics/01_small-step-semantics/06_extensions.tex}
+\input{parts/04_language-semantics/01_operational-semantics/02_equiv.tex}
+\input{parts/04_language-semantics/01_operational-semantics/03_rules-summary.tex}
+\input{parts/04_language-semantics/02_axiomatic-semantics/00_intro.tex}
+\input{parts/04_language-semantics/02_axiomatic-semantics/01_hoare-logic/00_triples-assertions.tex}
+\input{parts/04_language-semantics/02_axiomatic-semantics/01_hoare-logic/01_derivation-systems.tex}
+\input{parts/04_language-semantics/02_axiomatic-semantics/01_hoare-logic/02_total-correctness.tex}
+\input{parts/04_language-semantics/02_axiomatic-semantics/02_soundness-completeness.tex}
+% \input{parts/04_language-semantics/}
 
 \newsection
 \section{Modelling}
-\input{parts/04_modelling/00_intro.tex}
-\input{parts/04_modelling/01_promela/00_syntax.tex}
-\input{parts/04_modelling/01_promela/01_expressions.tex}
-\input{parts/04_modelling/01_promela/02_statements.tex}
-\input{parts/04_modelling/01_promela/03_macros.tex}
-\input{parts/04_modelling/02_linear-temporal-logic/00_linear-time-properties.tex}
-\input{parts/04_modelling/02_linear-temporal-logic/01_linear-temporal-logic.tex}
-% \input{parts/04_modelling/02_linear-temporal-logic/}
-% \input{parts/04_modelling/}
+\input{parts/05_modelling/00_intro.tex}
+\input{parts/05_modelling/01_promela/00_syntax.tex}
+\input{parts/05_modelling/01_promela/01_expressions.tex}
+\input{parts/05_modelling/01_promela/02_statements.tex}
+\input{parts/05_modelling/01_promela/03_macros.tex}
+\input{parts/05_modelling/02_linear-temporal-logic/00_linear-time-properties.tex}
+\input{parts/05_modelling/02_linear-temporal-logic/01_linear-temporal-logic.tex}
+% \input{parts/05_modelling/02_linear-temporal-logic/}
+% \input{parts/05_modelling/}
 
 
 

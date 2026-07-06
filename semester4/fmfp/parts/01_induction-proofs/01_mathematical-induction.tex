@@ -1,0 +1,24 @@
+\subsection{Mathematical Induction}
+{\small NOTE: These types of induction were (primarily) mentioned in the Formal Methods part of the course, but made most sense to be put here}
+
+\subsubsection{Weak Mathematical Induction}
+To prove $\forall n \in \N. P$ (with $n$ free in $P$), we do the following:
+
+\shade{blue}{Base case} We show that $P[n \mapsto 0]$ is correct
+
+\shade{green}{Step case} For an arbitrary $m$ not free in $P$, we show that $P[n \mapsto m + 1]$ is correct under the assumption that $P[n \mapsto m]$ is correct.
+
+For \bi{well-founded} domains, we have to adjust the induction hypothesis slightly: We assume $\forall l \in \N. l < m \rightarrow P[n \mapsto l]$
+and then prove $P[n \mapsto m]$ under our assumption.
+
+The same, but expressed as a Natural Deduction rule:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash P(0)}
+        \hypo{\Gamma, P(n) \vdash P(n + 1)}
+        \infer2{\Gamma \vdash \forall n. P(n)}
+    \end{prooftree}
+\]
+
+
+\subsubsection{Strong Mathematical Induction}

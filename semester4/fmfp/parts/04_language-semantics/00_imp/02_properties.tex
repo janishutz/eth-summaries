@@ -24,7 +24,6 @@ If on the other hand we define $\cA\llbracket -e \rrbracket \sigma = \cA\llbrack
 it is \textit{not} an inductive definition because $0 - e$ is \textit{not} a subterm of $-e$
 
 
-\newpage
 \paragraph{Free Variables}
 For Arithmetic Expressions
 \begin{align*}
@@ -36,7 +35,7 @@ For Arithmetic Expressions
 For Boolean Expressions
 \begin{align*}
     FV(b_1 \; \texttt{op} \; b_2)  & = FV(b_1) \cup FV(b_2) \\
-    FV(\texttt{not} b)             & = FV(b)                \\
+    FV(\texttt{not}\; b)           & = FV(b)                \\
     FV(b_1 \; \texttt{or} \; b_2)  & = FV(b_1) \cup FV(b_2) \\
     FV(b_1 \; \texttt{and} \; b_2) & = FV(b_1) \cup FV(b_2)
 \end{align*}
@@ -56,7 +55,7 @@ And finally for Statements:
 
 A substitution $f[x \mapsto e]$ replaces each free occurrence of variable $x$ in $f$ by $e$, where $f$ is any expression.
 
-Detailed rules for arithmetic expressions:
+Detailed rules for arithmetic expressions (for the last, if variable $y$ is $x$, it is replaced, otherwise not):
 \begin{align*}
     (e_1 \; \texttt{op} \; e_2)[x \mapsto e] & \equiv (e_1[x \mapsto e] \; \texttt{op} \; e_2[x \mapsto e]) \\
     n[x \mapsto e]                           & \equiv n                                                     \\

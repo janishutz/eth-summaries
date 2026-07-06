@@ -2,8 +2,8 @@
 Each inference rule is actually a rule scheme, where the meta-variables are placeholders for statements, states, etc.
 Each rule scheme describes infinitely many \bi{rule instances}.
 
-A rule is \bi{instantiated} when all meta-variables are replaced with syntactic elements
-Assignment rule scheme vs. instance
+A rule is \bi{instantiated} when all meta-variables are replaced with syntactic elements.
+Assignment rule scheme vs. instance:
 \[
     \begin{prooftree}
         \infer0[\textsc{Ass}$_{NS}$]{\langle x := e, \sigma \rangle \rightarrow \sigma[x \mapsto \cA\llbracket e \rrbracket \sigma]}

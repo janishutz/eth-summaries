@@ -1,3 +1,4 @@
+\newpage
 \subsubsection{The semantics}
 \paragraph{Numerals}
 The semantic function $\cN : \texttt{Numeral} \rightarrow \texttt{Val}$ maps a numeral $n$ to an integer value $\cN\llbracket n \rrbracket$,
@@ -27,7 +28,7 @@ $\cA : \texttt{Aexp} \rightarrow \texttt{State} \rightarrow \texttt{Val}$ maps a
 given by:
 \begin{align*}
     \cA\llbracket x \rrbracket \sigma                         & = \sigma(x)                                                                                            \\
-    \cA\llbracket n \rrbracket \sigma                         & = \cN\llbracket x \rrbracket                                                                           \\
+    \cA\llbracket n \rrbracket \sigma                         & = \cN\llbracket n \rrbracket                                                                           \\
     \cA\llbracket e_1 \; \texttt{op} \; e_2 \rrbracket \sigma & = \cA\llbracket e_1 \rrbracket \sigma \; \overline{\texttt{op}} \; \cA\llbracket e_2 \rrbracket \sigma
 \end{align*}
 For $\texttt{op} \in \texttt{Op}$, $\overline{\texttt{op}}$ is the corresponding operation $\texttt{Val} \times \texttt{Val} \rightarrow \texttt{Val}$
