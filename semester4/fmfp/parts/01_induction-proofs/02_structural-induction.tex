@@ -1,19 +1,27 @@
 \subsection{Structural Induction}
+In this subsection, we present structural induction over lists.
+The same concept also applies similarly to trees and more.
+Weak Structural Induction on treees is presented in the subsequent subsection.
+
+For both, we only provide the natural deduction rules, as the proofs proceed analogously to the ones for mathematical induction.
+
 \subsubsection{Weak Structural Induction}
-Induction is based on the structure of terms
-\mint{haskell}+data T t = Leaf t | Node1 (T t) | Node2 t (T t) (T t)+
-
-\shade{blue}{Base Case} $T_0 = \{ \texttt{Leaf}\ a \divider a \in t \}$
-
-\shade{green}{Step Case} $T_i = T_{i - 1} \cup \{ \texttt{Node1}\ s \divider s \in T_{i - 1} \} \cup \{ \texttt{Node2}\ a\ l\ r \divider a \in t \text{ and } l, r \in T_{i - 1} \}$
-
-A natural deduction rule structural induction is:
 \[
     \begin{prooftree}
-        \hypo{\Gamma \vdash P[x \mapsto \texttt{Leaf}\ a]}
-        \hypo{\Gamma, P[x \mapsto s] \vdash P[xs \mapsto \texttt{Node1}\ s]}
-        \hypo{\Gamma, P[x \mapsto l], P[x \mapsto r] \vdash P[ \mapsto \texttt{Node2}\ a\ l\ r]}
-        \infer3[$(*)$]{\Gamma \vdash \forall x \in \texttt{T}\ t. P}
+        \hypo{\Gamma \vdash P(\texttt{[]})}
+        \hypo{\Gamma, P(\texttt{xs}) \vdash P(\texttt{x : xs})}
+        \infer2[where \texttt{x}, \texttt{xs} not free in $\Gamma$]{\Gamma \vdash \forall \texttt{xs} . P(\texttt{xs})}
     \end{prooftree}
 \]
-(*) $a$, $l$, $r$, $s$ not free in $\Gamma, P$
+
+\subsubsection{Strong Structural Induction}
+\inlinedefinition[Subterm relation] denoted $\sqsubset$ is defined as follows:
+\[
+    \forall xs, ys . xs \sqsubset ys \Leftrightarrow (\exists x. ys = x:xs) \lor (\exists zs . xs \sqsubset zs \land zs \sqsubset ys)
+\]
+\begin{align*}
+    \begin{prooftree}
+        \hypo{\Gamma, \forall ys \sqsubset xs . P(ys) \vdash P(xs)}
+        \infer1[$xs$ not free in $\Gamma$, $ys$ not free in $P(xs)$]{\Gamma \vdash \forall xs . P(xs)}
+    \end{prooftree}
+\end{align*}

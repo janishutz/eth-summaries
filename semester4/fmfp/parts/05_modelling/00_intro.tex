@@ -16,8 +16,8 @@ The first and most important phase is the \bi{modeling phase}, where we model th
 It also includes formalizing the properties to be checked in said language.
 
 Next, we run the model checker to check the validity of the model. 
-In the case of this course, we use \texttt{spin}, and we can run a promela model using \texttt{spin -x <promela file>.pml},
+In the case of this course, we use \texttt{spin}, and we can run a Promela model using \texttt{spin -x <promela file>.pml},
 which wraps \texttt{spin -a <promela file>.pml}, \texttt{gcc <promela file>.c} and \texttt{./a.out} into a single command.
 
-After running, it is time to analyze the output of the model checker. If the property is violated, analyze the found conter example.
-If the mdeol is too large, it can happen that the checker runs out of memory. In that case, reduce the model and try again.
+After running, it is time to analyze the output of the model checker. If the property is violated, analyze the found counter example.
+If the model is too large, it can happen that the checker runs out of memory. In that case, reduce the model and try again.

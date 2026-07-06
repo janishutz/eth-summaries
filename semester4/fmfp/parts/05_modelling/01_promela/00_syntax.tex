@@ -8,9 +8,12 @@ The number of states is given by
     \prod_{i = 1}^N (l(p_i) \times \prod_{\texttt{var} x_i \in p_i} |\texttt{dom}(x_i)|) \times \prod_{j = 1}^{K} |\texttt{dom}(c_j)|^{\texttt{cap}(c_j)}
 \]
 where $l(p_i)$ returns the number of program locations for process $i$, $|\texttt{dom}(x_i)|$ denotes the number of values a variable can take,
-$\texttt{dom}(c_j)$ denotes the number of values each message in the channel can take and $\texttt{cap}(c_j)$ returns the capacity of the buffer fo the channel.
+$\texttt{dom}(c_j)$ denotes the number of values each message in the channel can take and $\texttt{cap}(c_j)$ returns the capacity of the buffer of the channel.
+
 
 \shade{orange}{THUS:} \hl{Keep the model as small as possible} to prevent the above, which is called \bi{state space explosion}
+
+On the next page, the basic syntax of Promela is presented.
 
 \newpage
 

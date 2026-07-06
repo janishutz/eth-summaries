@@ -7,5 +7,3 @@ To prove $P$ for all $xs$ in \texttt{[T]}, we do the following:
 \shade{green}{Step case} We prove that $\forall y :: T, ys :: [T]. P[xs \mapsto ys] \rightarrow P[xs \mapsto y : ys]$, or in other words:
 We fix arbitrary $y :: T$ and $ys :: [T]$, which both are not free in $P$.
 We then apply our induction hypothesis $P[xs \mapsto ys]$ to prove $P[xs \mapsto y : ys]$
-
-
