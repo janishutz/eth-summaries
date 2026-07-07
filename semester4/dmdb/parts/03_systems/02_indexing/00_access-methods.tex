@@ -1,0 +1,13 @@
+\subsubsection{Access methods}
+\inlinedefinition[Access Methods] typically refers to the operations and data structures used for reading data from the buffer cache into the private space of the worker thread
+
+The basic access method is \bi{sequential scan}, where all pages of the table are read from beginning to end.
+Indexing is used to avoid having to scan the whole table.
+
+There are many indexing techniques, but we will focus on three indexing techniques in this section, hashing, B+ trees and bitmaps.
+
+Hashing is primarily used to randomize access to the data, finding data based on a key (hash and access concept)
+and both as an index for tables and used to implement operators.
+
+B+ trees on the other hand are used to order data along the values of one attribute, but require traversal, unless we are looking for consecutive values.
+They are thus only used as an indexing mechanism.

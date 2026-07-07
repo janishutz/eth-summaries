@@ -1,0 +1,27 @@
+\paragraph{Optimizations}
+\shade{ForestGreen}{Reverse Index}
+If the indexed attribute is a sequence and new items are constantly produced, we may encounter an issue where values next to each other go into the same block,
+leading to concurrent updates fighting to insert. Depending on how updates are handled, many copies could be produced.
+
+Reverse indexing solves that issue by reversing the indices, meaning that consecutive indices go to different pages.
+
+
+\shade{ForestGreen}{Many Keys} Depending on attributes, many keys can become expensive to process.
+There are several possible optimizations:
+\begin{itemize}
+    \item Replace separators that correspond to actual keys with shorter separators with the same effect (can be hard)
+    \item Factor common prefix (this makes a lot of sense and is usually easy, too)
+\end{itemize}
+
+
+\shade{ForestGreen}{Ignoring rules} We can also ignore the rules of the B+ trees and e.g. not merge nodes when they do not have enough data,
+delaying a merge (and instead rebuilding the tree periodically)
+
+
+\shade{ForestGreen}{Variable Length Keys} This is a bit of a problem. We can mitigate it by no longer forcing the number of entries to lay between $k \div 2$ and $k$,
+and using smaller values as separators, placing long values in leafs.
+
+\shade{ForestGreen}{Making sure there is space} We don't ever fill blocks to the max and make sure there is space on creation.
+
+
+\shade{ForestGreen}{Depth vs Breadth} For slow devices, prefer larger node sizes, thus shallower trees; For fast devices, prefer deeper trees.

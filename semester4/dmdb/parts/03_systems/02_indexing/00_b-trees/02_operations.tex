@@ -1,0 +1,55 @@
+\paragraph{Operations}
+\subparagraph{Direct Lookup}
+We traverse the tree from the root, then within each node, we use binary search to look for the correct entry.
+When we reach a leaf node, we return the corresponding pointer and the position.
+
+
+\subparagraph{Range Lookup}
+We return all tuples that match, by first finding the first tuple matching, the continue traversal until the last match is found.
+We can determine the last match easily because the tree's leafs are lexicographically sorted.
+Since the leafs are linked as linked lists, we can simply move along the linked lists, cutting down on processing time.
+
+
+\subparagraph{Inserting into the index}
+We first look up the corresponding leaf. Then, if there is space, we simply insert the value.
+If there is no space in the leaf, we split the leaf into two new leafs and insert the new item on the corresponding leaf.
+
+All that remains to do now is to insert the separator on the parent node.
+If that node is full, we split the node in two and insert the separator into the parent node and propagate up to the root, if necessary.
+
+
+\subparagraph{Deleting from the index}
+We proceed by looking up the corresponding leaf, then we remove the entry from the leaf.
+If the leaf now is less than half full, we check the neighboring leaf
+\begin{itemize}
+    \item If it is more than half full, we balance the two leafs
+    \item If it is half full, we merge both leaves
+\end{itemize}
+For both operations, we update the separator in the parent node.
+
+
+\paragraph{Concurrent Access}
+Indexes are heavily used while they are being maintained, thus creating conflicting, concurrent accesses.
+
+A way to prevent this is using \bi{lock coupling}, where we lock a page and its parent and move down the tree.
+
+This prevents problems when the page must be split, however, this is not enough, if we have to go further up to apply the changes.
+
+To prevent this, on every node we check if there is space for one more entry. If not, we split the node.
+This way, the split of a page never leads to propagating changes.
+
+Alternatively, we can try lock coupling, and if we have to do a change that propagates up, we abort, release everything and start again from the top,
+but now lock the entire path.
+
+
+\paragraph{Bulk Inserts}
+To create a B+ Tree index, we proceed as follows (the tree is created bottom up (from the leaves up))
+\begin{enumerate}
+    \item Sort the data
+    \item Use the sorted data to fill one block after the other
+    \item Remember the largest value in each block
+    \item create the inner nodes by using the largest value in each block as separator
+    \item iterate upwards to the next level, until there is only one block left (the root)
+\end{enumerate}
+If the blocks are filled completely, we get a clustered and compact tree.
+However, since we usually expect that data has to be updated, it is advised to leave some space in the each block to accommodate that without expensive propagating changes.

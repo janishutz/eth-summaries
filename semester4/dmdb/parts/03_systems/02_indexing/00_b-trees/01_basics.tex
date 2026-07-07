@@ -1,0 +1,59 @@
+\paragraph{Basics}
+B+ Trees are B-Trees, but the data (or the pointers to it) is at the leaves only, which are organized as a linked list.
+They are balanced trees, their inner nodes correspond to blocks and the leaf nodes correspond to blocks.
+The blocks are organized like slotted pages for variable length data (see Section \ref{sec:slotted-pages})
+
+The keys in the inner nodes may not correspond to the actual data and are instead used as separators.
+Typically, leaf nodes contain pointers to the tuples \texttt{(value, key)}, where \texttt{value} is the actually indexed value
+and \texttt{key} is the pointer to the full data tuple, typically as a row id or tuple id.
+There are some systems that allow storing the data directly on the leaves.
+
+Some systems create a B+ tree index by default for all tables and index the key. If there is no key, the engine assigns random keys and indexes them.
+
+
+\paragraph{Clustered Indexes}
+An index orders the table by the attribute it is indexing, but the tuples in the table might not be ordered.
+This is where \bi{clustered indexes} come into play: They force the tuples to be stored in the same order as the index indicates,
+thus, the table is physically stored in a sorted manner. This is typically done only for the primary key,
+and automatically done in systems that store data in the leaf nodes directly.
+
+This eliminates random memory accesses caused by looking up ranges, since the tuples are stored in consecutive order, according to the index.
+
+This is most useful for tables that are infrequently updated, since they require maintenance.
+
+
+\paragraph{What to index?}
+This is a crucial question, as it can massively speed things up, but equally significantly slow things down.
+
+B+ trees can use one or \textit{more} attributes as the key to the index.
+If we have just one attribute, those are the values.
+If there are several attributes, it builds a composite key, which is useful when we are looking for combinations of values on certain attributes,
+or a table is searched by several attributes.
+
+We then compare the keys lexicographically:
+\[
+    (a_1, a_2) < (b_1, b_2) \Leftrightarrow (a_1 < b_1) \lor (a_1 = b_1 \land a_2 < b_2)
+\]
+Some values can also be left unspecified, but this is typically only done to the ones at the beginning of the key.
+
+\newpage
+\paragraph{Composite Index}
+For a \acrshort{sql} statement such as
+\begin{code}{sql}
+    SELECT department_id, last_name, salary
+    FROM employees WHERE salary > 5000
+    ORDER BY department_id, last_name;
+\end{code}
+if we assume a composite index on \texttt{department\_id, last\_name, salary}, then the data is sorted by the three attributes in that order.
+
+We can then perform a \bi{full index scan}, where read the data from the leaves in sorted order and filter on salary.
+This avoids having to scan the entire table and the results is also already sorted.
+
+
+\paragraph{Non-unique values}
+A B+ tree index can also be built on attributes containing also non-unique values.
+
+This is a problem, because we cannot find all the duplicates with the basic design. To resolve this, we can repeat the key at the leaf nodes for every duplicated entry,
+or we can store the key once, but point to a linked list of all matching entries.
+
+If the data is stored in the leaves, we append the tuple ID to know what tuple the entry refers to, because otherwise, they are all the same.

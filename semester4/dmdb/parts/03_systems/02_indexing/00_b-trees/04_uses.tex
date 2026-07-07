@@ -1,0 +1,37 @@
+\paragraph{When to use B+ Trees}
+\begin{itemize}
+    \item For exact match queries (using \texttt{=} or \texttt{in}). This avoids having to compare against the entire table
+    \item Range queries (using \texttt{<} and/or \texttt{<}).
+    \item Full scans for sorted output (as the tuples are inherently sorted in the tree)
+\end{itemize}
+
+
+\paragraph{When not to use B+ Trees}
+\begin{itemize}
+    \item The index stores pointers to tuples
+    \item For larger number of accesses, more random memory accesses happen, which is slower.
+\end{itemize}
+
+
+\paragraph{Columns vs Rows}
+B+ Trees can be used to index columns, but are primarily used in row store systems,
+because Column Stores optimize sequential reads and can use vector operations, as well as compressions.
+
+A B+ Tree would point to an entry, but only after a lot of pointer chasing.
+
+And then there is also the point that they require extra storage, which for column stores just doesn't make sense.
+
+
+
+\paragraph{Filtered Indexes}
+As the name implies, this is a B+ Tree that indexes only parts of a table, which commonly are the most used ranges.
+This of course means that the index is smaller and thus faster to traverse.
+It defines a range predicate over the indexed key.
+
+
+\paragraph{How are they used?}
+\begin{itemize}
+    \item JOIN: if the inner table is indexed, a nested loop join will look up the tuple on the index, reducing comparisons
+    \item ORDER BY: If the sorting is on the indexed key, we can easily retrieve tuples in order
+    \item IN or NOT IN: In nested queries, the index can be used to check if a tuple in the outer query is in the result of the inner query.
+\end{itemize}
