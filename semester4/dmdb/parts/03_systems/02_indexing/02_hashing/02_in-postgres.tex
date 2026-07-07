@@ -1,0 +1,17 @@
+\paragraph{In Postgres}
+PostgreSQL uses a variation of linear (overflow) hashing and extensible hashing (with doubling).
+Buckets are initially allocated in groups with powers of two. Overflows are captured in overflow pages (like in linear hashing).
+When a split occurs, we do not allocate all the pages, but a fraction of them.
+
+These ideas can be combined in many different ways.
+
+\paragraph{When to use}
+For memory structures:
+\begin{itemize}
+    \item For shared resources (System Global Area)
+    \item Database Buffer Cache for I/O
+    \item Redo log buffer for recovery
+    \item For large memory pools
+\end{itemize}
+
+Then of course, it can be used for a hash join, for the \texttt{SELECT DISTINCT} function and for aggregation (\texttt{GROUP BY}).

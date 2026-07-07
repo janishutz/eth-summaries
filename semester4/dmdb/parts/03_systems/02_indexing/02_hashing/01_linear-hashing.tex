@@ -1,0 +1,11 @@
+\paragraph{Linear hashing}
+Here, a split pointer is used to indicate which bucket will be split in case of overflow.
+When it occurs, we chain the block that overflows, split the bucket indicated by the pointer and move the pointer.
+
+This allows for a gradual increase in the size of the table and the idea is to gradually redistribute the data.
+We always split on the pointer, even if the overflow is elsewhere. The pointer will eventually reach a bucket with chains
+and when the bucket is split, the data is reorganized.
+
+This has the advantage that the directory (i.e. the list of buckets) grows page by page, instead of doubling.
+
+When all buckets have been split, start fresh.

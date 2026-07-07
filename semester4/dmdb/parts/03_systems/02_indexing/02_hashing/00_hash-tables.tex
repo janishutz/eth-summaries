@@ -1,0 +1,54 @@
+\paragraph{Hashing in Databases}
+Hashing is a very common operation in many systems, including databases.
+Many internal data structures, such as buffer caches and lock tables, are implemented as hash tables.
+Some operators also use hashing to speed things up, such as hash join and group by operators.
+
+It can also be used as an indexing and partitioning strategy.
+
+Hashing is on the other side compared to B+ trees when it comes to the trade-off between storage and compute,
+by using more compute, it can save on storage space requirements.
+
+
+\paragraph{Hash Tables}
+There are many hashing functions with strong properties, but in databases, the hash function has to be very cheap, as it is used very often.
+
+Perfect hash functions do exist, but they need a hash table that is as big as the cardinality of the attributes,
+so for 4 byte keys, it needs a 4 GB table.
+Thus, to save on storage, we use a hash table that is smaller than that.
+If we were to choose it too small, there would be too many collisions, if it is chosen too large, then we waste lots of space.
+
+Collisions may also occur when the index key is not \texttt{UNIQUE}, and thus it could be that multiple tuples have the same key.
+
+That may lead you to think, why not grow it if we have a collision. That is a valid idea, but growing hash tables is expensive, thus should be avoided.
+
+Another shortcoming of hash indexes is that it only supports \bi{point queries}, i.e. it only works for the primary key, but barely anything else.
+
+
+\paragraph{Collisions}
+A way to handle collisions safely is to use \bi{chaining}. When a collision occurs, we add another entry in a linked list.
+If these lists are reasonably short, then it is reasonably efficient. We can also already reserve space for the linked lists to speed things up,
+if we expect (many) collisions to occur.
+
+Another option is to use \bi{open addressing}. Here, when a collision occurs, we look for an empty slot in the hash table using some rule.
+Here, two ways of achieving this are covered in the course:
+\begin{itemize}
+    \item \bi{Linear probing}, where we go to the next slot(s) and place the attribute there
+    \item \bi{Cuckoo hashing}, where we use several hash functions and move to the next one, if we have a collision with the first, and so on
+\end{itemize}
+
+
+\paragraph{Extensible Hashing}
+When the hash table is full, in a basic system, we would need to create a new, larger hash table with more buckets (typically double the number) and then rehash all existing items.
+This of course is very expensive both computationally and in terms of memory accesses, as we do lots of random accesses, which leads to cache misses.
+
+This is where extensible comes in. It is based on sharing buckets and unsharing them when needed.
+These hash table buckets are mapped into blocks and initially several buckets share the same block
+
+Then, when a bucket gets full, we split the bucket and move entries as needed into a new bucket.
+
+In \bi{local sharing}, the size of a table can be doubled without immediately adding more space, allowing for more splitting.
+We simply increase the number of buckets and the degree of sharing and split the buckets as they become full.
+
+Again, if we initially provide more space than needed, we can allow for the first growth to happen without disruption.
+
+We want (ideally) to have two page lookups to access an item, so we typically have a lookup in the bucket directory and the data block and they both can grow independently.
