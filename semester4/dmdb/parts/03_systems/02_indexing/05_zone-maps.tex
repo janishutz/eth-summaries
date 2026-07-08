@@ -1,0 +1,6 @@
+There are some systems that do not use indexes, or very sparingly.
+Instead, they keep metadata about the blocks and store them in memory and use it to check if the data in the block is needed.
+
+This is common in column-store engines such as DuckDB and Snowflake.
+This metadata can be as simple as min/max for each column,
+or complete stats, bitmaps, precomputed aggregates, or even bloom filters.

@@ -1,0 +1,12 @@
+A bloom filter is an index that says whether a tuple with a given value is \bi{NOT} in the original table.
+It acts as a filter, eliminating unnecessary accesses to the data.
+However, it can have false positives, i.e. it may state that a given tuple is there, but it is not in fact.
+Most importantly, it doesn't have false negatives, which is good, because this means we don't accidentally miss any tuples.
+
+A bloom filter works by creating an array of size $m$, with values hashed using $k$ hash functions.
+Each hash point points to a position in the array that is set to $1$.
+Then, to check if an item is in the data, we check all the $k$ hash positions for the value
+and if they all are all 1, then the item is in the data and if one (or more) is $0$, then the element \textit{definitely}
+isn't in the data.
+
+The bloom filter's error rate depends on the number of hashes ($k$), the size of the array ($m$) and the number of items being hashed ($n$)

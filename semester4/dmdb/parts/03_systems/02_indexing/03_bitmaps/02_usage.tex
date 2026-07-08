@@ -1,0 +1,20 @@
+\paragraph{Using bitmaps}
+Bitmaps are used in database systems to solve simple predicate selections, such as
+\mint{sql}|SELECT NAME FROM STUDENTS WHERE Students.Department = D-INFK|
+or for multiple operations, we can perform operations directly on the bitmaps
+\mint{sql}|SELECT NAME FROM STUDENTS WHERE Students.Department = D-INFK and Students.Degree = Bachelor|
+
+In addition, they are usually \textit{very} sparse and long lists with just a few 1s compress very well, using run length encoding.
+
+They are also often used for large tables in analytics as it is faster than other indexes for low selectivity queries
+and they are especially useful for expensive comparisons, such as for strings.
+
+They can also be used to implement operators:
+\begin{itemize}
+    \item \texttt{NOT IN}: get a bitmap with the results of the inner query, match it against a bitmap for the outer query,
+          then retrieve the tuples
+    \item \texttt{COUNT}: Count how many 1s appear in the bitmap
+    \item \texttt{JOIN}: Match (\texttt{AND} operation) the bitmaps of the values of the two attributes
+    \item \texttt{RANGE} predicates: Combine the bitmaps (\texttt{OR} operations) of all the values in the range
+    \item \dots
+\end{itemize}

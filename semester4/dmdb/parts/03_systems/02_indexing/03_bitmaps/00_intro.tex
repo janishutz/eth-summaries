@@ -1,0 +1,13 @@
+Bitmap indexes are used for attributes with low cardinality (low number of distinct values), attributes that are retrieved by category and queries with low selectivity.
+
+In addition, they are used to perform aggregation functions, such as \texttt{SUM} and to perform selection and operators over column stores.
+
+Bitmap indexes are an alternative to B-trees and very space efficient.
+
+Bitmaps work as follows:
+\begin{itemize}
+    \item List all distinct values of an attribute
+    \item For every distinct value (and for NULLs), create an array with 1 bit entries (i.e. 0 or 1)
+    \item In the array corresponding to a given value of the attribute, set the positions in the array to one that correspond to tuples that have that value in that attribute.
+    \item Now, each array indicates the tuples that have the value corresponding to that array.
+\end{itemize}

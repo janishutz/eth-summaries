@@ -1,0 +1,11 @@
+\paragraph{Bitmaps as indexes}
+While a B-tree or hash index stores the row ID aor tuple ID, a bitmap index only stores a single bit at a given position,
+which is indicating the of the tuple from the beginning of the table.
+
+This means that to map a 1 in the beatmap to a tuple address requires applying a function that calcualtes the address.
+One way to achieve this is to layout the bitmap in page ID order. Then to map a bit position to a record id,
+we fix the number of records per page, lay the pages out such that the page numbers are sequential and increasing and then construct the row ID, page ID and slot number.
+
+As a result, $\texttt{pageID} = \texttt{bit-pos} \div \#\texttt{records per page}$ and $\texttt{slot-number} = \texttt{bit-pos} \% \#\texttt{records per page}$
+
+We can also compress bitmaps, in Postgres, this is done using run-length encoding.
