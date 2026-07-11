@@ -2,7 +2,9 @@
 {\scriptsize Warten auf den ersten Erfolg (in $\8$ Folge von Bernoulli-Experimenten)}
 
 \shortdefinition $\cX \sim \text{Geom}(p)$ mit $W = \N \backslash \{0\}$ falls $\forall k \in W$\\
-$\P[\cX = k] = \P[\cX > (k - 1)] \cdot p$ mit $\P[\cX > k] = (1 - p)^{k}$
+$\P[\cX = k] = (1 - p)^{k - 1} p$
+
+\shortremark[Verteilung] $F_\cX(k) = 1 - (1 - p)^k$
 
 \shortremark $\P[\cX = 1] = p$, da wir Konvetion $a^0 = 1$ verwenden.
 
