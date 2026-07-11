@@ -3,20 +3,20 @@
 
 In Modell $\P_\vartheta$ sind $\overrightarrow{\cX} = (\cX_1, \ldots, \cX_n)$ entweder
 \begin{itemize}
-	\item \bi{diskret} (gem. Gew. $p_{\overrightarrow{\cX}} (x_1, \ldots, x_n; \vartheta)$)
-	\item \bi{stetig} (gem. Dichte $f_{\overrightarrow{\cX}} (x_1, \ldots, x_n; \vartheta)$)
+    \item \bi{diskret} (gem. Gew. $p_{\overrightarrow{\cX}} (x_1, \ldots, x_n; \vartheta)$)
+    \item \bi{stetig} (gem. Dichte $f_{\overrightarrow{\cX}} (x_1, \ldots, x_n; \vartheta)$)
 \end{itemize}
 Da oft $X_k$ i.i.d mit individueller Gew. $p_\cX(x; \vartheta)$ bzw. Dichte $f_\cX(x; \vartheta)$ sind, also (mit $g$ ersetzt durch $p$ oder $f$)
 \[
-	g_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) = \prod_{k = 1}^n g_\cX(x_k; \vartheta)
+    g_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) = \prod_{k = 1}^n g_\cX(x_k; \vartheta)
 \]
 
 \shortdefinition[Likelihood-Funktion]
 \[
-	L(x_1, \ldots, x_n; \vartheta) = \begin{cases}
-		p_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im diskreten Fall} \\
-		f_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im stetigen Fall}
-	\end{cases}
+    L(x_1, \ldots, x_n; \vartheta) = \begin{cases}
+        p_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im diskreten Fall} \\
+        f_{\overrightarrow{\cX}}(x_1, \ldots, x_n; \vartheta) & \text{im stetigen Fall}
+    \end{cases}
 \]
 \bi{log-Likelihood-Funktion} $l(\vartheta) = \log(L(x_1, \ldots, x_n; \vartheta))$. Ist im i.i.d-Fall eine Summe. \hl{\textbf{Immer in $p$ $k$ durch $x_k$ ersetzen!!}}
 
@@ -24,75 +24,68 @@ Da oft $X_k$ i.i.d mit individueller Gew. $p_\cX(x; \vartheta)$ bzw. Dichte $f_\
 
 \shortdefinition[ML-Schätzer] $T_{ML}$ für $\vartheta$ maximiert die Funktion $\vartheta \mapsto L(\cX_1, \ldots, \cX_n; \vartheta)$ für alle $\vartheta$, also
 \[
-	T_{ML} = t_{TM}(\cX_1, \ldots, \cX_n) \in \underset{\vartheta \in \Theta}{\text{argmax}}\; L(\cX_1, \ldots, \cX_n; \vartheta)
+    T_{ML} = t_{TM}(\cX_1, \ldots, \cX_n) \in \underset{\vartheta \in \Theta}{\text{argmax}}\; L(\cX_1, \ldots, \cX_n; \vartheta)
 \]
 {\scriptsize Wir suchen besten $t_{TM}$, durch geschickte Wahl von $\vartheta$}\\
 Meistens sind $\cX_k$ i.i.d. unter $\P_\vartheta$, dann $L$ produkt, also besser $\log(L)$ maximieren (da Summe).
 
-\shortremark
-\hl{Einfacher:} Statt max., Nullstellen von Abl. (einfachheitshalber von $l(\vartheta)$) nach $\vartheta$.
-
-\shortremark Suchen oft optimales $L(x_1, \ldots, x_n; \vartheta)$,
-da es einfacher ist, ersetzen dann $x_1, \ldots$ durch $\cX_1, \ldots$
-
-\shortexample[Von Serie] Kalibrierung von Gerät bis erfolgreich. $\cX \sim \text{Geo}(\theta)$ Anzahl Versuche, mit $\P_\theta[\cX = k] = \theta (1 - \theta)^{k - 1}$,
-gesucht $\theta$, $\cX_i$ unter $\P_\theta$ u.i.v. \bi{Aufgaben}
-
-\underline{LH-Func und $\log$-LH}: Mit Beobachtungen $x_i$ berechnen.\\
-$L(x_1, \ldots; \theta) = \ldots = \prod_{k = 1}^n \theta (1 - \theta)^{x_k - 1}$ (s. \ref{sec:series}),\\
-$l(\theta) = n \ln(\theta) + (S - n) \ln(1 - \theta)$, mit $S = \sum_{k = 1}^n x_k$.\\
-$\log(0)$ möglich (wenn $\theta = 1$ und $S \neq n$, ohne expanding)
-
-\underline{ML-Sch}: $S > n$: $l'(\theta) = \frac{n}{\theta} + \frac{S - n}{1 - \theta}$,
-Nullstelle von $l'(\theta)$ ist $\hat{\theta} = \frac{n}{S}$, check mit $l''(\frac{n}{S}) < 0$, ist max. Also ist $T_{ML} = \frac{n}{\sum_{k = 1}^{n} \cX_k}$
-
-\underline{Mit Werten} Einfach einsetzen und auflösen.
-
-
 % ────────────────────────────────────────────────────────────────────
 
-\shortexample \bi{Verteilungen} (Dimension $\vartheta$ gleich dim. param der V.)\\
+\coloredbox{red}{REWRITE}{
+    This section is undergoing a rewrite currently.
+    When complete, there will be estimators for (pretty much) every covered distribution
+}
+
+\shortexample[How To] Finden von ML-Schätzern:
+\begin{enumerate}
+    \item log-LH-Funk. bestimmen ($x_i$ statt $\cX_i$ verwenden)
+    \item Nach $\vartheta$ ableiten (oder wodurch $\vartheta$ ersetzt wurde)
+    \item Nullstelle davon berechnen
+    \item ML-Schätzer ist dann Nullstelle von Ableitung (mit $x_i$ wieder durch $\cX_i$ ersetzt)
+\end{enumerate}
+
+\shortexample[ML-Schätzer von Verteilungen]
+
+{\scriptsize $n$ hier wenn nicht anders definiert, die Anzahl an Z.V. als arg von Dichte / Gewicht}
+
 \highlight{Bernoulli} $\cX_i \sim \text{Ber}(p)$ i.i.d, hier $\vartheta = p$. Dabei:
 $p_\cX(x; \vartheta) = \P_\vartheta[\cX = x] = \vartheta^x (1 - \vartheta)^{1 - x}$ mit $x \in \{0, 1\}$, $S = \sum_{k = 1}^{n}x_k$
 \[
-	L(x_1, \ldots, x_n; \vartheta) = \vartheta^{S} (1 - \vartheta)^{n - S}
+    L(x_1, \ldots, x_n; \vartheta) = \vartheta^{S} (1 - \vartheta)^{n - S}
 \]
-Log LH-Func: $\log(\vartheta) \cdot S + \log(1 - \vartheta) \left( n - S \right)$\\
+\bi{Log LH-Func}: $l(\vartheta) = \log(\vartheta) \cdot S + \log(1 - \vartheta) \left( n - S \right)$\\
 \bi{ML-Schätzer}: $T = \frac{1}{n} \sum_{k = 1}^{n} \cX_k = \overline{\cX}_n$
 
-\fbox{\bi{Normalverteilung}} $\cX_i \sim \cN(\mu, \sigma^2)$ i.i.d. ($\sigma^2 = v$):
-\[
-	f_\cX(x; \vartheta) = \frac{1}{\sqrt{2\pi v}} e^{-\frac{(x - \mu)^2}{2v}}
-\]
-Weil i.i.d (und $\vartheta = (\mu, \sigma^2) = (\mu, v)$):
-\[
-	L(x_1, \ldots, x_n; \vartheta) = \prod_{k = 1}^n f_\cX(x_k; \vartheta)
-\]
-und somit ($l(\vartheta) = \log(L(x_1, \ldots, x_n; \vartheta))$):
-\[
-	l(\vartheta) = -\frac{1}{2} n(\log(2 \pi) + \log(v)) - \sum_{k = 1}^{n} \frac{(x_k - \mu)^2}{2v}
-\]
-Ableitungen nach $\mu$ und $v$ (beide $0$ für Max, $l$ kurz für $l(\vartheta)$):
-\[
-	\partial_\mu l = 2 \sum_{k = 1}^{n} \frac{x_k - \mu}{2v} \quad
-	\partial_v l = - \frac{n}{2v} + \frac{1}{2v^2} \sum_{k = 1}^n (x_k - \mu)^2
-\]
+% ────────────────────────────────────────────────────────────────────
 
-Der \bi{Schätzer} ist $T = (T_1, T_2)$ (\textbf{Momentschätzer}):
+\highlight{Geometrisch} dabei $\vartheta = p$ und \bi{Log LH-Func}
 \[
-	T_1 = \overline{\cX}_n \quad
-	T_2 = \frac{1}{n} \sum_{k = 1}^{n} \cX_k^2 - (\overline{\cX}_n)^2
+    l(\vartheta) = n \ln(\vartheta) + (S - n) \ln(1 - \vartheta) \qquad S \text{ wie bei Ber}
 \]
-Für $T$ gilt: $(\E_\vartheta[\cX], \V_\vartheta[\cX])$. Ist nicht Erwartungstreu.
-Es gilt $\E_\vartheta[\cX_k \cX_l] = \E_\vartheta[\cX_k] \E_\vartheta[\cX_l] = \E_\vartheta[\cX]^2$
-und folglich:
+\bi{ML-Schätzer} $T = \frac{n}{S}$
+
+% ────────────────────────────────────────────────────────────────────
+
+\highlight{Poisson} dabei $\vartheta = \lambda$ und \bi{Log LH-Func}
 \[
-	\E_\vartheta[(\overline{\cX}_n)^2] = \frac{1}{n} \E_\vartheta[\cX^2] + \frac{n^2 - n}{n^2} (\E_\vartheta[\cX])^2
+    l(\vartheta) = -n \vartheta \lambda + \log(\lambda) \sum_{i = 1}^{n} x_i - \sum_{i = 1}^{n} \log(x_i!)
+\]
+\bi{ML-Schätzer} ist $T = \frac{1}{n} \sum_{i = 1}^{n} X_i$
+
+\fbox{\bi{Normalverteilung}}\\
+$\cX_i \sim \cN(\mu, \sigma^2)$ i.i.d. und $\vartheta = (\mu, \sigma^2) = (\mu, v)$). \bi{Likelihood-Funktion} wie üblich und somit ist \bi{Log LH-Func}:
+\[
+    l(\vartheta) = -\frac{1}{2} n(\log(2 \pi) + \log(v)) - \sum_{k = 1}^{n} \frac{(x_k - \mu)^2}{2v}
+\]
+Der \bi{Momentschätzer} ist $T = (T_1, T_2) = (E_\vartheta[\cX], \V_\vartheta[\cX])$:
+\[
+    T_1 = \overline{\cX}_n \qquad
+    T_2 = \frac{1}{n} \sum_{k = 1}^{n} \cX_k^2 - (\overline{\cX}_n)^2
 \]
 \bi{Erwartungstreuer Schätzer} für $(\E_\vartheta[\cX], \V_\vartheta[\cX])$ (s. \ref{sec:estimators}):
 \[
-	T_1' = T_1 \quad
-	T_2' = \frac{n}{n - 1} T_2
+    T_1' = T_1 \quad
+    T_2' = \frac{n}{n - 1} T_2
 \]
 {\scriptsize $T_2'$ ist (korrigierte) empirische (Stichproben)varianz \textit{((un)biased sample variance)}.
 Bei höherdimensionalen Parametern suchen wir den zugehörigen Nullvektor.}

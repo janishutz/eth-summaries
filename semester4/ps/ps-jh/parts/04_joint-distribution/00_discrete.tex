@@ -40,7 +40,7 @@ $\forall k \in \{ 1, \ldots, n \}$ und $\forall x \in W_k$ gilt:
     F_{\cX_k}(x) = \lim_{\elementstack{x_l \rightarrow \8}{l \in \{ 1, \ldots, n \} \backslash \{ k \}}} F(x_1, \ldots, x_{k - 1}, x, x_{k + 1}, \ldots, x_n)
 \]
 
-\shorttheorem[Erwartungswert Bild] (Solange Summe wohldefiniert ist, summieren über $x_1 \in W_1, \ldots, x_n \in W_n$)
+\shorttheorem[Erwartungswert Bild] (Solange $\Sigma$ wohldef, summieren über $x_1 \in W_1, \ldots, x_n \in W_n$), siehe rechts für details
 \[
     \E[\varphi(\cX_1, \ldots, \cX_n)] = \sum_{x_1, \ldots, x_n} \varphi(x_1, \ldots, x_n) p(x_1, \ldots, x_n)
 \]
@@ -49,5 +49,5 @@ $\forall k \in \{ 1, \ldots, n \}$ und $\forall x \in W_k$ gilt:
 \begin{itemize}
     \item $\cX_1, \ldots, \cX_n$ sind unabhängig
     \item $\forall x_1 \in W_1, \ldots, x_n \in W_n$ gilt (prod. Randv. von $\cX_i$)
-        \[ p(x_1, \ldots, x_n) = \P[\cX_1 = x_1] \cdot \ldots \cdot \P[\cX_n = x_n] \]
+          \[ p(x_1, \ldots, x_n) = \P[\cX_1 = x_1] \cdot \ldots \cdot \P[\cX_n = x_n] \]
 \end{itemize}
