@@ -1,0 +1,35 @@
+\subsubsection{Haskell}
+\begin{examdetails}
+    typically either short coding task or proof of program
+\end{examdetails}
+
+\paragraph{Programming}
+The best tip here is to read the Haskell book, and to solve the exercises during the semester.
+
+\subparagraph{Fold}
+One of the most important functions to understand is \texttt{foldr} (and \texttt{foldl}).
+If you have used \texttt{reduce} functions before, in e.g. JavaScript / TypeScript,
+they are similar to a \texttt{map} combined with a \texttt{reduce}.
+
+For instance, in TypeScript, the \texttt{reduce} function has the type signature
+\mint{typescript}|array.reduce( ( accumulator: A, current: A, idx: number, array: A[] ) => A, initialValue: A )|
+
+In the Haskell prelude, they are defined as follows:
+\begin{code}{haskell}
+    foldr :: (a -> b -> b) -> b -> [a] -> b
+    foldr f z []     = z
+    foldr f z (x:xs) = f x (foldr f z xs)
+
+    foldl :: (a -> b -> a) -> a -> [b] -> a
+    foldl f z []     = z
+    foldl f z (x:xs) = foldl f (f v x) xs
+\end{code}
+
+\subparagraph{zipWith}
+To combine a \texttt{map} and a \texttt{zip} function, use \texttt{zipWith}, type:
+\mint{haskell}|zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]|
+
+\TODO Add more remarks
+
+\paragraph{Proofs}
+These proofs use structural induction, see Section~\ref{sec:induction-proofs} for that.

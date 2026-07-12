@@ -1,10 +1,59 @@
 \subsubsection{Evaluation strategies}
+\begin{examdetails}
+    It is likely that one such task will appear.
+\end{examdetails}
 Evaluation strategies formalize how programming languages evaluate the code.
 Most of the commonly used programming languages use \textit{eager evaluation}, whereas functional programming languages tend to prefer \textit{lazy evaluation}
+
+Tasks typically involve doing the compiler / interpreter's work, evaluating a given statement.
+This can either be full haskell code, or in the mini-Haskell, often with lambda functions instead of pattern matching and recursion,
+as that \textit{tends} to be more challenging due to the possibility of losing track of what you expanded or not.
+An easy way around that is to use different colour highlighters.
+
 
 \paragraph{Lazy Evaluation}
 In Lazy Evaluation, expressions are substituted until all possible values are substituted and the expression is then evaluated.
 
-At the exam, it is likely that one such task will appear.
+\subparagraph{Lambda functions}
+For expressions of form \texttt{t1 t2}, \texttt{t1} is evaluated by substituting every occurrence of the function arguments by \texttt{t2}, without evaluation \texttt{t2},
+e.g. \verb|(\x -> x y) (\x -> x)|, the evaluation will lead to \verb|(\x -> x) y|
+Below a more complicated example, highlighted with colours for you to track what goes where:
+
+\begin{enumerate}
+    \item \texttt{{\color{red} ($\backslash$x ->} {\color{ForestGreen} x ($\backslash$y -> x y)}{\color{red})} {\color{orange} ($\backslash$x -> ($\backslash$y -> y) x)}}
+    \item Substitute \texttt{t2} into \texttt{t1} (no eval):
+          \texttt{{\color{orange} ($\backslash$x -> ($\backslash$y -> y) x)} {\color{ForestGreen}($\backslash$y -> {\color{orange} ($\backslash$x -> ($\backslash$y -> y) x)} y)}}
+    \item Recolour for next changes:
+          \texttt{{\color{orange} ($\backslash$x -> {\color{purple}($\backslash$y -> y)} x)} {\color{ForestGreen}($\backslash$y ->
+                      {\color{Aquamarine} ($\backslash$x -> ($\backslash$y -> y) x)} y)}}
+    \item Substitute again:
+          \texttt{{\color{purple}($\backslash$y -> y)} {\color{ForestGreen}($\backslash$y ->
+                      {\color{Aquamarine} ($\backslash$x -> ($\backslash$y -> y) x)} y)}}
+    \item And again:
+          \texttt{{\color{ForestGreen}($\backslash$y ->
+                      {\color{Aquamarine} ($\backslash$x -> ($\backslash$y -> y) x)} y)}}
+\end{enumerate}
+Now, evaluation stops, because there is nothing left to apply. In some cases, this can go on until you get a final result, but \textit{not always}.
+This evaluation example also makes it evident why using colours can be very handy.
+
+\subparagraph{Pattern Matching}
+Pattern matching is fairly straight forward, however, conditional evaluation requires evaluation to the smallest extent possible to determine the option to pick from.
+
 
 \paragraph{Eager Evaluation}
+For expressions of form \texttt{t1 t2}, \texttt{t1} is evaluated by substituting every occurrence of the function arguments by an \textit{evaluated} \texttt{t2},
+i.e. \texttt{t2} is evaluated \textit{before} substituting it.
+Coming back to the short example from above \verb|(\x -> x y) (\x -> x)| is evaluated to the same \verb|(\x -> x) y|.
+The difference only becomes evident with a more complicated example. We'll use the same example again as above, again highlighted.
+\begin{enumerate}
+    \item \texttt{{\color{red} ($\backslash$x ->} {\color{ForestGreen} x ($\backslash$y -> x y)}{\color{red})} {\color{orange} ($\backslash$x -> ($\backslash$y -> y) x)}}
+    \item Evaluate {\color{orange} orange parts} (now {\color{purple} purple}):
+          \texttt{{\color{red} ($\backslash$x ->} {\color{ForestGreen} x ($\backslash$y -> x y)}{\color{red})} {\color{purple} ($\backslash$x -> x)}}
+    \item Substitute {\color{purple} purple}:
+          \texttt{{\color{ForestGreen} {\color{purple} ($\backslash$x -> x)} ($\backslash$y -> {\color{purple} ($\backslash$x -> x)} y)}}
+    \item Evaluate {\color{ForestGreen} green} parts (now {\color{cyan} cyan}):
+          \texttt{{\color{purple} ($\backslash$x -> x)} {\color{cyan}($\backslash$y -> y)}}
+    \item Substitute {\color{cyan} cyan}:
+          \texttt{{\color{cyan}($\backslash$y -> y)}}
+\end{enumerate}
+As you can clearly see, both strategies don't result in the same evaluation.

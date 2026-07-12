@@ -1,0 +1,52 @@
+\subsubsection{Natural Deduction}
+\paragraph{Parenthesis}
+This task (if it were to even ever appear in the exams) is simply applying precedences, as well as remembering associativity.
+The precedences are as follows:
+\[
+    \neg > \land > \lor > \rightarrow
+\]
+The associativities are right for $\land$ and $\lor$, whereas $\rightarrow$ is left associative. This means that
+\[
+    A \rightarrow B \rightarrow C \text{ is parenthesized as } A \rightarrow (B \rightarrow C)
+\]
+
+
+\paragraph{Derivation trees}
+The most important tip here is to write as little as possible, by defining variables (such as $\Gamma$, $\Gamma'$, etc) for each step,
+so you can simply write that instead of all the content.
+
+
+\paragraph{Defining rules}
+This is often the hardest type of task. First state the obvious cases, the basic introduction and elimination rules according to the given definition.
+Remember that the rules are defined top-down, so, for introducing $A \leftrightarrow B$, defined as $(A \rightarrow B) \land (B \rightarrow A)$, we define the rules as follows:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash (A \rightarrow B) \land (B \rightarrow A)}
+        \infer1[$\leftrightarrow$-intro]{\Gamma \vdash A \leftrightarrow B}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \leftrightarrow B}
+        \infer1[$\leftrightarrow$-elim]{\Gamma \vdash (A \rightarrow B) \land (B \rightarrow A)}
+    \end{prooftree}
+\]
+The hard part is coming up with useful extra rules. Here, and with all rules defined by an AND, we can also define it slightly differently:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \rightarrow B}
+        \hypo{\Gamma \vdash B \rightarrow A}
+        \infer2[$\leftrightarrow$-I]{\Gamma \vdash A \leftrightarrow B}
+    \end{prooftree}
+\]
+Similarly, we can also provide elimination rules for the left or right:
+\[
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \leftrightarrow B}
+        \infer1[$\leftrightarrow$-EL]{\Gamma \vdash (A \rightarrow B)}
+    \end{prooftree}
+    \qquad
+    \begin{prooftree}
+        \hypo{\Gamma \vdash A \leftrightarrow B}
+        \infer1[$\leftrightarrow$-ER]{\Gamma \vdash (B \rightarrow A)}
+    \end{prooftree}
+\]
