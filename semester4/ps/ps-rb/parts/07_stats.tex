@@ -1,0 +1,180 @@
+Wir betrachten Daten $\{x_i\}_{i=1}^n$ als Realisierung von unbekannten Zufallsvariablen $X_1(\omega),\ldots,X_n(\omega)$.
+Ziel ist es, die Verteilung von $X_1,\ldots,X_n$ zu finden durch Modellierung.
+
+Man wählt hierzu eine Famile $(\Omega, \mathcal F, \P_\vartheta)_{\vartheta\in\Theta}$ wobei $(\Omega, \mathcal F)$ 
+fix ist und $\P_\vartheta$ variabel z.B. $\P_\vartheta = \mathcal{N}(\vartheta_1, \vartheta_2)$ (Modell) und versucht ein optimales $\vartheta$ bzw. $\P_\vartheta$ zu finden.
+
+\textbf{Statistisches Vorgehen}
+\begin{enumerate}
+    \item Datenbeschreibung, intuitives Verständnis von $\{x_i\}_{i=1}^n$
+    \item Definition von $\Theta$ und $(\P_\vartheta)_{\vartheta\in\Theta}$
+    \item Schätzer nutzen für $(x_1,\ldots,x_n)\mapsto\vartheta\in\Theta$
+    \item Überprüfung von $\vartheta$ via statistischem Test
+    \item Alternativ: Konfidenzbereich über $\Theta$ finden
+\end{enumerate}
+
+\subsection{Schätzer}
+
+\definition \textbf{Schätzer} \subtext{(Estimator)}
+$$
+    T_l = t_l\Bigl( X_1,\ldots,X_n \Bigr) \mapsto \vartheta_l \in (\vartheta_1,\ldots,\vartheta_m) 
+$$
+\smalltext{$t_l$ heisst \textit{Schätzfunktion}, eine Auswertung $T_l(\omega)$ heisst \textit{Schätzwert}.}\\
+\subtext{(Estimator function, sample estimate)}
+
+{\footnotesize
+    \notation $T = (T_1,\ldots,T_m), \vartheta = (\vartheta_1,\ldots,\vartheta_m)$
+}
+
+\definition \textbf{Erwartungstreu} \subtext{(unbiased)}
+$$
+    T \text{ Erwartungstreu } \iffdef \forall \vartheta \in \Theta:\quad \E_\vartheta\bigl[ T \bigr] = \vartheta
+$$
+
+\definition \textbf{Erwarteter Schätzfehler} $\quad\E_\vartheta[T] - \vartheta$ \subtext{(Bias)}
+
+\definition \textbf{MSE} $\quad\text{MSE}_\vartheta[T] = \E_\vartheta\bigl[ (T-\vartheta)^2 \bigr]$ \subtext{(Mean Sq. Error)}
+
+\definition \textbf{Konsistent}
+$$
+    T^{(n)} \text{ konsistent für } \vartheta \iffdef \underset{n\to\infty}{\lim}\P_\vartheta \Bigl[ \vert T^{(n)}-\vartheta \vert > \epsilon \Bigr] = 0
+$$
+\subtext{Intuitiv: Bei beliebig hohem $n$ konvergiert $T^{(n)}$ zu $\vartheta$ unter $\P_\vartheta$}
+
+\lemma \textbf{Zerlegung des MSE}
+$$
+    \text{MSE}_\vartheta[T] = \E_\vartheta\Bigl[ (T-\vartheta)^2 \Bigr] = \V_\vartheta[T] + \underbrace{\Bigl( \E_\vartheta[T]-\vartheta \Bigr)^2}_{=0 \text{ (erwartungstreu)}}
+$$
+{\footnotesize
+    \remark $T$ erwartungstreu $\implies \text{MSE}_\vartheta[T]=\V_\vartheta[T]$ 
+}
+
+{\scriptsize
+    \textbf{Beispiel}: $T = X_n \sim \text{Ber}(\vartheta)$ ist erwartungstreu, da $\E_\vartheta[T]=\vartheta$ ($T \sim \text{Ber}(\vartheta)$).
+    Trotzdem ist $T^{(n)}$ nicht konsistent für $\vartheta \in (0,1)$, da $X_n(\omega)\in\{0,1\}$.
+}
+
+\subsection{Maximum Likelihood Methode (MLE)}
+
+\textbf{Motivation}: Wie findet man einen guten Schätzer $T$?
+
+Abhängig ob $(X_1,\ldots,X_n)$ stetig/diskret:
+\begin{itemize}
+    \item Gemeinsame Gewichtsfunktion $p_X(x_1,\ldots,x_n;\vartheta)$
+    \item Gemeinsame Dichtefunktion $f_X(x_1,\ldots,x_m;\vartheta)$
+\end{itemize}
+
+{\footnotesize
+    \remark $p(x_1,\ldots,x_n;\vartheta) = \P_\vartheta[X_1=x_1,\ldots,X_n=x_n]$
+
+    \remark Häufig ist $X_k$ i.i.d, d.h. $p_X(\ldots)=\prod_{k=1}^np_X(x_k;\vartheta)$
+}
+
+\definition \textbf{Likelihood Funktion}
+$$
+    L(x_1,\ldots,x_n;\vartheta) = \begin{cases}
+        p_X(x_1,\ldots,x_n;\vartheta), & \text{diskret} \\
+        f_X(x_1,\ldots,x_n;\vartheta), & \text{stetig}
+    \end{cases}
+$$
+
+\definition \textbf{Maximum Likelihood Schätzer}\\
+\smalltext{Maximierung von $\vartheta \mapsto L(X_1,\ldots,X_n;\vartheta)$}
+$$
+    T_\text{ML} = t_\text{ML}(X_1,\ldots,X_n) \in \underset{\vartheta\in\Theta}{\text{arg max}}\Bigl( L(X_1,\ldots,X_n;\vartheta) \Bigr)
+$$
+
+\remark Äquivalent kann man $\log(L)$ maximieren.\\
+\subtext{Sinnvoll falls $X_k$ i.i.d. weil dann $\log(L) = \sum_{k=1}^{n}\log\Bigl(p_X(x_k;\vartheta)\Bigr)$}
+
+{\footnotesize
+    \textbf{Anwendung}: 
+    \begin{enumerate}
+        \item Gemeinsame Dichte/Verteilung finden
+        \item $f(\vartheta) := \ln\Bigl( L(x_1,\ldots,x_n;\vartheta) \Bigr)$
+        \item $\vartheta^*$ finden, s.d. $f'(\vartheta^*) = 0$
+        \item Argumentieren, dass $\vartheta^*$ das Maximum ist (z.B. via $f''$)
+    \end{enumerate}
+}
+
+\subsection{Momentenschätzer}
+
+\textbf{Annahme}: $\P_\vartheta$ s.d. $X_i,\ldots,X_n$ i.i.d.
+
+\definition \textbf{Momentenschätzer}
+$$
+    T = (T_1, T_2) \text{ für } \Bigl(\E_\vartheta[X], \V_\vartheta[X] \Bigr)
+$$
+$$
+    T_1 = \frac{1}{n}\sum_{i=1}^n X_i \qquad T_2 = \frac{1}{n}\sum_{i=1}^n X_i^2 - \Biggl(\underbrace{\frac{1}{n}\sum_{i=1}^n X_i}_{T_1}\Biggr)^2
+$$
+{\footnotesize
+    \remark Allgemein nicht erwartungstreu
+}
+
+\definition \textbf{Empirische Varianz} \subtext{(Unbiased Sample Variance)}
+$$
+    T_1' = T_1 \qquad T_2' = \frac{n}{n-1}T_2
+$$
+{\footnotesize
+    \remark Erwartungstreu
+}
+
+\subsection{Verteilungen von Schätzern}
+
+\textbf{Motivation}: Die Verteilung eines Schätzers $T$.\\
+\subtext{Es gibt wenig exakte Aussagen, daher approximativ via ZGS}
+
+{\scriptsize
+    \textbf{Beispiel}: $T = \frac{1}{n}\sum_{i=1}^n X_i$\\
+    ZGS $\implies T \sim \mathcal{N}\Bigl(n\E_\vartheta[X_i],n\V_\vartheta[X_i]\Bigr)$ (für grosse $n$)
+}
+
+\definition $\chi^2$\textbf{-Verteilung}\\
+\smalltext{Parameter $m$: \textit{Freiheitsgrade}}
+$$
+    X \sim \chi^2_m \iffdef f_X(x) = \frac{1}{2^{\frac{m}{2}}\Gamma(\frac{m}{2})}x^{\frac{m}{2}-1}e^{-\frac{x}{2}} \quad (x \geq 0)
+$$
+\definition \textbf{Euler'sche Gammafunktion}
+$$
+    \Gamma(x) = \int_0^\infty t^{x-1}e^{-t}\text{d}t \qquad \forall n \in \N_0: \Gamma(n+1) = n!
+$$
+
+\remark \textbf{Entstehung der } $\chi^2$\textbf{-Verteilung}\\
+\smalltext{$X_1,\ldots,X_m$ i.i.d. s.d. $X_i \sim \mathcal{N}(0,1)$}
+$$
+    \sum_{i=1}^{m} X_i^2 \sim \chi_m^2
+$$
+
+\newpage
+
+\definition \textbf{Student'sche} $t$-\textbf{Verteilung}
+$$
+    X \sim t_m \iffdef f_X(x) = \frac{\Gamma(\frac{m+1}{2})}{\sqrt{m\pi}\Gamma(\frac{m}{2})}\Biggl( 1+\frac{x^2}{m} \Biggr)^{-\frac{m+1}{2}}
+$$
+
+\remark \textbf{Entstehung der } $t$-\textbf{Verteilung}\\
+\smalltext{$X\sim\mathcal{N}(0,1)$ und $Y \sim \chi^2_m$}
+$$
+    \frac{X}{\sqrt{\frac{1}{m}Y}} \sim t_m
+$$
+
+{\footnotesize
+    \remark $m=1 \implies t_1$ ist Cauchy Verteilung
+
+    \remark $\underset{m\to\infty}{\lim} t_m = \mathcal{N}(0,1)$
+
+    \remark $t_m$ ist symmetrisch um $0$ (wie $\mathcal{N}$)
+}
+
+\theorem \textbf{Aussagen für Normalverteilungen}\\
+\smalltext{$X_1,\ldots,X_n \sim \mathcal{N}(\mu, \sigma^2)$}
+$$
+    \bar{X}_n = \sum_{i=1}^{n}X_i,\qquad S^2 = \frac{1}{n-1}\sum_{n}^{i=1}\Bigl( X_i - \bar{X}_n \Bigr)^2
+$$
+\begin{enumerate}
+    \item $\bar{X}_n \sim \mathcal{N}\bigl(\mu, \frac{\sigma^2}{n}\bigr)$ also $\frac{\sigma}{\sqrt{n}}(\bar{X}_n - \mu) \sim \mathcal{N}(0,1)$
+    \item $\frac{n-1}{\sigma^2}S^2 = \frac{1}{\sigma^2}\sum_{i=1}^n\Bigl( X_i - \bar{X}_n \Bigr)^2 \sim \chi^2_{n-1}$
+    \item $\bar{X}_n \perp S^2$
+    \item $\frac{\bar{X}_n-\mu}{\frac{S}{\sqrt{n}}} = \displaystyle\frac{\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}}}{S / \sigma} = \frac{\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}}}{\sqrt{\frac{1}{n-1}\frac{n-1}{\sigma^2}S^2}} \sim t_{n-1}$
+\end{enumerate}

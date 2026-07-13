@@ -1,3 +1,5 @@
+\subsection{Allgemeiner Erwartungswert}
+
 \definition \textbf{Erwartungswert} (nicht-negativ)
 $$
     \E[X] = \int_{0}^{\infty} \biggl( 1-F_X(x) \biggr)\ dx
@@ -11,59 +13,36 @@ $$
 \theorem $\forall \omega \in \Omega: X(\omega) \geq 0 \implies \E[X] \geq 0$\\
 \subtext{Gleichheit: $\E[X] = 0 \iff X=0$, fast sicher}
 
-\definition \textbf{Erwartungswert} 
-$$
-    \E[X] = \E[X_+] - \E[X_-] \quad\text{falls}\quad \E[|X|]<\infty
-$$
-{\scriptsize
-    \remark $X$ kein konst. Vorzeichen, nicht $\E[|X|] < \infty $: $\E[X]$ undefiniert
-}
+% Sollte nicht relevant sein
 
-\subsection{Diskreter Erwartungswert}
+% \definition \textbf{Erwartungswert} 
+% $$
+%     \E[X] = \E[X_+] - \E[X_-] \quad\text{falls}\quad \E[|X|]<\infty
+% $$
+% {\scriptsize
+%     \remark $X$ kein konst. Vorzeichen, nicht $\E[|X|] < \infty $: $\E[X]$ undefiniert
+% }
 
-\theorem \textbf{Diskreter Erwartungswert}
+\theorem \textbf{Diskreter Erwartungswert}\\
+\subtext{$X: \Omega \to \R,\quad W \cleq \N,\quad \phi: \R \to \R$}
 $$
     \E\bigl[ \phi(X) \bigr] = \sum_{w \in W} \phi(x) \cdot \P[X = x]
 $$
-\subtext{$X: \Omega \to \R,\quad W \cleq \N,\quad \phi: \R \to \R$}
 
-\begin{center}
-    \begin{tabular}{l|l|l}
-        $\text{Ber}(p)$             & $\E[X] = p$                   & $\V[X] = p(1-p)$\\
-        $\text{Poisson}(\lambda)$   & $\E[X] = \lambda$             & $\V[X] = \lambda$\\
-        $\text{Bin}(n,p)$           & $\E[X] = n\cdot p$            & $\V[X] = np(1-p)$\\
-        $\mathbb{I}_A$              & $\E[\mathbb{I}_A] = \P[A]$    \\
-        $\exp(\lambda)$             & $\E[X] = \frac{1}{\lambda}$   \\
-        $\mathcal{U}([a,b])$        & $\E[X] = \frac{a+b}{2}$ 
-    \end{tabular}    
-\end{center}
-
-\newpage
-\subsection{Stetiger Erwartungswert}
-
-\definition \textbf{Erwartungswert} (stetig)
+\definition \textbf{Erwartungswert} (stetig)\\
+\subtext{$X: \Omega \to \R,\quad f(x) \text{ Dichtefunktion}$}
 $$ 
     \E[X] = \int_{-\infty}^{\infty} x \cdot f(x)\ dx
 $$
-\subtext{$X: \Omega \to \R,\quad f(x) \text{ Dichtefunktion}$}
 
-\theorem \textbf{Linearität}
-\begin{align*}
-    \text{(i)}  &\quad \E[\lambda X] &=& \lambda \E[X] \\
-    \text{(ii)} &\quad \E[X + Y]     &=& \E[X] + \E[Y]
-\end{align*}
+\theorem \textbf{Eigenschaften}\\
 \subtext{$X,Y:\Omega\to\R,\quad\lambda\in\R$}
-
-\theorem \textbf{Monotonie}
-$$
-    X \leq Y \implies \E[X] \leq \E[Y]
-$$
-
-\theorem \textbf{Multiplikation}\\
-\smalltext{$X,Y$ unabhängig}
-$$
-    \E[X \cdot Y] = \E[X]\cdot\E[Y]
-$$
+\begin{align*}
+    \text{(i)}      &\quad \E[\lambda X]    &=&         \lambda \E[X]                   \\
+    \text{(ii)}     &\quad \E[X + Y]        &=&         \E[X] + \E[Y]                   \\
+    \text{(iii)}    &\quad X \leq Y         &\implies&  \E[X] \leq \E[Y]                \\
+    \text{(iv)}     &\quad X \perp Y        &\implies&  \E[X\cdot Y] = \E[X]\cdot\E[Y]
+\end{align*}
 
 \theorem \textbf{Dichtefunktion bei Abbildungen}\\
 \smalltext{$\phi:\R\to\R$ stückweise stetig, beschränkt} 
@@ -78,36 +57,6 @@ $$
     X,Y \text{ unabh.} \iff \E[\phi(X)\psi(Y)] = \E[\phi(X)]\cdot\E[\psi(Y)]
 $$
 \subtext{Auch verallgemeinert für $X_1,\ldots,X_n$, $\phi_1,\ldots,\phi_n$}
-
-\newpage
-\subsection{Ungleichungen}
-
-\theorem \textbf{Markov}\\
-\smalltext{$X \geq 0,\quad g: X(\Omega)\to[0,\infty)$ wachsend}
-$$
-    \forall c \in \R \text{ s.d. } g(c)>0:\qquad \P[X \geq c] \leq \frac{\E[g(X)]}{g(c)}
-$$
-
-\theorem \textbf{Jensen}\\
-\smalltext{$\phi:\R\to\R$ konvex,$\quad \E[\phi(X)],\E[X]$ wohldefiniert}
-$$
-    \phi\Bigl(\E[X]\Bigr)\leq\E\Bigl[\phi(X)\Bigr]
-$$
-
-\lemma \textbf{Dreiecksungleichung}\\
-\subtext{Jensen mit $\phi(X) = |X|$ und $\phi(X) = X^2$}
-$$
-    \Bigl\vert\E[X]\Bigr\vert\leq\E\Bigl[\vert X\vert\Bigr] \qquad \E[|X|] \leq \sqrt{\E[X^2]}
-$$
-
-\theorem \textbf{Chebychev}\\
-\subtext{$Y$ s.d. $\V[Y] < \infty,\quad c>0$}
-$$
-    \P\Bigl[ |Y-\E[Y]| \geq c \Bigr] \leq \frac{\V[Y]}{c^2}
-$$
-
-\theorem \textbf{Chernoff}
-% Slides, ende von ZGS
 
 \newpage
 \subsection{Varianz}

@@ -1,0 +1,26 @@
+\theorem \textbf{Markov}\\
+\smalltext{$X \geq 0,\quad g: X(\Omega)\to[0,\infty)$ wachsend}
+$$
+    \forall c \in \R \text{ s.d. } g(c)>0:\qquad \P[X \geq c] \leq \frac{\E[g(X)]}{g(c)}
+$$
+
+\theorem \textbf{Jensen}\\
+\smalltext{$\phi:\R\to\R$ konvex,$\quad \E[\phi(X)],\E[X]$ wohldefiniert}
+$$
+    \phi\Bigl(\E[X]\Bigr)\leq\E\Bigl[\phi(X)\Bigr]
+$$
+
+\lemma \textbf{Dreiecksungleichung}\\
+\subtext{Jensen mit $\phi(X) = |X|$ und $\phi(X) = X^2$}
+$$
+    \Bigl\vert\E[X]\Bigr\vert\leq\E\Bigl[\vert X\vert\Bigr] \qquad \E[|X|] \leq \sqrt{\E[X^2]}
+$$
+
+\theorem \textbf{Chebychev}\\
+\subtext{$Y$ s.d. $\V[Y] < \infty,\quad c>0$}
+$$
+    \P\Bigl[ |Y-\E[Y]| \geq c \Bigr] \leq \frac{\V[Y]}{c^2}
+$$
+
+\theorem \textbf{Chernoff}
+% Slides, ende von ZGS

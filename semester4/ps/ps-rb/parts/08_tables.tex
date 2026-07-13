@@ -1,0 +1,179 @@
+\subsection{Integrale \& Ableitungen}
+
+{\small
+\begin{center}
+    \begin{tabular}{c||c||c}
+        $F(x)$ & $f(x)$ & $f'(x)$  \\
+        \hline
+        \hline
+        $x$ & $c$ & $0$\\
+        $\frac{1}{a+1}\cdot x^{a+1}$ & $x^a$ & $a\cdot x^{a-1}$\\
+        $\frac{1}{a\cdot(n+1)}\cdot(ax+b)^{n+1}$ & $(ax+b)^n$ & $n \cdot(ax+b)^{n-1}\cdot a$\\
+        $\ln|x|$ & $\frac{1}{x}=x^{-1}$ & $-\frac{1}{x^2} = -x^{-2}$\\
+        $\frac{2}{3}\cdot x^{\frac{3}{2}}$    & $\sqrt{x} = x^{\frac{1}{2}}$ & $\frac{1}{2\sqrt{x}} = \frac{1}{2}\cdot x^{-\frac{1}{2}}$\\
+        $\frac{n}{n+1}\cdot x^{\frac{1}{n}+1}$ & $\sqrt[\leftroot{0} n]{x} = x^\frac{1}{n}$ & $\frac{1}{n}\cdot x^{\frac{1}{n}-1}$\\
+        \hline
+        $e^x$ & $e^x$ & $e^x$\\
+        $\frac{1}{\ln(a)}\cdot a^x$ & $a^x$ & $a^x\cdot \ln(a)$\\
+        $x\cdot (\ln|x|-1)$ & $\ln|x|$ & $\frac{1}{x} = x^{-1}$\\
+        $\frac{x}{\ln(a)}\cdot(\ln|x|-1)$ & $\log_a(x)$ & $\frac{1}{x\cdot\ln(a)}$\\
+        \hline
+        $-\cos(x)$ & $\sin(x)$ & $\cos(x)$\\
+        $\sin(x)$ & $\cos(x)$ & $-\sin(x)$\\
+        $-\ln|\cos(x)|$ & $\tan(x)$ & $\frac{1}{\cos(x)^2}= 1 + \tan(x)^2$\\
+        $\ln|\sin(x)|$ & $\cot(x)$ & $-\frac{1}{\sin(x)^2}$\\
+        $x \cdot\arcsin(x) + \sqrt{1 - x^2}$ & $\arcsin(x)$ & $\frac{1}{\sqrt{1-x^2}}$\\
+        $x \cdot \arccos(x)-\sqrt{1-x^2}$ & $\arccos(x)$ & $-\frac{1}{\sqrt{1-x^2}}$\\
+        $x \cdot \arctan(x)-\frac{\ln(x^2+1)}{2}$ & $\arctan(x)$ & $\frac{1}{x^2+1}$\\
+        \hline
+        $\sinh(x)$      & $\cosh(x)$ & $\sinh(x)$\\
+        $\cosh(x)$      & $\sinh(x)$ & $\cosh(x)$\\
+        $\ln|\cosh(x)|$ & $\tanh(x)$ & $\frac{1}{\cosh(x)^2} = 1-\tanh(x)^2$\\
+        & $\text{arcsinh}(x)$ & $\frac{1}{\sqrt{x^2+1}}$\\
+        & $\text{arccosh}(x)$ & $\frac{1}{\sqrt{x^2}-1}$\\
+        & $\text{arctanh}()$  & $\frac{1}{1-x^2}$\\
+        \hline
+    \end{tabular}
+\end{center}
+}
+
+\newpage
+
+\subsection{Weitere Integrale \& Ableitungen}
+\begin{center}
+    \begin{tabular}{c||c}
+
+        $F(x)$ & $f(x)$\\
+        \hline
+        \hline
+        $\frac{1}{a}\ln|ax+b|$ & $\frac{1}{ax+b}$ \\
+        $\frac{ax}{c}-\frac{ad-bc}{c^2}\ln|cx+d|$ & $\frac{a(cx+d) - c(ax+b)}{(cx+d)^2}$\\
+        $\frac{x}{2}f(x)+\frac{a^2}{2}\ln|x+f(x)|$ & $\sqrt{a^2+x^2}$ \\
+        $\frac{x}{2}f(x)-\frac{a^2}{2}\arcsin(\frac{x}{|a|})$ & $\sqrt{a^2-x^2}$ \\
+        $\frac{x}{2}f(x) - \frac{a^2}{2}\ln|x + f(x)|$ & $\sqrt{x^2-a^2}$\\
+        $\ln(x + \sqrt{x^2 \pm a^2})$ & $\frac{1}{\sqrt{x^2 \pm a^2}}$\\
+        $\arcsin(\frac{x}{|a|})$ & $\frac{1}{\sqrt{a^2-x^2}}$ \\
+        $\frac{1}{a} \cdot\arctan(\frac{x}{a})$ & $\frac{1}{x^2+a^2}$\\
+        \hline
+        $-\frac{1}{a}\cos(ax+b)$ & $\sin(ax+b)$ \\
+        $\frac{1}{a}\sin(ax+b)$ & $\cos(ax+b)$ \\
+        \hline
+        $x^x$ & $x^x \cdot (1 + \ln|x|)$\\
+        $(x^x)^x$ & $(x^x)^x(x+2x\ln|x|)$\\
+        $x^{(x^x)}$ & $x^{(x^x)}(x^{x-1}+\ln|x|\cdot x^x(1+\ln|x|)$\\
+        \hline
+        $\frac{1}{2}(x-\frac{1}{2}\sin(2x))$ & $\sin(x)^2$\\
+        $\frac{1}{2}(x+\frac{1}{2}\sin(2x))$ & $\cos(x)^2$\\
+    \end{tabular}
+\end{center}
+
+%\subsection{Tyler, The Creator}
+% \begin{center}
+%    \includegraphics[width=0.3\linewidth]{tyler2.png}
+% \end{center}
+
+\newpage
+\subsection{Grenzwerte: Folgen}
+\subtext{Credits: D. Camenisch}
+\begin{center}
+	\begin{tabular}{  l || l  }
+                $\lim_{x\to\infty} \frac{1}{x} = 0$ & $\lim_{x\to\infty} 1 + \frac{1}{x} = 1$ \\
+		 \hline
+                $\lim_{x \to \infty} e^x = \infty$ & $\lim_{x \to - \infty} e^x = 0$ \\
+                 \hline
+                $\lim_{x \to \infty} e^{-x} = 0$ & $\lim_{x \to - \infty} e^{-x} = \infty$ \\
+                 \hline
+                $\lim_{x \to \infty} \frac{e^x}{x^m} = \infty$ & $\lim_{x \to - \infty} xe^x = 0$ \\
+                 \hline
+                $\lim_{x \to \infty} \ln(x) = \infty$ & $\lim_{x \to 0} \ln(x) = - \infty$ \\
+                 \hline
+                $\lim_{x \to \infty} (1 + x)^{\frac{1}{x}} = 1$ & $\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e$ \\
+                 \hline
+	 	$\lim_{x\to\infty} \left(1 + \frac{1}{x}\right)^b = 1$ & $\lim_{x\to\infty} \left(1 + \frac{1}{x}\right)^b = 1$ \\
+		 \hline  
+	 	$\lim_{x\to\infty} x^aq^x = 0, \; \forall 0 \leq q < 1$ & $\lim_{x\to\infty} n^\frac{1}{n} = 1$ \\
+		 \hline
+                $\lim_{x\to \pm \infty} \left(1+\frac{1}{x}\right)^x = \mathrm{e}$ & $\lim_{x\to \infty} \left(1-\frac{1}{x}\right)^x = \frac{1}{\mathrm{e}}$ \\
+		 \hline
+                $\lim_{x \to \pm \infty} \left(1+\frac{k}{x}\right)^{mx} = e^{km}$ & $\lim_{x \to 0} \frac{\sin{x}}{x} = 1$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{1}{\cos(x)} = 1$ & $\lim_{x\to 0} \frac{\cos{x}-1}{x} = 0$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{\log{1-x}}{x} = -1$ & $\lim_{x\to 0} x\log{x} = 0$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{1-\cos{x}}{x^2} = \frac{1}{2}$ & $\lim_{x\to 0} \frac{\mathrm{e}^x-1}{x} = 1$ \\
+                 \hline
+                $\lim_{x\to 0} \frac{x}{\arctan{x}} = 1$ & $\lim_{x\to\infty} \arctan{x} = \frac{\pi}{2}$ \\
+                 \hline
+                $\lim_{x \to \infty} \left(\frac{x}{x + k}\right)^x = e^{-k}$ & $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$ \\
+                 \hline
+                $\lim_{x \to 0} \frac{a^x - 1}{x} = \ln(a) \; \forall a > 0$ & $\lim_{x \to 0} \frac{e^{ax} - 1}{x} = a$ \\
+                 \hline
+                $\lim_{x \to 0} \frac{\ln(x + 1)}{x} = 1$ & $\lim_{x \to 1} \frac{\ln(x)}{x - 1} = 1$ \\
+                 \hline
+                $\lim_{x \to \infty} \frac{\ln(x)}{x} = 0$ & $\lim_{x \to \infty} \frac{\log(x)}{x^a} = 0$ \\
+                 \hline
+                $\lim_{x \to \infty} \sqrt[x]{x} = 1$ & $\lim_{x \to \infty} \frac{2x}{2^x} = 0$ \\
+                 \hline 
+                $\lim_{x \to \frac{\pi^-}{2}} \tan{x} = +\infty$ & $\lim_{x \to \frac{\pi^+}{2}} \tan{x} = -\infty$ \\
+                \hline
+                $\lim_{x \to \infty} \frac{\sin{x}}{x} = 0$ &  $\lim_{x \to 0^+} x\ln{x} = 0$\\
+                \hline
+	\end{tabular}
+\end{center}
+\subsection{Grenzwerte: Reihen}
+\subtext{Credits: D. Camenisch}
+\begin{center}
+	\begin{tabular}{  l || l  }
+	 	$\sum_{i = 1}^{n} i = \frac{n(n+1)}{2}$ & $\sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6}$ \\
+		 \hline 
+	 	$\sum_{i=1}^{n} i^3 = \frac{n^2(n+1)^2}{4}$ & $\sum_{i = 1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$ \\
+		 \hline  
+	 	$\sum_{i = 1}^{\infty} \frac{1}{n(n+1)} = 1$ & $\sum_{i = 1}^\infty z^i = \frac{1 - z^{i + 1}}{1 - z}$ \\
+		 \hline   
+	\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Verteilungen}
+\subtext{Credits: N. Wehrli \& S. Metzker}
+
+\renewcommand*{\arraystretch}{2}
+\begin{center}
+
+  \begin{tabularx}{\textwidth}{|l|l|l|X|X|X|X|}
+    \hline
+    Verteilung               & Notation                                               & Parameter                                           & \( \E[X] \)                      & \( \Var(X) \)                                             & \( p_X(t)/f_X(t) \)                                                                                                                           & \( F_X(t) \)                                                               \\
+    \hline
+    \hline
+    Gleichverteilung & unbekannt & \makecell[l]{\( n \): Anzahl Ereignisse                                                                                                   \\ (\( x_i \): Ereignisse)} & \( \frac{1}{n} \sum_{i=1}^{n} x_i \) & \( \frac{1}{n} \sum_{i=1}^{n} x_i^2 - \frac{1}{n^2} \left(\sum_{i=1}^{n} x_i \right)^2 \) & \( \frac{1}{n} \) & \( \frac{|\{k:x_k \leq t\}|}{n} \) \\
+    \hline
+    Bernoulli                & $\text{Ber}(p)$                                   & \( p: \) ErfolgsW'keit                              & \( p \)                          & \( p \cdot (1-p) \)                                       & \( p^t(1-p)^{1-t} \)                                                                                                                          & \( 1-p \) für \( 0 \leq t < 1 \)                                           \\
+    \hline
+    Binomial & $\text{Bin}(n,p)$        & \makecell[l] {\( n \): Anzahl Versuche                                                                                                    \\ \( p: \) ErfolgsW'keit } & \( np \) & \( np(1-p) \) & \( \binom{n}{t}p^t(1-p)^{n-t} \) & \( \sum_{k=0}^{t} \binom{n}{k} p^k(1-p)^{n-k} \)  \\
+    \hline
+    Geometrisch & $\text{Geo}(p)$     & \makecell[l] { \( p \): ErfolgsW'keit                                                                                                         \\ (\( t: \) Anzahl Versuche)} & \( \frac{1}{p} \) & \( \frac{1-p}{p^2} \) & \( p(1-p)^{t-1} \) & \( 1-(1-p)^t\) \\
+    \hline
+    Poisson&  $\text{Poisson}(\lambda)$   & \makecell[l]{ \( \lambda \): Erwartungswert                                                                                               \\ und Varianz} & \( \lambda \) & \( \lambda \) & \( \frac{\lambda^t}{t!}e^{-\lambda} \) & \( e^{-\lambda} \sum_{k=0}^{t} \frac{\lambda^{k}}{k!} \) \\
+    \hline
+    \makecell[l]{Gleichverteilung\\(im Intervall)} & $U \sim \mathcal{U}([0,1])$      & \( [a,b] \): Intervall               & \( \frac{a+b}{2} \)              & \( \frac{1}{12}(b-a)^2 \)        & \(\begin{cases} \frac{1}{b-a} &a \le x \le b \\ 0 & \text{sonst}\end{cases}\)                                                                                                                & \(\begin{cases} 0 & x\le a \\ \frac{t-a}{b-a} & a < x < b \\ 1 & x \ge b \end{cases}\)                \\
+    \hline
+    Exponentialv.            & $ \text{Exp}(\lambda)$                            & \( \lambda: \frac{1}{\E[X]} \)                      & \( \frac{1}{\lambda} \)          & \( \frac{1}{\lambda^2} \)                                 & \( \begin{cases} \lambda e^{-\lambda t} & t \geq 0 \\ 0 & t < 0 \end{cases} \)                                                                                                              & \( \begin{cases} 1-e^{-\lambda t} & t>0 \\ 0 & t \leq 0\end{cases}\)                                            \\
+    \hline
+    Normalverteilung & $\mathcal{N}\left(\mu, \sigma^2\right)$         & \makecell[l]{\( \mu: \E[X] \)                                                                                                                                                                                                                                                                       \\ \( \sigma^2 \): Varianz} & \( \mu \) & \( \sigma ^2 \) & \( \frac{1}{\sqrt{2\pi \sigma^2} }e^{-{\frac{(t-\mu)^2}{2\sigma^2} }} \) & \( \frac{1}{\sigma {\sqrt{2\pi}}} \int_{-\infty}^t e^{-\frac{1}{2}\left( \frac{y-\mu}{\sigma} \right) ^2} \mathrm{d} y \) \\
+    \hline
+    \( \chi ^2 \)-Verteilung & $\chi_{m}^{2}$                                    & \( n \): Freiheitsgrad                              & \( n \)                          & \( 2n \)                                                  & \( \frac{1}{2^{\frac{n}{2}}\Gamma (\frac{n}{2})} t^{\frac{n}{2}-1} e^{-\frac{t}{2}} \text{ für } t>0\)                                        & \(P\left( \frac{n}{2}, \frac{t}{2}\right) \)                               \\
+    \hline
+    t-Verteilung             & $t_{m}$                                         & \( n \): Freiheitsgrad                              & \( \begin{cases} 0 & n>1 \\ \text{undef.} & \text{sonst} \end{cases} \) & \( \begin{cases} \frac{n}{n-2} & n> 2 \\ \infty & 1<n \leq 2 \\ \text{undef.} & \text{sonst} \end{cases} \)                          & \( \frac{\Gamma \left( \frac{n+1}{2} \right) }{\sqrt{n\pi } \cdot \Gamma (\frac{n}{2})} \left( 1+ \frac{t^2}{n} \right) ^{- \frac{n+1}{2}} \) & zu kompliziert                                                             \\
+    \hline
+    Negativbinomial          & \(\operatorname{NBin}(r, p)\)                   & \(r \in \mathbb{N}\), \(p \in [0,1]\)               & $\frac{r}{p}$                    & $\frac{r(1-p)}{p^2}$                                      & $\binom{k-1}{r-1} p^r (1-p)^{k-r}$                                                                                                            & zu kompliziert                                                             \\
+    \hline
+
+    Cauchy-Verteilung        & $\operatorname{Cauchy}\left(x_0, \gamma\right)$ & \(x_0 \in \mathbb{R}\), \(\gamma > 0\)              & Existiert nicht                  & Existiert nicht                                           & \(\frac{1}{\pi} \frac{\gamma}{\gamma^2 + (x-x_0)^2}\)                                                                                         & \(\frac{1}{2} + \frac{1}{\pi} \arctan\left(\frac{x - x_0}{\gamma}\right)\) \\
+    \hline
+
+    Hypergeometrisch         & \(\mathrm{H}(n, r, m)\)                         & \(n \in \mathbb{N}\), \(m, r \in \{1, \ldots, n\}\) & $m\frac{r}{n}$                   & $m \frac{r}{n}\left(1-\frac{r}{n}\right) \frac{n-m}{n-1}$ & $\frac{\binom{r}{k} \binom{n-r}{m-k}}{\binom{n}{m}}$                                                                                          & $\sum_{y=0}^k \frac{\binom{r}{y} \binom{n-r}{m-y}}{\binom{n}{m}}$          \\
+    \hline
+  \end{tabularx}
+
+\end{center}
