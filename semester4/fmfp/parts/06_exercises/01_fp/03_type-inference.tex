@@ -1,4 +1,13 @@
 \subsubsection{Type Inference}
+\begin{examdetails}
+    There typically is one such task. They provide the inference rules
+\end{examdetails}
+The proof trees are again drawn up bottom up, applying rules from the outside in.
 \begin{enumerate}
-    \item 
+    \item Create a proof tree using the typing rules.
+    \item During the proof, keep track of what the applications of rules tell us about types in a list.
+    \item After reaching leafs in the prooftree, resolve the types by inserting the now known types into the types you kept in the list.
 \end{enumerate}
+Remember that not all expressions are typeable, so if you end up getting an invalid tree or a conflict of types, this is very much possible.
+
+To prove that the type of an expression is correct, we can simply draw up a type derivation tree, using the typing rules from Section~\ref{sec:mini-haskell}.

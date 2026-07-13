@@ -1,7 +1,7 @@
 \subsection{Structural Induction}
 In this subsection, we present structural induction over lists.
 The same concept also applies similarly to trees and more.
-Weak Structural Induction on treees is presented in the subsequent subsection.
+Weak Structural Induction on trees is presented in the subsequent subsection.
 
 For both, we only provide the natural deduction rules, as the proofs proceed analogously to the ones for mathematical induction.
 
@@ -25,3 +25,8 @@ For both, we only provide the natural deduction rules, as the proofs proceed ana
         \infer1[$xs$ not free in $\Gamma$, $ys$ not free in $P(xs)$]{\Gamma \vdash \forall xs . P(xs)}
     \end{prooftree}
 \end{align*}
+
+
+\subsubsection{Generalizing expressions}
+Sometimes, an expression can be hard to proof straight away because there is a constant in it.
+In that case, replace that constant, making sure to update both sides of the expression to reflect the change.

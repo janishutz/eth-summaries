@@ -1,0 +1,12 @@
+\subsection{Workflow}
+{\scriptsize the notes in this section may seem a bit over the top,
+    but in the exercise sessions it was mentioned repeatedly that they will heavily deduct points for not following the scheme.
+    One example that was named is that in some exams out of 36 points for a proof, 9 were awarded for simply following the expected structure}
+\begin{enumerate}
+    \item Determine the exact expression to proof (possibly generalizing it, and if so, state something like ``Consider the generalized statement'')
+    \item Then, start the proof by stating something along the lines of ``We prove $\forall n \in \N P$ by weak mathematical induction on $n$''.
+    \item Depending on the proof type, proceed with base cases, or case analysis. \hl{Important}: State ``Let $m$ be arbitrary'' for free variables,
+          and if there are extra variables introduced by the application (e.g. a \texttt{Leaf} type has value $x$ in it), state ``Fix $x$ and we show $P[t \mapsto \texttt{Leaf} x]$''
+    \item Then, do the step case (if applicable). \hl{Important}: State ``Let $n$ be arbitrary'', or in the case of structural induction, there may be arguments for the type,
+          such as for \texttt{Tree}, then state ``Let \texttt{l::Tree} and \texttt{r::Tree} be arbitrary''.
+\end{enumerate}
