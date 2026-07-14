@@ -1,0 +1,33 @@
+\paragraph{Optimizations}
+An easy way to avoid polluting the cache is to put those pages towards the bottom of the LRU list,
+that way they are evicted quickly after use.
+Some other options (also for performance improvements):
+\begin{itemize}
+    \item don't cache large tables
+    \item Keep frequently used blocks in separate buffers
+    \item mark some pages as to be evicted immediately after use
+    \item keep statistics on usage of tables and let the system decide automatically which blocks to evict
+    \item evict clean pages first, because they take less time to evict (as we don't need to write)
+\end{itemize}
+
+It is important to keep cache pollution low, as other optimizations, such as pre-fetching (or read-ahead) can be used to
+already pre-populate caches from the query plan before the data is even requested.
+
+Some systems (such as Oracle DB) use Touch Counts (Hot/Cold lists), which work by inserting a new block in the middle.
+When a block is touched, move it up the list, once it exceeds the next block's counts.
+This will automatically keep the very commonly used pages in cache.
+
+To avoid issues with counting, an access can be set to only count after a (configurable) number of seconds has passed.
+
+
+\subparagraph{Second chance}
+This concept uses no list, the counters are kept in the blocks and the buffer is treated as a circular buffer.
+When a block is accessed, set the counter to 1, when the eviction head passes by, set the counter to 0 if it is 1, if it is 0, evict it.
+
+\subparagraph{Clock Sweep}
+Very similar to second chance, but instead uses counters, because some blocks are accessed very frequently.
+
+
+\subparagraph{2Q}
+This approach uses two lists. We have a FIFO queue for blocks that don't need to be kept and an LRU list for blocks that were accessed several times.
+If a block in the FIFO queue is accessed again, it is moved to the LRU list. The lowest element of the LRU list is then either moved to the FIFO queue or evicted.

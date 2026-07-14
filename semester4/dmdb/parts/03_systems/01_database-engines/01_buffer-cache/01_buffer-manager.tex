@@ -1,0 +1,34 @@
+\paragraph{Buffer manager}
+Databases use locks (used to avoid conflicting updates to the data) and latches (avoid conflicting updates to data structures of system) to manage buffers.
+
+The buffer cache latches are used to avoid conflicting accesses to hash buckets with the block headers and cover several hash buckets, the number of which is configurable.
+The reason that there isn't a latch per bucket, or even per block header is to reduce the space devoted to the engine data structures.
+
+Of course, as with any other kind of locking, only one process can hold a latch and they typically span several linked lists of block headers
+and the typical performance bottlenecks also apply.
+
+To mitigate these performance issues, we can
+\begin{itemize}
+    \item reduce the number of data in a block
+    \item Configure a DB with more latches and less buckets per latch
+    \item Multiple buffer pools
+    \item Tune queries to reduce full table scans
+    \item Avoid many concurrent queries that access the same data
+    \item Avoid concurrent transactions
+\end{itemize}
+
+The link list in which a block header resides is found using hashing on some kind of block header.
+Then, the linked list is traversed to find the block, which is expensive, which is why the length of these lists should be reduced as much as possible.
+
+Block headers contain the following data:
+\begin{itemize}
+    \item Block number or ID
+    \item Format
+    \item LSN (Log Sequence Number), can be similar to git commit refs, sometimes also simply a counter
+    \item Checksum for integrity
+    \item Latches / status / etc flags
+    \item Buffer replacement information (for replacement policies)
+\end{itemize}
+
+Status information of the block includes relevant data for management of the buffer, such as pinning (i.e. pinning it into memory), usage counts, clean / dirty flag
+and more.

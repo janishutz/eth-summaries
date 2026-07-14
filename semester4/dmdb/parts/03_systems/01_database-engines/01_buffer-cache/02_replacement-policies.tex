@@ -1,0 +1,12 @@
+\paragraph{Cache replacement policies}
+This is mostly a recap from SPCA, but again, the DB can be more aggressive at optimizing, because it has much more information on the data accesses.
+
+A commonly used strategy is Least Recently Used (LRU).
+A buffer is evicted, when space is needed and it is the least recently used buffer in the buffer pool.
+
+As much sense as this policy makes in operating systems, in DBMS, it doesn't really work (but is still used in some systems).
+There are a number of possible issues with LRU:
+\begin{itemize}
+    \item \bi{Table Scan Flooding}: If a large table is loaded to be scanned just once, it will flush out the entire cache, also pages that are used \textit{very often}.
+    \item \bi{Index Range Scan}: A range scan using an index will pollute the cache with random pages
+\end{itemize}

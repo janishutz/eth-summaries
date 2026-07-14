@@ -1,0 +1,10 @@
+\subsubsection{Buffer Caches}
+To be quick (as covered in SPCA in Semester 3), you need data to be available in memory, and even better still in the CPU caches.
+
+This is no different for database systems.
+Here we are however not dealing with the hardware side of caching, but caching commonly used pages and metadata in main memory,
+as opposed to streaming them from disk on each access. However, database systems often write dirty blocks back to disk when dirty (i.e. use write-through caches),
+or when in need of space.
+
+Thus, in principle, buffer caches are similar to OS virtual memory and paging mechanisms, however, unlike OSes,
+the database system knows the access patterns and can (thus) optimize much more.
