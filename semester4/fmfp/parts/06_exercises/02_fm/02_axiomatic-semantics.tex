@@ -1,1 +1,11 @@
 \subsubsection{Axiomatic Semantics}
+Here, we need to find pre- and postconditions for expressions and prove that they are correct.
+
+To do the proofs, we again apply transition rules, as was the case already with operational semantics.
+Contrary to those however, we have pre- and postconditions, which we typically need to define ourselves.
+
+This typically involves finding a loop invariant that holds before and after each iteration of the loop.
+This invariant should mention every variable used in the loop.
+Any other variable should also be mentioned in it. The loop \textit{variant} may also be added for proving termination.
+A typical for-loop loop variant would be \texttt{n - x}, as the next value of the loop variant has to be lower than the previous one.
+Of course, if \texttt{x} is decreasing, it itself can become the variant, as it fulfils the condition.

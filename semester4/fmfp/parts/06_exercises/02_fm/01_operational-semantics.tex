@@ -1,5 +1,34 @@
 \subsubsection{Operational Semantics}
-\paragraph{Big Step Semantics}
+\paragraph{Big Step Semantics (Natural Semantics, NS)}
+Proving something using the big step semantics rules tends to be fairly easy if you understand how natural deduction and the like work.
+The concept is very similar, just with other rules. It is advisable to name each sub-statement in the main statement, to reduce the required amount writing.
+
+Sometimes, Induction on (the shape of) Proof Trees may be required, for that, see Section~\ref{sec:induction-on-proof-trees}
+
+Where it gets more interesting and challenging, is providing rules in the big step semantics.
+Here, it is important to think about the different cases that could be introduced by the statement.
+
+For instance, for loops, there will (almost certainly) be two cases, one in which some boolean expression (denoted $\cB \llbracket e \rrbracket \sigma$) is \texttt{ff},
+the other in which it is \texttt{tt}.
+For these, you need to make sure to state the side condition (i.e. that the boolean expression is true or false, respectively).
+
+In addition, think thoroughly about how to define the states of the rules. For instance, for a \texttt{time} statement, that counts the number of assignments,
+the state we map to would ideally be defined as $\sigma' [x \mapsto n]$, where $n$ is the number of assignments.
 
 
-\paragraph{Small Step Semantics}
+\paragraph{Small Step Semantics (Structural Operational Semantics, SOS)}
+Small Step semantics proofs tend to be a bit more challenging. Unlike Natural Semantics, here we can't create a single derivation tree, but one per step.
+This means, that we do one single step transition at a time, denoted $\rightarrow_1^1$, and justify each step with a proof tree and SO Semantics (SOS).
+Typically, only \textit{some} of the statements are asked to be proven in the exam, as proving all is time intensive due to the typically fairly
+large number of steps in the proofs.
+For the proof trees, they need to be complete for each transition that we prove, i.e. no hypothesis in any branches.
+
+Defining rules here is similar in concept as with the Natural Semantics.
+We want to make sure, to also consider the effects it has on other rules, as with Natural Semantics.
+
+The sole difference here is that we return \textit{both} the next statement to be evaluated \textit{and} the next state,
+unlike with Natural Semantics, where we only return the next state.
+
+
+\paragraph{Other proofs}
+Induction proofs for these two are also outlined in Section~\ref{sec:induction-on-proof-trees} and subsequent subsections.

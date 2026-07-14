@@ -1,0 +1,18 @@
+\newpage
+\subsection{Induction on Derivation Sequence}
+A finite derivation sequence has a length $n \in \N$.
+We typically reason about finite derivation sequences using \bi{strong induction on the length of a derivation sequence},
+i.e. we reason about a multi-step execution $\gamma \rightarrow_1^k \gamma'$ using strong induction on the number of steps $k$.
+
+We define $P(k) \equiv$ ``for all executions of length $k$, our property holds''
+
+We then prove $P(k)$ for arbitrary $k$, with induction hypothesis $\forall k' < k. P(k')$, as is usually the case with induction on natural numbers.
+
+After the setup, the proof \textit{typically} proceeds by case distinction on:
+\begin{itemize}
+    \item $k = 0$ step execution
+    \item $k > 0$ step execution, by splitting off the first execution (i.e. an execution $\langle s, \sigma \rangle \rightarrow_1^k \sigma''$
+        can be split up as $\langle s, \sigma \rangle \rightarrow_1^1 \gamma \rightarrow_1^{k - 1} \sigma''$.)
+\end{itemize}
+In the $k > 0$ case, we can then apply the induction hypothesis. Sometimes a further case distinction can become necessary, depending on the rules that are possible.
+For instance, if $s = s_1; s_2$, two rules are possible, \textsc{Seq1} and \textsc{Seq2} from the SOS.

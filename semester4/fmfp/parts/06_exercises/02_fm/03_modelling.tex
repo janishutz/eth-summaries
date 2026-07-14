@@ -1,1 +1,12 @@
 \subsubsection{Modelling}
+Many of the tasks here are pretty straight forward, converting IMP into Promela,
+and putting an \texttt{assert} (or more) into the \texttt{init} block, to check if the required state is reached.
+
+Note that for non-determinism, we use Promela conditionals without conditions.
+
+For parallelism, we can use the \texttt{run} keyword for a \texttt{proctype}, then we wait for the processes to terminate using
+\texttt{\_nr\_pr == 1} and do our assertion.
+
+
+If we are given a text description only however, things get more challenging, as we need to model the properties given there.
+A possible simplification of the process may be to model things one property at a time, then combine them as needed.
