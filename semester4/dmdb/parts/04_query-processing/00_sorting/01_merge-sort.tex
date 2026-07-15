@@ -1,0 +1,16 @@
+\subsection{Merge Sort}
+\subsubsection{Merging Sorted Runs}
+When we sort each page on load into memory, we then have to merge all pages together, or more precisely, combine elements into pages in correct order.
+For that, we keep pointers to each pair of frames, then we first take first element of either the first or second frame, depending on which one comes first in the order,
+and copy it into the empty frame. We apply the same again to fill up the empty frame (to a threshold or fully). When the frame is full, we create a second one and link it.
+
+We do this for all pairs, then apply the same procedure to each sorted frame group, repeating this until we have a unified, sorted set of frames.
+
+If there is ever just one frame (group) left, we add an empty one implicitly and proceed normally.
+
+The cost for this is for the 1-page sorted runs (i.e. sorting the original pages) is a single pass (read + write pass).
+
+The total cost is given by $2 \cdot M \cdot N$ I/O operations, with $M$ the number of passes / phases (i.e. how many merge steps there are) and $N$ being the number of frames.
+
+For Two-Way Merge Sort, the number of passes, $M$ is given by $M = \lceil \log_2(N) \rceil + 1$,
+so the total cost to sort is $2N(\lceil \log_2 N \rceil + 1)

@@ -1,0 +1,6 @@
+\section{Sorting}
+Sorting is crucial in DBMS due to the possibility that the user requests sorted data using an \texttt{ORDER BY} clause.
+In addtion, it can help speed up some operators.
+
+Something like Quicksort is fast, but creates many random accesses, which slows things down.
+Thus, sorting data as it is loaded into memory is beneficial, for which typically (a variant of) merge sort is used.
