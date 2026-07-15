@@ -34,6 +34,13 @@ vector v; // using the custom vector type
 mtype msg = ack; // Using the symbolic constant
 
 
+// --- Functions -----------------------------------------------
+// Note that these are not full functions and recursion is not supported!
+inline fun() {
+    // function body goes here
+}
+
+
 // --- Processes -----------------------------------------------
 // Process declarations
 proctype myProc(int p) {

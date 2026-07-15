@@ -1,2 +1,27 @@
 \subsubsection{Linear Time Properties (LTL)}
 We refer to Section~\ref{sec:ltl} for intuition, as these tend to mostly be intuition exercises.
+
+For doing verification of liveness / safety properties using \texttt{spin} and Promela,
+the operators are translated to Promela as follows:
+\verb+[] <> ! && || -> U+ for $\square \Diamond \neg \land \lor \Rightarrow U$, respectively.
+In addition, we have the equality operator as a primitive propositional formula. We have \texttt{p == true} for $p$ in the operators.
+
+Execute \texttt{spin -a file.pml}, followed by \texttt{gcc pan.c} and \texttt{./a.out}.
+
+As a reminder, these are the operators (details in Section~\ref{sec:ltl-details}):
+\begin{itemize}
+    \item Now: $p$ states that the proposition is true ``\textit{now}''
+    \item Holds until: $\Phi U \Psi$ states that $\Phi$ holds (with no other valid proposition holding between) until $\Psi$ holds.
+    \item Next: $\bigcirc \Phi$ states that $\Phi$ holds for the ``next''
+    \item Eventually: $\Diamond \Phi$ states that $\Phi$ holds \textit{eventually}, $\Diamond \Phi \equiv (\texttt{true} U \Phi)$
+    \item Always (from now on): $\square \Phi$ states that from now on, $\Phi$ will always hold, $\square \Phi \equiv \neg \Diamond \neg \Phi$
+\end{itemize}
+For the implication (where the left hand side is called the \textit{antecedent}, right hand side is called the \textit{consequent}),
+remember to show the case where the antecedent is true and state that for antecedent false, it is trivially true
+
+Another important remark is that you can't just write $\Diamond \neg s_1$, where $s_1$ is a state, you need to specify the propositions.
+
+
+\subparagraph{Liveness and Safety Properties}
+Proofs here run using the definitions directly, either by showing a counter example (for disproving) or showing that, in fact, the definition holds.
+Indirect proofs may also come in handy, because it is typically easier to show that something is not a safety property (or liveness property) that to show that it is.

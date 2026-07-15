@@ -4,9 +4,19 @@ and putting an \texttt{assert} (or more) into the \texttt{init} block, to check 
 
 Note that for non-determinism, we use Promela conditionals without conditions.
 
-For parallelism, we can use the \texttt{run} keyword for a \texttt{proctype}, then we wait for the processes to terminate using
-\texttt{\_nr\_pr == 1} and do our assertion.
+For parallelism, we can use the \texttt{run} keyword for a \texttt{proctype} (rest of syntax is just as with a function in most C-like programming languages),
+then we wait for the processes to terminate using \texttt{\_nr\_pr == 1} and do our assertion.
+
+We can use an \texttt{atomic} block to ensure atomicity.
+
+Promela \bi{does not} support functions, instead, the \texttt{inline} keyword works similarly to macros in \texttt{C},
+they are simply substituted into the code at compile time.
+In some solutions, they use double-dash arrows (\verb|-->|). From testing, it seems that it is also fine to use normal arrows (\verb|->|) and it will still work.
+For completeness, the double-dash arrows are used in if statements with conjuncts or disjuncts.
 
 
 If we are given a text description only however, things get more challenging, as we need to model the properties given there.
 A possible simplification of the process may be to model things one property at a time, then combine them as needed.
+
+To check if something is achievable (i.e. there is a solution to the task), we can use an \texttt{assert false} on the case where we have success
+If there is a way, then the assertion will fail (because it will always fail and is only called if \texttt{success} is true)
