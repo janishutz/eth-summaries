@@ -178,3 +178,228 @@ $$
     \item $\bar{X}_n \perp S^2$
     \item $\frac{\bar{X}_n-\mu}{\frac{S}{\sqrt{n}}} = \displaystyle\frac{\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}}}{S / \sigma} = \frac{\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}}}{\sqrt{\frac{1}{n-1}\frac{n-1}{\sigma^2}S^2}} \sim t_{n-1}$
 \end{enumerate}
+
+\newpage
+
+\subsection{Tests}
+
+\textbf{Motivation}: Modelliert $\vartheta\in\Theta$ die Daten $\{x_i\}_{i=1}^n$ gut?
+
+\definition \textbf{Hypothese} $H_0: \Theta_0 \subseteq \Theta$, \textbf{Alternative} $H_A: \Theta_A \subseteq \Theta$
+
+\remark Häufig: $\Theta_A = \Theta_0^\text{C} = \Theta \setminus \Theta_0$
+
+\definition $\Theta_x$ \textbf{Einfach} $\iffdef |\Theta_x| = 1$\\
+\subtext{Ansonsten: \textit{Zusammengesetzt}}
+
+\definition \textbf{Test} $(T,K)$\\
+\smalltext{Eine \textit{Entscheidungsregel}, um $H_0$ durch $\{x_i\}_{i=1}^n$ zu bewerten}
+\begin{align*}
+    &   \textbf{Teststatistik}\quad          & T = t(X_1,\ldots,X_n) \quad t: \R^n\to\R \\
+    &   \textbf{Kritischer Bereich}\quad     & K \subseteq \R
+\end{align*}
+
+\textbf{Entscheidungsregel}: $H_0$ verworfen $\iff T(\omega) \in K$
+
+{\footnotesize
+    \remark Da $T$ zufällig: $\{T\in K\} = \{\omega\in\Omega\sep T(\omega)\in K\}$ und $\P_\vartheta[T\in K]$ ist berechenbar.
+}
+
+\definition \textbf{Fehler 1. Art}: $H_0$ wird abgelehnt, obwohl korrekt\\
+\subtext{$\vartheta\in\Theta_0$ s.d. $T\in K$. $\P_\vartheta[T\in K]$ für $\vartheta\in\Theta_0$ ist  W.-keit 1. Art}
+
+\definition \textbf{Fehler 2. Art}: $H_0$ wird angenommen, obwohl falsch\\
+\subtext{$\vartheta\in\Theta_A$ s.d. $T\notin K$. $\P_\vartheta[T\notin K]$ für $\vartheta\in\Theta_A$ ist W.-keit 2. Art}
+
+\subsubsection{Statistisches Vorgehen}
+
+\definition \textbf{Signifikanzniveau} $\alpha$ s.d. $\underset{\vartheta\in\Theta_0}{\sup}\P_\vartheta[T\in K] \leq \alpha$
+
+\definition \textbf{Macht} $\beta: \Theta_A \to [0,1] \quad \vartheta \mapsto \beta(\vartheta) = \P_\vartheta[T \in K]$
+
+\method \textbf{Asymmetrisches Verfahren}:
+\begin{enumerate}
+    \item $\alpha$ auswählen. (W.-keit Fehler 1. Art auswählen)
+    \item $\beta$ maximieren. (W.-keit Fehler 2. Art minimieren)
+\end{enumerate}
+
+{\footnotesize
+    \remark \textbf{Die Wahl von $H_0,H_A$ ist signifikant.} Gemäss Verfahren ist es schwieriger, die Hypothese zu verwerfen als beizubehalten. Man nutzt d.h. die \textit{Negation} der gewünschten Aussage als Hypothese $H_0$.
+}
+
+\newpage
+
+\subsection{Konstruktion von Tests}
+
+\subtext{$X_1,\ldots, X_n$ diskrete/stetig unter $\P_{\vartheta_0}$ und $\P_{\vartheta_A}$}
+
+\definition \textbf{Likelihood Quotient}\\
+\subtext{$x_1,\ldots,x_n \in \R,\quad \vartheta_0\in\Theta_0,\quad \vartheta_A\in\Theta_A$}
+$$
+    R(x_1,\ldots,x_n;\vartheta_0,\vartheta_A) := \frac{L(x_1,\ldots,x_n;\vartheta_0)}{L(x_1,\ldots,x_n;\vartheta_A)}
+$$
+
+Intuitiv, wenn $R$ gross ist, ist $\{x_i\}_{i=1}^n$ deutlich wahrscheinlicher in $\P_{\vartheta_0}$ als $\P_{\vartheta_A}$.
+
+{\footnotesize
+    \remark $R(x_1,\ldots;\vartheta_0,\vartheta_A) := +\infty \iff L(x_1,\ldots;\vartheta_A)=0$
+}
+
+\definition \textbf{Likelihood Quotient Test} \smalltext{$c\geq0$}
+$$
+    T=R(X_1,\ldots,X_n;\vartheta_0,\vartheta_A) \qquad K = (c,\infty]
+$$
+
+\lemma \textbf{Neyman-Pearson}\\
+\smalltext{$\forall (T',K') \text{ s.d. } \P_{\vartheta_0}[T'\in K'] = \alpha \leq \alpha^*:$}
+$$
+    \P_{\vartheta_A}[T'\in K'] \leq \P_{\vartheta_A}[T\in K]
+$$
+\subtext{$\Theta_0 = \{\vartheta_0\}, \Theta_A = \{\vartheta_A\}, (T,K) \text{ ist L.Q.-Test},\quad \alpha^* = \P_{\vartheta_0}[T\in K]$}
+
+D.h. jeder solcher Test mit kleinerem $\alpha$ hat ein kleineres $\beta$.
+
+{\footnotesize
+    \remark Die Situation $|\Theta_0|=|\Theta_A| = 1$ ist selten. Man wendet trotzdem eine Verallgemeinerung des oberen Prinzips für komplexere Fälle an.
+}
+
+\definition \textbf{Verallgemeinerter Likelihood Quotient}
+\begin{align*}
+    R(x_1,\ldots,x_n)           &:= \frac{\underset{\vartheta\in\Theta_0}{\sup} L(x_1,\ldots,x_n;\vartheta)}{\underset{\vartheta\in\Theta_A}{\sup}L(x_1,\ldots,x_n;\vartheta)} \\
+    \tilde{R}(x_1,\ldots,x_n)   &:= \frac{\underset{\vartheta\in\Theta_0\cup\Theta_A}{\sup} L(x_1,\ldots,x_n;\vartheta)}{\underset{\vartheta\in\Theta_A}{\sup}L(x_1,\ldots,x_n;\vartheta)}
+\end{align*}
+
+\newpage 
+
+\definition \textbf{Gauss-Z-Test}\\
+\smalltext{$X_1,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \mathcal N (\vartheta, \sigma^2)$, $\sigma^2$ bekannt}
+\begin{align*}
+    & H_0:  & \vartheta = \vartheta_0 \\
+    & H_A:  & \vartheta > \vartheta_0 \ \lor \ \vartheta < \vartheta_0 \\
+    & T:    & T=\frac{\bar{X}_n-\vartheta_0}{\frac{\sigma}{\sqrt{n}}}\sim\mathcal N (0,1) \text{ unter } \P_{\vartheta_0} \\
+    & K:    & K=\begin{cases}
+        (c_>,\infty) \lor (-\infty, c_<)        & \text{Einseitig} \\
+        (-\infty, -c_{\neq}) \cup (c_{\neq},\infty) & \text{Beidseitig}
+    \end{cases}
+\end{align*}
+
+{\footnotesize
+    \remark Im beidseitigen Fall verwirft man $H_0$ falls $|T|>c_{\neq}$.
+
+    \remark Man bestimmt $c_>,c_<,c_{\neq}$ durch Verteilung $T$ unter $\P_{\vartheta_0}$
+}
+
+{\scriptsize
+    \textbf{Beispiel}: Gauss-z-Test mit Quantilen
+    \begin{align*}
+        \alpha  &= \P_{\vartheta_0}[T\in K]     \\
+                &= \P_{\vartheta_0}[T > c_>]    \\ 
+                &= 1-\P_{\vartheta_0}[T \leq c_>] = \boxed{1-\Phi(c_>)}
+    \end{align*}
+    $c_> = \Phi^{-1}(1-\alpha) =: z_{1-\alpha}$ ist das \textit{$(1-\alpha)$-Quantil} von $\mathcal{N}(1,0)$.\\ 
+    Man verwirft für $\vartheta > \vartheta_0$ also $H_0$ falls:
+    $$
+        \frac{1}{n}\sum_{i=1}^nX_i > \vartheta_0 + z_{1-\alpha}\frac{\sigma}{\sqrt{n}}
+    $$
+    Wegen der Symmetrie von $\mathcal N (0,1)$: $c_< = z_\alpha = -z_{1-\alpha}$ und $c_{\neq}=z_{1-\frac{\alpha}{2}}$
+}
+
+\definition $t$-\textbf{Test}\\
+\smalltext{$X_1,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \mathcal{N}(\mu,\sigma^2),\quad \vartheta = (\mu,\sigma^2)$} 
+\begin{align*}
+    & H_0:  & \mu = \mu_0 \\
+    & T:    & T=\frac{\bar{X}_n-\mu_0}{\frac{S}{\sqrt{n}}} \sim t_{n-1} \text{ unter } \P_{\vartheta_0} \\
+    & S:    & S^2 = \frac{1}{n-1}\sum_{i=1}^{n}\biggl( X_k-\bar{X}_n \biggr)^2 \\
+    & K:    & K=\begin{cases}
+        (c_>,\infty) \lor (-\infty, c_<)        & \text{Einseitig} \\
+        (-\infty, -c_{\neq}) \cup (c_{\neq},\infty) & \text{Beidseitig}
+    \end{cases} \\
+    & c:    & c = \begin{cases}
+        c_> = t_{n-1,1-\alpha} \\
+        c_< = t_{n-1,\alpha} = -t_{n-1,1-\alpha} \\
+        c_{\neq} = t_{n-1,1-\frac{\alpha}{2}}
+    \end{cases}
+\end{align*}
+
+\definition $\gamma$-\textbf{Quantil} $t_{m,\gamma}$ s.d. $\P[X \leq t_{m,\gamma}] = \gamma$ für $X \sim t_m$
+
+\newpage
+
+\definition \textbf{Gepaarter Zweistichproben-Test}\\
+\smalltext{$m=n,\quad \sigma^2$ identisch}
+\begin{align*}
+    X_1,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \mathcal{N}(\mu_X,\sigma^2) \text{ unter } \P_{\vartheta} \\
+    Y_1,\ldots,Y_n \overset{\text{i.i.d.}}{\sim} \mathcal{N}(\mu_Y,\sigma^2) \text{ unter } \P_{\vartheta}
+\end{align*}
+
+{\footnotesize
+    \remark $(X_k-Y_k) \overset{\text{i.i.d.}}{\sim} \mathcal{N}\Bigl(\mu_X-\mu_Y,2(1-\rho)\sigma^2\Bigr)$\\
+}
+\subtext{$\rho \in (-1,1)$ ist Korrelation $X,Y$. Bei Unabhängigkeit: $\rho=0$}
+
+\definition \textbf{Ungepaarter Zweistichproben-Test} $\iffdef m \neq n$
+$$\
+    T=\frac{\bar{X}_n - \bar{Y}_m - (\mu_X-\mu_Y)}{\sigma\sqrt{\frac{1}{n}+\frac{1}{m}}} \sim\mathcal{N}(0,1)
+$$
+Bei unbekanntem $\sigma^2$ wird $S^2$ genutzt:
+$$
+    S^2 = \frac{1}{m+n-2}\biggl( (n-1)S_X^2+(m-1)S_Y^2 \biggr)
+$$
+
+\subsection{p-Wert}
+
+\textbf{Motivation}: Bisherige Tests nutzen alle $\mathcal{N}(\mu,\sigma^2)$.
+
+\smalltext{
+    p-Wert Intuitiv: Die W.-keit, unter $H_0$ einen min. so extremen Wert für $T$ zu bekommen wie $T(\omega)$ aus der Stichprobe.
+}
+
+\definition \textbf{Geordnete Testsammlung} $(T,K_t)_{t\geq0}$
+$$
+    \forall t: K_t \subseteq \R \quad\land\quad s\ \leq t \implies K_s \supset K_t
+$$
+\subtext{z.B. $(T,K_t)_{t\geq0}$ s.d. $K_t=(t,\infty)$ oder $K_t=(-\infty, -t)$}
+
+\definition \textbf{p-Wert}\\
+\smalltext{$G:\R_+\to[0,1],\quad G(t) = \P_{\vartheta_0}[T\in K_t]$}
+$$
+    p\text{-Wert } = G(T): \Omega \to [0,1]
+$$
+\subtext{$H_0: \vartheta = \vartheta_0$ einfach,$\quad (T,K_t)_{t\geq0}$ geordnet}
+
+\remark \textbf{Interpretation}
+\begin{align*}
+    \alpha > p      &\implies (T, K_t) \text{ lehnt } H_0 \text{ ab} \\
+    \alpha \leq p   &\implies (T, K_t) \text{ akzeptier } H_0 
+\end{align*}
+
+{\footnotesize
+    \remark $p$-Wert ist unabhängig von $H_A$
+}
+
+\newpage
+
+\subsection{Konfidenzinterval}
+
+\textbf{Motivation}: $T$ liefert nur ein $\vartheta$, wieso nicht einen Intervall?
+
+\definition \textbf{Konfidenzbereich}
+$$
+    C(x_1,\ldots,x_n) \subseteq \Theta \qquad \tilde{C}(X_1,\ldots,X_n) \subseteq \Theta
+$$
+\definition \textbf{Konfidenzbereich, Niveau} $1-\alpha$
+$$
+    \forall \vartheta \in \Theta:\quad \P\Bigl[ \vartheta \in C(X_1,\ldots,X_n)\Bigr] \geq 1-\alpha 
+$$
+\definition \textbf{Konfidenzinterval}\\
+\smalltext{$A,B$ sind Zufallsvariablen}
+\begin{align*}
+    &   I = [A,B] \text{ s.d. } \P\Bigl[ \vartheta \in [A,B] \Bigr] = \P[A\leq\vartheta\leq B] \geq 1-\alpha \\
+    &   A = a(X_1,\ldots,X_n) \qquad B = b(X_1,\ldots,X_n)
+\end{align*}
+
+\newpage
+
+div
+
+\newpage
