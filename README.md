@@ -84,6 +84,10 @@ git clone https://github.com/janishutz/eth-summaries
 You will need to also clone the helpers to `~/projects/latex`, which you can find [here](https://git.janishutz.com/janishutz/latex).
 If you want to use a different folder, simply duplicate the import line, change it and when opening a PR, simply change it back.
 
+For some of the older summaries, you will need to check out the `v1` branch of the helpers, as they were written before the new helpers were created
+and have not been updated to the new ones.
+This likely includes all summaries and cheat sheets up to and including semester 3.
+
 -------
 ***NOTE***: It is recommended that you fork the repo to contribute back to it. To do that, click the fork button on the repo and clone it locally using
 ```bash

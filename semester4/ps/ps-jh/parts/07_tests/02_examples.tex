@@ -1,16 +1,31 @@
 \subsection{Beispiele}
-% TODO: More on Teststatistik
-\shortexample[Gauss-Test] $\cX_i$ i.i.d. $\sim \cN(\vartheta, \sigma^2)$ unter $\P_\vartheta$ mit bekanntem $\sigma^2$.
-Die zu testende Hypothese ist $H_0 : \vartheta = \vartheta_0$, mögliche alternative Hypothesen $H_A$ sind
-$\vartheta > \vartheta_0$, $\vartheta < \vartheta_0$ (einseitig) oder $\vartheta \neq \vartheta_0$ (zweiseitig).
-Teststatistik ist immer:
+\coloredbox{red}{REWRITE}{
+    This section is undergoing a rewrite, to be more on-point. The previous section may also see some changes as a result.
+}
+\coloredbox{gray}{How-To: Tests}{
+    Was zu tun / erwähnen ist jeweils:
+    \begin{enumerate}
+        \item Modell: Verteilung der Stichproben $\cX_k$ unter $\P_\vartheta$, mit $\vartheta =$ gesuchte Werte.
+              Für $\cX_k \sim \cN(\mu, \sigma^2)$, ist $\vartheta = (\mu, \sigma^2)$, wenn beide unbekannt.
+        \item Hypothesen: $H_0: \vartheta = \vartheta_0 =$ Vergleichswert, $H_A: \vartheta < \vartheta_0$ (oder grösser, $\neq$, etc). \hl{Umgekehrt, s. links}
+        \item Teststatistik: Basierend auf Verteilung von $\cX_k$ und Bekanntheit von Parametern
+        \item Verteilung von $T$: Oft $t_{n - 1}$, siehe \ref{sec:estimators-properties} unten
+        \item Verwerfungsbereich: Nach Anleitung unten
+        \item Wert der $T$: $T(\omega)$ berechnen, $\omega$ ist beobachteter Wert (bspw. Durchschnitt $\overline{\cX}_n$)
+        \item Testentscheid: Basierend auf Resultat von vorherigem und $K$ entscheiden.
+    \end{enumerate}
+}
+\bi{Verwerfungsbereich} $K_l = (c_>, \8)$ (links), $K_r = (-\8, c_<)$ (rechts), $K_b = (-\8, c_{\neq}) \cup (c_{\neq}, \8)$ (beidseitig)
+
+\shortexample[Gauss-Test] Voraussetz.:
+\bi{(1)} $\cX_i$ i.i.d. $\sim \cN(\vartheta, \sigma^2)$ unter $\P_\vartheta$
+\bi{(2)} $\sigma^2$ bekannt.
+\textbf{Teststatistik}:
 \[
     T = \frac{\overline{\cX}_n - \vartheta_0}{\frac{\sigma}{\sqrt{n}}} \sim \cN(0, 1) \qquad \text{unter } \P_{\vartheta_0}
 \]
-$K$: $(c_>, \8)$, bzw. $(-\8, c_<)$ für einseitig, $(-\8, -c_{\neq}) \cup$\\
-$(c_{\neq}, \8)$ für zweiseitig (verwerfen $H_0$ falls $|T| > c_{\neq}$).
-
-\bi{Bestimmung $c$s}: Mit Verteilung von $T$. Bsp: $\alpha = \P_{\vartheta_0}[T > c_>] = 1 - \Phi(c_>)$, folglich $c_> = \Phi^{-1}(1 - \alpha) =: z_{1 - \alpha}$
+\bi{Bestimmung $c$s}: $z_{1 - \alpha} = \Phi^{-1}(1 - \alpha)$.\\
+$c_> = z_{1 - \alpha}; c_< = -z_{1 - \alpha}; c_{\neq} = z_{1 - 0.5 \alpha}$
 
 
 \shortexample[t-Test] $\cX_i$ i.i.d. $\sim \cN(\mu, \sigma^2)$ unter $\P_{\overrightarrow{\vartheta}}$
@@ -19,8 +34,9 @@ Testen wieder $H_0 : \mu = \mu_0$. Teststatistik ist hier (see \ref{sec:estimato
 \[
     T = \frac{\overline{X}_n - \mu_0}{\frac{S}{\sqrt{n}}} \qquad S^2 = \frac{1}{n - 1} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2
 \]
-$K$: $c_> = t_{n - 1, 1 - \alpha}$; $c_< = t_{n - 1, \alpha} = -c_>$; $c_{\neq} = t_{n - 1, 1 - 0.5 \alpha}$,
-mit $t_{m, \gamma}$ das $\gamma$-Quantil, mit $\P[\cX \leq t_{m, \gamma}] = \gamma$ für $\cX \sim t_m$
+$K$: $c_> = t_{n - 1, 1 - \alpha}$; $c_< = t_{n - 1, \alpha} = -c_>$; $c_{\neq} = t_{n - 1, 1 - 0.5 \alpha}$,\\
+mit $t_{m, \gamma}$ das $\gamma$-Quantil von $t_m$-Verteilung, welches Wert ist, so dass $\P[\cX \leq t_{m, \gamma}] = \gamma$ für $\cX \sim t_m$.
+Wert ist tabelliert!
 
 
 \shortremark[Zweistichproben-Tests] $\cX_k$ (i.i.d.) und jeweils unabhängig von allen $\cY_l$
