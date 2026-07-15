@@ -3,9 +3,9 @@ Coding style is not fixed (yet). There are plans to add automatic formatting lat
 If you are interested in getting that going, feel free to open a Pull Request with an actions setup that works with latexindent and my latexindent config from [here](https://git.janishutz.com/janishutz/dotfiles/src/branch/main/config/lint/latexfmt.yaml)
 
 ## Updating existing summaries
-- Do replace the helper files
+- Do not change the helper file import. If you have an idea as to how we could improve the import, open an issue.
 - Compile before uploading such that the PDFs are up-to-date
-- (Optional) Add your name to the credits for the summary
+- (Optional) Add your name to the credits for the summary if you have made a contribution beyond a small fix. Your username will be in the `git blame` regardless.
 - Open a pull request
 
 ## Adding a new summary
