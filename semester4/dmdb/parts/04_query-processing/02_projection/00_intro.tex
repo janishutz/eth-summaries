@@ -1,0 +1,11 @@
+\subsubsection{Duplicate Elimination}
+This is done using either hashing or sorting.
+The hashing approach hashes an element and checks in the existing map if this element exists already. If not, it is inserted, else it is skipped.
+Finally the map is returned, or transformed and returned.
+
+For large datasets, we may want to create a hash table of size $B$, then run multiple dedupe passes, on each subset where duplicates could be,
+then return the union'd map.
+
+A sort-based approach is also very easy to understand: We sort the records and then discard, on a run through the sorted records, the ones that are duplicates.
+However, this tends to be more expensive than the hash-based approach for low amounts of data, but for larger amounts, very similar.
+The sort-based approach also has the benefit of producing sorted data, which may be useful for future operators.

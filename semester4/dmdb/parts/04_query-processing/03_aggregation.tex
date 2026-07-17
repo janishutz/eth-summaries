@@ -1,0 +1,10 @@
+And again, we have the option to do this via sorting or hashing:
+\begin{itemize}
+    \item \bi{Sorting}: Sort on the attribute. Then scan the sorted tuples, computing running aggregate (such as max/min, average, etc).
+          When a new group is encountered, then we output the aggregate.
+          Alternatively, we can already compute the aggregates on the last step of sorting (the merge) to save some time.
+          The limiting factor then becomes the sorting.
+    \item \bi{Hashing}: We hash the attribute and now each hash table entry is a group of all records with this value of the attribute.
+          For each one of these groups, we compute the aggregate.
+          If the table is too large for memory, we use a two-step approach, as before
+\end{itemize}

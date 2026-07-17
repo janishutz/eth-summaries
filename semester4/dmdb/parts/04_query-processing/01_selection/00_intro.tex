@@ -1,0 +1,6 @@
+Two terms important here are \textit{logical selection}, which describes \bi{what} we want to select and \textit{physical selection},
+which describes \bi{how} the algorithm or procedure works that actually retrieves, or filters, the data.
+
+The options include an \textit{file scan}, where we scan the entire file and thus the I/O cost is the number of pages in each relation.
+Alternatively, we can use \textit{index scan}, where we use an index to retrieve the matching rows.
+The cost then of course depends on the index used and if said index can even be used to generate the resulsts needed. We will cover that in more detail now.

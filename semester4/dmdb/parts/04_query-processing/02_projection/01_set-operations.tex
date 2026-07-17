@@ -1,0 +1,21 @@
+\subsubsection{Set Operations}
+\paragraph{Union / Union All}
+$R \cup S$ is the operation to perform.
+We can again use a sort-based or hash-based approach:
+\begin{itemize}
+    \item \bi{Sort-based}: We first sort both relations on all attributes and merge the sorted relations, while eliminating duplicates (except if \texttt{UNION ALL})
+    \item \bi{Hash-based}: We first hash-partition both $R$ and $S$.
+          We then build an in-memory hash table for each partition $R_p$ of $R$ and probe with tuples in corresponding $S_p$ of $S$ and add to the output, if not duplicate.
+          (Again only if not \texttt{UNION ALL})
+\end{itemize}
+
+
+\paragraph{Difference}
+$R - S$ is the operation to perform.
+We can again use a sort-based or hash-based approach:
+\begin{itemize}
+    \item \bi{Sort-based}: We first sort both relations on all attributes and merge the sorted relations, while eliminating tuples from $R$ that exist in $S$
+    \item \bi{Hash-based}: We first hash-partition both $R$ and $S$.
+          We then build an in-memory hash table for each partition $R_p$ of $R$ and probe with tuples in corresponding $S_p$ of $S$ and add to the output,
+          if it does not exist in the hash table.
+\end{itemize}

@@ -1,0 +1,15 @@
+\subsubsection{Index Matching}
+The predicates in the queries can contain comparison operators, as well as \texttt{AND} and \texttt{OR}, allowing conjuncts and disjuncts.
+
+Index Matching is the process of choosing the proper index for the task.
+For conjuncts only, we can use:
+\begin{itemize}
+    \item \bi{Hash Indexes}. Constraints: Only equality operations and predicate has to contain all index attributes
+    \item \bi{B+-Tree}. Constraints: The attributes in the predicates need to be prefixes of the search key
+\end{itemize}
+
+Here, the indexes need to match \bi{every} predicate in the disjunction.
+For instance, if we have a hash index on $A$ and a B+ tree on $B$, and the query is \verb|A = 7 OR B > 5|.
+In that case, we can either file scan or use both indexes (we fetch the RIDs and take the union)
+
+However, index matching is a hard problem.

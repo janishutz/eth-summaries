@@ -1,0 +1,6 @@
+\subsubsection{Sorting with B+ Trees}
+If a table has a B+ Index on the sorted column, we could retrieve the records in order by traversing the leaf pages.
+In case the B+ tree is clustered, this is a good idea, if it is not, then it could be very bad (due to random accesses).
+
+The operating principle is very simple, abusing the linked lists in the leafs of the B+ tree.
+If the data is not clustered, we have one I/O per record, which is bad.

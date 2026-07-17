@@ -1,0 +1,38 @@
+\subsubsection{Replacement Sort / Heap Sort}
+It has the advantage that it can produce longer runs with the same amount of memory, on average $2B$ (instead of $B$) with $B$ frames of memory.
+It is used as the sorting algorithm in pass $0$ above.
+
+It works as follows:
+\begin{algorithm}
+    \caption{Replacement Sort}
+    \begin{algorithmic}[1]
+        \Procedure{ReplacementSort}{$R$}
+            \State Read $B - 1$ pages of relation $R$, store in a heap (priority queue)
+            \For{every page}
+                \If{Top of heap is smaller than the end of the sorted run}
+                    \State Continue with next iteration
+                \ElsIf{No element is left in memory that is larger than last element of current sorted run}
+                    \State create new run
+                \Else
+                    \State load page, remove smaller records and place them on the current sorted run, until a frame is freed.
+                \EndIf
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+Informally, it is searching for an always larger value once it has committed to a certain value.
+It picks the first value to be the lowest value in the current frames.
+
+A new run is started if all values in the loaded frames are defered or used already.
+
+This means that after the sort run is complete, a merge is still needed.
+
+\paragraph{Performance}
+\bi{Best case}: $\tcl{N}$ elements in a run (thus a single run, data is already sorted)
+
+\bi{Worst case}: $\tco{B - 1}$ elements in a run (reversed data)
+
+\bi{Average case}: $\tct{2B}$ elements in a run. In that case, the cost of sorting is $2N(1 + \lceil \log_{B - 1} \lceil N / 2B \rceil \rceil)$
+
+Thus, Quicksort is fatster, but longer runs often mean fewer passes, saving time.
