@@ -46,12 +46,6 @@ Die Dichten der Randverteilungen sind:
     \qquad
     f_\cY(y) = \int_{-\8}^{\8} f(x, y) \dx x
 \]
-Herleitung der Randdichte (``wegintegrieren''):
-\begin{align*}
-    f_\cX(x) & = \diff{x} F_\cX(x) = \diff{x}\left( \int_{-\8}^{x} \int_{-\8}^{\8} f(s, t) \dx t \dx s \right) \\
-             & =\int_{-\8}^{\8} f(x, t) \dx t
-\end{align*}
-{\scriptsize (Hier wieder Umwandlung von Summe zu Integral von Diskret zu Stetig)}
 
 \shortexample Randdichten mit Gleichverteilung\\
 \bi{Einheitsquadrat} {\scriptsize ($f(x, y) = 1_{(x, y) \in [0, 1]^2} = 1_{x \in [0, 1]} 1_{y \in [0, 1]}$)}
@@ -67,18 +61,12 @@ Herleitung der Randdichte (``wegintegrieren''):
     f_\cY(y) \! = \! \int_{-\8}^{\8} \frac{1}{\pi} 1_{x^2 \leq 1 - y^2} \dx x \! = \! \int_{-\sqrt{1 - y^2}}^{\sqrt{1 - y^2}} \frac{1}{\pi} \dx x \! = \! \frac{2}{\pi} \sqrt{1 - y^2}
 \end{align*}
 
-\shorttheorem[Unabhängigkeit] $\cX_i$ mit Dichten $f_{\cX_i}$, dann ist äquiv.:
-\begin{itemize}
-    \item $\cX_1, \ldots, \cX_n$ sind unabhängig
-    \item $\cX_1, \ldots, \cX_n$ sind gem. stetig mit gem. Dichte (Prod. Randdichten):
-          $f(x_1, \ldots, x_n) = f_{\cX_1}(x_1) \cdot \ldots \cdot f_{\cX_n}(x_n)$
-\end{itemize}
+\shorttheorem[Unabhängigkeit] $\cX_i$ unabhängig g.d.w.
+\[
+    f_{\cX_1, \ldots, \cX_n}(x_1, \ldots, x_n) = f_{\cX_1}(x_1) \cdot \ldots \cdot f_{\cX_n}(x_n)
+\]
 
 \shortexample Unabhängigkeit bei Gleichverteilungen\\
-\bi{Einheitsquadrat} Wieder $f(x, y) = 1_{(x, y) \in [0, 1]^2}$, dann:
-\[
-    f(x, y) = 1_{(x, y) \in [0, 1]^2} = 1_{x \in [0, 1]} 1_{y \in [0, 1]} = f_\cX(x) f_\cY(y)
-\]
-Folglich sind die beiden Koordinaten unabhängig.
+\bi{Einheitsquadrat} Koordinaten sind unabhängig
 
-\bi{Einheitskreisscheibe} $f(x, y) \neq f_\cX(x) f_\cY(y)$, mit Dichten von oben. Also sind die beiden Koordinaten nicht unabh.
+\bi{Einheitskreisscheibe} Koordinaten nicht unabhängig

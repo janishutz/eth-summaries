@@ -3,7 +3,11 @@
 \shortdefinition[Stetig verteilte Z.V] $\cX$ stetig, falls $\exists f_\cX : \R \rightarrow \R_+$, s.d. V.F. $F_\cX(x) = \int_{-\8}^{x} f_\cX(t) \dx t$.
 $f_\cX$ ist Dichte (pdf) v. $\cX$
 
-\shorttheorem Sei $F_\cX$ st. stückw. diff. auf Partition $-\8 = x_0 < \ldots < x_n = \8$.
+Falls Z.V. Sprungstelle hat, \bi{weder stetig noch diskret}.
+
+\shortremark $\P[\cX = n] \approx 0$; $\P[m \leq \cX \leq n] = \int_{m}^{n} f_\cX(x) \dx x$
+
+\shorttheorem $F_\cX$ stetig stückw. diff. auf Partition $-\8 = x_0 < \ldots < x_n = \8$.
 Dann $\cX$ stetig, mit $a_k$ beliebig und
 \[
     f_\cX = \begin{cases}

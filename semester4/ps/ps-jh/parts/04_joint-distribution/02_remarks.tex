@@ -1,21 +1,12 @@
 \subsection{Tips \& Tricks}
-\coloredbox{red}{REWRITE}{
-    This section is going to be completely rewritten
-}
 \shortremark Die \bi{Dichten} können anstelle der Variablen in bspw. der Formel für bedingte W. verwendet werden.
 
-Zur Bestimmung von W. wie (mit $\cX, \cY \sim \cU(0, 1)$)
-\[
-    W(t) = \P[\cX + \cY \leq t] \ \forall t \in \R
-\]
-können wir dies via gemeinsamer Dichte ($f_{\cX, \cY}(x, y) = 1$ muss gegeben sein) und Menge
-\[
-    A_t = \{ (x, y) \in [0, 1]^2 : x + y \leq t \}
-\]
-bestimmen. Dann ist für $t < 0$, $W(t) = 0$.
+\coloredbox{gray}{HOW-TO: Randdichten berechnen}{
+    \begin{enumerate}
+        \item Intervalle zur Integration für Randdichten via Indikatorvariable $\bm{1}_{cond}$ bestimmen. $\bm{1}_x$ verschwindet bei Bestimmung von $f_\cY$
+        \item $cond$ nach entsprechender Var. auflösen, wenn nötig
+        \item Bei Integration Indikatorvariable als konstante betrachten (muss auch integriert werden!)
+    \end{enumerate}
+}
 
-Für $0 \leq t \leq 1$ ist $A_t$ ein rechtwinkliges Dreieck mit Katheten der Länge $t$, also $W(t) = t^2 \div 2$.
-
-Für $1 < t \leq 2$ ist $A_t$ Einheitsquadrat ohne rechtw. Dreieck mit Katheten der Länge $(2 - t)$, also $W(t) = 1 - \frac{(2 - t)^2}{2}$.
-
-Für $t > 2$ ist $W(t) = 1$.
+Die Randdiochten sind dann die Dichten von $\cX$, etc; Für weitere Berechnungen verwendbar, wie bspw. $\E[\cX + \cY]$.
