@@ -6,6 +6,26 @@
 \paragraph{Programming}
 The best tip here is to read the Haskell book, and to solve the exercises during the semester.
 
+Remember that application is left-associative (i.e. \texttt{func x y} parenthesized is \texttt{(func x) y}, even if \texttt{x} is a function).
+
+A handy to know shortening technique for functions is \texttt{Leaf . f} is equivalent to \texttt{leaf x = Leaf (f x)}.
+Thus, the \texttt{.} operator chains functions.
+
+For all functions with recursion, don't forget the base cases. In addition, for guards (i.e. statements with a pipe character (\texttt{|})),
+there is no equal sign before the pipe characters.
+For the cases notation, there are equal signs. We can use underscores as a ``don't care'' character.
+
+\subparagraph{Lists}
+In list comprehensions, to draw from a list, \texttt{<-} is used, to delimit the description of the list contents from the generator part, we use a pipe character
+and to separate each statement in the generator part, we use a comma.
+Remember that list comprehension does allow duplicates, so it is not entirely equivalent to sets.
+We can use the \texttt{nub} function from \texttt{Data.List} to remove duplicates.
+
+We can initialize infinite lists using the \texttt{..} syntax. We define the interval using \texttt{[1, 2..]}, or \texttt{[0, 0..]} to create an infinite lists of zeros.
+
+More advanced types can be ``disassembled'' like this: \texttt{Node x l r} for type \texttt{Node a (Tree x) (Tree x)}
+
+
 \subparagraph{Fold}
 One of the most important functions to understand is \texttt{foldr} (and \texttt{foldl}).
 If you have used \texttt{reduce} functions before, in e.g. JavaScript / TypeScript,
@@ -22,8 +42,14 @@ In the Haskell prelude, they are defined as follows:
 
     foldl :: (a -> b -> a) -> a -> [b] -> a
     foldl f z []     = z
-    foldl f z (x:xs) = foldl f (f v x) xs
+    foldl f z (x:xs) = foldl f (f z x) xs
 \end{code}
+When extending them to more complex data structures such as trees, we may need to add one function to the arguments per type of possible element in the data structure.
+Ideally, we first write the function, then infer its type.
+Remember that in the definition of these two functions, the \texttt{-> b ->} (and \texttt{-> a ->}, respectively) denote the type of the base case.
+
+For more elaborate data structures, the functions for each subtype should be in the same order as in the data type definition, for canonical definition of the fold function.
+
 
 \subparagraph{zipWith}
 To combine a \texttt{map} and a \texttt{zip} function, use \texttt{zipWith}, type:
@@ -32,4 +58,13 @@ To combine a \texttt{map} and a \texttt{zip} function, use \texttt{zipWith}, typ
 \TODO Add more remarks
 
 \paragraph{Proofs}
-These proofs use structural induction, see Section~\ref{sec:induction-proofs} for that.
+These proofs use structural induction, often it is easiest to use strong structural induction, see Section~\ref{sec:induction-proofs} for that.
+In many cases, generalizing the statement is what enables the proof. So whenever there is a constant, generalize the constant before doing the proof,
+as otherwise the proof will likely be hard to impossible to pull off under the time constraints.
+In that case, we set $P(t) \equiv \forall n \in \N_0$ the generalized statement, or equivalent.
+Remember:
+\begin{itemize}
+    \item for each case state the fixed variables (which are all free variables in this case)
+    \item in the base case / simple case, fix $n$
+    \item in the end state that since it holds for all $n$, it, in particular, holds for $n = 0$ (or equivalent)
+\end{itemize}

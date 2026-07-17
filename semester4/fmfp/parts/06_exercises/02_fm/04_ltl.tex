@@ -12,7 +12,7 @@ As a reminder, these are the operators (details in Section~\ref{sec:ltl-details}
 \begin{itemize}
     \item Now: $p$ states that the proposition is true ``\textit{now}''
     \item Holds until: $\Phi U \Psi$ states that $\Phi$ holds (with no other valid proposition holding between) until $\Psi$ holds.
-    \item Next: $\bigcirc \Phi$ states that $\Phi$ holds for the ``next''
+    \item Next: $\bigcirc \Phi$ states that $\Phi$ holds for the ``next'' (if nothing else specified from start state)
     \item Eventually: $\Diamond \Phi$ states that $\Phi$ holds \textit{eventually}, $\Diamond \Phi \equiv (\texttt{true} U \Phi)$
     \item Always (from now on): $\square \Phi$ states that from now on, $\Phi$ will always hold, $\square \Phi \equiv \neg \Diamond \neg \Phi$
 \end{itemize}
@@ -21,7 +21,16 @@ remember to show the case where the antecedent is true and state that for antece
 
 Another important remark is that you can't just write $\Diamond \neg s_1$, where $s_1$ is a state, you need to specify the propositions.
 
+We can also create statements, such as never as $\square \neg \Phi$ (always not $\Phi$), etc.
+
+Overall, be careful with parenthesis!
+
 
 \subparagraph{Liveness and Safety Properties}
 Proofs here run using the definitions directly, either by showing a counter example (for disproving) or showing that, in fact, the definition holds.
 Indirect proofs may also come in handy, because it is typically easier to show that something is not a safety property (or liveness property) that to show that it is.
+
+These two properties are \textit{mutually exclusive} (with one exception, \texttt{true}), to the extent that an LTL formula can't be both at the same time, but be a conjunct of both.
+In fact, every LTL formula is a either one of the two, or a conjunct of both.
+
+Finally, as a reminder, an LTL formula is for example $\square \Diamond a$, with $a$ a property.
