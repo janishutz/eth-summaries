@@ -4,13 +4,18 @@
 \end{wrapfigure}
 \bi{Non-holonomic} systems \textbf{not integrable}, no inst. move in every direct.
 
-\bi{Wheel constraints} $v_i = \omega_i r_i$
-
+\bi{Wheel constraints} $v_i = \omega_i r_i$ ($r_i$ constraints)
 \begin{itemize}
     \item \textit{Driving straight} all $\vec{v}$ equal
-    \item \textit{Turning} Wheel axis must intersect the \bi{Instant Centre of Rotation} (ICR),
-          speeds: $v_i \div R_i = \Omega$ ($R_i$ = dist. wheel-ICR; $\Omega$: vehicle body rotation rate)
+    \item \textit{Turning} Wheel axis must intersect the \bi{Instant Centre of Rotation} (ICR) of vehicle,
+          speeds: $v_i \div R_i = \Omega$ ($R_i$ = dist. wheel-ICR; $\Omega$: vehicle rotation rate (around ICR))
 \end{itemize}
+Below: $\alpha$, $l$ pos in frame, $\beta$ rot at that pos ($z$-ax).
+To compute $\vec{c}$ in $\vec{c} \cdot {_B}\vec{v}_{WB} = \omega$
+(For multiple wheels, construct mat. from this)
+
+$c_i = [\sin(\alpha + \beta) \div r, -\cos(\alpha + \beta) \div r, -\cos(\beta) \cdot l \div r]$
+
 
 \bi{Maneuverability}
 \begin{itemize}

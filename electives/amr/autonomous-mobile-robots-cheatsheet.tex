@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[9pt]{extarticle}
 
 \PassOptionsToPackage{skip=0pt}{parskip}
 \input{~/projects/latex/janishutz-helpers.tex}
@@ -16,6 +16,7 @@
 \renewcommand{\theoremShortNamingEN}{Thm}
 
 \renewcommand{\descriptorNameDisplay}[1]{\textbf{#1}}
+\renewcommand{\backgroundPadding}{1pt}
 
 \fboxsep 1pt
 \fboxrule 0.1pt
@@ -47,8 +48,7 @@
 \section{Introduction}
 \input{parts/00_basics/00_probability.tex}
 \input{parts/00_basics/01_measurement-models.tex}
-% TODO: Add this (especially law of cosines)
-% \input{parts/00_basics/02_trigonometry.tex}
+\input{parts/00_basics/02_trigonometry.tex}
 
 \section{Locomotion \& Kinematics}
 \input{parts/01_kinematics/00_intro.tex}
@@ -86,6 +86,7 @@
 \input{parts/04_vision/04_dense-tracking_loop-closure.tex}
 % \input{parts/04_vision/}
 
+% TODO: Probably remove pseudocode
 \section{Planning \& Control}
 \input{parts/05_planning-control/00_feedback-control/00_siso-mimo.tex}
 \input{parts/05_planning-control/00_feedback-control/01_pid.tex}

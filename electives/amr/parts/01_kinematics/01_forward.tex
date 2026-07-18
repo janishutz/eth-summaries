@@ -1,15 +1,16 @@
 \subsection{Forward Kinematics (FK)}
-$\mat{T}_{WB_n}(\vec{\theta}) = \mat{T}_{WB_0} \mat{T}_{B_0B_1}(\theta_1) \cdots \mat{T}_{B_{n - 1}B_n}(\theta_n)$.\\
-For 2R system:
-${_W}\vec{t}_{WE} =$
+$\mat{T}_{WB_n}(\vec{\theta}) = \mat{T}_{WB_0} \mat{T}_{B_0B_1}(\theta_1) \cdots \mat{T}_{B_{n - 1}B_n}(\theta_n)$.
+
+For 2R system: ${_W}\vec{t}_{WE} =$
 {\scriptsize
 $ \begin{bmatrix}
         L_1 \cos(\theta_1) + L_2 \cos(\theta_1 + \theta_2) \\
         L_1 \sin(\theta_1) + L_2 \sin(\theta_1 + \theta_2)
     \end{bmatrix}$\\
 }
-Similar for $n$R sys (more angles). Wspc $W$ $\theta_1, \theta_2 \in [-\pi, \pi]$.
-Last dim may be sum of angles. Jacobian: see \ref{sec:ms-lin}
+Workspace $W$: $\theta_1, \theta_2 \in [-\pi, \pi]$.
+Similar for $n$R sys (more angles, more lengths).
+For 2D move in 3D space, last dim is sum of angles (or equiv). \bi{Jacobian}: see \ref{sec:ms-lin}
 
 \shortdefinition[Singularity] Loss of deg of Freed. $\det(\mat{J}(\vec{\theta})) = 0$
 % TODO: Determinant computation
