@@ -1,7 +1,10 @@
 \subsection{Induction on Proof Trees}
 \label{sec:induction-on-proof-trees}
 This type of induction is used to prove that a statement exhibits given behaviour.
-Since often, we are not restricted to just simple statements, such where we know that we are applying the $\textsc{Ass}_{\text{NS}}$ rule,
+
+Typically, these are statements are of type $\forall \ldots \vdash \texttt{s1} \implies \vdash \texttt{s2}$.
+
+Since often we are not restricted to just simple statements, such where we know that we are applying the $\textsc{Ass}_{\text{NS}}$ rule,
 we need to perform case distinction on all possible last rules applied in the derivation tree $T$.
 If all are to be proven, this will yield $7$, one for each rule of the big-step semantics.
 
@@ -11,21 +14,28 @@ or more simply, a \textit{subtree} of $T$. Definition is analogous to the subter
 
 \shade{ForestGreen}{Rundown} Below a rundown of how such proofs are expected to be laid out.
 
-We define $P(T) \equiv \forall \sigma, \sigma', s . (\texttt{root}(T) \equiv \text{statement})$.
-The quantifier-bound variables / states / statements can of course differ, so adjust accordingly.
-This step is the crucial step to setting up this type of induction.
+We define $P(T) \equiv \forall \sigma, \sigma', s . ({\color{red}\texttt{root}(T) \equiv \texttt{s1}} \implies {\color{ForestGreen}\vdash \texttt{s2}})$.
+{\color{gray} The quantifier-bound variables / states / statements can of course differ, so adjust accordingly.
+This step is the crucial step to setting up this type of induction.}
 
 We then prove $\forall T . P(T)$ by strong induction on the shape of the derivation tree $T$.
 Thus, for some arbitrary $T$, the induction hypothesis is $\forall T' \sqsubset T . P(T')$ and we prove $P(T)$.
 
-Let $\sigma, \sigma', s$ (and more, if applicable) be arbitrary.
+Let $\sigma, \sigma', s$ {\color{gray} (and more, if applicable)} be arbitrary and assume the LHS of the implication.
 
-Then, for rules, such as $\textsc{WhT}_{\text{NS}}$, we draw up a derivation tree, like so (from solutions of Exercise Session 11, FS2026):
+Then, we show the RHS of the implication by case analysis on the last rule applied in $T$.
+{\color{gray} We do this drawing up a derivation tree for each rule, such as $\textsc{WhT}_{\text{NS}}$, as shown below (from solutions of Exercise Session 11, FS2026):}
 \begin{center}
     \includegraphics[width=0.6\linewidth]{assets/proof-on-shape-of-tree.png}
 \end{center}
-After it, we need to put final constraints and bind free variables in some way, e.g. here:
+{\color{gray} After it, we need to put final constraints and bind free variables in some way, e.g. here:}
 
 For some $b, s', \sigma'', T_4, T_5$, such that $s \equiv \texttt{while}\; b \; \texttt{do} \; s' \; \texttt{end}$ and $\cB \llbracket b \rrbracket \sigma = \texttt{tt}$.
 
-Then use the induction hypothesis on the subderivations $T_i$ and finish the proof by showing the original statement holds under the induction hypothesis.
+{\color{gray} Then use the induction hypothesis on the subderivations $T_i$ to obtain the desired result.
+That is, we show that there is another tree (or possibly derivation sequence), which fulfils the RHS with the same subtrees.
+
+Depending on our Statement, we may need to provide a second tree for the RHS.
+
+It is also important that it's \bi{always} the last rule we are looking at. So if we are given a statement to prove where there are only a few options,
+we only need to prove for those options.}
