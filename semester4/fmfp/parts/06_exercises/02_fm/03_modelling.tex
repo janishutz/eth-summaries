@@ -2,7 +2,8 @@
 Many of the tasks here are pretty straight forward, converting IMP into Promela,
 and putting an \texttt{assert} (or more) into the \texttt{init} block, to check if the required state is reached.
 
-Note that for non-determinism, we use Promela conditionals without conditions.
+\bi{Note} that for non-determinism, we use Promela conditionals without conditions.
+This can also be used to simulate all possible combinations / actions that can be taken.
 
 For parallelism, we can use the \texttt{run} keyword for a \texttt{proctype} (rest of syntax is just as with a function in most C-like programming languages),
 then we wait for the processes to terminate using \texttt{\_nr\_pr == 1} and do our assertion.
