@@ -1,15 +1,23 @@
+{\footnotesize
+    \notation $\displaystyle\bar{X}_n = \frac{1}{n}S_n = \frac{1}{n}\sum_{i=1}^{n}X_n$
+}
+
 \theorem \textbf{Schwaches Gesetz der grossen Zahlen}\\
 \smalltext{$X_1,X_2,\ldots$ unabh.,$\quad\forall k: \E[X_k] = \mu,\V[X_k]=\sigma^2$}
-$$
-    \bar{X}_n = \frac{1}{n}S_n = \frac{1}{n}\sum_{i=1}^{n}X_n
-$$
-Dann konvergiert $\bar{X}_n$ für $n\to\infty$ gegen $\mu$
+
+Es konvergiert $\bar{X}_n$ für $n\to\infty$ gegen $\mu = \E[X_i]$ 
 $$
     \P\Bigl[ |\bar{X}_n - \mu| < \epsilon \Bigr] \overset{n\to\infty}{\rightarrow} 0
 $$
-\subtext{Intuitiv: Die Summe konvergiert zum Erwartungswert}
+{\footnotesize
+    \remark $\V\Bigl[\overbrace{\frac{1}{n}\sum_{i=1}^nX_i}^{\bar{X}_n}\Bigr] = \frac{1}{n^2}\displaystyle\sum_{i=1}^n\V[X_i] = \frac{n}{n^2}\V[X_i] = \frac{1}{n}\V[X_i]$
+}
 
-% Starkes Gesetz
+\theorem \textbf{Starkes Gesetz der grossen Zahlen}\\
+\smalltext{$X_1,X_2,\ldots$ unabh.,$\quad\forall k: \E[X_k] = \mu$}
+$$
+    \P\biggl[ \Bigl\{ \omega\in\Omega \sep \bar{X}_n \overset{n\to\infty}{\to}\mu \Bigr\} \biggr] = 1
+$$
 
 \definition \textbf{Konvergenz in Verteilung}\\
 \smalltext{$(X_n)_{n\in\mathbb{N}}, X$ Zufallsvariablen}
@@ -24,6 +32,8 @@ $$
 {\footnotesize
     \remark Diskrete Zufallsvariablen können zu stetigen konvergieren.
 }
+
+
 
 
 % Slides viel detaillierter als Skript
