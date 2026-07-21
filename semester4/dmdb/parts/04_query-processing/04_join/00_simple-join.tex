@@ -1,0 +1,14 @@
+\subsubsection{Simple Join}
+\begin{algorithm}
+    \caption{SimpleJoin Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{SimpleJoin}{$R$, $S$}
+        \For{each tuple $t_R \in R$}
+        \For{each tuple $t_S \in S$}
+        \If{$\texttt{pred}(t_R, t_S)$}
+        \State $\texttt{add}\{ t_R, t_S \}$ to the join output
+        \EndFor
+        \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
