@@ -1,0 +1,11 @@
+\subsubsection{Hash Join (HJ)}
+This works by using a hash function that maps values into $B = P_R \cdot f$ buckets, with $f$ being the Minister of Magic (up until, and including book 5) factor,
+also known as the fudge factor, which is additional hash table information stored alongside the tuples.
+
+We first partition the table $R$ into these buckets. Then, we probe the hash table for all tuples of $S$.
+
+Ideally, we would want each bucket to contain exactly the same number of pages ($N / (B - 1)$ pages), but due to to hash collisions and duplicate keys,
+this is not likely to happen.
+To take care of this imbalance, we do another pass with a different hash function.
+
+We should \textit{NOT} use hash join if the hash table doesn't fit in memory because then it will become VERY inefficient.

@@ -1,0 +1,19 @@
+\subsubsection{Index Nested Loops Join (INLJ)}
+\begin{algorithm}
+    \caption{Nested Loops Join Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{IndexNestedLoopsJoin}{$R$, $S$}
+            \For{each page $p_R \in R$} \Comment{Outer loop}
+                \For{each tuple $t_r \in p_R$}
+                    \State Probe the index on the join attribute of $S$ \Comment{Inner loop}
+                    \State Add matching tuples to the join output
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+The cost here is $P_R + T_R \cdot C(I_S)$ I/Os, with $P_X$ the number of pages in the relation $X$, $T_X$ the number of tuples in said relation
+and $C(I_X)$ is the cost to probe the index $I_X$ of relation $X$ and depends on the clustering of data and type of index.
+
+This operation needs three buffer frames. $1$ for $R$, $1$ for output and $1$ to traverse $I_S$

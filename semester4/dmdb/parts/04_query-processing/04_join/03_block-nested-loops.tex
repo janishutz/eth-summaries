@@ -1,0 +1,22 @@
+\subsubsection{Block Nested Loops Join (BNLJ)}
+\begin{algorithm}
+    \caption{Block Nested Loops Join Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{BlockNestedLoopsJoin}{$R$, $S$}
+            \For{all $B - 2$ blocks of pages of $R$}
+                \For{each page $p_S \in S$}
+                    \State Join the tuples on page $p_S$ with the tuples in the block
+                    \State Add matching tuples to the join output
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+We have $B$ buffer frames, of which one is reserved for the pages of $S$ and one is reserved for the output, thus the $B - 2$ blocks.
+Each of these blocks houses $P_R / (B - 2))$ pages of $R$, reducing search costs by only scanning $S$ once for every block.
+
+The cost here is $P_R + (P_R / (B - 2) \cdot P_S$ I/Os.
+If however, $R$ fits into memory, we have cost $P_R + P_S$ I/Os.
+We can reduce that further by building as second step (right after the first for loop) a in-memory hash table for the tuples in the $R$ pages block.
+This reduces the cost of comparisons, however, we need $(B - 2) \cdot f$ memory now.

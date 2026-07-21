@@ -1,0 +1,23 @@
+\subsubsection{Partitioned Hash Join (PHJ)}
+If the table doesn't fit into memory, then we can't use a normal hash join because that would be terribly inefficient.
+
+Instead, we partition both tables into buckets and join the corresponding partitions.
+
+\begin{algorithm}
+    \caption{Partitioned Hash Join}
+    \begin{algorithmic}[1]
+        \Procedure{PartitionedHashJoin}{$R$, $S$}
+            \State Partition $R$ into $RP$ partitions, using hash function $h$ on the join key
+            \State Partition $S$ into $SP$ partitions, using hash function $h$ on the join key
+            \State Join each partition $RP$ with the corresponding $SP$ partition using BNJL or building a hash table $SP$ or $RP$ in memory.
+            This hash function should be different from $h$.
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+The benefit of this approach is that in the third step, we are only operating on small numbers of records each, which can be done efficiently in memory.
+
+What we ideally do in the above algorithm is to do \textit{recursive partitioning}, i.e. as already \textit{somewhat} described, we partition each partition again,
+if it has more than one page. This further reduces access times.
+
+The cost for this is $3 \cdot (P_S + P_R)$, thus both OSMJ and PHJ are very similar in performance.

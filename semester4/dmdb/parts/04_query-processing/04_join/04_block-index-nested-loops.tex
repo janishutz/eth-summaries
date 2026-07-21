@@ -1,0 +1,28 @@
+\subsubsection{Block Index Nested Loops Join (BINLJ)}
+\begin{algorithm}
+    \caption{Block Index Nested Loops Join Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{BlockIndexNestedLoopsJoin}{$R$, $S$}
+            \For{all $B - 2$ blocks of pages of $R$}
+                \State sort the tuples in this block.
+                \For{each tuple $t_R$ in $B - 2$ block of $R$}
+                    \State Probe the index $I_S$ on the join attribute of $S$
+                    \State Add matching tuples to the join output
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+The cost here is $P_R + T_R \cdot C(I_S)$ I/Os.
+We sort the tuples in each buffer frame on the predicate key, which leads to tuples in $R$ with the same key only requiring a single index search.
+In addition, tuples with ``similar'' values in $R$ will likely match with keys on the same pages of $I_S$, which will already be in the buffer pool.
+
+In practice, the difference between BNLJ and NJS is fairly stark.
+
+\inlineexample $P_R = 500$, $P_S = 1000$, $100$ tuples per page and we have $B = 12$ frames. Then:
+\begin{itemize}
+    \item $\texttt{Cost(NLJ)} = P_R + P_R \cdot P_S = 500 + 500 \cdot 1000 = 500,500$IOs
+    \item $\texttt{Cost(BNLJ)} = P_R + (P_R / (B - 2)) \cdot P_S = 500 + (500 / 10) * 1000 = 50,500$IOs
+\end{itemize}
+We only need very little more memory for BNLJ, with a big improvement in performance.

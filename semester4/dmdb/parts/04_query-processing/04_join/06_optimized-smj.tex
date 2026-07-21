@@ -1,0 +1,10 @@
+\subsubsection{Optimized Sort Merge Join ((O)SMJ)}
+In this section, we are exploring how we can optimize sort and merge with extra memory.
+
+Sorting can be optimized using replacement sort, the output is $\frac{P_R + P_S}{2B}$ sorted runs of length $2B$.
+
+That of course means that the logical optimization is to do a $K$-way merge to merge the sorted runs and join the relations at the same time.
+If we have $B$ frames, so we can do a $B-1$ way merge, otherwise, we merge runs from each relation separately to reduce the number of runs
+until we have less than $B$ sorted runs, then we perform the join.
+
+The cost drops to $3 \cdot (P_R + P_S)$ I/Os, but we need memory such that $B^2 \geq \max\{ P_R, P_S \}$

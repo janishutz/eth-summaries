@@ -3,12 +3,14 @@
     \caption{SimpleJoin Algorithm}
     \begin{algorithmic}[1]
         \Procedure{SimpleJoin}{$R$, $S$}
-        \For{each tuple $t_R \in R$}
-        \For{each tuple $t_S \in S$}
-        \If{$\texttt{pred}(t_R, t_S)$}
-        \State $\texttt{add}\{ t_R, t_S \}$ to the join output
-        \EndFor
-        \EndFor
+            \For{each tuple $t_R \in R$}
+                \For{each tuple $t_S \in S$}
+                    \If{$\texttt{pred}(t_R, t_S)$}
+                        \State $\texttt{add}\{ t_R, t_S \}$ to the join output
+                    \EndIf
+                \EndFor
+            \EndFor
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
+Here, the max output size is $T_R \cdot T_S$, where $T_X$ is the number of tuples for realtion $X$.

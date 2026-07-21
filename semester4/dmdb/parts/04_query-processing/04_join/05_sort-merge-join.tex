@@ -1,0 +1,12 @@
+\subsubsection{(Simple) Sort Merge Join (SMJ)}
+We first sort $R$ and $S$ on the join attributes with external merge sort (see Section~\ref{sec:external-sort}). We then read the sorted files and merge.
+This is of course not great for performance, but if the relations are already sorted, we can skip the first step.
+
+The cost (if there are \bi{no duplicates}) is $\texttt{Sort}(S) + \texttt{Sort}(R) + P_R + P_S$ I/Os.
+
+If there are duplicates (i.e. the keys are not unique, say we are joining on a column that doesn't have the UNIQUE constraint)
+then we need to move the pointer for the join back on the second relation to make sure we don't miss any tuples.
+
+The cost now of course isn't linear anymore and worst case quadratic, $\tco{\texttt{Sort}(S) + \texttt{Sort}(R) + P_R \cdot P_S}$.
+
+Compared to BNLJ, its performance doesn't depend on the amount of memory available, but tends to be a tad slower than BNLJ, if BNLJ is provided with ample memory.

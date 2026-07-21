@@ -1,0 +1,14 @@
+\subsubsection{Conclusion}
+We can use all algorithms for equality joins (equi-joins), but if we have equalities over multiple attributes, then:
+\begin{itemize}
+    \item PNL, BNL: work the same
+    \item INL, BINL: build indexes on one, or all attributes of the equality conditions
+    \item SMJ, HJ: Sort or hash on the combination of the attributes
+\end{itemize}
+
+For inequality joins:
+\begin{itemize}
+    \item PNL, BNL: work the same
+    \item INL, BINL: need clustered B+ tree index
+    \item SMJ, HJ: don't work at all
+\end{itemize}

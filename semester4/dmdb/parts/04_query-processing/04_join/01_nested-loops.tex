@@ -1,0 +1,17 @@
+\subsubsection{Nested Loops Join (NLJ)}
+\begin{algorithm}
+    \caption{Nested Loops Join Algorithm}
+    \begin{algorithmic}[1]
+        \Procedure{NestedLoopsJoin}{$R$, $S$}
+            \For{each page $p_R \in R$}
+                \For{each page $p_S \in S$}
+                    \State Join the tuples on page $p_R$ with the tuples on page $p_S$ (evaluate the predicate for all pairs)
+                    \State Add matching tuples to the join output
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+The cost here is $P_R + P_R \cdot P_S$ I/Os, where $P_X$ is the number of pages in the relation $X$.
+Furthermore, the DBMS should put the smaller relation on the outer loop to improve performance.
