@@ -1,0 +1,6 @@
+Data formats heavily influence how efficient a database system is.
+For a 1GB data, JSON is about three times larger than necessary due to field names and text encoding.
+For the TPC-H lineitem table, the CSV file is 15.95GB, whereas Parquet Snappy and ZSTD are 3.78 and 3.22 Gigabytes respectively,
+so factor 5 smaller. Furthermore, a raw CSV scanner is about three times slower than a Parquet Scanner.
+
+If we scale that up to Terabytes or more, compute already is dominated by I/O 80-90\% of the time, so it really is crucial that we have an efficient format.

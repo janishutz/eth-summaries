@@ -1,0 +1,46 @@
+\subsubsection{Encodings}
+Typical text encodings are \texttt{CSV}, \texttt{XML}\footnote{you have to be quite a bit of a moron to think that this is the best of the text encodings, but all right}
+and \texttt{JSON}. Of course, there are also the (in my objective opinion) best formats\footnote{best for configuration files, not (necessarily) in general}
+like \texttt{conf} and \texttt{yaml}, as well as \texttt{TOML}, \texttt{INI} and more.
+
+These are good for being human readable, but not if you have terabytes of data.
+From a practical example, I know that a 1GB JSON file in Python's built in parser takes about 1s to load.
+
+This is why we need (direct) binary encodings for the data, such as the Apache formats.
+
+Examples include Avro (row-oriented format, including a schema describing the fields and types, this is the header of the file), Parquet (Compressed column store),
+CarbonData (Compressed column store with indexes) and more.
+
+When designing formats, decisions need to be made on the file metadata, format layout, type system, encoding schemes, compression, filters and how to nest the data.
+
+\bi{Metadata} Ideally the files are self-contained to allow for portability, and for space efficiency reasons (even though it may be beneficial for other reasons),
+schemas are only stored once per file, in either the header (e.g. for Avro) or in the footer (e.g. Parquet). Other metadata however is more oftne stored once per frame.
+
+The \bi{format layout} is the physical organization of the bytes on the disk. We can have row stores, column stores or hybrids:
+\begin{itemize}
+    \item N-ary Storage Model (NSM): All attributes stored contiguously in a single page (Row store)
+    \item Decomposition Storage Model (DSM): Store single attributes for all tuples contiguously in a block of data (Column store)
+    \item PAX: Horizontally partition data into row groups, then vertically partition the attributes into column chunks.
+\end{itemize}
+
+For the \bi{type system}, we choose what kind of types we want to support, be it primitives such as numbers and strings, or more complex types such as arrays.
+Furthermore, we choose how they are physically represented, such as IEEE-754 encoding for floating point numbers, and logically, if they are complex types based on other types,
+i.e. how they abstract a more primitive type.
+
+For \bi{encoding schemes} include:
+\begin{itemize}
+    \item \textit{Dictionary encoding}: We find all unique items of a column and build a dictionary with integer keys and then only store the integers.
+          This is ideal for columns with few distinct values and worse than not doing anything for columns with the UNIQUE constraint set.
+    \item \textit{Run-Length encoding}: If we have many repeating values, called runs, we replace each run with a pair \texttt{(count, value)}.
+          This can be done on the data itself, or on the binary representation of said data.
+    \item \textit{Delta Encoding}: Store the first value (as-is), then store the difference between this value and the next.
+          Since these deltas are often small, we can fit them into fewer bits.
+\end{itemize}
+
+For \bi{Block compression}, we can use typical compression algorithms, such as \texttt{LZ4} (which by the way is VERY impressive for compression ratio),
+\texttt{Snappy}, \texttt{Zstd} (which \texttt{pacman} uses for the packages (\texttt{.pkg.tar.zst} files)), or older algorithms such as \texttt{gzip} or \texttt{xz}
+(if you remember the whole malware debacle they had, you may not want to use that anymore).
+
+
+\bi{Filters} in the files are primarily used to improve traverse performance, by filtering out pages that simply don't need to be searched, using some metadata.
+For that, statistics are stored in the metadata, such as the min/max, null count, cardinality and more.

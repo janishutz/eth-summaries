@@ -1,0 +1,15 @@
+Cloud systems need to be very reliable, no data is allowed to be lost.
+In basic versions of so-called \bi{shared nothing instances}, this is not as much guaranteed as it should be,
+because all DBs systems have their own disks and they don't replicate or exchange their data.
+
+To improve fault tolerance, make blocks small, like 1MB and replicate each block on a different compute node and ideally on a separate S3 node,
+which serves as a backup. That's the 3-2 taken care of of the 3-2-1 backup strategy. This should then also be replicated off-site to mitigate the risk of destruction of all nodes
+from a natural disaster, building collapse, fire or similar.
+
+Modern clouds separate compute and storage entirely. Typically, compute servers have no disk and are booted using iSCSI,
+or they have a small disk for the base operating system in them.
+
+In systems with disaggregated Compute, Memory and Storage, each layer can scale independently, allowing large memory shuffles to take place and allows
+for larger numbers of blocks for sorting and joins, which, as we have seen, can massively boost performance.
+
+The Big Query system is one such example.

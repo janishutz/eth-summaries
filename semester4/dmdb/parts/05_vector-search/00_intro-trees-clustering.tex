@@ -1,0 +1,15 @@
+Vector search is for example used in Semantic Search and of course search engines.
+It is also used to find relevant data to augment an LLM prompt (Deep Research or whatever that type of feature is called).
+
+\subsection{Trees/Clustering}
+Since nearest neighbour search (NNS) is not viable for large scale datasets (which they typically are),
+we use clustering algorithms such as K-Means to find $K$ cluster centroids.
+We then assign to each of the centroids the vectors that belong to this cluster
+
+Then, for search, we can check which cluster(s) the query vector is closest to.
+Due to the low number of centroids, this is comparatively cheap to do.
+We can then search all the vectors in the corresponding clusters, which is much cheaper due to the much lower number of vectors to search.
+Still, Vector Search is a very expensive operation due to the large number of vectors to be searched, even if the search itself is $\tco{n}$,
+with $n$ being the number of vectors to search through.
+
+On insert, we search the the closest centroid and simply assign the vector to that cluster.
