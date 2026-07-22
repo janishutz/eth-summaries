@@ -2,6 +2,25 @@
 \subsection{Tabelle von Auf- und Ableitungen}
 Für Integrale von stückweisen Funktionen, stückweise Integrieren und aufsummieren.
 Für ungerade Funktionen (mit $f(-x) = -f(x)$, bspw $f(x) = x$ und $f(x) = \cos(x)$) ist Integral $\int_{-C}^C f(x) \dx x = 0$, auch bei Multiplikation von mehreren Funktionen.
+
+\shortremark[Integration by parts]
+\[
+    \int_{a}^{b} f(x) g'(x) \dx x = \left[f(x) g(x)\right]^b_a - \int_{a}^{b} f'(x) g(x) \dx x
+\]
+$f(x)$ einfach ableitbar, $g'(x)$ einfach aufleitbar wählen.
+
+\shortremark[Integration by substitution]
+\[
+    \int_{a}^{b} f(\varphi(t)) \varphi'(t) \dx t = \int_{\varphi(a)}^{\varphi((b))} f(x) \dx x
+\]
+dabei die innere Funktion gut wählen, ableiten und zurück substituieren. Grenzen des Integrals anpassen!
+
+\shortremark[Multiplication rule] $f'(x)g(x) + f(x)g'(x)$
+
+\shortremark[Quotient rule] $\displaystyle \frac{f'(x)g(x) - f(x)g'(x)}{(g(x))^2}$
+
+
+
 \begin{scriptsize}
     \begin{tables}{lll}{\tr{Antiderivative}{Stammfunktion}                    & \tr{Function}{Funktion}                       & \tr{Derivative}{Ableitung}}
               $\displaystyle \frac{x^{n + 1}}{n + 1}$                     & $x^n$                                         & $n \cdot x^{n - 1}$                        \\
