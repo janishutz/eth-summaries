@@ -1,0 +1,14 @@
+\subsection{Hierarchical Navigable Small World Index (HNSW Index)}
+This is a layered graph concept, at insert, first all nodes are inserted into layer 0 and each is connected to $M \approx 3 - 4$ neighbours.
+Then, the edge count is $\tco{N \cdot M}$. With $N = 100$ million and $M = 16$, we have $1.6B$ edges, with a typical memory footprint of $4-8$GB for $100M$ 32-bit Edge IDs.
+Then, some nodes (typically about $N_{L_k} = N / M^k$ to layer $k$) are promoted to layer 1, connected to $M$ nearest neighbours in $L1$ only.
+This process is repeated a few times until the number of nodes in the layer is low enough.
+This number depends on a number of factors, primarily how coarse grained we want the initial search to be.
+
+Then, after building, we prune edges, in a process called RNG pruning.
+Here we prune an edge $(u, v)$ if there exist edges $(u, w)$ and $(w, v)$, such that $d(u, w) < d(u, v)$ and $d(w, v) < d(u, v)$.
+Important is that both conditions have to be met, as the goal is to remove the longest redundant edge from the graph.
+This is done using a greedy algorithm.
+
+
+\subsubsection{Search}
