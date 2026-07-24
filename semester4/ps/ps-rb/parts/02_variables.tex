@@ -235,7 +235,7 @@ $$
 \definition \textbf{Gleichverteilung} $X \sim \mathcal{U}([a,b])$\\
 \smalltext{Intuitiv: Zufälliger Punkt in $[a,b]$}
 $$
-    f_X(x) = \begin{cases}
+    f_X(x) = \frac{1}{b-a}\cdot\mathbb{I}_{\{a\leq x \leq b\}} = \begin{cases}
         \frac{1}{b-a}   & x \in [a,b] \\
         0               & \text{sonst}
     \end{cases}
@@ -247,7 +247,7 @@ $$
 
 \definition \textbf{Exponentialverteilung} $T \sim \text{Exp}(\lambda)$
 $$
-    f_T(x) = \begin{cases}
+    f_T(x) = \lambda e^{-\lambda x} \cdot \mathbb{I}_{\{x \geq 0 \}} = \begin{cases}
         \lambda e^{-\lambda x}  & x \geq 0 \\
         0                       & x < 0
     \end{cases}
