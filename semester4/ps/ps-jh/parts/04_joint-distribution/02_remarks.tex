@@ -1,7 +1,7 @@
 \subsection{Tips \& Tricks}
 \shortremark Die \bi{Dichten} können anstelle der Variablen in bspw. der Formel für bedingte W. verwendet werden.
 
-\coloredbox{gray}{HOW-TO: Randdichten berechnen}{
+\howto{Randdichten berechnen}{
     \begin{enumerate}
         \item Intervalle zur Integration für Randdichten via Indikatorvariable $\bm{1}_{cond}$ bestimmen. $\bm{1}_x$ verschwindet bei Bestimmung von $f_\cY$ in den Integral-grenzen
         \item $cond$ nach entsprechender Var. auflösen, wenn nötig
@@ -10,3 +10,19 @@
 }
 
 Die Randdichten sind dann die Dichten von $\cX$, etc.; Für weitere Berechnungen verwendbar, wie bspw. $\E[\cX + \cY]$.
+
+\howto{Gemeinsame Dichten finden}{
+    Nach Definition muss $f$ die Ableitung von $F$ sein.
+    Oder umgekehrt, $\int f \dx \ldots$ sollte $F$ ergeben. Beispiel:
+    $T \sim \cU[1, 2], \cX \sim \text{Exp}(\lambda), \cY \sim \text{Exp}(\gamma)$. Dann $f_{T, X, Y}(t, x, y) = \begin{cases}
+            \lambda \gamma \exp(-\lambda x - \gamma y) & \text{falls } 1 \leq t \leq 2 \land x, y \geq 0 \\
+            0                                          & \text{sonst}
+        \end{cases}$
+}
+
+\howto{Verteilungen finden}{
+    Wir suchen $\P[\cZ \leq a]$ (ausser für gem. V, dann s. oben).
+    Dann überlegen, wie $\cZ \leq a$ erfüllt werden kann. Beispiel:
+    $Z = \min(\cX, \cY)$, dann gesucht: $\P[\cX \leq a \cup \cY \leq a]$ oder $1 - \P[\cZ > a]$.
+    Schliesslich $F_Z$ aufstellen mit Bedingungen.
+}
