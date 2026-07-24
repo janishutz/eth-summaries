@@ -7,12 +7,10 @@ $\begin{bmatrix}
     \begin{bmatrix}
         x & y
     \end{bmatrix}^\top$
-with $f$ the distance to the lens and $z$ the full distance
+with $f$ the distance to the lens and $z$ the distance from object
 
-\newpage
 $u = c_u + f \cdot x'$ and $v = c_v + f \cdot y'$ where $x' = t_x \div t_z$ and $y' = t_y \div t_z$
-where $u, v$ are the pixel $x, y$ coords, $\vec{c} = [c_u, c_v]^\top$ is optical centre of cam in pixel coords, $f$ scale factor,
-% and $\vec{{_C}\vec{t}_P} = [t_x, t_y, t_z]^\top$
+where $u, v$ are the pixel $x, y$ coords, $\vec{c} = [c_u, c_v]^\top$ is optical centre of cam in pixel coords, $f$ scale factor.
 
 The full proj:
 $\vec{u} =
@@ -34,7 +32,7 @@ $\vec{u} =
     }
     = \mat{K}\; {_C}\vec{t}_P$
 
-If p. in diff frame ${_W} \vec{t}_P$, then $\vec{u} = \mat{K}[\mat{R}_{CW}\; {_C}\vec{t}_{CW}] {_W}\vec{t}_P$
+If p. in diff frame, e.g. $W$-frame then $\vec{u} = \mat{K}[\mat{R}_{CW}\; {_C}\vec{t}_{CW}] {_W}\vec{t}_P$
 
 \subsubsection{Pinhole Camera Projection with distortion}
 \shortdefinition Model: $\vec{u} = \vec{k}(\vec{d}(\vec{p}({_C}\vec{t}_P)))$, with ($\vec{c}$ as above):
