@@ -1,0 +1,77 @@
+\subsection{Key Value Store}
+\label{sec:key-value-store}
+The rise of the internet has shown that there is the need for a system that can more quickly retrieve data than the older implementations using blocks, files and objects.
+The goal is to be able to access a chunk of data that does not need to be parsed (unlike objects), but can be of various sizes (unlike blocks)
+and needs no system-supported names (like file systems).
+
+The solution to this problem is called a \textit{Key Value Store} (KVS).
+
+Most \acrshort{sql} databases follow the \acrshort{acid} concept to maintain consitency, etc.
+The \acrshort{acid} concept gives very strong guarantees, thus the work is done by the database engine as opposed to the application.
+However, it is expensive, both in throughput and latency and does not scale well.
+
+Key-Value stores get rid of EVERYTHING.
+They are schema-less, \acrshort{nosql}, no \acrshort{acid}, (typically) \acrshort{base} based stores.
+The most well known examples of \acrshort{nosql} DBs are \texttt{Redis} and \texttt{MongoDB},
+with \texttt{Redis} being a true Key-Value Store (however usually referred to as a Key-Value Cache).
+
+\subsubsection{Architecture}
+\begin{itemize}
+    \item Data is stored as a key-value pair. The key is used to locate and retrieve the data. The value is a binary object of arbitrary size
+    \item The data is organized as a distributed hash table. We hash the key to get the location for the value
+    \item KV pairs stored in several places for availability
+    \item Access is \gls{quorum}-based for consistency
+    \item Typically eventual consistency
+    \item The physical storage uses already reserved buckets of different sizes and objects are located in the corresponding buckets.
+    \item This can be run in main memory for very fast access, with larger blobs stored in storage.
+\end{itemize}
+
+
+\subsubsection{Advantages and Disadvantages}
+\begin{multicols}{2}
+    \bi{Advantages}
+    \begin{itemize}
+        \item Very fast lookups (due to hashing)
+        \item Easy to scale to many machines (simply add more copies / machines). This is great for the cloud's elasticity
+        \item Can be implemented in main memory of machines (giving even faster lookups)
+        \item Useful in many applications (looking up user profiles, retrieving user's web pages and info)
+        \item Scalable and easy to get going (no schema needed)
+    \end{itemize}
+
+    \bi{Disadvantages}
+    \begin{itemize}
+        \item No easy support for queries beyond simple key requests
+        \item this means that there are no joins, no ranges, no queries on attributes, etc (because there are none)
+        \item Depending on implementation, data can be inconsistent
+        \item Maintaining consistency is up to the application
+        \item Used in large scale deployments (worldwide), so keeping data in sync can be challenging
+    \end{itemize}
+\end{multicols}
+As mentioned above, one major drawback of \acrshort{nosql} DBs is that they move the complexity to the application.
+This means that some operations are very costly to implement (range queries, joins, etc), as they require reading all data from the DB.
+
+
+\subsubsection{Uses of KVS}
+As a result of the above disadvantages, KVS are typically used as a cache or specialized system and not as a replacement for \acrshort{sql} databases.
+
+They are often used as a main memory cache to avoid having to access the cloud storage, resulting in higher throughput and lower latency.
+
+This is especially useful for commonly run queries, such as loading all videos of a commonly accessed YouTube Channel.
+In that case especially it is easy to invalidate the cache line and updating it, as updates are very rare and they can trigger a cache invalidation for that channel.
+
+
+\subsubsection{Distributed KVS}
+How do we distribute a KVS across multiple systems?
+A simple strategy would be to assign data to machines using modulo $n$ for $n$ machines on the hash.
+In theory that is not a bad idea, but what if we remove one machine? Or if we add one? Then we have to move ALL of the data.
+If one machine fails, in the worst case, all data could possibly need to be re-hashed, possibly moving ALL of the data to different machines.
+
+A better solution is to use horizontal partitioning of the data using hashing.
+Each machine deals with the data points in the clockwise direction before the next machine.
+In other words, each machine deals with the data in a certain range of hashes, the next machine deals with the subsequent ones, etc.
+
+Thus, on fail, or exit in any other way, only the machine after the failed / exited machine needs to modify the data.
+When adding nodes, the next machine hands some of the responsibilities over to the newly inserted machine.
+
+To account for possible failure of machines, we need to keep multiple copies over multiple machines (ahead in counter-clockwise orientation)
+to prevent data loss.

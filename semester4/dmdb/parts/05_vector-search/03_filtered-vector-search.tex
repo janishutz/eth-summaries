@@ -2,7 +2,7 @@
 The benefit of supporting vector search in DBMS is that this makes it easy to use for the end user and can be optimized for large datasets.
 
 \subsection{Filtered Vector Search (FVS)}
-This allows us to query both structured and unstructured data. In concept, this is SQL + Vectors, sometimes plus joins, subquery expressions,
+This allows us to query both structured and unstructured data. In concept, this is \acrshort{sql} + Vectors, sometimes plus joins, subquery expressions,
 multiple vector searches (on both sides of the join). Sometimes, the dataset isn't even a vector + tag stored in main memory.
 
 Indices are typically built on unfiltered data. Thus, we need to think about the proper execution method. Suppose we are to retrieve $K$ rows with filtering:

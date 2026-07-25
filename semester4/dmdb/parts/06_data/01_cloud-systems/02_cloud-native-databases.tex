@@ -1,0 +1,10 @@
+\subsection{Cloud-Native Databases}
+Many of the traditional database engines may run into overhead due to heavy I/O traffic, especially when mirroring.
+
+As a result, many companies have improved implementations of SQL databases to make them suitable to cloud infrastructure.
+
+Some of the improvements include caching. Micro-partitions in the Snowflake system is a system to facilitate query processing.
+Each one of these partitions has sizes between 50 and 500 megabytes, and has metadata describing what is inside, which can also be read without reading the entire partition.
+
+Furthermore, Amazon S3, the storage platform, does not support in-place updates, files are replaced in their entirety.
+This means that old data can easily be recovered.
