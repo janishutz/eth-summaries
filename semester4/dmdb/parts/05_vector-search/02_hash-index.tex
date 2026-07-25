@@ -1,0 +1,16 @@
+\subsection{Hash Index}
+To measure the quality of \acrshort{ann} in comparison to \acrshort{knn}, we use $\texttt{recall@k} = |\texttt{ANN\_result} \cap \texttt{KNN\_result}| \div k$.
+This however is not always a good metric, as two vastly different results, one objectively worse can score equally well.
+
+Alternative methods mentioned are \texttt{RDE@k} and \texttt{TDK@k}, but not elaborated any further.
+
+
+\subsubsection{Performance vs Recall Trade-off}
+This is a challenging task, primarily focusing on how many vectors we need to visit to achieve a user-specified target recall.
+
+A few explored strategies are:
+\begin{itemize}
+    \item \bi{Uniform autotuning for all queries}: Using learned offline models (e.g. Google CloudSQL VectorAssist)
+    \item \bi{Different for each query}: A model predicts the search effort parameters for each query or index
+    \item \bi{Adaptive}: Decide to continue or stop early based on the current search state
+\end{itemize}
