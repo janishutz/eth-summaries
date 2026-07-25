@@ -1,0 +1,127 @@
+\subsection{Recovery Procedures}
+\inlinedefinition[Recovery Manager] A recovery manager implements the recovery procedure, which depends on how the system functions.
+It may or may not require both, one or none of UNDO and REDO.
+
+\subsubsection{From the buffer cache's perspective}
+\begin{itemize}
+    \item \bi{Steal Policy}: An uncommitted transaction is allowed to overwrite the changes of a committed transaction in persistent storage.
+          This logically means that we need to be able to undo transactions.
+    \item \bi{Force Policy}: All changes made by a transaction must be in persistent storage before the transaction commits.
+          This requires flushing all blocks with updates from the transaction and if not in-place, it will require being able to redo the transaction.
+    \item \bi{Steal/No-Force}: UNDO/REDO, is the most common approach
+\end{itemize}
+If for updates tuples are locked, blocks may still be updatable.
+Thus if the block is copied to storage, it is possible that some changes are committed while others are not.
+If failures occur, there is no guarantee that the data in storage is 100\% consistent, thus requiring undo and redo.
+
+\subsubsection{Recovery Procedure for UNDO/REDO}
+\begin{itemize}
+    \item READ: simply read the value from the block in the buffer cache
+    \item WRITE: Create log entry (before and after image), append it to persistent log and write the after image to the block on the buffer cache.
+    \item COMMIT: We write a persistent log entry indicating that the transaction has committed
+    \item ABORT: For all updates, we restore the before image using the log entry
+\end{itemize}
+
+The Procedure:
+\begin{enumerate}
+    \item Start from the end of the log and work backwards
+    \item Keep a list of UNDONE items and another for REDONE items
+    \item Procedure terminates when all items are in either the UNDONE or REDONE list or we reach the beginning of the log.
+    \item For each log entry, we look at the data item $x$ being accessed and if $x$ is in none of the two lists:
+          \begin{itemize}
+              \item If the log entry is of a committed transaction, apply the after image, add $x$ to the REDONE list
+              \item If the log entry is of an aborted transaction, apply the before image, add $x$ to the UNDONE list
+          \end{itemize}
+\end{enumerate}
+The procedure ignores the data stored on disk as it could correspond to uncommitted transactions, it only takes it as starting point for the recovery.
+An alternative way of thinking about the procedure is as follows:
+\begin{algorithm}
+    \caption{Undo-Redo Recovery}
+    \begin{algorithmic}[1]
+        \Procedure{UndoRedoRecovery}{}
+            \For{each item in the DB}
+                \State Find last committed transaction modifying the item and REDO it
+                \If{no committed transaction modified item}
+                    \State Find the first aborted transaction that modified the item and \texttt{UNDO} the modification
+                \EndIf
+                \If{If no transaction has touched the item}
+                    \State Value is correct (we assume that we start from a consistent state)
+                \EndIf
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+This is not the way it's done in practice, because there typically are many more items than log entries.
+
+\shade{ForestGreen}{Advantages} Only forced I/O are log records, buffer cache manager has a lot of freedom
+(no flushing dirty pages, I/O on data is minimized and only triggered for replacement policies) and we allow writing dirty data to disk, simplifying buffer management.
+
+However, recovery is more complicated and takes more time, but normal operations are only minimally affected.
+Furthermore, queries are not affected since there is no forced I/O of data.
+Transactions are affected, because we need to write every operation to the log.
+
+
+\subsubsection{UNDO, no REDO}
+\begin{itemize}
+    \item READ: simply read the value from the block in the buffer cache
+    \item WRITE: Create log entry (before image), append it to persistent log and write the after image to the block on the buffer cache.
+    \item COMMIT: Flush all dirty values modified by transaction if still in cache. We write a persistent log entry indicating that the transaction has committed
+    \item ABORT: For all updates, we restore the before image using the log entry
+\end{itemize}
+The Procedure:
+\begin{enumerate}
+    \item Start from the end of the log and work backwards
+    \item Keep a list of UNDONE items
+    \item Procedure terminates when all items are in either the UNDONE list or we reach the beginning of the log.
+    \item For each log entry, we look at the data item $x$ being accessed and if $x$ is not in the UNDONE list and the transaction is aborted,
+          we UNDO the changes by using the before image, adding $x$ to the UNDONE list
+\end{enumerate}
+It relies on the fact that all committed values are in persistent storage and therefore, they have not been lost.
+
+However, it has forced I/O on all dirty blocks touched by the transaction when it commits,
+log records no longer need to include after images, reducing log record size and the recovery procedure is shorter because it only involves undoing aborted transactions.
+
+However, this trade-off does not pay off in practice, as we still need to write the log with every update and while it requires smaller log records,
+it forces I/O on data blocks, which are often much larger.
+And finally, flushing the buffer cache interferes with its operations.
+
+
+\subsubsection{no UNDO, REDO}
+\begin{itemize}
+    \item READ: If the transaction did not write the item before, read the value from the block in the buffer cache. Otherwise, read the value from the temporary buffer
+    \item WRITE: Create log entry (after image), append it to persistent log and write the after image to the block on the buffer cache.
+    \item COMMIT: Apply all updates in the temporary buffer to the actual blocks. We write a persistent log entry indicating that the transaction has committed
+    \item ABORT: Discard the temporary buffer
+\end{itemize}
+The Procedure:
+\begin{enumerate}
+    \item Start from the end of the log and work backwards
+    \item Keep a list of REDONE items
+    \item Procedure terminates when all items are in either the REDONE list or we reach the beginning of the log.
+    \item For each log entry, we look at the data item $x$ being accessed and if $x$ is not in the REDONE list and the transaction is committed,
+          we REDO the changes by using the after image, adding $x$ to the REDONE list
+\end{enumerate}
+It relies on the fact that there are never dirty blocks in the buffer cache. All data there is committed and is the last committed version.
+
+It has forced I/O only on the log records and they are also smaller.
+Furthermore, the recovery procedure is shorter, only involving redoing the last committed transaction that touched the item.
+It is similar to snapshot isolation.
+
+
+\subsubsection{No UNDO, no REDO}
+This procedure is rarely used in conventional DBs. It does not require a log.
+However, it requires to be able to write all changes made by a transaction to persistent storage in \bi{a single atomic action}.
+It relies on directories to keep track of the changes.
+\begin{itemize}
+    \item READ: If the transaction did not write the item before, use current directory to find the latest committed copy.
+          Otherwise, read the value from the shadow directory of that transaction to find the updated copy
+    \item WRITE: Write to a buffer and add a pointer in the shadow directory for the transactions
+    \item COMMIT: Create a full directory by merging the current one and the shadow directory of the transaction.
+          Then, we swap the pointer indicating the latest committed directory.
+    \item ABORT: Discard the buffer(s) and the shadow directory
+\end{itemize}
+There is no recovery procedure here, which is the exact point.
+
+It is not used in practice, although some ideas can be applied partially.
+One of the reasons for that is expensive pointer indirections for accesses and requires garbage collection and moves data all the time,
+which poses a challenge for clustered indexes or hash clustered tables.

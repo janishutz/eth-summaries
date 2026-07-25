@@ -1,0 +1,17 @@
+\subsection{Snapshot isolation}
+This was initially used by Oracle and is a form of Multi-Version Concurrency Control (MVCC).
+
+MVCC applies serializability, but writes generate a new version and reads read from a concrete version of the DB.
+This means that the whole DB can be implemented (almost) entirely without locks.
+
+When a transaction starts, it receives a timestamp $T$.
+Read operations only have access to items committed before $T$.
+All write operations are carried out in a separate buffer (shadow paging) and only become visible after a commit.
+When a transaction commits, it checks for conflicts. If there are, the first-committer-wins rule is applied, i.e. if we try to commit and there are conflicts,
+this transaction has to rerun (or be aborted).
+
+However, there are scenarios, such as $r_1[x] r_1[y] r_2[x] r_2[y] w_1[x] w_2[x] c_1 c_2$, where the history is not serializable:
+$T_2 \rightarrow T_1 \rightarrow T_2$.
+Depending on the application, this can still be correct (if this is for a ticketing system), but can also be disastrous (for e.g. a bank).
+
+If done properly however, it has significant performance advantages, as well as in distributed settings with replication.

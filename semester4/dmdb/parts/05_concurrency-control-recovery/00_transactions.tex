@@ -1,0 +1,9 @@
+\subsection{Transactions}
+Transactions are accesses to the database with the purpose of \textit{modifying the data}.
+The focus is of course on correctness, recovery and state management.
+
+Transactions typically are expensive compared to queries due to the focus on correctness.
+
+This means we need to employ concurrency control (ensuring data remains consistent with transactions and queries running at the same time,
+definition of consistency, correctness, conflicts and problematic situations, as well as locking).
+We furthermore want to implement recovery, to ensure that data remains consistent even when unexpected failures occur.

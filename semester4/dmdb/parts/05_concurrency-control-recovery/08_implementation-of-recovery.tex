@@ -1,0 +1,38 @@
+\subsection{Implementation of Recovery}
+The most common implementation of these ideas is Write Ahead Logging (WAL).
+There, we separate the storage used for the log and data. The log contains enough information for whatever policy is chosen and log records corresponding to a change in the DB
+must be written to the log before changes to the data in the buffer cache are flushed to permanent storage.
+The COMMIT record in the log is us ed to mark the end of a transaction.
+
+This is typically used to implement UNDO/REDO (on 2PL-based systems) or no-UNDO/REDO (on Snapshot Isolation (SI)-based systems)
+
+
+\subsubsection{Checkpoints}
+A log would grow forever if we don't do anything. Storage would then become an issue and recovery time would increase.
+Instead, Checkpoints are used. At a checkpoint, we do the following:
+\begin{itemize}
+    \item Push all dirty blocks to the disk
+    \item Push all the logs in the log buffer to disk
+    \item We now have an active translation table and dirty page table
+    \item We mark the log with a checkpoint label and flush it to the log
+\end{itemize}
+Then, recovery happens from a checkpoint instead from the beginning. However note that a checkpoint is not necessarily a consistent copy of the DB.
+
+
+\subsubsection{Recovery with WAL and checkpoints}
+Also called ARIES style recovery, if we use WAL, the recovery with a checkpoint works as follows:
+
+\begin{algorithm}
+    \caption{WAL checkpoint recovery}
+    \begin{algorithmic}[1]
+        \Procedure{WALCheckpointRecovery}{}
+            \State Find latest completed checkpoint in the log
+            \While{Traversing the log to the end}
+                \State identify active transactions at time of crash and dirty pages that may not have made it to disk at time of crash for each element
+            \EndWhile
+            \State Apply all updates (REDO) starting from the log entry matching the lowest SCN in the dirty pages
+            \State UNDO all transactions that were active at the time of the crash
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+

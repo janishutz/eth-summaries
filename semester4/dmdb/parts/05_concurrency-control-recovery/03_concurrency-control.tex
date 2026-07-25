@@ -1,0 +1,39 @@
+\newpage
+\subsection{Concurrency Control}
+The goal of concurrency control is to ensure the correct executions of concurrent transactions.
+The baseline for correctness is, as previously mentioned, serial execution.
+
+\inlinedefinition[Serial History] A history $H$ is serial if, for every pair of two transactions $T_i$ and $T_j$ that appear in $H$,
+either all operations from $T_i$ appear before all all operations of $T_j$, or vice versa.
+A serial history with only committed transactions is correct by definition, because transactions are isolated and each transaction starts in a consistent state
+and leaves the DB in a consistent state.
+
+\inlinedefinition[Equivalent History] Two histories are equivalent if and only if
+\begin{enumerate}
+    \item They are over the same transactions and contain the same operations
+    \item Conflicting operations of non-aborted transactions are ordered in the same way in both histories
+\end{enumerate}
+
+\inlinedefinition[Serializable History] A history is serializable if and only it is equivalent to a serial history.
+
+\inlinetheorem[Serializability] A history is serializable if and only if its serializability graph is acyclic.
+The seerializabililty graph is constructed from the history graph as follows:
+\begin{enumerate}
+    \item The start node is the transaction the first operation.
+    \item Then, follow the operations, adding any new transaction to the tree and connect any further dependencies.
+\end{enumerate}
+More visually, see the below graphics
+
+\begin{figure}[h!]
+    \begin{center}
+        \begin{subfigure}{0.49\textwidth}
+            \includegraphics[width=0.9\textwidth]{assets/serializability-graph-history.png}
+            \caption{The history}
+        \end{subfigure}
+        \begin{subfigure}{0.49\textwidth}
+            \includegraphics[width=0.7\textwidth]{assets/serializability-graph-built.png}
+            \caption{The resulting serializability graph}
+        \end{subfigure}
+    \end{center}
+    \caption{Building a serializability graph (Figure from lecture slides 19, slide 37 and 38)}
+\end{figure}

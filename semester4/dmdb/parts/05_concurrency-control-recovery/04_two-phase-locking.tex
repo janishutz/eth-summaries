@@ -1,0 +1,54 @@
+\subsection{2 Phase Locking (2PL)}
+This type of locking is widely used since many decades and is the canonical implementation of concurrency control.
+Of course, alternatives exist and the locking implementation has a huge impact on performance and scalability.
+
+Concurrency control is implemented using locking, typically using a locking table.
+The locks cover tuples, tables, indexes, blocks and more.
+
+Locks have different semantics that indicate whether they can be shared or are exclusive.
+
+Compatibility matrix:
+\begin{tables}{cccc}{ & NL         & S          & X}
+              S       & \checkmark & \checkmark & -  \\
+              X       & \checkmark & -          & -  \\
+\end{tables}
+
+\subsubsection{The protocol}
+\begin{enumerate}
+    \item Before accessing an object, a transaction must acquire lock
+    \item A transaction acquires a lock only once. Lock upgrades are possible
+    \item A transaction is blocked if the lock request cannot be granted according to the compatibility matrix
+    \item A transaction goes through two phases:
+          \begin{enumerate}
+              \item Growth: Acquire locks, but never release locks
+              \item Shrink: Release locks, but never acquire locks
+          \end{enumerate}
+    \item At EOT (commit or abort), all locks must be released.
+\end{enumerate}
+
+The reason for the two phases is that 2PL prevents histories where a transaction must be aborted due to concurrency control issues.
+An operation is thus not allowed unless we are sure it is safe.
+
+Without the two phases, the following can happen:
+$L_1[x] w_1[x] U_1[x] L_2[x] w_2[x] U_2[y] L_2[y] w_2[y]$, etc, thus meaning that if $T_1$ now access $y$ or $x$ for read or write, the history becomes non-serializable.
+
+The basic 2PL doesn't say anything about aborting or committing transactions.
+The issue is that if we are to undo the changes of $T_1$, we would also undo some of the changes from $T_2$, which would then in turn not be restorable anymore.
+
+\subsubsection{Strict 2PL}
+Strict 2PL combines 2PL with strict histories. This means that we enforce 2PL, but we also keep the read and write locks until the transaction commits or aborts.
+This results in serializable and strict histories.
+All DB engines implement strict 2PL.
+
+
+\subsubsection{Deadlocks Detection}
+In theory, we could use a wait-for graph, which is however expensive.
+For example, for $T_1 \rightarrow T_2 \rightarrow T_3 \rightarrow T_4 \rightarrow T_1$, we could abort $T_3$ to resolve the cycle.
+
+In practice, no wait-for graphs are built. Transactions and queries have timers. If the timer expires, the transaction or query is aborted.
+Deadlocks are considered rare enough to prefer making mistakes every now and then (aborting a transaction that was fine),
+rather than implementing something as expensive as a wait-for graph.
+
+Implications from this are for example that long transactions may block queries and that those queries may abort because the timer expired.
+
+However, this is only common in poorly written applications.

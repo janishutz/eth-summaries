@@ -1,0 +1,77 @@
+\subsection{Recovery}
+Recovery has to make sure that, even in the case of failures, the changes from transactions that have not completed are not visible
+and those of committed transactions are recorded and visible.
+We define undesirable situations and classify histories according to these situations.
+Furthermore, we want to define how histories can avoid such situations.
+
+
+\subsubsection{Recovery procedures}
+\begin{enumerate}[label=R\arabic*]
+    \item Undo all changes from transactions
+    \item Redo the changes from committed transactions
+    \item Undo the changes that remain in the system from active transactions
+    \item Read consistent snapshot from backup, and, if available, apply log
+\end{enumerate}
+R1 is used for abort/rollback of single transactions, R2 and R3 are used on system crash (where we lose the memory, but disks survive)
+and R4 is used for recovery from a system crash with disk loss.
+
+This means that we can undo the changes of an active transaction (we keep a copy of the value before it was modified; Shadow pages is a mechanism that would support this),
+we can redo changes made by committed transactions (we keep a persistent record of all the changes made by committed transactions, this why there is a redo log)
+and we have a consistent snapshot to start with (either move forward by taking a snapshot and apply committed transactions,
+or move backward by taking the current state and go back to a consistent state by undoing changes from transactions that should be there).
+
+
+\subsubsection{Undo - Redo}
+The changes of an aborted transaction are undone typically by restoring the \bi{before image} of the modified value.
+
+Changes are redone by restoring the \bi{after image} of the modified value.
+
+Databases typically log transactions by keeping before and after images of their changes.
+
+
+\subsubsection{Recovery on histories}
+A transaction $T_1$ reads from another transaction $T_2$ if $T_1$ reads a value written by $T_2$ at a time when $T_2$ was not aborted.
+
+We have:
+\begin{itemize}
+    \item \bi{Recoverable} (RC) history: If $T_i$ reads from $T_j$ and commits, then $c_j < c_i$
+    \item \bi{Avoids Cascading Aborts} (ACA) history: If $T_i$ reads $x$ from $T_j$, then $c_j < r_i[x]$
+    \item \bi{Strict} (ST) history: If $T_i$ reads from, or overwrites, a value written by $T_j$ then $c_j < r_i[x] / w_i[x]$ or $a_j < r_i[x] / w_i[x]$
+\end{itemize}
+
+
+\paragraph{Recoverable}
+There is no need to undo a committed transaction because it read the wrong data and they commit in their serialization order.
+
+Suppose we have the following sequence: $\ldots w_2[x] r_1[x] c_1 \ldots$.
+If $T_2$ aborts, then $T_1$ has read invalid data and since $T_1$ has committed, the data has returned to the user.
+Recovery now involves correcting the application that has processed the data and might have acted upon it, which typically is a very expensive procedure.
+This is avoided by making sure that $T_1$ does not commit until $T_2$ commits and if $T_2$ aborts, then we can safely abort $T_1$,
+since the results have not been returned to the user yet.
+
+
+\paragraph{ACA}
+Aborting a transaction does not cause aborting others and transactions only read from committed transactions
+
+Suppose we have the following sequence: $\ldots w_2[x] r_1[x] a_2 \ldots$.
+When $T_2$ aborts, we have to abort $T_1$ because it has read invalid data (the change made by $T_2$, which will be undone as part of rollback of $T_2$).
+If those cascading aborts happen regularly, the performance will degrade and possibly further transactions will be aborted.
+This is avoided by making sure that uncommitted data is never read (\textit{read committed}).
+
+
+\paragraph{Strict}
+Undoing a transaction does not undo the changes of other transactions. Transactions further don't read or overwrite updates of uncommitted transactions.
+
+Suppose we have the following sequence: $\ldots w_2[x] w_1[x] a_2 \ldots$.
+If we undo $w_2[x]$, we would also remove the changes made by $T_1$. Thus, undoing $T_2$ implies aborting $T_1$.
+Like in ACA, non-strict execution leads to cascading aborts of transactions.
+This is avoided by not letting a value be read or updated unless it is committed.
+
+
+\paragraph{Why recoverability matters}
+Fixing errors with recovery typically are very expensive:
+\begin{itemize}
+    \item Not RC: running my program issues a report, but the data that I got was later removed because a different program aborted $\rightarrow$ report is invalid
+    \item Not ACA: Thrashing behaviour when transactions keep aborting each other (my program slows down, or makes no progress at all because of other programs)
+    \item Not Strict: recovery after a failure becomes very complex (or impossible)
+\end{itemize}

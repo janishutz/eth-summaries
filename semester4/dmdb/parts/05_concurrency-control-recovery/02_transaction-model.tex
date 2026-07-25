@@ -1,0 +1,35 @@
+\subsection{Transaction Model}
+\inlinedefinition Some terms for Transaction model:
+\begin{itemize}
+    \item \bi{Begin of transaction (BOT)}: Often implicit
+    \item \bi{Commit}: Transaction has finished, database confirms to client when all changes of the transaction have been made persistent
+    \item \bi{Abort/rollback}: transaction is cancelled, all changes made already are rolled back
+    \item $a <_T b$: $a$ happens before $b$, is a \textit{partial order}, which implies that $a$ will be done before $b$.
+\end{itemize}
+
+In real systems, transactions are often associated with sessions and all SQL statements after an update statement are considered to be part of the transaction.
+This means they are explicitly managed, using a \texttt{BEGIN TRANSACTION} or \texttt{BEGIN} statement and ended with either a \texttt{COMMIT} or \texttt{ROLLBACK} statement.
+
+So, we have the following statements:
+\begin{itemize}
+    \item \texttt{COMMIT}: Transaction will not make any order
+    \item \texttt{ROLLBACK}: Roll back all changes
+    \item \texttt{SAVEPOINT $<$name$>$}: Create a save point / history point, used to roll back some changes and try some others in case of failure.
+    \item \texttt{ROLLBACK TO SAVEPOINT $<$name$>$}: Roll back to a specific save point.
+    \item \texttt{RELEASE SAVEPOINT $<$name$>$}: Delete a save point (doesn't delete the changes made before, just the log entry)
+\end{itemize}
+
+\subsubsection{Operations}
+Below a list of very important syntax for the exam (where the subscript $i$ denotes that this operation is part of transaction $T_i$):
+\begin{itemize}
+    \item Read operations: $r_i[x]$ or $r_i(x)$ is an access to tuple $x$ without modifying it.
+    \item Write operations: $w_i[x]$ or $r_i(x)$ represents a write operation on the tuple $x$.
+    \item Abort: $a_j$ is an abort of transaction $T_j$
+    \item Commit $c_j$ is the commit of transaction $T_j$
+\end{itemize}
+Conflicting operations are two operations on the same item with at least one of them being a write operation, such as $r_1[x] w_2[x]$ or $w_1[y] w_2[y]$.
+
+\subsubsection{History}
+A history $H$ is a partially ordered $<_H$ sequence of operations from a set of transactions.
+If two operations are ordered within a transaction, they are equally ordered in the history.
+If two operations $p$ and $q$ conflict, then they are ordered with respect to each other ($p <_H q$ or $q <_H p$)

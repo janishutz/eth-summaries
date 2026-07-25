@@ -1,0 +1,44 @@
+\subsection{ACID}
+\label{sec:acid}
+\acrshort{acid} is the conventional notion of correctness (informal because it's an acronym):
+\begin{itemize}
+    \item \bi{Atomicity}: A group of operations must take place in their entirety or not at all
+    \item \bi{Consistency}: Operations should take the database from a correct state to another correct state
+    \item \bi{Isolation}: Concurrent execution of operations should yield predictable and correct results
+    \item \bi{Durability}: The DB needs to remember the state it is in at all moments, even when failures occur
+\end{itemize}
+
+\inlinedefinition[Database state] is the actual values stored in a database at a given point in time (in memory and storage).
+
+\inlinedefinition[Consistent state] is a database state that is the result of \textit{correctly} applying \textit{operations} to the DB.
+
+\inlinedefinition[Correct application] The model of correct executions of operations is sequential executions.
+
+\inlinedefinition[Operations] The operations for transactions are inserts, updates and deletion of tuples.
+
+\inlinedefinition[Consistency] The assumption of correctness of transactions is based on two things:
+\bi{(1)} the user doesn't apply wrong transactions and \bi{(2)} the DBMS has mechanisms to prevent incorrect modifications, such as violations of constraints, etc.
+
+\inlinedefinition[Durability] ensures that the changes of a completed transaction are remembered by the system and can be recovered.
+This is often more strict and DBMS will keep the DB st ate and a history of all transactions.
+
+The transaction history is captured in the DB log. The state at a given moment is captured in snapshots.
+The log and snapshots allow to go back and forward in the history of the database by undoing or redoing transactions from a given snapshot.
+Thus, very similar in concept to what \texttt{git} uses.
+
+
+\subsubsection{Atomicity}
+\inlinedefinition[Atomicity] dictates that a transaction only takes effect if it can be executed in its entirety, or in other words,
+a transaction has to be executed in its entirety or not at all.
+The issue with this is that violations are costly to correct.
+
+Thus, atomicity requires isolation. If a transaction can see the intermediate state created by another transaction, then its input is not guaranteed to be consistent,
+implying that its output is not guaranteed to be consistent, either.
+
+The DBMS get around this issue by isolating the transactions, such that they behave as if they were alone in the database.
+This of course means that we need to know when a transaction is completed so we can \textit{commit} it, if there are no conflicts.
+If there are conflicts, we have to resolve them, rerun the transaction (note that this can be very expensive) or to prevent them altogether.
+
+The isolation is enforced through concurrency control mechanisms to prevent conflicts.
+The canonical concurrency control mechanism in DBs is locking.
+We use locking policies to ensure that the transactions are isolated.
