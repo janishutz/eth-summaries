@@ -1,6 +1,6 @@
-\subsection{Allgemeiner Erwartungswert}
+\subsection{Erwartungswert}
 
-\definition \textbf{Erwartungswert} (nicht-negativ)
+\definition \textbf{Allg. Erwartungswert} (nicht-negativ)
 $$
     \E[X] = \int_{0}^{\infty} \biggl( 1-F_X(x) \biggr)\ dx
 $$
@@ -101,6 +101,15 @@ $$
     \V\Biggl[ \sum_{k=1}^{n}X_k \Biggr] = \sum_{k=1}^{n}\V[X_k]
 $$
 
+{\scriptsize
+    \textbf{Beispiel}: $\E[X^2]$ allgemein.
+    \begin{align*}
+        \E[X^2] &= \E[\phi(X)] \text{ s.d. } \phi(x) = x^2 \\
+                &\implies \E[X^2] = \int_{-\infty}^{+\infty}\phi(x)f_X(x)\ dx = \boxed{\int_{-\infty}^{+\infty} x^2 \cdot f_X(x)\ dx}
+    \end{align*}
+
+}
+
 \newpage
 \subsection{Kovarianz}
 
@@ -138,4 +147,16 @@ $$
         \text{cov}(X_n,X_1) & \text{cov}(X_n,X_2) & \cdots & \text{cov}(X_n,X_n)
     \end{bmatrix}
     $$
+}
+
+{\scriptsize
+    \textbf{Beispiel}: $\E\Bigl[\text{max}(X_1,\ldots,X_n)\Bigr]$ s.d. $X_1,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \mathcal{X}$
+    \begin{align*}
+        F_{\max(X_1,\ldots,X_n)}(x)             &= \P[X_1\leq x,\ldots,X_n\leq x]           \\
+                                                &= \P[X_1\leq x] \cdots \P[X_n\leq x]       \\
+                                                &= (\P[X \leq x])^n = F_X(x)^n              \\
+        \implies f_{\max(X_1,\ldots,X_n)}(x)    &= \partial_x (F_X(x))^n                    \\
+        \implies \E[\max(X_1,\ldots,X_n)]       &= \boxed{\int_{-\infty}^{+\infty} x \cdot \partial_x \Bigl(F_X(x)\Bigr)^n}
+    \end{align*}
+
 }

@@ -23,7 +23,7 @@ $$
 We set $\phi_i(x;\theta_i) = \psi(\theta_i^\top x)$, $\psi$ is the activation function.\\
 \subtext{$\theta_i \in \R^d,\quad\psi:\R\to\R$}
 
-{\scriptsize
+{\footnotesize
     \notation More concisely, $\phi(x;\Theta) = \psi(\Theta x)$
 }
 
@@ -38,6 +38,12 @@ We set $\phi_i(x;\theta_i) = \psi(\theta_i^\top x)$, $\psi$ is the activation fu
     \end{tabular}
 \end{center}
 
+{\footnotesize
+    \remark \textbf{Derivative of Sigmoid} $\quad \sigma(x)' = \sigma(x)\cdot (1-\sigma(x))$
+}
+
+\newpage
+
 \definition \textbf{Artificial Neural Network}\\
 \subtext{The output functions of the above problem take the form:}
 $$
@@ -47,7 +53,6 @@ $$
     \remark Also called Multi-Layer Perceptron (MLP)
 }
 
-\newpage
 \textbf{What is happening here?}\\
 \smalltext{Explaining the calculation steps for such an $f$ naturally leads to the common pictorial depiction of neural networks.}
 \begin{align*}

@@ -14,9 +14,9 @@ $$
 \theorem \textbf{Randverteilung}\\
 \smalltext{Die einzelnen Verteilungen $p_X$ lassen sich extrahieren:}\\
 \subtext{$\forall z \in W_i$:}
-$$
- \P[X_i = z] = \underset{x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n}{\sum} p\Bigl( x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n \Bigr)
-$$
+\begin{align*}
+ \P[X_i = z] = \underset{x_1,\ldots,z,\ldots,x_n}{\sum} p\Bigl( x_1,\ldots,x_{i-1},z,x_{i+1},\ldots,x_n \Bigr)
+\end{align*}
 \subtext{$X_1,\ldots,X_n$ diskret,$\quad$ gem. Vert. $p = \Bigl( p(x_1,\dots,x_n) \Bigr)_{x_1 \in W_1,\ldots,x_n \in W_n}$}
 
 {\footnotesize
@@ -26,10 +26,19 @@ $$
 
 \definition \textbf{Gemeinsame Stetige Verteilung}\\
 \smalltext{$X_1,\ldots,X_n: \Omega\to\R,\quad f:\R^n\to\R_+,\quad a_1,\ldots a_n \in \R$}
-$$
-    \P\Bigl[ X_1\leq a_1,\ldots,X_n\leq a_n \Bigr] = \int_{-\infty}^{a_1}\cdots\int_{-\infty}^{a_n} f(x_1,\ldots,x_n)\ dx_n\ldots dx_1
-$$
+\begin{align*}
+        &\P\Bigl[ X_1\leq a_1,\ldots,X_n\leq a_n \Bigr] \\
+        &= \int_{-\infty}^{a_1}\cdots\int_{-\infty}^{a_n} f(x_1,\ldots,x_n)\ dx_n\ldots dx_1    
+\end{align*}
+
 \subtext{$f$ heisst \textit{gemeinsame Dichte} von $(X_1,\ldots,X_n)$}
+
+{\footnotesize
+    \remark Seien $X_1,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \mathcal{X}$:
+    \begin{align*}
+        &\P\Bigl[ X_1 \leq x,\ldots, X_n \leq x \Bigr] = \prod_{i=1}^n \P[X_i \leq n] = \Bigl( \P[X \leq n] \Bigr)^n
+    \end{align*}
+}
 
 \newpage
 
@@ -59,10 +68,11 @@ $$
 
 % Bedingte Dichten fehlen noch, siehe HW5, F3
 
-\theorem \textbf{Erwartungswert}\\
-$$
-    \E\Bigl[ \phi(X_1,\ldots,X_n) \Bigr] = \int_{-\infty}^\infty\cdots\int_{-\infty}^\infty\phi(x_1,\ldots,x_n)\cdot f(x_1\cdots x_n)\ dx_n\ldots dx_1
-$$
+\theorem \textbf{Erwartungswert}
+\begin{align*}
+    &\E\Bigl[ \phi(X_1,\ldots,X_n) \Bigr] \\
+    &= \int_{-\infty}^\infty\cdots\int_{-\infty}^\infty\phi(x_1,\ldots,x_n)\cdot f(x_1\cdots x_n)\ dx_n\ldots dx_1    
+\end{align*}
 
 % Randverteilungen
 

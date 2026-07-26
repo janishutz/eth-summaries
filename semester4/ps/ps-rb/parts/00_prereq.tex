@@ -11,4 +11,11 @@ $$
     \binom{n}{k} := \frac{n!}{k!\cdot(n-k)!}
 $$
 
-% Integrationsmethoden, Integraltabelle
+\method \textbf{Partielle Integration}\\
+\subtext{$a<b,\quad f,g:[a,b]\rightarrow\R$ stetig diff.-bar}
+$$\int f(x)\cdot g'(x)\ dx = f(x)\cdot g(x) - \int f'(x)\cdot g(x)\ dx$$
+$$\int_a^bf(x)g'(x)\ dx = f(b)g(b) - f(a)g(a) -\int_a^b f'(x)g(x)$$
+
+\method \textbf{Substitution}\\
+\subtext{$a<b,\quad \phi:[a,b]\rightarrow\R$ stetig diff.-bar,\\ $I \subset \R,\quad \phi([a,b]) \subset I,\quad f: I\rightarrow\R$ stetig}
+$$\int_{\phi(a)}^{\phi(b)}f(x)\ dx = \int^b_af(\phi(t))\cdot\phi'(t)\ dt$$
