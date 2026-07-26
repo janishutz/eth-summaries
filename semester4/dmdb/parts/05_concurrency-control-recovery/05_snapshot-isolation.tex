@@ -1,3 +1,4 @@
+\newpage
 \subsection{Snapshot isolation}
 This was initially used by Oracle and is a form of Multi-Version Concurrency Control (MVCC).
 
@@ -15,3 +16,7 @@ $T_2 \rightarrow T_1 \rightarrow T_2$.
 Depending on the application, this can still be correct (if this is for a ticketing system), but can also be disastrous (for e.g. a bank).
 
 If done properly however, it has significant performance advantages, as well as in distributed settings with replication.
+
+Note that a transaction cannot commit when a previous transaction has modified an object that this transaction has also modified,
+regardless of whether or not this transaction has read the object or not.
+Thus, the commit checks only check for writes, not for reads.

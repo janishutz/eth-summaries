@@ -1,3 +1,4 @@
+\newpage
 \subsection{2 Phase Locking (2PL)}
 This type of locking is widely used since many decades and is the canonical implementation of concurrency control.
 Of course, alternatives exist and the locking implementation has a huge impact on performance and scalability.
@@ -7,11 +8,15 @@ The locks cover tuples, tables, indexes, blocks and more.
 
 Locks have different semantics that indicate whether they can be shared or are exclusive.
 
-Compatibility matrix:
+Compatibility matrix (S is shared lock, X is exclusive (for writing), NL is no lock, left for current, top for next state):
 \begin{tables}{cccc}{ & NL         & S          & X}
               S       & \checkmark & \checkmark & -  \\
               X       & \checkmark & -          & -  \\
 \end{tables}
+Note that to acquire any sort of exclusive lock (even if it's just an \textit{intention} to do so later on in the transaction),
+no lock can be held on that object and no other kind of lock can be acquired. For shared locks, as the name would imply,
+any number of threads can also acquire a shared lock on the object.
+
 
 \subsubsection{The protocol}
 \begin{enumerate}

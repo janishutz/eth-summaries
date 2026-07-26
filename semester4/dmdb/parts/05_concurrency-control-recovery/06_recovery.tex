@@ -30,13 +30,16 @@ Databases typically log transactions by keeping before and after images of their
 
 
 \subsubsection{Recovery on histories}
+\begin{examdetails}
+    They like to ask about these, so be sure to understand this properly. Same goes for Conflict Serializability for histories (see \ref{sec:tm-history})
+\end{examdetails}
 A transaction $T_1$ reads from another transaction $T_2$ if $T_1$ reads a value written by $T_2$ at a time when $T_2$ was not aborted.
 
 We have:
 \begin{itemize}
-    \item \bi{Recoverable} (RC) history: If $T_i$ reads from $T_j$ and commits, then $c_j < c_i$
+    \item \bi{Recoverable} (RC) history: If $T_i$ reads from $T_j$ and commits, then $c_j < c_i$ (same goes for aborts)
     \item \bi{Avoids Cascading Aborts} (ACA) history: If $T_i$ reads $x$ from $T_j$, then $c_j < r_i[x]$
-    \item \bi{Strict} (ST) history: If $T_i$ reads from, or overwrites, a value written by $T_j$ then $c_j < r_i[x] / w_i[x]$ or $a_j < r_i[x] / w_i[x]$
+    \item \bi{Strict} (ST) history: If $T_i$ reads from, or overwrites, a value written by $T_j$ then $c_j < o_i[x]$ or $a_j < o_i[x]$, with $o = r$ or $o = w$ ($o$ is an operation)
 \end{itemize}
 
 

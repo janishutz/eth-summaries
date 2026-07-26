@@ -1,5 +1,5 @@
 \newpage
-\subsection{Concurrency Control}
+\subsection{Concurrency Control (CC)}
 The goal of concurrency control is to ensure the correct executions of concurrent transactions.
 The baseline for correctness is, as previously mentioned, serial execution.
 
@@ -14,7 +14,9 @@ and leaves the DB in a consistent state.
     \item Conflicting operations of non-aborted transactions are ordered in the same way in both histories
 \end{enumerate}
 
-\inlinedefinition[Serializable History] A history is serializable if and only it is equivalent to a serial history.
+\inlinedefinition[(Conflict) Serializable History] A history is serializable if and only it is equivalent to a serial history.
+
+A very simple way to check this is that a history is not CS if there are conflicting operations.
 
 \inlinetheorem[Serializability] A history is serializable if and only if its serializability graph is acyclic.
 The seerializabililty graph is constructed from the history graph as follows:
