@@ -9,7 +9,6 @@ $\vec{x}_k = \mat{F}\vec{x}_{k - 1} + \mat{G}\vec{u}_k + \mat{L}\vec{w}_k$ with 
     \item \bi{Covariance} $\mat{P}_{k | k - 1} = \mat{F} \mat{P}_{k - 1 | k - 1} \mat{F}^\top + \mat{L} \mat{Q}_{k} \mat{L}^\top$
 \end{itemize}
 \bi{Update} Lin. meas.: $\tilde{\vec{z}}_k = \mat{H}\vec{x}_k + \vec{v}_k$ with $\vec{v_k} \sim \cN(\vec{0}, \mat{R}_k)$:
-\newpage
 \begin{itemize}
     \item \bi{Meas. residual}: $\vec{y}_k = \tilde{\vec{z}}_k - \mat{H} \hat{\vec{x}}_{k | k - 1}$
     \item \bi{Resid. Cov}: $\mat{S}_k = \mat{H}\mat{P}_{k | k - 1} \mat{H}^\top \mat{R}_k$
