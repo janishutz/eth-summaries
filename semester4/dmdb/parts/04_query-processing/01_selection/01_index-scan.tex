@@ -6,7 +6,7 @@
     \item \bi{Bitmap Index}: $\tco{\text{size of bitmap index}} + X$, {\color{red} $X$ depends on clustering again}
 \end{itemize}
 
-The I/O cost for B+ Tree Index Scan is $\texttt{tree height} + \texttt{\# leaf pages} + \texttt{\# file pages}$
+The I/O cost for B+ Tree Index Scan is \cost{$\texttt{tree height} + \texttt{\#leaf pages} + \texttt{\#file pages}$}
 
 \inlineexample{Computation example}
 Given a relation $R$ with $N =$ one million records. There are 100 records on a page and we have a B+ Tree with the data entries $<k, rid>$

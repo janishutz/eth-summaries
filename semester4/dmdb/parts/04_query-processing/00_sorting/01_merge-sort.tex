@@ -12,10 +12,19 @@ The cost for this is for the 1-page sorted runs (i.e. sorting the original pages
 The total cost is given by $2 \cdot M \cdot N$ I/O operations, with $M$ the number of passes / phases (i.e. how many merge steps there are) and $N$ being the number of frames.
 
 For Two-Way Merge Sort, the number of passes, $M$ is given by $M = \lceil \log_2(N) \rceil + 1$,
-so the total cost to sort is $2N(\lceil \log_2 N \rceil + 1)$
+so the total cost to sort is \cost{$2N(\lceil \log_2 N \rceil + 1)$}
 
 The primary goal for sorting is of course efficiency. Primarily we want to reduce the amount of extra RAM used, the disk I/O (as that is slow) and trying to reduce random accesses
 in favour of sequential accesses. And of course, reducing CPU cost is still a concern.
 
 We can increase the number of frames to $B$ for the sorted runs, and then perform a $B - 1$-way merge.
-In that case, the number of operations are given by $2N (1 + \lceil \log_{B - 1} \lceil N / B \rceil \rceil)$
+\coloredbox{orange}{I/O cost for merge sort}{
+    (the $2$ comes from the fact that each pass reads and writes $N$ pages)
+    \[
+        2N \cdot P \text{ with } P = (1 + \lceil \log_{B - 1} \lceil N / B \rceil \rceil) \text{ the number of passes}
+    \]
+}
+
+If for instance, we want to sort $N = 600$ pages with $B = 50$ buffers, pass $0$ creates $\ceil{600 / 50} = 12$ runs,
+which fits in a single merge pass because $12 \leq B - 1$, which is derived from the logarithm.
+Thus we have $2$ passes and the cost in I/Os is $2 \cdot 2 \text{ passes } \cdot 600$.

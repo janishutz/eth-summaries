@@ -1,0 +1,7 @@
+For groups of data that don't change often, we can compute statistics on insert, such as \texttt{sum}, \texttt{avg}, \texttt{min}, \texttt{max}, etc.
+These aggregates can be used to check whether data needed is within that group.
+This also enable computing (some) aggregates without reading the entire table and is commonly used in data mining and data cubes.
+
+A concept that is not used in DB engines, is count min sketch. It can be very useful in data streaming engines and large scale data processing.
+What this does is it computes statistics on how many times a given value was seen in a list or stream of data and is a variation of the bloom filter,
+but with several arrays and counting. The overestimation in count is bounded by the size in the matrix.

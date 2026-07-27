@@ -1,0 +1,8 @@
+R-Trees are typically used for geospatial datasets, where searching for spatial relationship is expensive (requiring a full table scan).
+
+R-Trees create indexes on bounding boxes as opposed to points in 2- or 3D space.
+We can locate the smallest bounding box where a tuple may lay by traversing the index and looking up the leaf to see if the point is there (or to look for a near neighbour).
+
+For more information, see \hlhref{https://en.wikipedia.org/wiki/R-tree}{Wikipedia}
+
+{\scriptsize (yes, they actually just linked to Wikipedia, so it probably isn't very exam-relevant)}

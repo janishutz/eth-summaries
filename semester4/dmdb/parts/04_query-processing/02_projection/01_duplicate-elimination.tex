@@ -1,0 +1,63 @@
+\subsubsection{Duplicate Elimination}
+This is done using either hashing or sorting.
+
+\paragraph{Hash-based approach}
+Assume we have $B$ memory buffers.
+Then the hashing approach works as follows:
+\begin{enumerate}
+    \item Project out attributes and splitting the input into $B - 1$ partitions using a hash function $h1$.
+    \item After that, all duplicates will be in the same partition. Since there most likely are further collisions, for each partition from (1), we do the following:
+          \begin{enumerate}
+              \item If the partition fits into memory, then we are done with this step
+              \item If not, we run step recursively run step 1 again on this partition
+          \end{enumerate}
+    \item We return all keys from the hash table
+\end{enumerate}
+A partition from step 2 fits into memory if $\frac{f \cdot T}{B - 1} < B$ (or approximately $B > \sqrt{f \cdot T}$),
+where $T$ is the number of pages after the projection and $f$ is a \textit{fudge factor}, typically $f \approx 1.2$.
+
+\coloredbox{orange}{Cost of hash-based duplicate elimination}{
+    $\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{elim}(R')$, with
+    \[
+        \texttt{elim}(R') = \sum_{T \in R'} \begin{cases}
+            \texttt{elim}(T)   & \text{if } \frac{f \cdot L(T)}{B - 1} \geq B \\
+            \texttt{length}(T) & \text{else}
+        \end{cases}
+    \]
+    where $R'$ is the relation $R$ after the projection. $\texttt{cnt}(R)$ is the number of pages and $\texttt{cnt}(R') = \texttt{cnt}(R) \cdot Q$,
+    with $Q$ the ratio of kept and total attributes in the relation.
+}
+
+\paragraph{Sort-based approach}
+A sort-based approach is also very easy to understand: We sort the records and then discard, on a run through the sorted records, the ones that are duplicates.
+
+The cost here is $\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{cost}_\texttt{sort}(R') + \texttt{cnt}(R')$.
+Broken down:
+\begin{itemize}
+    \item $\texttt{cnt}(R)$ I/Os for the initial scan
+    \item first $\texttt{cnt}(R')$ I/Os for storing the projected $R$ (denoted $R'$) on disk
+    \item $\texttt{cost}_\texttt{sort}(R')$ I/Os to sort the remaining attributes (see \ref{sec:external-sort})
+    \item second $\texttt{cnt}(R')$ I/Os to scan the sorted result and eliminate duplicates
+\end{itemize}
+
+
+There is also an optimized version that uses a modified sort algorithm that during sorting projects out the attributes, with cost
+\cost{$\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{cnt}(R')$}. The first count is to read, sort and project; second count is to store the result to disk;
+third count is to eliminate duplicates.
+
+
+\paragraph{Comparison}
+The sorting approach has the benefit of better handling data skew and that the result is sorted.
+The I/O costs are comparable if $B$ is large, both algorithms need 2 passes over the data.
+For low numbers of records, the hash-based approach is likely cheaper
+
+
+\paragraph{Index-based approach}
+Here, we only scan the index, and we don't visit the relation. The projection attributes need to be a subset of the index attributes.
+We can project distinct on $A$ using a B+ tree on $A, B$.
+We then only apply the projection algorithm only to the data entries.
+
+Then, if an ordered index contains all projection attributes as prefix of the search key,
+we first retrieve index data entries in order, discard unwanted fields and compare adjacent entries to eliminate duplicates (if needed).
+
+If an index is smaller than a relation, then it is faster to scan the index.

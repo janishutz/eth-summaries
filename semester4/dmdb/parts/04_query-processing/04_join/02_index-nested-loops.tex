@@ -13,7 +13,7 @@
     \end{algorithmic}
 \end{algorithm}
 
-The cost here is $P_R + T_R \cdot C(I_S)$ I/Os, with $P_X$ the number of pages in the relation $X$, $T_X$ the number of tuples in said relation
+The cost here is \cost{$P_R + T_R \cdot C(I_S)$ I/Os}, with $P_X$ the number of pages in the relation $X$, $T_X$ the number of tuples in said relation
 and $C(I_X)$ is the cost to probe the index $I_X$ of relation $X$ and depends on the clustering of data and type of index.
 
 This operation needs three buffer frames. $1$ for $R$, $1$ for output and $1$ to traverse $I_S$

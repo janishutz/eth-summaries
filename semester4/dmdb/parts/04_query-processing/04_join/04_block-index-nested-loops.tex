@@ -14,7 +14,7 @@
     \end{algorithmic}
 \end{algorithm}
 
-The cost here is $P_R + T_R \cdot C(I_S)$ I/Os.
+The cost here is \cost{$P_R + T_R \cdot C(I_S)$ I/Os}.
 We sort the tuples in each buffer frame on the predicate key, which leads to tuples in $R$ with the same key only requiring a single index search.
 In addition, tuples with ``similar'' values in $R$ will likely match with keys on the same pages of $I_S$, which will already be in the buffer pool.
 

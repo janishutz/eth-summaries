@@ -24,7 +24,7 @@ It works as follows:
 Informally, it is searching for an always larger value once it has committed to a certain value.
 It picks the first value to be the lowest value in the current frames.
 
-A new run is started if all values in the loaded frames are defered or used already.
+A new run is started if all values in the loaded frames are deferred or used already.
 
 This means that after the sort run is complete, a merge is still needed.
 
@@ -33,6 +33,8 @@ This means that after the sort run is complete, a merge is still needed.
 
 \bi{Worst case}: $\tco{B - 1}$ elements in a run (reversed data)
 
-\bi{Average case}: $\tct{2B}$ elements in a run. In that case, the cost of sorting is $2N(1 + \lceil \log_{B - 1} \lceil N / 2B \rceil \rceil)$
+\bi{Average case}: $\tct{2B}$ elements in a run.
 
-Thus, Quicksort is fatster, but longer runs often mean fewer passes, saving time.
+In any case, the cost of sorting is \cost{$2N(1 + \lceil \log_{B - 1} \lceil N / E \rceil \rceil)$}, with $E$ the number of elements ($2B$ in the average case)
+
+Thus, Quicksort is faster, but longer runs often mean fewer passes, saving time.

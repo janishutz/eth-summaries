@@ -1,4 +1,7 @@
+\newcommand\cost[1]{\shade{orange}{#1}}
 \section{Query Processing}
+In this section, knowing the time complexities by heart is very important for the exam.
+They are highlighted \cost{like this}.
 
 \subsection{Sorting}
 \input{parts/04_query-processing/00_sorting/00_intro.tex}
@@ -7,15 +10,18 @@
 \input{parts/04_query-processing/00_sorting/03_sorting-with-b-trees.tex}
 % \input{parts/04_query-processing/00_sorting/}
 
+\newpage
 \subsection{Selection}
 \input{parts/04_query-processing/01_selection/00_intro.tex}
 \input{parts/04_query-processing/01_selection/01_index-scan.tex}
 \input{parts/04_query-processing/01_selection/02_index-matching.tex}
 % \input{parts/04_query-processing/01_selection/}
 
+\newpage
 \subsection{Projection}
 \input{parts/04_query-processing/02_projection/00_intro.tex}
-\input{parts/04_query-processing/02_projection/01_set-operations.tex}
+\input{parts/04_query-processing/02_projection/01_duplicate-elimination.tex}
+\input{parts/04_query-processing/02_projection/02_set-operations.tex}
 % \input{parts/04_query-processing/02_projection/}
 
 \subsection{Aggregation}

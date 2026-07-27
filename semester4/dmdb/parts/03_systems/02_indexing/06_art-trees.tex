@@ -1,0 +1,16 @@
+Adaptive Radix Trees (ARTs) are mainly used to ensure primary key constraints and to speed up point and highly selective queries (selectivity <0.1\%).
+It can also be manually created using \texttt{CREATE INDEX} and are automatically created for columns with a \texttt{UNIQUE} or \texttt{PRIMARY KEY} constraint.
+
+The above applies to DuckDB, which is often similar to Postgres.
+ARTs are not balanced and the internal node size is modified to accommodate the data distribution, thus not requiring nodes to have fixed sizes, which would contain empty pointers.
+
+The internal node size however typically isn't \textit{entirely} variable, but often comes in four different sizes, facilitating traversal.
+Each node stores the keys and pointers to the next node to follow for a given key.
+
+Common optimizations includes path compression, where particularly with long keys, some nodes could potentially only contain a single pointer.
+These nodes can be collapsed and removed to make the tree smaller (i.e. the pointer in the parent is updated to directly point to the data instead).
+If required by insertions, nodes can be added as needed (akin to B+ trees).
+
+For speed, ART require indexed values to be binary-comparable.
+This can become an issue with data types such as signed numbers (extra bit for sign), strings (termination character) and nulls (must be mapped to a non-value sequence).
+Thus, the data needs to be transformed to be able to index it and search the tree.
