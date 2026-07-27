@@ -12,6 +12,8 @@ Here we prune an edge $(u, v)$ if there exist edges $(u, w)$ and $(w, v)$, such 
 Important is that both conditions have to be met, as the goal is to remove the longest redundant edge from the graph.
 This is done using a greedy algorithm.
 
+Higher values of \texttt{ef\_construction} generally improves the quality of the index at the cost of slower index construction.
+
 
 \subsubsection{Search}
 We note that greedy search always makes progress in this index because the graph stays navigable.
@@ -25,7 +27,9 @@ Traversal of the layer costs $\tco{M_L}$, with $M_L$ the number of edges on laye
 Higher up layers have fewer edges, thus making traversal cheap.
 
 The parameter \texttt{ef\_search} controls the recall vs latency.
-Set to $1$ it is approximately greedy, for $\texttt{ef\_search} \gg 1$ means more effort, i.e. more vectors visited.
+Set to $1$ it is approximately greedy, for $\texttt{ef\_search} \gg 1$ means more effort, i.e. more vectors visited,
+but also increases recall.
+
 
 \paragraph{Beam Search}
 This is another greedy search algorithm, which chooses the next node to visit from a beam of size $N$.

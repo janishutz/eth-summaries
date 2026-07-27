@@ -1,6 +1,16 @@
 Vector search is for example used in Semantic Search and of course search engines.
 It is also used to find relevant data to augment an LLM prompt (Deep Research or whatever that type of feature is called).
 
+We have at least four metrics for the quality of results:
+\begin{itemize}
+    \item \bi{Recall}: relevant items retrieved by the vector search ($R$) divided by all relevant items ($T$), so $R \div T$. The closer to $1$, the better
+    \item \bi{Cosine Similarity} $S_C$: The cosine of the angle between the two vectors. Values range from $-1$ to $1$ and the closer to $1$, the better (higher = better)
+    \item \bi{Cosine Distance} $D_C$: defined as $1 - S_C$, values range from $0$ to $2$ and the closer to $0$, the better (lower = better)
+    \item \bi{Euclidian distance}: The norm of the vector between the two vectors. Values are from $0$ to $\8$, the lower the better.
+\end{itemize}
+$S_C(A, B) = \frac{A \cdot B}{||A|| \cdot ||B||}$, a
+
+
 \subsection{Trees/Clustering}
 Since nearest neighbour search (NNS) is not viable for large scale datasets (which they typically are),
 we use clustering algorithms such as K-Means to find $K$ cluster centroids.
@@ -13,3 +23,11 @@ Still, Vector Search is a very expensive operation due to the large number of ve
 with $n$ being the number of vectors to search through.
 
 On insert, we search the the closest centroid and simply assign the vector to that cluster.
+
+\subsubsection{Inverted File}
+A not (directly, as far as I can tell) covered, but very much relevant index is the IVF index (Inverted File).
+It works similarly to a normal clustered index, just that each centroid holds an \textit{inverted list} of assigned vectors.
+The \texttt{nlist} parameter defines the number of coarse clusters. The larger, the shorter the lists are, the (typically and up to a point) faster the scans are,
+but training / constructing it takes longer and it uses more RAM.
+\texttt{nprobe} sets the number of items to retrieve on each query, so for instance, setting it to one,
+we will only probe (access / retrieve) the nearest centroid's list.

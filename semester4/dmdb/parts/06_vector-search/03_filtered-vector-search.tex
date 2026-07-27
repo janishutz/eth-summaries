@@ -12,6 +12,7 @@ Indices are typically built on unfiltered data. Thus, we need to think about the
           This is a recall and performance challenge, because if $K' \gg K$, then we have a lot of wasted effort.
           If on the other hand $K' > K$ and thus $\sigma(K') < K$, then we have low recall.
 \end{itemize}
+So, if the selectivity of the filter is high, then pre-filtering is better, if it is low, then use post-filtering.
 
 One way around this issue is to apply an \textit{inline filter}, i.e. during \acrshort{ann} search, we do vector search, evaluate the stopping condition and apply the filter.
 This gives us $K$ rows directly and a handy performance uplift to go along with it.
@@ -50,6 +51,15 @@ Trees offer more residualization, so the best of both worlds is to score fast wi
 A further optimization is to change how much of the set we re-score vs how much of it we score.
 
 Not all dataset and query combinations are equally easy, and filters also change the difficulty.
+
+
+\subsubsection{Quantization}
+The total storage usage of course is always $N \cdot c$, where $N$ is the number of vectors and $c$ is the cost per vector, computed as follows:
+\begin{itemize}
+    \item \bi{Scalar-Quantization} (SQ): $c = i + d \cdot m$, where $d$ is the number of dimensions of the vector and $m$ is the byte count per dim.
+    \item \bi{Product Quantization} (PQ): $c = i + q$, with $i$ the cost of the vector ID and $q = m \ceil{\log_2(k) / 8}$ bytes, with $m$ the number of subvectors,
+        and $k$ the codebook entry count. Remember that we divide by 8 to get bytes, as the $\log_2(k)$ gives us the number of bits.
+\end{itemize}
 
 
 \subsubsection{Filter agnosticism}
