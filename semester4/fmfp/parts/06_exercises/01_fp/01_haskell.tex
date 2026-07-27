@@ -15,6 +15,8 @@ For all functions with recursion, don't forget the base cases. In addition, for 
 there is no equal sign before the pipe characters.
 For the cases notation, there are equal signs. We can use underscores as a ``don't care'' character.
 
+Always consider making use of functions defined in previous subtasks. This can save a lot of time.
+
 \subparagraph{Lists}
 In list comprehensions, to draw from a list, \texttt{<-} is used, to delimit the description of the list contents from the generator part, we use a pipe character
 and to separate each statement in the generator part, we use a comma.
@@ -49,6 +51,8 @@ Ideally, we first write the function, then infer its type.
 Remember that in the definition of these two functions, the \texttt{-> b ->} (and \texttt{-> a ->}, respectively) denote the type of the base case.
 
 For more elaborate data structures, the functions for each subtype should be in the same order as in the data type definition, for canonical definition of the fold function.
+Note that these functions' type doesn't contain the data structure typically, but simply, e.g. for \texttt{Mlist a = Bot | Node [a] (Mlist a)},
+the type of the canonical fold function is simply \texttt{b -> ([a] -> a -> b) -> Mlist a -> b} and not \texttt{(Mlist b) -> ([a] -> Mlist a -> Mlist b) -> (Mlist a) -> (Mlist b)}.
 
 
 \subparagraph{zipWith}
@@ -69,4 +73,6 @@ Remember:
     \item in the end state that since it holds for all $n$, it, in particular, holds for $n = 0$ (or equivalent)
 \end{itemize}
 For generalizing, a very helpful tactic is to think about the statement some, come up with the generalization you think is correct, then doing the base case in the proof
-after only a very short amount of time, as the correct generalized statement will become apparent there very quickly
+after only a very short amount of time, as the correct generalized statement will become apparent there very quickly.
+
+Remember to always check that parenthesis are set correctly and to only apply one rule exactly once.
