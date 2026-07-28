@@ -17,6 +17,9 @@ For the cases notation, there are equal signs. We can use underscores as a ``don
 
 Always consider making use of functions defined in previous subtasks. This can save a lot of time.
 
+Note that in a type definition using \texttt{data}, everything beyond the equality sign is part of an argument of the type.
+So e.g. in a type like \texttt{data LTS = LTS Transition Int}, \texttt{LTS} also needs to be supplied.
+
 \subparagraph{Lists}
 In list comprehensions, to draw from a list, \texttt{<-} is used, to delimit the description of the list contents from the generator part, we use a pipe character
 and to separate each statement in the generator part, we use a comma.
