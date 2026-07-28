@@ -397,3 +397,45 @@ $$
     &   I = [A,B] \text{ s.d. } \P\Bigl[ \vartheta \in [A,B] \Bigr] = \P[A\leq\vartheta\leq B] \geq 1-\alpha \\
     &   A = a(X_1,\ldots,X_n) \qquad B = b(X_1,\ldots,X_n)
 \end{align*}
+
+{\footnotesize
+    \remark $\quad X_i \overset{\text{i.i.d.}}{\sim}\mathcal{N}(\mu,\sigma^2):\ I_\alpha = \Bigl[\bar{X}_n - z_{1-\alpha}\frac{\sigma}{\sqrt{n}}, \bar{X}_n + z_{1-\alpha}\frac{\sigma}{\sqrt{n}}\Bigr]$
+}
+
+{\scriptsize
+    \textbf{Beispiel}: Test mit Signifikanzniveau.
+
+    Seien $X_1,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \mathcal{N}(\theta, \sigma^2)$.\\
+    Man teste $H_0: \theta = 100$, $H_A: \theta > 100$ auf Niveau $\alpha$ mit Stichprobe $\bar{x}_n$.\\
+    $$
+        \bar{X}_n - z_{1-\alpha}\frac{\sigma}{\sqrt{n}} = 100 \implies
+        \frac{\bar{X}_n - 100}{\frac{\sigma}{\sqrt{n}}} = z_{1-\alpha}
+    $$
+    $$
+        \boxed{H_0:\quad T = \frac{(\hat{X}_n - 100)}{\frac{\sigma}{\sqrt{n}}}}
+    $$
+    Der rechtsseitige Test ist dann: $T(\bar{x}_n) > z_{1-\alpha}$
+}
+
+{\scriptsize
+    \textbf{Beispiel}: p-Wert mit $\alpha$-Quantilen auswerten
+
+    Sei $T(\omega)=2$ die Realisierung eines $2$-seitigen Gauss-Test für $H_0$.\\
+    Der $p$-Wert ist: $\P\bigl[|Z|\geq 2\bigr] = 2(1-\Phi(2))$
+    \begin{align*}
+        \P[Z \in K] &= \P\Bigl[Z \in (-\infty, 2)\cup(2,+\infty)\Bigr]  & (\text{def. Gauss-Test})          \\
+                    &= \P\bigl[|Z|\geq 2 \bigr]                         & (\text{Umschreiben})              \\
+                    &= 2(\P\bigl[Z \geq 2 \bigr])                       & (\text{Symmetrie})                \\
+                    &= 2(1-\P\bigl[|Z| < 2 \bigr])                      & (\P[A] = 1-\P[\bar{A}])    \\
+                    &= \boxed{2(1-\Phi(2))}                             & (\text{def. } \Phi)
+    \end{align*}
+
+
+    Wir nutzen für $\alpha=0.005, \alpha'=0.025$:\\
+    $z_{0.975} = z_{1-0.025} =1.96, z_{0.995} = z_{1-0.005} = 2.58$
+    $$
+        z_{1-\alpha'} = z_{0.975} = 1.96 < 2 < 2.58 = z_{0.995} = z_{1-\alpha}
+    $$
+    Also lehnen wir $H_0$ bei $\alpha$ ab ($\alpha \leq p$), und bei $\alpha'$ an. ($\alpha' > p$)
+
+}
