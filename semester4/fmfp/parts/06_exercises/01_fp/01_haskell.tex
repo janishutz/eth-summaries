@@ -17,9 +17,6 @@ For the cases notation, there are equal signs. We can use underscores as a ``don
 
 Always consider making use of functions defined in previous subtasks. This can save a lot of time.
 
-Note that in a type definition using \texttt{data}, everything beyond the equality sign is part of an argument of the type.
-So e.g. in a type like \texttt{data LTS = LTS Transition Int}, \texttt{LTS} also needs to be supplied.
-
 \subparagraph{Lists}
 In list comprehensions, to draw from a list, \texttt{<-} is used, to delimit the description of the list contents from the generator part, we use a pipe character
 and to separate each statement in the generator part, we use a comma.
@@ -29,6 +26,10 @@ We can use the \texttt{nub} function from \texttt{Data.List} to remove duplicate
 We can initialize infinite lists using the \texttt{..} syntax. We define the interval using \texttt{[1, 2..]}, or \texttt{[0, 0..]} to create an infinite lists of zeros.
 
 More advanced types can be ``disassembled'' like this: \texttt{Node x l r} for type \texttt{Node a (Tree x) (Tree x)}
+
+Note that for lists, \texttt{(==)} is defined if and only if it is defined for the types in the lists that we are comparing, i.e.
+\mint{haskell}|comp :: (Eq a, Eq b) => [a] -> [b] -> Bool|
+\mint{haskell}|comp ls rs = ls == rs|
 
 
 \subparagraph{Fold}
@@ -62,7 +63,10 @@ the type of the canonical fold function is simply \texttt{b -> ([a] -> a -> b) -
 To combine a \texttt{map} and a \texttt{zip} function, use \texttt{zipWith}, type:
 \mint{haskell}|zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]|
 
-\TODO Add more remarks
+The \texttt{zip} function creates a tuple:
+\mint{haskell}|zip :: [a] -> [b] -> [(a, b)]|
+
+
 
 \paragraph{Proofs}
 These proofs use structural induction, often it is easiest to use strong structural induction, see Section~\ref{sec:induction-proofs} for that.
@@ -79,3 +83,5 @@ For generalizing, a very helpful tactic is to think about the statement some, co
 after only a very short amount of time, as the correct generalized statement will become apparent there very quickly.
 
 Remember to always check that parenthesis are set correctly and to only apply one rule exactly once.
+
+Depending on your writing style, it may be worth using the CYP syntax (see Section~\ref{sec:cyp}), as it \textit{can} be more concise.

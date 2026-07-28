@@ -1,3 +1,4 @@
+\newpage
 \subsubsection{Linear Time Properties (LTL)}
 We refer to Section~\ref{sec:ltl} for intuition, as these tend to mostly be intuition exercises.
 
@@ -19,18 +20,26 @@ As a reminder, these are the operators (details in Section~\ref{sec:ltl-details}
 For the implication (where the left hand side is called the \textit{antecedent}, right hand side is called the \textit{consequent}),
 remember to show the case where the antecedent is true and state that for antecedent false, it is trivially true
 
-Another important remark is that you can't just write $\Diamond \neg s_1$, where $s_1$ is a state, you need to specify the propositions.
 
-We can also create statements, such as never as $\square \neg \Phi$ (always not $\Phi$), etc.
+\paragraph{Tips and tricks}
+\begin{itemize}
+    \item You can't just write $\Diamond \neg s_1$, where $s_1$ is a state,
+          you need to specify the propositions (as a set, such as $\{ A, B \}$ instead of the $s_1$.
+    \item We can also create statements, such as never as $\square \neg \Phi$ (always not $\Phi$), etc.
+    \item Often, an \texttt{if} in the description means we should use a $\Rightarrow$.
+    \item A typical task is ``something will do something (denoted $A$ here) $N$ times'' ($N$ in that case known an low),
+          an LTL formula in the $N = 2$ case is then $\Diamond (A \land \bigcirc \Diamond A)$.
+          Note that $\Diamond (A \land \Diamond A)$ is \bi{NOT} correct (because that is true also for $A$ happening only once).
+    \item If property $A$ has to be true infinitely many times, the LTL formula is $\square \Diamond A$
+    \item Be careful with parenthesis (e.g. with $\neg$)!
+\end{itemize}
 
-Overall, be careful with parenthesis!
 
-
-\subparagraph{Liveness and Safety Properties}
+\paragraph{Liveness and Safety Properties}
 Proofs here run using the definitions directly, either by showing a counter example (for disproving) or showing that, in fact, the definition holds.
-Indirect proofs may also come in handy, because it is typically easier to show that something is not a safety property (or liveness property) that to show that it is.
+Indirect proofs may also come in handy, because it is typically easier to show that something is not a safety property (or liveness property) than to show that it is.
 
 These two properties are \textit{mutually exclusive} (with one exception, \texttt{true}), to the extent that an LTL formula can't be both at the same time, but be a conjunct of both.
 In fact, every LTL formula is a either one of the two, or a conjunct of both.
 
-Finally, as a reminder, an LTL formula is for example $\square \Diamond a$, with $a$ a property.
+Finally, as a reminder, an LTL formula is for example $\square \Diamond A$, with $A$ an atomic proposition.

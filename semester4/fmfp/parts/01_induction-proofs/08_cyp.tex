@@ -1,0 +1,41 @@
+\subsection{Proofs using CYP syntax}
+\label{sec:cyp}
+Using CYP (Check Your Proof) syntax is allowed at the exams and can be a bit less to write depending on your writing style.
+However, if you are very concise, you can achieve an even shorter version using a mix of CYP and non-CYP syntax.
+
+In CYP, if doing it with pen and paper, we typically state that we use CYP for the proof,
+when doing it on the computer, we need a \texttt{defs.txt} file, containing all things we assume,
+as well as the function definitions, similar to Haskell syntax.
+Any property we don't want to, or don't have to prove, we can denote with \texttt{axiom axiom\_name: definition of the axiom}.
+Finally, we state the proof's goal, exactly as the statement to prove:
+\verb|goal statement|
+
+If we have to generalize, we add a generalized lemma and prove it, then followed by proving the specific case
+
+For the actual proofs, it start like this:
+\begin{code}{haskell}
+    Lemma lemma_name: statement to prove
+
+    Proof by induction on DataStructureHere x generalizing y -- or any other variable, or possibly without generalization
+    Case Leaf -- or any other of course
+        For fixed y -- only if we generalized
+        Show: statement to prove for this case -- (e.g. substitute x with Leaft in this case)
+        Proof
+            -- The proof goes here
+            statement
+            (by def a_definition) .=. statement'
+            (by any_axiom)        .=. statement''
+        QED
+    
+    Case (Node x y) -- another case
+        Fix x, y -- same as otherwise saying for arbitrary x, y
+        Assume
+            IH1: forall y: induction_hypothesis here
+            IH2: forall y: another IH here -- only needed for something like this, if there are two vars.
+            -- The second IH will (typically) be the same, simply a different var name
+        Show: statement to prove for this case
+        Proof
+        -- The proof (as above)
+        QED
+    QED
+\end{code}

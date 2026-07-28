@@ -35,18 +35,41 @@
 \mediumverticalspacing
 
 \vspace{1cm}
+\[
+    \begin{prooftree}
+        \infer0{\Gamma \vdash z :: \sigma \rightarrow (\tau_2, \tau_3)}
+        \infer0{\Gamma \vdash y :: \sigma}
+        \infer2[App]{\Gamma \vdash (z\; y) :: (\tau_2, \tau_3)}
+        \infer1[fst]{\Gamma = y : \texttt{Int}, z : \tau_1 \vdash \texttt{fst}\; (z\; y) :: \tau_2}
+        \infer1[Abs]{y : \texttt{Int} \vdash \lambda z. \texttt{fst}\; (z\; y) :: \tau_0}
+        \infer1[Abs]{\vdash \lambda y.\lambda z. \texttt{fst}\; (z\; y) :: \texttt{Int} \rightarrow \tau_0}
+        %
+        \infer0[Int]{\vdash 0 :: \texttt{Int}}
+        \infer2[App]{\vdash (\lambda y.\lambda z. \texttt{fst}\; (z\; y))\; 0 :: \tau_0}
+    \end{prooftree}
+\]
+\vspace{0.1cm}
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{~/projects/latex/assets/logo.jpg}
+    \begin{minipage}{0.2\linewidth}
+        Constraints:
+        \begin{itemize}
+            \item $\tau_0 = \tau_1 \rightarrow \tau_2$
+            \item $\tau_1 = \sigma \rightarrow (\tau_2, \tau_3)$
+            \item $\tau_2 = \sigma = \texttt{Int}$
+        \end{itemize}
+    \end{minipage}
+
+    Thus: $\tau_0 = \texttt{Int} \rightarrow (\tau_2, \tau_3) \rightarrow \tau_2$
 \end{center}
 
 
-\vspace{2cm}
+\vspace{3cm}
 \begin{center}
     \begin{Large}
-        \quote{A funny quote by a professor}
+        \quote{A funny quote by a professor - If you know one, please let me know}
     \end{Large}
 
-    \hspace{3cm} - Prof. Dr. Professor Name, YEAR
+    \hspace{3cm} - Prof. Dr. Professor Name, 2026
 \end{center}
 
 \vspace{1.5cm}
@@ -54,7 +77,8 @@
     FS2026, ETHZ
 
     \begin{Large}
-        Summary of the Lecture Slides
+        Summary of the Lecture Slides,\\
+        Overview over common exercise types
     \end{Large}
 
     \url{https://infsec.ethz.ch/education/ss2026/fmfp.html}
@@ -84,6 +108,7 @@
 \input{parts/01_induction-proofs/05_induction-on-proof-trees.tex}
 \input{parts/01_induction-proofs/06_induction-on-derivation-sequence.tex}
 \input{parts/01_induction-proofs/07_workflow.tex}
+\input{parts/01_induction-proofs/08_cyp.tex}
 % \input{parts/01_induction-proofs/}
 
 \newsection

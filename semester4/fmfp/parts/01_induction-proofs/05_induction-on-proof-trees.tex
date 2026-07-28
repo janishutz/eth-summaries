@@ -8,6 +8,12 @@ Since often we are not restricted to just simple statements, such where we know 
 we need to perform case distinction on all possible last rules applied in the derivation tree $T$.
 If all are to be proven, this will yield $7$, one for each rule of the big-step semantics.
 
+When we have multiple options in a second stage that also differ from the premise, we may want use another case distinction there,
+drawing separate trees for them, or stating that we draw the common tree and then use a subtree $T_N$ for the case distinction to reduce the amount of writing required.
+
+Also be sure that you \textit{always} mention the side conditions and also mention the Induction Hypothesis, if applicable or needed.
+
+
 \inlinedefinition[Subderivation] We define $T' \sqsubset T$, where $T$ is a derivation tree. $T'$ is called a \textit{subderivation} of $T$,
 or more simply, a \textit{subtree} of $T$. Definition is analogous to the subterm relation.
 
