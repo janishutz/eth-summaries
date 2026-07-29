@@ -7,25 +7,25 @@ $_{\color{blue}\fbox{W}}\,\vec{t}\,_{\color{red}\fbox{B}} = \, _{\color{blue}\fb
 \shortdefinition[State vector] $x_R$: $x$, $v$ of rob in $W$, pos of sensors
 
 \shortdefinition[Rot. Mat.]
+$\mat{R}_{z}(\psi)$ (Yaw),
+$\mat{R}_y(\theta)$ (Pitch),
+$\mat{R}_x(\varphi)$ (Roll)\\
 {\scriptsize
-	$\mat{R}_{z}(\psi)$ (Yaw),
-	$\mat{R}_y(\theta)$ (Pitch),
-	$\mat{R}_x(\varphi)$ (Roll)\\
-	$\begin{bmatrix}
-			c(\psi) & -s(\psi) & 0 \\
-			s(\psi) & c(\psi)  & 0 \\
-			0       & 0        & 1
-		\end{bmatrix};
-		\begin{bmatrix}
-			c(\theta)  & 0 & s(\theta) \\
-			0          & 1 & 0         \\
-			-s(\theta) & 0 & c(\theta) \\
-		\end{bmatrix};
-		\begin{bmatrix}
-			1 & 0          & 0           \\
-			0 & c(\varphi) & -s(\varphi) \\
-			0 & s(\varphi) & c(\varphi)
-		\end{bmatrix}$
+$\begin{bmatrix}
+        c(\psi) & -s(\psi) & 0 \\
+        s(\psi) & c(\psi)  & 0 \\
+        0       & 0        & 1
+    \end{bmatrix};
+    \begin{bmatrix}
+        c(\theta)  & 0 & s(\theta) \\
+        0          & 1 & 0         \\
+        -s(\theta) & 0 & c(\theta) \\
+    \end{bmatrix};
+    \begin{bmatrix}
+        1 & 0          & 0           \\
+        0 & c(\varphi) & -s(\varphi) \\
+        0 & s(\varphi) & c(\varphi)
+    \end{bmatrix}$
 }
 
 \shortremark Application: ${_W} \vec{a} = \mat{R}_{WB} {_B} \vec{a}$
@@ -36,17 +36,17 @@ $_{\color{blue}\fbox{W}}\,\vec{t}\,_{\color{red}\fbox{B}} = \, _{\color{blue}\fb
 
 \shortdefinition[Euler Ang] (Tait-Brian) $\mat{R}_{EB} = \mat{R}_z(\psi) \cdot \mat{R}_y(\theta) \cdot \mat{R}_x(\varphi)$.
 $\begin{smallmatrix}
-		\psi = \arcsin\left( R_{21} \div \sqrt{1 - R_{31}^2} \right)\\
-		\theta = \arcsin(-R_{31})\\
-		\varphi = \arcsin\left( R_{31} \div \sqrt{1 - R_{31}^2} \right)\\
-	\end{smallmatrix}$
-{\scriptsize
-		$[\vec{n}]^\times = \begin{bmatrix}
-				0    & -a_3 & a_2  \\
-				a_3  & 0    & -a_1 \\
-				-a_2 & a_1  & 0
-			\end{bmatrix}$
-	}
+        \psi = \arcsin\left( R_{21} \div \sqrt{1 - R_{31}^2} \right)\\
+        \theta = \arcsin(-R_{31})\\
+        \varphi = \arcsin\left( R_{31} \div \sqrt{1 - R_{31}^2} \right)\\
+    \end{smallmatrix}$
+$[\vec{n}]^\times = \begin{bmatrix}
+        0    & -a_3 & a_2  \\
+        a_3  & 0    & -a_1 \\
+        -a_2 & a_1  & 0
+    \end{bmatrix}$
+
+For pitch axis $= \pm 90\deg$, Gimbal Lock, Jacobian singular.
 
 \shortdefinition[Angle-Axis]
 $\vec{\alpha} = \alpha \vec{n}$ ($\vec{n}$ normal); Convert to rot. mat\\
@@ -58,31 +58,31 @@ To quat: $\vec{q} = [\vec{n}, \alpha]$
 $i^2 = j^2 = k^2 = -1$, ($ij = -ji = k$, same for $jk$ and $ki$).
 
 $\vec{q} = \begin{bmatrix}
-		\vec{v}(\vec{q}), a(\vec{q})
-	\end{bmatrix}^\top$, $a(\vec{q}) = q_w$, Add like $\C$ (by ``groups'')
+        \vec{v}(\vec{q}), a(\vec{q})
+    \end{bmatrix}^\top$, $a(\vec{q}) = q_w$, Add like $\C$ (by ``groups'')
 
 \bi{Mult} {\scriptsize
-	$\vec{q} \otimes \vec{p} = \begin{bmatrix}
-			a(\vec{q}) \vec{v}(\vec{p}) + a(\vec{p}) + \vec{v}(\vec{q}) \times \vec{v}(\vec{p}) \\
-			a(\vec{q}) a(\vec{p}) - \vec{v}(\vec{q})^\top \vec{v}(\vec{p})
-		\end{bmatrix}$
+    $\vec{q} \otimes \vec{p} = \begin{bmatrix}
+            a(\vec{q}) \vec{v}(\vec{p}) + a(\vec{p}) + \vec{v}(\vec{q}) \times \vec{v}(\vec{p}) \\
+            a(\vec{q}) a(\vec{p}) - \vec{v}(\vec{q})^\top \vec{v}(\vec{p})
+        \end{bmatrix}$
 }
 
 \bi{To Rot Mat} {\scriptsize
-	$R_{AB} = \mat{I}_3 + 2a(\vec{q}_{AB}) [\vec{v}(\vec{q}_{AB})]^\times + 2([\vec{v}(\vec{q}_{AB})]^\times)^2$
+    $R_{AB} = \mat{I}_3 + 2a(\vec{q}_{AB}) [\vec{v}(\vec{q}_{AB})]^\times + 2([\vec{v}(\vec{q}_{AB})]^\times)^2$
 }
 
 
 \shortdefinition[Transf. M]
 {\scriptsize
-	$\mat{T}_{AC} = \mat{T}_{AB} \mat{T}_{BC}$ R.-Handed typ; Aero: Left-H\\
-	$\mat{T}_{AB} = \begin{bmatrix}
-			\mat{R}_{AB}        & {_A}\vec{t}_B \\
-			\mat{0}_{1\times 3} & 1
-		\end{bmatrix};
-		\mat{T}_{BA} = \mat{T}_{AB}^{-1} =
-		\begin{bmatrix}
-			\mat{R}_{AB}^\top    & -\mat{R}_{AB}^\top {_A}\vec{t}_B \\
-			\mat{0}_{1 \times 3} & 1
-		\end{bmatrix}$
+    $\mat{T}_{AC} = \mat{T}_{AB} \mat{T}_{BC}$ R.-Handed typ; Aero: Left-H\\
+    $\mat{T}_{AB} = \begin{bmatrix}
+            \mat{R}_{AB}        & {_A}\vec{t}_B \\
+            \mat{0}_{1\times 3} & 1
+        \end{bmatrix};
+        \mat{T}_{BA} = \mat{T}_{AB}^{-1} =
+        \begin{bmatrix}
+            \mat{R}_{AB}^\top    & -\mat{R}_{AB}^\top {_A}\vec{t}_B \\
+            \mat{0}_{1 \times 3} & 1
+        \end{bmatrix}$
 }
