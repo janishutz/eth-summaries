@@ -1,0 +1,12 @@
+\subsection{SQL}
+DuckDB (and PostgreSQL) features an \texttt{EXPLAIN} and \texttt{EXPLAIN ANALYZE} query,
+pretty-printing the query plan and pretty-printing the query plan and profiling the query execution, respectively
+
+A few useful commands for debugging and writing queries (for DuckDB and PostgreSQL via \texttt{psql} CLI):
+\begin{tables}{p{4cm}p{4cm}p{8cm}}{DuckDB & PostgreSQL          & Description}
+              \texttt{SHOW TABLES;}       & \verb|\dt|          & Show all tables                         \\
+              \texttt{SHOW tablename;}    & \verb|\d tablename| & Show schema of table \texttt{tablename} \\
+\end{tables}
+Note that \texttt{SHOW} and \texttt{DESCRIBE} are aliases in DuckDB. They can also be used on queries!.
+
+To see all \texttt{psql} commands, run \verb|\?|.

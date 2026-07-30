@@ -27,6 +27,8 @@ Since the primary key must be unique for each entry, it may be useful to configu
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/create.sql}
 
+Note that PostgreSQL doesn't support \texttt{AUTO\_INCREMENT} constraints, instead use the \texttt{SERIAL} (or \texttt{BIGSERIAL} type)
+
 
 % TODO: Make sure all the sql statements actually execute in pgsql
 \subsubsection{Updating / Altering Tables}

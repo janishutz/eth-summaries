@@ -29,11 +29,11 @@ A new run is started if all values in the loaded frames are deferred or used alr
 This means that after the sort run is complete, a merge is still needed.
 
 \paragraph{Performance}
-\bi{Best case}: $\tcl{N}$ elements in a run (thus a single run, data is already sorted)
+\bi{Best case}: $N$ elements in a run (thus a single run, data is already sorted)
 
-\bi{Worst case}: $\tco{B - 1}$ elements in a run (reversed data)
+\bi{Worst case}: $B - 1$ elements in a run (reversed data)
 
-\bi{Average case}: $\tct{2B}$ elements in a run.
+\bi{Average case}: $2B$ elements in a run.
 
 In any case, the cost of sorting is \cost{$2N(1 + \lceil \log_{B - 1} \lceil N / E \rceil \rceil)$}, with $E$ the number of elements ($2B$ in the average case)
 

@@ -1,12 +1,19 @@
 \subsubsection{Index Scan}
 \begin{itemize}
     \item \bi{Hash Index}: {\color{ForestGreen} $\tco{1}$, we read the bucket and possibly the overflow buckets.} {\color{red} Can only be used for equality predicates}
-    \item \bi{B+ Tree Index}: $\tco{\log_F(N) + X}$, with $F$ fanout, $N$ the number of leaf nodes and $X$ the ratio of number of selected tuples and tuples per page.
-              {\color{red} $X$ can be up to 1 per selected tuple with an unclustered index}. Optimization: we could sort the RIDs.
+    \item \bi{B+ Tree Index}: $\tco{\log_F(N) + X}$ (or simply $\tco{h + X}$, with $h$ the height of the tree),
+          with $F$ fanout, $N$ the number of leaf nodes and $X$ the ratio of number of selected tuples and tuples per page.
+              {\color{red} $X$ can be up to 1 per selected tuple with an unclustered index, thus $N$ for all}. Optimization: we could sort the RIDs.
     \item \bi{Bitmap Index}: $\tco{\text{size of bitmap index}} + X$, {\color{red} $X$ depends on clustering again}
 \end{itemize}
 
-The I/O cost for B+ Tree Index Scan is \cost{$\texttt{tree height} + \texttt{\#leaf pages} + \texttt{\#file pages}$}
+The I/O cost for B+ Tree Index Scan is \cost{$\texttt{tree height} + \texttt{\#leaf pages} + \texttt{\#file pages}$}.
+Note that the number of leaf pages and file pages are multiplied with the selectivity of the predicate and are given by
+(for $\texttt{cnt}(R') = \texttt{cnt}(R) \cdot S$, with $S$ the selectivity of the predicate):
+\begin{itemize}
+    \item \texttt{\#leaf pages}: $\texttt{cnt}(R') \div (P_L \cdot F_L)$, with $P_L$ the \#records per leaf page and $F_L$ the fill factor for the leaf.
+    \item \texttt{\#file pages}: $\texttt{cnt}(R') \div P_F$, with $P_F$ the number of records per file page.
+\end{itemize}
 
 \inlineexample{Computation example}
 Given a relation $R$ with $N =$ one million records. There are 100 records on a page and we have a B+ Tree with the data entries $<k, rid>$
@@ -17,6 +24,6 @@ Then the cost is computed as follows:
     \item 3 internal nodes to parse, $\ceil{\log_F(N)}$
     \item Number of result records = $1,000,000 * 1\% = 10,000$ (this is the selectivity)
     \item Number of leaf pages pointing to the results records = $10,000 / (500 \cdot 0.67) = 30$
-    \item Number of pages in the heap file that hold the result records $= 10,000 / 100 = 30$
+    \item Number of pages in the heap file that hold the result records $= 10,000 / 100 = 100$
 \end{itemize}
 Then, the total cost is $3 + 30 + 100 = 133$

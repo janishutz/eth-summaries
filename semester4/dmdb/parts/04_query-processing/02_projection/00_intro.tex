@@ -1,5 +1,6 @@
 For a basic \texttt{SELECT A, B FROM R} query, we scan the file and for each tuple output $A, B$.
 Obviously, that means that for $N$ tuples and ratio of included tuples of $Q$, we have \cost{$N + N \cdot Q$} I/O operations.
+($N$ to read, $N \cdot Q$ to write the filtered tuples)
 
 For a \texttt{SELECT DISTINCT A, B FROM R} query, we scan the file and eliminate duplicates before outputting.
 If this is also combined with a sort, we can prefer the sort-based approach and deduplicate after search,

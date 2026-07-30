@@ -13,7 +13,7 @@ To rename, we can set \texttt{I = Column as Name, Column2 as Name2}, etc
               Rename            & $\rho_{a, b, c} R$         & \texttt{SELECT A as a, \ldots, B as c FROM R;} \\
               Union             & $R_1 \cup R_2$             & \texttt{R1 UNION R2;}                          \\
               Difference        & $R_1 - R_2$                & \texttt{R1 EXCEPT R2;}                         \\
-              Intersection      & $R_1 - R_2$                & \texttt{R1 INTERSECT R2;}                      \\
+              Intersection      & $R_1 \cap R_2$             & \texttt{R1 INTERSECT R2;}                      \\
 \end{tables}
 
 Since \sql\ implements \gls{bag} and not set semantics, there is a \texttt{DISTINCT} keyword, which is used to remove duplicates.
@@ -26,3 +26,12 @@ In addition, to apply \textit{bag semantics}, as opposed to \textit{set semantic
 
 We can also name the tables, e.g. $\texttt{T} = \texttt{One o, Two t}$, and then access columns from a specific table using
 $\texttt{I} = \texttt{o.Col, b.Col}$, or the like.
+
+String concatenation works using \texttt{CONCAT('string', 'string', 'string', ...)}, or using \texttt{'string' || 'string' || \dots}. Note that SQL uses single quote for Strings,
+and double quotes for renaming columns (using \texttt{AS} statements, or in \texttt{SELECT})
+
+Dates work as you'd expect. We can create a new date using \texttt{Date('ISO-date-string')}. \texttt{DATETIME} combines date and time and \texttt{TIME} is just the time.
+To compute time delta, we can use \texttt{DATEDIFF('interval', DateOne, DateTwo)}, where the interval can be:
+\texttt{year, quarter, month, dayofyear, day, week, weekday, hour, minute, second, millisecond}.
+
+The current date, time, year, etc is provided using \texttt{current\_date} (etc).

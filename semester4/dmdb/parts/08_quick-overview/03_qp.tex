@@ -1,0 +1,43 @@
+\subsection{Query Processing}
+\subsubsection{Sorting}
+Given $B$ frames of memory and $N$ records, we ahve
+\begin{itemize}
+    \item \bi{Merge Sort}: $2N \cdot P$, with $P = (1 + \ceil{\log_{B - 1}\ceil{N \div B}})$ the number of passes.
+          After the first pass, $\ceil{N \div B}$ number of sorted runs were created (typically)
+    \item \bi{Replacement Sort / Heap Sort}: $2N \cdot P$, with $P = (1 + \ceil{\log_{B - 1} \ceil{N \div E}})$ the number of passes, with $E$ the number of records per run,
+          given by $E = 2B$ in the average case, $E = N$ in the best case (thus single run, data already sorted), $B - 1$ (worst case, reversed data)
+\end{itemize}
+
+
+\subsubsection{Selection}
+\begin{itemize}
+    \item \bi{File Scan}: $N \div P_F$, with $P_F$ the number of pages, because we need to run through all pages
+    \item \bi{B+ Tree}: $\texttt{height}(T) + \texttt{cnt}(P_L) + \texttt{cnt}(P_F)$, $P_L$ the leaf pages and $P_F$ the file pages.
+          \begin{itemize}
+              \item For a clustered index, $\texttt{cnt}(P_F) = \texttt{cnt}(R') \div (F_L \cdot R_L)$, with $R_L$ the number of records per leaf page and $F_L$ the fill factor.
+              \item For an unclustered index, $\texttt{cnt}(P_F) = \texttt{cnt}(R')$, with $\texttt{cnt}(R') = \texttt{cnt}(R) \cdot S$, with $S$ the selectivity of the predicate.
+          \end{itemize}
+    \item \bi{Hash Index}: Cost is $1 + \texttt{cnt}(R') \div \texttt{cnt}(P_L) + \texttt{cnt}(R')$, where the $1$ is to do the lookup and
+          $\texttt{cnt}(R') \div P_L$, with $P_L$ the number of records per Leaf.
+\end{itemize}
+
+
+\subsubsection{Projection}
+\begin{itemize}
+    \item \bi{Partitioning}: $\texttt{Cost}_\texttt{part}(R) = \texttt{cnt}(R) + \texttt{cnt}(R')$ with
+          $\texttt{cnt}(R') = \texttt{cnt}(R) Q$, with $Q$ the fraction of selected attributes divided by total attributes
+    \item \bi{Sort-Based}: The number of sorted runs are $M = \ceil{\texttt{cnt}(R') \div B}$, with the merge passes $P = \ceil{\log_{B - 1}(M)}$, total cost:
+          $2 \cdot N \cdot P + \texttt{Cost}_\texttt{part}(R)$
+    \item \bi{Hash-Based}:
+          \begin{itemize}
+              \item \bi{Minimum $B$ for $M$-pass}: $B > \sqrt{\texttt{cnt}(R') \cdot f}$, with $f$ the Minister of Magic Factor (for Books $\leq$ 5),
+                    aka. Fudge Factor, typically $f \approx 1.2$.
+              \item \bi{Below threshold}: To check if we need recursive partitioning, we use the un-approximated version of the above: $\frac{f \cdot \texttt{cnt}(R')}{B - 1} < B$
+              \item \bi{Cost}: The base cost is $\texttt{Cost}_\texttt{part}(R) + \texttt{cnt}(R')$ for partitioning and duplicate elimination later on
+                    \begin{itemize}
+                        \item If below threshold, that's our cost
+                        \item If above threshold, then we need to repartition, which costs $2 \cdot \texttt{cnt}(R')$ (once each for write and read) for each time we do this action.
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+Note that both the sort- and hash-based approaches perform approximately equally well at larger $B$, since both algorithms need two passes over the data.

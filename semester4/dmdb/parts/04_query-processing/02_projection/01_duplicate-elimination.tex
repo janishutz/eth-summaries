@@ -13,25 +13,21 @@ Then the hashing approach works as follows:
           \end{enumerate}
     \item We return all keys from the hash table
 \end{enumerate}
-A partition from step 2 fits into memory if $\frac{f \cdot T}{B - 1} < B$ (or approximately $B > \sqrt{f \cdot T}$),
-where $T$ is the number of pages after the projection and $f$ is a \textit{fudge factor}, typically $f \approx 1.2$.
+A partition from step 2 fits into memory if $\frac{f \cdot R'}{B - 1} < B$ (or approximately $B > \sqrt{f \cdot R'}$),
+where $R'$ is the number of pages after the projection and $f$ is a \textit{fudge factor}, typically $f \approx 1.2$.
 
 \coloredbox{orange}{Cost of hash-based duplicate elimination}{
-    $\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{elim}(R')$, with
-    \[
-        \texttt{elim}(R') = \sum_{T \in R'} \begin{cases}
-            \texttt{elim}(T)   & \text{if } \frac{f \cdot L(T)}{B - 1} \geq B \\
-            \texttt{length}(T) & \text{else}
-        \end{cases}
-    \]
-    where $R'$ is the relation $R$ after the projection. $\texttt{cnt}(R)$ is the number of pages and $\texttt{cnt}(R') = \texttt{cnt}(R) \cdot Q$,
+    $\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{repart}(R') + \texttt{cnt}(R')$, with $\texttt{repart}(R') = \sum_{i = 1}^{N} 2 \cdot \texttt{cnt}(R')$,
+    with $N$ the number of times we had to re-partitioning the data to (typically) $B = (B - 1)^2$ partitions. The $\texttt{cnt}(R')$ is for dedupe.
+
+    $R'$ is the relation $R$ after the projection. $\texttt{cnt}(R)$ is the number of pages and $\texttt{cnt}(R') = \texttt{cnt}(R) \cdot Q$,
     with $Q$ the ratio of kept and total attributes in the relation.
 }
 
 \paragraph{Sort-based approach}
 A sort-based approach is also very easy to understand: We sort the records and then discard, on a run through the sorted records, the ones that are duplicates.
 
-The cost here is $\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{cost}_\texttt{sort}(R') + \texttt{cnt}(R')$.
+The cost here is \cost{$\texttt{Cost}(R) = \texttt{cnt}(R) + \texttt{cnt}(R') + \texttt{cost}_\texttt{sort}(R') + \texttt{cnt}(R')$}.
 Broken down:
 \begin{itemize}
     \item $\texttt{cnt}(R)$ I/Os for the initial scan

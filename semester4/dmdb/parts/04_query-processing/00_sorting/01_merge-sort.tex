@@ -9,9 +9,9 @@ If there is ever just one frame (group) left, we add an empty one implicitly and
 
 The cost for this is for the 1-page sorted runs (i.e. sorting the original pages) is a single pass (read + write pass).
 
-The total cost is given by $2 \cdot M \cdot N$ I/O operations, with $M$ the number of passes / phases (i.e. how many merge steps there are) and $N$ being the number of frames.
+The total cost is given by $2 \cdot P \cdot N$ I/O operations, with $P$ the number of passes / phases (i.e. how many merge steps there are) and $N$ being the number of frames.
 
-For Two-Way Merge Sort, the number of passes, $M$ is given by $M = \lceil \log_2(N) \rceil + 1$,
+For Two-Way Merge Sort, the number of passes, $P$ is given by $P = \lceil \log_2(N) \rceil + 1$,
 so the total cost to sort is \cost{$2N(\lceil \log_2 N \rceil + 1)$}
 
 The primary goal for sorting is of course efficiency. Primarily we want to reduce the amount of extra RAM used, the disk I/O (as that is slow) and trying to reduce random accesses

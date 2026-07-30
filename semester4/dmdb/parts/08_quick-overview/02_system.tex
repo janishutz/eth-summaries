@@ -1,0 +1,21 @@
+\subsection{System}
+For computing the usable space, deduct the overhead \textit{after} multiplying with the free fraction,
+e.g. for a block size of 4kB (with kB actually being KiB), header and directories having a combined size of 100 bytes and \texttt{PCTFREE} set to 20\%,
+the available space is $\ceil{4096 \cdot 0.8 - 100} = 3177$.
+
+To compute the maximum number of tuples in a slotted page, remember that it also has a header with a certain number of bytes for the slotting.
+Add that to the number of bytes per tuple when computing, even though it doesn't count to the tuple size!
+
+Row stores are better if we need to access many columns, column stores otherwise. This is (primarily) due to indexing.
+
+
+\subsubsection{Indexing}
+The global depth is the maximum Local Depth of all buckets.
+
+The hash key is the actual value of the column to be hashed typically.
+Thus, an assignment may be very misleading in that the block ID and hash key are asked.
+The hash key is the value before hashing, the block ID afterwards is the block the hashing algorithm assigned it to.
+
+When splitting a block, its $N$ entries must be repartitioned. There are $2^N$ possible ways in which to do this.
+So, there is a $\frac{2}{2^N}$ probability for there to be a \bi{recursive overflow}, an overflow in which all keys end up in the same bucket again
+and need further splitting.
