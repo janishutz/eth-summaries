@@ -1,0 +1,13 @@
+\subsubsection{Intuition}
+Adapted from the \hlhref{https://en.wikipedia.org/wiki/Functional_dependency}{Wikipedia Article on this topic}
+
+The idea of functional dependencies is to describe which attributes belong to the \textit{determinant set} $X$ and which belong to the \textit{dependent set} $Y$.
+The values of the attributes in the \textit{determinant set} determine the values of $Y$.
+
+Thus, for a relation $R$, with $X, Y \subseteq R$, with $X \rightarrow Y$:
+\begin{itemize}
+    \item When attributes $X$ have known values (let's call them $\bm{x}$),
+          then the values of for their corresponding $Y$ attributes can be determined by looking them up in \bi{any} tuple of $R$ containing the values $\bm{x}$
+    \item Two tuples sharing the same values of $X$ share the same values of $Y$.
+\end{itemize}
+A FD $X \rightarrow Y$ is \textit{trivial}, if $Y \subseteq X$

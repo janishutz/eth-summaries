@@ -1,0 +1,18 @@
+\subsubsection{Overview}
+This overview is adapted from \hlhref{https://en.wikipedia.org/wiki/Database_normalization\#Normal_forms}{this Wikipedia article}.
+All constraint definitions in {\scriptsize smaller font} are informal. Note that \textit{prime attributes} are the attributes that make up a candidate key,
+also known as \textit{key attributes}
+
+\newcommand{\cross}{\ding{55}}
+\begin{tables}{p{10cm}lllll}{Constraint & UNF        & 1NF        & 2NF        & 3NF        & BCNF}
+              Unique rows {\scriptsize (no duplicates)}
+                                        & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+              Scalar Columns {\scriptsize (Columns can't contain relations or composite values)}
+                                        & \cross     & \checkmark & \checkmark & \checkmark & \checkmark \\
+              Every non-prime attribute has a full FD on each candidate key {\scriptsize (Attributes depend on the whole of every key)}
+                                        & \cross     & \cross     & \checkmark & \checkmark & \checkmark \\
+              Every Non-trivial FD begins either with superkey or ends with prime attribute {\scriptsize (Attributes depend only on candidate keys)}
+                                        & \cross     & \cross     & \cross     & \checkmark & \checkmark \\
+              Every non-trivial FD begins with a superkey
+                                        & \cross     & \cross     & \cross     & \checkmark & \checkmark \\
+\end{tables}
