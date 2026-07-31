@@ -6,8 +6,8 @@ The following \sql\ logical operators are available (may not be exhaustive for a
 \begin{tables}{p{4.5cm}p{12cm}}{Operator      & Description}
               \texttt{P1 AND P2}              & TRUE if \texttt{P1} and \texttt{P2} both are true                                                                             \\
               \texttt{P1 OR P2}               & TRUE if one of \texttt{P1} or \texttt{P2}, or both are true                                                                   \\
-              \texttt{C cop ALL query}         & TRUE if all values \texttt{x} returned in \gls{subquery}\ \texttt{query} fulfil \texttt{C cop x}                               \\
-              \texttt{C cop ANY query}         & TRUE if one (or more) values \texttt{x} returned in \gls{subquery}\ \texttt{query} fulfil \texttt{C cop x}.
+              \texttt{C cop ALL query}        & TRUE if all values \texttt{x} returned in \gls{subquery}\ \texttt{query} fulfil \texttt{C cop x}                              \\
+              \texttt{C cop ANY query}        & TRUE if one (or more) values \texttt{x} returned in \gls{subquery}\ \texttt{query} fulfil \texttt{C cop x}.
               \texttt{SOME} is logically equivalent                                                                                                                           \\
               \texttt{C BETWEEN low AND high} & TRUE if numerical, text or date value of \texttt{C} is between \texttt{low} and \texttt{high}. Both ends inclusive, negatable \\
               \texttt{C IN list}              & TRUE if value of \texttt{C} is in the provided \texttt{list}.
@@ -24,12 +24,16 @@ The following \sql\ logical operators are available (may not be exhaustive for a
 
 \shade{gray}{Arithmetic Operators} $+, -, *, /, \%$ are defined as usual.
 
+This also means that we can use \acrshort{sql} as a calculator, for example::
+\mint{sql}|SELECT a * b|
+
 We can use the arithmetic operators like this:
 \mint{sql}|SELECT Value * 1.1 FROM Data;|
 or in \texttt{WHERE} clauses like this:
 \mint{sql}|SELECT Value FROM (Data a, Data b) WHERE a.Value = b.Value - 1;|
 
 \inlineremark You may have noticed that in the above query, the same table was used twice.
-This is referred to as a \bi{Self-Join} and can come in handy when comparing values in a single table.
+This is referred to as a \bi{Self-Join} and can come in handy when comparing values in a single table,
+or to build pairs.
 
-We can use comparison operators also with subqueries containing aggregations, if they return a single result. \TODO Check that this doesn't work with more than a single result
+We can use comparison operators also with subqueries containing aggregations, if they return a single result, for multiple results, need \texttt{ANY}, \texttt{ALL}, etc (see above)

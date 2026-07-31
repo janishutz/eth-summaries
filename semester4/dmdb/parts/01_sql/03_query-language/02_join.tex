@@ -18,7 +18,10 @@ These are parenthesized normal SQL queries.
 We can create an alias for them using an \texttt{AS name} clause after the parenthesis as follows
 \mint{sql}|SELECT r.name FROM (SELECT * FROM Table) AS r;|
 or alternatively, using a \texttt{WITH} clause (replace the dummy queries with real queries):
-\mint{sql}|WITH CteName (SELECT * FROM Table) SELECT name FROM CteName;|
+\mint{sql}|WITH CteName AS (SELECT * FROM Table) SELECT name FROM CteName;|
+Note that it is possible to have multiple with statements as follows:
+\mint{sql}|WITH with1 AS (SELECT * FROM Table1), with2 AS (SELECT * FROM with1) SELECT name FROM with2|
+\texttt{WITH} clauses are an implementation of \bi{Common Table Expressions} (CTE)
 
 
 \paragraph{Join Operations}
@@ -28,10 +31,11 @@ If we don't specify the kind of join, an \texttt{INNER JOIN} is executed. The fo
 \mint{sql}|SELECT * FROM Student JOIN Tests USING (PersNr);|
 For the latter of the three, the parenthesis around the column are important, as omitting them is invalid syntax.
 
-Other types of \texttt{JOIN} are:
+Other types of \texttt{JOIN} are (the latter two are considered to be \texttt{OUTER JOIN}s):
 \begin{itemize}
     \item \texttt{NATURAL JOIN} (no \texttt{ON} required), joins on columns with same name
-    \item \texttt{LEFT/RIGHT/FULL OUTER JOIN} (requires \texttt{ON}), also returns non-matching rows from left, right or both sides, respectively
+    \item \texttt{LEFT/RIGHT JOIN} (requires \texttt{ON}), also returns non-matching rows from left or right side, respectively
+    \item \texttt{FULL JOIN} (or \texttt{FULL OUTER JOIN}; requires \texttt{ON}), also returns non-matching rows from both sides
 \end{itemize}
 
 \begin{center}

@@ -27,7 +27,7 @@ Since the primary key must be unique for each entry, it may be useful to configu
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/create.sql}
 
-Note that PostgreSQL doesn't support \texttt{AUTO\_INCREMENT} constraints, instead use the \texttt{SERIAL} (or \texttt{BIGSERIAL} type)
+Note that PostgreSQL doesn't support \texttt{AUTO\_INCREMENT} constraints, instead use the \texttt{SERIAL} (or \texttt{BIGSERIAL}) type
 
 
 % TODO: Make sure all the sql statements actually execute in pgsql
@@ -36,6 +36,8 @@ Use the DDL \texttt{ALTER TABLE} keyword to update a table's schema.
 Be aware that if we ADD a column to the schema, unless a default value is provided, the column is set to \texttt{NULL} (see \ref{sec:sql-null})
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/alter.sql}
+
+Instead of a \texttt{ADD COLUMN} or \texttt{DROP COLUMN}, we can also use \texttt{ADD CONSTRAINT} and \texttt{DROP CONSTRAINT} to update constraints
 
 
 \subsubsection{Deleting Tables}

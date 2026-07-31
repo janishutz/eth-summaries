@@ -18,20 +18,21 @@ To rename, we can set \texttt{I = Column as Name, Column2 as Name2}, etc
 
 Since \sql\ implements \gls{bag} and not set semantics, there is a \texttt{DISTINCT} keyword, which is used to remove duplicates.
 It is to be applied in the \texttt{SELECT} clause (\texttt{I} above), e.g.
-\mint{sql}|SELECT DISTINCT name FROM Data;|
+\mint{sql}|SELECT DISTINCT name FROM data_table;|
 
-For the last three operations, \texttt{R1} and \texttt{R2} typically are other \sql\ statements, example:
+For the last three operations in the table above, \texttt{R1} and \texttt{R2} typically are other \sql\ statements, example:
 \mint{sql}|(SELECT name FROM FirstTable) UNION (SELECT name FROM SecondTable)|
-In addition, to apply \textit{bag semantics}, as opposed to \textit{set semantics} append \texttt{ALL} to the expression (e.g. \texttt{UNION ALL})
+In addition, to apply \textit{bag semantics}, as opposed to \textit{set semantics} append \texttt{ALL} to the \texttt{UNION} expression.
 
 We can also name the tables, e.g. $\texttt{T} = \texttt{One o, Two t}$, and then access columns from a specific table using
 $\texttt{I} = \texttt{o.Col, b.Col}$, or the like.
 
-String concatenation works using \texttt{CONCAT('string', 'string', 'string', ...)}, or using \texttt{'string' || 'string' || \dots}. Note that SQL uses single quote for Strings,
-and double quotes for renaming columns (using \texttt{AS} statements, or in \texttt{SELECT})
+String concatenation works using \texttt{CONCAT('string', 'string', 'string', ...)}, or using \texttt{'string' || 'string' || \dots}.
+Note that SQL uses single quotes for Strings, and double quotes for renaming columns (using \texttt{AS} statements, or in \texttt{SELECT})
 
 Dates work as you'd expect. We can create a new date using \texttt{Date('ISO-date-string')}. \texttt{DATETIME} combines date and time and \texttt{TIME} is just the time.
 To compute time delta, we can use \texttt{DATEDIFF('interval', DateOne, DateTwo)}, where the interval can be:
 \texttt{year, quarter, month, dayofyear, day, week, weekday, hour, minute, second, millisecond}.
+To get just the year from an existing date object (or string), use \texttt{YEAR}. The result is an integer and thus you can use comparison operations with numbers.
 
 The current date, time, year, etc is provided using \texttt{current\_date} (etc).
