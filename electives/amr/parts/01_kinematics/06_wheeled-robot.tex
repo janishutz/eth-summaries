@@ -19,6 +19,7 @@ To compute $\vec{c}$ in $\vec{c} \cdot {_B}\vec{v}_{WB} = \omega$
 $c_i = [\sin(\alpha + \beta) \div r, -\cos(\alpha + \beta) \div r, -\cos(\beta) \cdot l \div r]$
 
 
+\newpage
 \bi{Maneuverability}
 \begin{itemize}
     \item Deg. of Mobility: $\delta_m = 3 - $\#constrained directions
@@ -26,7 +27,6 @@ $c_i = [\sin(\alpha + \beta) \div r, -\cos(\alpha + \beta) \div r, -\cos(\beta) 
     \item Deg. of Maneuverability: $\delta_M = \delta_m + \delta_s$
 \end{itemize}
 
-\newpage
 \shade{ForestGreen}{Wheel Configurations}
 
 \includegraphics[width=1\columnwidth]{assets/wheel-config.png}
@@ -64,3 +64,10 @@ $\vec{b}_s = {\scriptsize \begin{bmatrix}
 \textit{Turning}: $\Omega = (\omega_l r_l) / R_l\! =\! (\omega_r r_r) / R_r$, $R\! =\! v / \Omega$, $\Delta \theta\! =\! \Omega \Delta t$
 
 \textbf{Discretized}: $\vec{x}_k = \vec{x}_{k - 1} + b_i$ with $i \in \{s, t\}$, respectively
+
+\textbf{Swedish Wheels}: Have 3 DoF, typ. (3 pcs) equally spaced on circle.
+Typ. Param. each: $\alpha, \beta, \gamma$ ($z$, $x$, $y$ axes, oriented along $x$, $z$ up)
+
+\textbf{Wheel rot speed from movement} Typ. comp: $J \cdot \mat{R}(\theta) \cdot \vec{x} = \dot{\varphi}$,
+with $\mat{R}(\theta) \cdot \vec{x}$ transform from base frame to robot frame.
+% TODO: What's the second Jacobian from?? (See 2017 exam, question B.4)
