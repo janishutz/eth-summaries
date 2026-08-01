@@ -6,10 +6,12 @@
 
 \bi{Wheel constraints} $v_i = \omega_i r_i$ ($r_i$ constraints)
 \begin{itemize}
-    \item \textit{Driving straight} all $\vec{v}$ equal
+    \item \textit{Driving straight} all $\vec{v}$ equal (ICR: R.Cent.)
     \item \textit{Turning} Wheel axis must intersect the \bi{Instant Centre of Rotation} (ICR) of vehicle,
           speeds: $v_i \div R_i = \Omega$ ($R_i$ = dist. wheel-ICR; $\Omega$: vehicle rotation rate (around ICR))
 \end{itemize}
+To compute ICR, use $v_i \div R_i = \Omega$ and similarity.
+
 Below: $\alpha$, $l$ pos in frame, $\beta$ rot at that pos ($z$-ax).
 To compute $\vec{c}$ in $\vec{c} \cdot {_B}\vec{v}_{WB} = \omega$
 (For multiple wheels, construct mat. from this)

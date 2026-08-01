@@ -34,7 +34,7 @@ Extension to RRT* to make path better:
         \State $x_{\min} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}
         \State $c_{\min} \gets$ \Call{cost}{$x_n$} + \Call{edgeCost}{$x_n, x_f$}
         \For{each $x_{\text{near}}$ in $X_\text{near}$}
-            \If{\Call{edgeCollisionFree}{$x_\text{near}, x_f$} and \Call{cost}{$x_\text{near}$} + \Call{edgeCost}{$x_\text{near}, x_f$} $< c_{\min}$}
+            \If{\Call{edgeCollisionFree}{$x_\text{near}, x_f$} and\\ \Call{cost}{$x_\text{near}$} + \Call{edgeCost}{$x_\text{near}, x_f$} $< c_{\min}$}
                 \State \Call{insertEdge}{\texttt{Graph}, $x_f, x_{\text{near}}$}
                 \State $x_\text{parent} \gets$ \Call{parent}{\texttt{Graph}, $x_{\text{near}}$}
                 \State \Call{removeEdge}{\texttt{Graph}, $x_\text{parent}, x_{\text{near}}$}
