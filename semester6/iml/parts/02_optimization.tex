@@ -1,0 +1,54 @@
+\textbf{Problem}: Finding $\hat{w}$ for $l$ with no closed form solution.\\
+\subtext{or if the closed form solution is too expensive to compute.}
+
+\textbf{Solution}: Iterative optimization methods.
+
+\begin{algorithm}
+    \caption{Iterative Optimization}
+    $t \gets 0$ \;
+    $w^{(0)} \gets w_\text{initial}$ \;
+    \SetKwRepeat{Do}{repeat}{until}
+        \Do{\text{Stopping Criterion}}{ 
+            $w^{(t+1)} \gets w^{(t)} + \tilde{\eta}_t v^{(t)}$ \;
+            $t \gets t+1$
+    }
+    \textbf{return} $w^{(t)}$
+\end{algorithm}
+
+{\footnotesize
+    \notation The update takes the form $\tilde{\eta}_t v^{(t)}$. $v^{(t)}$ is the update direction, $\tilde{\eta}_t$ is the step size.
+}
+
+\subsection{Gradient Descent}
+
+Intuitively: go in the direction $v^{(t)}$ where $L$ decreases most.
+
+\lemma $-\nabla L(w^{(t)})$ is the direction of steepest descent.\\
+\subtext{Assuming diff.-able $L$. Provable via Taylor expansion \& Cauchy-Schwarz.}
+
+\definition \textbf{Gradient Descent Update Step}
+\begin{align*}
+        w^{(t+1)} &= w^{(t)} - \tilde{\eta}_t\cdot \frac{\nabla L(w^{(t)})}{\Vert \nabla L(w^{(t)}) \Vert}   & (\text{Normalized}) \\
+        w^{(t+1)} &= w^{(t)} - \eta\cdot \nabla L(w^{(t)})                                         & (\text{Unnormalized})
+\end{align*}
+
+Unnormalized gradient descent takes advantage of $\Vert \nabla L(w^{(t)}) \Vert$:
+{\small
+    \begin{itemize}
+        \item $\Vert \nabla L(w^{(t)}) \Vert$ small $\mapsto$ close to stat. point $\mapsto$ small steps.
+        \item $\Vert \nabla L(w^{(t)}) \Vert$ large $\mapsto$ far from stat. point $\mapsto$ large steps.  
+    \end{itemize}
+}
+Stopping criterion uses the same idea: $\Vert w^{t} - w^{t+1} \Vert < \epsilon$ or equivalently $\Vert \nabla L(w^{(t)}) \Vert < \epsilon$.
+
+\begin{algorithm}
+    \caption{Gradient Descent}
+    $t \gets 0$ \;
+    $w^{(0)} \gets w_\text{initial}$ \;
+    \SetKwRepeat{Do}{repeat}{until}
+        \Do{\text{$\Vert w^{t} - w^{t+1} \Vert < \epsilon$}}{ 
+            $w^{(t+1)} \gets w^{(t)} - \eta \nabla L(w^{(t)})$ \;
+            $t \gets t+1$
+    }
+    \textbf{return} $w^{(t)}$
+\end{algorithm}
