@@ -1,6 +1,7 @@
 \subsection{Kalman Filter (KF)}
-Bayes Filter for Gauss. dist of R.V. \& linear meas. model.
-Initial state $\vec{x}_0 \sim \cN(\hat{\vec{x}}, \mat{P}_0)$, $\mat{P}_0$ previous covariance;
+Bayes Filter for Gauss. dist of R.V. \& \hl{linear meas. model.}
+
+Initial state $\vec{x}_0 \sim \cN(\hat{\vec{x}}, \mat{P}_0)$, $\mat{P}_0$ previous covariance
 
 \bi{Prediction} With linear state transition model ($\vec{u}_k$ odometry, $\vec{w}_k$ noise (covariance $\mat{Q}_k$)):\\
 $\vec{x}_k = \mat{F}\vec{x}_{k - 1} + \mat{G}\vec{u}_k + \mat{L}\vec{w}_k$ with $\vec{w}_k \sim \cN(\vec{0}, \mat{Q}_k)$:
