@@ -1,9 +1,25 @@
 \subsection{Non-Linear Least Squares}
 Find $\vec{x}^* = \text{argmax}\; \P(\vec{x} | \vec{z}) = \argmin{}(-\log(\P(\vec{x}|\vec{z})))$
 
-\bi{Gauss-Newton} % TODO: Do we really need these? If so, use from NumCS (much simpler notation)
+\bi{Gauss-Newton} Need func $F$ and its Jacobian (or derivative) $D$
+\rmvspace
 % TODO: Error propagation laws
+\begin{minted}[
+    breaklines,
+    breakindentnchars=2,
+]{python}
+def gauss_newton(x: np.ndarray, F, DF, tol=1e-6):
+    s = np.linalg.lstsq(DF(x), F(x))[0] # least sq.
+    x = x-s; k = 1
+    while np.linalg.norm(s) > tol * np.linalg.norm(x):
+        s = np.linalg.lstsq(DF(x), F(x))[0]
+        x = x-s; k += 1 # k opt for max iter
+    return x, k
+\end{minted}
+\rmvspace
 
 \bi{Levenberg-Marquardt}
+Minimize $||F(x^{(k)}) + DF(x^{(k)})|| + \lambda||s||$.
+% TODO: Do we need these?
 
 \bi{Local Param.}
