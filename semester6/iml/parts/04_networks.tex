@@ -501,6 +501,35 @@ $$
 $$
 }
 
+\newpage
+
+\subsection{Network sizes}
+
+
+
+{\footnotesize
+    \textbf{Example}: CNN vs FCNN (MLP) Parameter counts.
+
+    We can model an RGB Image as $\mathbf{I}\in\R^{1920\times1080\times3}$ where
+    $(\mathbf{I}_{i,j,1},\mathbf{I}_{i,j,2},\mathbf{I}_{i,j,3})$ are the RGB values of pixel $(i,j)$. We use a CNN \& FCNN to analyze.
+
+    For an FCNN $N$ with $1$ hidden layer with $h$ nodes, and $o$ output nodes:
+    $$
+        \text{size}(N) = \underbrace{(1920 \cdot 1080 \cdot h)}_{\text{All-to-All}} + \underbrace{(h \cdot o)}_\text{Output} + \underbrace{(h + o)}_\text{Bias}
+    $$
+    For a CNN $N'$ with an $n\times n$ Filter, padding $p$ and stride $s$:
+    $$
+        \text{size}(N') = \biggl(\frac{1920 + 2\cdot p - n}{s}+1\biggr)\cdot\biggl(\frac{1080+2\cdot p - n}{s}+1\biggr)
+    $$
+    The advantage of CNNs becomes clear when plugging in values, e.g.
+    $$
+        N:\ h=256, o=10 \qquad N':\ n=4, p=2, s=2 
+    $$
+    $$
+    \text{size}(N) = 1'592'527'626 \qquad \text{size}(N') = 519'901
+    $$
+}
+
 \subsubsection{Multidimensional Convolution}
 \textbf{TODO} add explanation
 

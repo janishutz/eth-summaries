@@ -18,6 +18,8 @@ There are many use-cases:
 The goal here is to group inputs into clusters, based on some definiton of similarity, e.g. $l_2$ distance for $\mathcal{D} \subset \R^2$.\\
 \subtext{This can be seen as the unsupervised analogy to classification}
 
+\subsubsection{Basic Methods}
+
 \method \textbf{Hierarchical Clustering}
 
 A simple method, using the "similarity" measure directly.
@@ -58,11 +60,14 @@ $$
 $$
 \subtext{(minimize the sum of sq. distances between points \& their centers)}
 
-So we are searching:
+{\footnotesize
+    \remark $\Vert\cdot\Vert_2$ corresponds to the \textit{mean}. $\Vert\cdot\Vert_1$ would use the \textit{median}.
+}
+
+So we are searching: (non-convex \& NP-hard)
 $$
     \underset{\mu}{\text{arg min}} \Bigl( \hat{R}(\mu) \Bigr) \qquad {\color{gray}\footnotesize \text{(optimal $k$-means cluster)}}
 $$
-\remark This is non-convex \& NP-hard.
 
 \method \textbf{Lloyd's Heuristic}
 

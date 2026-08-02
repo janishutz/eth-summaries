@@ -58,4 +58,18 @@ $$
 
 \newpage
 
-div % s.d. Statistik auf einer Seite bleibt
+{\footnotesize
+    \textbf{Beispiel}: Zentraler Grenzwertsatz als Teststatistik
+
+    $X_1,\ldots,X_{72} \overset{\text{i.i.d.}}{\sim} \text{Ber}(\theta)$, $S_{72} = \sum_{i=1}^{72} X_i$. Stichprobe $\bar{s}_{72}=32$.
+    $$
+        H_0: \theta = \frac{1}{3} \qquad H_A: \theta > \frac{1}{3}
+    $$
+    Mit ZGS, wobei wir $\theta = \frac{1}{3}$ ($H_0$) nutzen, erhalten wir $T$:
+    $$
+        T \overset{\text{ZGS}}{=} \frac{S_n - n\mu}{\sigma\sqrt{n}} = \frac{S_n - n\E[X_i]}{\sqrt{\V[X_i]n}} \overset{\text{Ber.}}{=} \frac{S_n - 72\cdot\frac{1}{3}}{\sqrt{\frac{2}{9}\cdot 72}} = \boxed{\frac{S_n-24}{4}}
+    $$
+    Der Vorteil hiervon ist, der ZGS garantiert: $T \sim \mathcal{N}(n\mu, n\sigma^2)$:
+
+    Realisierungen $T(\omega) = T(\bar{s}_n) = T(32) = 2$ bilden mit $z_{1-\alpha}$: $K = (z_{1-\alpha},\infty)$ und können direkt ausgewertet werden, z.B. für $p$-Wert.
+}
