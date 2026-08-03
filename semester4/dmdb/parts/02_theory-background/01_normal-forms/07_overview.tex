@@ -1,4 +1,5 @@
 \subsubsection{Overview}
+\label{sec:nf-overview}
 This overview is adapted from \hlhref{https://en.wikipedia.org/wiki/Database_normalization\#Normal_forms}{this Wikipedia article}.
 All constraint definitions in {\scriptsize smaller font} are informal. Note that \textit{prime attributes} are the attributes that make up a candidate key,
 also known as \textit{key attributes}
@@ -17,3 +18,6 @@ also known as \textit{key attributes}
                                         & \cross     & \cross     & \cross     & \cross     & \checkmark \\
 \end{tables}
 This means that a relation in BNCF is free of redundancies based on functional dependencies.
+
+Note that the above table needs to be read vertically, i.e. for UNF only Unique Rows needs to be satisfied,
+thus it doesn't mean that if we have Scalar Columns that this isn't allowed in UNF. In fact, it is allowed, as it is a more strict property.
