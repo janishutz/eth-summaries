@@ -1,11 +1,10 @@
 \subsection{Bootstrapping}
 
-\bi{PnP Problem} {\scriptsize Persp. $n$-P.}
+\bi{PnP Problem} {\scriptsize Perspective $n$-Point}
 Find sol. for camera pose \textit{directly}
 
 \bi{RANSAC} {\scriptsize RANdom SAmpling Consensus} for find. outliers \& correct
-% TODO: Do we need to know this algorithm / be able to implement it?
-% -> likely not
+Also great for finding an initial guess for pose. (due to robustness)
 
 \bi{Stereo Triang.} Given two rays (known poses for points in 2D).
 Find good point in 3D. Fast sol: \bi{Midpoint Method}:

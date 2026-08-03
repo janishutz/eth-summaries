@@ -1,5 +1,7 @@
+\newpage
 \subsubsection{Rapidly-Exploring Random Tree (RRT)}
 \begin{algorithm}
+    \small
     \begin{algorithmic}[1]
         \Procedure{RRT}{\texttt{start, goal}}
             \State \Call{insertVertex}{\texttt{start, Graph}}
@@ -28,6 +30,7 @@
 Returns a collision-free path as graph. Need nearest neighbour search.
 Extension to RRT* to make path better:
 \begin{algorithm}
+    \small
     \begin{algorithmic}[1]
         \State $X_{\text{near}} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}
         \State $x_{\min} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}

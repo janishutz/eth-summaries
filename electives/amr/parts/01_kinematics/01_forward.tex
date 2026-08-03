@@ -9,9 +9,9 @@ $ \begin{bmatrix}
     \end{bmatrix}$\\
 }
 Workspace $W$: $\theta_1, \theta_2 \in [-\pi, \pi]$.
-Similar for $n$R sys (more angles, more lengths).
-For 2D move in 3D space, last dim is sum of angles (or equiv).
-The Jacobian of this $nD$ position is typically computed ($nD$ pos is a vec).
+\bi{Computation} Similar for $n$R sys (more angles, more lengths).
+Last dim is typically sum of angles (or equiv).
+\bi{For velocity kinematics}: Comp. Jacobian of this $nD$ position ($nD$ pos is vec). ${_W}\vec{t}_{WE} \mat{J}(\vec{\theta}) \cdot \vec{\dot{\theta}}$
 \bi{Jacobian}: see \ref{sec:ms-lin}.
 
 \shortdefinition[Singularity] Loss of deg of Freedom $\det(\mat{J}(\vec{\theta})) = 0$

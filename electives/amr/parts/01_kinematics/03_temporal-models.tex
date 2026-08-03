@@ -1,18 +1,45 @@
 \subsection{Temporal Models}
-Model \bi{robot dyn} as \bi{Cont-time n.-lin. system of ODE} $\dot{\vec{x}} = \vec{f}_C(\vec{x}(t), \vec{u}(t), \vec{w}(t))$, with meas. $\vec{z}(t) = \vec{h}(\vec{x}(t)) + \vec{v}(t)$.\\
-Linearize around $\vec{f}_C(\vec{\overline{x}}, \vec{\overline{y}}) = 0$, at \bi{equilibrium}:\\
-$\delta \vec{\dot{x}}(t) = \vec{f}_C(\vec{\overline{x}}, \vec{\overline{u}}) + \mat{F}_C \delta \vec{x}(t) + \mat{G}_C \delta \vec{u}(t) + \mat{L}_C \vec{w}(t)$\\
-$\delta \vec{z}(t) = \mat{H} \delta \vec{x}(t) + \vec{v}(t)$.
-$\mat{H}$ is meas., $\mat{F}_C$ system, $\mat{G}$ input gain, $\vec{w}$ process noise, $\vec{v}$ measurement noise,
-both zero-mean \bi{Gaussian White Noise Process}.
+\label{sec:temporal-models}
+\inlinenotation Linearization typically written as $\delta X$.
 
-To \bi{discretize}, integrate from $t_{k - 1}$ to $t_k$:\\
+Model \bi{robot dyn} as \bi{Cont-time non-lin. system of ODE}:\\
+$\dot{\vec{x}} = \vec{f}_C(\vec{x}(t), \vec{u}(t), \vec{w}(t))$, measurement $\vec{z}(t) = \vec{h}(\vec{x}(t)) + \vec{v}(t)$.
+
+With: $\pardiff{t}\vec{x}(t) = f_C(\vec{x}(t), \vec{u}(t))$ the model for the robot state update and $\vec{h}(\vec{x}(t))$ the model for the measurements (e.g. for IMU)
+
+\vspace{0.5mm}
+\hrule
+\vspace{0.5mm}
+
+\bi{Linearised} at $\vec{f}_C(\vec{\overline{x}}, \vec{\overline{y}}) = 0$, at \bi{equilibrium} {\scriptsize (if $\neq 0$, then add it)}:\\
+$\delta \vec{\dot{x}}(t) = \mat{F}_C \delta \vec{x}(t) + \mat{G}_C \delta \vec{u}(t) + \mat{L}_C \vec{w}(t)$;
+$\delta \vec{z}(t) = \mat{H} \delta \vec{x}(t) + \vec{v}(t)$.
+
+$\mat{F}_C$ system (often a Jac. / Taylor, vars are $x_i$. If no $x$ in $\mat{F}$, then linear),
+$\mat{G}$ input gain (often Jac / Taylor, vars are $u_i$, if no $u_i$, then lin.), $\vec{w}$ process noise, $\mat{H}$ is measurement, $\vec{v}$ measurement noise,
+both zero-mean \bi{Gauss. White Noise Proc.}. $\vec{u}_k$ inputs at time $k$.
+
+% TODO: Taylor approximation
+\vspace{0.5mm}
+\hrule
+\vspace{0.5mm}
+
+
+\bi{Discretized}
 $\vec{x}_k = \vec{f}(\vec{x}_{k - 1}, \vec{u}_k, \vec{w}_k)$;
-$\vec{z}_k = \vec{h}(\vec{x}_k) + \vec{v}_k$,
-\bi{linearised}:\\
-$\delta \vec{x}_k = \vec{f}(\vec{\overline{x}}, \vec{\overline{u}}) + \mat{F} \delta \vec{x}_{k - 1} + \mat{G}_k \delta \vec{u}_k + \mat{L}_k \vec{w}_k$;
+$\vec{z}_k = \vec{h}(\vec{x}_k) + \vec{v}_k$
+
+\bi{Linearised}:
+$\delta \vec{x}_k = \mat{F} \delta \vec{x}_{k - 1} + \mat{G}_k \delta \vec{u}_k + \mat{L}_k \vec{w}_k$;
 $\delta \vec{z}_k = \mat{H}_k \delta \vec{x}_k$
 
+For discretized, iterative integral from $t_{k - 1}$ to $t_k$
+
+Linearization happens typically with one of the below:
+
+\shortdefinition[Euler-Forward] $\vec{x}_k = \vec{x}_{k - 1} + \Delta t \vec{f}_C(\vec{x}_{k - 1}, \vec{u}_{k - 1}, t_{k - 1})$
+
+\newpage
 \shortdefinition[Trapezoidal num. int]
 $\Delta \vec{x}_1 = \Delta t \vec{f}_C (\vec{x}_{k - 1}, \vec{u}_{k - 1}, t_{k - 1})$\\
 $\Delta \vec{x}_2 = \Delta t \vec{f}_C (\vec{x}_{k - 1} + \Delta \vec{x}_1, \vec{u}_{k}, t_{k})$, then:\\

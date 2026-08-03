@@ -3,7 +3,7 @@ Bayes Filter for Gauss. dist of R.V. \& \hl{linear meas. model.}
 
 Initial state $\vec{x}_0 \sim \cN(\hat{\vec{x}}, \mat{P}_0)$, $\mat{P}_0$ previous covariance
 
-\bi{Prediction} With linear state transition model ($\vec{u}_k$ odometry, $\vec{w}_k$ noise (covariance $\mat{Q}_k$)):\\
+\bi{Prediction} With lin. state trans. model ($\vec{u}_k$ wheel spd, $\vec{w}_k$ noise, covariance $\mat{Q}_k$).
 $\vec{x}_k = \mat{F}\vec{x}_{k - 1} + \mat{G}\vec{u}_k + \mat{L}\vec{w}_k$ with $\vec{w}_k \sim \cN(\vec{0}, \mat{Q}_k)$:
 \begin{itemize}
     \item \bi{Mean} $\hat{\vec{x}}_{k | k - 1} = \mat{F} \hat{\vec{x}}_{k - 1} + \mat{G} \vec{u}_k$

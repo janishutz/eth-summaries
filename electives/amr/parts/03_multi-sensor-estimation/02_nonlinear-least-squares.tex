@@ -1,10 +1,11 @@
 \subsection{Non-Linear Least Squares}
 Find $\vec{x}^* = \text{argmax}\; \P(\vec{x} | \vec{z}) = \argmin{}(-\log(\P(\vec{x}|\vec{z})))$
 
-\bi{Gauss-Newton} Need func $F$ and its Jacobian (or derivative) $D$
-\rmvspace
+\bi{Gauss-Newton} Need func $F$ and its Jacobian (or derivative) $DF$
+\rmvspace[0.3]
 % TODO: Error propagation laws
-\begin{minted}[
+{\small
+    \begin{minted}[
     breaklines,
     breakindentnchars=2,
 ]{python}
@@ -13,13 +14,15 @@ def gauss_newton(x: np.ndarray, F, DF, tol=1e-6):
     x = x-s; k = 1
     while np.linalg.norm(s) > tol * np.linalg.norm(x):
         s = np.linalg.lstsq(DF(x), F(x))[0]
-        x = x-s; k += 1 # k opt for max iter
+        x = x-s; k += 1 # k optional for max iter
     return x, k
 \end{minted}
-\rmvspace
+}
+\rmvspace[0.4]
 
 \bi{Levenberg-Marquardt}
-Minimize $||F(x^{(k)}) + DF(x^{(k)})|| + \lambda||s||$.
+Minimize $||F(x^{(k)}) + DF(x^{(k)})||^2 + \lambda||s||^2$,
+with $s = \lambda_k DF(x^{(k)})$, $\lambda_k$ is called the \textit{learning rate}
 % TODO: Do we need these?
 
 \bi{Local Param.}
