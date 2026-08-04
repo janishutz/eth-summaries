@@ -21,8 +21,11 @@ def gauss_newton(x: np.ndarray, F, DF, tol=1e-6):
 \rmvspace[0.4]
 
 \bi{Levenberg-Marquardt}
-Minimize $||F(x^{(k)}) + DF(x^{(k)})||^2 + \lambda||s||^2$,
-with $s = \lambda_k DF(x^{(k)})$, $\lambda_k$ is called the \textit{learning rate}
-% TODO: Do we need these?
+\bi{(1)} Pick start point $\overline{\vec{x}}^0$ and start param $\lambda^0 = \max \text{diag}(\mat{A})$ and $v$ (e.g. $v = 2$).;
+\bi{(2)} Modified GN sys: $\mat{A} + \lambda \text{diag}(\mat{A})) \Delta \vec{x} = \vec{b}$;
+\bi{(3)} Solve for $\Delta \vec{x}$;
+\bi{(4)} Update: $\overline{\vec{x}}^{k + 1} = \overline{\vec{x}}^k + \Delta \vec{x}$ (if cost reduced),
+else: $\overline{\vec{x}}^{k + 1} = \overline{\vec{x}}^k$, $\lambda^{k + 1} = \lambda^k v$, go to step 3;
+\bi{(5)} Check convergence, else go to step 2
 
-\bi{Local Param.}
+\bi{Robust Cost Functions} Account for outliers, by mod. err. terms
