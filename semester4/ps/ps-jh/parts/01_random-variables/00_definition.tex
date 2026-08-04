@@ -1,12 +1,13 @@
 % P22
 \subsection{Abstrakte Definition}
 \shortdefinition[Zufallsvariable] kurz Z.V, ist $\cX : \Omega \rightarrow \R$, sodass $\forall a \in \R$ gilt:
-$f = \{ \omega \in \Omega \divider \cX(\omega) \leq a \} \in \cF$ (notwendinge Bedingung für Wohldefiniertheit von $\P[f]$)
+$f = \{ \omega \in \Omega \divider \cX(\omega) \leq a \} \in \cF$ (notwendige Bedingung für Wohldefiniertheit von $\P[f]$)
 
 \inlinenotation Ohne $\omega$: $\{ X \leq a \} = \{ \omega \in \Omega \divider X(\omega) \leq a \}$, etc
 
 \shortdefinition[Indikatorfunk.] $A \in \cF$, $\bm{1_A(\omega)} = \begin{cases}
-    0 & \text{ wenn } \omega \notin A \\
-    1 & \text{ wenn } \omega \in A
-\end{cases}$
+        0 & \text{ wenn } \omega \notin A \\
+        1 & \text{ wenn } \omega \in A
+    \end{cases}$
 Das $A$ kann bspw $\cX \leq a$ sein.
+Für $A \cap B$, $\E[\bm{1}_A \bm{1}_B] = 0$ weil $A$ und $B$ nie gleichzeitig eintreten

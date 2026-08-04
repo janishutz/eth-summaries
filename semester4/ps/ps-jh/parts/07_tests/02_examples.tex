@@ -1,7 +1,4 @@
 \subsection{Beispiele}
-\coloredbox{red}{REWRITE}{
-    This section is undergoing a rewrite, to be more on-point. The previous section may also see some changes as a result.
-}
 \howto{Tests}{
     Was zu tun / erwähnen ist jeweils:
     \begin{enumerate}
@@ -9,14 +6,17 @@
               Für $\cX_k \sim \cN(\mu, \sigma^2)$, ist $\vartheta = (\mu, \sigma^2)$, wenn beide unbekannt.
         \item Hypothesen: $H_0: \vartheta = \vartheta_0 =$ Vergleichswert, $H_A: \vartheta < \vartheta_0$ (oder grösser, $\neq$, etc). \hl{Umgekehrt, s. links}
         \item Teststatistik: Basierend auf Verteilung von $\cX_k$ und Bekanntheit von Parametern
-        \item Verteilung von $T$: Oft $t_{n - 1}$, siehe \ref{sec:estimators-properties} unten
+              (bspw. mit Theoremen von \ref{sec:dist-normal}, wie Normalisierung,
+              und bswp. $\sum_{i = 1}^n \cX_i \sim \cN\left( \sum_{i = 1}^{n} \mu_i, \sum_{i = 1}^{n} \sigma_i^2 \right)$)
+        \item Verteilung von $T$: Oft $t_{n - 1}$, siehe \ref{sec:estimators-properties} unten, oder bei entsprechendem Test
         \item Verwerfungsbereich: Nach Anleitung unten
         \item Wert der $T$: $T(\omega)$ berechnen, $\omega$ ist beobachteter Wert (bspw. Durchschnitt $\overline{\cX}_n$)
         \item Testentscheid: Basierend auf Resultat von vorherigem und $K$ entscheiden.
     \end{enumerate}
 }
-\bi{Verwerfungsbereich} $K_l = (c_>, \8)$ (links), $K_r = (-\8, c_<)$ (rechts), $K_b = (-\8, c_{\neq}) \cup (c_{\neq}, \8)$ (beidseitig)
+\bi{Verwerfungsbereich} $K_l = (c_>, \8)$ (links), $K_r = (-\8, c_<)$ (rechts), $K_b = (-\8, -c_{\neq}) \cup (c_{\neq}, \8)$ (beidseitig)
 
+\newpage
 \shortexample[Gauss-Test] Voraussetz.:
 \bi{(1)} $\cX_i$ i.i.d. $\sim \cN(\vartheta, \sigma^2)$ unter $\P_\vartheta$
 \bi{(2)} $\sigma^2$ bekannt.

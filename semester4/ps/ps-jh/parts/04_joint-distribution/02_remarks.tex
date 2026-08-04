@@ -11,6 +11,12 @@
 
 Die Randdichten sind dann die Dichten von $\cX$, etc.; Für weitere Berechnungen verwendbar, wie bspw. $\E[\cX + \cY]$.
 
+\howto{$cond$ auflösen}{
+    In dem Integral sollte jeweils der äussere Integral der sein, für welchen wir volle Information haben.
+    Zudem, bspw., für $0 \leq x \leq y^2 \leq 1$, wissen wir zwar für $x$ und $y$ die Grenzen, wählen aber $x$ als inneren Integral,
+    weil $\int_0^{y^2}$ sich schöner auflöst
+}
+
 \howto{Gemeinsame Dichten finden}{
     Nach Definition muss $f$ die Ableitung von $F$ sein.
     Oder umgekehrt, $\int f \dx \ldots$ sollte $F$ ergeben. Beispiel:
@@ -20,9 +26,20 @@ Die Randdichten sind dann die Dichten von $\cX$, etc.; Für weitere Berechnungen
         \end{cases}$
 }
 
-\howto{Verteilungen finden}{
+\howto{Verteilungen / Dichten finden}{
     Wir suchen $\P[\cZ \leq a]$ (ausser für gem. V, dann s. oben).
     Dann überlegen, wie $\cZ \leq a$ erfüllt werden kann. Beispiel:
     $Z = \min(\cX, \cY)$, dann gesucht: $\P[\cX \leq a \cup \cY \leq a]$ oder $1 - \P[\cZ > a]$.
-    Schliesslich $F_Z$ aufstellen mit Bedingungen.
+    Schliesslich $F_Z$ aufstellen mit Bedingungen oder Indikatorvariablen.
+
+    Zudem kann Verteilung der einzelnen Variablen (und v.a. Unabhängigkeit) nützlich werden.
+
+    Falls Dichte, dann Verteilung ableiten.
+}
+
+\howto{Multi-Variable Wahrscheinlichkeiten}{
+    \bi{Für W. wie} $\P[\cX \leq \cY^3]$ übersetzen wir dies in Integral $\int_B f(x, y) \dx x \dx y$ mit $B = \{(x, y) \divider x \leq y^3 \}$, dann für $y \in [0, 1]$ gilt:
+    $\int_0^1 \int_{0}^{y^3} f(x, y) \dx x \dx y$, wobei hier die untere Grenze durch gegebenes $x \geq 0$ entsteht.
+
+    \bi{Für W. im Exponent}, dies beschreibt typ. Repetitionen, also über die Anzahl und W. nachdenken.
 }
