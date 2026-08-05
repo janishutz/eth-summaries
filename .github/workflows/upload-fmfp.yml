@@ -13,5 +13,5 @@ jobs:
         uses: ./.github/actions/upload-to-comsol
         with:
           access_token: ${{ secrets.TOKEN_FMFP }}
-          path: 'semester4/fmfp/formal-methods-functional-programming-summary.pdf'
+          path: './semester4/fmfp/formal-methods-functional-programming-summary.pdf'
           url: https://exams.vis.ethz.ch/api/document/jahutz/summary-tips-and-tricks-fs2026/files/820/update/
