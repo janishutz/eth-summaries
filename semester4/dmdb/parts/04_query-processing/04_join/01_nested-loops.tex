@@ -15,3 +15,5 @@
 
 The cost here is \cost{$P_R + P_R \cdot P_S$ I/Os}, where $P_X$ is the number of pages in the relation $X$.
 Furthermore, the DBMS should put the smaller relation on the outer loop to improve performance.
+
+For multiple joins, we want to start with the smallest table (on the inside) and move up to larger ones, processing the largest one \textit{last} (such that it is the outer loop)

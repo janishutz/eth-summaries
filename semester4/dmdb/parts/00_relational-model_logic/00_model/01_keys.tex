@@ -1,6 +1,7 @@
 \subsubsection{Keys}
 \label{sec:relations-keys}
-\inlinedefinition[Candidate Key] The minimal set of fields that identify each tuple uniquely (non-duplicate attributes (fields) typically)
+\inlinedefinition[Candidate Key] The \bi{minimal} set of fields that identify each tuple uniquely (non-duplicate attributes (fields) typically).
+In other words, it is the minimal set such that for its closure $F+$ and the relation $\cR$ that it belongs to, $\forall y \in F+ \implies y \in \cR$.
 
 \inlinedefinition[Primary Key] A single candidate key, i.e. just a single field.
 We mark the primary key using \underline{underlining} in visual \glspl{schema}.

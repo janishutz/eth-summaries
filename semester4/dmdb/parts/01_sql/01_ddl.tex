@@ -27,7 +27,7 @@ Since the primary key must be unique for each entry, it may be useful to configu
 
 \inputcodewithfilename{sql}{}{code/sql/ddl/create.sql}
 
-Note that PostgreSQL doesn't support \texttt{AUTO\_INCREMENT} constraints, instead use the \texttt{SERIAL} (or \texttt{BIGSERIAL}) type
+Note that PostgreSQL doesn't support \texttt{AUTO\_INCREMENT} constraints, instead use the \texttt{SERIAL} (or \texttt{BIGSERIAL}) type.
 
 
 % TODO: Make sure all the sql statements actually execute in pgsql
@@ -54,17 +54,23 @@ Instead of a \texttt{ADD COLUMN} or \texttt{DROP COLUMN}, we can also use \textt
     \item \texttt{PRIMARY KEY}: Sets this column as the primary key. \texttt{NOT NULL} and \texttt{UNIQUE} is set on it implicitly.
           Contrary to common intuition, it can be set on multiple columns.
     \item \texttt{CHECK c}: Check that the values fulfil a condition.
-          This condition has the same syntax as for the \texttt{WHERE} clause (see \ref{sec:sql-basic-ops})
+          This condition \texttt{c} has the same syntax as for the \texttt{WHERE} clause (see \ref{sec:sql-basic-ops})
     \item \texttt{REFERENCES table}: A Foreign Key, used to refer to another tuple from a different relation.
           It is typically referencing the primary key of the other table.
 \end{itemize}
-For \texttt{REFERENCES}, there are many options for maintenance, which can be set on creating a reference:
+For \texttt{REFERENCES}, there are many options for maintenance, which can be set on creating a reference, using \texttt{ON UPDATE} and \texttt{ON DELETE}:
 \begin{itemize}
     \item \bi{Cascade}: Propagate \texttt{UPDATE} and \texttt{DELETE}
     \item \bi{Restrict}: Prevent deletion of the primary key before the change, causes error
     \item \bi{No Action}: Prevent modifications after attempting change, causes error
-    \item \bi{Set default, Set Default}: Set references to \texttt{NULL} or default value
+    \item \bi{Set default / Set null}: Set references to \texttt{NULL} or default value
 \end{itemize}
+The default for \texttt{ON DELETE} is \texttt{NO ACTION}.
 
 \inlineexample
 \mint{sql}|CREATE TABLE tab (id integer REFERENCES OtherTable ON DELETE cascade ON UPDATE cascade)|
+
+\inlineintuition For a deletion of a row with \texttt{NO ACTION} set (the default), if there exist any rows of tables with a Foreign key on this row,
+where the Foreign Key is equal to the to be delted primary key, an error is thrown.
+If \texttt{RESTRICT} is set, the error happens a earlier, as the check is performed \textit{before} the deletion is attempted.
+This has the downside of being possibly a bit slower, if large numbers of unreferenced rows are deleted.

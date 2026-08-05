@@ -10,6 +10,9 @@ There are some systems that allow storing the data directly on the leaves.
 
 Some systems create a B+ tree index by default for all tables and index the key. If there is no key, the engine assigns random keys and indexes them.
 
+The height of a B+ Tree is given by $1 + \ceil{\log_K(P)}$, with $K$ the number of keys per inner node and $P$ the number of pages in the relation.
+This comes from typical logarithmic height, plus the leaf node (or the root node, if you like).
+
 
 \paragraph{Clustered Indexes}
 An index orders the table by the attribute it is indexing, but the tuples in the table might not be ordered.
