@@ -36,6 +36,14 @@ if [[ $usesubmodule != 'n' ]]; then
     createFiles $(pwd)/latex-helpers
 else
     read -e -p "Where are the helper files located (absolute path to folder only, tab-completion enabled)? " helperpath
-    createFiles $helperpath
-    echo "Helpers set up. You may experience issues if you have not entered an absolute path. If so, simply rerun this script to regenerate the files!"
+
+    if [[ ${dir:0:1} == '/' ]]; then
+        createFiles $helperpath
+    else
+        echo "Note: You did not enter an absolute path, it was expanded automatically"
+        createFiles $(readlink -f $(pwd)/$helperpath)
+    fi
+    echo "
+    => If you entered also the file name, rerun this script, the compile will fail in that case.
+    "
 fi
