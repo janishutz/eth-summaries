@@ -1,0 +1,3 @@
+[submodule "latex-helpers"]
+	path = latex-helpers
+	url = https://git.janishutz.com/janishutz/latex
