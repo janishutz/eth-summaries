@@ -13,5 +13,5 @@ jobs:
         uses: ./.github/actions/upload-to-comsol
         with:
           access_token: ${{ secrets.TOKEN_DMDB }}
-          path: './semester4/dmdb/data-modelling-databases-summary.pdf'
+          path: ./semester4/dmdb/data-modelling-databases-summary.pdf
           url: https://exams.vis.ethz.ch/api/document/jahutz/summary-fs2026_0/files/821/update/
