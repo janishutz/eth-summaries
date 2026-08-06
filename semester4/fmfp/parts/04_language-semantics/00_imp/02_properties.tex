@@ -43,7 +43,7 @@ For Boolean Expressions
 And finally for Statements:
 \begin{align*}
     FV(\texttt{skip})                                                                  & = \varnothing                     \\
-    FV(x := e)                                                                         & = \{ x \} \cup FV(s_2)            \\
+    FV(x := e)                                                                         & = \{ x \} \cup FV(e)              \\
     FV(s_1; s_2)                                                                       & = FV(s_1) \cup FV(s_2)            \\
     FV(\texttt{if}\; b\; \texttt{then} \; s_1 \; \texttt{else} \; s_2 \; \texttt{end}) & = FV(b) \cup FV(s_1) \cup FV(s_2) \\
     FV(\texttt{while}\; b\; \texttt{do} \; s \; \texttt{end})                          & = FV(b) \cup FV(s)
