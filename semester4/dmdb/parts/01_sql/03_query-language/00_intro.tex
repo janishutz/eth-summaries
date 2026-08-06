@@ -2,8 +2,9 @@
 The basic structure of a \sql\ statement is \texttt{SELECT I FROM T WHERE C},
 which corresponds to $\Pi_{\texttt{I}}(\sigma_{\texttt{C}} \texttt{T})$.
 
-We can set \texttt{I = *} if we want to return all columns for a table.
-To rename, we can set \texttt{I = Column as Name, Column2 as Name2}, etc
+We can set \texttt{I = *} if we want to return all columns for a table, or we can even set \texttt{I = A.*}, for a table \texttt{A} in \texttt{T} called \texttt{A},
+i.e. with e.g. \texttt{T = Table A}.
+To rename, we can set \texttt{I = Column AS Name, Column2 AS Name2}, etc
 
 \inlinetheorem Every SPJR \acrshort{ra} expression can be written in \texttt{SELECT ... FROM ... WHERE ...} form:
 \begin{tables}{lll}{Operation   & Notation                   & SQL}
@@ -36,3 +37,6 @@ To compute time delta, we can use \texttt{DATEDIFF('interval', DateOne, DateTwo)
 To get just the year from an existing date object (or string), use \texttt{YEAR}. The result is an integer and thus you can use comparison operations with numbers.
 
 The current date, time, year, etc is provided using \texttt{current\_date} (etc).
+
+There are also conditional statements, namely \texttt{CASE WHEN condition1 THEN result1 WHEN condition2 THEN result2 ELSE else END}, or of course, more conditions.
+This can even be used inside aggregations, etc!

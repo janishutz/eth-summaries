@@ -1,6 +1,6 @@
 \subsubsection{Merge Sort}
 When we sort each page on load into memory, we then have to merge all pages together, or more precisely, combine elements into pages in correct order.
-For that, we keep pointers to each pair of frames, then we first take first element of either the first or second frame, depending on which one comes first in the order,
+For that, we keep pointers to each pair of frames, then we first take the first element of either the first or second frame, depending on which one comes first in the order,
 and copy it into the empty frame. We apply the same again to fill up the empty frame (to a threshold or fully). When the frame is full, we create a second one and link it.
 
 We do this for all pairs, then apply the same procedure to each sorted frame group, repeating this until we have a unified, sorted set of frames.

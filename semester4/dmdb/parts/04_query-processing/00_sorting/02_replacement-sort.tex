@@ -10,7 +10,7 @@ It works as follows:
             \State Read $B - 1$ pages of relation $R$, store in a heap (priority queue)
             \For{every page}
                 \If{Top of heap is smaller than the end of the sorted run}
-                    \State Continue with next iteration
+                    \State Commit it to the run and continue with next iteration
                 \ElsIf{No element is left in memory that is larger than last element of current sorted run}
                     \State create new run
                 \Else
