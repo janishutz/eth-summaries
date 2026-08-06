@@ -17,6 +17,8 @@ Of course, if \texttt{x} is decreasing, it itself can become the variant, as it 
 Proof outlines work by providing post and pre-condition for each sub-statement in a statement.
 If we need to rewrite a statement (e.g. before the first loop body to change to our loop invariant from the overall precondition),
 we use the $\models$ symbol.
+Note that we want to describe each variable and for future assignments, we want to substitute all values with that assignments written out before
+they actually happen, for instance if down the line, in the same scope, we have \texttt{n := n - 1}, we substitute all occurrences of $n$ with $n - 1$ and update things accordingly.
 
 There are also tasks in which we need to find errors in rule applications. This works ``simply'' by checking that the rules are applied correctly
 and semantic entailment and general transformation rules hold for the transformations.
