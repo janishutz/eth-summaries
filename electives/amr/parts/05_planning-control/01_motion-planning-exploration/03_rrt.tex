@@ -1,3 +1,4 @@
+\newpage
 \subsubsection{Rapidly-Exploring Random Tree (RRT)}
 \begin{algorithm}
     \small
@@ -45,3 +46,4 @@ Extension to RRT* to make path better:
 \end{algorithm}
 
 \bi{Informed RRT*} extension: Once conn. betw. start and goal found, restrict sampling to (hyper)ellipsoid.
+$b = 0.5 \sqr{d^2 - ||x_s - x_g||^2}$.

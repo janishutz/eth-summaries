@@ -26,3 +26,6 @@ Then apply Laplacian Operator $\nabla_\text{norm}^2 L = t\left( \frac{\partial^2
 \bi{Diff. of Gaussians} (DoG): $\Delta L = L(x, y, t) - L(x, y, kt)$
 
 \bi{SIFT Detector} \bi{(1)} Subsample + Blur \bi{(2)} DoG on each res. image \bi{(3)} Keypoints extrema in DoG pyramid
+
+\bi{BRISK} / binary descriptors: Compare pixel intensities at fixed sampling pattern around keypoint. Match by Hamming distance (very fast),
+\bi{SuperPoint}: CNN learns detector + descriptor

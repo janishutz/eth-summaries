@@ -1,4 +1,5 @@
 \subsection{Proportional-Integral-Differential (PID)}
-$u(t) = k_p e(t) + k_i \int_{t_0}^{t} e(\tau) \dx \tau + k_d \frac{\dx e(t)}{\dx t}$, where params $k_p$ (curr), $k_i$ (long-term), $k_d$ (trend) reduce corresp. errors
+$u(t) = K_p e(t) + K_i \int_{t_0}^{t} e(\tau) \dx \tau + K_d \frac{\dx e(t)}{\dx t}$, where params $K_p$ (curr), $K_i$ (long-term), $K_d$ (trend) reduce corresp. errors,
+with $e = r - y$
 
 \bi{Drone Control} ${_B}\vec{F}$ and ${_B}\vec{M}$ as in sect. \ref{sec:rigid-body-dynamics}, use $\vec{u}' = {_B}\vec{M}$.

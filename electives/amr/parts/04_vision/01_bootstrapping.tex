@@ -3,8 +3,11 @@
 \bi{PnP Problem} {\scriptsize Perspective $n$-Point}
 Find sol. for camera pose \textit{directly}
 
-\bi{RANSAC} {\scriptsize RANdom SAmpling Consensus} for find. outliers \& correct
+\bi{RANSAC} {\scriptsize RANdom SAmpling Consensus} Model estimation, for find. outliers \& correct.
 Also great for finding an initial guess for pose. (due to robustness)
+For $N$ iteration: sample min set, fit model, count inliers (reprojection error $<$ threshold $t$), keep best, optionally refit on inliers.
+More outliers $\Rightarrow$ more iterations.
+
 
 \bi{Stereo Triang.} Given two rays (known poses for points in 2D).
 Find good point in 3D. Fast sol: \bi{Midpoint Method}:

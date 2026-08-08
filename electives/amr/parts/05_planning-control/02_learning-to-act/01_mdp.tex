@@ -16,16 +16,16 @@ Repeat until conv. to $V^*$ ($\tco{|\cU||\cX|^2}$ per iter). Optimal policy:
     \vec{\pi}^*(\vec{x}) = \text{argmax}_{\vec{u}} Q(\vec{x}, \vec{u})
 \]
 
-Using policy iter:
+Using \bi{policy iter}:
 \begin{algorithm}
     \begin{algorithmic}[1]
         \State Choose $\vec{\pi}_0(\vec{x})$
         \While{\textit{policy} has not converged}
-        \Repeat $V_{i + 1}^{\vec{\pi}_j}(\vec{x}) = Q(\vec{x}, \vec{\pi}(\vec{x}))$ $\forall \vec{x}$ and \textit{fixed} pol. $\vec{\pi}_j$
+            \Repeat $V_{i + 1}^{\vec{\pi}_j}(\vec{x}) = Q(\vec{x}, \vec{\pi}(\vec{x}))$ $\forall \vec{x}$ and \textit{fixed} pol. $\vec{\pi}_j$
             \Until{values converge}
         \EndWhile
         \State One step: $\vec{\pi}_{j + 1}(\vec{x}) = \text{argmax}_{\vec{u}} Q(\vec{x}. \vec{u})$ with $V_i = V_{i + 1}^{\pi_j}$
     \end{algorithmic}
 \end{algorithm}
 
-Model-based learning uses empirical models of $\cT$ and $\cR$
+\bi{Model-based} learning uses empirical models of $\cT$ and $\cR$
