@@ -1,11 +1,6 @@
-\newpage
 \subsection{Wheeled robot Kinematics}
-\begin{wrapfigure}[7]{r}{0.2\columnwidth}
-    \includegraphics[width=0.2\columnwidth]{assets/wheel-constraints.png}
-\end{wrapfigure}
 \bi{Non-holonomic} systems \textbf{not integrable}, no inst. move in every direct.
-
-\bi{Wheel constraints} $v_i = \omega_i r_i$ ($r_i$ constraints)
+\bi{Wheel constraints} $v_i = \omega_i r_i$ ($r_i$ constraints, (wheel radii))
 \begin{itemize}
     \item \textit{Driving straight} all $\vec{v}$ equal (ICR: R.Cent.)
     \item \textit{Turning} Wheel axis must intersect the \bi{Instant Centre of Rotation} (ICR) of vehicle,
@@ -40,16 +35,20 @@ $c_i = [\sin(\alpha + \beta) \div r, -\cos(\alpha + \beta) \div r, -\cos(\beta) 
     \end{tabular}
 \end{scriptsize}
 
-\shortdefinition[Differential Drive Kinematics]
+\subsubsection{Differential Drive Kinematics}
+\label{sec:diff-drive-kin}
 
 \bi{State vec} $\vec{x} = [x_1, x_2, \theta]^\top$,
-\bi{Inputs} $\vec{u} = [\omega_l, \omega_r]^\top$, radius of right (left) wheel $r_r$ ($r_l$), $w$ width of robot
+\bi{Inputs} $\vec{u} = [\omega_l, \omega_r]^\top$, wheel radii $r_l, r_r$, $w$ width of robot
 
 \bi{Gen. eq. of Motion} $\dot{x}_1 = v\cos(\theta)$, $\dot{x}_2 = v\sin(\theta)$, $\dot{\theta} = \Omega$,
-with $v = 0.5\cdot(\omega_l r_l + \omega_r + r_r)$, $\Omega = \frac{\omega_r r_r - \omega_l r_l}{w}$
+with $v = 0.5\cdot(\omega_l r_l + \omega_r r_r)$, $\Omega = \frac{\omega_r r_r - \omega_l r_l}{w}$
 
-% TODO: Consider adding wheel constraints (planar) here as well (from W05 slides)
-\textit{Straight}: $v = \omega_l r_l = \omega_r r_r$, $\Omega = 0$, $D = v\Delta t$.\\
+\textit{Straight}: $v = \omega_l r_l = \omega_r r_r$, $\Omega = 0$, $D = v\Delta t$.
+
+\textit{Turning}: $\Omega = (\omega_l r_l) / R_l\! =\! (\omega_r r_r) / R_r$, $R\! =\! v / \Omega$, $\Delta \theta\! =\! \Omega \Delta t$
+
+\textbf{Discretized}: $\vec{x}_k = \vec{x}_{k - 1} + b_i$ with $i \in \{s, t\}$, respectively, with
 $\vec{b}_s = {\scriptsize \begin{bmatrix}
         D \cos(\theta) \\
         D \sin(\theta) \\
@@ -59,11 +58,7 @@ $\vec{b}_s = {\scriptsize \begin{bmatrix}
         R(\sin(\Delta \theta + \theta) - \sin(\theta))  \\
         -R(\cos(\Delta \theta + \theta) - \cos(\theta)) \\
         \Delta \theta
-    \end{bmatrix}}$
-
-\textit{Turning}: $\Omega = (\omega_l r_l) / R_l\! =\! (\omega_r r_r) / R_r$, $R\! =\! v / \Omega$, $\Delta \theta\! =\! \Omega \Delta t$
-
-\textbf{Discretized}: $\vec{x}_k = \vec{x}_{k - 1} + b_i$ with $i \in \{s, t\}$, respectively
+    \end{bmatrix}}$; $R$ dist ICR
 
 \textbf{Swedish Wheels}: Have 3 DoF, typ. (3 pcs) equally spaced on circle.
 Typ. Param. each: $\alpha, \beta, \gamma$ ($z$, $x$, $y$ axes, oriented along $x$, $z$ up)

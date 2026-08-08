@@ -6,7 +6,7 @@
 
 \bi{Rot. Velocity} ${_I}\vec{\omega}_{IB} = \dot{\alpha} \cdot {_I}\vec{n}$
 
-\bi{Velocity point $P$} ${_B}\vec{v}_{IP} = {_B}\vec{v}_{IB} + {_B}\vec{\omega}_{IB} \times {_B}\vec{t}_{P}$
+\bi{Vel. point $P$} ${_B}\vec{v}_{IP} = {_B}\vec{v}_{IB} + {_B}\vec{\omega}_{IB} \times {_B}\vec{t}_{P}$
 
 \bi{Rotation Matrices}
 \begin{itemize}
@@ -14,8 +14,8 @@
           $\mat{\dot{R}}_{IB} = [{_I} \omega_{IB}]^\times \mat{R}_{IB}$
     \item For right pertubing
           $\mat{\dot{R}}_{IB} = \mat{R}_{IB} [{_I} \omega_{IB}]^\times$
-    \item Constant angular velocity ($\exp{[\Delta \vec{\alpha}]^\times} = \delta \mat{R}(\Delta \vec{\alpha})$)\\
-          $\mat{R}_{IB}(t + \Delta t) = \exp{[\Delta \vec{\alpha}]^\times} \mat{R}_{IB}(t) \quad \vec{\alpha} = {_I}\vec{\omega}_{IB} \delta t$
+    \item Constant angular velocity ($\exp{[\Delta \vec{\alpha}]^\times} = \delta \mat{R}(\Delta \vec{\alpha}) \quad \vec{\alpha} = {_I}\vec{\omega}_{IB} \delta t$)\\
+          $\mat{R}_{IB}(t + \Delta t) = \exp{[\Delta \vec{\alpha}]^\times} \mat{R}_{IB}(t)$
 \end{itemize}
 
 \bi{Quaternions}
@@ -56,4 +56,4 @@ where {\color{gray} gray parts} only IRL (in theor. models, leave out), with $\v
 
 \bi{IMU Sensor Model}: $\vec{\tilde{z}} = \vec{b}_C + s\mat{M}\vec{z} + \vec{b} + \vec{n} + \vec{o}$
 where bias $\vec{b}$ and scale $s$ often modelled time-varying $\dot{b}(t) = \sigma_C n(t)$.
-$\vec{b}_C$ const. calib; $\mat{M}$ Misalignment; $\vec{n}$ noise; $\vec{o}$ other infl.
+$\vec{b}_C$ const. calibration / bias; $\mat{M}$ Misalignment; $\vec{n}$ noise; $\vec{o}$ other infl.

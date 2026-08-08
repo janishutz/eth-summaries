@@ -13,5 +13,13 @@ With $\mat{F}_k = \frac{\partial \vec{f}}{\partial \vec{x}}$ and $\mat{L}_k = \f
 Difference to KF: $\mat{H}$ becomes $\mat{H}_k$, and $\mat{H}^\top$ is $\mat{H}_k^\top$.
 They are linearizations of $\vec{h}$, see \ref{sec:temporal-models}
 
-% \shortexample D-D Rob, measurements: $\Delta \varphi_l, \varphi_r$, GPS pos, yaw angle.
-% TODO: Finish this?
+\bi{Limitations} Linearization error (shifts bias or sharpens it), fixed by UKF (by passing charact. points around mean through nonlin. func instead of Jac) or Iterative EKF
+
+\shortexample[Diff-Drive Lawn Mower] Known: Radii ($r_l$ and $r_r$) and track $w$. Measurements: wheel increments ($\Delta \varphi_l$ and $\Delta \varphi_r$).
+State $[x, y, \theta]^\top$. Can compute distance, heading change \& turn radius.
+
+For \bi{State Transition}:
+$D = 0.5(r_l \Delta \varphi_l + r_r \Delta \varphi_r)$, rest same as in \ref{sec:diff-drive-kin}.
+$F_k$ is of form $[1, 0, \vec{d}_1; 0, 1, \vec{d}_2; 0, 0, 1]$, with $\vec{d} = b_s$ or $\vec{d} = b_t$ for straight and turning, respectively.
+
+\bi{Updates} are linear (GPS: $[x, y]^\top$ and compass: $\theta$, matrix: $\mat{I}$)

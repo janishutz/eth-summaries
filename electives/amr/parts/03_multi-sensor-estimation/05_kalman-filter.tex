@@ -17,3 +17,4 @@ $\vec{x}_k = \mat{F}\vec{x}_{k - 1} + \mat{G}\vec{u}_k + \mat{L}\vec{w}_k$ with 
     \item \bi{Updated mean}: $\hat{\vec{x}}_{k | k} = \hat{\vec{x}}_{k | k - 1} + \mat{K}_k \vec{y}_k$
     \item \bi{Updated Cov.}: $\mat{P}_{k | k} = (\mat{I} - \mat{K}_k \mat{H}) \mat{P}_{k | k - 1}$
 \end{itemize}
+All with $G$ the input model, $L$ noise map, $\tilde{\vec{z}}_k$ actual measurement, $K$ trust measurement ($R_k$ small vs $P_{k | k - 1}$ small).

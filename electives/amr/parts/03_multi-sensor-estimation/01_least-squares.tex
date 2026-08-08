@@ -5,9 +5,11 @@ Alt: compute sum of squared errors $S$, then min. $S$, i.e. solve system $\pardi
 
 \bi{Man. sol.}: comp. $M = A^\top A$, $b' = A^\top b$, then $Mx = b'$.
 
+\bi{Numpy}: \texttt{numpy.linalg.lstsq}
+
 \bi{Prob. sol.}: $\text{argmax} \; \P(\vec{x} \divider \vec{z})$ with Maximum \dots
 \begin{itemize}
     \item \bi{Likelihood} $\P(\vec{x} | \vec{z}) \propto \P(\vec{z} | \vec{x}) = \prod_{i = 1}^N \P(\vec{z}_i | \vec{x})$
     \item \bi{a Post} $\P(\vec{x} | \vec{z}) \propto \P(\vec{z} | \vec{x}) \P(\vec{x}) = \P(\vec{x}) \prod_{i = 1}^N \P(\vec{z}_i | \vec{x})$
 \end{itemize}
-{\scriptsize Gauss-Dist (non)-lineaer meas. processed in batches, MLE is weighted non-linear Least Squares}
+{\scriptsize Gauss-Dist (non)-linear meas. processed in batches, MLE is weighted non-linear Least Squares}

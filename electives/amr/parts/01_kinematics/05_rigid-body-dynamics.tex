@@ -2,13 +2,11 @@
 \label{sec:rigid-body-dynamics}
 \shortdefinition[Newton II] For fin. body w/ mass $m$ and inertia mat. $I$, with force $\vec{F}$ and torque $\vec{T}$ on \bi{Centre of Mass} (CoM), in body frame:
 \begin{align*}
-    {_B}\vec{F} & = \sum {_B}\vec{F}_i = m({_B} \vec{\dot{v}}_{CoM}) + m_B \vec{\omega} \times {_B}\vec{v}_{CoM}           \\
-    {_B}\vec{T} & = \sum {_B}\vec{T}_i = \mat{I}({_B} \vec{\dot{\omega}}) + {_B} \vec{\omega} \times \mat{I}_B\vec{\omega}
+    {_B}\vec{F} & = m({_B} \vec{\dot{v}}_{CoM}) + m_B \vec{\omega} \times {_B}\vec{v}_{CoM}           \\
+    {_B}\vec{T} & = \mat{I}({_B} \vec{\dot{\omega}}) + {_B} \vec{\omega} \times \mat{I}_B\vec{\omega}
 \end{align*}
 
 ${_B} \vec{v}_{CoM}$ vel. of CoM, ${_B}\omega$ rot. speed; both w.r.t. inert. frame
-
-    {\scriptsize Legged robots don't need to maintain stability!}
 
 To determine dynamics:
 \bi{(1)} Define control inputs (e.g. wheel speeds),
@@ -17,3 +15,18 @@ To determine dynamics:
 \bi{(4)} Express as func of states / inp
 \bi{(5)} Reduce to the CoM
 \bi{(6)} Plug into Newton-Euler eq combined with rigid body kinematics
+
+\subsection{Manipulator Velocity Kinematics}
+\label{sec:manipulator-velocity-kinematics}
+Differentiate FK $x = f(\vec{\theta})$, with $\dot{\vec{x}} = [{_W}\vec{v}, {_W} \vec{\omega}]^\top = \mat{J}(\vec{\theta})\dot{\vec{\theta}}$,
+with $\mat{J} = \frac{\partial f}{\partial \vec{\theta}}$ manipulator Jacobian. Then $\dot{\vec{\theta}} = J^{-1} \vec{\dot{x}}$ or $\vec{\dot{\theta}} = J^+ \vec{\dot{x}}$,
+if over-actuated, with $J^+ = J^\top(J J^\top)^{-1}$ (Moore Penrose-Inverse)
+
+
+\newpage
+\subsection{Legged robots}
+{\scriptsize Legged robots don't need to maintain stability!}
+
+\shortdefinition[Static Walking] 3 or more legs on ground, stable if frozen, safe, slow, inefficient.
+
+\shortdefinition[Dynamic Walking] $<$ 3 legs on ground, falls when not moving, fast, efficient, hard.

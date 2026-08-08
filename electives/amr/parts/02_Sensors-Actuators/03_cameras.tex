@@ -35,12 +35,13 @@ $\vec{u} =
 If p. in diff frame, e.g. $W$-frame then $\vec{u} = \mat{K}[\mat{R}_{CW}\; {_C}\vec{t}_{CW}] {_W}\vec{t}_P$
 
 \subsubsection{Pinhole Camera Projection with distortion}
-\shortdefinition Model: $\vec{u} = \vec{k}(\vec{d}(\vec{p}({_C}\vec{t}_P)))$, with ($\vec{c}$ as above):
+\shortdefinition Model: $\vec{u} = \vec{k}(\vec{d}(\vec{p}({_C}\vec{t}_P)))$, with $\vec{c}$ as above, $k_i$ radial distortion params, optional for $i > 2$,
+$p_i$ tangential distortion parameter, $f_u, f_v$ $x$/$y$ focal lengths in pixels. These should be given by task
 
 (Projection) $\vec{x'} = \vec{p}({_C}\vec{t}_P) = t_z^{-1} \cdot [t_x, t_y]^\top$
 
 (Distortion model) $r^2 = x'^2 + y'^2$, $\vec{x''} = \vec{d}(\vec{x'})$\\
-$\vec{x''} = \! \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}; \vec{x'}
+$\vec{x''} = \! \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6} \cdot \vec{x'}
     +
     {\scriptsize
     \begin{bmatrix}
@@ -51,9 +52,6 @@ $\vec{x''} = \! \frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k
 
 (Scale and Centre) $\vec{u} = \vec{k}(\vec{x''}) = \text{diag}([f_u, f_v]) \cdot \vec{x''} + \vec{c}$
 
-All with $k_i$ radial distortion params, optional for $i > 2$, $p_i$ tang. dist. param, $f_u, f_v$ focal length in pixels
-
-\shade{green}{Inverse} ${_C}\vec{r} = [\vec{d}^{-1}(\vec{k^{-1}(\vec{u})}), 1]^\top$\\
 (To unit plane)
 $\vec{x''} = \vec{k}^{-1}(\vec{u}) = [f_u^{-1}, f_v^{-1}]^\top (\vec{u} - \vec{c})$
 
@@ -65,8 +63,8 @@ ${_C}\vec{r} = [\vec{x'}, 1]^\top$
 
 
 \subsubsection{Undestorting a whole image}
-$\vec{u}_i = \vec{k}(\vec{d}(\vec{k_{\text{new}}}^{-1}(\vec{u}_{i, \text{new}})))$
-where $\vec{u}_{i, \text{new}}$ is the place of pixel in output, $\vec{u}_i$ is the input
+$\vec{u}_i = \vec{k}(\vec{d}(\vec{k_{\text{new}}}^{-1}(\vec{u}_{i, \text{new}})))$,
+where $\vec{u}_{i, \text{new}}$ is the place of pixel in output, $\vec{u}_i$ is the input, with $k_{\text{new}}$ the new focal lengths and image centre
 
 \bi{Omnidir. Cam} undistortion model with $f(u, v) = \sum_{i = 0}^{N} a_i \rho^i$
 with $\rho = \sqrt{(u - c_u)^2 + (v - c_v)^2}$, $N = 4$ accurately describes it for most fisheye and catadioptric cameras
