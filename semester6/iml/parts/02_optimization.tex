@@ -21,7 +21,7 @@
 
 \subsection{Gradient Descent}
 
-Intuitively: go in the direction $v^{(t)}$ where $L$ decreases most.
+\textbf{Intuitively}: go in the direction $v^{(t)}$ where $L$ decreases most.
 
 \lemma $-\nabla L(w^{(t)})$ is the direction of steepest descent.\\
 \subtext{Assuming diff.-able $L$. Provable via Taylor expansion \& Cauchy-Schwarz.}
@@ -32,6 +32,10 @@ Intuitively: go in the direction $v^{(t)}$ where $L$ decreases most.
         w^{(t+1)} &= w^{(t)} - \eta\cdot \nabla L(w^{(t)})                                         & (\text{Unnormalized})
 \end{align*}
 
+{\footnotesize
+    \remark Strictly, $\eta$ is no longer the step size, but a step size factor. The actual step size is $\tilde{\eta}_t = \eta \cdot \Vert \nabla L(w^{(t)}) \Vert$.
+}
+
 Unnormalized gradient descent takes advantage of $\Vert \nabla L(w^{(t)}) \Vert$:
 {\small
     \begin{itemize}
@@ -39,7 +43,8 @@ Unnormalized gradient descent takes advantage of $\Vert \nabla L(w^{(t)}) \Vert$
         \item $\Vert \nabla L(w^{(t)}) \Vert$ large $\mapsto$ far from stat. point $\mapsto$ large steps.  
     \end{itemize}
 }
-Stopping criterion uses the same idea: $\Vert w^{t} - w^{t+1} \Vert < \epsilon$ or equivalently $\Vert \nabla L(w^{(t)}) \Vert < \epsilon$.
+
+Stopping criterion uses the same idea: $\Vert w^{t} - w^{t+1} \Vert < \epsilon$ or equivalently $\Vert \nabla L(w^{(t)}) \Vert < \frac{\epsilon}{\eta}$, i.e. stop if little change is being made.
 
 \begin{algorithm}
     \caption{Gradient Descent}
@@ -52,3 +57,150 @@ Stopping criterion uses the same idea: $\Vert w^{t} - w^{t+1} \Vert < \epsilon$ 
     }
     \textbf{return} $w^{(t)}$
 \end{algorithm}
+
+\definition \textbf{Descent Direction}: $v$ s.t. for a suitable $\eta > 0$, we have $L(w - \eta v) < L(w)$, i.e. $L$ decreases.
+
+\theorem GD-Update is a \textit{Descent Direction} for a suitable $\eta$.\\
+\subtext{i.e. if we choose $\eta$ well, GD decreases $L$ at each step.}
+
+\begin{center}
+    \begin{tabular}{l|l}
+        $\eta$ too small & slow convergence \\
+        \hline
+        $\eta$ too large & overshoots stationary points \\
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{resources/gdConvergence}\\
+    \subtext{Introduction to Machine Learning (2026), p. 90}
+\end{center}
+
+\newpage 
+
+\subsection{Convergence Analysis}
+
+\textbf{Question}: When \& how fast does GD converge to $\hat{w}$?
+
+\definition \textbf{Linear Convergence}\\
+$\forall t:$ $\Vert w^{(t)} - \hat{w} \Vert \leq C \cdot \rho^t$ for some $C > 0, 0 < \rho < 1$.\\
+\subtext{Called linear, since we multiply with a fixed $\rho < 1$ at each step.}
+
+{\footnotesize
+    \remark Linear convergence is exponential in terms of $t$.
+}
+
+\theorem \textbf{Linear Convergence} (GD)\\
+GD converges linearly to the optimal solution $\hat{w}$:
+$$
+    \hat{w} = \underset{w\in\R^d}{\text{arg min}} L(w)
+$$
+\subtext{Where $\text{rank}(\mathbf{X}^\top \mathbf{X})$ is full and $\mu < \displaystyle\frac{2}{\lambda_\text{max}(\mathbf{X}^\top \mathbf{X})}$}
+
+Convergence \& convergence rate depend on $\eta$.\\
+The optimal $\eta$ depends on $\mathbf{X}$:
+$$
+    \eta_\text{opt} = \frac{2}{\lambda_\text{max} + \lambda_\text{min}}
+$$
+\subtext{Where $\lambda_\text{max} = \lambda_\text{max}(\mathbf{X}^\top \mathbf{X})$ and $\lambda_\text{min} = \lambda_\text{min}(\mathbf{X}^\top \mathbf{X})$}
+
+\definition \textbf{Condition Number} $\kappa$
+$$
+    \kappa := \frac{\lambda_\text{max}}{\lambda_\text{min}}
+$$
+The optimal $\rho$ is $\rho_\text{min}=\frac{\kappa-1}{\kappa+1}$. Thus, the convergence rate is determined only be the eigenvalues of $\mathbf{X}^\top \mathbf{X}$, i.e. $\kappa$.
+
+\begin{center}
+    \begin{tabular}{l|l|l}
+        $\kappa \approx 1$ & well-conditioned & fast convergence \\
+        \hline
+        $\kappa >> 1$ & ill-conditioned & slow convergence \\
+    \end{tabular}
+\end{center}
+
+{\footnotesize
+    \remark \textbf{Geometrical Interpretation of $\kappa$}\\
+    Considering the ellipsoids $L^{-1}(c) = \{w \in \R^d: L(w) = c\}$, i.e. the contour lines of $L$: For a large $\kappa$, the ellipsoids are distorted (large axis ratio). Equivalently for small $\kappa$, the ellipsoids are nearly spherical.\\ 
+}
+
+\newpage
+\subsection{Stochastic Gradient Descent}
+
+\method \textbf{Minibatch Stochastic Gradient Descent}
+
+The main cost of GD stems from calculating \& storing\\
+$\nabla_w\ l\Bigl(f_w(x_i), y_i\Bigr)$ for all $x_i$, at every step.
+
+We instead use only $\mathcal S \subset \{1,2,\ldots,n\}$, selected randomly:
+$$
+    \nabla L_\mathcal{S}(w) = \frac{1}{\mathcal{S}}\sum_{i\in\mathcal S} \nabla_w l\Bigl(f_w(x_i), y_i\Bigr)
+$$
+
+{\footnotesize
+    \remark if $|\mathcal{S}|=1$, this is called \textit{Stochastic Gradient Descent}.
+}
+
+\begin{algorithm}
+    \caption{Stochastic Minibatch Gradient Descent}
+    $t \gets 0$ \;
+    $w^{(0)} \gets w_\text{initial}$ \;
+    \SetKwRepeat{Do}{repeat}{until}
+        \Do{\text{$\Vert w^{t} - w^{t+1} \Vert < \epsilon$}}{ 
+            $\mathcal{S} \gets \mathcal{S} \subset \{1,\ldots,n\}$ randomly \;
+            $w^{(t+1)} \gets w^{(t)} - \eta \nabla L_\mathcal{S}(w^{(t)})$ \;
+            $t \gets t+1$
+    }
+    \textbf{return} $w^{(t)}$
+\end{algorithm}
+
+Note how it no longer holds that the direction of SGD is a descent direction, however:
+
+\lemma \textbf{Descent Direction in Expectation}\\
+\smalltext{Consider $|\mathcal S|=k$ s.t. $\mathcal S \overset{\text{i.i.d.}}{\subset} \{1,\ldots,n\}$. (duplicate selections possible)}\\
+\subtext{$\mathcal{S}=\{I_1,\ldots, I_k\}$ s.t. $I_l = I_m$ is possible for $l\neq m$}
+\begin{align*}
+    \E_\mathcal{S}\Bigl[ \nabla L_\mathcal{S}(w) \Bigr] &= \E_\mathcal{S} \Biggl[ \frac{1}{k}\sum_{j=1}^{k}\nabla_w l\bigl( f_w(x_{I_j}), y_{I_j} \bigr) \Biggr]  & (\text{def. } \nabla L_\mathcal{S})     \\
+                                                        &= \frac{1}{k}\sum_{j=1}^{k} \E_{I_j}\Bigl[ \nabla_w l\bigl( f_w(x_{I_j}), y_{I_j} \bigr) \Bigr]          & (\text{lin. } \E)                       \\
+                                                        &= \frac{1}{k}\sum_{j=1}^{k} \Biggl( \sum_{i=1}^{n}\frac{1}{n}\nabla_w l\bigl(f_w(x_i), y_i\bigr) \Biggr) & (\text{def. } \E_{I_j})                 \\
+                                                        &= \sum_{i=1}^{n}\frac{1}{n}\nabla_w l\bigl(f_w(x_i), y_i\bigr)                                           & (\text{arith.})                          \\
+                                                        &= \nabla L(w)  
+\end{align*}
+
+\newpage
+
+\subsection{Other Gradient Methods}
+
+\method \textbf{Momentum}
+
+The GD Update is modified to consider previous updates:
+$$
+    w^{(t+1)} = w^{(t)} - \eta \nabla L(w^{(t)}) + \overbrace{\alpha (w^{(t)} - w^{(t-1)})}^\text{Momentum Term}
+$$
+Where $\alpha = \eta \cdot \beta$ s.t. $\beta \in [0,1)$ is the \textit{momentum coefficient}.
+
+{\footnotesize
+    \remark \textbf{Intuition}: Dampens oscillations in the gradient direction, especially for ill-conditioned problems. The momentum term is a weighted average of previous updates.
+
+    \remark \textbf{Previous Gradients}: The influence of prev. gradients decreases exponentially. This can be seen by expanding the recursion above.
+}
+\\
+
+\method \textbf{Adaptive Methods}
+
+Adaptive methods use parameter-specific learning rates for each parameter $w_j$:
+$$
+    w^{(t+1)}_i = w^{(t)}_i - \frac{\eta}{\sqrt{\delta_i^{(t)} + \gamma}}\cdot\frac{\partial L}{\partial w_i}(w^{(t)})
+$$
+Where $\delta_i^{(t)} = (w_i^{(t)} - w_i^{(t-1)})^2$ and $\gamma>0$.
+
+{\footnotesize
+    \remark \textbf{Intuition}: The idea above is that parameters that have changed significantly already should have lower learning rates.
+
+    \remark \textit{ADAM} is an adaptive method.
+}
+\\
+
+\method \textbf{Second Order Methods}
+
+Methods which use the Hessian $\mathbf{H}_L(w^{(t)})$.\\
+Computationally expensive and usually not done directly.
