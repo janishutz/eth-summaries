@@ -7,10 +7,14 @@ Typ. derive D.M. with sensor dir param (as vec line eq)
 
 
 \subsubsection{Classic Stereo}
-Both images: same plane, focal length $f$, centre, $x$-axis. Given corresponding pixels $[u_l, v]$ and $[u_r, v]$: disparity (pixel offset) $d = u_r - u_l$;
+\label{sec:classic-stereo}
+Both images: same plane, focal length $f$, centre, $x$-axis. Given corresponding pixels $[u_l, v]$ and $[u_r, v]$: \bi{disparity} (pixel offset) $d = u_r - u_l$;
 $z = \frac{b \cdot f}{d}$, then projected into left (right) cam, $u_l = f\cdot \frac{x}{z} + c_u$ or $u_r = f \cdot \frac{x - b}{z} + c_u$, $b$ distance between cameras.
 Then often apply pinhole camera projection (to e.g. get 3D point coords, comp ${_C}\vec{r}$, then point $z \cdot {_C}\vec{r}$).
-Uncertainty introduced with 1.-order error propag. $\Delta z = \pardiff{d}z \Delta d$, with $\Delta d$ error of $d$
+Uncertainty introduced with 1.-order error propag. $\Delta z = \pardiff{d}z \Delta d$, with $\Delta d$ error of $d$.
+Too large $b$ disables depth estimations, too small increases error
+
+\shorttheorem[Intercept] $f \div Z = u_l \div X$, with $Z$ and $X$ the $z$ and $x$ coordinates of tracked object
 
 
 \subsubsection{Time of Flight, Projection}
