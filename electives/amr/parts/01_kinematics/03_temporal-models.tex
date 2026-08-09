@@ -11,7 +11,7 @@ With: $\pardiff{t}\vec{x}(t) = f_C(\vec{x}(t), \vec{u}(t))$ the model for the ro
 \hrule
 \vspace{0.5mm}
 
-\bi{Linearised} at $\vec{f}_C(\vec{\overline{x}}, \vec{\overline{y}}) = 0$, at \bi{equilibrium} {\scriptsize (if $\neq 0$, then add it)}:\\
+\bi{Linearised} at $\vec{f}_C(\vec{\overline{x}}, \vec{\overline{u}}) = 0$, at \bi{equilibrium} {\scriptsize (if $\neq 0$, then add it)}:\\
 $\delta \vec{\dot{x}}(t) = \mat{F}_C \delta \vec{x}(t) + \mat{G}_C \delta \vec{u}(t) + \mat{L}_C \vec{w}(t)$;
 $\delta \vec{z}(t) = \mat{H} \delta \vec{x}(t) + \vec{v}(t)$.
 
@@ -19,23 +19,17 @@ $\mat{F}_C$ system (often a Jac. / Taylor, vars are $x_i$. If no $x$ in $\mat{F}
 $\mat{G}$ input gain (often Jac / Taylor, vars are $u_i$, if no $u_i$, then lin.), $\vec{w}$ process noise, $\mat{H}$ is measurement, $\vec{v}$ measurement noise,
 both zero-mean \bi{Gauss. White Noise Proc.}. $\vec{u}_k$ inputs at time $k$.
 
-% TODO: Taylor approximation
-\vspace{0.5mm}
-\hrule
-\vspace{0.5mm}
-
-
 \bi{Discretized}
 $\vec{x}_k = \vec{f}(\vec{x}_{k - 1}, \vec{u}_k, \vec{w}_k)$;
 $\vec{z}_k = \vec{h}(\vec{x}_k) + \vec{v}_k$
 
 \bi{Linearised}:
 $\delta \vec{x}_k = \mat{F} \delta \vec{x}_{k - 1} + \mat{G}_k \delta \vec{u}_k + \mat{L}_k \vec{w}_k$;
-$\delta \vec{z}_k = \mat{H}_k \delta \vec{x}_k$
+$\delta \vec{z}_k = \mat{H}_k \delta \vec{x}_k + \vec{v}(t)$
 
 For discretized, iterative integral from $t_{k - 1}$ to $t_k$
 
-Linearization happens typically with one of the below:
+Numerical integration typically happens with one of the below:
 
 \shortdefinition[Euler-Forward] $\vec{x}_k = \vec{x}_{k - 1} + \Delta t \vec{f}_C(\vec{x}_{k - 1}, \vec{u}_{k - 1}, t_{k - 1})$
 

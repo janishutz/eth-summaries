@@ -2,7 +2,7 @@
 \label{sec:rigid-body-dynamics}
 \shortdefinition[Newton II] For fin. body w/ mass $m$ and inertia mat. $I$, with force $\vec{F}$ and torque $\vec{T}$ on \bi{Centre of Mass} (CoM), in body frame:
 \begin{align*}
-    {_B}\vec{F} & = m({_B} \vec{\dot{v}}_{CoM}) + m_B \vec{\omega} \times {_B}\vec{v}_{CoM}           \\
+    {_B}\vec{F} & = m({_B} \vec{\dot{v}}_{CoM}) + m ({_B}\vec{\omega} \times {_B}\vec{v}_{CoM})       \\
     {_B}\vec{T} & = \mat{I}({_B} \vec{\dot{\omega}}) + {_B} \vec{\omega} \times \mat{I}_B\vec{\omega}
 \end{align*}
 
@@ -25,7 +25,7 @@ if over-actuated, with $J^+ = J^\top(J J^\top)^{-1}$ (Moore Penrose-Inverse)
 
 \newpage
 \subsection{Legged robots}
-{\scriptsize Legged robots don't need to maintain stability!}
+{\scriptsize Legged robots don't need to maintain static stability!}
 
 \shortdefinition[Static Walking] 3 or more legs on ground, stable if frozen, safe, slow, inefficient.
 

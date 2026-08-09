@@ -23,10 +23,10 @@ def gauss_newton(x: np.ndarray, F, DF, tol=1e-6):
 
 \bi{Levenberg-Marquardt}
 \bi{(1)} Pick start point $\overline{\vec{x}}^0$ and start param $\lambda^0 = \max \text{diag}(\mat{A})$ and $v$ (e.g. $v = 2$).;
-\bi{(2)} Modified GN sys: $\mat{A} + \lambda \text{diag}(\mat{A})) \Delta \vec{x} = \vec{b}$;
+\bi{(2)} Modified GN sys: $\mat{A} + \lambda \text{diag}(\mat{A}) \Delta \vec{x} = \vec{b}$;
 \bi{(3)} Solve for $\Delta \vec{x}$;
-\bi{(4)} Update: $\overline{\vec{x}}^{k + 1} = \overline{\vec{x}}^k + \Delta \vec{x}$ (if cost reduced),
-else: $\overline{\vec{x}}^{k + 1} = \overline{\vec{x}}^k$, $\lambda^{k + 1} = \lambda^k v$, go to step 3;
+\bi{(4)} Update: $\overline{\vec{x}}^{k + 1} = \overline{\vec{x}}^k + \Delta \vec{x}$ and $\lambda^{k + 1} = \lambda^k \div v$ (if cost reduced),
+else: $\overline{\vec{x}}^{k + 1} = \overline{\vec{x}}^k$ and $\lambda^{k + 1} = \lambda^k v$, go to step 3;
 \bi{(5)} Check convergence, else go to step 2
 
 \bi{Robust Cost Functions} Account for outliers, by mod. err. terms

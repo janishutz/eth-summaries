@@ -20,8 +20,8 @@ $\mat{M} = \sum_{x, y \in P}
 
 \shade{gray}{Blob Detection} ($I$ is the image)
 
-\bi{Laplacian of Gaussian} (LoG): $L = g(x, y, t) \cdot I(x, y)$.
-Then apply Laplacian Operator $\nabla_\text{norm}^2 L = t\left( \frac{\partial^2 L}{\partial x^2} + \frac{\partial L}{\partial y^2} \right)$
+\bi{Laplacian of Gaussian} (LoG): $L = g(x, y, t) * I(x, y)$.
+Then apply Laplacian Operator $\nabla_\text{norm}^2 L = t\left( \frac{\partial^2 L}{\partial x^2} + \frac{\partial^2 L}{\partial y^2} \right)$
 
 \bi{Diff. of Gaussians} (DoG): $\Delta L = L(x, y, t) - L(x, y, kt)$
 

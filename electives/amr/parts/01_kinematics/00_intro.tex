@@ -38,7 +38,7 @@ $\begin{bmatrix}
 $\begin{smallmatrix}
         \psi = \arcsin\left( R_{21} \div \sqrt{1 - R_{31}^2} \right)\\
         \theta = \arcsin(-R_{31})\\
-        \varphi = \arcsin\left( R_{31} \div \sqrt{1 - R_{31}^2} \right)\\
+        \varphi = \arcsin\left( R_{32} \div \sqrt{1 - R_{31}^2} \right)\\
     \end{smallmatrix}$
 $[\vec{n}]^\times = \begin{bmatrix}
         0    & -n_3 & n_2  \\
@@ -51,7 +51,7 @@ For pitch axis $\theta = \pm 90\deg$, \bi{Gimbal Lock}, Jacobian \bi{singular}.
 \shortdefinition[Angle-Axis]
 $\vec{\alpha} = \alpha \vec{n}$ ($\vec{n}$ normal); To \bi{rotation matrix}:\\
 $\mat{R}(\alpha, \vec{n}) = \mat{I}_3 + \sin(\alpha)[\vec{n}]^\times + (1 - \cos(\alpha))([\vec{n}]^\times)^2$\\
-To \bi{quaternion}: $\vec{q} = [\vec{n}, \alpha]$
+To \bi{quaternion}: $\vec{q} = [\vec{n} \sin(\alpha \div 2), \cos(\alpha \div 2)]$
 
 
 \shortdefinition[Quaternions] $q = q_w + q_x i + q_y j + q_z k$ with\\
@@ -63,7 +63,7 @@ $\vec{q} = \begin{bmatrix}
 
 \bi{Mult} {\scriptsize
     $\vec{q} \otimes \vec{p} = \begin{bmatrix}
-            a(\vec{q}) \vec{v}(\vec{p}) + a(\vec{p}) + \vec{v}(\vec{q}) \times \vec{v}(\vec{p}) \\
+            a(\vec{q}) \vec{v}(\vec{p}) + a(\vec{p})\vec{v}(\vec{q}) + \vec{v}(\vec{q}) \times \vec{v}(\vec{p}) \\
             a(\vec{q}) a(\vec{p}) - \vec{v}(\vec{q})^\top \vec{v}(\vec{p})
         \end{bmatrix}$
 }

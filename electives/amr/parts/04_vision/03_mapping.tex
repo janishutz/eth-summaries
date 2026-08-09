@@ -35,9 +35,9 @@ $\displaystyle s_k = \frac{w_{k - 1} s_{k - 1} + \tilde{s}_k}{w_{k - 1} + 1}$ wi
 
 \subsubsection{Iterative Closest Point}
 Build \textit{correspondences}: associate all live scan points $l_i$ to closest map points $m_i$. Error term:
-$\vec{e} = \vec{T}_{W L_l L_l} m_i - {_W}\vec{l}_i$.
+$\vec{e} = \vec{T}_{W L_l} {_{L_l}}m_i - {_W}\vec{l}_i$.
 Minimize this via Gauss-Newton, then re-associate, iterate.
 
-\bi{Photometric}: $u_{KF} = \pi(\mat{T}_{WC_{KF}}^{-1} \mat{T}_{WC_l} \pi^{-1}(\vec{u}_{KF}, \mat{D}_{KF}[\vec{u}_{KF}]))$,
+\bi{Photometric}: $u_{L} = \pi(\mat{T}_{WC_{KF}}^{-1} \mat{T}_{WC_l} \pi^{-1}(\vec{u}_{KF}, \mat{D}_{KF}[\vec{u}_{KF}]))$,
 error term $\vec{e} = \mat{I}_{KF}[\vec{u}_{KF}] - \mat{I}_L[\vec{u}_{L}]$,
 where all subscript $L$ are from live image, all subscript $KF$ key frame.

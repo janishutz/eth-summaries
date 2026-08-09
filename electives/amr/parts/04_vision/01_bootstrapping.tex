@@ -14,7 +14,7 @@ Find good point in 3D. Fast sol: \bi{Midpoint Method}:
 
 \bi{1} Find p. along ray w/ min. dist (Lin. Least Squares)
 \[
-    \vec{\lambda}\! =\! [\lambda_1 \; \lambda_2]^\top\! = \! \argmin{} ||({_W}\vec{t}_{C_2} + \lambda_2 {_W}\vec{e}_2) - ({_W}\vec{t}_{C_1} + \lambda_1 {_W}\vec{e}_2)||^2
+    \vec{\lambda}\! =\! [\lambda_1 \; \lambda_2]^\top\! = \! \argmin{} ||({_W}\vec{t}_{C_2} + \lambda_2 {_W}\vec{e}_2) - ({_W}\vec{t}_{C_1} + \lambda_1 {_W}\vec{e}_1)||^2
 \]
 
 \rmvspace
@@ -38,4 +38,4 @@ Find good point in 3D. Fast sol: \bi{Midpoint Method}:
     \quad C_i \text{ cam}
 \]
 
-\bi{3} Pick midp. ${_W}\vec{t}_P \! = \! 0.5(\tau_1 \! + \! \tau_2)$; $\tau_n \! = \! {_W}\vec{t}_{C_n} + \lambda_n{_W}\vec{e}_n)$
+\bi{3} Pick midp. ${_W}\vec{t}_P \! = \! 0.5(\tau_1 \! + \! \tau_2)$; $\tau_n \! = \! {_W}\vec{t}_{C_n} + \lambda_n {_W}\vec{e}_n$

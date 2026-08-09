@@ -19,7 +19,7 @@
                     \State \Comment{Extension of \texttt{RRT}* goes here}
                     \State \texttt{insertEdge}{\texttt{Graph}, $x_n, x_f$}
                 \EndIf
-                \If{$x_f \texttt{==} x_n$}
+                \If{$x_f \texttt{==} \text{goal}$}
                     \State \Return{\texttt{SUCCESS}, \texttt{Graph}}
                 \EndIf
             \EndFor
@@ -33,11 +33,19 @@ Extension to RRT* to make path better:
     \small
     \begin{algorithmic}[1]
         \State $X_{\text{near}} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}
-        \State $x_{\min} \gets$ \Call{neighbours}{Graph, $x_f$, $R$}
+        \State $x_{\min} \gets x_n$
         \State $c_{\min} \gets$ \Call{cost}{$x_n$} + \Call{edgeCost}{$x_n, x_f$}
         \For{each $x_{\text{near}}$ in $X_\text{near}$}
             \If{\Call{edgeCollisionFree}{$x_\text{near}, x_f$} and\\ \Call{cost}{$x_\text{near}$} + \Call{edgeCost}{$x_\text{near}, x_f$} $< c_{\min}$}
-                \State \Call{insertEdge}{\texttt{Graph}, $x_f, x_{\text{near}}$}
+                \State $x_{\min} \gets x_\text{near}$
+                \State $c_{\min} \gets$ \Call{cost}{$x_\text{near}$} + \Call{edgeCost}{$x_\text{near}$, $x_f$}
+            \EndIf
+        \EndFor
+        \State \Call{insertEdge}{\texttt{Graph}, $x_{\min}, x_f$}
+        \State \Call{cost}{$x_f$} $\gets c_{\min}$
+        \For{each $x_{\text{near}}$ in $X_\text{near}$}
+            \If{\Call{edgeCollisionFree}{$x_f, x_\text{near}$} and\\ \Call{cost}{$x_f$} + \Call{edgeCost}{$x_f, x_\text{near}$} $<$ \Call{cost}{$x_\text{near}$}}
+                \State \Call{insertEdge}{\texttt{Graph}, $x_f, x_{\text{near}}$} \Comment{new connection}
                 \State $x_\text{parent} \gets$ \Call{parent}{\texttt{Graph}, $x_{\text{near}}$}
                 \State \Call{removeEdge}{\texttt{Graph}, $x_\text{parent}, x_{\text{near}}$}
             \EndIf
@@ -46,4 +54,4 @@ Extension to RRT* to make path better:
 \end{algorithm}
 
 \bi{Informed RRT*} extension: Once conn. betw. start and goal found, restrict sampling to (hyper)ellipsoid.
-$b = 0.5 \sqr{d^2 - ||x_s - x_g||^2}$.
+$b = 0.5 \sqrt{d^2 - ||x_s - x_g||^2}$.

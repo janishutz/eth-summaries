@@ -2,9 +2,9 @@
 \bi{Passive} \textit{Direct Evaluation} Act according to policy $\vec{\pi}$, store sum of discounted rewards, average them. (But too simple)
 
 \textit{Sample-Based} Use $V_{i + 1}^{\vec{\pi}}(\vec{x}) = Q(\vec{x}, \vec{\pi}(\vec{x}))$ w/ $V_0^\pi(\vec{x}) = 0$.
-We need state trans. model, instead $\tilde{R}_j$ (approx. prob. w/ statistics) and thus
+We need state transition model for that (we don't have that), instead $\tilde{R}_j$ (approx. probability w/ statistics) and thus
 \[
-    V_{i + 1}^{\vec{x}}(\vec{x}) = \frac{1}{N} \sum_{j = 1}^{N} \tilde{R}_j(\vec{x}, \vec{\pi}(\vec{x}), \vec{x}_+) + \gamma V_i^{\vec{\pi}}(\vec{x}_+)
+    V_{i + 1}^{\vec{\pi}}(\vec{x}) = \frac{1}{N} \sum_{j = 1}^{N} \left( \tilde{R}_j(\vec{x}, \vec{\pi}(\vec{x}), \vec{x}_+) + \gamma V_i^{\vec{\pi}}(\vec{x}_+) \right)
 \]
 
 \bi{Active} Find optimal policy $\vec{\pi}$ instead of state values $V(\vec{x})$.

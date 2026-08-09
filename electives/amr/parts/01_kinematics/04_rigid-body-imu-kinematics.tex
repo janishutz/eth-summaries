@@ -13,7 +13,7 @@
     \item For left pertubing\\
           $\mat{\dot{R}}_{IB} = [{_I} \omega_{IB}]^\times \mat{R}_{IB}$
     \item For right pertubing
-          $\mat{\dot{R}}_{IB} = \mat{R}_{IB} [{_I} \omega_{IB}]^\times$
+          $\mat{\dot{R}}_{IB} = \mat{R}_{IB} [{_B} \omega_{IB}]^\times$
     \item Constant angular velocity ($\exp{[\Delta \vec{\alpha}]^\times} = \delta \mat{R}(\Delta \vec{\alpha}) \quad \vec{\alpha} = {_I}\vec{\omega}_{IB} \delta t$)\\
           $\mat{R}_{IB}(t + \Delta t) = \exp{[\Delta \vec{\alpha}]^\times} \mat{R}_{IB}(t)$
 \end{itemize}
@@ -41,7 +41,7 @@
               }$
 \end{itemize}
 
-\bi{IMU} (Outputs {\color{blue} ${_S}\vec{\tilde{a}}$} (accel.), {\color{red} ${_S}\vec{\tilde{\omega}}$} (rot. accel.))\\
+\bi{IMU} (Outputs {\color{blue} ${_S}\vec{\tilde{a}}$} (accel.), {\color{red} ${_S}\vec{\tilde{\omega}}$} (rot. vel.))\\
 ${_W}\vec{\dot{t}}_S = {_W} \vec{v}$;
 $\quad \displaystyle \vec{\dot{q}}_{WS} = \frac{1}{2} \vec{q}_{WS} \otimes
     {\scriptsize

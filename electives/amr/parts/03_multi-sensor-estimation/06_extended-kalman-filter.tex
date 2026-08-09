@@ -20,6 +20,6 @@ State $[x, y, \theta]^\top$. Can compute distance, heading change \& turn radius
 
 For \bi{State Transition}:
 $D = 0.5(r_l \Delta \varphi_l + r_r \Delta \varphi_r)$, rest same as in \ref{sec:diff-drive-kin}.
-$F_k$ is of form $[1, 0, \vec{d}_1; 0, 1, \vec{d}_2; 0, 0, 1]$, with $\vec{d} = b_s$ or $\vec{d} = b_t$ for straight and turning, respectively.
+$F_k$ is of form $[1, 0, \vec{d}_1; 0, 1, \vec{d}_2; 0, 0, 1]$, with $\vec{d} = b_s$ (with first row negated) or $\vec{d} = b_t$ for straight and turning, respectively.
 
 \bi{Updates} are linear (GPS: $[x, y]^\top$ and compass: $\theta$, matrix: $\mat{I}$)
