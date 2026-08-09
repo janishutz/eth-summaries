@@ -1,4 +1,3 @@
-\newpage
 \subsubsection{Rapidly-Exploring Random Tree (RRT)}
 \begin{algorithm}
     \small
@@ -27,6 +26,9 @@
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
+Notes: \texttt{nearestConfiguration} may be on edge, then edge is split;
+\texttt{stoppingConfiguration} returns furthest config $x_f$ on segment $x_n$ to $x$ that produces collision-free edge $(x_n, x_f)$
+
 Returns a collision-free path as graph. Need nearest neighbour search.
 Extension to RRT* to make path better:
 \begin{algorithm}
