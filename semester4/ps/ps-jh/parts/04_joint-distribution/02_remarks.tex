@@ -1,5 +1,6 @@
 \subsection{Tips \& Tricks}
-\shortremark Die \bi{Dichten} können anstelle der Variablen in bspw. der Formel für bedingte W. verwendet werden.
+\shortremark Die \bi{Dichten} können anstelle der Variablen in bspw. der Formel für bedingte W. verwendet werden!
+Dies ist besonders nützlich für die Berechnung von bedingten Dichten, etc. und Bestimmung Unabhängigkeit
 
 \howto{Randdichten berechnen}{
     \begin{enumerate}
@@ -14,7 +15,10 @@ Die Randdichten sind dann die Dichten von $\cX$, etc.; Für weitere Berechnungen
 \howto{$cond$ auflösen}{
     In dem Integral sollte jeweils der äussere Integral der sein, für welchen wir volle Information haben.
     Zudem, bspw., für $0 \leq x \leq y^2 \leq 1$, wissen wir zwar für $x$ und $y$ die Grenzen, wählen aber $x$ als inneren Integral,
-    weil $\int_0^{y^2}$ sich schöner auflöst
+    weil sich oft $\int_0^{y^2}$ schöner auflöst. Der äussere Integral ist dann auf dem ganzen Intervall (also äussere Beschränkungen).
+
+    Für einen einzelnen Integral wählen wir die Grenzen als die umliegenden Grenzen. Falls wir nur eine haben so müssen wir auflösen oder eine Grenze hinzufügen,
+    siehe Randdichten von bspw. Einheitskreisscheibe.
 }
 
 \howto{Gemeinsame Dichten finden}{
