@@ -37,13 +37,18 @@ if [[ $usesubmodule != 'n' ]]; then
 else
     read -e -p "Where are the helper files located (absolute path to folder only, tab-completion enabled)? " helperpath
 
-    if [[ ${dir:0:1} == '/' ]]; then
+    if [[ ${helperpath:0:1} == '/' ]]; then
+        createFiles $helperpath
+    elif [[ ${helperpath:0:1} == '~' ]]; then
+        helperpath=$(readlink -f $helperpath)
         createFiles $helperpath
     else
         echo "Note: You did not enter an absolute path, it was expanded automatically"
-        createFiles $(readlink -f $(pwd)/$helperpath)
+        helperpath=$(readlink -f $(pwd)/$helperpath)
+        createFiles $helperpath
     fi
     echo "
+    => Path was set to $helperpath
     => If you entered also the file name, rerun this script, the compile will fail in that case.
     "
 fi
