@@ -33,7 +33,7 @@ The following rules were discussed in the lectures:
     \item Natural join operations are associative, so are theta joins (with restrictions)
           \[
               (E_1 \bowtie E_2) \bowtie E_3 = E_1 \bowtie (E_2 \bowtie E_3)
-              \qquad (E_1 \bowtie_{\theta_1} E_2) \bowtie_{\theta_2 \land \theta_3} = E_1 \bowtie_{\theta_1 \land \theta_3} (E_2 \bowtie_{\theta_2} E_3)
+              \qquad (E_1 \bowtie_{\theta_1} E_2) \bowtie_{\theta_2 \land \theta_3} E_3 = E_1 \bowtie_{\theta_1 \land \theta_3} (E_2 \bowtie_{\theta_2} E_3)
           \]
           This allows for joins to be performed in different orders, allowing us to do the most selective first (fewer rows)
     \item Pushdown selection:

@@ -1,6 +1,6 @@
 \subsection{Query Processing}
 \subsubsection{Sorting}
-Given $B$ frames of memory and $N$ records, we ahve
+Given $B$ frames of memory and $N$ records, we have (typically I/Os in pages to be read)
 \begin{itemize}
     \item \bi{Merge Sort}: $2N \cdot P$, with $P = (1 + \ceil{\log_{B - 1}\ceil{N \div B}})$ the number of passes.
           After the first pass, $\ceil{N \div B}$ number of sorted runs were created (typically)
