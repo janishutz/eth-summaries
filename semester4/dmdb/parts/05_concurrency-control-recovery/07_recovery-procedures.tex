@@ -8,7 +8,7 @@ It may or may not require both, one or none of UNDO and REDO.
     \item \bi{Steal Policy}: An uncommitted transaction is allowed to overwrite the changes of a committed transaction in persistent storage.
           This logically means that we need to be able to undo transactions.
     \item \bi{Force Policy}: All changes made by a transaction must be in persistent storage before the transaction commits.
-          This requires flushing all blocks with updates from the transaction and if not in-place, it will require being able to redo the transaction.
+          This requires flushing all blocks with updates from the transaction and if not in-place (called \bi{No-Force}), it will require being able to redo the transaction.
     \item \bi{Steal/No-Force}: UNDO/REDO, is the most common approach
 \end{itemize}
 If for updates tuples are locked, blocks may still be updatable.
