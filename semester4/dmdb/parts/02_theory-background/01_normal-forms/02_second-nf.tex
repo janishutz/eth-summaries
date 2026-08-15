@@ -14,3 +14,6 @@ If relations are not in 2NF, they may experience insert, update and delete anoma
 which can lead to incorrect, redundant or inconsistent updates of the relations.
 
 However, some relations can still suffer from update and / or delete anomalies. One such example is a non-key Functional Dependency.
+
+\inlineintuition In other words, for a relation to be in 2NF, there cannot exist any \textit{prime attributes} (i.e. non-key attributes)
+that have a functional dependency on only \textit{parts} of a candidate key.

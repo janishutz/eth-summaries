@@ -26,7 +26,7 @@
           (Join with custom predicate $\theta$)
     \item \bi{Equi-Join} $\bowtie_{A = B}$: $R_1 \bowtie_{A = B} = \sigma_{A = B}(R_1 \times R_2)$
           (Join column A with column B)
-    \item \bi{Semi-Join} $\ltimes_C$: $R_1 \ltimes_C R_2 = \Pi_{A_1, \ldots, A_n}(R_1 \bowtie_C$, with $R_1(A_1, \ldots, A_n)$ and $R_2(B_1, \ldots, B_m)$
+    \item \bi{Semi-Join} $\ltimes_C$: $R_1 \ltimes_C R_2 = \Pi_{A_1, \ldots, A_n}(R_1 \bowtie_C R_2)$, with $R_1(A_1, \ldots, A_n)$ and $R_2(B_1, \ldots, B_m)$
           (Returns columns only from one side if there is a match in the join)
     \item \bi{Relational division} $\div$: $R \div S = \Pi_{R - S} R - \Pi_{R - S}((\Pi_{R - S} R) \times S - R)$.
           In other words, $R \div S = T$, with $T$ being the \textit{largest} relation such that $S \times T \subseteq R$.

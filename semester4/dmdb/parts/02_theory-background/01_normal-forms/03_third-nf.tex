@@ -9,3 +9,7 @@ A relation $R$ is in 3NF if and only if for all $\alpha \rightarrow B$, at least
 thus, the 3NF tries to get rid of ``transitive dependencies'' (e.g. $A \rightarrow B, B \rightarrow C$)
 
 The 3NF can still experience update and delete anomalies.
+
+\inlineintuition Some more intuition for the decomposition: We want to decompose the table into multiple tables such that each transitive dependency
+is in its own table, thus removing transitive dependencies in each table, and an intuitive take on this is that each table shall not contain ``anything but the key'',
+which however is not entirely correct, because it only mentions a single key, not all
