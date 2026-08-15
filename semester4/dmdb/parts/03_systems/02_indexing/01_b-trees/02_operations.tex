@@ -5,7 +5,7 @@ When we reach a leaf node, we return the corresponding pointer and the position.
 
 
 \subparagraph{Range Lookup}
-We return all tuples that match, by first finding the first tuple matching, the continue traversal until the last match is found.
+We return all tuples that match, by first finding the first tuple matching, then continue traversal until the last match is found.
 We can determine the last match easily because the tree's leafs are lexicographically sorted.
 Since the leafs are linked as linked lists, we can simply move along the linked lists, cutting down on processing time.
 
