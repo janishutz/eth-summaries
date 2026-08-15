@@ -24,6 +24,7 @@ Given $B$ frames of memory and $N$ records, we have (typically I/Os in pages to 
 
 
 \subsubsection{Projection}
+Remember that we need the sort-based and bash-based approach to eliminate duplicates.
 \begin{itemize}
     \item \bi{Partitioning}: $\texttt{Cost}_\texttt{part}(R) = \texttt{cnt}(R) + \texttt{cnt}(R')$ with
           $\texttt{cnt}(R') = \texttt{cnt}(R) Q$, with $Q$ the fraction of selected attributes divided by total attributes
