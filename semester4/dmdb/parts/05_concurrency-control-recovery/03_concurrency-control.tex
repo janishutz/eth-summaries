@@ -16,7 +16,7 @@ and leaves the DB in a consistent state.
 
 \inlinedefinition[(Conflict) Serializable History] A history is serializable if and only it is equivalent to a serial history.
 
-A very simple way to check this is that a history is not CS if there are conflicting operations.
+A history is guaranteed to \textit{not} be CS if there are conflicting operations as defined on the previous page.
 
 \inlinetheorem[Serializability] A history is serializable if and only if its serializability graph is acyclic.
 The seerializabililty graph is constructed from the history graph as follows:
