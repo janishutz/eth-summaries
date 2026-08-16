@@ -32,8 +32,8 @@
           In other words, $R \div S = T$, with $T$ being the \textit{largest} relation such that $S \times T \subseteq R$.
           (Find all rows that do not fulfil a condition)
 \end{itemize}
-% TODO: Add other join operations
-% TODO: Inequality joins (especially for SQL)
+Note that natural joins join on \textit{all} matching columns, i.e. the applied selection uses all matching columns in the predicate,
+which is also how it works in SQL!
 
 If we apply set semantics generally, then each operator returns results that adhere to that concept, even Projections!
 

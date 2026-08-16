@@ -36,4 +36,9 @@ or in \texttt{WHERE} clauses like this:
 This is referred to as a \bi{Self-Join} and can come in handy when comparing values in a single table,
 or to build pairs.
 
-We can use comparison operators also with subqueries containing aggregations, if they return a single result, for multiple results, need \texttt{ANY}, \texttt{ALL}, etc (see above)
+We can use comparison operators also with subqueries containing aggregations, if they return a single result, for multiple results, need \texttt{ANY}, \texttt{ALL}, etc (see above).
+
+They are applied as follows:
+\mint{sql}|SELECT * FROM Products WHERE price = ALL (SELECT Price FROM Products WHERE release_year = 2000)|
+
+To limit the number of returned tuples, use \texttt{LIMIT N}, where $N$ is to be replaced with any natural number
