@@ -19,14 +19,14 @@ Given $B$ frames of memory and $N$ records, we have (typically I/Os in pages to 
               \item For a clustered index, $\texttt{cnt}(P_F) = \texttt{cnt}(R') \div (F_L \cdot R_L)$, with $R_L$ the number of records per leaf page and $F_L$ the fill factor.
               \item For an unclustered index, $\texttt{cnt}(P_F) = \texttt{cnt}(R')$, with $\texttt{cnt}(R') = \texttt{cnt}(R) \cdot S$, with $S$ the selectivity of the predicate.
           \end{itemize}
-    \item \bi{Hash Index}: Cost is $1 + \texttt{cnt}(R') \div L_L + \texttt{cnt}(R')$, where the $1$ is to do the lookup,
+    \item \bi{Hash Index}: Cost is $1 + \texttt{cnt}(R') \div R_L + \texttt{cnt}(R')$, where the $1$ is to do the lookup,
           $\texttt{cnt}(R') \div R_L$ to fetch the row IDs and $\texttt{cnt}(R')$ to fetch the records
           (this is an up-to, it is $\texttt{cnt}(R') \div R_F$ as minimum, for clustered index), with $R_L$ the number of records per Leaf and $R_F$ the number of records per file.
 \end{itemize}
 
 
 \subsubsection{Projection}
-Remember that we need the sort-based and bash-based approach to eliminate duplicates.
+Remember that we need the sort-based and hash-based approach to eliminate duplicates.
 \begin{itemize}
     \item \bi{Partitioning}: $\texttt{Cost}_\texttt{part}(R) = \texttt{cnt}(R) + \texttt{cnt}(R')$ with
           $\texttt{cnt}(R') = \texttt{cnt}(R) Q$, with $Q$ the fraction of selected attributes divided by total attributes
