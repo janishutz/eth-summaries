@@ -1,5 +1,6 @@
 \newpage
 \subsection{Concurrency Control (CC)}
+\label{sec:concurrency-control}
 The goal of concurrency control is to ensure the correct executions of concurrent transactions.
 The baseline for correctness is, as previously mentioned, serial execution.
 
@@ -19,7 +20,7 @@ and leaves the DB in a consistent state.
 A history is guaranteed to \textit{not} be CS if there are conflicting operations as defined on the previous page.
 
 \inlinetheorem[Serializability] A history is serializable if and only if its serializability graph is acyclic.
-The seerializabililty graph is constructed from the history graph as follows:
+The serializabililty graph is constructed from the history graph as follows:
 \begin{enumerate}
     \item The start node is the transaction the first operation.
     \item Then, follow the operations, adding any new transaction to the tree and connect any further dependencies.
@@ -39,3 +40,16 @@ More visually, see the below graphics
     \end{center}
     \caption{Building a serializability graph (Figure from lecture slides 19, slide 37 and 38)}
 \end{figure}
+
+\subsubsection{Building a serializability graph}
+Since the above guide may not be very easy to understand, a more intuitive approach\footnote{Adapted from \url{https://www.siemens.blog/posts/serializability-theory/}}:
+\begin{enumerate}
+    \item Write down in rows the operations of each thread, such that on the horizontal axis they still align in the way they did when written down in a line
+    \item Add edges horizontally (as the operations of each thread depend on each other implicitly)
+    \item Add edges between successive write operations to the same field
+    \item Add edges between writes and successive reads of the same field (for all threads, doesn't have to be the next operation)
+    \item Add edges between reads and successive writes that happen before the reading thread commits
+\end{enumerate}
+Then, from this history graph notation, derive the serializability graph by only considering the edges between the threads.
+The serialization order is then determined by the topological ordering and the graph is not serializable if there exists a cycle
+(as there doesn't exist a topological ordering)

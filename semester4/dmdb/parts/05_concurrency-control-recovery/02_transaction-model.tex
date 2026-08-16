@@ -31,7 +31,6 @@ Below a list of very important syntax for the exam (where the subscript $i$ deno
 Conflicting operations are two operations on the same item with at least one of them being a write operation, such as $r_1[x] w_2[x]$ or $w_1[y] w_2[y]$.
 
 \subsubsection{History}
-\label{sec:tm-history}
 A history $H$ is a partially ordered $<_H$ sequence of operations from a set of transactions.
 If two operations are ordered within a transaction, they are equally ordered in the history.
 If two operations $p$ and $q$ conflict, then they are ordered with respect to each other ($p <_H q$ or $q <_H p$)
