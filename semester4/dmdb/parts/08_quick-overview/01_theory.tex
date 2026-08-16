@@ -1,0 +1,63 @@
+\subsection{Functional Dependencies \& Normal Forms}
+Also see Section~\ref{sec:functional-dependency} for more detailed and formal definitions
+
+\subsection{Functional Dependencies}
+\inlinedefinition[Transitive Closure] This is the set of all attributes that can be derived from the key, obtained by recursively evaluating the key using FDs,
+on each iteration also including the attributes previously obtained using FDs.
+
+\inlinedefinition[Candidate Key] Minimal superkeys (i.e. the minimal key whose transitive closure is the entire relation)
+
+\inlinedefinition[Superkey] An FD $\alpha \rightarrow \cR$, i.e. a superset of candidate keys, thus any key whose transitive closure covers the entire relation
+
+\inlinedefinition[Trivial FD] A functional dependency $\alpha \rightarrow \beta$, where $\beta \in \alpha$, or, more precisely $\beta \subseteq \alpha$.
+
+\inlinedefinition[Redundant FD] An FD which is directly implied by another FD, or any Armstrong Axiom.
+
+\inlinedefinition[Minimal Basis / Cover] A set $G$ is the minimal cover of $F$ if $G \equiv F$ and all FDs in $G$ ``imply'' only a single attribute
+and $G$ doesn't contain any trivial FDs (i.e. it is not possible to make $G$ ``smaller'' by removing FDs, while still fulfilling the other constraints).
+
+To compute a minimal cover, we decompose the right hand sides of all FDs with more than one attribute into FDs with a single attribute,
+for example, for a FD $A, B, C \rightarrow D, E$, we get two FD $A, B, C \rightarrow D$ and $A, B, C \rightarrow E$.
+We then remove all trivial FDs and remove the redundant attributes from the LHS of the FDs.
+The last task is achieved by checking for each attribute in the LHS, if removing that attribute still implies the RHS.
+Finally, we remove all redundant FDs.
+
+
+\subsection{Normal Forms}
+Below a short explanation as to how to check if a given relation is in any of the normal forms.
+A relation being in a NF further down the list implies it also is in the above,
+whereas a relation \textit{not} being in a higher up the list NF implies it isn't in the further below.
+\begin{itemize}
+    \item \bi{1NF}: Each attribute cannot contain further tables or arrays (this is very commonly given in the tasks)
+    \item \bi{2NF}: Determine the candidate keys. Then for each non-prime attribute (i.e. attribute not part of any candidate key) determine if it depends on
+          only a strict subset of a candidate key. If so, the relation is not in 2NF
+    \item \bi{3NF}: A relation is in 3NF if there are no ``transitive dependencies'', such as $A \rightarrow B, B \rightarrow C$.
+          More formally, if for all FD $\alpha \rightarrow B$, either the FD is trivial, $B$ is an attribute of at least one key or $\alpha$ is a superkey of $\cR$.
+          This means that the attributes only depend on candidate keys.
+    \item \bi{BCNF}: Here, we drop the possibility of $B$ being an attribute of at least one key. This means that a relation in BCNF is free of redundancies introduced by FDs.
+\end{itemize}
+This means that for determining if a relation is in 3NF or BCNF, we need to be able to quickly identify superkeys and candidate keys.
+
+
+\subsubsection{3NF Syntehsis algorithm}
+This algorithm works as follows:
+\begin{enumerate}
+    \item Compute the minimal cover
+    \item Create a relation for each FD $\alpha \rightarrow \beta$ by defining it as $\cR_i = \alpha \cup \beta$
+    \item If no relation $\cR_i$ contains a superkey, add a relation based on a superkey (or better a candidate key)
+    \item Finally, remove redundant relations, i.e. ones that share the same superkey by combining them
+          (e.g. with the example from minimal cover, we would end up with relations $(A, B, C, D)$ and $(A, B, C, E)$, combine them $(A, B, C, D, E)$)
+\end{enumerate}
+
+
+\subsubsection{BCNF Decomposition algorithm}
+The order in which the FDs are picked for decomposition matters very much. To determine e.g. which FDs are lost, we need to apply the algorithm by starting with each FD.
+
+The algorithm works as follows ($\cR_i$ is the current state of relation we are evaluating):
+\begin{enumerate}
+    \item Pick an arbitrary FD and decompose it. This decomposition produces two new relations given by $R_1 = \alpha \cup \beta$ and $R_2 = \cR_i - \beta$
+    \item We then add both of these relations to the result
+    \item If the result still contains a relation that violates BCNF, apply steps one through three to that relation.
+    \item Otherwise, return the result
+\end{enumerate}
+The most challenging part in this algorithm is being able to determine if a relation is in BCNF
