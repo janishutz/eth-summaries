@@ -1,4 +1,6 @@
+\newpage
 \subsection{Query Language}
+\label{sec:sql-query-language}
 The basic structure of a \sql\ statement is \texttt{SELECT I FROM T WHERE C},
 which corresponds to $\Pi_{\texttt{I}}(\sigma_{\texttt{C}} \texttt{T})$.
 
@@ -38,5 +40,6 @@ To get just the year from an existing date object (or string), use \texttt{YEAR}
 
 The current date, time, year, etc is provided using \texttt{current\_date} (etc).
 
-There are also conditional statements, namely \texttt{CASE WHEN condition1 THEN result1 WHEN condition2 THEN result2 ELSE else END}, or of course, more conditions.
-This can even be used inside aggregations, etc!
+There are also conditional statements, namely
+\mint{sql}{CASE WHEN condition1 THEN result1 WHEN condition2 THEN result2 ELSE else END}
+or of course, more conditions. This can even be used inside aggregations, etc!
