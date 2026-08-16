@@ -1,7 +1,7 @@
 \subsection{Functional Dependencies \& Normal Forms}
 Also see Section~\ref{sec:functional-dependency} for more detailed and formal definitions
 
-\subsection{Functional Dependencies}
+\subsubsection{Functional Dependencies}
 \inlinedefinition[Transitive Closure] This is the set of all attributes that can be derived from the key, obtained by recursively evaluating the key using FDs,
 on each iteration also including the attributes previously obtained using FDs.
 
@@ -23,23 +23,26 @@ The last task is achieved by checking for each attribute in the LHS, if removing
 Finally, we remove all redundant FDs.
 
 
-\subsection{Normal Forms}
+\subsubsection{Normal Forms}
 Below a short explanation as to how to check if a given relation is in any of the normal forms.
 A relation being in a NF further down the list implies it also is in the above,
 whereas a relation \textit{not} being in a higher up the list NF implies it isn't in the further below.
 \begin{itemize}
     \item \bi{1NF}: Each attribute cannot contain further tables or arrays (this is very commonly given in the tasks)
     \item \bi{2NF}: Determine the candidate keys. Then for each non-prime attribute (i.e. attribute not part of any candidate key) determine if it depends on
-          only a strict subset of a candidate key. If so, the relation is not in 2NF
-    \item \bi{3NF}: A relation is in 3NF if there are no ``transitive dependencies'', such as $A \rightarrow B, B \rightarrow C$.
-          More formally, if for all FD $\alpha \rightarrow B$, either the FD is trivial, $B$ is an attribute of at least one key or $\alpha$ is a superkey of $\cR$.
+          only a strict subset of a candidate key. If so, the relation is not in 2NF,
+          thus a relation is in 2NF if each non-prime attribute depends on the entirety of \bi{every} candidate key (or superkey)
+    \item \bi{3NF}: A relation is in 3NF if there are no ``transitive dependencies'' for non-prime attributes, such as $A \rightarrow B, B \rightarrow C$.
+          More formally, if for all FD $\alpha \rightarrow B$, either the FD is trivial, $B$ is an attribute of at least one key
+          (i.e. every attribute of $B$ must be part of a candidate key, i.e. there are no non-prime attributes in $B$) or $\alpha$ is a superkey of $\cR$.
           This means that the attributes only depend on candidate keys.
-    \item \bi{BCNF}: Here, we drop the possibility of $B$ being an attribute of at least one key. This means that a relation in BCNF is free of redundancies introduced by FDs.
+    \item \bi{BCNF}: Here, we drop the possibility of $B$ being an attribute of at least one key, so we need to check only if $\alpha$ is a superkey of $\cR$ or the FD being trivial.
+          This means that a relation in BCNF is free of redundancies introduced by FDs.
 \end{itemize}
 This means that for determining if a relation is in 3NF or BCNF, we need to be able to quickly identify superkeys and candidate keys.
 
 
-\subsubsection{3NF Syntehsis algorithm}
+\paragraph{3NF Syntehsis algorithm}
 This algorithm works as follows:
 \begin{enumerate}
     \item Compute the minimal cover
@@ -50,7 +53,7 @@ This algorithm works as follows:
 \end{enumerate}
 
 
-\subsubsection{BCNF Decomposition algorithm}
+\paragraph{BCNF Decomposition algorithm}
 The order in which the FDs are picked for decomposition matters very much. To determine e.g. which FDs are lost, we need to apply the algorithm by starting with each FD.
 
 The algorithm works as follows ($\cR_i$ is the current state of relation we are evaluating):

@@ -54,6 +54,7 @@ Not all dataset and query combinations are equally easy, and filters also change
 
 
 \subsubsection{Quantization}
+\label{sec:vector-search-quantization}
 The total storage usage of course is always $N \cdot c$, where $N$ is the number of vectors and $c$ is the cost per vector, computed as follows:
 \begin{itemize}
     \item \bi{Scalar-Quantization} (SQ): $c = i + d \cdot m$, where $d$ is the number of dimensions of the vector and $m$ is the byte count per dim.
