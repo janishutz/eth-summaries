@@ -107,18 +107,15 @@ $$
     T = (T_1, T_2) \text{ für } \Bigl(\E_\vartheta[X], \V_\vartheta[X] \Bigr)
 $$
 $$
-    T_1 = \frac{1}{n}\sum_{i=1}^n X_i \qquad T_2 = \frac{1}{n}\sum_{i=1}^n X_i^2 - \Biggl(\underbrace{\frac{1}{n}\sum_{i=1}^n X_i}_{T_1}\Biggr)^2
+    T_1 = \frac{1}{n}\sum_{i=1}^n X_i \qquad T_2 = \frac{1}{n}\sum_{i=1}^n \Bigl( X_i - T_1 \Bigr)^2
 $$
-{\footnotesize
-    \remark Allgemein nicht erwartungstreu
-}
 
-\definition \textbf{Empirische Varianz} \subtext{(Unbiased Sample Variance)}
+\definition \textbf{Korr. Empirische Varianz} \subtext{(Unbiased Sample Variance)}
 $$
-    T_1' = T_1 \qquad T_2' = \frac{n}{n-1}T_2
+    T_1' = T_1 \qquad T_2' = \frac{1}{n-1}\sum_{i=1}^n \Bigl( X_i - T_1 \Bigr)^2
 $$
 {\footnotesize
-    \remark Erwartungstreu
+    \remark $T'$ ist erwartungstreu, $T$ jedoch nicht.
 }
 
 \subsection{Verteilungen von Schätzern}
@@ -174,7 +171,7 @@ $$
     \bar{X}_n = \sum_{i=1}^{n}X_i,\qquad S^2 = \frac{1}{n-1}\sum_{n}^{i=1}\Bigl( X_i - \bar{X}_n \Bigr)^2
 $$
 \begin{enumerate}
-    \item $\bar{X}_n \sim \mathcal{N}\bigl(\mu, \frac{\sigma^2}{n}\bigr)$ also $\frac{\sigma}{\sqrt{n}}(\bar{X}_n - \mu) \sim \mathcal{N}(0,1)$
+    \item $\bar{X}_n \sim \mathcal{N}\bigl(\mu, \frac{\sigma^2}{n}\bigr) \implies \displaystyle\frac{\bar{X}_n - \mu}{\frac{\sigma}{\sqrt{n}}} \sim \mathcal{N}(0,1)$
     \item $\frac{n-1}{\sigma^2}S^2 = \frac{1}{\sigma^2}\sum_{i=1}^n\Bigl( X_i - \bar{X}_n \Bigr)^2 \sim \chi^2_{n-1}$
     \item $\bar{X}_n \perp S^2$
     \item $\frac{\bar{X}_n-\mu}{\frac{S}{\sqrt{n}}} = \displaystyle\frac{\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}}}{S / \sigma} = \frac{\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}}}{\sqrt{\frac{1}{n-1}\frac{n-1}{\sigma^2}S^2}} \sim t_{n-1}$
@@ -214,9 +211,12 @@ $$
 
 \subsubsection{Statistisches Vorgehen}
 
-\definition \textbf{Signifikanzniveau} $\alpha$ s.d. $\underset{\vartheta\in\Theta_0}{\sup}\P_\vartheta[T\in K] \leq \alpha$
+\definition \textbf{Signifikanzniveau} $\alpha$ s.d. $\underset{\vartheta\in\Theta_0}{\sup}\P_\vartheta[T\in K] \leq \alpha$\\
+\subtext{Intuitiv: Chance, dass $\Theta_0$ ($H_0$) in $K$ liegt, ist kleiner als $\alpha$.}
 
-\definition \textbf{Macht} $\beta: \Theta_A \to [0,1] \quad \vartheta \mapsto \beta(\vartheta) = \P_\vartheta[T \in K]$
+
+\definition \textbf{Macht} $\beta: \Theta_A \to [0,1] \quad \vartheta \mapsto \beta(\vartheta) = \P_\vartheta[T \in K]$\\
+\subtext{Intuitiv: Chance, dass $\Theta_A$ ($H_A$) im Bereich $K$ liegt.}
 
 \method \textbf{Asymmetrisches Verfahren}:
 \begin{enumerate}

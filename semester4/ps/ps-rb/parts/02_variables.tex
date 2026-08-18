@@ -230,6 +230,8 @@ $$
 
 {\scriptsize
     \remark $f_X$ (Stetig) ist Intuitiv das Analogon zu $p_x$ (Diskret)
+
+    \remark Für stetige $X$ gilt $\forall x:\ \P[X=x] = 0$, da $W_X = \infty$.
 }
 
 \definition \textbf{Gleichverteilung} $X \sim \mathcal{U}([a,b])$\\
@@ -300,5 +302,5 @@ $$
 \lemma \textbf{Standardisierung}\\
 \smalltext{$Z \sim \mathcal{N}(m, \rho^2),\quad x\in\R$}
 $$
-    \P[x\leq Z] = \Phi\Biggl( \frac{x - m}{\rho} \Biggr)
+    \P[x\leq Z] = \Phi\Biggl(\frac{x - \E[Z]}{\sqrt{\V[Z]}}\Biggr) = \Phi\Biggl( \frac{x - m}{\rho} \Biggr)
 $$
