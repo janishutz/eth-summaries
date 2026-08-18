@@ -7,6 +7,7 @@ Dies ist besonders nützlich für die Berechnung von bedingten Dichten, etc. und
         \item Intervalle zur Integration für Randdichten via Indikatorvariable $\bm{1}_{cond}$ bestimmen. $\bm{1}_x$ verschwindet bei Bestimmung von $f_\cY$ in den Integral-grenzen
         \item $cond$ nach entsprechender Var. auflösen, wenn nötig
         \item Bei Integration Indikatorvariable als konstante betrachten (muss auch integriert werden!)
+        \item Übrig bleibende Indikatorvariablen wieder anfügen
     \end{enumerate}
 }
 
@@ -48,4 +49,7 @@ Die Randdichten sind dann die Dichten von $\cX$, etc.; Für weitere Berechnungen
     Für unbekannte gemeinsame Dichte, die Eigenschaften ausfächern, Unabhängigkeit, etc ausnutzen.
 
     \bi{Für W. im Exponent}, dies beschreibt typ. Repetitionen, also über die Anzahl und W. nachdenken.
+    Beispielsweise für $\E[\left( \frac{5}{6} \right)^{\cX - 2} = k]$ berechnen wir $\P[\cX = k] = \left( \frac{1}{6} \right)^{k - 1} \cdot \frac{5}{6}$,
+    dann ist $\E[\ldots] = \sum_{k = 1}^{\8} \left( \frac{5}{6} \right)^{k - 2} \cdot \left( \frac{1}{6} \right)^{k - 1} \cdot \frac{5}{6}
+        = \sum_{k = 1}^{n} \left( \frac{5}{36} \right)^{k - 1}$
 }
