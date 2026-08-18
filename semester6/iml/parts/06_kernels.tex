@@ -86,12 +86,18 @@ $$
         \end{rcases*}
         \quad k(x,x') = \Bigl\langle \psi\bigl( \phi(x) \bigr), \psi\bigl( \phi(x') \bigr) \Bigr\rangle
     $$
-    \item Kernels can be added in 2 ways, yielding a kernel
+    \item Kernels can be added in 2 ways, yielding a kernel\\
+    \subtext{$k_1: \R^d \times \R^d \to \R,\  k_2: \R^{d'}\times\R^{d'}\to\R,\quad$(ii) assumes $d=d'$}
     \begin{align*}
         \text{(i)}\quad     & k\Bigl( (x,y),(x',y') \Bigr)    &= k_1(x,x') + k_2(y,y') \\
         \text{(ii)}\quad    & k(x,x')                         &= k_1(x,x') + k_2(x,x')  
     \end{align*}
-    \item Kernels can be multiplied in 2 ways, yielding a kernel
+    \item Kernels can be multiplied in 2 ways, yielding a kernel\\
+    \subtext{$k_1: \R^d \times \R^d \to \R,\  k_2: \R^{d'}\times\R^{d'}\to\R,\quad$(ii) assumes $d=d'$}
+    \begin{align*}
+        \text{(i)}\quad     & k\Bigl( (x,y),(x',y') \Bigr)    &= k_1(x,x') \cdot k_2(y,y') \\
+        \text{(ii)}\quad    & k(x,x')                         &= k_1(x,x') \cdot k_2(x,x')  
+    \end{align*}
 \end{enumerate}
 
 \lemma \textbf{Non-negative Taylor Series}\\
@@ -99,5 +105,41 @@ $$
 $$
     k(x,x') = g(\langle x,x' \rangle) \text{ is a valid kernel}
 $$
+
+\subsubsection{Commonly used Kernels}
+
+\definition \textbf{Polynomial} $g\bigl(\langle x, x' \rangle\bigr) = (1+x)^m$\\
+\subtext{Where $m$ decides the maximum polynomial degree.}
+
+\definition \textbf{Radial Base Function} (RBF)\\
+\subtext{$p,\alpha$ are parameters, $\tau$ is called \textit{bandwith parameter}.}
+$$
+    k(x,x') = \exp\biggl( -\frac{\Vert x-x'\Vert_p^\alpha}{\tau} \biggr)
+$$
+
+The RBF kernel for some special $p,\alpha$ is named:
+
+\definition \textbf{Gaussian}\\
+\subtext{Sometimes used synonymously as just "RBF".}
+$$
+    k(x,x') = \exp\biggl( -\frac{\Vert x-x'\Vert_2^2}{\tau} \biggr)
+$$
+
+\definition \textbf{Laplacian}\\
+\subtext{Sometimes defined with $\alpha=1$, e.g. in \textit{scikit-learn}.}
+$$
+    k(x,x') = \exp\biggl( -\frac{\Vert x-x'\Vert_1^2}{\tau} \biggr)
+$$
+
+Gaussian (top) and Laplacian (bottom):
+
+\begin{center}
+    \includegraphics[width=0.4\linewidth]{resources/RBFkernels.png}\\
+    \subtext{\textit{Introduction to Machine Learning (2026), p. 173}}
+\end{center}
+
+{\footnotesize
+    \remark The feature space of the RBF kernels has $\dim(\mathcal S_\text{RBF})=\infty$.
+}
 
 % Add Polynomial, RBF (Gaussian, Laplacian)

@@ -165,4 +165,102 @@ $$
 
 There are several other methods to do this, based e.g. on concepts from information theory.
 
+\newpage
+
 \subsection{Principal Component Analysis}
+
+\textbf{Motivation}: For $\mathcal D = \{x_i\}_{i=1}^n,x_i\in\R^d$, we'd like a low-dimentional representation with $k \ll d$, which we call \textit{embeddings} $\{z_i\}_{i=1}^n, z_i\in\R^k$.\\
+\subtext{e.g. for performance, memory, noise removal, visualizations...}
+
+{\footnotesize
+    \textbf{Intuition}: High dimensional data usually has many redundancies \& highly correlated features. Dimensionality Reduction in practice preserves most substantial data. This idea is formalized as the \textit{Manifold Hypothesis}.
+}
+
+\subsubsection{PCA in one dimension}
+
+\method \textbf{PCA $k=1$}\\
+\smalltext{Find $w^*\in\R^d$ and $z_1^*,\ldots,z_2^*\in\R$ for dimensionality reduction $d=1$:}
+$$
+    w^*,z_1^*,\ldots,z_n^* = \underset{w\in\R^d : \Vert w\Vert_2 = 1}{\min}\sum_{i=1}^{n}\underbrace{\Bigl\Vert x_i-\overbrace{z_iw}^{\approx x} \Bigr\Vert}_\text{Reconstruction Error}
+$$
+
+\begin{center}
+    \includegraphics[width=0.35\linewidth]{resources/pca1d.png}\\
+    \subtext{Introduction to Machine Learning (2026), p. 223}
+\end{center}
+
+\lemma \textbf{PCA $k=1$ (Variance Matrix)}\\
+\smalltext{Alternative formulation.}
+$$
+    w^* = \underset{\Vert w \Vert_2=1}{\text{arg max}}\ w^\top \Sigma w
+$$
+
+{\footnotesize
+    \textbf{Intuition}: $w$ can be thought of as the subspace (a line for $d=1$) we want to project onto. The optimal $w^*$ aligns with the direction maximizing the \textit{empirical variance} $\Sigma$ of the projected data.
+}
+
+\definition \textbf{Empirical Covariance} $\displaystyle\Sigma = \frac{1}{n}\sum_{i=1}^{n}x_ix_i^\top = \frac{1}{n}X^\top X$
+
+\lemma \textbf{Eigendecomposition} $\displaystyle\Sigma = \sum_{i=1}^{d}\lambda_iv_iv_i^\top$\\
+\subtext{Eigenvalues $\lambda_1 > \ldots > \lambda_d > 0$,\\ 
+eigenvectors $v_i$ forming an orthonormal Basis of $\R^d$}
+
+\theorem \textbf{PCA Solution for $k=1$}\\
+\smalltext{$v$ is the Eigenvector associated with the largest $\lambda$ for $\Sigma$.}
+$$
+    w^* = v_1 \quad \text{solves} \quad w^* = \underset{\Vert w \Vert_2=1}{\text{arg max}}\ w^\top \Sigma w
+$$
+
+\subsubsection{Generalized PCA}
+
+Luckily, the case $k=1$ generalizes:
+
+\theorem \textbf{PCA General Solution}\\
+\smalltext{Here, $\mathbf{W}\in\R^{d\times k}$ and $z_i^* \in \R^k$ for parameter $k$}
+$$
+    \mathbf{W}^*,z_1^*,\ldots,z_n^* = \underset{\mathbf{W}\in\R^{d\times k}: \mathbf{W}^\top\mathbf{W}=\mathbf{I}}{\text{arg min}} \sum_{i=1}^{n} \Bigl\Vert x_i - \mathbf{W}z_i \Bigr\Vert^2
+$$
+is solved using
+$$
+    \mathbf{W}^* = \Bigl( v_1 \| \cdots \| v_k \Bigr), \qquad z_i^* = \mathbf{W}^{*\top}x_i
+$$
+
+{\footnotesize
+    \textbf{Intuition}: In words, the basis for the $k$-dim. subspace minimizing reconstruction error is given using the first $k$ eigenvectors of $\Sigma$.
+}
+
+\lemma \textbf{PCA is an orthohgonal projection} 
+$$
+    P: \R^d\to\R^d,\qquad x \mapsto \mathbf{W}^*\mathbf{W}^*x
+$$
+
+\lemma \textbf{Connection to SVD}\\
+\smalltext{The First $k$ EV of $\Sigma$ are the first $k$ right singular vectors of $\mathbf{X}$.}
+$$
+    \mathbf{X} = \mathbf{USV}^\top \qquad n\cdot\Sigma = \mathbf{VS}^\top \mathbf{SV}^\top
+$$
+
+{\footnotesize
+    \remark Non-linear methods and kernels can be applied to PCA the same way they are applied to regression.
+}
+
+\newpage 
+\subsubsection{Connection to k-Means}
+
+k-Means (Clustering) can be reformulated: $z_1,\ldots,z_n \in E_k$ where $E_k = \{e_1,\ldots,e_n\}$ holds unit vectors $e_i$.
+$$
+    \mathbf{W}^*,z_1^*,\ldots,z_n^* = \underset{\mathbf{W}\in\R^{d\times k}: \mathbf{W}^\top\mathbf{W}=\mathbf{I}}{\text{arg min}} \sum_{i=1}^{n} \Bigl\Vert x_i - \mathbf{W}z_i \Bigr\Vert^2
+$$
+This is the same as PCA, only the space for $z^*$ changes. Both PCA and k-Means are special forms of a more general technique:
+
+\definition \textbf{Matrix Factorization Methods}\\
+\smalltext{General class of techniques for decomp. of $\mathbf{X}$}
+$$
+    \mathbf{X} \approx \mathbf{WZ}
+$$
+
+{\footnotesize
+    \remark \textbf{PCA}. For PCA, $\mathbf{W}$ is an orthonormal Basis of the optimal $k$-dimenional subspace, $\mathbf{Z}$ are the coefficients for the projection.
+
+    \remark \textbf{k-Means}. For k-means, $\mathbf{W}$ contains cluster centroids and $\mathbf{Z}$ the cluster assignments.
+}
