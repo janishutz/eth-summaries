@@ -81,13 +81,17 @@ $\cX_i \sim \cN(\mu, \sigma^2)$ i.i.d. und $\vartheta = (\mu, \sigma^2) = (\mu, 
 \]
 Der \bi{Momentschätzer} ist $T = (T_1, T_2) = (E_\vartheta[\cX], \V_\vartheta[\cX])$:
 \[
-    T_1 = \overline{\cX}_n \qquad
-    T_2 = \frac{1}{n} \sum_{k = 1}^{n} \cX_k^2 - (\overline{\cX}_n)^2
+    T_1 = \overline{\cX}_n
+    \quad
+    T_2 = \frac{1}{n} \sum_{k = 1}^{n} (\cX_k - \overline{\cX}_n)^2 = \frac{1}{n} \sum_{k = 1}^{n} \cX^2_k - (\overline{\cX}_n)^2
 \]
 \bi{Erwartungstreuer Schätzer} für $(\E_\vartheta[\cX], \V_\vartheta[\cX])$ (s. \ref{sec:estimators}):
 \[
     T_1' = T_1 \quad
     T_2' = \frac{n}{n - 1} T_2
 \]
-{\scriptsize $T_2'$ ist (korrigierte) empirische (Stichproben)varianz \textit{((un)biased sample variance)}.
-Bei höherdimensionalen Parametern suchen wir den zugehörigen Nullvektor.}
+$T_2'$ ist die (korrigierte) \bi{empirische (Stichproben)varianz}
+
+{\scriptsize
+    \textit{((un)biased sample variance)}.
+    Bei höherdimensionalen Parametern suchen wir den zugehörigen Nullvektor.}
