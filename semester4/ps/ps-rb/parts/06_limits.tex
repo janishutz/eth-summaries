@@ -50,13 +50,33 @@ $$
 
 \definition \textbf{Standardisierung von $S_n$}
 $$
-    S_n^* := \frac{S_n - n\mu}{\sigma\sqrt{n}} = \frac{S_n - \E[S_n]}{\sqrt{\V[S_n]}}
+    S_n^* := \frac{S_n - n\mu}{\sigma\sqrt{n}} = \frac{S_n - \E[S_n]}{\sqrt{\V[S_n]}} \sim \mathcal{N}(0,1)
 $$
 \subtext{Im Skript auch $Z_n$}
 
 % Slides: Chernoff bounds & mehr ZGS (nicht im Skript)
 
 \newpage
+
+{\footnotesize
+    \textbf{Beispiel}: Approximation via Standardisierung mit ZGS.
+
+    Sei $X_i,\ldots,X_n \overset{\text{i.i.d.}}{\sim} \P_X$ s.d. $\forall i: \E[X_i]=8, \V[X_i]=1.44$.
+
+    für $S_{100} = \sum_{i=1}^{n}X_i$ approximieren wir $\P\Bigl[ 788 \leq S_100 \leq 824 \Bigr]$\\
+    Es gilt: $\E[S_{100}] = 100\cdot\E[X_i] = 800,\quad \V[S_{100}]=100\cdot\V[X_i] = 144$
+    \begin{align*}
+            &\P\Bigl[ 788 \leq S_100 \leq 824 \Bigr] \\
+        =   &\P\Biggl[\frac{788 - \E[S_{100}]}{\sqrt{\V[S_{100}]}} \leq \frac{S_{100} - \E[S_{100}]}{\sqrt{\V[S_{100}]}} \leq \frac{824 - \E[S_{100}]}{\sqrt{\V[S_{100}]}}\Biggr] \\
+        =   &\P\Bigl[ -1 \leq \frac{S_{100} - \E[S_{100}]}{\sqrt{\V[S_{100}]}} \leq 2 \Bigr] \\
+        =   & \Phi(2) - \Phi(-1)    \\
+        =   & \Phi(2) - (1-\Phi(1)) \\
+        =   & \Phi(2) + \Phi(1) - 1 \\
+        \approx & 0.8185   
+    \end{align*} 
+    Genutztz wurde die Symmetrie von $\Phi$ und $\frac{S_{100} - \E[S_{100}]}{\sqrt{\V[S_{100}]}} \sim \mathcal{N}(0,1)$.\\
+    \subtext{Gemäss ZGS Nur eine approximation, da wir hier $n=100$ nutzen.} 
+}
 
 {\footnotesize
     \textbf{Beispiel}: Zentraler Grenzwertsatz als Teststatistik

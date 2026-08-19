@@ -68,7 +68,8 @@ $$
 
 % Bedingte Dichten fehlen noch, siehe HW5, F3
 
-\theorem \textbf{Erwartungswert}
+\theorem \textbf{Erwartungswert}\\
+\subtext{z.B. $\E[XY] = \int_{-\infty}^{\infty}(xy)\cdot f_{X,Y}(x,y)$.}
 \begin{align*}
     &\E\Bigl[ \phi(X_1,\ldots,X_n) \Bigr] \\
     &= \int_{-\infty}^\infty\cdots\int_{-\infty}^\infty\phi(x_1,\ldots,x_n)\cdot f(x_1\cdots x_n)\ dx_n\ldots dx_1    
@@ -83,11 +84,25 @@ $$
 
 {\scriptsize
     \remark Unabhängige stetige Variablen sind automatisch gemeinsam stetig
+
+    \remark Für unabh. stetige Variablen muss der Träger ein karthesischs Produkt sein. z.B. für 2 Variabeln in $\R$ ginge $[0,1]\times[0,2]$ (Ein Rechteck) 
 }
 
 % It's important to him to know \E[X]\E[Y] = \E[X\cdot Y] isn't enough for indep., requires \E[\phi(X)]\E[\psi(X)] instead \forall \phi,\psi
 
-\notation \textbf{Bedingte gem. Verteilung}
+\notation \textbf{Bedingte gem. Verteilung}\\
+\subtext{Analog zur Definition von $\P[X\sep Y]$.}
 $$
     f_{X \vert Y} := \frac{f_{X,Y}(x,y)}{f_Y(y)}
 $$
+
+{\footnotesize
+    \textbf{Beispiel}: Bei $f_{X,Y}=e^{-x},\ f_Y(y)=e^{-y}$ erhält man:
+    $$
+        f_{X|Y} \overset{\text{def.}}{=} \frac{f_{X,Y}(x,y)}{f_Y(y)} = \frac{e^{-x}}{e^{-y}} = e^{-(x-y)}
+    $$
+    Setzt man $z:=x-y$ gilt $f_{X|Y}\sim\text{Exp}(y)$. Gegeben $\{Y=y\}$ gilt:
+    $$
+        X - y \sim \text{Exp}(1) \qquad \text{oder} \qquad X \sep Y=y \sim y + \text{Exp}(1)
+    $$
+}
