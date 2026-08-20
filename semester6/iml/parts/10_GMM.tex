@@ -83,6 +83,20 @@ $$
     \end{align*}
 \end{itemize}
 
+{\footnotesize
+    \textbf{Example}: Let $Y \in \{1,2,3\}$ be the clusters, we'd like to assign $X \in \{0,1\}^5$. We're using \textit{Soft Expectation Maximization} to find the cluster assignments $\gamma_j(x_i)$. We assume $\P[X_i = 1 \sep Y]$ follows a $\text{Ber}(p)$ distribution.
+    
+    We'd like to find $\gamma_3(x_2) = \P[Y=3 \sep X=x_2]$. The E-step is:
+    $$
+    \P[Y=3 \sep X=x_2] = \frac{\P[X=x_2\sep Y=3]\cdot \overbrace{\P[Y=3]}^{w_3}}{\sum_{i=1}^{3}\P[X=x_2\sep Y=i]\cdot\P[Y=i]}
+    $$
+    For the M-step, we update the assignments via MLE. For $\text{Ber}(p)$, this is the \textit{sample mean}.
+    $$
+    \P[X_i=1 \sep Y=1] = \frac{\sum_{k=1}^{3}\mathbb{I}_{\{x_k^i=1\}}\cdot\P[Y=1\sep X=x_k]}{\sum_{k=1}^3\P[Y=1\sep X=x_k]}
+    $$
+    Where we use $x\in \R^5$
+}
+
 \subsubsection{Convergence}
 
 EM does not generally guarantee global convergence.

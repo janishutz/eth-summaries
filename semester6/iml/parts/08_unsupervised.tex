@@ -95,6 +95,97 @@ This is an iterative method to find the cluster centers.
     \remark Each iteration is in $\mathcal{O}\bigl( nkd \bigr)$.
 }
 
+{\footnotesize
+    \textbf{Example}: Consider $x_{1,2,3} = \begin{bmatrix}
+        2 \\
+        1
+    \end{bmatrix},
+    \begin{bmatrix}
+        -1 \\
+        -1
+    \end{bmatrix},
+    \begin{bmatrix}
+        -2 \\
+        -4
+    \end{bmatrix}$ for which we'd like $k=2$ clusters. We choose: 
+    $$\mu_1^{(0)}= \begin{bmatrix}
+        1 \\
+        1
+    \end{bmatrix} \qquad \mu_2^{(0)} = \begin{bmatrix}
+        -1 \\
+        -1
+    \end{bmatrix}
+    $$
+    For Lloyd's Heuristic, the initial cluster assignments $z^{(1)}_{1,2,3}$:
+    $$
+        z_1^{(1)} = \underset{j\in\{1,2\}}{\text{arg min}} \Biggl( \Biggl\Vert \begin{bmatrix}
+            2 \\
+            1
+        \end{bmatrix} - \begin{bmatrix}
+            1 \\
+            1
+        \end{bmatrix} \Biggr\Vert, \Biggl\Vert \begin{bmatrix}
+            2 \\
+            1
+        \end{bmatrix} - \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} \Biggr\Vert  \Biggr) = 1
+    $$
+    $$
+        z_2^{(1)} = \underset{j\in\{1,2\}}{\text{arg min}} \Biggl( \Biggl\Vert \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} - \begin{bmatrix}
+            1 \\
+            1
+        \end{bmatrix} \Biggr\Vert, \Biggl\Vert \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} - \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} \Biggr\Vert  \Biggr) = 2
+    $$
+        $$
+        z_2^{(1)} = \underset{j\in\{1,2\}}{\text{arg min}} \Biggl( \Biggl\Vert \begin{bmatrix}
+            -2 \\
+            -4
+        \end{bmatrix} - \begin{bmatrix}
+            1 \\
+            1
+        \end{bmatrix} \Biggr\Vert, \Biggl\Vert \begin{bmatrix}
+            -2 \\
+            -4
+        \end{bmatrix} - \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} \Biggr\Vert  \Biggr) = 2
+    $$
+    And then the updated cluster centers:
+    $$
+        \mu_1^{(1)} = \frac{1}{1}\Biggl( \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} \Biggr) = \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix}
+    $$
+    $$
+        \mu_2^{(1)} = \frac{1}{2}\Biggl( \begin{bmatrix}
+            -1 \\
+            -1
+        \end{bmatrix} + \begin{bmatrix}
+            -2 \\
+            -4
+        \end{bmatrix} \Biggr) = \frac{1}{2}\begin{bmatrix}
+            -3  \\
+            -5
+        \end{bmatrix}
+    $$
+}
+
 % Continue with convergence analysis, k-means++
 
 \subsubsection{Convergence}
