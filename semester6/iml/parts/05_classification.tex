@@ -34,6 +34,10 @@ $$
 Unfortunately, $l_{0-1}$ is non-continuous and non-convex.\\
 We introduce \textit{surrogate loss} to still apply GD.
 
+{\footnotesize
+    \remark Note how $\nabla l_{0-1}(\hat{y},y) = 0$ everywhere.
+}
+
 Note how $\mathbb{I}_{\hat{y}\neq y} = \mathbb{I}_{\hat{y}\cdot y < 0}$, so $l_{0-1}$ only depends on $z := \hat{y}\cdot y$.\\
 We thus define losses over $z$, that are cont. and convex.
 
@@ -178,6 +182,10 @@ Train each model seperately by relabeling for each $\hat{f}_k$:
     \item Run binary classification on $\mathcal{D}_k$ to get $\hat{f}_k$
 \end{enumerate}
 \subtext{This leads to $K$ classification problems, which might be slow}
+
+{\footnotesize
+    \remark Visually, this leads to \textit{convex} regions for each label.
+}
 
 Another way to reuse the existing methodology is to use a new loss:
 
