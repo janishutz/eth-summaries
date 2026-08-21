@@ -361,3 +361,62 @@ $$
 
     \remark \textbf{k-Means}. For k-means, $\mathbf{W}$ contains cluster centroids and $\mathbf{Z}$ the cluster assignments.
 }
+\subsection{Kernel PCA}
+
+Like in supervised learning, we can again use non-linear feature maps and kernels.\\
+\subtext{Note this isn't covered in the IML script, only in the lectures.}
+
+\subsubsection{Kernel PCA in one dimension}
+
+The optimal solution for PCA with $k=1$ was:\\
+\subtext{$x_i$ are rows of $\mathbf{X}$}
+$$
+    w^* = \underset{\Vert w\Vert_2=1}{\text{arg max}}\ w^\top \mathbf{X}^\top \mathbf{X}w = \underset{\Vert w\Vert_2=1}{\text{arg max}} \sum_{i=1}^{n}\bigl( w^\top x_i \bigr)
+$$
+\subtext{Remember $\Sigma = \frac{1}{n}\mathbf{X}^\top\mathbf{X}$ and that $\frac{1}{n}$ isn't relevant for optimization.}
+
+\definition \textbf{Kernel PCA} $k=1$
+$$
+    \underset{\alpha^\top \mathbf{K} \alpha=1}{\text{arg max}}\ \alpha^\top \mathbf{K}^\top\mathbf{K}\alpha
+$$
+The derivation for this is straightforward:
+
+\newpage
+
+We can apply feature maps: $\displaystyle w = \sum_{i=1}^{n}\alpha_i \phi(x_i)$ and find:
+\begin{align*}
+    &\underset{\Vert w\Vert_2=1}{\text{arg max}} \sum_{i=1}^{n}\bigl( w^\top x_i \bigr) \\
+    &= \underset{\Vert w\Vert_2=1}{\text{arg max}} \sum_{i=1}^{n}\biggl( \sum_{j=1}^{n} \alpha_j\phi(x_k)^\top \phi(x_i) \biggr)            & \text{(def. $w$)}         \\
+    &= \underset{\Vert w\Vert_2=1}{\text{arg max}} \sum_{i=1}^{n}\biggl( \sum_{j=1}^{n} \alpha_j k(x_j, x_i) \biggr)                        & \text{(introduce $k$)}    \\
+    &= \underset{\Vert w\Vert_2=1}{\text{arg max}} \sum_{i=1}^{n}\Bigl( \alpha^\top \mathbf{K}_i \Bigr)^2                                   & \text{(notation)}         \\
+    &= \underset{\Vert w\Vert_2=1}{\text{arg max}}\ \alpha^\top \mathbf{K}^\top\mathbf{K}\alpha
+\end{align*}
+Finally we can use that $\Vert w \Vert^2 = \alpha^\top \mathbf{K} \alpha$ to get:
+
+The optimal solution uses the Eigendecomposition for $\mathbf{K}$.\\
+\subtext{Analogous to PCA, where we used the Eigendecomposition for $\Sigma$.}
+
+\lemma \textbf{Eigendecomposition of $\mathbf{K}$} $\quad \mathbf{K} = \lambda_i v_i v_i^\top$
+
+\theorem \textbf{Kernel PCA solution for} $k=1$
+$$
+    \alpha^* = \frac{1}{\sqrt{\lambda_1}} v_1
+$$
+
+\subsubsection{Kernel PCA in general}
+
+Again, the result from $k=1$ generalizes.
+
+\theorem \textbf{Kernel PCA General Solution}\\
+\smalltext{$v_i$ are the EV of $\mathbf{K}$, $\lambda_1 \geq \ldots \geq \lambda_n \geq 0$}
+$$
+    \alpha^{(i)} = \frac{1}{\sqrt{\lambda_i}}v_i
+$$
+{\footnotesize
+    \remark The $\alpha^{(i)}$ are called \textit{Kernel Principal Components}.
+}
+
+To project new points $x \mapsto z$ we can use:
+$$
+    z_i = \sum_{i=1}^{n}\alpha_j^{(i)}k(x_j,x)
+$$

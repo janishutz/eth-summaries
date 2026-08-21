@@ -1,0 +1,123 @@
+\textbf{Problem}: How can we evaluate model performance?
+
+\smalltext{Intuitively, we consider a model good if it performs well on non-training data, i.e. how well it generalizes.}
+
+New terminology:
+
+\begin{tabular}{ll}
+    $M$                                         & Method    \\
+    $M(\mathcal{D}) = \hat{f}_\mathcal{D}$      & Model trained on $\mathcal{D}$ \\
+    $f^*$                                       & Ideal function ("ground truth")
+\end{tabular}
+
+{\footnotesize
+    \remark The terms model and method are often used interchangeably.
+}
+
+\subsection{Error types}
+
+\definition \textbf{Estimation Error}\\
+\subtext{$x$ is sampled i.i.d. from unseen data, not in $\mathcal{D}$}
+$$
+    l\Bigl( \hat{f}(x), f^*(x) \Bigr) = \Bigl( \hat{f}(x)-f^*(x) \Bigr)^2
+$$
+
+As $f^*$ is usually unknown, this is used instead:
+
+\definition \textbf{Prediction Error}\\
+\subtext{$\hat{f}\in F,\quad (x,y) \in \mathcal{D}'$}
+$$
+    l\Bigl(\hat{f}(x),y\Bigr) = \Bigl(\hat{f}(x) - y\Bigr)^2
+$$
+
+To model generalization we use probability theory.
+
+\textbf{Assumption}: $X \overset{\text{i.i.d.}}{\sim} \P_X$, $Y \overset{\text{i.i.d.}}{\sim} \P_Y$
+
+Our goal is now to approximate $\E_X\Bigl[ l\bigl( f(X), f^*(X) \bigr) \Bigr]$ for possible choices of $f$.
+
+\textbf{Assumption}: $y = f^*(x) + \epsilon$ (Noise model)
+\begin{align*}
+    \epsilon        &\sim \P_\epsilon \\
+    \E[\epsilon]    &= 0 \\
+    \V[\epsilon]    &= \E[\epsilon^2] - \underbrace{\E[\epsilon]^2}_{=0} = \E[\epsilon^2]
+\end{align*}
+
+This defines a cond. distribution of $Y$ given $X$:
+$$
+    \P_{Y|X}\Bigl[ Y \leq a \Bigr] = \P_\epsilon\Bigl[ \epsilon \leq a - f^*(x) \Bigr]
+$$
+
+\definition \textbf{Generalization Error} (Population Risk)\\
+\subtext{$f: \mathcal{X}\to\R,\quad (X,Y) \sim \P_{X,Y}$}
+$$
+    L\Bigl( f;\P_{X,Y} \Bigr) = \E_{X,Y}\Bigl[ l\bigl(f(X), Y\bigr) \Bigr]
+$$
+
+The advantage here is that $f^*$ isn't required to exist. If a $f^*$ is still assumed, the result is very intuitive:
+$$
+    \E_{X,Y}\Bigl[ f^*(X),Y \Bigr] = \E_{X,Y}\Bigl[ \bigl(f^*(X) - Y\bigr)^2 \Bigr] = \V[\epsilon]
+$$
+
+Another advantage is that a good generalization error of $\hat{f}$ implies it is a good estimation of $f^*$, i.e. minimalizes expected estimation error.
+
+\lemma \textbf{Generalization Error approximates Estimation error}\\
+\subtext{$f^*(x) = \E[Y \sep X=x]$}
+$$
+    L\Bigl( \hat{f}; \P_{X,Y}\Bigr) = \underbrace{\E_X\Bigl[ \bigl(\hat{f}(X)-f^*(X)\bigr)^2 \Bigr]}_\text{Estimation error} + \underbrace{\E_{X,Y}\Bigl[ \bigl(f^*(X)-Y\bigr)^2 \Bigr]}_\text{Irreducible noise error, $\V[\epsilon]$}
+$$
+
+\subsection{Approximating generalization error}
+
+\textbf{Problem}: We don't have $\P_{X,Y}$ and can't evaluate $L\Bigl(\hat{f};\P_{X,Y}\Bigr)$.
+
+\textbf{Solution:} Approximation, using $\mathcal{D}$.
+
+\textbf{Assumption}: $\forall (x_i,y_i) \in \mathcal{D}:\quad (x_i,y_i) \overset{\text{i.i.d.}}{\sim} \P_{X,Y}$\\
+\subtext{In practice, this might not be true. $\mathcal{D}$ can be biased.}
+$$
+    \forall (x_i,y_i) \in \mathcal{D}:\quad y_0 = f^*(x_i) + \epsilon_i \quad \text{\footnotesize\color{gray} (Follows from assumption)}
+$$
+
+\method \textbf{Using Training Error}\\
+\smalltext{An intuitive approach is using the training error.}
+$$
+    \hat{f}_\mathcal{D} = \underset{f\in F}{\text{arg min}}\Bigl( L(f;\mathcal{D}) \Bigr) = \underset{f\in F}{\text{arg min}}\Biggl( \frac{1}{n}\sum_{i=1}^{n}l\Bigl(f(x_i), y_i\Bigr) \Biggr)
+$$
+Generally, this isn't a good estimation and for $\mathcal{D}' \neq \mathcal{D}$:\\
+$L(\hat{f}_\mathcal{D};\mathcal{D}') > L(\hat{f}_\mathcal{D};\mathcal{D})$ usually, since $\hat{f}_\mathcal{D}$ is biased for $\mathcal{D}$.
+
+\newpage
+
+\method \textbf{Training/Test Split}\\
+\smalltext{Split $\mathcal{D}$ into $\mathcal{D}_\text{train},\mathcal{D}_\text{test}$. Find $\hat{f}_{\mathcal{D}_\text{train}}$}
+$$
+    L(\hat{f}_{\mathcal{D}_\text{train}};\mathcal{D}_\text{test}) = \frac{1}{|\mathcal{D}_\text{test}|}\sum_{(x,y)\in\mathcal{D}_\text{test}} l\Bigl( \hat{f}_{\mathcal{D}_\text{train}}(x), y \Bigr)
+$$
+
+We can apply the law of large numbers:
+{\footnotesize
+$$
+    \underset{|\mathcal{D}_\text{test}|\to\infty}{\lim}\Biggl( \frac{1}{|\mathcal{D}_\text{test}|}\sum_{(x,y)\in\mathcal{D}_\text{test}} l\Bigl( \hat{f}_{\mathcal{D}_\text{train}}(x), y \Bigr)\Biggr) = \E_{X,Y}\Bigl[ l\bigl( \hat{f}_{\mathcal{D}_\text{train}}(X),Y \bigr) \Bigr]
+$$
+}
+
+{\footnotesize
+    \remark Assume $\hat{f}$ is trained on $\mathcal{D}_\text{train}$ and chosen (among other $f$) for its low error on $\mathcal{D}_\text{test}$. Note how now $\hat{f}$ depends on \textit{both} $\mathcal{D_\text{test}}$ and $\mathcal{D}_\text{train}$. Now, the prerequisites for the law of large numbers is no longer satisfied. $\hat{f}$ is \textit{not} independent from $\mathcal{D}_\text{test}$ and
+    $$
+        \frac{1}{|\mathcal{D}_\text{test}|}\sum_{(x,y)\in\mathcal{D}_\text{test}} l\Bigl(\hat{f}(x),y\Bigr)
+    $$
+    is \textit{not} a sum of indep. quantities. It might not converge to $\E_{X,Y}\bigl[ f(X),Y \bigr]$ anymore.
+}
+
+\textbf{Problem}: We can't model gen. error anymore if we use $\mathcal{D}_\text{test}$ for model selection.
+
+\textbf{Solution}: We add a third split $\mathcal{D}_\text{valid}$.
+
+{\footnotesize  
+    \remark This approach works. We can use $\mathcal{D}_\text{test}$ to find a good model and can estimate the gen. error using $\mathcal{D}_\text{valid}$. The problem now is we're losing a lot of data to $\mathcal{D}_\text{test}, \mathcal{D}_\text{valid}$ that isn't used for training.
+}
+
+\subsection{Cross Validation}
+
+Cross Validation doesn't require $\mathcal{D}_\text{test}$ anymore.
