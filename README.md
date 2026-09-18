@@ -54,24 +54,38 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 #### Other Courses
 - [Formal Methods & Functional Programming Summary (EN)](./semester4/fmfp/formal-methods-functional-programming-summary.pdf) Author: Janis Hutz
 - [Data Modelling & Databases Summary (EN)](./semester4/dmdb/data-modelling-databases-summary.pdf) Author: Janis Hutz
-- [Computer Networks (EN)](./semester4/cn/computer-networks-summary.pdf) Author: Not started yet
 </details>
 
-### Semester 6
+
+### Core
 <details>
-<summary>Summaries for Semester 6</summary>
+<summary>Summaries for Core Subjects</summary>
+
+#### Compiler Design
+- [Summary (EN)](./core/cd/summary/main.pdf) Author: Janis Hutz
+- [Cheat-Sheet (EN)](./core/cd/cheat-sheet-jh/main.pdf) Author: Janis Hutz
+
+#### Visual Computing
+- [Summary (EN)](./core/vc/summary/main.pdf) Author: Janis Hutz
+- [Cheat-Sheet (EN)](./core/vc/cheat-sheet-jh/main.pdf) Author: Janis Hutz
+
+#### Human Computer Interaction
+- [Summary (EN)](./core/hci/summary.pdf) Author: Janis Hutz
+
+#### Computer Systems
+- [Summary (EN)](./core/cs/summary.pdf) Author: Janis Hutz
 
 #### Introduction to Machine Learning
+NOTE: the path here will change at some point
 - [Introduction to Machine Learning Summary (EN)](./semester6/iml/main.pdf) Author: Robin Bacher
 </details>
 
 
 ### Electives
 <details>
-<summary>Electives summaries</summary>
+<summary>Summaries for Electives</summary>
 
 - [Autonomous Mobile Robots Cheat-Sheet (EN)](./electives/amr/autonomous-mobile-robots-cheatsheet.pdf) Author: Janis Hutz
-- [Virtual Reality I Summary (EN)](./electives/vr1/virtual-reality1-summary.pdf) Author: Janis Hutz
 </details>
 
 
