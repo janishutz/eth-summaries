@@ -1,0 +1,7 @@
+\subsection{Bootstrapping}
+Bootstrapping is the first operation any operating system performs.
+This typically involves setting up the stack in assembly for the respective language, then intializing devices, etc. in a higher level language, such as \texttt{C} or \texttt{Rust}.
+
+Contrary to popular believe, setting up the stack can be achieved in just a few instructions and the rest is mostly ``box-standard'' \texttt{C} code.
+Of course, you still have to read lots of manuals to figure out how each device needs to be initialized.
+At this point, you also set up Virtual Memory and all the memory structures needed to operate.
