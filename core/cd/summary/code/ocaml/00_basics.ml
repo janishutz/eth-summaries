@@ -34,3 +34,7 @@ let double_all_t (arg : int list) : int list =
   List.rev (aux arg [])
 
 let print_list (list : 'a list) = List.iter (Printf.printf "%d") list
+
+(* We can also use pattern matching for the tuple contents *)
+let tup = 100, "String", true
+let second (_, x, _) = x
