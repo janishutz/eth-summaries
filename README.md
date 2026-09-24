@@ -62,18 +62,18 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 <summary>Summaries for Core Subjects</summary>
 
 #### Compiler Design
-- [Summary (EN)](./core/cd/summary/main.pdf) Author: Janis Hutz
-- [Cheat-Sheet (EN)](./core/cd/cheat-sheet-jh/main.pdf) Author: Janis Hutz
+- [Summary (EN)](./core/cd/summary/cd-summary.pdf) Author: Janis Hutz
+- [Cheat-Sheet (EN)](./core/cd/cheat-sheet-jh/cd-cheat-sheet.pdf) Author: Janis Hutz
 
 #### Visual Computing
-- [Summary (EN)](./core/vc/summary/main.pdf) Author: Janis Hutz
-- [Cheat-Sheet (EN)](./core/vc/cheat-sheet-jh/main.pdf) Author: Janis Hutz
+- [Summary (EN)](./core/vc/summary/vc-summary.pdf) Author: Janis Hutz (NOTE: This is likely *not* to happen)
+- [Cheat-Sheet (EN)](./core/vc/cheat-sheet-jh/vc-cheat-sheet.pdf) Author: Janis Hutz
 
 #### Human Computer Interaction
-- [Summary (EN)](./core/hci/summary.pdf) Author: Janis Hutz
+- [Summary (EN)](./core/hci/hci-summary.pdf) Author: Janis Hutz
 
 #### Computer Systems
-- [Summary (EN)](./core/cs/summary.pdf) Author: Janis Hutz
+- [Summary (EN)](./core/cs/cs-summary.pdf) Author: Janis Hutz
 
 #### Introduction to Machine Learning
 NOTE: the path here will change at some point
