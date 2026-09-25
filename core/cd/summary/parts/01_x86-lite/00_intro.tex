@@ -1,0 +1,30 @@
+\subsection{Introduction}
+x86lite is a subset of the full x86 ISA, with only about 20 instructions and only 64-bit signed integers, nothing else.
+It is further interoperable with x86.
+
+As a quick reminder, the following registers are relevant for x86lite:
+\begin{multicols}{4}
+    \begin{itemize}
+        \item \texttt{rax}
+        \item \texttt{rbx}
+        \item \texttt{rcx}
+        \item \texttt{rdx}
+        \item \texttt{rsi}
+        \item \texttt{rdi}
+        \item \texttt{rbp} (Base Pointer)
+        \item \texttt{rsp} (Stack Pointer)
+        \item \texttt{r08}
+        \item \texttt{r09}
+        \item \texttt{r10}
+        \item \texttt{r11}
+        \item \texttt{r12}
+        \item \texttt{r13}
+        \item \texttt{r14}
+        \item \texttt{r16}
+    \end{itemize}
+\end{multicols}
+
+Further, the \texttt{rip} points to the next instruction. Then, the CPU has processor state registers, such as \texttt{OF} (set, if the last instruction caused an overflow),
+\texttt{ZF} (set if last result was zero), etc.
+
+On x86, the heap grows upwards, the stack grows downwards, where the code and data section that precedes the heap in the address space contains program code, constants and globals.

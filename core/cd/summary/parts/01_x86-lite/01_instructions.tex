@@ -1,0 +1,14 @@
+\subsection{Instructions \& Syntax}
+x86lite uses the AT\&T syntax, where the source comes \textit{before} the destination, immediates are prefixed with a \texttt{\$} and registers with a \texttt{\%}.
+Each mnemonic has suffixes \texttt{q = quadword} (4 words), \texttt{l = long} (2 words), \texttt{w = word} (16 bits) and \texttt{b = byte} (8 bit),
+for example \texttt{movq \$5, \%rax}. This syntax is prevalent in the UNIX ecosystem {\scriptsize (thus is \textit{objectively} superior\dots)}
+
+The following operands can be passed to instructions:
+\begin{itemize}
+    \item \bi{Immediate} (\texttt{Imm}):
+    \item \bi{Label} (\texttt{Lbl}):
+    \item \bi{Register} (\texttt{Reg}):
+    \item \bi{Machine Address} (\texttt{Ind}): Using the format \texttt{disp(base, index, scale)}, with the address computed as \texttt{disp + base + index * scale},
+          with \texttt{base} and \texttt{index} registers (\texttt{index} cannot be the \texttt{rsp} reg) and \texttt{disp} and \texttt{scale} \texttt{int32} immediates,
+          where in x86lite \texttt{scale} is by default \texttt{8}
+\end{itemize}

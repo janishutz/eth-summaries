@@ -1,0 +1,15 @@
+\subsection{Calling Conventions}
+As covered in SPCA, the stack in \texttt{C} stores local variables and other book-keeping data.
+Global variables are stored in the code and data section at the low end of the address space.
+Further, remember that the \texttt{rbp} (base pointer) register by convention contains the \textit{previous value} of \texttt{rsp}.
+
+\subsubsection{Callee vs Caller Saved registers}
+By convention, the registers \texttt{rbp, rsp, rbx, r12, r13, r14, r15} are \textit{Callee-Saved}, i.e. it is the duty of the \textit{subroutine} (the callee) to restore them.
+All other registers are \textit{Caller-Saved}, meaning that the callee can freely use them.
+
+\subsubsection{Arguments}
+Function arguments one through six are stored in \texttt{rdi, rsi, rdx, rcx, r8, r9}, respectively, any extra arguments are to be stored on the stack in right-to-left order,
+meaning that for $n > 6$, the $n$-th argument is at $((n - 7) + 2) * 8 + \texttt{rbp}$.
+
+The return value is stored in \texttt{rax} and the stack must be 16-byte aligned on a call.
+Further, there is a 128 byte ``red zone'', which is a scratch pad for the callee's data, which is there for optimization.

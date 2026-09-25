@@ -1,0 +1,68 @@
+\subsection{List of instructions}
+A list of instructions is also provided on the Moodle page for the course.
+
+\subsubsection{Arithmetic Instructions}
+\begin{tables}{lll}{Instruction        & Explanation                                        & Example}
+              \texttt{negq DEST}       & 2's complement negation                            & \verb|negq %rax|       \\
+              \texttt{addq SRC, DEST}  & $\text{DEST} \gets \text{DEST} + \text{DEST}$      & \verb|addq %rbx, %rax| \\
+              \texttt{subq SRC, DEST}  & $\text{DEST} \gets \text{DEST} + \text{DEST}$      & \verb|subq $4, %rsp|   \\
+              \texttt{imulq SRC, DEST} & $\text{DEST} \gets \text{DEST} \times \text{DEST}$ & \verb|imulq $4, %rax|  \\
+\end{tables}
+
+
+\subsubsection{Logic/Bit Manipulation Instructions}
+\begin{tables}{lll}{Instruction       & Explanation                                                             & Example}
+              \texttt{notq DEST}      & bitwise not                                                             & \verb|notq %rax|       \\
+              \texttt{andq SRC, DEST} & $\text{DEST} \gets \text{DEST}\ \&\ \text{DEST}$                        & \verb|andq %rbx, %rax| \\
+              \texttt{orq SRC, DEST}  & $\text{DEST} \gets \text{DEST}\ |\ \text{DEST}$                         & \verb|orq $4, %rsp|    \\
+              \texttt{xorq SRC, DEST} & $\text{DEST} \gets \text{DEST}\ \texttt{xor}\ \text{DEST}$              & \verb|xorq $2, %rax|   \\
+              \texttt{sarq Amt, DEST} & $\text{DEST} \gets \text{DEST} \gg \text{Amt}$ (Arithmetic right shift) & \verb|sarq $4, %rax|   \\
+              \texttt{shrq Amt, DEST} & $\text{DEST} \gets \text{DEST} \ggg \text{Amt}$ (Logical right shift)   & \verb|shrq $1, %rsp|   \\
+              \texttt{shlq Amt, DEST} & $\text{DEST} \gets \text{DEST} \lll \text{Amt}$ (Logical left shift)    & \verb|shlq %rbx, %rax| \\
+\end{tables}
+
+
+\subsubsection{Control Flow, Blocks and Labels}
+As you are probably aware of, x86 assembly organizes code into \textit{labeled blocks}.
+Labels are translated away by the linker and loader and the code begins executing at a designated code label (usually ``main'').
+
+To call a subroutine at a given label, we can use the \texttt{call LABEL} instruction and we can use the \texttt{ret} instruction to return from the procedure.
+\begin{tables}{lll}{Instruction & Description                                          & Notes}
+              \texttt{jmp SRC}  & $\texttt{rip} \gets \texttt{SRC}$                    & Jump to location in \texttt{SRC}                                       \\
+              \texttt{call SRC} & Push \texttt{rip}; $\texttt{rip} \gets \texttt{SRC}$ & Push program counter (\texttt{rip}) onto stack, decrement \texttt{rsp} \\
+              \texttt{ret}      & Pop into \texttt{rip}                                & Pop top of stack into \texttt{rip}, increment \texttt{rsp}             \\
+\end{tables}
+This means that the \texttt{call} and \texttt{ret} instructions act like some sort of abstraction of \texttt{jmp}.
+
+
+\subsubsection{Condition Flags \& Codes, Conditional Instructions}
+The following flags are set as side effects from normal instructions:
+\begin{itemize}
+    \item \texttt{OF} \textit{overflow}: is set when the result is too big or small to fit in the 64 bit register
+    \item \texttt{SF} \textit{sign}: set to the sign of the result
+    \item \texttt{ZF} \textit{zero}: set when the result is 0
+\end{itemize}
+
+From these flags, we can define \textit{condition codes}:
+\begin{tables}{lll}{Condition Codes & Condition           & Description}
+              \texttt{e}            & \verb|ZF|           & Equal / Zero              \\
+              \texttt{ne}           & \verb+~ZF+          & Not Equal / Not Zero      \\
+              \texttt{g}            & \verb+~(SF^OF)&~ZF+ & Greater (signed)          \\
+              \texttt{ge}           & \verb+~(SF^OF)+     & Greater or equal (signed) \\
+              \texttt{l}            & \verb+SF^OF+        & Less (signed)             \\
+              \texttt{le}           & \verb+(SF^OF)|ZF+   & Less or equal (signed)    \\
+\end{tables}
+
+Instead of manually computing \texttt{SRC1 - SRC2} manually, we can instead use the following instructions to set the condition codes:
+\begin{tables}{ll}{Instruction         & Description                                                     }
+              \texttt{cmpq SRC2, SRC1} & Computes \texttt{SRC1 - SRC2} sets condition flags                      \\
+              \texttt{setb CC, DEST}   & \texttt{DEST}'s lower byte $\gets$ if \texttt{CC} then 1 else 0         \\
+              \texttt{jCC SRC}         & \texttt{rip} $\gets$ if \texttt{CC} then \texttt{SRC} else fall through \\
+\end{tables}
+
+
+\subsubsection{Stack Operations \& Memory Model}
+To load a pointer into a register, we can use \texttt{leaq Ind, DEST}, which does $\texttt{DEST} \gets \texttt{addr(Ind)}$.
+
+As mentioned previously, the x86 stack grows downwards, so the \texttt{pushq SRC} instruction computes $\texttt{rsp} \gets \texttt{rsp} - 8; \texttt{Mem[rsp]} \gets \texttt{SRC}$,
+where \texttt{popq DEST} computes $\texttt{DEST} \gets \texttt{Mem[rsp];} \texttt{rsp} \gets \texttt{rsp} + 8$.
