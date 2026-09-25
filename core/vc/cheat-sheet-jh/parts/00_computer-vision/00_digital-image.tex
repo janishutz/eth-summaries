@@ -1,0 +1,32 @@
+\shortdefinition[Image] $f : \R^n \rightarrow S$,
+for greyscale $n = 2$, $S = \R^+$,
+in digital form: $I : \{ 1, \ldots, X \} \times \{ 1, \ldots, Y \} \rightarrow S$
+
+\shortremark Pinhole size affects blur, \bi{Lens Camera} as sol.
+
+\shortremark Charge Coupled Device (CCD) sensor reads line-by-line (rolling shutter), then each line pixel-by-pixel
+
+\shortdefinition[Sensor array] is an array of \textit{photosites} (bucket of el. charge $\propto$ light intensity), then read via ADC.
+
+\shortremark[Blooming] Caused by photosite saturation
+
+\shortdefinition[Dark Current] CCDs give non-zero output in darkness, fluctuates randomly
+
+\shortdefinition[CMOS Sensor] Each photo sensor has own amplifier, {\color{red} more noise, lower sensitivity}, {\color{ForestGreen} ``smart'' pixels bc. CMOS}
+
+\shortdefinition[Sampling] Repeated measurement on certain interval, \bi{Reconstruction} is inverse.
+Issues: \bi{undersampling} (lose information), \bi{oversampling} (too large files).
+
+\shortdefinition[Nyquist Frequency] highest signal freq that can be accurately captured, half of sampling rate
+
+\shortdefinition[Quantization] Lossy discretization of analogue value, simple versions have $k = 2^b$ values for $b$ bits
+
+\shortremark Quantization ``on'' $y$-axis, Sampling ``along'' $x$-axis
+
+\shortdefinition[Res.] Geometric: PPI; Radiometric: Bits/Pixel
+
+\shortdefinition[Signal-Noise-R.] (SNR) Image quality index: $s = F \div \sigma$, with $F = \frac{1}{XY}\sum_{x = 1}^{X} \sum_{y = 1}^{Y} f(x, y)$.
+
+\shortdefinition[Add. Gaussian Noise] $I(x, y) = f(x, y) + c$, with $c \sim \cN(0, \sigma^2)$, s.t. $p(c) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-\frac{c^2}{2 \sigma^2}}$
+
+\shortdefinition[Poisson Noise] $p(k) = \frac{\lambda^k e^{-\lambda}}{k!}$

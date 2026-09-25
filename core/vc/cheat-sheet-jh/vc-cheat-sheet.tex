@@ -1,16 +1,30 @@
 \documentclass{article}
 
+\PassOptionsToPackage{skip=0pt}{parskip}
+
 \input{../../../helpers.tex}
 
 \usepackage{lmodern}
 \setFontType{sans}
+
+\renewcommand{\numberingpreset}{off}
+\renewcommand{\definitionShortNamingEN}{Def}
+\renewcommand{\remarkShortNamingEN}{Rem}
+\renewcommand{\lemmaShortNamingEN}{Lem}
+\renewcommand{\theoremShortNamingEN}{Thm}
+\renewcommand{\descriptorNameDisplay}[1]{\textbf{#1}}
 
 \setupCheatSheet{Visual Computing}
 
 \begin{document}
 \startDocument
 
+\noverticalspacing
 
+
+\input{parts/00_computer-vision/main.tex}
+
+\input{parts/01_computer-graphics/main.tex}
 
 
 

@@ -1,0 +1,31 @@
+\shortdefinition[Moving Average] New image $G$ where $G[x, y]$ is average of surrounding pixels and $F[x, y]$
+
+\shortdefinition[Linear Shift-Invariant Filter.] New pixels lin. comb. of neighbours, \textit{shift-invariant} = doing same for all pixels.
+Good for: smoothing, noise reduction, sharpening
+
+\shortdefinition[Linear Operation] $L$ lin. if $L[\alpha I_1 + \beta I_2] = \alpha L[I_1] + \beta L[I_2]$, $I'_j = \sum_{i = 1}^{N} \alpha_{ij} I_i$ for $j \in \{ 1, \ldots, N \}$
+
+\shortdefinition[Linear Filtering] $I'(x, y) = \sum_{(i, j) \in N(x, y)} K(i, j) I(x + i, y + j)$ with $I$ the input image and $K$ the \bi{kernel} of operation,
+$N(x, y)$ neighbourhood function for pixel $(x, y)$. Shift-Invariant if $K$ doesn't depend on $(x, y)$ (i.e. same weights everywhere)
+
+\shortdefinition[Kernel] Typically matrix, center of matrix is $(0, 0)$
+
+\shortdefinition[Correlation] $\displaystyle I'(x, y) = \sum_{j = -k}^{k} \sum_{i = -k}^{k} K(i, j) I(x + i, y + j)$
+
+\shortdefinition[Conv.] $\displaystyle I'(x, y) = \sum_{j = -k}^{k} \sum_{i = -k}^{k} K(-i, -j) I(x + i, y + j)$
+Gen.: $g(x) = (f * h)(x) = \int_{-\8}^{\8} f(\tau)h(x - \tau) \dx \tau$, $h(\tau)$ kernel
+
+\shortremark If $K(i, j) = K(-i, -j)$, then Convolution = Corr.
+
+\shortremark Convolution is linear: $[(af + bg) * h](x) = a(f * h)(x) + b(g * h)(x)$, commutative: $(f * h)(x) = (h * f)(x)$,
+associative: $(f * g) * h = f * (g * h)$; Diff: $\diff{x} (f * h)(x) = f * h'$
+
+% TODO: Consider what examples to put here for linear filters
+
+\shortremark At edge of image, extrapolate, options: clip filter (black), wrap around, copy edge, reflect across edge
+
+\shortdefinition[Gaussian Kernel] $G_\sigma = \frac{1}{2 \pi \sigma^2}e^{\frac{x^2 + y^2}{2\sigma^2}}$.
+The smooting amount depends on $\sigma$ and window size.
+
+\shortremark $g(x, y) = g(x) g(y)$, with $g(x) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left( -\frac{x^2}{2\sigma^2} \right)$.
+Efficient implementation: First rows 1D, then cols 1D
