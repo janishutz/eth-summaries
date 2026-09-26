@@ -1,0 +1,46 @@
+\shortdefinition[Scale Space] Collection of img at diff scales \& smooth.
+
+\shortremark Finite diff. for $\frac{\partial f(x, y)}{\partial x} \approx \frac{f(x + 1, y) - f(x, y)}{1}$,\\
+filter: $[1, -1]$. Can use par der. for edge detection
+
+\shortdefinition[Gradient] $\nabla f = [\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}]$, dir of most rapid change.
+\bi{Edge strength} (magnitude): $M(x, y) = ||\nabla f||$.\\
+Noise makes edge detection hard, smooth first, then edge is peak in $\pardiff{x}(h * f)$.
+\bi{Angle} $\alpha(x, y) = \arctan \left( \frac{\partial f}{\partial y} \div \frac{\partial f}{\partial x} \right)$
+
+\shorttheorem $\pardiff{x}(h * f) = \left( \pardiff{x} h \right) * f$
+
+\shortdefinition[Laplacian] $\nabla^2 f = \frac{\partial^2 f}{\partial^2 x} + \frac{\partial^2 f}{\partial^2 y}$
+
+\shortdefinition[LoG] $\nabla^2 G(x, y) = \frac{1}{2\pi \sigma^2} \left( \frac{x^2 + y^2 - 2\sigma^2}{\sigma^2} \right)\exp\left( -\frac{x^2 + y^2}{2 \sigma^2} \right)$\\
+Edge is at zero-crossing of $\left( \pardiffn{x}{2} h \right) * f$. $\sigma$ affects scale of edges detected (larger $\sigma$ = stronger edges)
+
+\shortdefinition[Canny E.D.] \bi{1} smooth w/ Gaussian, \bi{2} gradient magnitude \& angle, \bi{3} Nonmaxima suppression to gradient mag. image,
+\bi{4} double thresholding to detect strong and weak edge pixels, \bi{5} reject weak edge pixels not connected with strong edge pixels
+
+\shortdefinition[Non-Max-Suppression] Quantize edge normal to four dir, if $M(x, y)$ smaller than either neighbour in dir, suppress, else keep
+
+\shortdefinition[Thresholding] Via thresholds $\theta_\text{high} \div \theta_\text{low} \in [2, 3]$ (typ)
+
+\subsubsection{Line Fitting}
+Generally challenging, missing information
+
+\shortdefinition[RANSAC] Random Sample Consensus:
+\begin{enumerate}
+    \item Rand. sel. \textit{seed group} of p. w/ base transf. est.
+    \item Compute transformation from seed group
+    \item Find \textit{inliers} to this transformation
+    \item If inliers sufficiently large, recompute least-squares estimate of transformation on all inliers
+\end{enumerate}
+Sample count: $w$ frac of inliers, $n$ points define hypothesis ($n = 2$ for lines), $k$ samples chosen.
+Prob. sample of $n$ points correct: $w^n$, prob all $k$ samples fail: $(1 - w^n)^k$, i.e. \hl{choose $k$ high to keep below failure rate}
+
+
+
+\shortdefinition[Hough Transform] Voting technique, main idea:
+\begin{enumerate}
+    \item Vote for all possible lines on which edge could lie
+    \item Look for line candidates that get many votes
+    \item Noise features votes should be inconsistent
+\end{enumerate}
+% TODO: Explore how it works in detail
