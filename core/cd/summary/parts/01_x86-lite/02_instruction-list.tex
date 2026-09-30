@@ -2,11 +2,11 @@
 A list of instructions is also provided on the Moodle page for the course.
 
 \subsubsection{Arithmetic Instructions}
-\begin{tables}{lll}{Instruction        & Explanation                                        & Example}
-              \texttt{negq DEST}       & 2's complement negation                            & \verb|negq %rax|       \\
-              \texttt{addq SRC, DEST}  & $\text{DEST} \gets \text{DEST} + \text{DEST}$      & \verb|addq %rbx, %rax| \\
-              \texttt{subq SRC, DEST}  & $\text{DEST} \gets \text{DEST} + \text{DEST}$      & \verb|subq $4, %rsp|   \\
-              \texttt{imulq SRC, DEST} & $\text{DEST} \gets \text{DEST} \times \text{DEST}$ & \verb|imulq $4, %rax|  \\
+\begin{tables}{lll}{Instruction        & Explanation                                       & Example}
+              \texttt{negq DEST}       & 2's complement negation                           & \verb|negq %rax|       \\
+              \texttt{addq SRC, DEST}  & $\text{DEST} \gets \text{DEST} + \text{SRC}$      & \verb|addq %rbx, %rax| \\
+              \texttt{subq SRC, DEST}  & $\text{DEST} \gets \text{DEST} - \text{SRC}$      & \verb|subq $4, %rsp|   \\
+              \texttt{imulq SRC, DEST} & $\text{DEST} \gets \text{DEST} \times \text{SRC}$ & \verb|imulq $4, %rax|  \\
 \end{tables}
 
 
