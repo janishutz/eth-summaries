@@ -66,7 +66,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 - [Cheat-Sheet (EN)](./core/cd/cheat-sheet-jh/cd-cheat-sheet.pdf) Author: Janis Hutz
 
 #### Visual Computing
-- [Summary (EN)](./core/vc/summary/vc-summary.pdf) Author: Janis Hutz (NOTE: This is likely *not* to happen)
+There won't be a summary for this subject, only a Cheat-Sheet. Provided script is good.
 - [Cheat-Sheet (EN)](./core/vc/cheat-sheet-jh/vc-cheat-sheet.pdf) Author: Janis Hutz
 
 #### Human Computer Interaction

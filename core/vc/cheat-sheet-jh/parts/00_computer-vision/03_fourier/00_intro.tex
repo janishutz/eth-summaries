@@ -1,0 +1,23 @@
+\shortdefinition[Sinusoid] $f(x) = A \cdot \sin(2 \pi ux + \psi)$ with $\psi$ phase shift, equiv: $A \cos(\psi) \sin(2\pi ux) + A \sin(\psi)\cos(2\pi ux)$
+
+\shortdefinition[Complex Exponential] $e^{i \theta} = \cos(\theta) + i \sin(\theta)$, complex conj. $e^{-i \theta} = \cos(\theta) - i \sin(\theta)$. For sinusoid: $\theta = 2\pi ux$.
+
+\shortdefinition[Cont. Time F. Ser] Sig as sum of sinusoids, $f(x) = \sum_{k = -\8}^{\8} c_k e^{i 2\pi kx \div T}$, with $T$ the period and $c_k$ fourier coeff.
+
+\shortdefinition[Cont. Time F. Transf] $F(u) = \sum_{\R} f(x)e^{-2\pi ux} \dx x$, $f(x) = \sum_{\R} F(u) e^{i 2\pi ux} \dx u$. $F(u)$ is \textit{typ} complex valued,
+
+\shortdefinition[Ampl. Spec] $A(u) = ||F(u)||$
+
+\shortdefinition[Phase Spec] $\phi(u) = \arg F(u) = \arctan\left( \frac{\mathfrak{I}(F(u))}{\mathfrak{R}(F(u))} \right)$
+
+\shortdefinition[DFT] used for analyzing discrete data. Applies base change to values via matrix multiplication.
+More general:
+\[
+    F(k) = \sum_{n = 0}^{N - 1} x_n e^{-i 2\pi kn \div N} \text{ for } k \in \{ 0, 1, \ldots, N - 1 \}
+\]
+
+For image:
+\[
+    F(u, v) = \sum_{x = 0}^{N - 1}\sum_{y = 0}^{M - 1} I(x, y) \cdot e^{-i2\pi\left( \frac{ux}{N} + \frac{vy}{M} \right)}
+\]
+% TODO: Formula to compute the matrix
