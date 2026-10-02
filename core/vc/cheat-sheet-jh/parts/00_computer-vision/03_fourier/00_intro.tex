@@ -15,9 +15,32 @@ More general:
 \[
     F(k) = \sum_{n = 0}^{N - 1} x_n e^{-i 2\pi kn \div N} \text{ for } k \in \{ 0, 1, \ldots, N - 1 \}
 \]
+% TODO: Formula to compute the matrix
 
-For image:
+For images at location $(u, v)$, or $F = Uf$, with $U$ Fourier Mat.:
 \[
     F(u, v) = \sum_{x = 0}^{N - 1}\sum_{y = 0}^{M - 1} I(x, y) \cdot e^{-i2\pi\left( \frac{ux}{N} + \frac{vy}{M} \right)}
 \]
-% TODO: Formula to compute the matrix
+For continuous time, we get:
+\[
+    \cF[g(x, y)](u, v) = \int \int_{\R^2} g(x, y) e^{-2i\pi (ux + vy)} \dx x \dx y
+\]
+Inverted by negating exp and swapping $g$ and $F$ (or $F$ and $I$)
+
+\shorttheorem[Convolution] $\cF[f * g] = F \cdot G$, $\cF[f \cdot g] = F * G$, with $F, G$ the fourier transforms
+
+\shortremark[Filtering] Can be achieved: $h * f = \cF^{-1}[H \cdot F]$
+
+\shortremark[Dirac Delta] $\delta(x) = \begin{cases}
+        \8 & \text{ if }x = 0 \\
+        0  & \text{otherwise}
+    \end{cases}$,
+following prop for sampling to alleviate issue of $0$ everywhere after fourier:
+\[
+    \int_{-\8}^{\8} f \cdot \delta(x - a) \dx = f(a)
+\]
+
+\shortremark[Restoration] To restore image, inverse kernel $\tilde{h}(x) = \cF^{-1}\left[ \frac{1}{H(x)} \right]$, with $H(x) = \cF[h(x)]$
+and $h(x)$ degradation filter.
+
+\shortexample For motion blur: $h(x, y) = \frac{1}{2l} [\theta(x + l) - \theta(x -l)]\delta(y)$. $H(x) = \frac{\sin(2\pi ul)}{2\pi ul}$
