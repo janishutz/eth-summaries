@@ -8,7 +8,7 @@ Die Idee des Gauss-Newton Verfahrens ist es, die komplizierte Funktion $F(x)$ lo
 Falls man $A := DF(y)$ und $b = DF(y)y - F(y)$ definiert, so erhält man ein lineares Ausgleichsproblem:
 \rmvspace
 \begin{align*}
-    \argmin{x \in \R^n} \frac{1}{2} ||F(x)||^2_2 \approx \argmin{x \in \R^n} \frac{1}{2} ||F(y) + DF(y) x||^2_2 = \argmin{x \in \R^n} \frac{1}{2} ||Ax - b||^2_2
+    \argmin{x \in \R^n} \frac{1}{2} ||F(x)||^2_2 \approx \argmin{x \in \R^n} \frac{1}{2} ||F(y) + DF(y)(x-y)||^2_2 = \argmin{x \in \R^n} \frac{1}{2} ||Ax - b||^2_2
 \end{align*}
 
 \drmvspace
@@ -20,7 +20,7 @@ Die Iterationsvorschrift ist gegeben durch:
 \end{align*}
 
 \begin{code}{python}
-def newton(x: np.ndarray, GF, HF, tol=1e1-6, maxIter=50):
+def newton(x: np.ndarray, GF, HF, tol=1e-6, maxIter=50):
     """ Newton method requires the Gradient & Hessian, more accurate """
     s = np.linalg.solve(HF(x), GF(x))
     x -= s
@@ -35,21 +35,21 @@ def newton(x: np.ndarray, GF, HF, tol=1e1-6, maxIter=50):
 \begin{code}{python}
 def gauss_newton(x: np.ndarray, F, DF, tol=1e-6, maxIter=50):
     """ Gauss-Newton algorithm to solve non-linear problem, needs 'only' the Jacobian """
-    s = np.linalg.lstsq(DF(x), F(x))[0] 
+    s = np.linalg.lstsq(DF(x), F(x), rcond=None)[0]
     x = x-s
     k = 1
     while np.linalg.norm(s) > tol * np.linalg.norm(x) and k < maxIter:
-        s = np.linalg.lstsq(DF(x), F(x))[0]
+        s = np.linalg.lstsq(DF(x), F(x), rcond=None)[0]
         x = x-s
         k += 1
     return x, k
 \end{code}
 
-Der Vorteil ist, dass die zweite Ableitung nicht benötigt wird, jedoch ist die Konvergenzordnung niedrieger ($p \leq 2$)
+Der Vorteil ist, dass die zweite Ableitung nicht benötigt wird; die lokale Konvergenzordnung hängt vom Residuum am Minimum ab und ist höchstens quadratisch.
 
 \newpage
 \setLabelNumber{all}{3}
-\inlineex Wir haben zwei Modellfunktionen, $F_1(t) = a_1 + b_1 e^{-c_1 t}$ und $F_2(t) = a_2 - b_2 e^{-c_2 t}$. ($F_1$ ist ein Heizvorgang, $F_2$ ist ein Abkühlvorgang).
+\inlineex Wir haben zwei Modellfunktionen, $F_1(t) = a_1 + b_1 e^{-c_1 t}$ und $F_2(t) = a_2 - b_2 e^{-c_2 t}$. ($F_1$ modelliert hier einen Abkühlvorgang, $F_2$ einen Heizvorgang.)
 Untenstehender code berechnet die Lösung des nichtlinearen Ausgleichsproblems
 \begin{code}{python}
 # Data given

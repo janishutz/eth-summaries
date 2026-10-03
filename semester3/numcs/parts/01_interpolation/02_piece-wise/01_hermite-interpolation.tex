@@ -18,7 +18,7 @@ weshalb auch die Ableitungen von $p_j$ an den Stellen $x_{j - 1}$ und $x_j$ vers
 Für die Ableitungen definieren wir eine zweite Funktion $\psi(t) = t^2(t - 1)$, welche offensichtlich die Nullstellen an $t \in \{ 0, 1 \}$ hat
 und deren Ableitung $\psi'(t) = t(3t - 2)$. Mit demselben Variablenwechsel müssen wir die Kettenregel beachten:
 \begin{align*}
-    q_j(x) = c_{j - 1} h_j \psi \left( \frac{x - x_{j - 1}}{h_j} \right) - c_j h_j \psi \left( \frac{x_j - x}{h_j} \right) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
+    q_j(x) = -c_{j - 1} h_j \psi \left( \frac{x_j - x}{h_j} \right) + c_j h_j \psi \left( \frac{x - x_{j - 1}}{h_j} \right) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
 \end{align*}
 Die Interpolationsfunktion ist dann einfach die Summe $s_j(x) = p_j(x) + q_j(x) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]$
 
@@ -32,8 +32,7 @@ Bei anderen Interpolationsmethoden ist dies nicht garantiert (so auch nicht beim
 
 \stepLabelNumber{all}
 \begin{theorem}[]{Fehler der CHIP}
-    % FIXME: Explain what the C is or if it is \C, then replace
-    Sei $f \in C^4[a, b]$ und $s$ der stückweise CHIP mit exakten Werten der Ableitungen $s'(x_j) = f'(x_j), s(x_j) = f(x_j)$ für $j = 0, \ldots, N$
+    Sei $f \in C^4[a, b]$ (also viermal stetig differenzierbar) und $s$ der stückweise CHIP mit exakten Werten der Ableitungen $s'(x_j) = f'(x_j), s(x_j) = f(x_j)$ für $j = 0, \ldots, N$
     % und sei $s_{|[x_{j - 1, x_j}]|}$ ein Polynom vom Grad $3$, für $j = 1, \ldots, N$.
     und sei $s_j$ ein Polynom vom Grad $3$, für $j = 1, \ldots, N$. Dann gilt:
     \rmvspace

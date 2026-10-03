@@ -16,10 +16,10 @@ Bei der Monte-Carlo Quadratur wird, wie bei anderen Monte-Carlo-Algorithmen der 
 \drmvspace Auf einem anderen Intervall $[a, b]$ haben wir dann für $s_i = a + (b - a) \cdot t_i$
 \rmvspace
 \begin{align*}
-    I = \int_{a}^{b} z(s) \dx s \approx |b - a| \frac{1}{N} \sum_{i = 1}^{z(s_i)} =: I_N
+    I = \int_{a}^{b} z(s) \dx s \approx (b - a) \frac{1}{N} \sum_{i = 1}^{N} z(s_i) =: I_N
 \end{align*}
 
-\inlineremark Die Konvergenz ist sehr langsam ($\sqrt{N}$), aber nicht abhängig von der Dimension oder Glattheit.
+\inlineremark Der statistische Fehler nimmt nur mit $\tco{N^{-1/2}}$ ab, aber diese Rate ist unabhängig von der Dimension.
 Zudem kann das Ergebnis falsch sein, da es probabilistisch ist.
 
 Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \tsigma_N]$ und $X$ enthält den wahren Wert $\int_{[0, 1]^d} z(t) \dx t$ in ungefähr $68.3\%$ der Fälle
@@ -90,35 +90,36 @@ Daraus folgt mit $\sigma(z(\cX)) = \sqrt{\V(z(\cX))}$:
 \begin{align*}
     \Pr\left[ |m_N(z(\cX)) - \E z(\cX)| \leq \frac{\lambda \sigma}{\sqrt{N}} \right]
     = \frac{1}{\sqrt{2\pi}} \int_{-\lambda}^{\lambda} e^{-\frac{x^2}{2}} \dx x + \tco{\frac{1}{\sqrt{N}}}
-    = p(\lambda) + \tco{\frac{1}{N}}
+    = p(\lambda) + \tco{\frac{1}{\sqrt{N}}}
 \end{align*}
 
 \drmvspace
-wobei $2 \lambda$ die Länge des Integrationsintervalls ist, mit $\lambda$ definiert als die Länge des untersuchten Intervalls.
+wobei $2\lambda$ die Länge des Intervalls $[-\lambda,\lambda]$ in Einheiten der Standardabweichung ist.
 Wir haben also eine langsame Konvergenz mit Fehler in $\tco{\frac{1}{\sqrt{N}}}$.
 
 Oben (Bemerkung \ref{all:5-8-1}) wurde bereits erwähnt, dass wir $68.3\%$ als die Wahrscheinlichkeit haben, dass wir den exakten Wert in unserem Intervall haben.
 Woher kommt aber dieser Wert?
 Wenn wir $\lambda = 1$ wählen (wie es der Fall ist für das gewählte Intervall), dann erhalten wir $p(1) \approx 0.683$.
-Dies trifft allerdings nur zu, wenn $N$ genügen gross ($N \geq 30$) ist.
+Dies ist eine asymptotische Näherung und hängt bei endlichem $N$ von der Verteilung der Funktionswerte ab.
 
 Um die Präzision abzuschätzen, benötigen wir einen Schätzer für $\V(z(\cX)) = \E(z(\cX)^2) - (\E(z(\cX)))^2$:
 \rmvspace
 \begin{align*}
-    d^*_2(z(\cX)) := \frac{1}{N - 1} \sum_{j = 1}^{N} (z(\cX_j) - m_N(z(\cX)))^2 = \frac{N}{N - 1} \left( m_N(z(\cX))^2 - (m_N(z(\cX)))^2 \right)
+    d^*_2(z(\cX)) := \frac{1}{N - 1} \sum_{j = 1}^{N} (z(\cX_j) - m_N(z(\cX)))^2 = \frac{N}{N - 1} \left( m_N(z(\cX)^2) - (m_N(z(\cX)))^2 \right)
 \end{align*}
 
 \drmvspace
 Aus dem kann die Schätzung für $\tsigma_N$ von oben hergeleitet werden:
 \rmvspace
 \begin{align*}
-    \sqrt{\frac{N}{N - 1} \left( m_N(z(x)^2)) - (m_N(z(x)))^2 \right)}
+    \sqrt{\frac{m_N(z(x)^2) - (m_N(z(x)))^2}{N - 1}}
 \end{align*}
 
-\drmvspace für $y = \sqrt{\V(z(\cX))}$ (oder ohne das $N$ im Zähler für $\frac{y}{\sqrt{N}}$) und $\V(z(\cX)) = \E d_2^*(z(\cX))$
+\drmvspace
+Dies ist die geschätzte Standardabweichung des Mittelwerts: $\tsigma_N=\sqrt{d_2^*(z(x))/N}$.
 
 \begin{theorem}[]{Vertrauensintervall}
-    Das Intervall mit $y = \lambda d^*_2(z(\cX))$
+    Das Intervall mit $y = \lambda\sqrt{d^*_2(z(\cX))}$
     \rmvspace
     \begin{align*}
         \left[ m_N(z(\cX)) - \frac{y}{\sqrt{N}}, m_N(z(\cX)) + \frac{y}{\sqrt{N}} \right]
@@ -134,7 +135,7 @@ Aus dem kann die Schätzung für $\tsigma_N$ von oben hergeleitet werden:
 Wiederholen wir das Experiment $M$ mal, mit $M$ gross, so enthält das Vertrauensintervall den Wert $I$ in ungefähr $100 p(\lambda)$ Prozent der $M$ Fälle.
 
 \setLabelNumber{all}{21}
-\inlineremark Ein kurzes Vertrauensintervall entspricht einer hohen Wahrscheinlichkeit, dass das Vertrauensintervall den wahren Wert enthält.
+\inlineremark Bei festem Konfidenzniveau wird das Vertrauensintervall mit grösserem $N$ oder geringerer Varianz kürzer. Ein grösseres $\lambda$ erhöht das Konfidenzniveau und verbreitert das Intervall.
 Im Grundrezept wird $\lambda = 1$ mit $p(1) = 0.683$ verwendet.
 Um ein kürzeres Vertrauensintervall zu erzielen können wir $N$ erhöhen, oder die Berechnungen so reorganisieren, dass die Varianz kleiner wird.
 Wir brauchen also für einen Fehler $\varepsilon$ ungefähr $\frac{1}{\varepsilon^2}$ Evaluierungen.
@@ -146,6 +147,6 @@ Seiten 171 bis 176 im Skript enthalten eine Implementation. Unten eine simple Im
         t = np.random.uniform(a, b, N)
         fx = func(t)
         I = np.mean(fx) * (b - a)
-        var = np.std(fx, ddof=1) / np.sqrt(N)
+        var = (b - a) * np.std(fx, ddof=1) / np.sqrt(N)
         return I, var
 \end{code}

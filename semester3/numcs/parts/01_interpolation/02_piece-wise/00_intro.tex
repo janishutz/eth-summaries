@@ -37,7 +37,7 @@ also gilt:
 \begin{align*}
     s_j(x) = y_{j - 1} \chi \left( \frac{x_j - x}{h_j} \right) + y_j \chi \left( \frac{x - x_{j - 1}}{h_j} \right) \mediumhspace \text{für } x \in [x_{j - 1}, x_j]
 \end{align*}
-Dies ist eine lokale Interpolation und $s_j$ ist $0$ ausser im definierten Intervall. 
+Dies ist eine lokale Interpolation: $s_j$ wird nur auf $[x_{j-1},x_j]$ verwendet.
 Die Idee des Variablenwechsel ist es, das Intervall, auf welchem die Funktion definiert ist von $[0, 1]$ nach $[x_{j - 1}, x_j]$ zu verschieben.
 
 \innumpy Stückweise lineare interpolation lässt sich leicht umsetzen via numpy \verb|piecewise| Funktionen:

@@ -4,12 +4,12 @@
 
 \newsection
 \subsection{Rechnen mit Matrizen}
-Wie in Lineare Algebra besprochen, ist das Resultat der Multiplikation einer Matrix $A \in \C^{m \times n}$ und einer Matrix $B \in \C^{n \times p}$ ist eine Matrix $AB = \in \C^{m \times p}$
+Wie in Linearer Algebra besprochen, ist das Resultat der Multiplikation einer Matrix $A \in \C^{m \times n}$ und einer Matrix $B \in \C^{n \times p}$ eine Matrix $AB \in \C^{m \times p}$.
 
 \innumpy haben wir folgende Funktionen:
 \begin{itemize}
     \item \verb|b @ a| (oder \verb|np.dot(b, a)| oder \verb|np.einsum('i,i', b, a)| für das Skalarprodukt
-    \item \verb|A @ B| (oder \verb|np.einsum('ik,kj->ij', )|) für das Matrixprodukt
+    \item \verb|A @ B| (oder \verb|np.einsum('ik,kj->ij', A, B)|) für das Matrixprodukt
     \item \verb|A @ x| (oder \verb|np.einsum('ij,j->i', A, x)|) für Matrix $\times$ Vektor
     \item \verb|A.T| für die Transponierung
     \item \verb|A.conj()| für die komplexe Konjugation (kombiniert mit \verb|.T| = Hermitian Transpose)
@@ -19,7 +19,7 @@ Wie in Lineare Algebra besprochen, ist das Resultat der Multiplikation einer Mat
 
 
 \setLabelNumber{all}{4}
-\fancyremark{Rang der Matrixmultiplikation} $\text{Rang}(AX) = \min(\text{Rang}(A), \text{Rang}(X))$
+\fancyremark{Rang der Matrixmultiplikation} $\text{Rang}(AX) \leq \min(\text{Rang}(A), \text{Rang}(X))$; Gleichheit gilt im Allgemeinen nicht.
 
 \setLabelNumber{all}{7}
 \fancyremark{Multiplikation mit Diagonalmatrix $D$} $D \times A$ skaliert die Zeilen von $A$ während $A \times D$ die Spalten skaliert
@@ -29,9 +29,7 @@ Wie in Lineare Algebra besprochen, ist das Resultat der Multiplikation einer Mat
 So können wir also eine ganze Menge an Speicherzugriffen sparen, was das Ganze bedeutend effizienter macht
 
 \setLabelNumber{all}{14}
-\inlineremark Wir können bestimmte Zeilen oder Spalten einer Matrix skalieren, in dem wir einer Identitätsmatrix im unteren Dreieck ein Element hinzufügen.
-Wenn wir nun diese Matrix $E$ (wie die in der $LU$-Zerlegung) linksseitig mit der Matrix $A$ multiplizieren (bspw. $E^{(2, 1)}A$), dann wird die zugehörige Zeile skaliert.
-Falls wir aber $AE^{(2, 1)}$ berechnen, so skalieren wir die Spalte
+\inlineremark Eine Elementarmatrix $E=I+c\,e_i e_j^\top$ mit $i\neq j$ addiert bei $EA$ das $c$-Fache der Zeile $j$ zur Zeile $i$; bei $AE$ addiert sie das $c$-Fache der Spalte $i$ zur Spalte $j$.
 
 \fancyremark{Blockweise Berechnung} Man kann das Matrixprodukt auch Blockweise berechnen.
 Dazu benutzen wir eine Matrix, deren Elemente andere Matrizen sind, um grössere Matrizen zu generieren.
@@ -78,7 +76,7 @@ Die vollständige Implementation sieht so aus:
         # (and we need it reversed again for the final calculation to be correct)
         s = v[::-1].cumsum(axis=0)[::-1]
 
-        y = np.sum(A * s)
+        return np.sum(A * s, axis=1)
 \end{code}
 
 
@@ -96,16 +94,15 @@ Die vollständige Implementation sieht so aus:
     \end{bmatrix}
 \end{align*}
 
-\fancyex{Multiplikation des Kronecker-Produkts mit Vektor} Wenn man $A \otimes B \cdot x$ berechnet, so ist die Laufzeit $\tco{m \times n \times l \times k}$, aber wenn wir den Vektor $x$ in $n$ gleich grosse Blöcke aufteilen (was man je nach gewünschter nachfolgender Operation in NumPy in $\tco{1}$ machen kann mit \verb|x.reshape(n, x.shape[0] / n)|), dann ist es möglich das Ganze in $\tco{m \cdot l \cdot k}$ zu berechnen.
+\fancyex{Multiplikation des Kronecker-Produkts mit Vektor} Die explizite Matrix $A\otimes B$ benötigt $\tco{mnlk}$ Einträge. Teilt man $x$ in $n$ Blöcke der Länge $k$, lässt sich das Produkt ohne diese Matrix in $\tco{nlk+mnl}$ Operationen berechnen.
 
 Die vollständige Implementation ist auch hier nicht schwer und sieht folgendermassen aus:
 \begin{code}{python}
     def fast_kron_vector_product(A: np.ndarray, B: np.ndarray, x: np.ndarray):
-        # First multiply Bx_i, (and define x_i as a reshaped numpy array to save cost (as that will create a valid array))
-        # This will actually crash if x.shape[0] is not divisible by A.shape[0]
-        bx = B * x.reshape(A.shape[0], round(x.shape[0] / A.shape[0]))
-        # Then multiply a with the resulting vector
-        y = A @ bx
+        m, n = A.shape
+        l, k = B.shape
+        X = x.reshape(n, k)
+        return (A @ (X @ B.T)).reshape(m * l)
 \end{code}
 
-Um die oben erwähnte Laufzeit zu erreichen muss erst ein neuer Vektor berechnet werden, oben im Code \verb|bx| genannt, der eine Multiplikation von \verb|Bx_i| als Einträge hat.
+Die Zeilen von \verb|X @ B.T| sind die Produkte $Bx_i$; danach kombiniert $A$ diese Blöcke.

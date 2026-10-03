@@ -16,6 +16,8 @@ def bisection_method(f, a: float, b: float, tol=1e-12, maxIter=100):
     """ Bisection method on f using initial bounds a,b """
     if a > b: a, b = b, a
     fa = f(a); fb = f(b)
+    if fa == 0: return a, 0
+    if fb == 0: return b, 0
     if fa*fb > 0: raise ValueError("f(a) & f(b) must have different signs for bisection")
     
     sgn_fb = 1

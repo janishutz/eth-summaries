@@ -4,8 +4,8 @@
 
 \setcounter{subsection}{2}
 \subsection{Grundbegriffe und -Ideen}
-Es ist oft nicht möglich oder sinnvoll einen Integral analytisch zu berechnen.
-Mit Methoden der Quadratur können wir Integrale nummerisch berechnen.
+Es ist oft nicht möglich oder sinnvoll, ein Integral analytisch zu berechnen.
+Mit Methoden der Quadratur können wir Integrale numerisch berechnen.
 
 \innumpy kann \texttt{scipy.integrate.quad} verwendet werden.
 Falls man jedoch eine manuelle Implementation erstellen will, so nutzt man oft die Trapez- oder Simpson-Regel, da sie sowohl einfach zu implementieren, wie auch effizient sind.
@@ -30,14 +30,14 @@ Wir wollen natürlich wieder $c_i^n \in [a, b]$ und $w_i^n$ so wählen, dass der
 \end{definition}
 
 % Der Polynom, das Ansatz, yep... excellent German there
-Die Idee, den Integral einer schweren Funktion zu berechnen, ist diese mit einer einfachen Funktion, die analytisch integrierbar ist, zu approximieren.
+Die Idee, das Integral einer schwierigen Funktion zu berechnen, ist, diese durch eine einfach analytisch integrierbare Funktion zu approximieren.
 Wenn wir diese Funktion geschickt wählen, dann ist es sogar möglich, dass wir nur eine solche Funktion für alle Funktionen $f$ benötigen.
 
 % NOTE: Called the b_j from the script c_i here, as the clash with the limits of the integral looked a bit confusing
-Wir ersetzen also $f$ durch $f_n \in \text{span} \{ c_0, c_1, \ldots, c_n \}$, wobei die $c_i$ eine Basis des Raums der Funktionen auf $[a, b]$ bilden:
+Wir ersetzen also $f$ durch $f_n \in \text{span} \{ c_0, c_1, \ldots, c_n \}$, wobei die $c_i$ Basisfunktionen eines endlichdimensionalen Unterraums sind:
 \rmvspace
 \begin{align*}
-    \int_{a}^{b} f(x) \dx x \approx \int_{a}^{b} f_n(x) \dx x = \int_{a}^{b} \left( \sum_{k = 0}^{n} \alpha_k b_k(x) \right) \dx x = \sum_{k = 0}^{n} \alpha_k \int_{a}^{b} c_k(x) \dx x
+    \int_{a}^{b} f(x) \dx x \approx \int_{a}^{b} f_n(x) \dx x = \int_{a}^{b} \left( \sum_{k = 0}^{n} \alpha_k c_k(x) \right) \dx x = \sum_{k = 0}^{n} \alpha_k \int_{a}^{b} c_k(x) \dx x
 \end{align*}
 Falls wir $c_k(x) = x^k$ haben (was oft der Fall ist, je nach Funktion aber könnte eine rationale Funktion oder andere Arten besser geeignet sein), dann erhalten wir:
 \rmvspace
@@ -70,12 +70,12 @@ Für ein Beispiel verweisen wir auf Beispiel \ref{all:2-3-2}
         \item $\deg(l_i) = n \smallhspace \forall i$
         \item $\sum_{k = 0}^{n} l_k(x) = 1 \smallhspace \forall x \in \R$
         \item $\sum_{k = 0}^{n} l_k^{(m)}(x) = 0 \text{ für } m > 0$
-        \item $l_0, l_1, \ldots, l_n$ bilden Basis von $\mathcal{P}_{n + 1}$
+        \item $l_0, l_1, \ldots, l_n$ bilden eine Basis von $\mathcal{P}_{n}$
     \end{enumerate}
 \end{multicols}
 
 \vspace{-1.5pc}
-wobei $\mathcal{P}_{n + 1}$ der Raum der Polynome von Grad maximal $n$ ist.
+wobei $\mathcal{P}_{n}$ der Raum der Polynome von Grad höchstens $n$ ist.
 
 \fancyremark{Quadraturgewichte aus den Lagrange-Polynomen}
 Das Interpolationspolynom ist gegeben durch:
@@ -85,7 +85,7 @@ Das Interpolationspolynom ist gegeben durch:
 \end{align*}
 
 \drmvspace
-Durch die Eigenschaften der Lagrange-Polynome haben wir $p(x_j) = f(x_j)$ und die Konstruktion von $p(x)$ ist eindeutig in $\mathcal{P}_{n + 1}$.
+Durch die Eigenschaften der Lagrange-Polynome haben wir $p(x_j) = f(x_j)$ und die Konstruktion von $p(x)$ ist eindeutig in $\mathcal{P}_{n}$.
 Wir erhalten nun eine Quadraturformel, wenn wir $p$ als Approximation von $f$ verwenden:
 \rmvspace
 \begin{align*}
@@ -93,13 +93,13 @@ Wir erhalten nun eine Quadraturformel, wenn wir $p$ als Approximation von $f$ ve
 \end{align*}
 \drmvspace
 
-Diese Gewichte werden für die Trapez- und Simpson-Regeln verwendet, genau genommen, im Falle der Trapezregel haben wir $w_2$ und für die Simpsonregel $w_3$,
+Diese Gewichte werden für die Trapez- und Simpson-Regeln verwendet: Im Falle der Trapezregel haben wir zwei Gewichte und für die Simpsonregel drei,
 also müssen wir die entsprechenden Lagrange-Polynome integrieren
 
-Durch die Konstruktion der Formel ist sie exakt für alle Polynome aus $\mathcal{P}_{n + 1}$ und der Fehler ist:
+Durch die Konstruktion ist die Formel exakt für alle Polynome aus $\mathcal{P}_{n}$; eine einfache Fehlerabschätzung für $f\in C^{n+1}[a,b]$ lautet:
 \rmvspace
 \begin{align*}
-    \left| \int_{a}^{b} f(x) \dx x - \int_{a}^{b} p_n(x) \dx x \right| \leq \frac{1}{n!}(b - a)^{n + 1} \max|f^{(n)}(z)|
+    \left| \int_{a}^{b} f(x) \dx x - \int_{a}^{b} p_n(x) \dx x \right| \leq \frac{(b-a)^{n+2}}{(n+1)!}\,||f^{(n+1)}||_\infty
 \end{align*}
 
 \drmvspace
@@ -116,13 +116,13 @@ Wir nehmen ein äquidistantes Gitter, mit $x_k = x_0 + k \cdot h$ für $h = \fra
 Die obige Formel wird auch die \textit{summierte} Quadraturformel genannt. Der Fehler ist dann also:
 \rmvspace
 \begin{align*}
-    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 0}^{N - 1} Q(f, x_k, x_{k + 1}) \right| \leq \ldots \leq C \frac{h^n}{n!}(b - a) &  &
-    \text{ mit } C = \max_{z \in [a, b]} |f^{(n)}(z)| = ||f^n||_{\max}
+    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 0}^{N - 1} Q(f, x_k, x_{k + 1}) \right|
+    \leq \frac{(b-a)h^{n+1}}{(n+1)!}\,||f^{(n+1)}||_\infty
 \end{align*}
 
 \rmvspace
 Der obige Ansatz ist gewissermassen ``divide and conquer'' (zu Deutsch: ``Teile und Herrsche'', wir werden aber DnC verwenden)
-und wir der lokale Fehler liegt in $\tco{h^{n + 1}}$ und mit $N = (b - a) \div h$ Intervallen der Grösse $h$ haben wir einen globalen Fehler in $\tco{h^n}$.
+und der lokale Fehler liegt nach dieser Abschätzung in $\tco{h^{n+2}}$. Mit $N = (b - a)/h$ Intervallen der Grösse $h$ liegt der globale Fehler in $\tco{h^{n+1}}$.
 Folglich ist also der Fehler kleiner, je kleiner $h$ ist.
 
 Wir benutzen erneut einen Variablenwechsel, um von einem Referenzintervall $[-1, 1]$ auf eines unserer Teilintervalle $[x_k, x_{k + 1}]$ zu wechseln.
@@ -142,13 +142,13 @@ Für dieses Referenzintervall können wir die Gewichte $\hat{w}_j$ und die Knote
 \rmvspace\rmvspace
 \inlinedef Die Ordnung einer Quadraturformel ist $n$ wenn sie Polynome vom Grad $(n - 1)$ exakt integriert.
 
-Dies folgt natürlich direkt davon, dass wir ein Polynom $n$-ten Grades mit $n + 1$ Koeffizienten darstellen können.
+Eine interpolatorische Formel mit $n$ Knoten besitzt mindestens Ordnung $n$; symmetrische Formeln können eine höhere Ordnung haben.
 
 \fancydef{Symmetrie} Eine Quadraturformel auf $[-1, 1]$ heisst symmetrisch, falls $\omega_i = \omega_{n + 1 - i}$ und \\
 $c_i = -c_{n + 1 -i}$ gilt für die Gewichte $\omega_i$ und Knoten $c_i$
 
 \inlineremark Die Mittelpunkts-, Trapez- und Simpson-Regeln aus Abschnitt \ref{sec:equidistant-nodes} sind symmetrisch
 
-\inlinetheorem Die Ordnung einer symmetrischen Quadraturformel ist gerade
+\inlinetheorem Ist die Ordnung einer symmetrischen Quadraturformel endlich, so ist sie gerade.
 
 \inlineproof Kann mittels Induktion bewiesen werden, siehe dazu Seite 123 im Skript

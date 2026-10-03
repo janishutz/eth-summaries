@@ -8,7 +8,8 @@ Eine einfache Option wäre natürlich, zwei eindimensionale Quadraturformeln ane
 Für zweidimensionale Funktionen sieht dies so aus:
 \rmvspace
 \begin{align*}
-    I = \int_{j_1}^{n_1} \sum_{j_2}^{n_2} \omega_{j_1}^1 \omega_{j_2}^2 f(c_{j_1}^1, c_{j_2}^2)
+    I \approx \sum_{j_1=1}^{n_1}\sum_{j_2=1}^{n_2}
+    \omega_{j_1}^{(1)} \omega_{j_2}^{(2)} f(c_{j_1}^{(1)}, c_{j_2}^{(2)})
 \end{align*}
 
 \drmvspace
@@ -48,14 +49,16 @@ def simpson_2d_weights(N: int):
     return w
 
 def simpson_2d_mesh(f, a: float, b: float, Nx: int, c: float, d: float, Ny: int):
-    """ Simpson rule on a 2d function via np.meshrgdi """
+    """ Simpson rule on a 2d function via np.meshgrid; Nx, Ny even """
+    if Nx % 2 or Ny % 2:
+        raise ValueError("Nx and Ny must be even for Simpson's rule")
     x, hx = np.linspace(a, b, Nx+1, retstep=True)
     y, hy = np.linspace(c, d, Ny+1, retstep=True)
     
     X, Y = np.meshgrid(x, y)
     F = f(X, Y)
     wx, wy = simpson_2d_weights(Nx), simpson_2d_weights(Ny)
-    W = np.outer(wx, wy)
+    W = np.outer(wy, wx)
     
     scale = hx*hy / 3**2
     Q = scale * np.sum( W * F )
@@ -65,9 +68,10 @@ def simpson_2d_mesh(f, a: float, b: float, Nx: int, c: float, d: float, Ny: int)
 \newpage
 
 \begin{recall}[]{Tensor-Produkt}
-    \TODO Write this section
+    Aus den eindimensionalen Gewichten $w_i^{(1)}$ und $w_j^{(2)}$ entstehen die Gewichte der Produktformel als
+    $w_{ij}=w_i^{(1)}w_j^{(2)}$. Bei $n_1$ und $n_2$ Knoten benötigt sie $n_1n_2$ Funktionswerte.
 \end{recall}
 
 Die wichtigste Erkenntnis aus diesem Abschnitt ist die Idee, ein \bi{Sparse-Grid} zu verwenden, um die Rechenarbeit zu reduzieren.
 
-\innumpy Gibt es die Möglichkeit Sparse-Grid arrays mit \texttt{scipy.sparse} zu erstellen.
+Sparse-Grid-Quadratur verwendet eine Auswahl von Tensorprodukt-Quadraturpunkten; dünn besetzte Matrizen aus \texttt{scipy.sparse} sind ein anderes Konzept.
