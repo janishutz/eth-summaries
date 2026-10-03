@@ -31,7 +31,7 @@ Zusätzlich kommt hinzu, dass durch Unterläufe (in diesem Kurs ist dies eine Za
 
 Der Trick hier ist, dass wir mit Komplexen Zahlen in der Taylor-Approximation einer glatten Funktion in $x_0$ einen rein imaginären Schritt durchführen können:
 \begin{align*}
-    f(x_0 + ih) = f(x_0) + f'(x_0)ih - \frac{1}{2} f''(x_0)h^2 - iC \cdot h^3 \text{ für } h \in \R \text{ und } h \rightarrow 0
+    f(x_0 + ih) = f(x_0) + ih f'(x_0) - \frac{h^2}{2} f''(x_0) - i\frac{h^3}{6} f'''(x_0) + \mathcal{O}(h^4)
 \end{align*}
 Da $f(x_0)$ und $f''(x_0)h^2$ reell sind, verschwinden die Terme, wenn wir nur den Imaginärteil des Ausdruckes weiterverwenden. Nach weiteren Vereinfachungen und Umwandlungen erhalten wir
 \begin{align*}
@@ -44,9 +44,8 @@ Falls jedoch hier die Auswertung von $\text{Im}(f(x_0 + ih))$ nicht exakt ist, s
 \setLabelNumber{all}{20}
 \fancyex{Konvergenzbeschleunigung nach Richardson}
 \begin{align*}
-    y f'(x) & = y d\left(\frac{h}{2}\right) + \frac{1}{6} f'''(x) h^2 + \frac{1}{480}f^{(s)} h^4 + \ldots - f'(x) \\
-            & = -d(h) - \frac{1}{6}f'''(x) h^2 + \frac{1}{120} f^{(s)}(x) h^n \Leftrightarrow 3 f'(x)             \\
-            & = 4 d\left(\frac{h}{2}\right)  d(h) + \tco{h^4} \Leftrightarrow
+    d(h) &= f'(x) + \frac{h^2}{6}f'''(x) + \frac{h^4}{120}f^{(5)}(x) + \mathcal{O}(h^6), \\
+    \frac{4d(h/2)-d(h)}{3} &= f'(x) - \frac{h^4}{480}f^{(5)}(x) + \mathcal{O}(h^6).
 \end{align*}
 % TODO: Need to finish with notes from the exercise sessions
 
@@ -65,4 +64,4 @@ und
 \begin{align*}
     R_{l, k} = \frac{4^k \cdot R_{l, k - 1} - R_{l - 1, k - 1}}{4^k - 1}
 \end{align*}
-und $f'(x) = R_{l, k} + C \cdot \left( \frac{h}{2^l} \right)^{2k + 2}$
+und $f'(x) = R_{l, k} + \mathcal{O}\!\left( \left( \frac{h}{2^l} \right)^{2k + 2} \right)$ für $l \geq k$.

@@ -8,7 +8,7 @@
 \label{sec:barycentric-interpolation}
 
 \begin{definition}[]{Lagrange Polynome}
-    Für Knoten (auch gennannt Stützstellen) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome für $n = \text{Anzahl Stützstellen}$, also haben wir $n - 1$ Brüche, da wir eine Iteration überspringen, weil bei dieser $j = i$ ist:
+    Für $n+1$ paarweise verschiedene Knoten (auch Stützstellen genannt) $x_0, x_1, \ldots, x_n \in \R$ definieren wir die Lagrange-Polynome. Das Produkt hat $n$ Faktoren, da $j=i$ ausgelassen wird:
     \begin{align*}
         l_i(x) = \prod_{\elementstack{j = 0}{j \neq i}}^n \frac{x - x_j}{x_i - x_j}
     \end{align*}
@@ -89,7 +89,10 @@ def eval_barycentric(w: np.ndarray, data: np.ndarray, y: np.ndarray, x: np.ndarr
     
 def eval_barycentric_scalar(w: np.ndarray, data: np.ndarray, y: np.ndarray, x):
     """ Barycentric interpolation formula for a single value x """
-    n = data.size;
+    n = data.size
+    matches = np.flatnonzero(x == data)
+    if matches.size:
+        return y[matches[0]]
     bottom = np.sum( w / (x - data) )
     top = np.sum( w / (x - data) * y)
     return top / bottom

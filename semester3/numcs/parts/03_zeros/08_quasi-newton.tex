@@ -2,7 +2,7 @@
 \subsection{Quasi-Newton-Verfahren}
 Falls $DF(x)$ zu teuer ist oder nicht zur Verfügung steht, können wir im Eindimensionalen das Sekantenverfahren verwenden.
 
-Im höherdimensionalen Raum ist dies jedoch nicht direkt möglich und wir erhalten die Broyden-Quasi-Newton Methode:
+Im höherdimensionalen Raum ist dies jedoch nicht direkt möglich. Mit $\Delta x^{(k)}:=x^{(k+1)}-x^{(k)}$ erhalten wir die Broyden-Quasi-Newton-Methode:
 \rmvspace
 \begin{align*}
     J_{k + 1} := J_k + \frac{F(x^{(k + 1)}) (\Delta x^{(k)})^\top}{||\Delta x^{(k)}||_2^2}

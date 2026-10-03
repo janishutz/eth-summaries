@@ -13,7 +13,7 @@ Die Idee ist hier, bekannte Integrale zu verwenden, um die Varianz zu reduzieren
 Wir schreiben unser Integral unter Verwendung eines bekannten, exakten Integrals $\varphi(x)$ neu:
 \rmvspace
 \begin{align*}
-    \iiint f(x) = \iiint (z(x) - \varphi(x)) = \iiint z(x) + \iiint \varphi(x)
+    \int_D z(x)\dx x = \int_D (z(x)-\varphi(x))\dx x + \int_D\varphi(x)\dx x
 \end{align*}
 
 \drmvspace
@@ -25,10 +25,10 @@ Die Varianz wird dadurch reduziert, dass wir nur noch für $z(x)$ einen Fehler h
 \innumpy können wir dies folgendermassen implementieren:
 \begin{code}{python}
     def control_variate_mc(func, phi, analytic_int_phi, a, b, N):
-    t = np.random.uniform(a, b, N)
-    val = func(t) - phi(t)
-    I = np.mean(val) * (b - a) + analytic_int_phi
-    return I
+        t = np.random.uniform(a, b, N)
+        val = func(t) - phi(t)
+        I = np.mean(val) * (b - a) + analytic_int_phi
+        return I
 \end{code}
 
 
@@ -48,7 +48,7 @@ Wir schreiben unser zu berechnendes Integral mit $D = [0, 1]^d$ ein Intervall
 \end{align*}
 
 \drmvspace
-mit der Hilfsdichte $g(x)$ (für welche gilt $\int_{D} \dx = 1$)
+mit der Hilfsdichte $g(x)$ (für welche $\int_D g(x)\dx x=1$ und $g(x)>0$ gilt, wo $z(x)\neq0$)
 \rmvspace
 \begin{align*}
     I = \int_D \frac{z(x)}{g(x)} g(x) \dx x = \E_g \left( \frac{z(\cX)}{g(\cX)} \right)
@@ -69,7 +69,7 @@ und dessen Varianz ist
 \end{align*}
 
 \drmvspace
-Ideal ist $g(x) \propto |f(x)|$, also proportional zum Betrag von $f(x)$
+Für $z$ mit konstantem Vorzeichen ist $g(x) \propto |z(x)|$ ideal.
 
 
 
@@ -78,6 +78,6 @@ Oft ist ein deterministischer Fehler nützlich, weshalb man bei der Quasi-Monte-
 Diese Folgen decken den Integrationsbereich systematisch ab.
 
 Dies führt dazu, dass unser Fehler mit $\tco{N^{-1} \cdot (\log(N))^d}$ abnimmt.
-Für kleine $d$ haben wir ungefähr eine Abnahme in $\tco{N^1}$, aber bei grossen $d$ ist die Verbesserung kaum mehr sichtbar.
+Für kleine $d$ ist dies oft günstiger als die Monte-Carlo-Rate; bei grossen $d$ wird der logarithmische Faktor bedeutender.
 
 In der Realität sind diese Methoden (besonders die Sobol-Sequenzen) trotzdem effektiv, da viele Integrale ``effektiv niedrigdimensional'' sind.

@@ -2,7 +2,7 @@
 \setLabelNumber{all}{35}
 \inlinetheorem Jede Matrix $A \in \C^{m \times n}$ kann in unitäre Matrizen $U \in \C^{m \times m}$ und $V \in \C^{n \times n}$ und die Diagonalmatrix
 $\Sigma = \text{diag}(\sigma_1, \ldots, \sigma_p) \in \C^{m \times n}$, wobei $p = \min\{ m, n \}$ und $\sigma_1 \geq \ldots \geq \sigma_p \geq 0$,
-wobei $\sigma_i$ der $i$-te Eigenwert ist, so dass
+wobei $\sigma_i$ der $i$-te Singulärwert ist, so dass
 \rmvspace
 \begin{align*}
     A = U\Sigma V^H
@@ -20,7 +20,7 @@ Idealerweise sind die Daten frei von jeglichem Rauschen:
 In der Realität haben wir jedoch oft ein Rauschen in den Daten:
 \rmvspace
 \begin{align*}
-    a_j = \sum_{i = 1}^{p} \sigma_i u_i v_{ij} + \text{ kleine Störungen }
+    a_j = \sum_{i = 1}^{p} \sigma_i u_i \overline{v_{ji}} + \text{ kleine Störungen }
 \end{align*}
 
 \drmvspace
@@ -28,7 +28,7 @@ Die PCA versucht nun das $p$ zu bestimmen und die orthonormalen Trendvektoren $u
 Die Spalten von $U$ aus der SVD sind genau die gesuchten Trendvektoren (können geordnet werden nach den zugehörigen Singulärwerten):
 \rmvspace
 \begin{align*}
-    A_{:, j} \approx \sum_{i = 1}^{p} \sigma_i u_i v_{ij}
+    A_{:, j} \approx \sum_{i = 1}^{p} \sigma_i u_i \overline{v_{ji}}
 \end{align*}
 
 \drmvspace
@@ -36,7 +36,7 @@ Hierbei ist $A$ eine Datenmatrix, bei welcher die Spalten die Datenpunkte oder M
 
 Die Matrix $V^H$ enthält in ihrer $j$-ten Spalte die Gewichte, die die $p$-Trends zum $j$-ten Datenpunkt beitragen.
 
-Die ersten $p$ Komponenten erfassen ca. $\displaystyle \frac{\sum_{i = 1}^{p} \sigma_i^2}{\sum_{i = 1}^{m} \sigma_i^2}$
+Die ersten $p$ Komponenten erfassen den Anteil $\displaystyle \frac{\sum_{i = 1}^{p} \sigma_i^2}{\sum_{i = 1}^{\min\{m,n\}} \sigma_i^2}$ der quadratischen Datenenergie.
 
 
 \shade{gray}{Varianzkriterium} $\displaystyle p = \min\left\{ q : \sum_{j = 1}^{q} \sigma_j^2 \geq \varepsilon \sum_{j = 1}^{\min\{ m, n \}} \sigma_j^2 \right\}$.

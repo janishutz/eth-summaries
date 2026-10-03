@@ -6,7 +6,7 @@
 %
 % Lecture: Intuitiv wird Fourier-Trans. zur Kompression genutzt, z.b. jpg format.
 \subsection{Fourier-Reihen}
-Eine Anwendung der (Schnellen) Fourier-Transformation (FFT) ist die Komprimierung eines Bildes und sie wird im JPEG-Format verwendet.
+Eine verwandte Transformation, die diskrete Kosinustransformation (DCT), wird bei der JPEG-Komprimierung verwendet.
 
 \inlineintuition Wir haben eine Datenmenge $D$, die die $y$-Werte einer Frequenzmessung an $N$ äquidistanten Punkten enthält.
 Die Fourier-Transformation dieser Datenmenge ergibt eine neue Datenmenge, nennen wir sie $F$, die, wenn geplottet, einem Plot der Frequenzanalyse entsprechen.
@@ -20,10 +20,10 @@ Das Inverse davon nimmt eine Funktion der Frequenz und transformiert diese in ei
 \hrule
 \vspace{0.2cm}
 
-\fancydef{Trigonometrisches Polynom von Grad $\leq m$} Die Funktion:
+\fancydef{Trigonometrisches Polynom von Grad $\leq m$} Die Funktion
 \rmvspace
 \begin{align*}
-    p_m(t) := t \mapsto \sum_{j = -m}^{m} \gamma_j e^{2 \pi ijt} \text{ wobei } \gamma_j \in \C \text{ und } t \in \R
+    p_m(t) := \sum_{j = -m}^{m} \gamma_j e^{2 \pi ijt} \text{ mit } \gamma_j \in \C \text{ und } t \in \R
 \end{align*}
 %
 %
@@ -41,7 +41,7 @@ $p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\text{Re
     \begin{align*}
         L^2(0, 1) := \{ f: (0, 1) \rightarrow \C \divides ||f||_{L^2(0, 1)} < \infty \}
     \end{align*}
-    während die $L^2$-Norm (= Euklidische Norm, also die normale Vektornorm) auf $(0, 1)$ durch das Skalarprodukt
+    während die $L^2$-Norm auf $(0, 1)$ durch das Skalarprodukt
     \rmvspace
     \begin{align*}
         \langle g, f \rangle_{L^2(0, 1)} := \int_{0}^{1} \overline{g(x)} f(x) \dx x
@@ -56,7 +56,7 @@ $p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\text{Re
                                      & = (b - a) \int_{0}^{1} \overline{g(a + (b - a)t)} f(a + (b - a)t) \dx t
 \end{align*}
 In Anwendungen findet sich oft das Intervall $\left[ -\frac{T}{2}, \frac{T}{2} \right]$.
-Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{-\frac{T}{2}} (\ldots) \dx t$ und $\exp(2\pi ijt)$ durch $\exp(i \frac{2\pi j}{T} t)$ ersetzt wird.
+Für Fourier-Koeffizienten auf diesem Intervall verwendet man das normierte Integral $\frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} (\ldots) \dx t$ und ersetzt $\exp(2\pi ijt)$ durch $\exp(i \frac{2\pi j}{T} t)$.
 
 \stepLabelNumber{all}
 \inlineremark Die Funktionen $\varphi_k(x) = \exp(2\pi ikx)$ sind orthogonal bezüglich des $L^2(0, 1)$-Skalarprodukts, bilden also eine Basis für den Unterraum der trigonometrischen polynome.
@@ -67,10 +67,10 @@ Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{
 
 \newpage
 \begin{theorem}[]{Fourier-Reihe}
-    Jede Funktion $f \in L^2(0, 1)$ ist der Grenzwert ihrer Fourier-Reihe:
+    Jede Funktion $f \in L^2(0, 1)$ ist im $L^2$-Sinn der Grenzwert ihrer Fourier-Reihe:
     \rmvspace
     \begin{align*}
-        f(t) = \sum_{k = -\infty}^{\infty} \hat{f}(k) e^{2\pi ikt}
+        f = \sum_{k = -\infty}^{\infty} \hat{f}(k) e^{2\pi ikt}\quad\text{in }L^2(0,1)
     \end{align*}
     wobei die Fourier-Koeffizienten
     \rmvspace
@@ -88,9 +88,7 @@ Dann verwandeln sich die Integrale in die Form $\frac{1}{T} \int_{\frac{T}{2}}^{
 % A (small) intuitive explanation of what the fourier series / coefficients are & what they are useful for would be great, script *briefly* touches on it.
 
 \setLabelNumber{all}{14}
-\inlineremark Die Parseval'sche Gleichung beschreibt einfach gesagt einen ``schnellen'' Abfall der $\hat{f}(k)$.
-Genauer gesagt, klingen die Koeffizienten schneller als $\frac{1}{\sqrt{k}}$ ab.
-Sie sagt zudem aus, dass die $L^2$-Norm der Funktion aus einer Summe berechnet werden kann (nicht nur als Integral).
+\inlineremark Die Parseval'sche Gleichung besagt, dass die Fourier-Koeffizienten quadratsummierbar sind und die $L^2$-Norm der Funktion aus ihrer Quadratsumme berechnet werden kann.
 Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
 \rmvspace
 \begin{align*}
@@ -98,20 +96,20 @@ Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
 \end{align*}
 
 \begin{theorem}[]{Fourier-Reihe}
-    Seien $f$ und $f'$ integrierbar auf $(0, 1)$, dann gilt $\hat{f'}(k) = 2\pi ik\hat{f}(k)$ für $k \in \Z$.
+    Sei $f$ absolut stetig und $1$-periodisch mit integrierbarer Ableitung, dann gilt $\widehat{f'}(k) = 2\pi ik\hat{f}(k)$ für $k \in \Z$.
 
     Falls die Operationen erlaubt sind, dann gilt zudem:
     \rmvspace
     \begin{align*}
-        \hat{f^{(n)}} = (2\pi ik)^n \hat{f}(k) \text{ und } ||f^{(n)}||_{L^2}^2 = (2\pi)^{2n} \sum_{k = -\infty}^{\infty} k^{2n} |\hat{f}(k)|^2
+    \widehat{f^{(n)}}(k) = (2\pi ik)^n \hat{f}(k) \text{ und } ||f^{(n)}||_{L^2}^2 = (2\pi)^{2n} \sum_{k = -\infty}^{\infty} k^{2n} |\hat{f}(k)|^2
     \end{align*}
 \end{theorem}
 
 
-\inlinetheorem Wenn $\displaystyle \int_{0}^{1} |f^{(n)}(t)|\dx t < \infty$, dann ist $\hat{f}(k) = \tco{k^{-n}}$
+\inlinetheorem Ist $f$ $1$-periodisch, sind die Ableitungen bis zur Ordnung $n-1$ an den Randpunkten kompatibel und ist $f^{(n)}$ integrierbar, dann ist $\hat{f}(k) = \tco{|k|^{-n}}$ für $k\neq0$.
 
 Falls die Funktion jedoch nicht glatt ist, dann entstehen \textit{Überschwingungen} an den Sprungstellen, die näher und näher an die Sprünge herankommen, aber nicht kleiner werden, wenn wir mehr Terme der Fourier-Reihe aufsummieren.
-Das Phänomen wird das \bi{Gibbs-Phänomen} gennant und wir haben $L^2$-Konvergenz, aber keine punktweise Konvergenz an der Sprungstelle.
+Das Phänomen wird das \bi{Gibbs-Phänomen} genannt. An einer Sprungstelle konvergiert die Fourier-Reihe zum Mittelwert der einseitigen Grenzwerte.
 
 \inlineremark
 Diese Überschwingungen entstehen durch die Definition der Fourier-Reihe und sind in der untenstehenden Abbildung \ref{fig:trigo-interp-overarcing} aus dem Skript sehr gut ersichtlich.

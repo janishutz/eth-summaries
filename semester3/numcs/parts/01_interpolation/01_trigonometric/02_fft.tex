@@ -30,15 +30,15 @@ Für den Algorithmus müssen folgende vier Optionen betrachtet werden:
     \item Vektoren der Länge $N = 2m \Longrightarrow$ Laufzeit gut
     \item Vektoren der Länge $N = 2^L \Longrightarrow$ Laufzeit ideal
     \item Vektoren der Länge $N = pq$ mit $p, q \in \Z \Longrightarrow$ Etwas langsamer
-    \item Vektoren der Länge $N$, mit $N$ prim $\Longrightarrow$ ca. $\tco{N^2}$, besonders für $N$ gross
+    \item Vektoren der Länge $N$, mit $N$ prim $\Longrightarrow$ Radix-2 lässt sich nicht direkt anwenden; andere FFT-Verfahren behandeln auch diese Längen effizient
 \end{enumerate}
 Wir formen die Fourier-Transformation um für den ersten Fall ($N = 2m$):
 \rmvspace
 \begin{align*}
     c_k & = \sum_{j = 0}^{N - 1} y_j e^{- \frac{2\pi i}{N} jk}                                                                     \\
         & = \sum_{j = 0}^{m - 1} y_{2j} e^{-\frac{2 \pi i}{N}2jk} + \sum_{j = 0}^{m - 1} y_{2j + 1} e^{-\frac{2\pi i}{N}(2j + 1)k} \\
-        & = \sum_{j = 0}^{m - 1} \left( y_{2j} e^{-\frac{2 \pi i}{N \div 2}jk} \right)
-    + e^{- \frac{2\pi}{N} k} \left( \sum_{j = 0}^{m - 1} y_{2j + 1} e^{-\frac{2\pi i}{N \div 2}jk} \right)
+        & = \sum_{j = 0}^{m - 1} \left( y_{2j} e^{-\frac{2 \pi i}{m}jk} \right)
+    + e^{- \frac{2\pi i}{N} k} \left( \sum_{j = 0}^{m - 1} y_{2j + 1} e^{-\frac{2\pi i}{m}jk} \right)
 \end{align*}
 Der zweite Fall ist einfach eine rekursive Weiterführung des ersten Falls,
 bei welchem dann das $m$ kontinuierlich weiter dividiert wird bis zum Trivialfall mit einer $1 \times 1$-Matrix.

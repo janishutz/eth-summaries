@@ -7,9 +7,7 @@ Be aware that Python likes to call things differently (\texttt{try ... except} f
 While Python supports many different paradigms (thus making it multi-paradigm), Python still is first and foremost an object oriented programming language and all variables
 are just references to objects.
 
-What this means is that the variables aren't \textit{technically} conventional variables, but rather pointers and whenever you reassign a value,
-the object is actually deleted and a new object is created in its place and the variable's reference is updated. This is one of the reasons as to why
-Python is so slow.
+Names refer to objects. Reassigning a name changes its reference; the previous object is only deleted when no references to it remain.
 
 Assigning and initializing variables uses the same syntax and you cannot have unassigned variables:
 \begin{code}{python}
@@ -24,7 +22,7 @@ Assigning and initializing variables uses the same syntax and you cannot have un
 \end{code}
 Python supports the same data types as most other programming languages,
 but gives some of them funny names (\texttt{bool}, \texttt{int}, \texttt{float}, \texttt{str}, \texttt{List}, \texttt{Dict} (\texttt{Map} in Java),
-\texttt{None} (\texttt{void} in basically all other languages))
+\texttt{None} (a value representing the absence of a result))
 
 To cast a type in python, the basic types are callable, i.e. to cast an \texttt{int} to a \texttt{str}, do \texttt{str(my\_int)}
 
@@ -62,7 +60,7 @@ You cannot use curly braces. In other ways though, Python is fairly lenient, i.e
 
 \subsubsection{Imports}
 Python has multiple ways of importing other libraries and from your own files.
-Your own imports are always relative to the run file (i.e. not to the current file, but the root file of either the library or your program).
+Imports are resolved using Python's module search path; package-relative imports require explicit relative syntax.
 \begin{code}{python}
     import lib.mylib # Local import from file lib/mylib.py
     import numpy # Import numpy. Access numpy functions using numpy.<method>(...)
@@ -72,5 +70,5 @@ Your own imports are always relative to the run file (i.e. not to the current fi
     from numpy import * # Wildcard import (import all functions from the library as <method>(...))
 \end{code}
 What you should always refrain from doing is a wildcard import. Every function from that library is then imported directly and can be called using \texttt{<method>(...)}.
-Thus, if two libraries have a function that has the same name, your program will stop working, thus always either import a specific function, or better still,
+If two libraries have a function with the same name, one may silently overwrite the other; therefore import a specific function or, better,
 use the options on line 2 or 3 for library imports, as it is also much easier for other people to understand where the function is defined.

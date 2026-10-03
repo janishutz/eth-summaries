@@ -7,19 +7,18 @@
 \begin{definition}[]{Raum der Splines}
     Sei $[a, b] \subseteq \R$ ein Intervall, sei $\mathcal{G} = \{ a = x_0 < x_1 < \ldots < x_N = b \}$ und sei $d \geq 1 \in \N$.
     Die Menge
-    % FIXME: What's up with the |[x_{j - 1}, x_j] Notation? Isn't there a | missing? And what does it even mean?
     \begin{align*}
-        \mathcal{S}_{d, \mathcal{G}} = \{ s \in C^{d - 1}[a, b], \smallhspace s_j := s_{|[x_{j - 1}, x_j]|} \text{ ist ein polynom von Grad höchstens } d \}
+        \mathcal{S}_{d, \mathcal{G}} = \{ s \in C^{d - 1}[a, b] \divides s|_{[x_{j - 1}, x_j]} \text{ ist ein Polynom von Grad höchstens } d \text{ für alle }j=1,\ldots,N \}
     \end{align*}
-    ist die Menge aller auf $[a, b]$ $(d - 1)$ mal stetig ableitbaren Funktionen, die auf $\mathcal{G}$ aus stückweisen Polynomen von Grad höchtens $d$ bestehen
-    und wir der Raum der Splines vom Grad $d$, oder der Ordnung $(d + 1)$ genannt
+    ist die Menge aller auf $[a, b]$ $(d - 1)$-mal stetig ableitbaren Funktionen, die auf den Teilintervallen Polynome von Grad höchstens $d$ sind,
+    und wird der Raum der Splines vom Grad $d$ oder der Ordnung $(d + 1)$ genannt.
 \end{definition}
 
-\inlineremark Obige Definition ist undefiniert für $d = 0$, aber $\mathcal{S}_{d, \mathcal{G}}$ kann als die Menge der stückweise Konstanten Funktionen betrachtet werden.
+    \inlineremark Für $d = 0$ kann $\mathcal{S}_{0, \mathcal{G}}$ als Raum der stückweise konstanten Funktionen definiert werden.
 Im Vergleich zu den Kubischen Hermite-Interpolanten sind die Kubischen-Splines (für $d = 3$) \textit{zweimal} Ableitbar statt nur \textit{einmal}
 
 \inlineremark $\dim(\mathcal{S}_{d, \mathcal{G}}) = N + d$. Es werden oft kubische Splines in Anwendungen verwendet, also ist\\
-$\dim(\mathcal{S}_{d, \mathcal{G}}) = N + 3$, wir haben aber nur $N + 1$ Funktionswerte, also beleiben noch zwei Freiheitsgrade übrig.
+$\dim(\mathcal{S}_{d, \mathcal{G}}) = N + 3$, wir haben aber nur $N + 1$ Funktionswerte, also bleiben noch zwei Freiheitsgrade übrig.
 
 Dies bedeutet, dass wir ein underdeterminiertes lineares Gleichungssystem haben für $h_j = x_j - x_{j - 1}$:
 \rmvspace
@@ -58,7 +57,7 @@ Sie ist auch bekannt als \textit{clamped cubic spline}.
 In der obigen Matrix können dann die erste und letzte Spalte weggelassen werden.
 
 \fancydef{Natürliche kubische Spline-Interpolation} Falls wir die zusätzlichen Bedingungen $s''(x_0) = 0$ und $s''(x_N) = 0$ haben.
-Dann fügen wir obigem SLE zwei Zeilen hinzu (1. und $(N + 1)$-te), die $2, 1, 0, 0, \ldots = \frac{y_1 - y_0}{h_1}$ und $0, \ldots, 0, 1, 2 = \frac{y_N - y_{N - 1}}{h_N}$.
+    Dann fügen wir obigem SLE zwei Randgleichungen hinzu: $2c_0+c_1=3\frac{y_1-y_0}{h_1}$ und $c_{N-1}+2c_N=3\frac{y_N-y_{N-1}}{h_N}$.
 Die Matrix ist nun also positive-definite und symmetrisch
 
 \vspace{-1.25pc}
@@ -98,7 +97,7 @@ für alle Funktionen zweimal stetig differenzierbaren Funktionen $g$, für welch
         ||f^{(k)} - s^{(k)}||_{L^\infty} \leq \frac{5}{384} h^{4 - k} ||f^{(4)}||_{L^\infty}
     \end{align*}
 \end{theorem}
-Zur Erinnerung, $C^4$ ist die Klasse aller vier (oder mehr) mal ableitbaren Funktionen.
+Zur Erinnerung: $C^4$ ist die Klasse der viermal stetig differenzierbaren Funktionen.
 
 \innumpy verwendet \texttt{scipy.interpolate.CubicSpline} aktuell die ``not-a-knot''-Bedingung. 
 Es ist möglich mithilfe von \texttt{bc\_type} beim Instanziieren der Klasse die Art des Splines zu ändern.
@@ -106,4 +105,4 @@ Folgende (relevante) Optionen stehen laut
 \color{NavyBlue}\href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.CubicSpline.html}{Dokumentation}\color{black}\smallhspace
 zur Verfügung: \texttt{"not-a-knot"} (was der Default ist), \texttt{"periodic"}, \texttt{"clamped"} und \texttt{"natural"}
 
-Auf Seite 114-115 im Skript finden sich einige Abbildungen zur Konvergenz der verschiedenen Varianten des \texttt{CubicSplices}
+Auf Seite 114-115 im Skript finden sich einige Abbildungen zur Konvergenz der verschiedenen Varianten von \texttt{CubicSpline}.
