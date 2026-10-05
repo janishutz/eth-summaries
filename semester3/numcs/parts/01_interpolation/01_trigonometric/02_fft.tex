@@ -30,7 +30,7 @@ Für den Algorithmus müssen folgende vier Optionen betrachtet werden:
     \item Vektoren der Länge $N = 2m \Longrightarrow$ Laufzeit gut
     \item Vektoren der Länge $N = 2^L \Longrightarrow$ Laufzeit ideal
     \item Vektoren der Länge $N = pq$ mit $p, q \in \Z \Longrightarrow$ Etwas langsamer
-    \item Vektoren der Länge $N$, mit $N$ prim $\Longrightarrow$ Radix-2 lässt sich nicht direkt anwenden; andere FFT-Verfahren behandeln auch diese Längen effizient
+    \item Vektoren der Länge $N$, mit $N$ prim $\Longrightarrow$ ca. $\tco{N^2}$, besonders für $N$ gross
 \end{enumerate}
 Wir formen die Fourier-Transformation um für den ersten Fall ($N = 2m$):
 \rmvspace

@@ -45,11 +45,11 @@ def gauss_newton(x: np.ndarray, F, DF, tol=1e-6, maxIter=50):
     return x, k
 \end{code}
 
-Der Vorteil ist, dass die zweite Ableitung nicht benötigt wird; die lokale Konvergenzordnung hängt vom Residuum am Minimum ab und ist höchstens quadratisch.
+Der Vorteil ist, dass die zweite Ableitung nicht benötigt wird, jedoch ist die Konvergenzordnung niedrieger ($p \leq 2$)
 
 \newpage
 \setLabelNumber{all}{3}
-\inlineex Wir haben zwei Modellfunktionen, $F_1(t) = a_1 + b_1 e^{-c_1 t}$ und $F_2(t) = a_2 - b_2 e^{-c_2 t}$. ($F_1$ modelliert hier einen Abkühlvorgang, $F_2$ einen Heizvorgang.)
+\inlineex Wir haben zwei Modellfunktionen, $F_1(t) = a_1 + b_1 e^{-c_1 t}$ und $F_2(t) = a_2 - b_2 e^{-c_2 t}$. ($F_1$ ist ein Heizvorgang, $F_2$ ist ein Abkühlvorgang).
 Untenstehender code berechnet die Lösung des nichtlinearen Ausgleichsproblems
 \begin{code}{python}
 # Data given

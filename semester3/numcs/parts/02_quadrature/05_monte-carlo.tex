@@ -19,7 +19,7 @@ Bei der Monte-Carlo Quadratur wird, wie bei anderen Monte-Carlo-Algorithmen der 
     I = \int_{a}^{b} z(s) \dx s \approx (b - a) \frac{1}{N} \sum_{i = 1}^{N} z(s_i) =: I_N
 \end{align*}
 
-\inlineremark Der statistische Fehler nimmt nur mit $\tco{N^{-1/2}}$ ab, aber diese Rate ist unabhängig von der Dimension.
+\inlineremark Die Konvergenz ist sehr langsam ($\sqrt{N}$), aber nicht abhängig von Dimension oder Glattheit.
 Zudem kann das Ergebnis falsch sein, da es probabilistisch ist.
 
 Jede Monte-Carlo-Methode benötigt folgendes mit $X = [I_N - \tsigma_N, I_N + \tsigma_N]$ und $X$ enthält den wahren Wert $\int_{[0, 1]^d} z(t) \dx t$ in ungefähr $68.3\%$ der Fälle
@@ -100,7 +100,7 @@ Wir haben also eine langsame Konvergenz mit Fehler in $\tco{\frac{1}{\sqrt{N}}}$
 Oben (Bemerkung \ref{all:5-8-1}) wurde bereits erwähnt, dass wir $68.3\%$ als die Wahrscheinlichkeit haben, dass wir den exakten Wert in unserem Intervall haben.
 Woher kommt aber dieser Wert?
 Wenn wir $\lambda = 1$ wählen (wie es der Fall ist für das gewählte Intervall), dann erhalten wir $p(1) \approx 0.683$.
-Dies ist eine asymptotische Näherung und hängt bei endlichem $N$ von der Verteilung der Funktionswerte ab.
+Dies trifft allerdings nur zu, wenn $N$ genügen gross ($N \geq 30$) ist.
 
 Um die Präzision abzuschätzen, benötigen wir einen Schätzer für $\V(z(\cX)) = \E(z(\cX)^2) - (\E(z(\cX)))^2$:
 \rmvspace

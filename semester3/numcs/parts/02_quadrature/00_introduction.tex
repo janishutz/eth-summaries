@@ -142,13 +142,13 @@ Für dieses Referenzintervall können wir die Gewichte $\hat{w}_j$ und die Knote
 \rmvspace\rmvspace
 \inlinedef Die Ordnung einer Quadraturformel ist $n$ wenn sie Polynome vom Grad $(n - 1)$ exakt integriert.
 
-Eine interpolatorische Formel mit $n$ Knoten besitzt mindestens Ordnung $n$; symmetrische Formeln können eine höhere Ordnung haben.
+Dies folgt natürlich direkt davon, dass wir ein Polynom $n$-ten Grades mit $n + 1$ Koeffizienten darstellen können.
 
 \fancydef{Symmetrie} Eine Quadraturformel auf $[-1, 1]$ heisst symmetrisch, falls $\omega_i = \omega_{n + 1 - i}$ und \\
 $c_i = -c_{n + 1 -i}$ gilt für die Gewichte $\omega_i$ und Knoten $c_i$
 
 \inlineremark Die Mittelpunkts-, Trapez- und Simpson-Regeln aus Abschnitt \ref{sec:equidistant-nodes} sind symmetrisch
 
-\inlinetheorem Ist die Ordnung einer symmetrischen Quadraturformel endlich, so ist sie gerade.
+\inlinetheorem Die Ordnung einer symmetrischen Quadraturformel ist gerade
 
 \inlineproof Kann mittels Induktion bewiesen werden, siehe dazu Seite 123 im Skript
