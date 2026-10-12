@@ -1,7 +1,7 @@
 \newsection
 \subsection{Äquidistante Punkte}
 \label{sec:equidistant-nodes}
-Untenstehend eine Liste verschiedener Quadraturverfahren (Reminder: Eine Funktion der Orgnung $2$ ist eine exakte Approximation einer konstanten oder linearen Funktion):
+Untenstehend eine Liste verschiedener Quadraturverfahren (eine Quadraturformel der Ordnung $2$ integriert konstante und lineare Funktionen exakt):
 
 \begin{tables}{cccc}{Eigenschaft & Mittelpunkt & Trapez      & Simpson}
               Knoten             & 1           & 2           & 3           \\
@@ -18,14 +18,14 @@ Fehler: $\displaystyle E(n) = \left| -\frac{1}{12} (b - a)^3 f^{(2)}(\xi) \right
 Fehlerabschätzung: $\displaystyle |E_n| \leq \frac{(b - a)^3}{12} ||f''||_\infty$.
 Gewichte: $\omega_1 = \omega_2 = \frac{b - a}{2}$
 
-\shade{gray}{Simpson-Regel} $\displaystyle Q^S(f; a, b) = \frac{b - a}{6} \left( f(a) + 4f\left( \frac{a + b}{2} + f(b) \right) \right)$.
-Fehler: $\displaystyle E(n) = \left| -\frac{1}{90} \left( \frac{b - a}{2} f^{(4)} \right) f^{(4)}(\xi) \right|$\\
-Fehlerabschätzung: $\displaystyle |E_n| \leq \left( \frac{b - a}{2} \right)^2 f^{(4)}(\xi)$.
+\shade{gray}{Simpson-Regel} $\displaystyle Q^S(f; a, b) = \frac{b - a}{6} \left( f(a) + 4f\left( \frac{a + b}{2} \right) + f(b) \right)$.
+Fehler: $\displaystyle \int_a^b f(x)\dx x-Q^S(f;a,b)=-\frac{(b-a)^5}{2880}f^{(4)}(\xi)$ für ein $\xi\in(a,b)$.\\
+Fehlerabschätzung: $\displaystyle |E_n| \leq \frac{(b-a)^5}{2880}||f^{(4)}||_\infty$.
 Gewichte: $\frac{b - a}{6}, \frac{4(b - a)}{6}, \frac{b - a}{6}$
 
 
 \inlineremark Die Schranken für den Fehler erhält man aus den Lagrange-Polynomen vom Grad $n - 1$:
 \rmvspace
 \begin{align*}
-    f \in C^n([a, b]) \Rightarrow \left| f(t) \dx t - Q_n(f) \right| \leq \frac{1}{n!} (b - a)^{n + 1} ||f^{(n)}||_{L^\infty([a, b])}
+    f \in C^n([a, b]) \Rightarrow \left| \int_a^b f(t) \dx t - Q_n(f) \right| \leq \frac{1}{n!} (b - a)^{n + 1} ||f^{(n)}||_{L^\infty([a, b])}
 \end{align*}

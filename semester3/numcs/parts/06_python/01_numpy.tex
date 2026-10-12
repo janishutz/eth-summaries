@@ -5,7 +5,7 @@ Numpy is a library that, according to its website, is ``The fundamental package 
 If you prefer to read an online guide, the \hlhref{https://numpy.org/doc/stable/user/quickstart.html}{official quick start guide}\ is excellent.
 
 \subsubsection{Arrays}
-The heart of numpy is the \texttt{numpy.ndarray} class (it has the alias \texttt{numpy.array}). As the name would imply, it can be any dimension you would like.
+The heart of numpy is the \texttt{numpy.ndarray} class; \texttt{numpy.array} is a function that creates an array. An array can have any number of dimensions.
 The most important attributes for this course are: \texttt{shape} (returns a tuple that indicates the number of elements for each dimension),
 \texttt{dtype} (indicates the data type of elements in the array),
 \texttt{ndim} (the number of dimensions, equal to \texttt{len(shape)})
@@ -24,7 +24,7 @@ To create an array, we can use a few functions:
         \item \texttt{np.linspace(start, stop, num\_el)}
         \item \texttt{np.logspace(start, stop, num\_el)}
         \item \texttt{np.eye(N, M)} (\texttt{N} is rows, \texttt{M} is cols)
-        \item \texttt{np.identity(N, M)}
+        \item \texttt{np.identity(N)} (square identity matrix)
         \item \texttt{np.fromfunction(f, (dim1, \dots))}
     \end{itemize}
 \end{multicols}
@@ -35,8 +35,7 @@ To use complex numbers, we can write \texttt{a + b * 1.j}
 Another useful method is \texttt{np.meshgrid(x, y, \dots)}, which returns a coordinate grid
 and treats the input vectors as \texttt{x}, \texttt{y}, etc coordinates of point \texttt{i}.
 
-Arrays aren't usually copied, but you get a view. The \texttt{reshape} method below is an example of a case where you get a shallow copy (that still technically is a view).
-The values are still in the same object, but you get access to it in a different shape.
+Basic slicing usually returns a view; operations such as arithmetic and advanced indexing usually create a new array. \texttt{reshape} returns a view when possible, but may need to copy the data.
 To deep copy an array (i.e. create a new array), use \texttt{arr.copy()}
 
 
@@ -70,14 +69,14 @@ Slicing and indexing works just as in Python (assume \texttt{a} is a numpy array
     print(a[-1]) # Outputs 9 (last element)
     print(a[-2]) # Outputs 8 (2nd to last element)
     print(a[2:5]) # Outputs [2, 3, 4] (elements 2, 3, and 4)
-    print(a[2:5:-1]) # Outputs [4, 3, 2] (reversed)
+    print(a[4:1:-1]) # Outputs [4, 3, 2] (reversed)
     print(a[::-1]) # Reverses the array
 \end{code}
 So, the basic syntax for slicing is \texttt{a[start : stop : step]} and any of them can be omitted, though the corresponding colons cannot be omitted if you omit start.
 
 We can also iterate over a numpy array normally (the iterator variable will be the \texttt{i}-th element of the outermost array of the numpy array).
 To iterate over all elements of the array (i.e. the actual data values), we can use \texttt{arr.flat} to get a view (similar to a reference, not copied) that has
-length that corresponds to the sum of all elements of \texttt{arr.shape}.
+length equal to the product of all elements of \texttt{arr.shape}.
 
 For \texttt{n}-d arrays, we can use \texttt{a[0, 1]} to access element \texttt{a[0][1]}, which is more efficient.
 
@@ -86,18 +85,17 @@ For \texttt{n}-d arrays, we can use \texttt{a[0, 1]} to access element \texttt{a
 We can reshape an array by using \texttt{arr.reshape(dim1, dim2, \dots)}. This however returns the array with modified shape,
 whereas \texttt{arr.resize((dim1, dim2, \dots))} modifies the array directly (notice that here we have to pass a tuple!)
 
-To get a one-dimensional array, we can use \texttt{arr.ravel()}, after which the array looks the same
-as \texttt{arr.flat}, but the change is permanent
+To get a one-dimensional array, use \texttt{arr.ravel()}. It returns a flattened array (a view when possible) without changing the shape of \texttt{arr}.
 
 
 \fhlc{Cyan}{Stacking arrays}
 
 \texttt{np.vstack((a, b))} adds array \texttt{b}'s elements to array \texttt{a} (i.e. stacks along \texttt{axis=0}).
-\texttt{np.hstack((a, b))} adds array \texttt{b}'s elements to the inner arrays of \texttt{a} (i.e. stacks along \texttt{axis=1}).
+\texttt{np.hstack((a, b))} joins two-dimensional arrays along \texttt{axis=1}; for one-dimensional arrays it joins along \texttt{axis=0}.
 \texttt{np.concatenate((a, b, \dots), axis=n)} does as the above, but applies it to axis \texttt{n}
 
 \fhlc{Cyan}{Splitting arrays}
 
-\texttt{np.hsplit(a, count)} splits \texttt{a} into \texttt{count} arrays (along \texttt{axis=0})
-\texttt{np.vsplit(a, count)} splits \texttt{a} into \texttt{count} arrays (along \texttt{axis=1})
+\texttt{np.hsplit(a, count)} splits a two-dimensional \texttt{a} into \texttt{count} arrays along \texttt{axis=1}.
+\texttt{np.vsplit(a, count)} splits \texttt{a} into \texttt{count} arrays along \texttt{axis=0}.
 \texttt{np.array\_split(a, count, axis=n)} splits \texttt{a} into \texttt{count} arrays (along \texttt{axis=n})

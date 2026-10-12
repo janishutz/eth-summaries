@@ -53,7 +53,7 @@ Das $n$-te Chebyshev-Polynom ist ein Polynom von Grad $n$ und für $x \in [-1, 1
 \fancydef{Chebyshev-Abszissen} Die $(n - 1)$ Chebyshev-Abszissen $x_0, \ldots, x_{n - 2}$ im Intervall $[-1, 1]$ sind die Extrema des Chebyshev-Polynoms $T_n(x)$ und zeitgleich die Nullstellen von $U_{n - 1}(x)$.
 Je nach Kontext nimmt man noch die Grenzen des Intervalls ($1$ und $-1$) hinzu und hat dann $(n + 1)$ Abszissen.
 
-Die Baryzentrischen Gewichte sind dann viel einfacher zu berechnen: $\lambda_k = (-1)^k$ (siehe Bemerkung unterhalb der Baryzentrischen Interpolationsformel, Kapitel \ref{sec:barycentric-interpolation})
+Mit den Endpunkten lauten die baryzentrischen Gewichte bis auf einen gemeinsamen Faktor $\lambda_k = (-1)^k\delta_k$, wobei $\delta_0=\delta_n=\frac12$ und sonst $\delta_k=1$ (siehe Kapitel \ref{sec:barycentric-interpolation}).
 
 \fancyremark{Chebyshev-Abszissen für beliebiges Intervall} Für $I = [a, b]$ sind die Chebyshev-Abszissen:
 \rmvspace
@@ -130,8 +130,8 @@ Für $n \geq 15$ berechnet man $c_k$ mit der Schnellen Fourier Transformation (F
 \end{center}
 
 
-\fancytheorem{Clenshaw-Algorithmus} Seien $d_{n + 2} = d_{n + 1} = 0$. Sei $d_k = c_k + (2x)d_{k + 1} - d_{k + 2} \text{ für } k = n, \ldots, 0$\\
-Dann gilt: $p(x) = \frac{1}{2}(d_0 - d_2)$ und man kann das Interpolationspolynom $p(x)$ mit Hilfe einer Rückwärtsrekursion berechnen
+\fancytheorem{Clenshaw-Algorithmus} Seien $d_{n + 2} = d_{n + 1} = 0$ und $d_k = c_k + 2x d_{k + 1} - d_{k + 2}$ für $k = n, \ldots, 0$.\\
+Dann gilt für $p(x)=\sum_{k=0}^n c_kT_k(x)$: $p(x) = d_0 - x d_1$.
 
 Der Clenshaw-Algorithmus ist sehr stabil, auch wenn er mit (oft) unstabilen Rekursionen implementiert ist.
 
@@ -154,11 +154,12 @@ def clenshaw(c: np.ndarray, x: np.ndarray):
 \innumpy kann man mit \texttt{np.polynomial.chebyshev.chebfit} ein polyfit für Chebyshev-Polynome durchführen und mit \texttt{np.polynomial.chebyshev.chebder}
 die Ableitungen der Approximation berechnen. Die \texttt{chebder}-Funktion nimmt die normalen Chebyshev-Koeffizienten als Argument, die man einfach mit folgendem Code berechnen kann:
 \begin{code}{python}
-    def get_cheb_coeffs(abscissa: np.ndarray)
+    def get_cheb_coeffs(abscissa: np.ndarray):
         n = len(abscissa) - 1
         dct_vals = scipy.fft.dct(abscissa, type=1)
 
         coeffs = dct_vals / n
         coeffs[0] /= 2
+        coeffs[-1] /= 2
         return coeffs
 \end{code}

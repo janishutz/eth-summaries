@@ -31,10 +31,10 @@ Der Einfachheit halber können die Terme auch in das sogenannte ``Romberg-Tablea
         \begin{tabular}[c]{c|cccc}
             k & 0 & 1 & 2 & 3\\
             \hline
-            0 & $T(h)$ & $R_{0, 1}$ \\
-            1 & $T(h / 2)$ & $R_{1, 1}$ & $R_{1, 2}$ \\
-            1 & $T(h / 4)$ & $R_{2, 1}$ & $R_{2, 2}$ & $R_{2, 3}$ \\
-            1 & $T(h / 8)$ & $R_{3, 1}$ & $R_{3, 2}$ & $R_{3, 3}$ \\
+            0 & $R_{0,0}=T(h)$ \\
+            1 & $R_{1,0}=T(h / 2)$ & $R_{1,1}$ \\
+            2 & $R_{2,0}=T(h / 4)$ & $R_{2,1}$ & $R_{2,2}$ \\
+            3 & $R_{3,0}=T(h / 8)$ & $R_{3,1}$ & $R_{3,2}$ & $R_{3,3}$ \\
         \end{tabular}
     \end{center}
 \end{table}

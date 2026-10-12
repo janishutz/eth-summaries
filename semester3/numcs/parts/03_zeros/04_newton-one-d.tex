@@ -1,6 +1,6 @@
 \newsectionNoPB
 \subsection{Newtonverfahren in 1D}
-Beim Newtonverfahren verwendet man für jeden Iterationsschritt die lineare Funktion $\tilde{F} = F(x^(k)) + F'(x^{(k)})(x - x^{(k)})$. Die Nullstelle ist dann:
+Beim Newtonverfahren verwendet man für jeden Iterationsschritt die lineare Funktion $\tilde{F}(x) = F(x^{(k)}) + F'(x^{(k)})(x - x^{(k)})$. Die Nullstelle ist dann:
 \rmvspace
 \begin{align*}
     x^{(k + 1)} := x^{(k)} - \frac{F(x^{(k)})}{F'(x^{(k)})}, \mediumhspace \text{falls } F'(x^{(k)}) \neq 0
@@ -14,7 +14,7 @@ Beim Newtonverfahren verwendet man für jeden Iterationsschritt die lineare Funk
 \end{align*}
 
 \drmvspace
-falls $F(x^*) = 0$ und $F^(x^*) \neq 0$
+falls $F(x^*) = 0$ und $F'(x^*) \neq 0$.
 
 \newpage
 
