@@ -1,0 +1,54 @@
+\shortdefinition[Brightness] $I(x, y) = 0.299 \cdot R(x, y) + 0.587 \cdot G(x, y) + 0.114 \cdot B(x, y)$, in video $I(x, y, y)$ at given timestamp
+
+\shortdefinition[Flow Visualization] (Will add colour wheel here in some way, slide 43 of optical flow slide deck)
+
+\shortremark[Optical Flow] estimates motion of each pixel in consecutive frames. We look for {\color{ForestGreen} nearby pixels} of {\color{blue} same colour}.
+For that, assume {\color{ForestGreen} small motion} (only moves a bit) and {\color{blue} colour consistency} (i.e. brightness stays consistent for same pixel)
+
+\shortdefinition[Bright. Constancy Eq.] $\frac{\partial I}{\partial x} \frac{\dx x}{\dx t} + \frac{\partial I}{\partial y} \frac{\dx y}{\dx t} + \frac{\partial I}{\partial x} = 0$.
+Derived from multivariate Taylor expansion, cancelling terms, dividing by $\delta t$. Shorthand: $\I_x u + I_y v + I_t = 0$, or in vector form: $\nabla I^\top v + I_t = 0$.
+$I_x$, $I_y$ are image gradients at point $p$, $u, x$ are flow velocities.
+
+Comp: $I_x, I_y$) via Sobel Filter or DoG., $I_t$ via frame diff. $u$ and $v$ need to be solved for (unknowns in optical flow problem).
+Solution not unique with single pixel, lays on line:
+
+\shortdefinition[Lucas-Kanade] Flow locally smooth, const. displ. between pixels. Equiv to solving SLE $A^\top A \cdot \hat{x} = A^\top b$
+\begin{scriptsize}
+    \[
+        \begin{bmatrix}
+            \sum_{p \in P} I_x I_x & \sum_{p \in P} I_x I_y \\
+            \sum_{p \in P} I_y I_x & \sum_{p \in P} I_y I_y \\
+        \end{bmatrix} \cdot \begin{bmatrix}
+            u \\ v
+        \end{bmatrix} = \begin{bmatrix}
+            \sum_{p \in P} I_x I_t \\
+            \sum_{p \in P} I_y I_t \\
+        \end{bmatrix}
+    \]
+\end{scriptsize}
+
+$\Rightarrow$ Harris Corner Detector (corners: good place to comp flow). If rank of $A < 2$, then aperture problem: (visible part of image too small to tell movement dir).
+
+\shortdefinition[Horn-Schunck]
+\[
+    E[u, v] = \! \iint_\Omega [(I_x u + I_y v + I_t)^2 + \lambda(||\nabla u||^2 + ||\nabla v||^2)] \dx x \dx y
+\]
+w/ $||\nabla u||^2 = \left( \frac{\partial u}{\partial x} \right)^2 + \left( \frac{\partial u}{\partial y} \right)^2$, $\lambda$ weight.
+In practice: img grid
+\[
+    \min_{u, v} \sum_{i, j} E_s(i, j) + \lambda E_d(i, j)
+\]
+
+\begin{algorithm}
+    \caption{Horn-Schunck}
+    \label{alg:horn-schunck}
+    \begin{algorithmic}[1]
+        \State Precompute image gradients $I_x, I_y$
+        \State Precompute temporal gradients $I_t$
+        \State Initialize flow-field ($u = 0, v = 0$)
+        \While{not converged}
+        \State Compute flow field updates for each pixel $\hat{u}_{kl} = \overline{u}_{kl} - Q \cdot I_x$, $\hat{v}_{kl} = \overline{v}_{kl} - Q \cdot I_y$
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+with $Q = \frac{I_x \overline{u}_{kl} + I_y \overline{v}_{kl} + I_t}{\lambda^{-1} + I_x^2 + I_y^2}$, with $\overline{u}_{kl}$ prev value, $\hat{u}_{kl}$ new value.
