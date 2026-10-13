@@ -27,3 +27,18 @@ If you are interested in getting that going, feel free to open a Pull Request wi
 - Summaries for subjects that are not offered at ETHZ in BSc and MSc Computer Science
 - Summaries not following common design practices for LaTeX
 - Summaries for GESS subjects
+
+
+## AI usage
+As much as I hate writing this section, it's important.
+
+- You *MAY* use AI to check your own changes or to find obvious errors in the existing summaries.
+- You *MAY* use AI to fix said issues
+- You *MAY* use AI to create Tikz graphics or the like
+- You *MAY* use AI to create examples, if you sanity check and rewrite them yourself as needed.
+- You *MAY **NOT*** submit the above without human oversight. Please check them against the script manually. Otherwise that burden falls fully on the maintainers.
+- You *MAY **NOT*** submit AI-written sections. At least rewrite them yourself to make them align with the general writing style of each summary.
+- You *MAY **NOT*** submit any AI-generated images
+- You *MAY **NOT*** use AI to communicate in PR chats. Especially regarding suggested changes because making them is quite a lot of effort for us,
+whereas for you it mostly is just hitting accept, or adding your own suggestion to our recommendations
+- You *MUST* mention that you used AI to help create this PR.
