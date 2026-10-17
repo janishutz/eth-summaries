@@ -1,0 +1,51 @@
+Images can be written as a vector (result of `np.flatten`), thus lin. img processing: $\vec{g} = H \vec{f}$
+
+\shortdefinition[Unitary Transform] $A$ unitary iff $A^{-1} = A^{H}$ (is equiv to hermitian conj.), $A$ \bi{real-valued} $A = A^*$
+
+\shorttheorem Energy Conservation holds for unitary transforms
+
+\shortdefinition[Image Collection] $f_i$ one img, $F = [f_1 f_2 \dots f_n]$ img coll., $R_{ff} = E[f_i \cdot f_i^H] = \frac{F \cdot F^H}{n}$ auto-correlation function.
+In matrix form: $R_{cc} = E[\vec{c} \vec{c}^H] = E[A\vec{f} \cdot \vec{f}^H A^H] = AR_{ff} A^H$
+
+\shortdefinition[Eigenmatrix] $\Phi$ of $R_{ff}$ unitary, cols are set of Eigenvec., $R_{ff}$ symm. non-neg. def., thus $\lambda_i \geq 0 \ \forall i$,
+$\Lambda$ has E.V. on diags
+
+\shortdefinition[Karhunen-Loeve Transform] $A = \Phi^H$, cols of $\Phi$ ordered by decreasing Eigenvalue.
+Energy concentrating (no other unitary transf. packs as much energy into first $J$ coeffs, $\forall J$)
+
+\shortremark Inverse transform $\vec{f} = A^H$, superpos. of ``basis images'', size $MN$. $A$ KL-trans, then basis imgs called ``eigenimages''.
+This can be used for recognition (works better typically than direct comp. because irrelevant details discarded). Transform $\vec{c} = W \vec{f}$ can reduce dim. from $MN$ to $J$.
+
+\shortdefinition[Simple Euclidean Dist.] (SSD). $\text{argmin}_i \ D_i = ||I_i - I||$
+
+% FIXME: The square isn't defined, probably something missing here
+\shortremark Use PCA (KLT here), then $I_i - I = \hat{I_i} - \hat{I} \approx E(p_i - p)$, then $\text{argmin}_i \ D_i = ||I_i - I|| \square ||p_i - p||$
+
+% TODO: Possibly slide 23 of lec09
+\shortremark Eigenfaces affected more by difference of \small{ILLUMISHADE} than difference between faces
+
+\shortdefinition[FLD] (Fisher Linear Discriminant Analysis)\\
+$W_{opt} = \text{argmax}_W \left( \frac{\det(W R_B W^H)}{\det(W R_W W^H)} \right)$, with ($N_i$ samples in class $i$)
+\[
+    R_B = \sum_{i = 1}^{c} N_i(\vec{\mu_i} - \vec{\mu})(\vec{\mu_i} - \vec{\mu})^H
+    \quad
+    \displaystyle R_W = \sum_{i = 1}^{c} \sum_{\vec{\Gamma_l} \in \text{Class}(i)}
+\]
+Solution: Generalized Eigenvec. $\vec{w_i}$ corresponding to $K$ largest Eigenvalues $\lambda_i$, i.e.
+$R_B \vec{w_i} = \lambda_i R_W \vec{w_i}$. Issue: usually singular
+
+\shortremark[Varying Illumination] All images of same Lambertian surface with different illumination lie in 3D linear subspace:
+$f(x, y) = a(x, y)(l^\top n(x, y))L$, with $a$ surface albedo, $L$ light source intensity,
+$n$ the surface normal and $l$ light source direction
+
+\shortremark[Appearance Manifold] For every object, sample set of viewing conditions, then use as feature vecs, apply PCA over all the imgs, keep dominant PCs.
+Sequence of views for 1 object represent manifold in space of projections. \bi{Object-pose manifold}: Appearance changes projected on PCs (1D pose changes)
+
+\shortremark[JPEG] Uses Campbell-Robson Contrast sensitivity curve (humans don't see high freq too well).
+Uses DCT for en-/decoding with small block size faster, larger blocks compressing better.
+
+\shortremark[Quantization] via \verb|int(dct_weights / quant_table)|
+
+\shortremark[Zig-Zag encoding] Run-length to compress further
+
+\shortdefinition[DCT] $X_k = \sum_{n = 0}^{N - 1} x_n \cos\left( \frac{(2n + 1)\pi k}{2N} \right) \Leftrightarrow X_k = \vec{C}_k^\top \vec{x}$
