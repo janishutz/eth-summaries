@@ -1,0 +1,26 @@
+\shortdefinition[Gaussian Pyramid] Smooth w/ gaussians repeatedly (why: gaussian $\times$ gaussian = gaussian)
+
+% TODO: Comparison of LoG and DoG (Difference of Gaussians): imgs slides lec10, p32
+
+\shorttheorem LoG $\approx$ DoG (DoG is scaled LoG, exact approx as $\delta \sigma \rightarrow 0$)
+
+\shortdefinition[Self-Inverting Filter] A filter that can be applied in \textit{both} directions (Synthesis (reconstruction) and Analysis (decomposition))
+
+\shortdefinition[Wavelet] Wave func, localized in time and freq.
+
+\shortremark[1D] Recursive application of two-band filter bank to lowpass result yields octave band splitting
+
+\shortdefinition[Haar TF] $H$: Sample $h_k(x)$ at $\{ m \div N \}$ $\forall m \in \{ 0, \ldots, N - 1 \}$
+% TODO: Better def for above
+
+% TODO: Image of 2D discreet wavelet transform
+
+\shortremark[Two-Filterbanks w/ perfect reconstruction]\\
+\bi{Analysis}:
+$\left[ \frac{-1}{4}, \frac{1}{2}, \frac{3}{2}, \frac{1}{2}, \frac{-1}{4} \right]$ (Low-Pass)
+$\left[ \frac{1}{4}, \frac{-1}{2}, \frac{1}{4} \right]$ (High-Pass)\\
+\bi{Synthesis}:
+$\left[ \frac{-1}{4}, \frac{1}{2}, \frac{-1}{4} \right]$ (Low-Pass)
+$\left[ \frac{1}{4}, \frac{1}{2}, \frac{-3}{2}, \frac{1}{2}, \frac{1}{4} \right]$ (High-Pass)
+
+% TODO: Lifting
