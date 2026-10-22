@@ -4,14 +4,15 @@ orthonormale Spalten besitzt und $R \in \R^{n \times n}$ ist eine obere Dreiecks
 
 Die QR-Zerlegung ist numerisch stabiler bei schlecht konditionierten Problemen, ist die Basis vieler Eigenwertverfahren und ist ideal für Least Squares.
 
-Wir können mit der QR-Zerlegung auch LGS $Ax = b$ lösen:
+Für quadratisches invertierbares $A$ können wir mit der QR-Zerlegung das LGS $Ax=b$ lösen; für $m>n$ erhalten wir bei vollem Spaltenrang die Lösung der kleinsten Quadrate:
 \rmvspace
 \begin{align*}
-    Ax = b \Longleftrightarrow QRx = b \Longleftrightarrow Rx = Q^\top b
+    \min_x||Ax-b||_2^2 = \min_x||QRx-b||_2^2
+    \quad\Longrightarrow\quad Rx=Q^\top b
 \end{align*}
 
-Da $Q$ orthogonal ist, haben wir $Q^{-1} = Q^\top$.
-Um das Ganze einfacher zu machen, lösen wir das System $Rx = y$, wobei $y := Q^\top b$.
+Da $Q$ orthonormale Spalten besitzt, gilt $Q^\top Q=I_n$.
+Wir lösen das Dreieckssystem $Rx = y$, wobei $y := Q^\top b$.
 In numpy können wir direkt mit \texttt{np.linalg.solve()} dies lösen (nutzt automatisch Rückwärtssubstitution)
 
 
@@ -35,11 +36,11 @@ Die dazu konstruierte Matrix hat dabei die folgende Form (rechts eine Beschreibu
     \text{ oder }
     G(i, j, \theta)_{k, l} =
     \begin{cases}
-        k = l \land k \neq i, j        & 1  \\
-        k = l \land (k = i \lor k = j) & c  \\
-        k = i \land l = j              & -s \\
-        k = j \land l = i              & s  \\
-        \text{sonst}                   & 0
+        1  & k = l \land k \neq i,j \\
+        c  & k = l \land (k=i\lor k=j) \\
+        s  & k=i \land l=j \\
+        -s & k=j \land l=i \\
+        0  & \text{sonst}
     \end{cases}
 \end{align*}
 
@@ -87,13 +88,14 @@ Man kann nun mit der Givens-Rotation die QR-Zerlegung durchführen:
         \begin{algorithmic}[1]
             \State $m \gets \texttt{A.shape[0]}$
             \State $n \gets \texttt{A.shape[1]}$
-            \State $q \gets$ Initialisiere ein $n \times n$ array
+            \State $R \gets A$, $Q \gets I_m$
             \For{$j = 1, 2, \ldots, n$}
-                \For{$i = m, \ldots, 2$}
-                \State Nullsetze $a_{m, j}, a_{m - 1, j}, \ldots, a_{2, j}$ durch Givens-Rotationen $G_{m, j}, G_{m - 1, j}, \ldots, G_{2, j}$
+                \For{$i = m, m-1, \ldots, j+1$}
+                    \State Wähle $G$ für die Zeilen $i-1,i$, sodass $(GR)_{i,j}=0$
+                    \State $R \gets GR$, $Q \gets QG^\top$
                 \EndFor
             \EndFor
-            \State \Return $l$
+            \State \Return $Q$, $R$
         \end{algorithmic}
     \end{spacing}
 \end{algorithm}
@@ -109,8 +111,8 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode \& Python:
     \begin{spacing}{1.2}
         \caption{\textsc{classicalGramSchmidt}(A)}
         \begin{algorithmic}[1]
-            \State $n \gets \texttt{A.shape[0]}$
-            \State $q \gets$ Initialisiere ein $n \times n$ array
+            \State $m,n \gets \texttt{A.shape}$
+            \State $q \gets$ Initialisiere ein $m \times n$ array
             \State $r \gets$ Initialisiere ein $n \times n$ array
             \For{$k = 1, 2, \ldots, n$}
                 \State $v_k \gets a_k$ \Comment{Der $k$-te Spaltenvektor}
@@ -118,7 +120,7 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode \& Python:
                     \State $r_{ik} \gets q_i^\top a_k$
                     \State $v_k \gets a_k - \sum_{i = 1}^{k - 1} r_{ik} q_i$
                 \EndFor
-                \State $r_{kk} = ||v_k||$
+                \State $r_{kk} \gets ||v_k||_2$
                 \State $q_k = v_k / r_{kk}$ \Comment{Vektor normieren}
             \EndFor
             \State \Return $q$, $r$
@@ -130,7 +132,7 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode \& Python:
 def gram_schmidt(A: np.ndarray):
     """ Regular Gram-Schmidt, assumes lin. indep. columns in A """
     m, n = A.shape
-    Q, R = np.zeros((m, n)), np.zeros((m, n))
+    Q, R = np.zeros((m, n)), np.zeros((n, n))
     
     for j in range(0, n):
         Q[:, j] = A[:, j]
@@ -138,7 +140,8 @@ def gram_schmidt(A: np.ndarray):
             proj = np.dot(A[:, j], Q[:, i])
             R[i, j] = proj
             Q[:, j] = Q[:, j] - proj * Q[:, i]
-        Q[:, j] = Q[:, j] / np.linalg.norm(Q[:, j], 2)
+        R[j, j] = np.linalg.norm(Q[:, j], 2)
+        Q[:, j] = Q[:, j] / R[j, j]
     
     return Q, R
 \end{code}
@@ -152,8 +155,8 @@ Die modifizierte Variante ist deutlich stabiler.\\
     \begin{spacing}{1.2}
         \caption{\textsc{modifiedGramSchmidt}(A)}
         \begin{algorithmic}[1]
-            \State $n \gets \texttt{A.shape[0]}$
-            \State $q \gets$ Initialisiere ein $n \times n$ array
+            \State $m,n \gets \texttt{A.shape}$
+            \State $q \gets$ Initialisiere ein $m \times n$ array
             \State $r \gets$ Initialisiere ein $n \times n$ array
             \For{$k = 1, 2, \ldots, n$}
                 \State $v_k \gets a_k$ \Comment{Der $k$-te Spaltenvektor}
@@ -161,6 +164,7 @@ Die modifizierte Variante ist deutlich stabiler.\\
                     \State $r_{ik} \gets q_i^\top v_k$
                     \State $v_k \gets v_k - r_{ik} q_i$
                 \EndFor
+                \State $r_{kk} \gets ||v_k||_2$
                 \State $q_k = v_k / r_{kk}$ \Comment{Vektor normieren}
             \EndFor
             \State \Return $q$, $r$
@@ -171,9 +175,10 @@ Die modifizierte Variante ist deutlich stabiler.\\
 def gram_schmidt_mod(A: np.ndarray):
     """ Gram-Schmidt in place, assumes lin. indep. columnes in A  """
     m, n = A.shape
-    Q, R = np.zeros((m, n)), np.zeros((m, n))
+    A = A.copy()
+    Q, R = np.zeros((m, n)), np.zeros((n, n))
     
-    for i in range(1, n):
+    for i in range(n):
         norm = np.linalg.norm(A[:, i])
         Q[:, i] = A[:, i] / norm
         
@@ -198,7 +203,7 @@ Wir konstruieren eine Matrix $H = I - 2 \displaystyle\frac{vv^\top}{v^\top v} = 
 Dabei ist die Matrix $H$ orthogonal ($H^\top H = I$) und symmetrisch ($H^\top = H$).
 
 Um nun die QR-Zerlegung durchzuführen mit der Householder-Reflektion fehlen uns die Householder-Reflektoren.
-Um diese zu erstellen wollen wir das $v$ so wählen, dass $Hx = ||x|| e_1$ gilt. So werden also $m - 1$ Elemente auf einmal auf Null gesetzt.
+Um diese zu erstellen, wollen wir $v$ so wählen, dass $Hx = \alpha e_1$ mit $|\alpha|=||x||$ gilt. So werden $m-1$ Elemente auf einmal auf Null gesetzt.
 
 Der Ansatz dazu ist entsprechend $v = x - \alpha e_1$ mit $\alpha = -\text{sign}(x_1)||x||$ (minus, um numerische Stabilität zu erhalten) und wir haben dann:
 \drmvspace
@@ -213,15 +218,14 @@ Der vollständige QR-Algorithmus lautet:
     \begin{spacing}{1.2}
         \caption{\textsc{HouseholderQR}(A)}
         \begin{algorithmic}[1]
-            \State $n \gets \texttt{A.shape[0]}$
-            \State $H \gets$ Initialisiere ein $n \times n$ array
+            \State $m,n \gets \texttt{A.shape}$
+            \State $R \gets A$, $Q \gets I_m$
             \For{$k = 1, 2, \ldots, n$}
-                \State $x \gets A(k : m, k$ \Comment{Wähle subvektor der $k$-ten Spalte}
+                \State $x \gets R(k:m,k)$ \Comment{Wähle den Rest der $k$-ten Spalte}
                 \State $H_k \gets$ Konstruiere Householder-Reflektor für $x$
-                \State $A(k : m, k : n) \gets H_k A(k : m, k : n)$ \Comment{Update}
+                \State $R(k:m,k:n) \gets H_k R(k:m,k:n)$
+                \State $Q(:,k:m) \gets Q(:,k:m)H_k$
             \EndFor
-            \State $Q \gets H_1 H_2 \cdots H_n$
-            \State $R \gets H_n H_{n - 1} \cdots H_1 A$
             \State \Return $Q$, $R$
         \end{algorithmic}
     \end{spacing}

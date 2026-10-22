@@ -7,7 +7,7 @@
 \subsection{Adaptive Quadratur}
 Der lokale Fehler einer zusammengesetzten Quadraturformel auf dem Gitter $\mathcal{M} := \{ a = x_0 < x_1 < \dots < x_m = b \}$ ist (für $f \in C^2([a, b])$):
 \begin{align*}
-    \left| \int_{x_k}^{x_{k + 1}} f(t) \dx t - \frac{f(x_k) + f(x_{k + 1})}{2}(x_{k + 1} - x_k) \right| \leq (x_{k + 1} - x_k)^3 ||f''||_{L^\infty([x_k, x_{k + 1}])}
+    \left| \int_{x_k}^{x_{k + 1}} f(t) \dx t - \frac{f(x_k) + f(x_{k + 1})}{2}(x_{k + 1} - x_k) \right| \leq \frac{(x_{k + 1} - x_k)^3}{12} ||f''||_{L^\infty([x_k, x_{k + 1}])}
 \end{align*}
 Also ist es nur sinnvoll, das Gitter zu verfeinern wo $|f''|$ gross ist.
 
@@ -42,7 +42,7 @@ def adaptive_quad(f, M: np.ndarray, rtol: float = 1e-6, atol: float = 1e-10):
     if (err > rtol*np.abs(Q) and err > atol):
         refcells = np.nonzero( err_loc > 0.9 * err_avg )[0]     # Find problematic cells
         M_new = np.sort( np.append(M, midp[refcells]) )         # Update grid
-        Q = adaptive_quad(f, M_new, rtol, atol, results)        # Try again
+        Q = adaptive_quad(f, M_new, rtol, atol)         # Try again
     
     return Q
 \end{code}

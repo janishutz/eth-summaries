@@ -12,7 +12,7 @@
 
 \subsubsection{Motivation}
 
-Nutzen wir die Trapezregel um approximativ die Fourierkoeffizienten $\hat{f}_N(k)$ auf äquidistanten Punkten $l_t=\frac{l}{N}$ $(0 \leq l \leq N-1)$ zu bestimmen, erhalten wir tatsächlich ein Polynom $p_{N-1}$ welches die Interpolationsbedingung erfüllt:
+Nutzen wir die Trapezregel, um die Fourierkoeffizienten $\hat{f}_N(k)$ an äquidistanten Punkten $t_l=\frac{l}{N}$ $(0 \leq l \leq N-1)$ zu bestimmen, erhalten wir für gerades $N$ ein trigonometrisches Polynom $p_{N-1}$, welches die Interpolationsbedingung erfüllt:
 \begin{align*}
     p_{N-1}(t) = \sum_{k=-\frac{N}{2}}^{\frac{N}{2}-1} \hat{f}_N(k)e^{2\pi ikt}
 \end{align*}
@@ -32,7 +32,7 @@ Der Beweis hierfür ist im Skript auf p. $71$. Die $N$-te Einheitswurzel wird hi
 \newcolumn
 \begin{align*}
     \omega_N^N=1 \\
-    \omega_N^{N/2}=-1
+    \omega_N^{N/2}=-1 \quad (N\text{ gerade})
 \end{align*}
 
 \newcolumn

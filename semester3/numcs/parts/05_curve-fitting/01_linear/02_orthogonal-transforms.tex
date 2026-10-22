@@ -8,7 +8,7 @@ Sei $A = QR = Q \begin{bmatrix}
     \end{bmatrix}$.
 Dann, nach Umformungen, erhalten wir $||Rx - \tilde{b}||_2^2$ mit $\tilde{b} = Q^Hb$.
 
-Nutzt man beispielsweise Housholder-Spiegelungen zur Berechnung der $QR$-Zerlegung, so kann man die Transformationen direkt auf $b$ anwenden
+Nutzt man beispielsweise Householder-Spiegelungen zur Berechnung der $QR$-Zerlegung, so kann man die Transformationen direkt auf $b$ anwenden
 und so kann man sich das Abspeichern der Matrix $Q$ komplett sparen.
 
 Falls jedoch die Matrix $A$ nicht vollen Rang hat (was sehr oft der Fall ist), dann ist es besser, die Singulärwertzerlegung zu verwenden.
@@ -22,7 +22,7 @@ Dann ist:
 \innumpy verwendet \texttt{numpy.linalg.lstsq} die SVD für das Lösen
 
 \setLabelNumber{all}{15}
-\fancydef{Pseudoinverse} $A^+ = (A^H A)^{-1} A^H = V_1 \Sigma_r^+ U_1^H$
+\fancydef{Pseudoinverse} $A^+ = V_r \Sigma_r^{-1} U_r^H$. Nur falls $A$ vollen Spaltenrang hat, gilt auch $A^+=(A^HA)^{-1}A^H$.
 
 Die drei bisher besprochenen Verfahren lassen sich in zwei Kategorien einordnen:
 \begin{enumerate}
@@ -40,15 +40,15 @@ b = np.array([852.7, 624.5, 172.7])
 
 def least_squares_svd(A, b, epsilon=1e-6):
     U, s, Vh = np.linalg.svd(A)
-    r = 1 + np.where(s / s[0] > epsilon)[0].max()  # numerical rank
-    y = np.dot(Vh[:r, :].T, np.dot(U[:, :r].T, b) / s[:r])
+    r = np.count_nonzero(s > epsilon * s[0])  # numerical rank
+    y = Vh[:r, :].conj().T @ ((U[:, :r].conj().T @ b) / s[:r])
     return y
 
 # qr-decomposition:
 def least_squares_qr(A, b):
     Q, R = np.linalg.qr(A)
-    b_tilde = np.dot(Q.T, b)
+    b_tilde = Q.conj().T @ b
     return np.linalg.solve(R, b_tilde)
 
-np.linalg.lstsq(A, b)
+np.linalg.lstsq(A, b, rcond=None)
 \end{code}

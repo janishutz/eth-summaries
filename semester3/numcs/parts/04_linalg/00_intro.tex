@@ -5,7 +5,7 @@
               Spalten sind linear unabhängig                                & Spalten sind linear abhängig                                      \\
               Zeilen sind linear unabhängig                                 & Zeilen sind linear abhängig                                       \\
               $\det(A) \neq 0$                                              & $\det(A) = 0$                                                     \\
-              $Ax = 0$ hat eine Lösung $x = b$                              & $Ax = 0$ hat unendlich viele Lösungen                             \\
+              $Ax = 0$ hat nur die Lösung $x = 0$                           & $Ax = 0$ hat unendlich viele Lösungen                             \\
               $Ax = b$ hat eine Lösung $x = A^{-1}b$                        & $Ax = b$ hat keine oder unendlich viele Lösungen                  \\
               $A$ hat vollen Rang                                           & $A$ hat Rang $r < n$                                              \\
               $A$ hat $n$ non-zero Pivots                                   & $A$ hat $r < n$ Pivots                                            \\
@@ -13,7 +13,7 @@
               $\text{span}\{A_{1, :}, \ldots, A_{n, :}\}$ hat Dimension $n$ & $\text{span}\{A_{1, :}, \ldots, A_{n, :}\}$ hat Dimension $r < n$ \\
               Alle Eigenwerte von $A$ sind nicht Null                       & $0$ ist der Eigenwert von $A$                                     \\
               $0 \notin \sigma(A) =$ Spektrum von $A$                       & $0 \in \sigma(A)$                                                 \\
-              $A^H A$ ist symmetrisch positiv definit                       & $A^H A$ ist nur semidefinit                                       \\
+              $A^H A$ ist hermitesch positiv definit                        & $A^H A$ ist nur positiv semidefinit                              \\
               $A$ hat $n$ (positive) Singulärwerte                          & $A$ hat $r < n$ (positive) Singulärwerte                          \\
 \end{tables}
 
@@ -45,7 +45,7 @@ Wenn sie zudem normiert sind (also $||q_i||_2 = 1 \smallhspace \forall i \leq n$
 \shade{gray}{Perturbierte LGS}
 \setLabelNumber{all}{18}
 
-Statt $Ax = b$ ist das LGS ungenau gegeben: $(A + \Delta A)(\tilde{x} - x) = \Delta b - \Delta Ax$.
+Statt $Ax = b$ ist das LGS ungenau gegeben: $(A + \Delta A)\tilde{x}=b+\Delta b$. Für den Lösungsfehler gilt dann $(A+\Delta A)(\tilde{x}-x)=\Delta b-\Delta A\,x$.
 
 \fancydef{Konditionszahl} $\text{cond}(A) := ||A^{-1}|| \cdot ||A||$. Manchmal auch mit $\kappa(A)$ notiert
 

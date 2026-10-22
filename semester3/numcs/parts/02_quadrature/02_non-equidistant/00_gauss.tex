@@ -12,8 +12,8 @@ Wir möchten unsere Gewichte $b_i$ und Knoten $c_i$ so bestimmen, dass die Quadr
 Wir definieren die Notation $\langle M, g \rangle = \int_{0}^{1} M(t) g(t) \dx t$ (also das Skalarprodukt).
 
 \begin{theorem}[]{Ordnung der Quadraturformel}
-    Die Ordnung ist $s + m$ genau dann, wenn $\langle M, g \rangle = 0$ für alle Polynome $g$ mit $\deg(g) \leq m - 1$ und
-    $M(t) = (t - c_1) \cdot (t - c_2) \cdot \ldots \cdot (t - c_s)$ für $s$. Also steht $M$ senkrecht zu allen $g$.
+    Eine interpolatorische Quadraturformel mit $s$ Knoten hat mindestens Ordnung $s+m$, wenn $\langle M, g \rangle = 0$ für alle Polynome $g$ mit $\deg(g) \leq m - 1$ und
+    $M(t) = (t - c_1) \cdot (t - c_2) \cdot \ldots \cdot (t - c_s)$. Für die maximale Ordnung $2s$ steht $M$ senkrecht zu allen Polynomen vom Grad höchstens $s-1$.
 \end{theorem}
 
 \fancytheorem{Maximale Ordnung einer Quadraturformel} Die Ordnung einer Quadraturformel mit $s$ Knoten ist $\leq 2s$
@@ -32,7 +32,7 @@ $\int_{a}^{b} |x|^k w(x) \dx x$ existiert.
         p_{k + 1}(x) = (x - \beta_{k + 1}) \cdot p_k(x) - \gamma_k p_{k - 1}(x)
     \end{align*}
     mit $p_0(x) = 1$, $p_{- 1}(x) = 0$, $\beta_{k + 1} = \frac{\langle x \cdot p_k, p_k \rangle}{\langle p_k, p_k \rangle}$
-    und $\beta_{k + 1} = \frac{\langle p_k, p_k \rangle}{\langle p_{k - 1}, p_{k - 1} \rangle}$,
+    und $\gamma_k = \frac{\langle p_k, p_k \rangle}{\langle p_{k - 1}, p_{k - 1} \rangle}$ für $k\geq1$,
     wobei hier $\langle f, g \rangle = \int_{a}^{b} f(x) g(x) w(x) \dx x$
     das Skalarprodukt ist.
 \end{theorem}
@@ -69,25 +69,27 @@ Die Normierung der Legendre-Polynome ist nicht standardisiert
           Sie können mit \texttt{scipy.special.roots\_jacobi(s - 1, alpha=1, beta=0)} berechnet werden.
     \item Bei der \bi{Lobatto-Quadratur} fixiert man gleich beide Enden als Randknoten (i.e. man setzt $c_1 = a$ und $c_s = b$),
           und man hat Ordnung $2s - 2$ und wir benötigen nur noch die Knoten $c_2, \ldots, c_{s - 1}$
-    \item Die Lombatto- und Radau-Quadratur werden häufig bei der Lösung gewöhnlicher DGL verwendet.
+    \item Die Lobatto- und Radau-Quadratur werden häufig bei der Lösung gewöhnlicher DGL verwendet.
 \end{itemize}
 Die gefundenen Gewichte und Punkte können dann in die normale Quadraturformel eingesetzt werden (Definition \ref{all:5-3-1})
 
 Der Fehler der Gauss-Quadratur ist:
 \rmvspace
 \begin{align*}
-    \int_{a}^{b} f(x) \dx x - \sum_{j = 1}^{s} b_j \cdot f(c_j) = \frac{b - a}{(2s)!} f^{(2s)}(z) \text{ mit } z \in [a, b]
+    \int_{a}^{b} f(x) \dx x - \sum_{j = 1}^{s} b_j f(c_j)
+    = \frac{f^{(2s)}(\xi)}{(2s)!}\int_a^b\prod_{j=1}^s(x-c_j)^2\dx x
+    \quad \text{für ein }\xi\in(a,b)
 \end{align*}
 
 \drmvspace
 Und eine obere Schranke für den Fehler ist dann
 \rmvspace
 \begin{align*}
-    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 1}^{N} G_s(f, x_{k - 1, x_k})\right| \leq c \cdot h^{2s} \max_{z \in [a, b]}|f^{(2s)}(z)|
+    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 1}^{N} G_s(f; x_{k - 1},x_k)\right| \leq C_s (b-a)h^{2s} \max_{z \in [a, b]}|f^{(2s)}(z)|
 \end{align*}
 
 \drmvspace
-wobei $c \in \R$ eine Konstante ist und $h = b - a$ die Grösse des Intervalls ist.
+wobei $C_s$ eine von $s$ abhängige Konstante ist und $h=(b-a)/N$ die Breite der Teilintervalle bezeichnet.
 
 \setLabelNumber{all}{14}
 \fancyremark{Gewichte der Gauss-Legendre-Quadratur} Für die Knoten $c_1, \ldots, c_s$ und den entsprechenden Lagrange-Polynomen $l_1, \ldots, l_s$

@@ -8,11 +8,11 @@ Da die Clenshaw-Curtis-Quadratur mithilfe der DFT berechnet werden kann ist sie 
 Dazu müssen wir aber zuerst etwas umformen, mit $x = \cos(\theta)$, so dass das Integral eine periodische Funktion wird:
 \rmvspace
 \begin{align*}
-    \int_{-1}^{1} f(x) \dx x = \int_{0}^{\pi} f(\cos(\theta)) \sin(\theta) \dx \theta = f(\cos(\theta))
+    \int_{-1}^{1} f(x) \dx x = \int_{0}^{\pi} f(\cos(\theta)) \sin(\theta) \dx \theta
 \end{align*}
 
 \drmvspace
-$F(\theta)$ ist $2\pi$-periodisch und gerade, kann sich also in eine Kosinius-Reihe entwickeln, also: $F(\theta) = \sum_{k = 0}^{\infty} a_k \cos(k \theta)$, woraus folgt, dass
+$F(\theta):=f(\cos\theta)$ ist $2\pi$-periodisch und gerade, kann sich also in eine Kosinusreihe entwickeln: $F(\theta) = \frac{a_0}{2}+\sum_{k = 1}^{\infty} a_k \cos(k \theta)$, woraus folgt, dass
 \drmvspace
 \begin{align*}
     \int_{0}^{\pi} F(\theta) \sin(\theta) \dx \theta = \ldots = a_0 + \sum_{2 \leq k \text{ gerade}} \frac{2a_k}{1 - k^2}
@@ -31,7 +31,7 @@ während die Clenshaw-Curtis-Quadratur ähnlich gut ist wie die Gauss-Quadratur 
     Gauss                      & $(-1, 1)$     & $1$                            & Legendre     & $P_k$                   & \texttt{roots\_legendre}    \\
     Chebyshev I                & $(-1, 1)$     & $\frac{1}{\sqrt{1 - x^2}}$     & Chebyshev I  & $T_k$                   & \texttt{roots\_chebyt}      \\
     Chebyshev II               & $(-1, 1)$     & $\sqrt{1 - x^2}$               & Chebyshev II & $U_k$                   & \texttt{roots\_chebyu}      \\
-    Jacobi $\alpha, \beta > 1$ & $(-1, 1)$     & $(1 - x)^\alpha (1 + x)^\beta$ & Jacobi       & $P_k^{(\alpha, \beta)}$ & \texttt{roots\_jacobi}      \\
+    Jacobi $\alpha, \beta > -1$ & $(-1, 1)$     & $(1 - x)^\alpha (1 + x)^\beta$ & Jacobi       & $P_k^{(\alpha, \beta)}$ & \texttt{roots\_jacobi}      \\
     Hermite                    & $\R$          & $e^{-x^2}$                     & Hermite      & $H_k$                   & \texttt{roots\_hermite}     \\
-    Laguerre                   & $(0, \infty)$ & $x^\alpha e^{-x^2}$            & Laguerre     & $L_k$                   & \texttt{roots\_genlaguerre} \\
+    Laguerre                   & $(0, \infty)$ & $x^\alpha e^{-x}$, $\alpha>-1$  & Laguerre     & $L_k$                   & \texttt{roots\_genlaguerre} \\
 \end{fullTable}

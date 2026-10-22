@@ -1,6 +1,6 @@
 \subsubsection{Monombasis}
 
-\fancytheorem{Eindeutigkeit} $p(x) \in \mathcal(P)_k$ ist durch $k+1$ Punkte $y_i = p(x_i)$ eindeutig bestimmt.
+\fancytheorem{Eindeutigkeit} $p(x) \in \mathcal{P}_k$ ist durch $k+1$ Werte $y_i = p(x_i)$ an paarweise verschiedenen Stützstellen eindeutig bestimmt.
 
 Dieser Satz kann direkt angewendet werden zur Interpolation, in dem man $p(x)$ als Gleichungssystem schreibt.
 % FIXME: It'd probably be better to use align* environment in general, it's much more flexible
@@ -54,4 +54,4 @@ def eval_horner(coeffs: np.ndarray, vals: np.ndarray):
     return h
 \end{code}
 
-\innumpy liefert \verb|polyfit| die direkte Auswertung, \verb|polyval| wertet Polynome via Horner-Schema aus. (Gemäss Script, in der Praxis sind diese Funktionen \verb|deprecated|)
+\innumpy berechnet \verb|np.polyfit| Polynomkoeffizienten aus Daten und \verb|np.polyval| wertet ein Polynom mit diesen Koeffizienten aus.
