@@ -8,9 +8,9 @@ und $P$ eine Permutationsmatrix ist.
 Jedoch ist dies nicht sinnvoll, wenn wir die Dreiecksmatrizen gar nicht benötigen. In diesem Fall verwenden wir einfach \texttt{numpy.linalg.solve(A)}
 
 \begin{code}{python}
-    from scipy.linalg import lu_factor, lu_solve
-    lu, piv = lu_factor(A)
-    x = lu_solve((lu, piv), b)
+    L = np.linalg.solve(A)      # A = L @ L.T
+    y = np.linalg.solve(L, b)
+    x = np.linalg.solve(L.T, y)
 \end{code}
 
 

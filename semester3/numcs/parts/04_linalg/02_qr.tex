@@ -36,10 +36,10 @@ Die dazu konstruierte Matrix hat dabei die folgende Form (rechts eine Beschreibu
     \text{ oder }
     G(i, j, \theta)_{k, l} =
     \begin{cases}
-        1  & k = l \land k \neq i,j \\
-        c  & k = l \land (k=i\lor k=j) \\
-        s  & k=i \land l=j \\
-        -s & k=j \land l=i \\
+        1  & k = l \land k \neq i,j         \\
+        c  & k = l \land (k = i \lor k = j) \\
+        s  & k = i \land l = j              \\
+        -s & k = j \land l = i              \\
         0  & \text{sonst}
     \end{cases}
 \end{align*}
@@ -111,7 +111,7 @@ Es wurden zwei Algorithmen behandelt, beide unten in Pseudocode \& Python:
     \begin{spacing}{1.2}
         \caption{\textsc{classicalGramSchmidt}(A)}
         \begin{algorithmic}[1]
-            \State $m,n \gets \texttt{A.shape}$
+            \State $m, n \gets \texttt{A.shape}$
             \State $q \gets$ Initialisiere ein $m \times n$ array
             \State $r \gets$ Initialisiere ein $n \times n$ array
             \For{$k = 1, 2, \ldots, n$}
@@ -155,7 +155,7 @@ Die modifizierte Variante ist deutlich stabiler.\\
     \begin{spacing}{1.2}
         \caption{\textsc{modifiedGramSchmidt}(A)}
         \begin{algorithmic}[1]
-            \State $m,n \gets \texttt{A.shape}$
+            \State $m, n \gets \texttt{A.shape}$
             \State $q \gets$ Initialisiere ein $m \times n$ array
             \State $r \gets$ Initialisiere ein $n \times n$ array
             \For{$k = 1, 2, \ldots, n$}
@@ -175,10 +175,9 @@ Die modifizierte Variante ist deutlich stabiler.\\
 def gram_schmidt_mod(A: np.ndarray):
     """ Gram-Schmidt in place, assumes lin. indep. columnes in A  """
     m, n = A.shape
-    A = A.copy()
     Q, R = np.zeros((m, n)), np.zeros((n, n))
     
-    for i in range(n):
+    for i in range(1, n):
         norm = np.linalg.norm(A[:, i])
         Q[:, i] = A[:, i] / norm
         
@@ -203,7 +202,7 @@ Wir konstruieren eine Matrix $H = I - 2 \displaystyle\frac{vv^\top}{v^\top v} = 
 Dabei ist die Matrix $H$ orthogonal ($H^\top H = I$) und symmetrisch ($H^\top = H$).
 
 Um nun die QR-Zerlegung durchzuführen mit der Householder-Reflektion fehlen uns die Householder-Reflektoren.
-Um diese zu erstellen, wollen wir $v$ so wählen, dass $Hx = \alpha e_1$ mit $|\alpha|=||x||$ gilt. So werden $m-1$ Elemente auf einmal auf Null gesetzt.
+Um diese zu erstellen wollen wir $v$ so wählen, dass $Hx = ||x|| e_1$ gilt. So werden also $m - 1$ Elemente auf einmal auf Null gesetzt.
 
 Der Ansatz dazu ist entsprechend $v = x - \alpha e_1$ mit $\alpha = -\text{sign}(x_1)||x||$ (minus, um numerische Stabilität zu erhalten) und wir haben dann:
 \drmvspace
@@ -218,14 +217,15 @@ Der vollständige QR-Algorithmus lautet:
     \begin{spacing}{1.2}
         \caption{\textsc{HouseholderQR}(A)}
         \begin{algorithmic}[1]
-            \State $m,n \gets \texttt{A.shape}$
-            \State $R \gets A$, $Q \gets I_m$
+            \State $m, n \gets \texttt{A.shape}$
+            \State $H \gets$ Initialisiere ein $n \times m$ array
             \For{$k = 1, 2, \ldots, n$}
-                \State $x \gets R(k:m,k)$ \Comment{Wähle den Rest der $k$-ten Spalte}
+                \State $x \gets A(k : m, k)$ \Comment{Wähle subvektor der $k$-ten Spalte}
                 \State $H_k \gets$ Konstruiere Householder-Reflektor für $x$
-                \State $R(k:m,k:n) \gets H_k R(k:m,k:n)$
-                \State $Q(:,k:m) \gets Q(:,k:m)H_k$
+                \State $A(k : m, k : n) \gets H_k A(k : m, k : n)$ \Comment{Update}
             \EndFor
+            \State $Q \gets H_1 H_2 \cdots H_n$
+            \State $R \gets H_n H_{n - 1} \cdots H_1 A$
             \State \Return $Q$, $R$
         \end{algorithmic}
     \end{spacing}

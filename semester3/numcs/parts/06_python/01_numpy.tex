@@ -5,7 +5,7 @@ Numpy is a library that, according to its website, is ``The fundamental package 
 If you prefer to read an online guide, the \hlhref{https://numpy.org/doc/stable/user/quickstart.html}{official quick start guide}\ is excellent.
 
 \subsubsection{Arrays}
-The heart of numpy is the \texttt{numpy.ndarray} class; \texttt{numpy.array} is a function that creates an array. An array can have any number of dimensions.
+The heart of numpy is the \texttt{numpy.ndarray} class. \texttt{numpy.array} is a function that creates an array. An array can have any number of dimensions.
 The most important attributes for this course are: \texttt{shape} (returns a tuple that indicates the number of elements for each dimension),
 \texttt{dtype} (indicates the data type of elements in the array),
 \texttt{ndim} (the number of dimensions, equal to \texttt{len(shape)})
@@ -35,7 +35,8 @@ To use complex numbers, we can write \texttt{a + b * 1.j}
 Another useful method is \texttt{np.meshgrid(x, y, \dots)}, which returns a coordinate grid
 and treats the input vectors as \texttt{x}, \texttt{y}, etc coordinates of point \texttt{i}.
 
-Basic slicing usually returns a view; operations such as arithmetic and advanced indexing usually create a new array. \texttt{reshape} returns a view when possible, but may need to copy the data.
+Arrays aren't usually copied, but you get a view. The \texttt{reshape} method below is an example of a case where you get a shallow copy (that still technically is a view).
+The values are still in the same object, but you get access to it in a different shape.
 To deep copy an array (i.e. create a new array), use \texttt{arr.copy()}
 
 
@@ -86,12 +87,13 @@ We can reshape an array by using \texttt{arr.reshape(dim1, dim2, \dots)}. This h
 whereas \texttt{arr.resize((dim1, dim2, \dots))} modifies the array directly (notice that here we have to pass a tuple!)
 
 To get a one-dimensional array, use \texttt{arr.ravel()}. It returns a flattened array (a view when possible) without changing the shape of \texttt{arr}.
+Using \texttt{arr.flatten()} returns a copy in the new shape.
 
 
 \fhlc{Cyan}{Stacking arrays}
 
 \texttt{np.vstack((a, b))} adds array \texttt{b}'s elements to array \texttt{a} (i.e. stacks along \texttt{axis=0}).
-\texttt{np.hstack((a, b))} joins two-dimensional arrays along \texttt{axis=1}; for one-dimensional arrays it joins along \texttt{axis=0}.
+\texttt{np.hstack((a, b))} joins two-dimensional arrays along \texttt{axis=1}, while for one-dimensional arrays it joins along \texttt{axis=0}.
 \texttt{np.concatenate((a, b, \dots), axis=n)} does as the above, but applies it to axis \texttt{n}
 
 \fhlc{Cyan}{Splitting arrays}
