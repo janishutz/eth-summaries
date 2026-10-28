@@ -75,7 +75,7 @@ Für ein Beispiel verweisen wir auf Beispiel \ref{all:2-3-2}
 \end{multicols}
 
 \vspace{-1.5pc}
-wobei $\mathcal{P}_{n}$ der Raum der Polynome von Grad höchstens $n$ ist.
+wobei $\mathcal{P}_{n + 1}$ der Raum der Polynome von Grad höchstens $n$ ist.
 
 \fancyremark{Quadraturgewichte aus den Lagrange-Polynomen}
 Das Interpolationspolynom ist gegeben durch:
@@ -96,10 +96,10 @@ Wir erhalten nun eine Quadraturformel, wenn wir $p$ als Approximation von $f$ ve
 Diese Gewichte werden für die Trapez- und Simpson-Regeln verwendet: Im Falle der Trapezregel haben wir zwei Gewichte und für die Simpsonregel drei,
 also müssen wir die entsprechenden Lagrange-Polynome integrieren
 
-Durch die Konstruktion ist die Formel exakt für alle Polynome aus $\mathcal{P}_{n}$; eine einfache Fehlerabschätzung für $f\in C^{n+1}[a,b]$ lautet:
+Durch die Konstruktion ist die Formel exakt für alle Polynome aus $\mathcal{P}_{n + 1}$. Eine einfache Fehlerabschätzung für $f\in C^{n}[a,b]$ lautet:
 \rmvspace
 \begin{align*}
-    \left| \int_{a}^{b} f(x) \dx x - \int_{a}^{b} p_n(x) \dx x \right| \leq \frac{(b-a)^{n+2}}{(n+1)!}\,||f^{(n+1)}||_\infty
+\left| \int_{a}^{b} f(x) \dx x - \int_{a}^{b} p_n(x) \dx x \right| \leq \frac{1}{n!}(b - a)^{n + 1} \max|f^{(n)}(z)|
 \end{align*}
 
 \drmvspace
@@ -116,13 +116,13 @@ Wir nehmen ein äquidistantes Gitter, mit $x_k = x_0 + k \cdot h$ für $h = \fra
 Die obige Formel wird auch die \textit{summierte} Quadraturformel genannt. Der Fehler ist dann also:
 \rmvspace
 \begin{align*}
-    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 0}^{N - 1} Q(f, x_k, x_{k + 1}) \right|
-    \leq \frac{(b-a)h^{n+1}}{(n+1)!}\,||f^{(n+1)}||_\infty
+    \left| \int_{a}^{b} f(x) \dx x - \sum_{k = 0}^{N - 1} Q(f, x_k, x_{k + 1}) \right| \leq \ldots \leq C \frac{h^n}{n!}(b - a) &  &
+    \text{ mit } C = \max_{z \in [a, b]} |f^{(n)}(z)| = ||f^n||_{\max}
 \end{align*}
 
 \rmvspace
 Der obige Ansatz ist gewissermassen ``divide and conquer'' (zu Deutsch: ``Teile und Herrsche'', wir werden aber DnC verwenden)
-und der lokale Fehler liegt nach dieser Abschätzung in $\tco{h^{n+2}}$. Mit $N = (b - a)/h$ Intervallen der Grösse $h$ liegt der globale Fehler in $\tco{h^{n+1}}$.
+und der lokale Fehler liegt nach dieser Abschätzung in $\tco{h^{n + 1}}$. Mit $N = (b - a) \div h$ Intervallen der Grösse $h$ liegt der globale Fehler in $\tco{h^{n}}$.
 Folglich ist also der Fehler kleiner, je kleiner $h$ ist.
 
 Wir benutzen erneut einen Variablenwechsel, um von einem Referenzintervall $[-1, 1]$ auf eines unserer Teilintervalle $[x_k, x_{k + 1}]$ zu wechseln.

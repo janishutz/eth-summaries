@@ -1,10 +1,10 @@
 \subsubsection{Gauss Elimination / LU Zerlegung}
 
-Das Anwenden der Gauss-Elimination ergibt die LU-Zerlegung $A=PLU$ für $A\in\mathbb{R}^{n\times m}$,
+Das Anwenden der Gauss-Elimination ergibt die LU-Zerlegung $A = PLU$ für $A \in \mathbb{R}^{n \times m}$,
 wobei $U$ eine obere Dreiecksmatrix, $L$ eine untere Dreiecksmatrix
 und $P$ eine Permutationsmatrix ist.
 
-\innumpy können wir \texttt{P, L, U = scipy.linalg.lu(A)} berechnen. Zum Lösen mit einer LU-Zerlegung verwenden wir \texttt{lu\_factor(A)} und danach \texttt{lu\_solve((lu, piv), b)}.
+\innumpy können wir \texttt{P, L, U = scipy.linalg.lu(A)} (\texttt{Numpy} liefert keine LU-Zerlegung). Mit \texttt{scipy.linalg.lu\_solve(P, L, U)} kann man dann das System lösen.
 Jedoch ist dies nicht sinnvoll, wenn wir die Dreiecksmatrizen gar nicht benötigen. In diesem Fall verwenden wir einfach \texttt{numpy.linalg.solve(A)}
 
 \begin{code}{python}

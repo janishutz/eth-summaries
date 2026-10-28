@@ -9,7 +9,7 @@ Für zweidimensionale Funktionen sieht dies so aus:
 \rmvspace
 \begin{align*}
     I \approx \sum_{j_1=1}^{n_1}\sum_{j_2=1}^{n_2}
-    \omega_{j_1}^{(1)} \omega_{j_2}^{(2)} f(c_{j_1}^{(1)}, c_{j_2}^{(2)})
+    \omega_{j_1}^{1} \omega_{j_2}^{2} f(c_{j_1}^{1}, c_{j_2}^{2})
 \end{align*}
 
 \drmvspace
@@ -49,16 +49,14 @@ def simpson_2d_weights(N: int):
     return w
 
 def simpson_2d_mesh(f, a: float, b: float, Nx: int, c: float, d: float, Ny: int):
-    """ Simpson rule on a 2d function via np.meshgrid; Nx, Ny even """
-    if Nx % 2 or Ny % 2:
-        raise ValueError("Nx and Ny must be even for Simpson's rule")
+    """ Simpson rule on a 2d function via np.meshrgdi """
     x, hx = np.linspace(a, b, Nx+1, retstep=True)
     y, hy = np.linspace(c, d, Ny+1, retstep=True)
     
     X, Y = np.meshgrid(x, y)
     F = f(X, Y)
     wx, wy = simpson_2d_weights(Nx), simpson_2d_weights(Ny)
-    W = np.outer(wy, wx)
+    W = np.outer(wx, wy)
     
     scale = hx*hy / 3**2
     Q = scale * np.sum( W * F )

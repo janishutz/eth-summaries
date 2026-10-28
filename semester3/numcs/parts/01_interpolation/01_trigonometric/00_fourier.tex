@@ -41,7 +41,7 @@ $p_m$ kann folgendermassen dargestellt werden ($a_0 = 2\gamma_0, a_j = 2\text{Re
     \begin{align*}
         L^2(0, 1) := \{ f: (0, 1) \rightarrow \C \divides ||f||_{L^2(0, 1)} < \infty \}
     \end{align*}
-    während die $L^2$-Norm auf $(0, 1)$ durch das Skalarprodukt
+    während die $L^2$-Norm (= Euklidische Norm, also die normale Vektornorm) auf $(0, 1)$ durch das Skalarprodukt
     \rmvspace
     \begin{align*}
         \langle g, f \rangle_{L^2(0, 1)} := \int_{0}^{1} \overline{g(x)} f(x) \dx x
@@ -88,7 +88,11 @@ Für Fourier-Koeffizienten auf diesem Intervall verwendet man das normierte Inte
 % A (small) intuitive explanation of what the fourier series / coefficients are & what they are useful for would be great, script *briefly* touches on it.
 
 \setLabelNumber{all}{14}
-\inlineremark Die Parseval'sche Gleichung besagt, dass die Fourier-Koeffizienten quadratsummierbar sind und die $L^2$-Norm der Funktion aus ihrer Quadratsumme berechnet werden kann.
+Die Parseval'sche Gleichung beschreibt einfach gesagt einen ``schnellen'' Abfall der $\hat{f}(k)$.
+Genauer gesagt, klingen die Koeffizienten schneller als $\frac{1}{\sqrt{k}}$ ab.
+Sie sagt zudem aus, dass die $L^2$-Norm der Funktion aus einer Summe berechnet werden kann (nicht nur als Integral).
+
+\bi{Formaler}: Die Parseval'sche Gleichung besagt, dass die Fourier-Koeffizienten quadratsummierbar sind und die $L^2$-Norm der Funktion aus ihrer Quadratsumme berechnet werden kann.
 Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
 \rmvspace
 \begin{align*}
@@ -101,7 +105,7 @@ Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
     Falls die Operationen erlaubt sind, dann gilt zudem:
     \rmvspace
     \begin{align*}
-    \widehat{f^{(n)}}(k) = (2\pi ik)^n \hat{f}(k) \text{ und } ||f^{(n)}||_{L^2}^2 = (2\pi)^{2n} \sum_{k = -\infty}^{\infty} k^{2n} |\hat{f}(k)|^2
+        \hat{f^{(n)}}(k) = (2\pi ik)^n \hat{f}(k) \text{ und } ||f^{(n)}||_{L^2}^2 = (2\pi)^{2n} \sum_{k = -\infty}^{\infty} k^{2n} |\hat{f}(k)|^2
     \end{align*}
 \end{theorem}
 
@@ -109,7 +113,7 @@ Wenn wir die Fourier-Reihe nach $t$ ableiten, erhalten wir
 \inlinetheorem Ist $f$ $1$-periodisch, sind die Ableitungen bis zur Ordnung $n-1$ an den Randpunkten kompatibel und ist $f^{(n)}$ integrierbar, dann ist $\hat{f}(k) = \tco{|k|^{-n}}$ für $k\neq0$.
 
 Falls die Funktion jedoch nicht glatt ist, dann entstehen \textit{Überschwingungen} an den Sprungstellen, die näher und näher an die Sprünge herankommen, aber nicht kleiner werden, wenn wir mehr Terme der Fourier-Reihe aufsummieren.
-Das Phänomen wird das \bi{Gibbs-Phänomen} genannt. An einer Sprungstelle konvergiert die Fourier-Reihe zum Mittelwert der einseitigen Grenzwerte.
+Das Phänomen wird das \bi{Gibbs-Phänomen} gennant und wir haben $L^2$-Konvergenz, aber keine punktweise Konvergenz an der Sprungstelle.
 
 \inlineremark
 Diese Überschwingungen entstehen durch die Definition der Fourier-Reihe und sind in der untenstehenden Abbildung \ref{fig:trigo-interp-overarcing} aus dem Skript sehr gut ersichtlich.

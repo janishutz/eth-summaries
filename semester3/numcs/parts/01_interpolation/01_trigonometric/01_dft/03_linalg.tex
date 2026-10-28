@@ -54,7 +54,7 @@ Die Shift Matrix $S_N$ ist der Zirkulant für $c=e_2$. $S_N$ ist eine Permutatio
     \end{bmatrix}
 \end{align*}
 
-Die Shift-Matrix hat einen speziellen Bezug zu den Spaltenvektoren $v_k$ von $V=F_N^H$ und auch zu allen anderen Zirkulanten $C$.
+Die Shift-Matrix hat einen speziellen Bezug zu den Spaltenvektoren $v_k$ von $V = F_N^H$ und auch zu allen anderen Zirkulanten $C$.
 
 \inlineremark Der $k$-te Fourier-Vektor $v_k$ ist ein Eigenvektor von $S_N$ zu $\lambda_k = e^{-2\pi i \frac{k}{N}}=\omega_N^k$.
 
@@ -71,7 +71,7 @@ Die Faltung von $a = [a_0,\ldots,a_{N-1}]^\top, b = [b_0,\ldots,b_{N-1}]^\top$ i
 
 \fancydef{Zyklische Faltung} Für $N$-periodische Folgen oder Vektoren der Länge $N$:
 \begin{align*}
-    c_k = (a \circledast b)_k := \sum_{n=0}^{N-1} a_n b_{(k-n)\bmod N}, \quad k=0,\ldots,N-1.
+    c = a \circledast b\quad\quad \text{s.d. } \sum_{n = 0}^{N - 1} a_nb_{k - n} \equiv_N \sum_{n = 0}^{N - 1} b_n a_{n - k}
 \end{align*}
 
 \setLabelNumber{all}{32}
@@ -98,7 +98,7 @@ Im Fall von $T$-periodischen Funktionen gilt: $(g * h)(x) = \frac{1}{T}\displays
 \begin{align*}
     c = a \circledast b = Ab = F_N^{-1}p(D)F_Nb \quad \quad \quad (p(D) \text{ ist Diagonalmatrix der } \lambda \text{ von } C )
 \end{align*}
-Man erhält so das Faltungstheorem: Die $F_N$-Transformierte einer zyklischen Faltung ist das punktweise Produkt der beiden $F_N$-Transformierten. Da die DFT in $\mathcal{O}(n\log n)$ (Kap. 3.3) berechnet werden kann, gilt dies auch für die zyklische Faltung.
+Man erhält so das Faltungstheorem: Die $F_N$-Transformierte einer zyklischen Faltung ist das punktweise Produkt der beiden $F_N$-Transformierten. Da die DFT in $\mathcal{O}(n\log(n))$ (Kap. 3.3) berechnet werden kann, gilt dies auch für die zyklische Faltung.
 \begin{align*}
     F_Nc = \text{diag}(F_N a) F_N b
 \end{align*}

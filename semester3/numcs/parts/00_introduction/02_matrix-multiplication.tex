@@ -4,7 +4,7 @@
 
 \newsection
 \subsection{Rechnen mit Matrizen}
-Wie in Linearer Algebra besprochen, ist das Resultat der Multiplikation einer Matrix $A \in \C^{m \times n}$ und einer Matrix $B \in \C^{n \times p}$ eine Matrix $AB \in \C^{m \times p}$.
+Wie in "Lineare Algebra" besprochen, ist das Resultat der Multiplikation einer Matrix $A \in \C^{m \times n}$ und einer Matrix $B \in \C^{n \times p}$ eine Matrix $AB \in \C^{m \times p}$.
 
 \innumpy haben wir folgende Funktionen:
 \begin{itemize}
@@ -29,7 +29,7 @@ Wie in Linearer Algebra besprochen, ist das Resultat der Multiplikation einer Ma
 So können wir also eine ganze Menge an Speicherzugriffen sparen, was das Ganze bedeutend effizienter macht
 
 \setLabelNumber{all}{14}
-\inlineremark Eine Elementarmatrix $E=I+c\,e_i e_j^\top$ mit $i\neq j$ addiert bei $EA$ das $c$-Fache der Zeile $j$ zur Zeile $i$; bei $AE$ addiert sie das $c$-Fache der Spalte $i$ zur Spalte $j$.
+\inlineremark Eine Elementarmatrix $E=I+c\,e_i e_j^\top$ mit $i\neq j$ addiert bei $EA$ das $c$-Fache der Zeile $j$ zur Zeile $i$, bei $AE$ addiert sie das $c$-Fache der Spalte $i$ zur Spalte $j$.
 
 \fancyremark{Blockweise Berechnung} Man kann das Matrixprodukt auch Blockweise berechnen.
 Dazu benutzen wir eine Matrix, deren Elemente andere Matrizen sind, um grössere Matrizen zu generieren.
@@ -105,4 +105,4 @@ Die vollständige Implementation ist auch hier nicht schwer und sieht folgenderm
         return (A @ (X @ B.T)).reshape(m * l)
 \end{code}
 
-Die Zeilen von \verb|X @ B.T| sind die Produkte $Bx_i$; danach kombiniert $A$ diese Blöcke.
+Die Zeilen von \verb|X @ B.T| sind die Produkte $Bx_i$, danach kombiniert $A$ diese Blöcke.
