@@ -45,7 +45,7 @@ Wir nehmen dabei an, dass $||x^{(0)} - x^*|| < 1$, damit wir eine konvergente Fo
 Man kann die Konvergenzordnung folgendermassen abschätzen, mit $\varepsilon_k := ||x^{(k)} - x^*||$ (Konvergenzrate in Bemerkung \ref{all:6-1-19}):
 \rmvspace
 \begin{align*}
-    p \approx \frac{\log(\varepsilon_{k + 1}) - \log(\varepsilon_k)}{\log(\varepsilon_k) - \varepsilon_{k - 1}}
+    p \approx \frac{\log(\varepsilon_{k + 1}) - \log(\varepsilon_k)}{\log(\varepsilon_k) - \log(\varepsilon_{k - 1})}
 \end{align*}
 
 \drmvspace
@@ -60,7 +60,7 @@ Intuitiv haben wir Quadratische (oder Kubische, etc.) Konvergenzordnung, wenn si
 \drmvspace\rmvspace
 \begin{align*}
     \varepsilon_{k + 1} \approx L \cdot \varepsilon_k \Longrightarrow \log(\varepsilon_{k + 1}) \approx \log(L) + \log(\varepsilon_k)
-    \Longrightarrow \varepsilon_{k + 1} \approx k \log(L) + \log(\varepsilon_0)
+    \Longrightarrow \log(\varepsilon_k) \approx k \log(L) + \log(\varepsilon_0)
 \end{align*}
 
 \drmvspace

@@ -8,7 +8,7 @@ Sei $A = QR = Q \begin{bmatrix}
     \end{bmatrix}$.
 Dann, nach Umformungen, erhalten wir $||Rx - \tilde{b}||_2^2$ mit $\tilde{b} = Q^Hb$.
 
-Nutzt man beispielsweise Housholder-Spiegelungen zur Berechnung der $QR$-Zerlegung, so kann man die Transformationen direkt auf $b$ anwenden
+Nutzt man beispielsweise Householder-Spiegelungen zur Berechnung der $QR$-Zerlegung, so kann man die Transformationen direkt auf $b$ anwenden
 und so kann man sich das Abspeichern der Matrix $Q$ komplett sparen.
 
 Falls jedoch die Matrix $A$ nicht vollen Rang hat (was sehr oft der Fall ist), dann ist es besser, die Singulärwertzerlegung zu verwenden.
@@ -47,7 +47,7 @@ def least_squares_svd(A, b, epsilon=1e-6):
 # qr-decomposition:
 def least_squares_qr(A, b):
     Q, R = np.linalg.qr(A)
-    b_tilde = np.dot(Q.T, b)
+    b_tilde = Q.conj().T @ b
     return np.linalg.solve(R, b_tilde)
 
 np.linalg.lstsq(A, b)
