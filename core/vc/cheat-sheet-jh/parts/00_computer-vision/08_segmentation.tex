@@ -1,0 +1,25 @@
+\shortdefinition[Gestalt Theory] Grouping is key to perception. \bi{Factors:} Proximity, similarity, common fate, common region, parallelism, closure, continuity
+
+\shortdefinition[Segmentation] $f_\theta : \cR^d \rightarrow \cL$, with $f_\theta$ segmentation function (explicit or NN), $\theta$ is the params or weights,
+$\cR^d$ pixel features, $\cL$ the label set ($\cL = \{ 0, 1 \}$ (bg - fg sep), $\cL = \{ 1, \ldots, K \}$ for $K$ classes)
+
+\shortdefinition[Tresholding] Bin img. $B(x, y) = \begin{cases}
+        1 & \text{ if } I(x, y) > T \\
+        0 & \text{ else }
+    \end{cases}$
+
+\shortdefinition[Chroma Keying] Thresholding of distance measurement, $\mat{I}_\alpha = |\mat{I} - \mat{I}_{bg}| > T$, $T \approx 20$ typ, $\mat{I}_{bg}$ Background image
+
+\shortdefinition[Mahalanobis Dist] $\mat{I}_\alpha = \sqrt{(\mat{I} - \mat{I}_{bg})^\top \Sigma^{-1}(\mat{I} - \mat{I}_{bg})} > T$, with $T = 4$ typ and $\Sigma$ cov. mat
+
+\shortdefinition[ROC Curve] $TP$ fraction $\frac{TP}{P}$, $FP$ fraction $\frac{FP}{N}$, with $P = TP + FN$ and $N = FP + TN$
+
+\shortdefinition[K-means] for img processing, data analysis, anomaly detection. Algo: \bi{(0)} Init random $K$ cluster centres;
+\bi{(1)} \textit{E-Step}: Assign point to nearest cluster centre; \bi{(2)} \bi{M-Step} recompute cluster centres by averaging feat values of points of cluster;
+\bi{(3)} Repeat \bi{(1)} and \bi{(2)} until convergence.
+
+Formally: \textit{E-Step} $f(\vec{x}_j) = \argmin{j \in \{ 1, \ldots K \}} ||\vec{x}_i - \mu_j||^2$,
+\textit{M-Step} $\mu_j = \frac{\sum_{i = 1}^{N} \mat{I}_j(\vec{x_i}) \cdot \vec{x}_i}{\sum_{i = 1}^{N} \mat{I}_j(\vec{x}_i)}$,
+with $M = \{ \mu_1, \ldots, \mu_K\}$ and $\mu_j$ centroids.
+
+We are optimizing $J = \sum_{i = 1}^{N} \sum_{j = 1}^{K} I_j(\vec{x}_i) ||\vec{x}_i - \mu_j||$. Always converges
