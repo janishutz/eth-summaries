@@ -21,5 +21,37 @@ $\cR^d$ pixel features, $\cL$ the label set ($\cL = \{ 0, 1 \}$ (bg - fg sep), $
 Formally: \textit{E-Step} $f(\vec{x}_j) = \argmin{j \in \{ 1, \ldots K \}} ||\vec{x}_i - \mu_j||^2$,
 \textit{M-Step} $\mu_j = \frac{\sum_{i = 1}^{N} \mat{I}_j(\vec{x_i}) \cdot \vec{x}_i}{\sum_{i = 1}^{N} \mat{I}_j(\vec{x}_i)}$,
 with $M = \{ \mu_1, \ldots, \mu_K\}$ and $\mu_j$ centroids.
-
 We are optimizing $J = \sum_{i = 1}^{N} \sum_{j = 1}^{K} I_j(\vec{x}_i) ||\vec{x}_i - \mu_j||$. Always converges
+
+\shortdefinition[Gauss. Mixture Model (GMM)] Generalization of $K$-means.
+
+Compute prob that point belongs to each cluster. Cluster modeled as Gauss. Dist. w/ mean vec, cov, mixing coeff.
+
+\bi{Expectation} $\gamma_{ij} = \frac{\pi_j \cN(\vec{x}_i | \mu_j, \mat{\Sigma}_j)}{\sum_{l = 1}^{K} \pi_l \cN(\vec{x}_i | \mu_l, \mat{\Sigma}_l)}$.
+($\gamma_{ij}$ prob that point $i$ belongs to cluster $j$).
+\bi{Maximization}: \textit{Cluster responsibility} $N_j = \sum_{i = 1}^{N} \gamma_{ij}$, \textit{Mean} $\mu_j = \frac{1}{N_j} \sum_{i = 1}^{N} \gamma_{ij} \vec{x}_i$,
+\textit{Variance} $\Sigma_j = \frac{1}{N_j} \gamma_{ij} (\vec{x}_i - \mu_j)(\vec{x}_i - \mu_j)^\top$, \textit{new cluster weight} $\pi_j = \frac{N_j}{N}$
+
+% TODO: Full algo?
+
+\bi{Objective function}: $\log$-LH: $\log(\cL(\mat{X} | \mu, \Sigma, \pi)$
+\rmvspace
+\[
+    \sum_{i = 1}^{N} \log(p(\vec{x}_i | \mu, \Sigma, \pi))
+    = \sum_{i = 1}^{N} \log\left( \pi_j \cN(\vec{x}_i | \mu_j, \Sigma_j)\right)
+\]
+\rmvspace
+
+\shortdefinition[Kernel Density Estimation] (non parametric) GMM with PDF $p(\vec{x} = \frac{1}{N} \sum_{i = 1}^{N} \frac{1}{h^d} K\left( \frac{\vec{x} - \vec{x}_i}{h} \right)$,
+where $K$ is the kernel bandwidth, w/ Gauss Kernel, $K\left( \frac{\vec{x} - \vec{x}_i}{h} \right) = \frac{1}{\sqrt{(2\pi)^d}} \exp{-\frac{||\vec{x} - \vec{x}_i||^2}{2h^2}}$
+
+\shortdefinition[Mean Shift Clustering] Each point $\vec{x}$ is mean of Gauss. Dist. w/ fixed variance $h$. PDF defined using KDE.
+Update means s.t. they \textit{shift towards local max of $p(x)$} (shift towards mean of neighbours). Repeat until convergence, merge close means into one.
+
+\shortdefinition[Markov Random Fields]\\
+\bi{Joint probability} $p(\vec{x}, \vec{y}) = \prod_i \Phi(x_i, y_i) \prod_{i, j} \Psi(x_i, x_j)$ % TODO: Image from slide 234 lec 11
+Max: min. neg. log of $p(x, y)$. \bi{Energy function} $E(\vec{x}, \vec{y}) = \sum_{i} \phi(x_i, y_i) + \sum_{i, j} \psi(x_i, x_j)$, with $\phi$, $\psi$ potentials.
+
+We can use graph cuts (such as s-t-cuts) for binary segmentation.
+Compute via Augmenting path: \bi{(1)} Find path from source to sink with positive capacity, \bi{(2)} push max possible flow through path, \bi{(3)} Adjust cap of used edges,
+\bi{(4)} repeat until no path can be found

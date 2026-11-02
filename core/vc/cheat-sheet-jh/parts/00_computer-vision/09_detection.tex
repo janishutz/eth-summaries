@@ -1,0 +1,56 @@
+\shortremark[Cat vs Instance recognition] Cat: finding all people, buildings, etc. Instance: is this person X?
+
+\shortdefinition[Image datapoint] is vector of counts over each feature: $\vec{v}_d = [n(w_{1, d}) \alpha_1, n(w_{w, d}) \alpha_2, \ldots, n(w_{T, d}) \alpha_T]$,
+$n(\ldots)$ number of occurrences, $\alpha_i$ heuristic weight
+
+\shortdefinition[Bag of Words (BoW) pipeline] Feature extraction (e.g. via SIFT), Dictionary learning (e.g. with K-means clustering),
+Encode (build BoW vectors for each image), Classify
+
+\subsubsection{Classifying}
+\shortremark[Simple Classifier] Check how many keypoints are close to keypoints in other image. VERY slow.
+
+\shortremark[BoW-approach] too small vocab: not representative, too large: overfitting, artifacts, too expensive
+
+\shortremark[Inverse Lookup] index mapping word to all images of occurrence. Needs to be \textit{sparse}
+
+\shortdefinition[Precision \& Recall] Precision: $\frac{tp}{tp + fp}$ (relevant / returned); Recall: $\frac{tp}{tp + fn}$ (relevant / total relevant)
+
+\subsubsection{Object recognition}
+Efficiency is key: need to search 100k's of pos and scales.
+
+General pipeline: Specify Object model, generate hypothesis, score them, resolve detections
+
+\shortremark[Object model] there are a few options:
+\begin{itemize}
+    \item Statistical Template (features wrt. bounding box coords)
+    \item Articulated parts model (each part detectable)
+    \item Hybrid template/parts
+    \item Deformable 3D model (obj parametrized space of shape / pose / deformation of 3D obj)
+\end{itemize}
+
+\shortremark[Generating hypothesis]
+\begin{itemize}
+    \item 2D template model / sliding window. Test path at each location and scale.
+    \item Voting from patches/keypoints (based on probs from matched codebook entries)
+    \item Region-based proposals
+\end{itemize}
+
+\shortremark[Resolving scores] Options:
+\begin{itemize}
+    \item Non-max suppression: only the maximum is accepted
+    \item Context/reasoning via geometry / known info or prior dists
+\end{itemize}
+
+
+\subsubsection{Face Detection}
+Very expensive, typically 0-10 faces per image.
+
+\shortdefinition[Viola/Jones Face Detector] Training slow, detection fast, integral images for fast feature eval. Uses integral image, boosting for feature selection
+
+\shortdefinition[Integral Image] Value at each pixel $(x, y)$ that is sum of all pixel values above and to left of $(x, y)$, inclusive.
+If integral images of (clockwise from top left) $A, B, C, D$ of a rectangle are known, then integral image of rectangle is $C - B - D + A$
+
+\shortdefinition[Boosting] Initially all training examples have same weight. In each round, find weak classifier that achieves lowest \bi{weighted} training error.
+Raise weights of misclassified training examples. Repeat until threshold reached. Then compute final classifier as linear combination of all weak classifier.
+
+% TODO: AdaBoost
