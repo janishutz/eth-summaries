@@ -62,6 +62,7 @@ If you find mistakes, please open an issue or fix them yourself and open a PR.
 <summary>Summaries for Core Subjects</summary>
 
 #### Compiler Design
+NOTE: I most likely won't finish the summary and instead focus on the cheat sheet.
 - [Summary (EN)](./core/cd/summary/cd-summary.pdf) Author: Janis Hutz
 - [Cheat-Sheet (EN)](./core/cd/cheat-sheet-jh/cd-cheat-sheet.pdf) Author: Janis Hutz
 
